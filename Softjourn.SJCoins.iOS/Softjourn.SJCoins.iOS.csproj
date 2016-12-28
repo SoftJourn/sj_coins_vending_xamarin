@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+﻿<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">iPhoneSimulator</Platform>
@@ -83,6 +82,7 @@
     <MtouchHttpClientHandler>HttpClientHandler</MtouchHttpClientHandler>
     <MtouchTlsProvider>Default</MtouchTlsProvider>
     <PlatformTarget>x86</PlatformTarget>
+    <MtouchExtraArgs>-f</MtouchExtraArgs>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -116,6 +116,7 @@
     <Folder Include="UI\Views\" />
     <Folder Include="UI\Controllers\Tabs\" />
     <Folder Include="Assets.xcassets\vending_machine.imageset\" />
+    <Folder Include="UI\Controllers\Informative\" />
   </ItemGroup>
   <ItemGroup>
     <InterfaceDefinition Include="UI\LaunchScreen.storyboard" />
@@ -136,17 +137,9 @@
     <Compile Include="UI\CustomSegmentControl.designer.cs">
       <DependentUpon>CustomSegmentControl.cs</DependentUpon>
     </Compile>
-    <Compile Include="UI\Controllers\InformativeViewController.cs" />
-    <Compile Include="UI\Controllers\InformativeViewController.designer.cs">
-      <DependentUpon>InformativeViewController.cs</DependentUpon>
-    </Compile>
     <Compile Include="UI\Controllers\InitialViewController.cs" />
     <Compile Include="UI\Controllers\InitialViewController.designer.cs">
       <DependentUpon>InitialViewController.cs</DependentUpon>
-    </Compile>
-    <Compile Include="UI\Controllers\LoginViewController.cs" />
-    <Compile Include="UI\Controllers\LoginViewController.designer.cs">
-      <DependentUpon>LoginViewController.cs</DependentUpon>
     </Compile>
     <Compile Include="UI\Controllers\SettingsViewController.cs" />
     <Compile Include="UI\Controllers\SettingsViewController.designer.cs">
@@ -187,6 +180,38 @@
     <Compile Include="UI\Controllers\Tabs\HomeViewController.cs" />
     <Compile Include="UI\Controllers\Tabs\HomeViewController.designer.cs">
       <DependentUpon>HomeViewController.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Controllers\Informative\HowToLoginViewController.designer.cs">
+      <DependentUpon>HowToLoginViewController.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Controllers\Informative\HowToLoginViewController.cs" />
+    <Compile Include="UI\Controllers\Informative\BuyProductsViewController.cs" />
+    <Compile Include="UI\Controllers\Informative\BuyProductsViewController.designer.cs">
+      <DependentUpon>BuyProductsViewController.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Controllers\Informative\WantMoreCoinsViewController.cs" />
+    <Compile Include="UI\Controllers\Informative\WantMoreCoinsViewController.designer.cs">
+      <DependentUpon>WantMoreCoinsViewController.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Controllers\Informative\AddFavoritesViewController.cs" />
+    <Compile Include="UI\Controllers\Informative\AddFavoritesViewController.designer.cs">
+      <DependentUpon>AddFavoritesViewController.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Controllers\Informative\BaseInformativeViewController.cs" />
+    <Compile Include="UI\Controllers\Informative\BaseInformativeViewController.designer.cs">
+      <DependentUpon>BaseInformativeViewController.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Controllers\LoginViewController.cs" />
+    <Compile Include="UI\Controllers\LoginViewController.designer.cs">
+      <DependentUpon>LoginViewController.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Controllers\Informative\InformativeViewController.cs" />
+    <Compile Include="UI\Controllers\Informative\InformativeViewController.designer.cs">
+      <DependentUpon>InformativeViewController.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Inf.cs" />
+    <Compile Include="Inf.designer.cs">
+      <DependentUpon>Inf.cs</DependentUpon>
     </Compile>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />

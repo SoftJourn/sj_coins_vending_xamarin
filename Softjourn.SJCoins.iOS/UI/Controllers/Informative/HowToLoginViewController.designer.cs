@@ -9,10 +9,9 @@ using System.CodeDom.Compiler;
 
 namespace Softjourn.SJCoins.iOS
 {
-	[Register ("InformativeViewController")]
-	partial class InformativeViewController
+	[Register ("HowToLoginViewController")]
+	partial class HowToLoginViewController
 	{
-		
 		void ReleaseDesignerOutlets ()
 		{
 		}

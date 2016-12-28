@@ -1,11 +1,12 @@
 ﻿using System;
+
 using UIKit;
 
 namespace Softjourn.SJCoins.iOS
 {
-	public partial class LoginViewController : UIViewController
+	public partial class InformativeViewController : UIViewController
 	{
-		public LoginViewController (IntPtr handle) : base(handle)
+		public InformativeViewController (IntPtr handle) : base(handle)
 		{
 		}
 
