@@ -91,7 +91,7 @@
     <Reference Include="Xamarin.iOS" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Softjourn.SJCoins\Softjourn.SJCoins.csproj">
+    <ProjectReference Include="..\Softjourn.SJCoins.Core\Softjourn.SJCoins.Core.csproj">
       <Project>{A6850167-3849-48F7-8E04-A2C879D4C55B}</Project>
       <Name>Softjourn.SJCoins.Core</Name>
     </ProjectReference>
