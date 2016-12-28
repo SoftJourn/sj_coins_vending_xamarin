@@ -103,13 +103,23 @@
   <ItemGroup>
     <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\Contents.json" />
     <ImageAsset Include="Assets.xcassets\Contents.json" />
+    <ImageAsset Include="Assets.xcassets\vending_machine.imageset\Contents.json" />
+    <ImageAsset Include="Assets.xcassets\vending_machine.imageset\vending_machine.png" />
+    <ImageAsset Include="Assets.xcassets\vending_machine.imageset\vending_machine2x.png" />
+    <ImageAsset Include="Assets.xcassets\vending_machine.imageset\vending_machine3x.png" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Resources\" />
+    <Folder Include="UI\" />
+    <Folder Include="UI\DataSource\" />
+    <Folder Include="UI\Controllers\" />
+    <Folder Include="UI\Views\" />
+    <Folder Include="UI\Controllers\Tabs\" />
+    <Folder Include="Assets.xcassets\vending_machine.imageset\" />
   </ItemGroup>
   <ItemGroup>
-    <InterfaceDefinition Include="LaunchScreen.storyboard" />
-    <InterfaceDefinition Include="Main.storyboard" />
+    <InterfaceDefinition Include="UI\LaunchScreen.storyboard" />
+    <InterfaceDefinition Include="UI\Main.storyboard" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Info.plist" />
@@ -118,9 +128,65 @@
   <ItemGroup>
     <Compile Include="Main.cs" />
     <Compile Include="AppDelegate.cs" />
-    <Compile Include="ViewController.cs" />
-    <Compile Include="ViewController.designer.cs">
-      <DependentUpon>ViewController.cs</DependentUpon>
+    <Compile Include="UI\CustomLoginUIButton.cs" />
+    <Compile Include="UI\CustomLoginUIButton.designer.cs">
+      <DependentUpon>CustomLoginUIButton.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\CustomSegmentControl.cs" />
+    <Compile Include="UI\CustomSegmentControl.designer.cs">
+      <DependentUpon>CustomSegmentControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Controllers\InformativeViewController.cs" />
+    <Compile Include="UI\Controllers\InformativeViewController.designer.cs">
+      <DependentUpon>InformativeViewController.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Controllers\InitialViewController.cs" />
+    <Compile Include="UI\Controllers\InitialViewController.designer.cs">
+      <DependentUpon>InitialViewController.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Controllers\LoginViewController.cs" />
+    <Compile Include="UI\Controllers\LoginViewController.designer.cs">
+      <DependentUpon>LoginViewController.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Controllers\SettingsViewController.cs" />
+    <Compile Include="UI\Controllers\SettingsViewController.designer.cs">
+      <DependentUpon>SettingsViewController.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Views\AllItemsTableViewCell.cs" />
+    <Compile Include="UI\Views\AllItemsTableViewCell.designer.cs">
+      <DependentUpon>AllItemsTableViewCell.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Views\FavoritesTableViewCell.cs" />
+    <Compile Include="UI\Views\FavoritesTableViewCell.designer.cs">
+      <DependentUpon>FavoritesTableViewCell.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Views\HomeCollectionViewCell.cs" />
+    <Compile Include="UI\Views\HomeCollectionViewCell.designer.cs">
+      <DependentUpon>HomeCollectionViewCell.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Views\HomeCollectionViewInternalCell.cs" />
+    <Compile Include="UI\Views\HomeCollectionViewInternalCell.designer.cs">
+      <DependentUpon>HomeCollectionViewInternalCell.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Views\PurchaseHistoryTableViewCell.cs" />
+    <Compile Include="UI\Views\PurchaseHistoryTableViewCell.designer.cs">
+      <DependentUpon>PurchaseHistoryTableViewCell.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Controllers\Tabs\AccountViewController.cs" />
+    <Compile Include="UI\Controllers\Tabs\AccountViewController.designer.cs">
+      <DependentUpon>AccountViewController.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Controllers\Tabs\AllItemsViewController.cs" />
+    <Compile Include="UI\Controllers\Tabs\AllItemsViewController.designer.cs">
+      <DependentUpon>AllItemsViewController.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Controllers\Tabs\FavoritesViewController.cs" />
+    <Compile Include="UI\Controllers\Tabs\FavoritesViewController.designer.cs">
+      <DependentUpon>FavoritesViewController.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Controllers\Tabs\HomeViewController.cs" />
+    <Compile Include="UI\Controllers\Tabs\HomeViewController.designer.cs">
+      <DependentUpon>HomeViewController.cs</DependentUpon>
     </Compile>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
