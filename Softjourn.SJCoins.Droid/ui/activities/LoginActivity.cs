@@ -13,14 +13,18 @@ using Android.Views;
 using Android.Views.Animations;
 using Android.Widget;
 using Java.Lang;
+using Softjourn.SJCoins.Core.UI.Presenters;
+using Softjourn.SJCoins.Core.UI.Presenters.IPresenters;
+using Softjourn.SJCoins.Core.UI.ViewInterfaces;
 using Softjourn.SJCoins.Droid.ui.baseUI;
 using TrololoWorld.utils;
 using String = System.String;
 
+
 namespace Softjourn.SJCoins.Droid.ui.activities
 {
     [Activity(Label = "SomeLabel", MainLauncher = true, Theme = "@style/NoActionBarLoginTheme")]
-    public class LoginActivity : BaseActivity
+    public class LoginActivity : BaseActivity, ILoginView
     {
 
     EditText mUserName;
@@ -33,7 +37,7 @@ namespace Softjourn.SJCoins.Droid.ui.activities
 
     ImageView mArrowToWelcome;
 
-        //private LoginContract.Presenter mPresenter;
+        private ILoginPresenter _presenter;
 
         protected override void OnCreate(Bundle savedInstanceState)
         {
@@ -49,17 +53,17 @@ namespace Softjourn.SJCoins.Droid.ui.activities
             mLoginButton.Click += MLoginButtonOnClick;
             mArrowToWelcome.Click += MLinkToWelcomeClick;
 
+            _presenter = new LoginPresenter(this);
+
             if (Preferences.RetrieveBooleanObject(Const.IsFirstTimeLaunch))
             {
-                //NavigationUtils.GoToWelcomeActivity(this);
-                //Finish();
+                NavigateToWelcome();
             }
         }
 
         private void MLinkToWelcomeClick(object sender, EventArgs e)
         {
-            //NavigationUtils.GoToWelcomeActivity(this);
-            Finish();
+            NavigateToWelcome();
         }
 
         private void MLoginButtonOnClick(object sender, EventArgs eventArgs)
@@ -71,9 +75,9 @@ namespace Softjourn.SJCoins.Droid.ui.activities
         {
             var userName = mUserName.Text;
             var password = mPasswordText.Text;
-            //mPresenter.login(userName, password);
+            _presenter.Login(userName, password);
 
-            NavigateToMain();
+            //NavigateToMain();
         }
 
     public override void OnBackPressed()
@@ -138,6 +142,12 @@ namespace Softjourn.SJCoins.Droid.ui.activities
         public override void LogOut(IMenuItem item)
         {
             throw new NotImplementedException();
+        }
+
+        public void NavigateToWelcome()
+        {
+            //NavigationUtils.GoToWelcomeActivity(this);
+            //Finish();
         }
     }
 }

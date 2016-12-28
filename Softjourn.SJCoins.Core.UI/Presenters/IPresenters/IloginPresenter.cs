@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Softjourn.SJCoins.Core.UI.Presenters.IPresenters
 {
-    interface ILoginPresenter
+    public interface ILoginPresenter
     {
         void Login(string userName, string password);
     }
