@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Plugin.Connectivity;
 using Softjourn.SJCoins.Core.UI.Presenters.IPresenters;
 using Softjourn.SJCoins.Core.UI.ViewInterfaces;
 
@@ -36,15 +37,17 @@ namespace Softjourn.SJCoins.Core.UI.Presenters
                     break;
                 default:
                     _view.ShowProgress("Authentication...");
-                    break;
-                    //if (NetworkUtils.isNetworkEnabled())
-                    //{
-                    //    mModel.makeLoginCall(userName, password);
-                    //}
-                    //else
-                    //{
-                    //    mLoginView.showNoInternetError();
-                    //}
+                    
+                    if (CrossConnectivity.Current.IsConnected)
+                        {
+                         //    mModel.makeLoginCall(userName, password);
+                            _view.ShowToastMessage("There should be call");
+                        }
+                        else
+                        {
+                            _view.ShowNoInternetError();
+                        }
+                        break;
             }
         }
     }
