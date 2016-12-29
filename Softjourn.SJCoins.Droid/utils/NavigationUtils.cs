@@ -4,7 +4,7 @@ using Android.App;
 using Android.Content;
 using Softjourn.SJCoins.Droid.ui.activities;
 
-namespace TrololoWorld.utils
+namespace Softjourn.SJCoins.Droid.utils
 {
     public class NavigationUtils
     {

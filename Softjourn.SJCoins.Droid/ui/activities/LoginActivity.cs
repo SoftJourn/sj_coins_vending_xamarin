@@ -17,7 +17,7 @@ using Softjourn.SJCoins.Core.UI.Presenters;
 using Softjourn.SJCoins.Core.UI.Presenters.IPresenters;
 using Softjourn.SJCoins.Core.UI.ViewInterfaces;
 using Softjourn.SJCoins.Droid.ui.baseUI;
-using TrololoWorld.utils;
+using Softjourn.SJCoins.Droid.utils;
 using String = System.String;
 
 
@@ -90,7 +90,7 @@ namespace Softjourn.SJCoins.Droid.ui.activities
             return false;
         }
 
-    public new void ShowProgress(string message)
+    public override void ShowProgress(string message)
         {
             base.ShowProgress(message);
         }
@@ -100,7 +100,7 @@ namespace Softjourn.SJCoins.Droid.ui.activities
 
         }
 
-    public new void HideProgress()
+    public override void HideProgress()
         {
             base.HideProgress();
         }
@@ -123,9 +123,7 @@ namespace Softjourn.SJCoins.Droid.ui.activities
             //mPresenter = null;
             //NavigationUtils.GoToVendingActivity(this);
             Finish();
-
         }
-
 
     public void ShowToastMessage(string message)
         {

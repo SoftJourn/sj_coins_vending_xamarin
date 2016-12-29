@@ -7,9 +7,9 @@ using Java.Lang;
 using Java.Util;
 using String = System.String;
 
-namespace TrololoWorld.utils
+namespace Softjourn.SJCoins.Droid.utils
 {
-    class Utils
+    public class Utils
     {
         public static void ShowErrorToast(Context context, String text)
         {

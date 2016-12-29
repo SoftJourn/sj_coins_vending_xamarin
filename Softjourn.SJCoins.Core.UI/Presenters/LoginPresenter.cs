@@ -42,10 +42,12 @@ namespace Softjourn.SJCoins.Core.UI.Presenters
                         {
                          //    mModel.makeLoginCall(userName, password);
                             _view.ShowToastMessage("There should be call");
+                            _view.HideProgress();
                         }
                         else
                         {
                             _view.ShowNoInternetError();
+                            _view.HideProgress();
                         }
                         break;
             }

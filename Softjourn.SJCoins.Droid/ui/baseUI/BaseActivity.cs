@@ -9,8 +9,8 @@ using Android.Support.V7.App;
 using Android.Views;
 using Android.Widget;
 using Java.Lang;
+using Softjourn.SJCoins.Droid.utils;
 using Square.Picasso;
-using TrololoWorld.utils;
 using String = System.String;
 
 namespace Softjourn.SJCoins.Droid.ui.baseUI
@@ -50,12 +50,12 @@ namespace Softjourn.SJCoins.Droid.ui.baseUI
             }
         }
 
-        public void HideProgress()
+        public virtual void HideProgress()
         {
             _progressDialog.Dismiss();
         }
 
-        public void ShowProgress(String message)
+        public virtual void ShowProgress(string message)
         {
             _progressDialog.SetMessage(message);
             _progressDialog.SetCancelable(false);

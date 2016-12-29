@@ -10,7 +10,7 @@ using Android.Runtime;
 using Android.Views;
 using Android.Widget;
 
-namespace TrololoWorld.utils
+namespace Softjourn.SJCoins.Droid.utils
 {
     public class JavaHolder : Java.Lang.Object
     {

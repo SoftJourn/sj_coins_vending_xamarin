@@ -1,4 +1,4 @@
-namespace TrololoWorld.utils
+namespace Softjourn.SJCoins.Droid.utils
 {
     public class Const
     {

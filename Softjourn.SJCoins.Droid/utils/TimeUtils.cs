@@ -13,7 +13,7 @@ using Java.Text;
 using Java.Util;
 
 
-namespace TrololoWorld.utils
+namespace Softjourn.SJCoins.Droid.utils
 {
     public class TimeUtils
     {

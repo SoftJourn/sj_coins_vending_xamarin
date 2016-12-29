@@ -3,9 +3,9 @@ using System;
 using Android.App;
 using Android.Content;
 
-namespace TrololoWorld.utils
+namespace Softjourn.SJCoins.Droid.utils
 {
-    class Preferences : Const
+    public class Preferences : Const
     {
         private static ISharedPreferences sharedPreferences = Application.Context.GetSharedPreferences(SjCoinsPreferences, FileCreationMode.Private);
         private static ISharedPreferencesEditor editor = sharedPreferences.Edit();

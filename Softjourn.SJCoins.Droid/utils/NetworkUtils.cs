@@ -3,7 +3,7 @@ using Android.Content;
 using Android.Net;
 
 
-namespace TrololoWorld.utils
+namespace Softjourn.SJCoins.Droid.utils
 {
     public class NetworkUtils
     {
