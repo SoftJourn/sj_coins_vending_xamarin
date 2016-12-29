@@ -5,12 +5,35 @@ using System;
 using Foundation;
 using UIKit;
 
-namespace Softjourn.SJCoins.iOS
+namespace Softjourn.SJCoins.iOS.UI.Controllers
 {
 	public partial class InitialViewController : UIViewController
 	{
+		//Properties
+		private LaunchPresenter _launchPresenter;
+
+		//Constructor
 		public InitialViewController (IntPtr handle) : base (handle)
 		{
 		}
+
+		//Life cycle
+		public override void ViewDidLoad()
+		{
+			base.ViewDidLoad();
+
+			//Create Presenter
+			_launchPresenter = new LaunchPresenter(this);
+		}
+
+		public override void ViewWillAppear(bool animated)
+		{
+			base.ViewWillAppear(animated);
+
+			//Verify if its a first launch
+			_launchPresenter.CheckFirstLaunch();
+		}
+
+
 	}
 }

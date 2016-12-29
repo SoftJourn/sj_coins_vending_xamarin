@@ -8,6 +8,7 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers
 {
 	public partial class LoginViewController : UIViewController, ILoginView
 	{
+		//Properties
 		private LoginPresenter _loginPresenter;
 
 		//Constructor
@@ -15,10 +16,12 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers
 		{
 		}
 	
-		//Life cyclee
+		//Life cycle
 		public override void ViewDidLoad()
 		{
 			base.ViewDidLoad();
+
+			//Create Presenter
 			_loginPresenter = new LoginPresenter(this);
 		}
 
@@ -26,6 +29,10 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers
 		{
 			base.ViewWillAppear(animated);
 
+			//Verify if its a first launch
+			_loginPresenter.CheckFirstLaunch();
+
+			//Hide error labels before view appears
 			loginErrorLabel.Hidden = true;
 			passwordErrorLabel.Hidden = true;
 		}
@@ -33,13 +40,13 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers
 		//Actions
 		partial void LoginButton_TouchUpInside(UIButton sender)
 		{
-			Console.WriteLine("sjdhfjkshgjksdhgjksdhgjkhdsjkghdsjkghdjksghjk sdgsdhgjkdhsgjk");
+			_loginPresenter.Login(loginTextField.Text, passwordTexField.Text);
 		}
 
 		//ILoginView Interface
 		public void HideProgress()
 		{
-			throw new NotImplementedException();
+			
 		}
 
 		public void NavigateToMain()
@@ -49,7 +56,7 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers
 
 		public void NavigateToWelcome()
 		{
-			throw new NotImplementedException();
+			Console.WriteLine("Navigated to welcome");
 		}
 
 		public void SetPasswordError()

@@ -129,6 +129,7 @@
     <Folder Include="UI\Controllers\Tabs\" />
     <Folder Include="Assets.xcassets\vending_machine.imageset\" />
     <Folder Include="UI\Controllers\Informative\" />
+    <Folder Include="UI\NotUsedYet\" />
   </ItemGroup>
   <ItemGroup>
     <InterfaceDefinition Include="UI\LaunchScreen.storyboard" />
@@ -142,22 +143,6 @@
   <ItemGroup>
     <Compile Include="Main.cs" />
     <Compile Include="AppDelegate.cs" />
-    <Compile Include="UI\CustomLoginUIButton.cs" />
-    <Compile Include="UI\CustomLoginUIButton.designer.cs">
-      <DependentUpon>CustomLoginUIButton.cs</DependentUpon>
-    </Compile>
-    <Compile Include="UI\CustomSegmentControl.cs" />
-    <Compile Include="UI\CustomSegmentControl.designer.cs">
-      <DependentUpon>CustomSegmentControl.cs</DependentUpon>
-    </Compile>
-    <Compile Include="UI\Controllers\InitialViewController.cs" />
-    <Compile Include="UI\Controllers\InitialViewController.designer.cs">
-      <DependentUpon>InitialViewController.cs</DependentUpon>
-    </Compile>
-    <Compile Include="UI\Controllers\SettingsViewController.cs" />
-    <Compile Include="UI\Controllers\SettingsViewController.designer.cs">
-      <DependentUpon>SettingsViewController.cs</DependentUpon>
-    </Compile>
     <Compile Include="UI\Views\AllItemsTableViewCell.cs" />
     <Compile Include="UI\Views\AllItemsTableViewCell.designer.cs">
       <DependentUpon>AllItemsTableViewCell.cs</DependentUpon>
@@ -227,6 +212,26 @@
       <DependentUpon>LoginViewController.cs</DependentUpon>
     </Compile>
     <Compile Include="Helpers\Settings.cs" />
+    <Compile Include="UI\NotUsedYet\SettingsViewController.cs" />
+    <Compile Include="UI\NotUsedYet\SettingsViewController.designer.cs">
+      <DependentUpon>SettingsViewController.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\NotUsedYet\BaseViewController.cs" />
+    <Compile Include="UI\NotUsedYet\BaseViewController.designer.cs">
+      <DependentUpon>BaseViewController.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\NotUsedYet\CustomLoginUIButton.cs" />
+    <Compile Include="UI\NotUsedYet\CustomLoginUIButton.designer.cs">
+      <DependentUpon>CustomLoginUIButton.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\NotUsedYet\CustomSegmentControl.cs" />
+    <Compile Include="UI\NotUsedYet\CustomSegmentControl.designer.cs">
+      <DependentUpon>CustomSegmentControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Controllers\InitialViewController.cs" />
+    <Compile Include="UI\Controllers\InitialViewController.designer.cs">
+      <DependentUpon>InitialViewController.cs</DependentUpon>
+    </Compile>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
 
