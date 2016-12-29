@@ -1,0 +1,142 @@
+﻿<resources xmlns:tools="http://schemas.android.com/tools">
+
+  <!-- Base application theme. -->
+  <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+    <!-- Customize your theme here. -->
+    <item name="colorPrimary">@color/colorPrimary</item>
+    <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+    <item name="colorAccent">@color/colorAccent</item>
+    <item name="android:windowEnableSplitTouch">false</item>
+    <item name="android:splitMotionEvents">false</item>
+    <item name="android:textColorPrimary">@color/colorPrimaryText</item>
+    <item name="android:textColorSecondary">@color/colorSecondaryText</item>
+  </style>
+
+  <style name="AppThemeForCustomToolbar" parent="Theme.AppCompat.Light.DarkActionBar">
+    <item name="colorPrimary">@color/colorPrimary</item>
+    <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+    <item name="colorAccent">@color/colorAccent</item>
+    <item name="android:windowTranslucentStatus">true</item>
+    <item name="windowNoTitle">true</item>
+    <item name="windowActionBar">false</item>
+  </style>
+
+  <style name="SeeAllTextView">
+    <item name="android:layout_marginLeft">10dp</item>
+    <item name="android:layout_marginRight">10dp</item>
+    <item name="android:textSize">14sp</item>
+    <item name="android:text">@string/layout_vending_see_all</item>
+    <item name="android:textColor">@color/colorBlue</item>
+    <item name="android:gravity">right</item>
+    <item name="android:textAppearance">?android:attr/textAppearanceMedium</item>
+  </style>
+
+  <style name="VendingActivityCategoryText">
+    <item name="android:layout_marginLeft">10dp</item>
+    <item name="android:layout_marginRight">10dp</item>
+    <item name="android:textStyle">bold</item>
+    <item name="android:layout_weight">1</item>
+    <item name="android:gravity">left</item>
+    <item name="android:textAppearance">?android:attr/textAppearanceMedium</item>
+  </style>
+
+  <style name="VendingActivitySplitter">
+    <item name="android:layout_width">match_parent</item>
+    <item name="android:layout_height">1dp</item>
+    <item name="android:background">@color/colorSplitter</item>
+  </style>
+
+  <style name="VendingActivityCategoryContainer">
+    <item name="android:layout_width">match_parent</item>
+    <item name="android:layout_marginLeft">10dp</item>
+    <item name="android:layout_marginRight">10dp</item>
+    <item name="android:layout_height">wrap_content</item>
+    <item name="android:layout_marginBottom">30dp</item>
+    <item name="android:orientation">vertical</item>
+  </style>
+
+  <style name="VendingActivityLayoutCategoryHeaders">
+    <item name="android:layout_width">match_parent</item>
+    <item name="android:layout_height">wrap_content</item>
+    <item name="android:layout_marginBottom">@dimen/category_header_bottom_margin</item>
+    <item name="android:layout_marginLeft">
+      @dimen/recycler_view_machine_layout_left_margin
+    </item>
+    <item name="android:layout_marginRight">
+      @dimen/recycler_view_machine_layout_right_margin
+    </item>
+    <item name="android:layout_marginTop">@dimen/recycler_view_machine_layout_top_margin</item>
+
+    <item name="android:orientation">horizontal</item>
+  </style>
+
+  <style name="NoActionBarTheme" parent="Theme.AppCompat.NoActionBar">
+    <item name="android:background">@color/colorBackgroundNoInternet</item>
+  </style>
+
+  <style name="NoActionBarLoginTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+    <item name="colorPrimary">@color/colorPrimary</item>
+    <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+    <item name="colorAccent">@color/colorAccent</item>
+    <item name="windowNoTitle">true</item>
+    <item name="windowActionBar">false</item>
+  </style>
+
+  <style name="SortButtonBar" parent="@android:style/Widget.Holo.Button.Borderless.Small">
+    <item name="android:layout_width">wrap_content</item>
+    <item name="android:layout_height">wrap_content</item>
+    <item name="android:layout_weight">1</item>
+    <item name="android:textColor">@color/colorBlue</item>
+  </style>
+
+  <style name="Widget.MyApp.HeaderBar.Spinner" parent="Widget.AppCompat.Light.Spinner.DropDown.ActionBar">
+    <item name="android:background">?android:selectableItemBackground</item>
+    <item name="android:dropDownSelector">?android:selectableItemBackground</item>
+    <item name="android:divider">@null</item>
+    <item name="android:overlapAnchor" tools:targetApi="lollipop">true</item>
+  </style>
+
+  <style name="AppTheme.NoActionBar">
+    <item name="windowActionBar">false</item>
+    <item name="windowNoTitle">true</item>
+  </style>
+
+  <style name="AppTheme.Toolbar" parent="Widget.AppCompat.Toolbar">
+    <item name="titleTextColor">@android:color/white</item>
+    <item name="android:background">?attr/colorPrimary</item>
+  </style>
+
+  <style name="ActionBar">
+    <item name="android:colorBackground">@color/white</item>
+    <item name="android:textColorPrimary">@color/menuBackground</item>
+    <item name="colorControlNormal">@color/white</item>
+    <item name="searchViewStyle">@style/Widget.AppCompat.SearchView.ActionBar</item>
+  </style>
+
+  <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+
+  <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+  <style name="AppCompatProgressDialogStyle" parent="Theme.AppCompat.Light.Dialog.Alert">
+    <item name="colorAccent">@color/colorLightPrimary</item>
+    <item name="android:textColorPrimary">@color/colorLightPrimary</item>
+    <item name="android:background">@color/colorBackgroundNoInternet</item>
+  </style>
+
+  <style name="MachinesDialogAnimation">
+    <!--<item name="android:windowEnterAnimation">@anim/slide_from_bottom</item>
+    <item name="android:windowExitAnimation">@anim/slide_back_to_bottom</item>-->
+  </style>
+
+  <style name="ConfirmDialogAnimation">
+    <!--<item name="android:windowEnterAnimation">@anim/fade_in</item>
+    <item name="android:windowExitAnimation">@anim/fade_out</item>-->
+  </style>
+
+  <style name="Splash" parent ="Theme.AppCompat.Light.DarkActionBar">
+    <item name="android:windowBackground">@drawable/splash</item>
+    <item name="windowActionBar">false</item>
+    <item name="android:windowNoTitle">true</item>
+  </style>
+
+</resources>

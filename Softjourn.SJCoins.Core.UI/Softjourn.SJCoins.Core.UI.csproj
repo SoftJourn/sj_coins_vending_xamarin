@@ -29,7 +29,15 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="MyClass.cs" />
+    <Compile Include="Presenters\IPresenters\IloginPresenter.cs" />
+    <Compile Include="Presenters\IPresenters\IWelcomePresenter.cs" />
+    <Compile Include="Presenters\LoginPresenter.cs" />
+    <Compile Include="Presenters\WelcomePresenter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Utils\UserDataUtils.cs" />
+    <Compile Include="Utils\Validators.cs" />
+    <Compile Include="ViewInterfaces\ILoginView.cs" />
+    <Compile Include="ViewInterfaces\IWelcomeView.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Softjourn.SJCoins.Core\Softjourn.SJCoins.Core.csproj">
@@ -49,6 +57,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Resources\Strings.xml" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
 </Project>

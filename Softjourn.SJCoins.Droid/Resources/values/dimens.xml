@@ -1,0 +1,51 @@
+﻿<resources>
+  <!--Profile Activity -->
+  <dimen name="purchase_header_bottom_margin">16dp</dimen>
+
+  <!--Fragment List View margins. -->
+  <dimen name="recycler_view_layout_left_margin">10dp</dimen>
+
+  <!-- Fragment Machine View margins. -->
+  <dimen name="recycler_view_machine_layout_left_margin">3dp</dimen>
+  <dimen name="recycler_view_machine_layout_top_margin">2dp</dimen>
+  <dimen name="recycler_view_machine_layout_bottom_margin">2dp</dimen>
+  <dimen name="recycler_view_machine_layout_right_margin">2dp</dimen>
+
+  <!-- Main Screen dimensions-->
+  <dimen name="category_header_bottom_margin">6dp</dimen>
+  <dimen name="activity_horizontal_margin">16dp</dimen>
+  <dimen name="activity_vertical_margin">16dp</dimen>
+
+  <!-- Default sizes for left-side menu -->
+  <dimen name="menu_content_vertical_margins">8dp</dimen>
+  <dimen name="menu_header_vertical_margins">36dp</dimen>
+  <dimen name="menu_icon_size">48dp</dimen>
+
+  <!-- Welcome Activity Margins-->
+  <dimen name="dots_height">30dp</dimen>
+  <dimen name="dots_margin_bottom">20dp</dimen>
+  <dimen name="img_width_height">120dp</dimen>
+  <dimen name="slide_title">30sp</dimen>
+  <dimen name="slide_desc">16sp</dimen>
+  <dimen name="desc_padding">40dp</dimen>
+
+  <!-- Details Product Margins-->
+  <dimen name="details_product_header_height">200dp</dimen>
+  <dimen name="details_product_product_name_width">240dp</dimen>
+  <dimen name="details_product_left_margin">16dp</dimen>
+  <dimen name="details_product_favorite_left_margin">24dp</dimen>
+  <dimen name="details_product_buy_left_margin">19dp</dimen>
+  <dimen name="details_product_image_width">120dp</dimen>
+  <dimen name="details_product_image_top_margin">6dp</dimen>
+  <dimen name="details_product_product_name_top_margin">8dp</dimen>
+
+  <!-- Profile Activity Margins-->
+  <dimen name="login_layout_root_padding_left">24dp</dimen>
+  <dimen name="login_layout_root_padding_top">56dp</dimen>
+  <dimen name="login_logo_image_margin_top">24dp</dimen>
+  <dimen name="login_text_input_margins_top_bottom">8dp</dimen>
+  <dimen name="login_button_margin_top">16dp</dimen>
+  <dimen name="see_all_item_left_margin">10dp</dimen>
+  <dimen name="see_all_item_product_image_width">100dp</dimen>
+  <dimen name="see_all_item_bottom_top_margin">5dp</dimen>
+</resources>
