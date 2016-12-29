@@ -1,33 +1,30 @@
 ﻿
 using System.Text.RegularExpressions;
+using Softjourn.SJCoins.Core.UI.Presenters;
+
 
 namespace Softjourn.SJCoins.Core.UI.Utils
 {
     public class Validators
     {
-        public static int ValidateCredentials(string userName, string password)
+        public static LoginPresenter.ValidateCredentialsResult ValidateCredentials(string userName, string password)
         {
-            const int fieldsAreAmpty = 1;
-            const int userNameNotValid = 2;
-            const int passwordNotValid = 3;
-            const int credentialsAreValid = -1;
-
             if (password.Length< 1 && userName.Length< 1)
             {
-                return fieldsAreAmpty;
+                return LoginPresenter.ValidateCredentialsResult.FieldsAreAmpty;
             }
 
             if (userName.Length< 1 || !Regex.IsMatch(userName, "[a-z]+"))
             {
-                return userNameNotValid;
+                return LoginPresenter.ValidateCredentialsResult.UserNameNotValid;
             }
 
             if (password.Length< 1)
             {
-                return passwordNotValid;
+                return LoginPresenter.ValidateCredentialsResult.PasswordNotValid;
             }
 
-            return credentialsAreValid;
+            return LoginPresenter.ValidateCredentialsResult.CredentialsAreValid;
         }
     }
 }

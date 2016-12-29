@@ -6,13 +6,10 @@ using System.Threading.Tasks;
 
 namespace Softjourn.SJCoins.Core.UI.Presenters.IPresenters
 {
-    public interface ILoginPresenter
+    public interface IWelcomePresenter
     {
-        void Login(string userName, string password);
+        void DisableWelcomePageOnLaunch();
 
-        void ToWelcomePage();
-
-        void CheckFirstLaunch();
-
+        void ToLoginScreen();
     }
 }

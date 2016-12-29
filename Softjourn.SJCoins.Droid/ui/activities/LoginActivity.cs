@@ -55,10 +55,7 @@ namespace Softjourn.SJCoins.Droid.ui.activities
 
             _presenter = new LoginPresenter(this);
 
-            if (Preferences.RetrieveBooleanObject(Const.IsFirstTimeLaunch))
-            {
-                NavigateToWelcome();
-            }
+            _presenter.CheckFirstLaunch();
         }
 
         private void MLinkToWelcomeClick(object sender, EventArgs e)
@@ -125,7 +122,7 @@ namespace Softjourn.SJCoins.Droid.ui.activities
             Finish();
         }
 
-    public void ShowToastMessage(string message)
+    public void ShowMessage(string message)
         {
             Utils.ShowSnackBar(FindViewById(Resource.Id.login_root), message);
             mUserName.StartAnimation(AnimationUtils.LoadAnimation(this, Resource.Animation.shake));
@@ -144,8 +141,8 @@ namespace Softjourn.SJCoins.Droid.ui.activities
 
         public void NavigateToWelcome()
         {
-            //NavigationUtils.GoToWelcomeActivity(this);
-            //Finish();
+            NavigationUtils.GoToWelcomeActivity(this);
+            Finish();
         }
     }
 }

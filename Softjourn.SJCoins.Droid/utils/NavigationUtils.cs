@@ -42,11 +42,11 @@ namespace Softjourn.SJCoins.Droid.utils
         //    context.StartActivity(intent);
         //}
 
-        //public static void GoToWelcomeActivity(Context context)
-        //{
-        //    var intent = new Intent(context, typeof(WelcomeActivity));
-        //    context.StartActivity(intent);
-        //}
+        public static void GoToWelcomeActivity(Context context)
+        {
+            var intent = new Intent(context, typeof(WelcomeActivity));
+            context.StartActivity(intent);
+        }
 
         /**
          * Is used to hadle Navigation in NavBar menu.
