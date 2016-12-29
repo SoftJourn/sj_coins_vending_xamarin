@@ -18,21 +18,20 @@ namespace Softjourn.SJCoins.Core.UI.Presenters
             _view = view;
         }
 
+        public enum ValidateCredentialsResult { FieldsAreAmpty, UserNameNotValid, PasswordNotValid, CredentialsAreValid }
+
         public void Login(string userName, string password)
         {
-            const int fieldsAreAmpty = 1;
-            const int userNameNotValid = 2;
-            const int passwordNotValid = 3;
 
             switch (Utils.Validators.ValidateCredentials(userName, password))
             {
-                case fieldsAreAmpty:
+                case ValidateCredentialsResult.FieldsAreAmpty:
                     _view.SetUsernameError();
                     break;
-                case userNameNotValid:
+                case ValidateCredentialsResult.UserNameNotValid:
                     _view.SetUsernameError();
                     break;
-                case passwordNotValid:
+                case ValidateCredentialsResult.PasswordNotValid:
                     _view.SetPasswordError();
                     break;
                 default:
@@ -41,7 +40,7 @@ namespace Softjourn.SJCoins.Core.UI.Presenters
                     if (CrossConnectivity.Current.IsConnected)
                         {
                          //    mModel.makeLoginCall(userName, password);
-                            _view.ShowToastMessage("There should be call");
+                            _view.ShowMessage("There should be call");
                         }
                         else
                         {
@@ -50,5 +49,20 @@ namespace Softjourn.SJCoins.Core.UI.Presenters
                         break;
             }
         }
+
+        public void ToWelcomePage()
+        {
+            _view.NavigateToWelcome();
+        }
+
+        public void CheckFirstLaunch()
+        {
+            if (Helpers.Settings.FirstLaunch)
+            {
+                ToWelcomePage();
+            }
+        }
+
+
     }
 }
