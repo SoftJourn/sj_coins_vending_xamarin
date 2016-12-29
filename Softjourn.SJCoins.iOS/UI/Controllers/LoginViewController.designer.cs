@@ -7,31 +7,13 @@
 using Foundation;
 using System;
 using System.CodeDom.Compiler;
+using UIKit;
 
 namespace Softjourn.SJCoins.iOS
 {
     [Register ("LoginViewController")]
     partial class LoginViewController
     {
-        [Outlet]
-        UIKit.UIImageView ImageLogo { get; set; }
-
-
-        [Outlet]
-        UIKit.UILabel LoginErrorLabel { get; set; }
-
-
-        [Outlet]
-        UIKit.UITextField LoginTextField { get; set; }
-
-
-        [Outlet]
-        UIKit.UILabel PasswordErrorLabel { get; set; }
-
-
-        [Outlet]
-        UIKit.UITextField PasswordTextField { get; set; }
-
         [Outlet]
         [GeneratedCode ("iOS Designer", "1.0")]
         UIKit.UIImageView imageLogo { get; set; }
@@ -63,10 +45,6 @@ namespace Softjourn.SJCoins.iOS
         [Outlet]
         [GeneratedCode ("iOS Designer", "1.0")]
         UIKit.UILabel versionLabel { get; set; }
-
-
-        [Action ("LoginButtonPressed:")]
-        partial void LoginButtonPressed (Foundation.NSObject sender);
 
         [Action ("LoginButton_TouchUpInside:")]
         [GeneratedCode ("iOS Designer", "1.0")]

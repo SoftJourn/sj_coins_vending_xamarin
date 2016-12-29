@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11762" systemVersion="15G1212" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="zgV-2Z-kJc">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11762" systemVersion="15G1212" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="4gg-m3-Xji">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -14,7 +14,7 @@
         <!--Login View Controller-->
         <scene sceneID="2ih-Dt-cbq">
             <objects>
-                <viewController storyboardIdentifier="LoginViewController" id="GX4-ll-rbg" customClass="LoginViewController" customModule="Softjourn_SJCoins_iOS" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="LoginViewController" id="GX4-ll-rbg" customModule="Softjourn_SJCoins_iOS" customModuleProvider="target" sceneMemberID="viewController" customClass="LoginViewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="ud5-64-9vO"/>
                         <viewControllerLayoutGuide type="bottom" id="5NZ-R1-Ncu"/>
@@ -29,7 +29,7 @@
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ljM-S2-uPj">
                                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                                         <subviews>
-                                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="vending_machine_png" translatesAutoresizingMaskIntoConstraints="NO" id="7Uf-QG-kb1">
+                                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="vending_machine" translatesAutoresizingMaskIntoConstraints="NO" id="7Uf-QG-kb1">
                                                 <rect key="frame" x="113" y="124" width="150" height="150"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="150" id="buv-jY-cJP"/>

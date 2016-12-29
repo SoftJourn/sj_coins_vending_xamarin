@@ -201,10 +201,6 @@
     <Compile Include="UI\Controllers\Informative\BaseInformativeViewController.designer.cs">
       <DependentUpon>BaseInformativeViewController.cs</DependentUpon>
     </Compile>
-    <Compile Include="UI\Controllers\LoginViewController.cs" />
-    <Compile Include="UI\Controllers\LoginViewController.designer.cs">
-      <DependentUpon>LoginViewController.cs</DependentUpon>
-    </Compile>
     <Compile Include="UI\Controllers\Informative\InformativeViewController.cs" />
     <Compile Include="UI\Controllers\Informative\InformativeViewController.designer.cs">
       <DependentUpon>InformativeViewController.cs</DependentUpon>
@@ -212,6 +208,10 @@
     <Compile Include="Inf.cs" />
     <Compile Include="Inf.designer.cs">
       <DependentUpon>Inf.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Controllers\LoginViewController.cs" />
+    <Compile Include="UI\Controllers\LoginViewController.designer.cs">
+      <DependentUpon>LoginViewController.cs</DependentUpon>
     </Compile>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
