@@ -3,6 +3,7 @@ using System;
 using UIKit;
 using Softjourn.SJCoins.Core.UI.ViewInterfaces;
 using Softjourn.SJCoins.Core.UI.Presenters;
+using Softjourn.SJCoins.iOS.Managers;
 
 namespace Softjourn.SJCoins.iOS.UI.Controllers
 {
@@ -76,9 +77,8 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers
 
 		public void ShowNoInternetError()
 		{
-			UIAlertController alert = UIAlertController.Create("Warning", "No internet connecton.", UIAlertControllerStyle.Alert);
-			alert.AddAction(UIAlertAction.Create("Ok", UIAlertActionStyle.Cancel, null));
-			this.PresentViewController(alert, animated: true, completionHandler: null);
+			//show no internet alert
+			new AlertManager().PresentAlert("No internet connection.");
 		}
 
 		public void ShowProgress(string message)

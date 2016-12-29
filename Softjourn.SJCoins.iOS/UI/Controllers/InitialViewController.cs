@@ -4,10 +4,12 @@ using System;
 
 using Foundation;
 using UIKit;
+using Softjourn.SJCoins.Core.UI.ViewInterfaces;
+using Softjourn.SJCoins.iOS.Managers;
 
 namespace Softjourn.SJCoins.iOS.UI.Controllers
 {
-	public partial class InitialViewController : UIViewController
+	public partial class InitialViewController : UIViewController, ILaunchView
 	{
 		//Properties
 		private LaunchPresenter _launchPresenter;
@@ -31,9 +33,29 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers
 			base.ViewWillAppear(animated);
 
 			//Verify if its a first launch
-			_launchPresenter.CheckFirstLaunch();
+			_launchPresenter.ChooseStartPage();
 		}
 
+		//ILaunchView Interface
+		public void NoInternet()
+		{
+			//show no internet alert
+			new AlertManager().PresentAlert("No internet connection.");
+		}
 
+		public void ToWelcomePage()
+		{
+			//navigate to welcome page
+		}
+
+		public void ToMainPage()
+		{
+			//navigate to main page
+		}
+
+		public void ToLoginPage()
+		{
+			//navigate to login page
+		}
 	}
 }

@@ -11,8 +11,8 @@ using UIKit;
 
 namespace Softjourn.SJCoins.iOS
 {
-	[Register("AddFavoritesViewController")]
-	partial class AddFavoritesViewController
+	[Register("ContentViewController")]
+	partial class ContentViewController
 	{
 		void ReleaseDesignerOutlets()
 		{

@@ -130,6 +130,7 @@
     <Folder Include="Assets.xcassets\vending_machine.imageset\" />
     <Folder Include="UI\Controllers\Informative\" />
     <Folder Include="UI\NotUsedYet\" />
+    <Folder Include="Managers\" />
   </ItemGroup>
   <ItemGroup>
     <InterfaceDefinition Include="UI\LaunchScreen.storyboard" />
@@ -179,26 +180,6 @@
     <Compile Include="UI\Controllers\Tabs\HomeViewController.designer.cs">
       <DependentUpon>HomeViewController.cs</DependentUpon>
     </Compile>
-    <Compile Include="UI\Controllers\Informative\HowToLoginViewController.designer.cs">
-      <DependentUpon>HowToLoginViewController.cs</DependentUpon>
-    </Compile>
-    <Compile Include="UI\Controllers\Informative\HowToLoginViewController.cs" />
-    <Compile Include="UI\Controllers\Informative\BuyProductsViewController.cs" />
-    <Compile Include="UI\Controllers\Informative\BuyProductsViewController.designer.cs">
-      <DependentUpon>BuyProductsViewController.cs</DependentUpon>
-    </Compile>
-    <Compile Include="UI\Controllers\Informative\WantMoreCoinsViewController.cs" />
-    <Compile Include="UI\Controllers\Informative\WantMoreCoinsViewController.designer.cs">
-      <DependentUpon>WantMoreCoinsViewController.cs</DependentUpon>
-    </Compile>
-    <Compile Include="UI\Controllers\Informative\AddFavoritesViewController.cs" />
-    <Compile Include="UI\Controllers\Informative\AddFavoritesViewController.designer.cs">
-      <DependentUpon>AddFavoritesViewController.cs</DependentUpon>
-    </Compile>
-    <Compile Include="UI\Controllers\Informative\BaseInformativeViewController.cs" />
-    <Compile Include="UI\Controllers\Informative\BaseInformativeViewController.designer.cs">
-      <DependentUpon>BaseInformativeViewController.cs</DependentUpon>
-    </Compile>
     <Compile Include="UI\Controllers\Informative\InformativeViewController.cs" />
     <Compile Include="UI\Controllers\Informative\InformativeViewController.designer.cs">
       <DependentUpon>InformativeViewController.cs</DependentUpon>
@@ -211,7 +192,6 @@
     <Compile Include="UI\Controllers\LoginViewController.designer.cs">
       <DependentUpon>LoginViewController.cs</DependentUpon>
     </Compile>
-    <Compile Include="Helpers\Settings.cs" />
     <Compile Include="UI\NotUsedYet\SettingsViewController.cs" />
     <Compile Include="UI\NotUsedYet\SettingsViewController.designer.cs">
       <DependentUpon>SettingsViewController.cs</DependentUpon>
@@ -231,6 +211,12 @@
     <Compile Include="UI\Controllers\InitialViewController.cs" />
     <Compile Include="UI\Controllers\InitialViewController.designer.cs">
       <DependentUpon>InitialViewController.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Managers\AlertManager.cs" />
+    <Compile Include="UI\DataSource\InformativeDataSource.cs" />
+    <Compile Include="UI\Controllers\Informative\ContentViewController.cs" />
+    <Compile Include="UI\Controllers\Informative\ContentViewController.designer.cs">
+      <DependentUpon>ContentViewController.cs</DependentUpon>
     </Compile>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
