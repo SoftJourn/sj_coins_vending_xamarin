@@ -9,7 +9,7 @@ using System;
 using System.CodeDom.Compiler;
 using UIKit;
 
-namespace Softjourn.SJCoins.iOS
+namespace Softjourn.SJCoins.iOS.UI.Controllers
 {
     [Register ("LoginViewController")]
     partial class LoginViewController
@@ -20,7 +20,7 @@ namespace Softjourn.SJCoins.iOS
 
         [Outlet]
         [GeneratedCode ("iOS Designer", "1.0")]
-        Softjourn.SJCoins.iOS.CustomLoginUIButton loginButton { get; set; }
+        UIKit.UIButton loginButton { get; set; }
 
         [Outlet]
         [GeneratedCode ("iOS Designer", "1.0")]
@@ -48,7 +48,7 @@ namespace Softjourn.SJCoins.iOS
 
         [Action ("LoginButton_TouchUpInside:")]
         [GeneratedCode ("iOS Designer", "1.0")]
-        partial void LoginButton_TouchUpInside (Softjourn.SJCoins.iOS.CustomLoginUIButton sender);
+        partial void LoginButton_TouchUpInside (UIKit.UIButton sender);
 
         [Action ("loginTextFieldDidChange:")]
         [GeneratedCode ("iOS Designer", "1.0")]

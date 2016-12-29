@@ -6,14 +6,15 @@ namespace Softjourn.SJCoins.iOS
 {
 	public partial class InformativeViewController : UIViewController
 	{
-		public InformativeViewController (IntPtr handle) : base(handle)
-		{
-		}
+		//Properties
+		private UIPageViewController _pageContainer;
 
+		//Life cycle
 		public override void ViewDidLoad()
 		{
 			base.ViewDidLoad();
-			// Perform any additional setup after loading the view, typically from a nib.
+
+			_pageContainer = new UIPageViewController();				
 		}
 
 		public override void DidReceiveMemoryWarning()
@@ -21,6 +22,9 @@ namespace Softjourn.SJCoins.iOS
 			base.DidReceiveMemoryWarning();
 			// Release any cached data, images, etc that aren't in use.
 		}
+
+		//Actions
+
 	}
 }
 
