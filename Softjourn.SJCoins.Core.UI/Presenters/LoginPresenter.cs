@@ -54,15 +54,5 @@ namespace Softjourn.SJCoins.Core.UI.Presenters
         {
             _view.NavigateToWelcome();
         }
-
-        public void CheckFirstLaunch()
-        {
-            if (Helpers.Settings.FirstLaunch)
-            {
-                ToWelcomePage();
-            }
-        }
-
-
     }
 }

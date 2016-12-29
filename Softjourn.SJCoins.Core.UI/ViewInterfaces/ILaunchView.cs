@@ -4,13 +4,16 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Softjourn.SJCoins.Core.UI.Presenters.IPresenters
+namespace Softjourn.SJCoins.Core.UI.ViewInterfaces
 {
-    public interface ILoginPresenter
+    public interface ILaunchView
     {
-        void Login(string userName, string password);
+        void NoInternet();
 
         void ToWelcomePage();
 
+        void ToMainPage();
+
+        void ToLoginPage();
     }
 }

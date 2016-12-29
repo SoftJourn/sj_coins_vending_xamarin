@@ -78,12 +78,19 @@ namespace Softjourn.SJCoins.Droid.ui.activities
             {
                 // checking for last page
                 // if last page home screen will be launched
-                int current = GetItem(+1);
-                if (current > _layouts.Length)
+                var current = GetItem(+1);
+                if (current >= _layouts.Length)
                 {
+                    _presenter.DisableWelcomePageOnLaunch();
                     _presenter.ToLoginScreen();
                 }
             };
+        }
+
+        protected override void OnDestroy()
+        {
+            base.OnDestroy();
+            _presenter = null;
         }
 
         private void AddBottomDots(int currentPage)
@@ -112,13 +119,6 @@ namespace Softjourn.SJCoins.Droid.ui.activities
             return _viewPager.CurrentItem + i;
         }
 
-        private void LaunchHomeScreen()
-        {
-            Preferences.StoreBooleanObject(Const.IsFirstTimeLaunch, false);
-            NavigationUtils.GoToLoginActivity(this);
-            Finish();
-        }
-
         private void ChangeStatusBarColor()
         {
             if (Build.VERSION.SdkInt >= BuildVersionCodes.Lollipop)
@@ -129,6 +129,10 @@ namespace Softjourn.SJCoins.Droid.ui.activities
             }
         }
 
+
+        /**
+         * ViewPager.IOnPageChangeListener interface implementation
+         */
         public void OnPageScrollStateChanged(int state)
         {
 
@@ -152,6 +156,9 @@ namespace Softjourn.SJCoins.Droid.ui.activities
             }
         }
 
+        /**
+         * IWelcomeView interface implementation
+         */
         public void NavigateToLogin()
         {
             NavigationUtils.GoToLoginActivity(this);
