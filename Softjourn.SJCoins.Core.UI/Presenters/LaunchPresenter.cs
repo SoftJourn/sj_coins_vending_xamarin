@@ -41,7 +41,7 @@ namespace Softjourn.SJCoins.Core.UI.Presenters
             }
             else
             {
-                _view.NoInternet();
+                _view.ShowNoInternetError();
             }
         }
     }
