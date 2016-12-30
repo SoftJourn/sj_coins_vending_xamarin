@@ -48,12 +48,12 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers
 		//ILoginView Interface
 		public void SetUsernameError(string message)
 		{
-			throw new NotImplementedException();
+			loginErrorLabel.Text = message;
 		}
 
 		public void SetPasswordError(string message)
 		{
-			throw new NotImplementedException();
+			passwordErrorLabel.Text = message;
 		}
 
 		public void NavigateToMain()
