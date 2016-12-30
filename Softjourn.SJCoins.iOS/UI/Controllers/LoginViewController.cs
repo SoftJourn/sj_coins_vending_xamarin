@@ -4,6 +4,7 @@ using UIKit;
 using Softjourn.SJCoins.Core.UI.ViewInterfaces;
 using Softjourn.SJCoins.Core.UI.Presenters;
 using Softjourn.SJCoins.iOS.Managers;
+using MBProgressHUD;
 
 namespace Softjourn.SJCoins.iOS.UI.Controllers
 {
@@ -45,29 +46,35 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers
 		}
 
 		//ILoginView Interface
-		public void HideProgress()
+		public void SetUsernameError(string message)
 		{
-			
+			throw new NotImplementedException();
+		}
+
+		public void SetPasswordError(string message)
+		{
+			throw new NotImplementedException();
 		}
 
 		public void NavigateToMain()
 		{
-			throw new NotImplementedException();
+			// navigate to home page
 		}
 
 		public void NavigateToWelcome()
 		{
+			// navigate to welcome page
 			Console.WriteLine("Navigated to welcome");
 		}
 
-		public void SetPasswordError()
+		public void ShowProgress(string message)
 		{
 			throw new NotImplementedException();
 		}
 
-		public void SetUsernameError()
+		public void HideProgress()
 		{
-			throw new NotImplementedException();
+
 		}
 
 		public void ShowMessage(string message)
@@ -75,15 +82,11 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers
 			throw new NotImplementedException();
 		}
 
-		public void ShowNoInternetError()
+		public void ShowNoInternetError(string message)
 		{
 			//show no internet alert
 			new AlertManager().PresentAlert("No internet connection.");
 		}
-
-		public void ShowProgress(string message)
-		{
-			throw new NotImplementedException();
 		}
 	}
 }

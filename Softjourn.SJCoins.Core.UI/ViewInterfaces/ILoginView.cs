@@ -8,9 +8,9 @@ namespace Softjourn.SJCoins.Core.UI.ViewInterfaces
 {
     public interface ILoginView
     {
-        void SetUsernameError();
+        void SetUsernameError(string message);
 
-        void SetPasswordError();
+        void SetPasswordError(string message);
 
         void NavigateToMain();
 
@@ -22,6 +22,6 @@ namespace Softjourn.SJCoins.Core.UI.ViewInterfaces
 
         void ShowMessage(string message);
 
-        void ShowNoInternetError();
+        void ShowNoInternetError(string message);
     }
 }
