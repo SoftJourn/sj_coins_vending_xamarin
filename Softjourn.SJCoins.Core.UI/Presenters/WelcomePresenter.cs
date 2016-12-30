@@ -21,7 +21,7 @@ namespace Softjourn.SJCoins.Core.UI.Presenters
 
         public void ToLoginScreen()
         {
-            _view.NavigateToLogin();
+            _view.ToLoginPage();
         }
     }
 }

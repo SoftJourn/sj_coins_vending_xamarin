@@ -48,7 +48,7 @@ namespace Softjourn.SJCoins.Core.UI.Presenters
 
         public void ToWelcomePage()
         {
-            _view.NavigateToWelcome();
+            _view.ToWelcomePage();
         }
     }
 }
