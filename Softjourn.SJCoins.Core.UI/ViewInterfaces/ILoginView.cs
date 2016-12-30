@@ -22,6 +22,6 @@ namespace Softjourn.SJCoins.Core.UI.ViewInterfaces
 
         void ShowMessage(string message);
 
-        void ShowNoInternetError();
+        void ShowNoInternetError(string message);
     }
 }

@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿
 using Plugin.Connectivity;
 using Softjourn.SJCoins.Core.UI.Presenters.IPresenters;
 using Softjourn.SJCoins.Core.UI.ViewInterfaces;
@@ -35,7 +31,7 @@ namespace Softjourn.SJCoins.Core.UI.Presenters
                     _view.SetPasswordError();
                     break;
                 default:
-                    _view.ShowProgress("Authentication...");
+                    _view.ShowProgress(Resources.StringResources.progress_authenticating);
                     
                     if (CrossConnectivity.Current.IsConnected)
                         {
@@ -44,7 +40,7 @@ namespace Softjourn.SJCoins.Core.UI.Presenters
                         }
                         else
                         {
-                            _view.ShowNoInternetError();
+                            _view.ShowNoInternetError(Resources.StringResources.internet_turned_off);
                         }
                         break;
             }
