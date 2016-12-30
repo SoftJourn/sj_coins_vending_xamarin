@@ -48,7 +48,7 @@ namespace Softjourn.SJCoins.Droid.ui.activities
 
         private void LinkToWelcomeClick(object sender, EventArgs e)
         {
-            NavigateToWelcome();
+            ToWelcomePage();
         }
 
         private void LoginButtonOnClick(object sender, EventArgs eventArgs)
@@ -92,7 +92,7 @@ namespace Softjourn.SJCoins.Droid.ui.activities
             _passwordText.SetError(message, null);
         }
 
-    public void NavigateToMain()
+    public void ToMainPage()
         {
             _presenter = null;
             //NavigationUtils.GoToVendingActivity(this);
@@ -116,7 +116,7 @@ namespace Softjourn.SJCoins.Droid.ui.activities
             throw new NotImplementedException();
         }
 
-        public void NavigateToWelcome()
+        public void ToWelcomePage()
         {
             NavigationUtils.GoToWelcomeActivity(this);
             Finish();

@@ -159,7 +159,7 @@ namespace Softjourn.SJCoins.Droid.ui.activities
         /**
          * IWelcomeView interface implementation
          */
-        public void NavigateToLogin()
+        public void ToLoginPage()
         {
             NavigationUtils.GoToLoginActivity(this);
             Finish();

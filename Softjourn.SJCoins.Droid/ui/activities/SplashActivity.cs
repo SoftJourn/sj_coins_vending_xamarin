@@ -24,12 +24,6 @@ namespace Softjourn.SJCoins.Droid.ui.activities
             _presenter.ChooseStartPage();
         }
 
-        public void NoInternet()
-        {
-            NavigationUtils.GoToNoInternetScreen(this);
-            Finish();
-        }
-
         public void ToWelcomePage()
         {
             NavigationUtils.GoToWelcomeActivity(this);
@@ -45,6 +39,12 @@ namespace Softjourn.SJCoins.Droid.ui.activities
         public void ToLoginPage()
         {
             NavigationUtils.GoToLoginActivity(this);
+            Finish();
+        }
+
+        public void ShowNoInternetError()
+        {
+            NavigationUtils.GoToNoInternetScreen(this);
             Finish();
         }
     }
