@@ -8,7 +8,7 @@ namespace Softjourn.SJCoins.Core.UI.ViewInterfaces
 {
     public interface ILaunchView
     {
-        void ShowNoInternetError();
+        void ShowNoInternetError(string msg);
 
         void ToWelcomePage();
 
