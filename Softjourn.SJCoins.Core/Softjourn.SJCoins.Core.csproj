@@ -27,6 +27,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="API\ApiManager.cs" />
+    <Compile Include="API\Coins\CoinsApiClient.cs" />
+    <Compile Include="API\Coins\ICoinsApiProvider.cs" />
     <Compile Include="API\Model\AccountInfo\Account.cs" />
     <Compile Include="API\Model\AccountInfo\Balance.cs" />
     <Compile Include="API\Model\History.cs" />
@@ -38,8 +41,13 @@
     <Compile Include="API\Model\Products\Featured.cs" />
     <Compile Include="API\Model\Products\Product.cs" />
     <Compile Include="API\Model\Session.cs" />
+    <Compile Include="API\OAuth\IOAuthApiProvider.cs" />
+    <Compile Include="API\OAuth\OAuthApiClient.cs" />
+    <Compile Include="API\Vending\IVendingApiProvider.cs" />
+    <Compile Include="API\Vending\VendingApiClient.cs" />
     <Compile Include="Helpers\Settings.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Utils\Const.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Newtonsoft.Json, Version=9.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
@@ -58,5 +66,6 @@
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
 </Project>
