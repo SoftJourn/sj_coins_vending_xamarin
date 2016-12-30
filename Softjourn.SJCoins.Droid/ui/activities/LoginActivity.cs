@@ -1,29 +1,19 @@
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using Android;
 using Android.App;
-using Android.Content;
-using Android.Content.Res;
 using Android.OS;
-using Android.Runtime;
-using Android.Support.V7.App;
 using Android.Views;
 using Android.Views.Animations;
 using Android.Widget;
-using Java.Lang;
 using Softjourn.SJCoins.Core.UI.Presenters;
 using Softjourn.SJCoins.Core.UI.Presenters.IPresenters;
 using Softjourn.SJCoins.Core.UI.ViewInterfaces;
 using Softjourn.SJCoins.Droid.ui.baseUI;
 using Softjourn.SJCoins.Droid.utils;
-using String = System.String;
 
 
 namespace Softjourn.SJCoins.Droid.ui.activities
 {
-    [Activity(Label = "SomeLabel", MainLauncher = true, Theme = "@style/NoActionBarLoginTheme")]
+    [Activity(Label = "SomeLabel", Theme = "@style/NoActionBarLoginTheme")]
     public class LoginActivity : BaseActivity, ILoginView
     {
 
@@ -85,37 +75,26 @@ namespace Softjourn.SJCoins.Droid.ui.activities
             return false;
         }
 
-    public override void ShowProgress(string message)
-        {
-            base.ShowProgress(message);
-        }
-
     public override void ShowSnackBar(string message)
         {
 
         }
 
-    public override void HideProgress()
-        {
-            base.HideProgress();
-        }
-
-    public void SetUsernameError()
+    public void SetUsernameError(string message)
         {
             mUserName.RequestFocus();
-            mUserName.SetError(GetString(Resource.String.activity_login_invalid_email), null);
+            mUserName.SetError(message, null);
         }
 
-    public void SetPasswordError()
+    public void SetPasswordError(string message)
         {
             mPasswordText.RequestFocus();
-            mPasswordText.SetError(GetString(Resource.String.activity_login_invalid_password),null);
+            mPasswordText.SetError(message, null);
         }
 
     public void NavigateToMain()
         {
-            //mPresenter.onDestroy();
-            //mPresenter = null;
+            _presenter = null;
             //NavigationUtils.GoToVendingActivity(this);
             Finish();
         }
@@ -127,9 +106,9 @@ namespace Softjourn.SJCoins.Droid.ui.activities
             mPasswordText.StartAnimation(AnimationUtils.LoadAnimation(this, Resource.Animation.shake));
         }
 
-    public void ShowNoInternetError()
+    public void ShowNoInternetError(string message)
         {
-            OnNoInternetAvailable();
+            OnNoInternetAvailable(message);
         }
 
         public override void LogOut(IMenuItem item)
