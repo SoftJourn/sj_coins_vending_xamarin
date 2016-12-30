@@ -22,13 +22,13 @@ namespace Softjourn.SJCoins.Core.UI.Presenters
             switch (Utils.Validators.ValidateCredentials(userName, password))
             {
                 case ValidateCredentialsResult.FieldsAreAmpty:
-                    _view.SetUsernameError();
+                    _view.SetUsernameError(Resources.StringResources.activity_login_invalid_email);
                     break;
                 case ValidateCredentialsResult.UserNameNotValid:
-                    _view.SetUsernameError();
+                    _view.SetUsernameError(Resources.StringResources.activity_login_invalid_email);
                     break;
                 case ValidateCredentialsResult.PasswordNotValid:
-                    _view.SetPasswordError();
+                    _view.SetPasswordError(Resources.StringResources.activity_login_invalid_password);
                     break;
                 default:
                     _view.ShowProgress(Resources.StringResources.progress_authenticating);
