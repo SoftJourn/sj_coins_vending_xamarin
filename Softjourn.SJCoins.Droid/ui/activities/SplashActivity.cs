@@ -2,35 +2,50 @@ using Android.App;
 using Android.OS;
 using Android.Support.V7.App;
 using Android.Text;
+using Softjourn.SJCoins.Core.UI.Presenters;
+using Softjourn.SJCoins.Core.UI.Presenters.IPresenters;
+using Softjourn.SJCoins.Core.UI.ViewInterfaces;
 using Softjourn.SJCoins.Droid.utils;
 
 namespace Softjourn.SJCoins.Droid.ui.activities
 {
     [Activity(Theme = "@style/Splash", MainLauncher = true)]
-    public class SplashActivity : AppCompatActivity
+    public class SplashActivity : AppCompatActivity, ILaunchView
     {
+
+        private ILaunchPresenter _presenter;
+
         protected override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
-            if (!NetworkUtils.IsNetworkEnabled())
-            {
-                NavigationUtils.GoToNoInternetScreen(this);
-                Finish();
-            }
-            else
-            {
-                if (TextUtils.IsEmpty(Preferences.RetrieveStringObject(Const.AccessToken))
-                        && TextUtils.IsEmpty(Preferences.RetrieveStringObject(Const.RefreshToken)))
-                {
-                    NavigationUtils.GoToLoginActivity(this);
-                    Finish();
-                }
-                else
-                {
-                    //NavigationUtils.GoToVendingActivity(this);
-                    Finish();
-                }
-            }
+
+            _presenter = new LaunchPresenter(this);
+            
+            _presenter.ChooseStartPage();
+        }
+
+        public void NoInternet()
+        {
+            NavigationUtils.GoToNoInternetScreen(this);
+            Finish();
+        }
+
+        public void ToWelcomePage()
+        {
+            NavigationUtils.GoToWelcomeActivity(this);
+            Finish();
+        }
+
+        public void ToMainPage()
+        {
+            NavigationUtils.GoToMainActivity(this);
+            Finish();
+        }
+
+        public void ToLoginPage()
+        {
+            NavigationUtils.GoToLoginActivity(this);
+            Finish();
         }
     }
 }

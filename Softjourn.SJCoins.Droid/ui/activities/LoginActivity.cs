@@ -54,8 +54,6 @@ namespace Softjourn.SJCoins.Droid.ui.activities
             mArrowToWelcome.Click += MLinkToWelcomeClick;
 
             _presenter = new LoginPresenter(this);
-
-            _presenter.CheckFirstLaunch();
         }
 
         private void MLinkToWelcomeClick(object sender, EventArgs e)

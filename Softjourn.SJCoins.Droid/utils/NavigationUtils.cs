@@ -14,12 +14,12 @@ namespace Softjourn.SJCoins.Droid.utils
             context.StartActivity(intent);
         }
 
-        //public static void GoToVendingActivity(Context context)
-        //{
-        //    var intent = new Intent(context, typeof(VendingActivity));
-        //    intent.AddFlags(ActivityFlags.ClearTop);
-        //    context.StartActivity(intent);
-        //}
+        public static void GoToMainActivity(Context context)
+        {
+            //var intent = new Intent(context, typeof(MainActivity));
+            //intent.AddFlags(ActivityFlags.ClearTop);
+            //context.StartActivity(intent);
+        }
 
         public static void GoToLoginActivity(Context context)
         {
