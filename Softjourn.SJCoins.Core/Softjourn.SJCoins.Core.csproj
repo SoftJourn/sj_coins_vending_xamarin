@@ -27,6 +27,16 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="API\Model\AccountInfo\Account.cs" />
+    <Compile Include="API\Model\AccountInfo\Balance.cs" />
+    <Compile Include="API\Model\History.cs" />
+    <Compile Include="API\Model\Machines\Machines.cs" />
+    <Compile Include="API\Model\Machines\Size.cs" />
+    <Compile Include="API\Model\Products\Categories.cs" />
+    <Compile Include="API\Model\Products\Category.cs" />
+    <Compile Include="API\Model\Products\Favorites.cs" />
+    <Compile Include="API\Model\Products\Featured.cs" />
+    <Compile Include="API\Model\Products\Product.cs" />
     <Compile Include="API\Model\Session.cs" />
     <Compile Include="Helpers\Settings.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

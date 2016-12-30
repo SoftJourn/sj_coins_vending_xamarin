@@ -17,15 +17,15 @@ namespace Softjourn.SJCoins.Droid.ui.activities
     public class LoginActivity : BaseActivity, ILoginView
     {
 
-    EditText mUserName;
+    EditText _userName;
 
-    EditText mPasswordText;
+    EditText _passwordText;
 
-    Button mLoginButton;
+    Button _loginButton;
 
-    LinearLayout mLinearLayout;
+    LinearLayout _linearLayout;
 
-    ImageView mArrowToWelcome;
+    ImageView _arrowToWelcome;
 
         private ILoginPresenter _presenter;
 
@@ -34,32 +34,32 @@ namespace Softjourn.SJCoins.Droid.ui.activities
             base.OnCreate(savedInstanceState);
             SetContentView(Resource.Layout.activity_login);
 
-            mUserName = FindViewById<EditText>(Resource.Id.input_email);
-            mPasswordText = FindViewById<EditText>(Resource.Id.input_password);
-            mLoginButton = FindViewById<Button>(Resource.Id.btn_login);
-            mLinearLayout = FindViewById<LinearLayout>(Resource.Id.login_root);
-            mArrowToWelcome = FindViewById<ImageView>(Resource.Id.link_to_welcome_activity);
+            _userName = FindViewById<EditText>(Resource.Id.input_email);
+            _passwordText = FindViewById<EditText>(Resource.Id.input_password);
+            _loginButton = FindViewById<Button>(Resource.Id.btn_login);
+            _linearLayout = FindViewById<LinearLayout>(Resource.Id.login_root);
+            _arrowToWelcome = FindViewById<ImageView>(Resource.Id.link_to_welcome_activity);
 
-            mLoginButton.Click += MLoginButtonOnClick;
-            mArrowToWelcome.Click += MLinkToWelcomeClick;
+            _loginButton.Click += LoginButtonOnClick;
+            _arrowToWelcome.Click += LinkToWelcomeClick;
 
             _presenter = new LoginPresenter(this);
         }
 
-        private void MLinkToWelcomeClick(object sender, EventArgs e)
+        private void LinkToWelcomeClick(object sender, EventArgs e)
         {
             NavigateToWelcome();
         }
 
-        private void MLoginButtonOnClick(object sender, EventArgs eventArgs)
+        private void LoginButtonOnClick(object sender, EventArgs eventArgs)
         {
             Login();
         }
 
         private void Login()
         {
-            var userName = mUserName.Text;
-            var password = mPasswordText.Text;
+            var userName = _userName.Text;
+            var password = _passwordText.Text;
             _presenter.Login(userName, password);
 
             //NavigateToMain();
@@ -82,14 +82,14 @@ namespace Softjourn.SJCoins.Droid.ui.activities
 
     public void SetUsernameError(string message)
         {
-            mUserName.RequestFocus();
-            mUserName.SetError(message, null);
+            _userName.RequestFocus();
+            _userName.SetError(message, null);
         }
 
     public void SetPasswordError(string message)
         {
-            mPasswordText.RequestFocus();
-            mPasswordText.SetError(message, null);
+            _passwordText.RequestFocus();
+            _passwordText.SetError(message, null);
         }
 
     public void NavigateToMain()
@@ -102,8 +102,8 @@ namespace Softjourn.SJCoins.Droid.ui.activities
     public void ShowMessage(string message)
         {
             Utils.ShowSnackBar(FindViewById(Resource.Id.login_root), message);
-            mUserName.StartAnimation(AnimationUtils.LoadAnimation(this, Resource.Animation.shake));
-            mPasswordText.StartAnimation(AnimationUtils.LoadAnimation(this, Resource.Animation.shake));
+            _userName.StartAnimation(AnimationUtils.LoadAnimation(this, Resource.Animation.shake));
+            _passwordText.StartAnimation(AnimationUtils.LoadAnimation(this, Resource.Animation.shake));
         }
 
     public void ShowNoInternetError(string message)
