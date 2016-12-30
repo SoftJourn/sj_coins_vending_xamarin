@@ -4,7 +4,7 @@ using UIKit;
 using Softjourn.SJCoins.Core.UI.ViewInterfaces;
 using Softjourn.SJCoins.Core.UI.Presenters;
 using Softjourn.SJCoins.iOS.Managers;
-using MBProgressHUD;
+using BigTed;
 
 namespace Softjourn.SJCoins.iOS.UI.Controllers
 {
@@ -31,12 +31,16 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers
 		{
 			base.ViewWillAppear(animated);
 
-			//Verify if its a first launch
-			_loginPresenter.CheckFirstLaunch();
-
 			//Hide error labels before view appears
 			loginErrorLabel.Hidden = true;
 			passwordErrorLabel.Hidden = true;
+		}
+
+		protected override void Dispose(bool disposing)
+		{
+			base.Dispose(disposing);
+
+			_loginPresenter = null;
 		}
 
 		//Actions
@@ -49,19 +53,22 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers
 		public void SetUsernameError(string message)
 		{
 			loginErrorLabel.Text = message;
+			loginErrorLabel.Hidden = false;
 		}
 
 		public void SetPasswordError(string message)
 		{
+			// show passwordLabel error
 			passwordErrorLabel.Text = message;
+			passwordErrorLabel.Hidden = false;
 		}
 
-		public void NavigateToMain()
+		public void ToMainPage()
 		{
 			// navigate to home page
 		}
 
-		public void NavigateToWelcome()
+		public void ToWelcomePage()
 		{
 			// navigate to welcome page
 			Console.WriteLine("Navigated to welcome");
@@ -69,24 +76,24 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers
 
 		public void ShowProgress(string message)
 		{
-			throw new NotImplementedException();
+			BTProgressHUD.Show(message);
 		}
 
 		public void HideProgress()
 		{
-
+			BTProgressHUD.Dismiss();
 		}
 
 		public void ShowMessage(string message)
 		{
-			throw new NotImplementedException();
+			// show login faliled alert
+			new AlertManager().PresentAlert(message);
 		}
 
 		public void ShowNoInternetError(string message)
 		{
 			//show no internet alert
-			new AlertManager().PresentAlert("No internet connection.");
-		}
+			new AlertManager().PresentAlert(message);
 		}
 	}
 }

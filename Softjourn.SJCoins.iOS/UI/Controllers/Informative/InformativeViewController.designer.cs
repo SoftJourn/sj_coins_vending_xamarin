@@ -1,26 +1,23 @@
-﻿// WARNING
+// WARNING
 //
-// This file has been generated automatically by Xamarin Studio to store outlets and
-// actions made in the UI designer. If it is removed, they will be lost.
-// Manual changes to this file may not be handled correctly.
+// This file has been generated automatically by Xamarin Studio from the outlets and
+// actions declared in your storyboard file.
+// Manual changes to this file will not be maintained.
 //
 using Foundation;
+using System;
 using System.CodeDom.Compiler;
 
 namespace Softjourn.SJCoins.iOS
 {
-	[Register ("InformativeViewController")]
-	partial class InformativeViewController
-	{
-		[Outlet]
-		UIKit.UIPageControl PageControl { get; set; }
-		
-		void ReleaseDesignerOutlets ()
-		{
-			if (PageControl != null) {
-				PageControl.Dispose ();
-				PageControl = null;
-			}
-		}
-	}
+    [Register ("InformativeViewController")]
+    partial class InformativeViewController
+    {
+        [Outlet]
+        UIKit.UIPageControl PageControl { get; set; }
+
+        void ReleaseDesignerOutlets ()
+        {
+        }
+    }
 }

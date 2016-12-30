@@ -1015,35 +1015,19 @@
                     <view key="view" contentMode="scaleToFill" id="Afd-0a-1ZU">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <pageControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" numberOfPages="3" translatesAutoresizingMaskIntoConstraints="NO" id="7s0-hL-eB4">
-                                <rect key="frame" x="137.5" y="617" width="100" height="30"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="100" id="KZQ-kc-ZOA"/>
-                                    <constraint firstAttribute="height" constant="30" id="bKO-3j-Sai"/>
-                                </constraints>
-                                <color key="pageIndicatorTintColor" red="0.0" green="0.47843137250000001" blue="1" alpha="0.6020903716216216" colorSpace="calibratedRGB"/>
-                                <color key="currentPageIndicatorTintColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                            </pageControl>
-                        </subviews>
+                        <subviews/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <constraints>
-                            <constraint firstItem="7s0-hL-eB4" firstAttribute="centerX" secondItem="Afd-0a-1ZU" secondAttribute="centerX" id="10Z-gp-JJH"/>
-                            <constraint firstItem="um8-cX-OPZ" firstAttribute="top" secondItem="7s0-hL-eB4" secondAttribute="bottom" constant="20" id="Rnb-fG-BXx"/>
-                        </constraints>
                     </view>
-                    <connections>
-                        <outlet property="pageControl" destination="7s0-hL-eB4" id="4sN-yV-8bv"/>
-                    </connections>
+                    <connections/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="E1U-go-MKO" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-3252" y="339"/>
+            <point key="canvasLocation" x="-1198" y="345"/>
         </scene>
         <!--How To Login View Controller-->
         <scene sceneID="mPM-nH-gDc">
             <objects>
-                <viewController storyboardIdentifier="HowToLogIn" id="DYz-en-pV9" customClass="HowToLoginViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="ContentViewController" id="DYz-en-pV9" sceneMemberID="viewController" customClass="ContentViewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="928-bj-7Uo"/>
                         <viewControllerLayoutGuide type="bottom" id="ztY-78-Qck"/>
@@ -1085,7 +1069,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="egQ-CO-Mfj" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-2572" y="339"/>
+            <point key="canvasLocation" x="-518" y="345"/>
         </scene>
         <!--Initial View Controller-->
         <scene sceneID="fcp-DX-yhO">
@@ -1137,152 +1121,8 @@
             <point key="canvasLocation" x="1145" y="-364"/>
         </scene>
         <!--Buy Products View Controller-->
-        <scene sceneID="o0o-aR-Ubc">
-            <objects>
-                <viewController storyboardIdentifier="BuyProducts" id="bKj-ce-f7R" customClass="BuyProductsViewController" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="BVU-Jj-eln"/>
-                        <viewControllerLayoutGuide type="bottom" id="Vy9-2G-LJA"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="0wn-1M-ZFn">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9Jt-zh-d2T">
-                                <rect key="frame" x="16" y="353.5" width="343" height="120"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="120" id="1Bd-md-a6E"/>
-                                </constraints>
-                                <string key="text">You can buy any product as long as it is available and you have enough money! In case of any issues, e.g. the product has got stuck just ask the person responsible and you will get your product as soon as possible.</string>
-                                <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                                <color key="textColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bHn-EI-1Kf">
-                                <rect key="frame" x="88" y="323.5" width="200" height="20"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="200" id="K8H-d0-ZmE"/>
-                                    <constraint firstAttribute="height" constant="20" id="qXU-hP-961"/>
-                                </constraints>
-                                <string key="text">Buy Products
-</string>
-                                <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
-                                <color key="textColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                        </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <constraints>
-                            <constraint firstItem="bHn-EI-1Kf" firstAttribute="centerY" secondItem="0wn-1M-ZFn" secondAttribute="centerY" id="10d-tV-vcV"/>
-                            <constraint firstItem="9Jt-zh-d2T" firstAttribute="top" secondItem="bHn-EI-1Kf" secondAttribute="bottom" constant="10" id="BbO-re-pjg"/>
-                            <constraint firstItem="9Jt-zh-d2T" firstAttribute="centerX" secondItem="0wn-1M-ZFn" secondAttribute="centerX" id="NPS-Rr-NcK"/>
-                            <constraint firstItem="9Jt-zh-d2T" firstAttribute="trailing" secondItem="0wn-1M-ZFn" secondAttribute="trailingMargin" id="TCY-2o-SSZ"/>
-                            <constraint firstItem="bHn-EI-1Kf" firstAttribute="centerX" secondItem="0wn-1M-ZFn" secondAttribute="centerX" id="hkc-SX-en0"/>
-                            <constraint firstItem="9Jt-zh-d2T" firstAttribute="leading" secondItem="0wn-1M-ZFn" secondAttribute="leadingMargin" id="hsW-8d-sxz"/>
-                        </constraints>
-                    </view>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="iQs-uR-FPZ" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="-1900" y="339"/>
-        </scene>
         <!--Want More Coins View Controller-->
-        <scene sceneID="nv3-jZ-H8s">
-            <objects>
-                <viewController storyboardIdentifier="WantMoreCoins" id="zgV-2Z-kJc" customClass="WantMoreCoinsViewController" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="Ck3-KA-8CR"/>
-                        <viewControllerLayoutGuide type="bottom" id="8KS-h0-lAP"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="at8-xt-rjA">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="No Problem! Ask our coins administrator to buy some coins for cash. The current exchange rate: 100 coins = 1 UAH" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="h4M-tw-sFc">
-                                <rect key="frame" x="16" y="353.5" width="343" height="120"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="120" id="lhv-YY-tIS"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                                <color key="textColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Want More Coins?" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iAB-uq-8Z0">
-                                <rect key="frame" x="88" y="323.5" width="200" height="20"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="20" id="c5b-74-TQV"/>
-                                    <constraint firstAttribute="width" constant="200" id="gXZ-5r-uRO"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
-                                <color key="textColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                        </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <constraints>
-                            <constraint firstItem="iAB-uq-8Z0" firstAttribute="centerY" secondItem="at8-xt-rjA" secondAttribute="centerY" id="0As-XP-iIH"/>
-                            <constraint firstItem="iAB-uq-8Z0" firstAttribute="centerX" secondItem="at8-xt-rjA" secondAttribute="centerX" id="4Y2-sQ-Uyb"/>
-                            <constraint firstItem="h4M-tw-sFc" firstAttribute="leading" secondItem="at8-xt-rjA" secondAttribute="leadingMargin" id="Anc-od-xsr"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="h4M-tw-sFc" secondAttribute="trailing" id="Ccp-kG-RQo"/>
-                            <constraint firstItem="h4M-tw-sFc" firstAttribute="top" secondItem="iAB-uq-8Z0" secondAttribute="bottom" constant="10" id="Ve9-q8-HeL"/>
-                            <constraint firstItem="h4M-tw-sFc" firstAttribute="centerX" secondItem="at8-xt-rjA" secondAttribute="centerX" id="jZM-Rn-w60"/>
-                        </constraints>
-                    </view>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="3VE-Fd-9Jt" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="-1218" y="339"/>
-        </scene>
         <!--Add Favorites View Controller-->
-        <scene sceneID="SvI-f3-PA1">
-            <objects>
-                <viewController storyboardIdentifier="AddFavorites" id="b0V-Qr-9yE" customClass="AddFavoritesViewController" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="JEI-fh-m1r"/>
-                        <viewControllerLayoutGuide type="bottom" id="t2V-5c-CzU"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="6yi-Dk-SOF">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QQN-UV-GgF">
-                                <rect key="frame" x="16" y="353.5" width="343" height="120"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="120" id="axq-XM-g4x"/>
-                                </constraints>
-                                <string key="text">You can add products to favorite so they are always on the top of the screen. Don't forget to refresh your Product List to always keep in touch with the server!</string>
-                                <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                                <color key="textColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2oj-h8-Yh6">
-                                <rect key="frame" x="88" y="323.5" width="200" height="20"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="200" id="2IX-yj-3qI"/>
-                                    <constraint firstAttribute="height" constant="20" id="md7-3d-dxE"/>
-                                </constraints>
-                                <string key="text">Add Favorites
-</string>
-                                <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
-                                <color key="textColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                        </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <constraints>
-                            <constraint firstItem="QQN-UV-GgF" firstAttribute="top" secondItem="2oj-h8-Yh6" secondAttribute="bottom" constant="10" id="66i-On-OQ6"/>
-                            <constraint firstItem="2oj-h8-Yh6" firstAttribute="centerY" secondItem="6yi-Dk-SOF" secondAttribute="centerY" id="PLm-ke-hfx"/>
-                            <constraint firstItem="QQN-UV-GgF" firstAttribute="leading" secondItem="6yi-Dk-SOF" secondAttribute="leadingMargin" id="SpA-W7-HEJ"/>
-                            <constraint firstItem="2oj-h8-Yh6" firstAttribute="centerX" secondItem="6yi-Dk-SOF" secondAttribute="centerX" id="jfA-NN-xYZ"/>
-                            <constraint firstItem="QQN-UV-GgF" firstAttribute="centerX" secondItem="6yi-Dk-SOF" secondAttribute="centerX" id="klx-EM-hST"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="QQN-UV-GgF" secondAttribute="trailing" id="qFG-JR-AEQ"/>
-                        </constraints>
-                    </view>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="yox-Qn-ctk" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="-538" y="339"/>
-        </scene>
     </scenes>
     <resources>
         <image name="vending_machine" width="230" height="265"/>

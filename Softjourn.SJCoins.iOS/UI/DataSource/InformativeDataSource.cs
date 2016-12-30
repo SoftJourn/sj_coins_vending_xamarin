@@ -15,27 +15,27 @@ namespace Softjourn.SJCoins.iOS
 		}
 
 		//UIPageViewControllerDataSource
-		public override UIViewController GetNextViewController(UIPageViewController pageViewController, UIViewController referenceViewController)
-		{
-			UIViewController currentPage = referenceViewController as UIViewController;
-			if (currentPage.Index == 0)
-			{
-				return pages[pages.Count - 1];
-			}
-			else
-			{
-				return pages[currentPage.Index - 1];
-			}
-		}
+		//public override UIViewController GetNextViewController(UIPageViewController pageViewController, UIViewController referenceViewController)
+		//{
+		//	//UIViewController currentPage = referenceViewController as UIViewController;
+		//	//if (currentPage.Index == 0)
+		//	//{
+		//	//	return pages[pages.Count - 1];
+		//	//}
+		//	//else
+		//	//{
+		//	//	return pages[currentPage.Index - 1];
+		//	//}
+		//}
 
-		public override UIViewController GetPreviousViewController(UIPageViewController pageViewController, UIViewController referenceViewController)
-		{
+		//public override UIViewController GetPreviousViewController(UIPageViewController pageViewController, UIViewController referenceViewController)
+		//{
 			
-		}
+		//}
 
-		public UIViewController GetViewController(int page)
-		{
-			return new DetailDialog(page);
-		}
+		//public UIViewController GetViewController(int page)
+		//{
+		//	//return new DetailDialog(page);
+		//}
 	}
 }
