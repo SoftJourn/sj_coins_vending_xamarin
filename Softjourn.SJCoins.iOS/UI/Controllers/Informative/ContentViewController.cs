@@ -1,25 +1,29 @@
-using Foundation;
 using System;
+using Foundation;
 using UIKit;
 
-namespace Softjourn.SJCoins.iOS
+namespace Softjourn.SJCoins.iOS.UI.Controllers.Informative
 {
-    public partial class ContentViewController : UIViewController
-    {
-        public int pageIndex = 0;
-		public string titleText;
-		public string imageFile;
+	[Register("ContentViewController")]
+	public partial class ContentViewController : UIViewController
+	{
+		//Properties
+		public int Index = 0;
+		public new string Title;
 
+		//Constructor
 		public ContentViewController(IntPtr handle) : base(handle)
 		{
 		}
 
+		//Life cycle
 		public override void ViewDidLoad()
 		{
 			base.ViewDidLoad();
 
-			//imageView.Image = UIImage.FromBundle(imageFile);
-			//label.Text = titleText;
+			Image.BackgroundColor = UIColor.Red.ColorWithAlpha(0.7f);
+			View.BackgroundColor = UIColor.Gray.ColorWithAlpha(0.7f);
+			TitleLabel.Text = Title;
 		}
-    }
+	}
 }

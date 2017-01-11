@@ -1,21 +1,41 @@
 // WARNING
 //
-// This file has been generated automatically by Xamarin Studio from the outlets and
-// actions declared in your storyboard file.
-// Manual changes to this file will not be maintained.
+// This file has been generated automatically by Xamarin Studio to store outlets and
+// actions made in the UI designer. If it is removed, they will be lost.
+// Manual changes to this file may not be handled correctly.
 //
 using Foundation;
-using System;
 using System.CodeDom.Compiler;
-using UIKit;
 
-namespace Softjourn.SJCoins.iOS
+namespace Softjourn.SJCoins.iOS.UI.Controllers.Informative
 {
-    [Register ("ContentViewController")]
-    partial class ContentViewController
-    {
-        void ReleaseDesignerOutlets ()
-        {
-        }
-    }
+	partial class ContentViewController
+	{
+		[Outlet]
+		UIKit.UILabel DescriptionLabel { get; set; }
+
+		[Outlet]
+		UIKit.UIImageView Image { get; set; }
+
+		[Outlet]
+		UIKit.UILabel TitleLabel { get; set; }
+		
+		void ReleaseDesignerOutlets ()
+		{
+			if (Image != null) {
+				Image.Dispose ();
+				Image = null;
+			}
+
+			if (TitleLabel != null) {
+				TitleLabel.Dispose ();
+				TitleLabel = null;
+			}
+
+			if (DescriptionLabel != null) {
+				DescriptionLabel.Dispose ();
+				DescriptionLabel = null;
+			}
+		}
+	}
 }

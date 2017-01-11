@@ -29,7 +29,7 @@
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ljM-S2-uPj">
                                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                                         <subviews>
-                                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="EC126E15-B5C3-46CB-B881-942664E672A9" translatesAutoresizingMaskIntoConstraints="NO" id="7Uf-QG-kb1">
+                                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="F4AADF48-AF7B-44EC-A8FC-4F450E6A420F" translatesAutoresizingMaskIntoConstraints="NO" id="7Uf-QG-kb1">
                                                 <rect key="frame" x="113" y="124" width="150" height="150"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="150" id="buv-jY-cJP"/>
@@ -158,10 +158,10 @@
             </objects>
             <point key="canvasLocation" x="1144.8" y="338.6807"/>
         </scene>
-        <!--View Controller-->
+        <!--Informative View Controller-->
         <scene sceneID="q38-Xd-sW4">
             <objects>
-                <viewController storyboardIdentifier="InformativeViewController" id="4gg-m3-Xji" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="InformativeViewController" id="4gg-m3-Xji" customClass="InformativeViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="aPX-qj-MQm"/>
                         <viewControllerLayoutGuide type="bottom" id="um8-cX-OPZ"/>
@@ -184,10 +184,10 @@
             </objects>
             <point key="canvasLocation" x="-1255" y="345"/>
         </scene>
-        <!--View Controller-->
+        <!--Content View Controller-->
         <scene sceneID="mPM-nH-gDc">
             <objects>
-                <viewController storyboardIdentifier="ContentViewController" id="DYz-en-pV9" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="ContentViewController" id="DYz-en-pV9" customClass="ContentViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="928-bj-7Uo"/>
                         <viewControllerLayoutGuide type="bottom" id="ztY-78-Qck"/>
@@ -235,6 +235,11 @@
                             <constraint firstItem="qmh-ei-HYj" firstAttribute="top" secondItem="t61-9d-LTm" secondAttribute="bottom" constant="10" id="f86-Pc-2Ru"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="DescriptionLabel" destination="qmh-ei-HYj" id="Kmg-YH-zdd"/>
+                        <outlet property="Image" destination="shw-hn-WkX" id="Ttd-kr-dQb"/>
+                        <outlet property="TitleLabel" destination="t61-9d-LTm" id="nta-tQ-tj5"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="egQ-CO-Mfj" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -273,7 +278,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="EC126E15-B5C3-46CB-B881-942664E672A9" width="230" height="265">
+        <image name="F4AADF48-AF7B-44EC-A8FC-4F450E6A420F" width="230" height="265">
             <mutableData key="keyedArchiveRepresentation">
 YnBsaXN0MDDUAQIDBAUGOzxYJHZlcnNpb25YJG9iamVjdHNZJGFyY2hpdmVyVCR0b3ASAAGGoK0HCBMU
 GR4fJSYsLzU4VSRudWxs1QkKCwwNDg8QERJWTlNTaXplViRjbGFzc1xOU0ltYWdlRmxhZ3NWTlNSZXBz
