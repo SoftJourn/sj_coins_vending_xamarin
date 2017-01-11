@@ -126,13 +126,9 @@
   <ItemGroup>
     <Folder Include="Resources\" />
     <Folder Include="UI\" />
-    <Folder Include="UI\DataSource\" />
     <Folder Include="UI\Controllers\" />
-    <Folder Include="UI\Views\" />
-    <Folder Include="UI\Controllers\Tabs\" />
     <Folder Include="Assets.xcassets\vending_machine.imageset\" />
     <Folder Include="UI\Controllers\Informative\" />
-    <Folder Include="UI\NotUsedYet\" />
     <Folder Include="Managers\" />
   </ItemGroup>
   <ItemGroup>
@@ -147,42 +143,6 @@
   <ItemGroup>
     <Compile Include="Main.cs" />
     <Compile Include="AppDelegate.cs" />
-    <Compile Include="UI\Views\AllItemsTableViewCell.cs" />
-    <Compile Include="UI\Views\AllItemsTableViewCell.designer.cs">
-      <DependentUpon>AllItemsTableViewCell.cs</DependentUpon>
-    </Compile>
-    <Compile Include="UI\Views\FavoritesTableViewCell.cs" />
-    <Compile Include="UI\Views\FavoritesTableViewCell.designer.cs">
-      <DependentUpon>FavoritesTableViewCell.cs</DependentUpon>
-    </Compile>
-    <Compile Include="UI\Views\HomeCollectionViewCell.cs" />
-    <Compile Include="UI\Views\HomeCollectionViewCell.designer.cs">
-      <DependentUpon>HomeCollectionViewCell.cs</DependentUpon>
-    </Compile>
-    <Compile Include="UI\Views\HomeCollectionViewInternalCell.cs" />
-    <Compile Include="UI\Views\HomeCollectionViewInternalCell.designer.cs">
-      <DependentUpon>HomeCollectionViewInternalCell.cs</DependentUpon>
-    </Compile>
-    <Compile Include="UI\Views\PurchaseHistoryTableViewCell.cs" />
-    <Compile Include="UI\Views\PurchaseHistoryTableViewCell.designer.cs">
-      <DependentUpon>PurchaseHistoryTableViewCell.cs</DependentUpon>
-    </Compile>
-    <Compile Include="UI\Controllers\Tabs\AccountViewController.cs" />
-    <Compile Include="UI\Controllers\Tabs\AccountViewController.designer.cs">
-      <DependentUpon>AccountViewController.cs</DependentUpon>
-    </Compile>
-    <Compile Include="UI\Controllers\Tabs\AllItemsViewController.cs" />
-    <Compile Include="UI\Controllers\Tabs\AllItemsViewController.designer.cs">
-      <DependentUpon>AllItemsViewController.cs</DependentUpon>
-    </Compile>
-    <Compile Include="UI\Controllers\Tabs\FavoritesViewController.cs" />
-    <Compile Include="UI\Controllers\Tabs\FavoritesViewController.designer.cs">
-      <DependentUpon>FavoritesViewController.cs</DependentUpon>
-    </Compile>
-    <Compile Include="UI\Controllers\Tabs\HomeViewController.cs" />
-    <Compile Include="UI\Controllers\Tabs\HomeViewController.designer.cs">
-      <DependentUpon>HomeViewController.cs</DependentUpon>
-    </Compile>
     <Compile Include="UI\Controllers\Informative\InformativeViewController.cs" />
     <Compile Include="UI\Controllers\Informative\InformativeViewController.designer.cs">
       <DependentUpon>InformativeViewController.cs</DependentUpon>
@@ -191,32 +151,11 @@
     <Compile Include="Inf.designer.cs">
       <DependentUpon>Inf.cs</DependentUpon>
     </Compile>
-    <Compile Include="UI\Controllers\LoginViewController.cs" />
-    <Compile Include="UI\Controllers\LoginViewController.designer.cs">
-      <DependentUpon>LoginViewController.cs</DependentUpon>
-    </Compile>
-    <Compile Include="UI\NotUsedYet\SettingsViewController.cs" />
-    <Compile Include="UI\NotUsedYet\SettingsViewController.designer.cs">
-      <DependentUpon>SettingsViewController.cs</DependentUpon>
-    </Compile>
-    <Compile Include="UI\NotUsedYet\BaseViewController.cs" />
-    <Compile Include="UI\NotUsedYet\BaseViewController.designer.cs">
-      <DependentUpon>BaseViewController.cs</DependentUpon>
-    </Compile>
-    <Compile Include="UI\NotUsedYet\CustomLoginUIButton.cs" />
-    <Compile Include="UI\NotUsedYet\CustomLoginUIButton.designer.cs">
-      <DependentUpon>CustomLoginUIButton.cs</DependentUpon>
-    </Compile>
-    <Compile Include="UI\NotUsedYet\CustomSegmentControl.cs" />
-    <Compile Include="UI\NotUsedYet\CustomSegmentControl.designer.cs">
-      <DependentUpon>CustomSegmentControl.cs</DependentUpon>
-    </Compile>
     <Compile Include="UI\Controllers\InitialViewController.cs" />
     <Compile Include="UI\Controllers\InitialViewController.designer.cs">
       <DependentUpon>InitialViewController.cs</DependentUpon>
     </Compile>
     <Compile Include="Managers\AlertManager.cs" />
-    <Compile Include="UI\DataSource\InformativeDataSource.cs" />
     <Compile Include="UI\Controllers\Informative\ContentViewController.cs" />
     <Compile Include="UI\Controllers\Informative\ContentViewController.designer.cs">
       <DependentUpon>ContentViewController.cs</DependentUpon>
