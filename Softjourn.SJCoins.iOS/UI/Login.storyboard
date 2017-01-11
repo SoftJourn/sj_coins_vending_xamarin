@@ -11,10 +11,10 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--View Controller-->
+        <!--Login View Controller-->
         <scene sceneID="2ih-Dt-cbq">
             <objects>
-                <viewController storyboardIdentifier="LoginViewController" id="GX4-ll-rbg" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="LoginViewController" id="GX4-ll-rbg" customClass="LoginViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="ud5-64-9vO"/>
                         <viewControllerLayoutGuide type="bottom" id="5NZ-R1-Ncu"/>
@@ -29,7 +29,7 @@
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ljM-S2-uPj">
                                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                                         <subviews>
-                                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="8DB1CE57-6310-4332-AADC-C564E9A6ACBB" translatesAutoresizingMaskIntoConstraints="NO" id="7Uf-QG-kb1">
+                                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="EC126E15-B5C3-46CB-B881-942664E672A9" translatesAutoresizingMaskIntoConstraints="NO" id="7Uf-QG-kb1">
                                                 <rect key="frame" x="113" y="124" width="150" height="150"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="150" id="buv-jY-cJP"/>
@@ -50,16 +50,13 @@
                                                 <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                                 <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" returnKeyType="next"/>
                                                 <connections>
-                                                    <action selector="loginTextFieldDidChange:" destination="GX4-ll-rbg" eventType="editingChanged" id="1PV-fp-mFU"/>
+                                                    <action selector="LoginTextFieldDidChange:" destination="GX4-ll-rbg" eventType="editingChanged" id="F9a-OT-8sq"/>
                                                 </connections>
                                             </textField>
                                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Password" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="yCO-qR-FRw">
                                                 <rect key="frame" x="28" y="384" width="319" height="40"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                                 <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" returnKeyType="next" secureTextEntry="YES"/>
-                                                <connections>
-                                                    <action selector="passwordTextFieldDidChange:" destination="GX4-ll-rbg" eventType="editingChanged" id="rhh-kU-Upa"/>
-                                                </connections>
                                             </textField>
                                             <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PL9-iP-f9L">
                                                 <rect key="frame" x="28" y="454" width="319" height="40"/>
@@ -69,7 +66,7 @@
                                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 </state>
                                                 <connections>
-                                                    <action selector="LoginButton_TouchUpInside:" destination="GX4-ll-rbg" eventType="touchUpInside" id="154"/>
+                                                    <action selector="LoginButtonPressed:" destination="GX4-ll-rbg" eventType="touchUpInside" id="Q6z-KS-Q4G"/>
                                                 </connections>
                                             </button>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="This field is required." textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="c90-7P-fMl">
@@ -91,7 +88,7 @@
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Version 1.1.0" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ft1-Yn-S12">
-                                                <rect key="frame" x="157.5" y="635" width="60" height="12"/>
+                                                <rect key="frame" x="158" y="635" width="60" height="12"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="10"/>
                                                 <color key="textColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                                 <nil key="highlightedColor"/>
@@ -146,13 +143,14 @@
                     </view>
                     <navigationItem key="navigationItem" id="dV4-zc-PfA"/>
                     <connections>
-                        <outlet property="imageLogo" destination="7Uf-QG-kb1" id="E2b-rf-xJf"/>
-                        <outlet property="loginButton" destination="PL9-iP-f9L" id="rBz-v7-Gw1"/>
-                        <outlet property="loginErrorLabel" destination="c90-7P-fMl" id="sTX-Vo-bf9"/>
-                        <outlet property="loginTextField" destination="aMW-md-VeR" id="jOM-Je-eYP"/>
-                        <outlet property="passwordErrorLabel" destination="q05-kS-lPh" id="NCR-kq-GjV"/>
-                        <outlet property="passwordTexField" destination="yCO-qR-FRw" id="ys9-i6-F1G"/>
-                        <outlet property="scrollView" destination="I3d-3h-pYl" id="Yb4-bU-Ing"/>
+                        <outlet property="ImageLogo" destination="7Uf-QG-kb1" id="6oV-g1-zPJ"/>
+                        <outlet property="LoginButton" destination="PL9-iP-f9L" id="at1-10-0zV"/>
+                        <outlet property="LoginErrorLabel" destination="c90-7P-fMl" id="faQ-rm-FU4"/>
+                        <outlet property="LoginTextField" destination="aMW-md-VeR" id="fwL-rh-FAL"/>
+                        <outlet property="PasswordErrorLabel" destination="q05-kS-lPh" id="FdG-31-yZQ"/>
+                        <outlet property="PasswordTextField" destination="yCO-qR-FRw" id="b2t-Fk-UQi"/>
+                        <outlet property="ScrollView" destination="ljM-S2-uPj" id="wNq-eq-VsM"/>
+                        <outlet property="VersionLabel" destination="ft1-Yn-S12" id="4Zq-C1-iN7"/>
                         <outlet property="versionLabel" destination="ft1-Yn-S12" id="DJ3-EI-rYO"/>
                     </connections>
                 </viewController>
@@ -275,7 +273,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="8DB1CE57-6310-4332-AADC-C564E9A6ACBB" width="230" height="265">
+        <image name="EC126E15-B5C3-46CB-B881-942664E672A9" width="230" height="265">
             <mutableData key="keyedArchiveRepresentation">
 YnBsaXN0MDDUAQIDBAUGOzxYJHZlcnNpb25YJG9iamVjdHNZJGFyY2hpdmVyVCR0b3ASAAGGoK0HCBMU
 GR4fJSYsLzU4VSRudWxs1QkKCwwNDg8QERJWTlNTaXplViRjbGFzc1xOU0ltYWdlRmxhZ3NWTlNSZXBz
