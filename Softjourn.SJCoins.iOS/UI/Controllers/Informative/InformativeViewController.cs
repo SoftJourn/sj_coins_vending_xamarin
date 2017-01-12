@@ -1,4 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using CoreGraphics;
 using Foundation;
 using UIKit;
 
@@ -29,12 +32,12 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.Informative
 			CreatePages();
 
 			// Create UIPageViewController and show first page
-			pageViewController = this.Storyboard.InstantiateViewController("InformativePageViewController") as UIPageViewController;
+			pageViewController = this.Instantiate("Login", "PageViewController") as UIPageViewController;
 			pageViewController.DataSource = new PageViewControllerDataSource(_pages);
 
 			var viewControllers = new UIViewController[] { _pages.ElementAt(0) };
 			pageViewController.SetViewControllers(viewControllers, UIPageViewControllerNavigationDirection.Forward, false, null);
-			pageViewController.View.Frame = new CGRect(0, 0, this.View.Frame.Width, this.View.Frame.Size.Height - 50);
+			pageViewController.View.Frame = new CGRect(0, 0, this.View.Frame.Width, this.View.Frame.Size.Height);
 			View.AddSubview(this.pageViewController.View);
 		}
 
@@ -57,7 +60,7 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.Informative
 			//ContentViewController Content = this.Storyboard.InstantiateViewController("ContentViewController") as ContentViewController;
 			for (int i = 0; i < 4; i++)
 			{
-				ContentViewController content = Instantiate("Main", "ContentViewController") as ContentViewController;
+				ContentViewController content = Instantiate("Login", "ContentViewController") as ContentViewController;
 				content.Index = i;
 				content.Title = _pageTitles.ElementAt(i);
 				_pages.Add(content);
@@ -76,6 +79,47 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.Informative
 		//	this.pageViewController.SetViewControllers(viewControllers, UIPageViewControllerNavigationDirection.Forward, false, null);
 		//}
 
+		//UIPageViewControllerDataSource
+		private class PageViewControllerDataSource : UIPageViewControllerDataSource
+		{
+			private List<ContentViewController> _pages;
 
+			public PageViewControllerDataSource(List<ContentViewController> pages)
+			{
+				_pages = pages;
+			}
+
+			public override UIViewController GetNextViewController(UIPageViewController pageViewController, UIViewController referenceViewController)
+			{
+				var currentViewController = referenceViewController as ContentViewController;
+				if (currentViewController.Index == _pages.Count - 1)
+					return null;
+				else {
+					return _pages[(currentViewController.Index + 1) % _pages.Count];
+				}
+			}
+
+			public override UIViewController GetPreviousViewController(UIPageViewController pageViewController, UIViewController referenceViewController)
+			{
+				var currentViewController = referenceViewController as ContentViewController;
+				if (currentViewController.Index == 0)
+				{
+					return null;
+				}
+				else {
+					return _pages[currentViewController.Index - 1];
+				}
+			}
+
+			public override nint GetPresentationCount(UIPageViewController pageViewController)
+			{
+				return _pages.Count;
+			}
+
+			public override nint GetPresentationIndex(UIPageViewController pageViewController)
+			{
+				return 0;
+			}
+		}
 	}
 }

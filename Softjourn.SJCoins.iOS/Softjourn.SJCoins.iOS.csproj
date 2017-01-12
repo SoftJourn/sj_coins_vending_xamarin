@@ -132,8 +132,9 @@
     <Folder Include="Managers\" />
   </ItemGroup>
   <ItemGroup>
-    <InterfaceDefinition Include="UI\LaunchScreen.storyboard" />
-    <InterfaceDefinition Include="UI\Login.storyboard" />
+    <InterfaceDefinition Include="LaunchScreen.storyboard" />
+    <InterfaceDefinition Include="Login.storyboard" />
+    <InterfaceDefinition Include="Main.storyboard" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Info.plist" />
@@ -161,6 +162,7 @@
     <Compile Include="UI\Controllers\Informative\ContentViewController.designer.cs">
       <DependentUpon>ContentViewController.cs</DependentUpon>
     </Compile>
+    <Compile Include="UI\Controllers\Informative\PageViewController.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
 

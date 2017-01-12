@@ -29,7 +29,7 @@
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ljM-S2-uPj">
                                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                                         <subviews>
-                                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="F4AADF48-AF7B-44EC-A8FC-4F450E6A420F" translatesAutoresizingMaskIntoConstraints="NO" id="7Uf-QG-kb1">
+                                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="F828BA80-531A-4CEA-9FE6-1B77AB897F7D" translatesAutoresizingMaskIntoConstraints="NO" id="7Uf-QG-kb1">
                                                 <rect key="frame" x="113" y="124" width="150" height="150"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="150" id="buv-jY-cJP"/>
@@ -151,7 +151,6 @@
                         <outlet property="PasswordTextField" destination="yCO-qR-FRw" id="b2t-Fk-UQi"/>
                         <outlet property="ScrollView" destination="ljM-S2-uPj" id="wNq-eq-VsM"/>
                         <outlet property="VersionLabel" destination="ft1-Yn-S12" id="4Zq-C1-iN7"/>
-                        <outlet property="versionLabel" destination="ft1-Yn-S12" id="DJ3-EI-rYO"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="zLJ-rd-p62" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -278,22 +277,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="F4AADF48-AF7B-44EC-A8FC-4F450E6A420F" width="230" height="265">
-            <mutableData key="keyedArchiveRepresentation">
-YnBsaXN0MDDUAQIDBAUGOzxYJHZlcnNpb25YJG9iamVjdHNZJGFyY2hpdmVyVCR0b3ASAAGGoK0HCBMU
-GR4fJSYsLzU4VSRudWxs1QkKCwwNDg8QERJWTlNTaXplViRjbGFzc1xOU0ltYWdlRmxhZ3NWTlNSZXBz
-V05TQ29sb3KAAoAMEiTAAACAA4AKWnsyMzAsIDI2NX3SFQoWGFpOUy5vYmplY3RzoReABIAJ0hUKGhii
-GxyABYAGgAkQBdMgCiEiIyRXTlMuYmFzZVtOUy5yZWxhdGl2ZYAAgAiAB18QfGZpbGU6Ly8vQXBwbGlj
-YXRpb25zL1hjb2RlLmFwcC9Db250ZW50cy9QbHVnSW5zL0lERUludGVyZmFjZUJ1aWxkZXJLaXQuaWRl
-cGx1Z2luL0NvbnRlbnRzL1Jlc291cmNlcy9JQk1pc3NpbmdJbWFnZUdseXBoLnRpZmbSJygpKlokY2xh
-c3NuYW1lWCRjbGFzc2VzVU5TVVJMoikrWE5TT2JqZWN00icoLS5XTlNBcnJheaItK9MwMQoyMzRXTlNX
-aGl0ZVxOU0NvbG9yU3BhY2VEMCAwABADgAvSJyg2N1dOU0NvbG9yojYr0icoOTpXTlNJbWFnZaI5K18Q
-D05TS2V5ZWRBcmNoaXZlctE9PlRyb290gAEACAARABoAIwAtADIANwBFAEsAVgBdAGQAcQB4AIAAggCE
-AIkAiwCNAJgAnQCoAKoArACuALMAtgC4ALoAvAC+AMUAzQDZANsA3QDfAV4BYwFuAXcBfQGAAYkBjgGW
-AZkBoAGoAbUBugG8Ab4BwwHLAc4B0wHbAd4B8AHzAfgAAAAAAAACAQAAAAAAAAA/AAAAAAAAAAAAAAAA
-AAAB+g
-</mutableData>
-        </image>
+        <image name="F828BA80-531A-4CEA-9FE6-1B77AB897F7D" width="16" height="16"/>
         <image name="vending_machine" width="230" height="265"/>
     </resources>
 </document>
