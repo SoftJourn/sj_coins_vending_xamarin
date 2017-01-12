@@ -28,6 +28,12 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="Bootstrapper\BaseBootstrapper.cs" />
+    <Compile Include="Bootstrapper\Modules\ApiModule.cs" />
+    <Compile Include="Bootstrapper\Modules\ManagerModule.cs" />
+    <Compile Include="Bootstrapper\Modules\PresenterModule.cs" />
+    <Compile Include="Managers\IAlertManager.cs" />
+    <Compile Include="Presenters\BasePresenter.cs" />
     <Compile Include="Presenters\IPresenters\ILaunchPresenter.cs" />
     <Compile Include="Presenters\IPresenters\IloginPresenter.cs" />
     <Compile Include="Presenters\IPresenters\IWelcomePresenter.cs" />
@@ -44,8 +50,6 @@
     <Compile Include="ViewInterfaces\ILaunchView.cs" />
     <Compile Include="ViewInterfaces\ILoginView.cs" />
     <Compile Include="ViewInterfaces\IWelcomeView.cs" />
-    <Compile Include="ViewModels\LoginViewModel.cs" />
-    <Compile Include="App.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Softjourn.SJCoins.Core\Softjourn.SJCoins.Core.csproj">
@@ -54,38 +58,19 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Reference Include="Plugin.Connectivity, Version=2.2.12.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Xam.Plugin.Connectivity.2.2.12\lib\portable-net45+wp80+wp81+wpa81+win8+MonoAndroid10+MonoTouch10+Xamarin.iOS10+Xamarin.Mac20+UAP10\Plugin.Connectivity.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Plugin.Connectivity.Abstractions, Version=2.2.12.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Xam.Plugin.Connectivity.2.2.12\lib\portable-net45+wp80+wp81+wpa81+win8+MonoAndroid10+MonoTouch10+Xamarin.iOS10+Xamarin.Mac20+UAP10\Plugin.Connectivity.Abstractions.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="MvvmCross.Platform">
-      <HintPath>..\packages\MvvmCross.Platform.4.3.0\lib\portable-net45+win+wpa81+wp80\MvvmCross.Platform.dll</HintPath>
-    </Reference>
-    <Reference Include="MvvmCross.Core">
-      <HintPath>..\packages\MvvmCross.Core.4.3.0\lib\portable-net45+win+wpa81+wp80\MvvmCross.Core.dll</HintPath>
-    </Reference>
-    <Reference Include="MvvmCross.Binding">
-      <HintPath>..\packages\MvvmCross.Binding.4.3.0\lib\portable-net45+win+wpa81+wp80\MvvmCross.Binding.dll</HintPath>
-    </Reference>
-    <Reference Include="MvvmCross.Localization">
-      <HintPath>..\packages\MvvmCross.Binding.4.3.0\lib\portable-net45+win+wpa81+wp80\MvvmCross.Localization.dll</HintPath>
-    </Reference>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
     <EmbeddedResource Include="Resources\StringResources.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>StringResources1.Designer.cs</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="ViewModels\" />
+    <Reference Include="Autofac, Version=3.5.0.0, Culture=neutral, PublicKeyToken=17863af14b0044da, processorArchitecture=MSIL">
+      <HintPath>..\packages\Autofac.3.5.2\lib\portable-net4+sl5+netcore45+wpa81+wp8+MonoAndroid1+MonoTouch1\Autofac.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
 </Project>

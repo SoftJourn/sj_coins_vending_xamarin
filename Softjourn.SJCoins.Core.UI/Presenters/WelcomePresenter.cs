@@ -4,7 +4,7 @@ using Softjourn.SJCoins.Core.UI.ViewInterfaces;
 
 namespace Softjourn.SJCoins.Core.UI.Presenters
 {
-    public class WelcomePresenter : IWelcomePresenter
+    public class WelcomePresenter : BasePresenter, IWelcomePresenter
     {
 
         private IWelcomeView _view;
