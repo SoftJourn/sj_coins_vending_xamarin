@@ -1,11 +1,11 @@
 ﻿
-using Plugin.Connectivity;
 using Softjourn.SJCoins.Core.UI.Presenters.IPresenters;
 using Softjourn.SJCoins.Core.UI.ViewInterfaces;
+using Softjourn.SJCoins.Core.Utils;
 
 namespace Softjourn.SJCoins.Core.UI.Presenters
 {
-    public class LoginPresenter : ILoginPresenter
+    public class LoginPresenter : BasePresenter, ILoginPresenter
     {
         private ILoginView _view;
 
@@ -33,7 +33,7 @@ namespace Softjourn.SJCoins.Core.UI.Presenters
                 default:
                     _view.ShowProgress(Resources.StringResources.progress_authenticating);
                     
-                    if (CrossConnectivity.Current.IsConnected)
+                    if (NetworkUtils.isConnected)
                         {
                          //    mModel.makeLoginCall(userName, password);
                             _view.ShowMessage("There should be call");

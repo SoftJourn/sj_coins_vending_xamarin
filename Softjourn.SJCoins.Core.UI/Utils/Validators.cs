@@ -26,5 +26,7 @@ namespace Softjourn.SJCoins.Core.UI.Utils
 
             return LoginPresenter.ValidateCredentialsResult.CredentialsAreValid;
         }
+
+        
     }
 }

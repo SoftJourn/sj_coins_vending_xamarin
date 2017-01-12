@@ -1,15 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Plugin.Connectivity;
+﻿
+using Softjourn.SJCoins.Core.Helpers;
 using Softjourn.SJCoins.Core.UI.Presenters.IPresenters;
 using Softjourn.SJCoins.Core.UI.ViewInterfaces;
+using Softjourn.SJCoins.Core.Utils;
 
 namespace Softjourn.SJCoins.Core.UI.Presenters
 {
-    public class LaunchPresenter : ILaunchPresenter
+    public class LaunchPresenter : BasePresenter, ILaunchPresenter
     {
 
         private ILaunchView _view;
@@ -21,15 +18,15 @@ namespace Softjourn.SJCoins.Core.UI.Presenters
 
         public void ChooseStartPage()
         {
-            if (CrossConnectivity.Current.IsConnected)
+            if (NetworkUtils.isConnected)
             {
-                if (Helpers.Settings.FirstLaunch)
+                if (Settings.FirstLaunch)
                 {
                     _view.ToWelcomePage();
                 }
                 else
                 {
-                    if (string.IsNullOrEmpty(Helpers.Settings.AccessToken))
+                    if (string.IsNullOrEmpty(Settings.AccessToken))
                     {
                         _view.ToLoginPage();
                     }
