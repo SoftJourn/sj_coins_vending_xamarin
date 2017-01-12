@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using CoreGraphics;
@@ -8,16 +8,16 @@ using UIKit;
 namespace Softjourn.SJCoins.iOS.UI.Controllers.Informative
 {
 	[Register("InformativeViewController")]
-	public class InformativeViewController : UIViewController
+	public partial class InformativeViewController : UIViewController
 	{
 		//Properties
 		private UIPageViewController pageViewController;
-		private List<string> _pageTitles;
+		private List<string> _pageTitles = new List<string> { "How to Log in?", "Buy Products", "Want More Coins?", "Add Favorites" };
 		private List<ContentViewController> _pages;
 
 		//Constructor
 		public InformativeViewController(IntPtr handle) : base(handle)
-		{
+		{  
 		}
 
 		//Life cycle
@@ -25,20 +25,14 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.Informative
 		{
 			base.ViewDidLoad();
 
-			// Set pages titles
-			_pageTitles = new List<string> { "How to Log in?", "Buy Products", "Want More Coins?", "Add Favorites" };
+			// Create informative content
+			var navigationManager = new NavigationManager();
+			_pages = new List<ContentViewController>();
+			_pages = navigationManager.CreateInformativePages(_pageTitles);
 
-			// Create pages for datasource
-			CreatePages();
-
-			// Create UIPageViewController and show first page
-			pageViewController = this.Instantiate("Login", "PageViewController") as UIPageViewController;
-			pageViewController.DataSource = new PageViewControllerDataSource(_pages);
-
-			var viewControllers = new UIViewController[] { _pages.ElementAt(0) };
-			pageViewController.SetViewControllers(viewControllers, UIPageViewControllerNavigationDirection.Forward, false, null);
-			pageViewController.View.Frame = new CGRect(0, 0, this.View.Frame.Width, this.View.Frame.Size.Height);
-			View.AddSubview(this.pageViewController.View);
+			// Create UIPageViewController and configure it
+			pageViewController = navigationManager.Instantiate("Login", "PageViewController") as UIPageViewController;
+			ConfigurePageViewController();
 		}
 
 		public override void DidReceiveMemoryWarning()
@@ -55,21 +49,13 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.Informative
 		}
 
 		// Methods
-		private void CreatePages()
+		private void ConfigurePageViewController()
 		{
-			//ContentViewController Content = this.Storyboard.InstantiateViewController("ContentViewController") as ContentViewController;
-			for (int i = 0; i < 4; i++)
-			{
-				ContentViewController content = Instantiate("Login", "ContentViewController") as ContentViewController;
-				content.Index = i;
-				content.Title = _pageTitles.ElementAt(i);
-				_pages.Add(content);
-			}
-		}
-
-		private UIViewController Instantiate(string storyboard, string viewcontroller)
-		{
-			return UIStoryboard.FromName(storyboard, null).InstantiateViewController(viewcontroller);
+			pageViewController.DataSource = new PageViewControllerDataSource(_pages);
+			var viewControllers = new UIViewController[] { _pages.ElementAt(0) };
+			pageViewController.SetViewControllers(viewControllers, UIPageViewControllerNavigationDirection.Forward, false, null);
+			pageViewController.View.Frame = new CGRect(0, 0, this.View.Frame.Width, this.View.Frame.Size.Height);
+			View.AddSubview(this.pageViewController.View);
 		}
 
 		//private void RestartTutorial(object sender, EventArgs e)
