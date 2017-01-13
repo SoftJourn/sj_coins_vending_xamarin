@@ -62,9 +62,9 @@ namespace Softjourn.SJCoins.Droid.ui.baseUI
             _progressDialog.Show();
         }
 
-        protected void OnNoInternetAvailable()
+        protected void OnNoInternetAvailable(string message)
         {
-            ShowToast(GetString(Resource.String.internet_turned_off));
+            ShowToast(message);
             HideProgress();
         }
 

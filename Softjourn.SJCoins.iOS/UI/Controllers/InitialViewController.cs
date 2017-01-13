@@ -36,10 +36,10 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers
 		}
 
 		//ILaunchView Interface
-		public void ShowNoInternetError()
+		public void ShowNoInternetError(string msg)
 		{
 			//show no internet alert
-			new AlertManager().PresentAlert("No internet connection.");
+			new AlertManager().PresentAlert(msg);
 		}
 
 		public void ToWelcomePage()

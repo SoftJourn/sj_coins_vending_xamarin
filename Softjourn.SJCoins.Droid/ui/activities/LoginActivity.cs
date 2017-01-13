@@ -1,41 +1,31 @@
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using Android;
 using Android.App;
-using Android.Content;
-using Android.Content.Res;
 using Android.OS;
-using Android.Runtime;
-using Android.Support.V7.App;
 using Android.Views;
 using Android.Views.Animations;
 using Android.Widget;
-using Java.Lang;
 using Softjourn.SJCoins.Core.UI.Presenters;
 using Softjourn.SJCoins.Core.UI.Presenters.IPresenters;
 using Softjourn.SJCoins.Core.UI.ViewInterfaces;
 using Softjourn.SJCoins.Droid.ui.baseUI;
 using Softjourn.SJCoins.Droid.utils;
-using String = System.String;
 
 
 namespace Softjourn.SJCoins.Droid.ui.activities
 {
-    [Activity(Label = "SomeLabel", MainLauncher = true, Theme = "@style/NoActionBarLoginTheme")]
+    [Activity(Label = "SomeLabel", Theme = "@style/NoActionBarLoginTheme")]
     public class LoginActivity : BaseActivity, ILoginView
     {
 
-    EditText mUserName;
+    EditText _userName;
 
-    EditText mPasswordText;
+    EditText _passwordText;
 
-    Button mLoginButton;
+    Button _loginButton;
 
-    LinearLayout mLinearLayout;
+    LinearLayout _linearLayout;
 
-    ImageView mArrowToWelcome;
+    ImageView _arrowToWelcome;
 
         private ILoginPresenter _presenter;
 
@@ -44,34 +34,32 @@ namespace Softjourn.SJCoins.Droid.ui.activities
             base.OnCreate(savedInstanceState);
             SetContentView(Resource.Layout.activity_login);
 
-            mUserName = FindViewById<EditText>(Resource.Id.input_email);
-            mPasswordText = FindViewById<EditText>(Resource.Id.input_password);
-            mLoginButton = FindViewById<Button>(Resource.Id.btn_login);
-            mLinearLayout = FindViewById<LinearLayout>(Resource.Id.login_root);
-            mArrowToWelcome = FindViewById<ImageView>(Resource.Id.link_to_welcome_activity);
+            _userName = FindViewById<EditText>(Resource.Id.input_email);
+            _passwordText = FindViewById<EditText>(Resource.Id.input_password);
+            _loginButton = FindViewById<Button>(Resource.Id.btn_login);
+            _linearLayout = FindViewById<LinearLayout>(Resource.Id.login_root);
+            _arrowToWelcome = FindViewById<ImageView>(Resource.Id.link_to_welcome_activity);
 
-            mLoginButton.Click += MLoginButtonOnClick;
-            mArrowToWelcome.Click += MLinkToWelcomeClick;
+            _loginButton.Click += LoginButtonOnClick;
+            _arrowToWelcome.Click += LinkToWelcomeClick;
 
             _presenter = new LoginPresenter(this);
-
-            _presenter.CheckFirstLaunch();
         }
 
-        private void MLinkToWelcomeClick(object sender, EventArgs e)
+        private void LinkToWelcomeClick(object sender, EventArgs e)
         {
-            NavigateToWelcome();
+            ToWelcomePage();
         }
 
-        private void MLoginButtonOnClick(object sender, EventArgs eventArgs)
+        private void LoginButtonOnClick(object sender, EventArgs eventArgs)
         {
             Login();
         }
 
         private void Login()
         {
-            var userName = mUserName.Text;
-            var password = mPasswordText.Text;
+            var userName = _userName.Text;
+            var password = _passwordText.Text;
             _presenter.Login(userName, password);
 
             //NavigateToMain();
@@ -87,37 +75,26 @@ namespace Softjourn.SJCoins.Droid.ui.activities
             return false;
         }
 
-    public override void ShowProgress(string message)
-        {
-            base.ShowProgress(message);
-        }
-
     public override void ShowSnackBar(string message)
         {
 
         }
 
-    public override void HideProgress()
+    public void SetUsernameError(string message)
         {
-            base.HideProgress();
+            _userName.RequestFocus();
+            _userName.SetError(message, null);
         }
 
-    public void SetUsernameError()
+    public void SetPasswordError(string message)
         {
-            mUserName.RequestFocus();
-            mUserName.SetError(GetString(Resource.String.activity_login_invalid_email), null);
+            _passwordText.RequestFocus();
+            _passwordText.SetError(message, null);
         }
 
-    public void SetPasswordError()
+    public void ToMainPage()
         {
-            mPasswordText.RequestFocus();
-            mPasswordText.SetError(GetString(Resource.String.activity_login_invalid_password),null);
-        }
-
-    public void NavigateToMain()
-        {
-            //mPresenter.onDestroy();
-            //mPresenter = null;
+            _presenter = null;
             //NavigationUtils.GoToVendingActivity(this);
             Finish();
         }
@@ -125,13 +102,13 @@ namespace Softjourn.SJCoins.Droid.ui.activities
     public void ShowMessage(string message)
         {
             Utils.ShowSnackBar(FindViewById(Resource.Id.login_root), message);
-            mUserName.StartAnimation(AnimationUtils.LoadAnimation(this, Resource.Animation.shake));
-            mPasswordText.StartAnimation(AnimationUtils.LoadAnimation(this, Resource.Animation.shake));
+            _userName.StartAnimation(AnimationUtils.LoadAnimation(this, Resource.Animation.shake));
+            _passwordText.StartAnimation(AnimationUtils.LoadAnimation(this, Resource.Animation.shake));
         }
 
-    public void ShowNoInternetError()
+    public void ShowNoInternetError(string message)
         {
-            OnNoInternetAvailable();
+            OnNoInternetAvailable(message);
         }
 
         public override void LogOut(IMenuItem item)
@@ -139,7 +116,7 @@ namespace Softjourn.SJCoins.Droid.ui.activities
             throw new NotImplementedException();
         }
 
-        public void NavigateToWelcome()
+        public void ToWelcomePage()
         {
             NavigationUtils.GoToWelcomeActivity(this);
             Finish();
