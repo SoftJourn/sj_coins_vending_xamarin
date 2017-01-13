@@ -8,7 +8,12 @@ using Android.Support.V4.Content;
 using Android.Support.V7.App;
 using Android.Views;
 using Android.Widget;
+using Autofac;
 using Java.Lang;
+using Softjourn.SJCoins.Core.UI.Bootstrapper;
+using Softjourn.SJCoins.Core.UI.Managers;
+using Softjourn.SJCoins.Droid.Bootstrapping;
+using Softjourn.SJCoins.Droid.Managers;
 using Softjourn.SJCoins.Droid.utils;
 using Square.Picasso;
 using String = System.String;
@@ -16,15 +21,18 @@ using String = System.String;
 namespace Softjourn.SJCoins.Droid.ui.baseUI
 {
     [Activity(Label = "BaseActivity")]
-    public abstract class BaseActivity : AppCompatActivity
+    public abstract class BaseActivity<TPresenter> : AppCompatActivity
+        where TPresenter : class
     {
         protected bool MProfileIsVisible = false;
         protected bool MConfirmDialogIsVisible = false;
 
         private ProgressDialog _progressDialog;
+        private ILifetimeScope _scope;
 
         protected Dialog ConfirmDialog;
 
+        protected TPresenter ViewPresenter { get; private set; }
 
         protected override void OnCreate(Bundle savedInstanceState)
         {
@@ -32,6 +40,11 @@ namespace Softjourn.SJCoins.Droid.ui.baseUI
 
             _progressDialog = new ProgressDialog(this);
             _progressDialog.SetProgressStyle(ProgressDialogStyle.Spinner);
+
+            _scope = BaseBootstrapper.Container.BeginLifetimeScope();
+
+            ViewPresenter = _scope.Resolve<TPresenter>();
+            ViewPresenter.AttachView(this);
         }
 
         public override bool OnCreateOptionsMenu(IMenu menu)
@@ -48,6 +61,12 @@ namespace Softjourn.SJCoins.Droid.ui.baseUI
                 default:
                     return base.OnOptionsItemSelected(item);
             }
+        }
+
+        protected override void OnDestroy()
+        {
+            base.OnDestroy();
+            ViewPresenter = null;
         }
 
         public virtual void HideProgress()
@@ -151,28 +170,5 @@ namespace Softjourn.SJCoins.Droid.ui.baseUI
         //    }
         //}
 
-
-        //public void OnCreateErrorDialog(string message)
-        //{
-        //    Dialog dialog = new Dialog(this);
-        //    dialog.Window.RequestFeature(WindowFeatures.NoTitle);
-        //    dialog.SetContentView(Resource.Layout.dialog_error);
-
-        //    // set the custom dialog components
-        //    var text = dialog.FindViewById<TextView>(Resource.Id.text);
-        //    text.Text = message;
-
-        //    var cancelButton = dialog.FindViewById<Button>(Resource.Id.dialogButtonCancel);
-        //    cancelButton.Click += (sender, e) =>
-        //    {
-        //        dialog.Dismiss();
-        //    };
-
-        //    if (!dialog.IsShowing)
-        //    {
-        //        dialog.Window.Attributes.WindowAnimations = Resource.Style.ConfirmDialogAnimation;
-        //        dialog.Show();
-        //    }
-        //}
     }
 }

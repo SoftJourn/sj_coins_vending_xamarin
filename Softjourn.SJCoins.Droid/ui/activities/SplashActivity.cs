@@ -42,7 +42,7 @@ namespace Softjourn.SJCoins.Droid.ui.activities
             Finish();
         }
 
-        public void ShowNoInternetError()
+        public void ShowNoInternetError(string message)
         {
             NavigationUtils.GoToNoInternetScreen(this);
             Finish();

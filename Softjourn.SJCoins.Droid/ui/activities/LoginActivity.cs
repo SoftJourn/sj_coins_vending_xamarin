@@ -14,7 +14,7 @@ using Softjourn.SJCoins.Droid.utils;
 namespace Softjourn.SJCoins.Droid.ui.activities
 {
     [Activity(Label = "SomeLabel", Theme = "@style/NoActionBarLoginTheme")]
-    public class LoginActivity : BaseActivity, ILoginView
+    public class LoginActivity : BaseActivity<LoginPresenter>, ILoginView
     {
 
     EditText _userName;
@@ -27,7 +27,7 @@ namespace Softjourn.SJCoins.Droid.ui.activities
 
     ImageView _arrowToWelcome;
 
-        private ILoginPresenter _presenter;
+        //private ILoginPresenter _presenter;
 
         protected override void OnCreate(Bundle savedInstanceState)
         {
@@ -37,13 +37,13 @@ namespace Softjourn.SJCoins.Droid.ui.activities
             _userName = FindViewById<EditText>(Resource.Id.input_email);
             _passwordText = FindViewById<EditText>(Resource.Id.input_password);
             _loginButton = FindViewById<Button>(Resource.Id.btn_login);
-            _linearLayout = FindViewById<LinearLayout>(Resource.Id.login_root);
+            _linearLayout = FindViewById<LinearLayout>(Resource.Id.layout_root);
             _arrowToWelcome = FindViewById<ImageView>(Resource.Id.link_to_welcome_activity);
 
             _loginButton.Click += LoginButtonOnClick;
             _arrowToWelcome.Click += LinkToWelcomeClick;
 
-            _presenter = new LoginPresenter(this);
+            //_presenter = new LoginPresenter(this);
         }
 
         private void LinkToWelcomeClick(object sender, EventArgs e)
@@ -60,7 +60,7 @@ namespace Softjourn.SJCoins.Droid.ui.activities
         {
             var userName = _userName.Text;
             var password = _passwordText.Text;
-            _presenter.Login(userName, password);
+            ViewPresenter.Login(userName, password);
 
             //NavigateToMain();
         }
@@ -94,14 +94,13 @@ namespace Softjourn.SJCoins.Droid.ui.activities
 
     public void ToMainPage()
         {
-            _presenter = null;
             //NavigationUtils.GoToVendingActivity(this);
             Finish();
         }
 
     public void ShowMessage(string message)
         {
-            Utils.ShowSnackBar(FindViewById(Resource.Id.login_root), message);
+            Utils.ShowSnackBar(FindViewById(Resource.Id.layout_root), message);
             _userName.StartAnimation(AnimationUtils.LoadAnimation(this, Resource.Animation.shake));
             _passwordText.StartAnimation(AnimationUtils.LoadAnimation(this, Resource.Animation.shake));
         }
