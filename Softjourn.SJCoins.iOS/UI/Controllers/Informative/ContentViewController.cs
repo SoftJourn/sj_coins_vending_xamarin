@@ -22,7 +22,7 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.Informative
 			base.ViewDidLoad();
 
 			Image.BackgroundColor = UIColor.Red.ColorWithAlpha(0.7f);
-			View.BackgroundColor = UIColor.Gray.ColorWithAlpha(0.7f);
+			//View.BackgroundColor = UIColor.Black.ColorWithAlpha(0.7f);
 			TitleLabel.Text = Title;
 		}
 	}
