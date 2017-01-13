@@ -5,13 +5,12 @@ using Softjourn.SJCoins.Core.Utils;
 
 namespace Softjourn.SJCoins.Core.UI.Presenters
 {
-    public class LoginPresenter : BasePresenter, ILoginPresenter
+    public class LoginPresenter : BasePresenter<ILoginView>
     {
-        private ILoginView _view;
 
-        public LoginPresenter(ILoginView view)
+        public LoginPresenter()
         {
-            _view = view;
+
         }
 
         public enum ValidateCredentialsResult { FieldsAreAmpty, UserNameNotValid, PasswordNotValid, CredentialsAreValid }
@@ -22,25 +21,25 @@ namespace Softjourn.SJCoins.Core.UI.Presenters
             switch (Utils.Validators.ValidateCredentials(userName, password))
             {
                 case ValidateCredentialsResult.FieldsAreAmpty:
-                    _view.SetUsernameError(Resources.StringResources.activity_login_invalid_email);
+                    View.SetUsernameError(Resources.StringResources.activity_login_invalid_email);
                     break;
                 case ValidateCredentialsResult.UserNameNotValid:
-                    _view.SetUsernameError(Resources.StringResources.activity_login_invalid_email);
+                    View.SetUsernameError(Resources.StringResources.activity_login_invalid_email);
                     break;
                 case ValidateCredentialsResult.PasswordNotValid:
-                    _view.SetPasswordError(Resources.StringResources.activity_login_invalid_password);
+                    View.SetPasswordError(Resources.StringResources.activity_login_invalid_password);
                     break;
                 default:
-                    _view.ShowProgress(Resources.StringResources.progress_authenticating);
+                    View.ShowProgress(Resources.StringResources.progress_authenticating);
                     
                     if (NetworkUtils.isConnected)
                         {
-                         //    mModel.makeLoginCall(userName, password);
-                            _view.ShowMessage("There should be call");
+                        //    mModel.makeLoginCall(userName, password);
+                        View.ShowMessage("There should be call");
                         }
                         else
                         {
-                            _view.ShowNoInternetError(Resources.StringResources.internet_turned_off);
+                        View.ShowNoInternetError(Resources.StringResources.internet_turned_off);
                         }
                         break;
             }
@@ -48,7 +47,7 @@ namespace Softjourn.SJCoins.Core.UI.Presenters
 
         public void ToWelcomePage()
         {
-            _view.ToWelcomePage();
+            View.ToWelcomePage();
         }
     }
 }

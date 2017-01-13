@@ -100,5 +100,15 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers
 			//show no internet alert
 			new AlertManager().PresentAlert(message);
 		}
+
+		public void AttachEvents()
+		{
+			
+		}
+
+		public void DetachEvents()
+		{
+			
+		}
 	}
 }

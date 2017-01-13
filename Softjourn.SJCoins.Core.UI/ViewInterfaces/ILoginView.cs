@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Softjourn.SJCoins.Core.UI.ViewInterfaces
 {
-    public interface ILoginView
+    public interface ILoginView : IBaseView
     {
         void SetUsernameError(string message);
 

@@ -12,7 +12,6 @@ namespace Softjourn.SJCoins.Core.UI.Bootstrapper.Modules
     {
         protected override void Load(ContainerBuilder builder)
         {
-            builder.RegisterType<BasePresenter>().AsSelf();
             builder.RegisterType<LaunchPresenter>().AsSelf();
             builder.RegisterType<WelcomePresenter>().AsSelf();
             builder.RegisterType<LoginPresenter>().AsSelf();

@@ -104,6 +104,9 @@
     <Reference Include="Plugin.Connectivity">
       <HintPath>..\packages\Xam.Plugin.Connectivity.2.3.0\lib\Xamarin.iOS10\Plugin.Connectivity.dll</HintPath>
     </Reference>
+    <Reference Include="Autofac">
+      <HintPath>..\packages\Autofac.3.5.2\lib\portable-net4+sl5+netcore45+wpa81+wp8+MonoAndroid1+MonoTouch1\Autofac.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Softjourn.SJCoins\Softjourn.SJCoins.csproj">
@@ -130,6 +133,7 @@
     <Folder Include="Assets.xcassets\vending_machine.imageset\" />
     <Folder Include="UI\Controllers\Informative\" />
     <Folder Include="Managers\" />
+    <Folder Include="Bootstraper\" />
   </ItemGroup>
   <ItemGroup>
     <InterfaceDefinition Include="LaunchScreen.storyboard" />
@@ -167,6 +171,7 @@
       <DependentUpon>InformativeViewController.cs</DependentUpon>
     </Compile>
     <Compile Include="Managers\NavigationManager.cs" />
+    <Compile Include="Bootstraper\Bootstraper.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
 

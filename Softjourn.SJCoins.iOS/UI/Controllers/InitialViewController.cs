@@ -24,7 +24,8 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers
 			base.ViewDidLoad();
 
 			//Create Presenter
-			_launchPresenter = new LaunchPresenter(this);
+			_launchPresenter = new LaunchPresenter();
+			_launchPresenter.AttachView(this);
 		}
 
 		public override void ViewWillAppear(bool animated)
@@ -35,6 +36,13 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers
 			_launchPresenter.ChooseStartPage();
 		}
 
+		protected override void Dispose(bool disposing)
+		{
+			base.Dispose(disposing);
+
+			_launchPresenter.DetachView();
+		}
+
 		//ILaunchView Interface
 		public void ShowNoInternetError(string msg)
 		{
@@ -42,9 +50,9 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers
 			new AlertManager().PresentAlert(msg);
 		}
 
-		public void ToWelcomePage()
+		public void ToLoginPage()
 		{
-			//navigate to welcome page
+			//navigate to login page
 		}
 
 		public void ToMainPage()
@@ -52,9 +60,9 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers
 			//navigate to main page
 		}
 
-		public void ToLoginPage()
+		public void ToWelcomePage()
 		{
-			//navigate to login page
+			//navigate to welcome page
 		}
 	}
 }

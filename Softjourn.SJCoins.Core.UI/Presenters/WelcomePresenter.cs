@@ -4,14 +4,11 @@ using Softjourn.SJCoins.Core.UI.ViewInterfaces;
 
 namespace Softjourn.SJCoins.Core.UI.Presenters
 {
-    public class WelcomePresenter : BasePresenter, IWelcomePresenter
+    public class WelcomePresenter : BasePresenter<IWelcomeView>
     {
 
-        private IWelcomeView _view;
-
-        public WelcomePresenter(IWelcomeView view)
+        public WelcomePresenter()
         {
-            _view = view;
         }
 
         public void DisableWelcomePageOnLaunch()
@@ -21,7 +18,7 @@ namespace Softjourn.SJCoins.Core.UI.Presenters
 
         public void ToLoginScreen()
         {
-            _view.ToLoginPage();
+            View.ToLoginPage();
         }
     }
 }
