@@ -1,13 +1,15 @@
 ﻿
+using System;
 using Softjourn.SJCoins.Core.Helpers;
 using Softjourn.SJCoins.Core.UI.Presenters;
 using Softjourn.SJCoins.Core.UI.Presenters.IPresenters;
+using Softjourn.SJCoins.Core.UI.Services.Navigation;
 using Softjourn.SJCoins.Core.UI.ViewInterfaces;
 using Softjourn.SJCoins.Core.Utils;
 
 namespace Softjourn.SJCoins.Core.UI.Presenters
 {
-    public class LaunchPresenter : BasePresenter<ILaunchView>
+    public class LaunchPresenter : BasePresenter<ILaunchView>, INetworkConnection
     {
 		SJCoins.iOS.UI.Controllers.InitialViewController initialViewController;
 
@@ -27,24 +29,35 @@ namespace Softjourn.SJCoins.Core.UI.Presenters
             {
                 if (Settings.FirstLaunch)
                 {
-                    View.ToWelcomePage();
+                    NavigationService.NavigateToAsRoot(NavigationPage.Welcome);
                 }
                 else
                 {
                     if (string.IsNullOrEmpty(Settings.AccessToken))
                     {
-                        View.ToLoginPage();
+                        NavigationService.NavigateToAsRoot(NavigationPage.Login);
                     }
                     else
                     {
-                        View.ToMainPage();
+                        NavigationService.NavigateToAsRoot(NavigationPage.Main);
                     }
                 }
             }
             else
             {
                 View.ShowNoInternetError(Resources.StringResources.internet_turned_off);
+                NetworkUtils.onConnectionChanged(this);
             }
+        }
+
+        public void OnInternetAppeared()
+        {
+            ChooseStartPage();
+        }
+
+        public void OnInternetDismissed()
+        {
+            // nothing
         }
     }
 }

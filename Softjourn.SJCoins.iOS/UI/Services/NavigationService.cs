@@ -1,9 +1,11 @@
 ﻿using System;
+using Softjourn.SJCoins.Core.UI.Services.Navigation;
+using Softjourn.SJCoins.iOS.General.Constants;
 using UIKit;
 
 namespace Softjourn.SJCoins.iOS.Services
 {
-	public class NavigationService //: INavigationService
+	public class NavigationService : INavigationService
 	{
 		private AppDelegate _currentApplication;
 
@@ -13,24 +15,24 @@ namespace Softjourn.SJCoins.iOS.Services
 		}
 
 		#region INavigationService implementation
-		void Navigate(NavigationPage page)
+
+		public void NavigateTo(NavigationPage page)
 		{
 			try
 			{
-				if (page == null)
-					throw new ArgumentNullException("page");
+				//if (page == null)
+				//	throw new ArgumentNullException("page");
 
-				var visibleController = _currentApplication.VisibleViewController;
-				if (visibleController == null)
-					throw new Exception("Visible Controller is null");
+				//var visibleController = _currentApplication.VisibleViewController;
+				//if (visibleController == null)
+				//	throw new Exception("Visible Controller is null");
 
-				PresentAsRoot(GetRootController(page));
 			}
 			catch { }
 		}
 
-		void NavigateAsRoot(NavigationPage page)
-		{					
+		public void NavigateToAsRoot(NavigationPage page)
+		{
 			try
 			{
 				if (page == null)
@@ -51,19 +53,16 @@ namespace Softjourn.SJCoins.iOS.Services
 		{
 			switch (page)
 			{
-				case NavigationPage.Login:
-					storyboard = UIStoryboard.FromName(StoryboardConstants.StoryboardLogin, null);
-					break;
-
+				// If Welcome page or Login page instantiate from Login storyboard
 				case NavigationPage.Welcome:
-					storyboard = UIStoryboard.FromName(StoryboardConstants.StoryboardAdmin, null);
-					break;
-
+				case NavigationPage.Login:
+					return InstantiateInitial(StoryboardConstants.StoryboardLogin);
+				
+				// If Main page instantiate from Main storyboard
+				
 				default:
 					throw new ArgumentException("Not valid page");
 			}
-
-
 		}
 
 		private UIViewController GetController(NavigationPage page)
@@ -71,10 +70,14 @@ namespace Softjourn.SJCoins.iOS.Services
 
 		}
 
-
-		private UIViewController Instantiate(string storyboard, string viewcontroller)
+		private UIViewController InstantiateInitial(string storyboard)
 		{
-			return UIStoryboard.FromName(storyboard, null).InstantiateViewController(viewcontroller);
+			return UIStoryboard.FromName(storyboard, null).InstantiateInitialViewController();
+		}
+
+		private UIViewController Instantiate(string storyboard, string identifier)
+		{
+			return UIStoryboard.FromName(storyboard, null).InstantiateViewController(identifier);
 		}
 
 		private void PresentAsRoot(UIViewController viewController)

@@ -11,7 +11,8 @@
 
 		#region Controllers
 
-		public const string ControllerLogin = "LoginController";
+		public const string LoginViewController = "LoginViewController";
+		public const string InformativeViewController = "InformativeViewController";
 
 		#endregion
 

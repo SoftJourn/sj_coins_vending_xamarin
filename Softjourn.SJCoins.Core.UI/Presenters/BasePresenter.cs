@@ -1,4 +1,4 @@
-﻿using Softjourn.SJCoins.Core.UI.Managers;
+﻿
 using Softjourn.SJCoins.Core.UI.Presenters.IPresenters;
 using System;
 using System.Collections.Generic;
@@ -6,15 +6,25 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Softjourn.SJCoins.Core.UI.ViewInterfaces;
+using Softjourn.SJCoins.Core.UI.Services.Navigation;
+using Softjourn.SJCoins.Core.UI.Services.Alert;
 
 namespace Softjourn.SJCoins.Core.UI.Presenters
 {
-    public class BasePresenter<TView> : IBasePresenter<TView> where TView : class, IBaseView
+    public class BasePresenter<TView> : IBasePresenter where TView : class, IBaseView
     {
-        public IAlertManager _alertManager;
-        public IAlertManager AlertManager
+        private INavigationService _navigationService;
+        public INavigationService NavigationService
         {
-            set { _alertManager = value; }
+            get { return _navigationService; }
+            set { _navigationService = value; }
+        }
+
+        private IAlertService _alertService;
+        public IAlertService AlertService
+        {
+            get { return _alertService; }
+            set { _alertService = value; }
         }
 
         public BasePresenter()

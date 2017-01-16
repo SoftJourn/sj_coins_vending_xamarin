@@ -33,7 +33,7 @@
     <Compile Include="Bootstrapper\Modules\ApiModule.cs" />
     <Compile Include="Bootstrapper\Modules\ManagerModule.cs" />
     <Compile Include="Bootstrapper\Modules\PresenterModule.cs" />
-    <Compile Include="Managers\IAlertManager.cs" />
+    <Compile Include="Services\Alert\IAlertService.cs" />
     <Compile Include="Presenters\BasePresenter.cs" />
     <Compile Include="Presenters\IPresenters\IBasePresenter.cs" />
     <Compile Include="Presenters\IPresenters\ILaunchPresenter.cs" />
@@ -48,6 +48,8 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>StringResources.resx</DependentUpon>
     </Compile>
+    <Compile Include="Services\Navigation\INavigationService.cs" />
+    <Compile Include="Services\Navigation\NavigationPage.cs" />
     <Compile Include="Utils\Validators.cs" />
     <Compile Include="ViewInterfaces\IBaseView.cs" />
     <Compile Include="ViewInterfaces\ILaunchView.cs" />
@@ -74,6 +76,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Managers\" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
 </Project>
