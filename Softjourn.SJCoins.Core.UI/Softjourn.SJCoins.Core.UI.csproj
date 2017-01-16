@@ -33,7 +33,7 @@
     <Compile Include="Bootstrapper\Modules\ApiModule.cs" />
     <Compile Include="Bootstrapper\Modules\ManagerModule.cs" />
     <Compile Include="Bootstrapper\Modules\PresenterModule.cs" />
-    <Compile Include="Managers\IAlertManager.cs" />
+    <Compile Include="Services\Alert\IAlertService.cs" />
     <Compile Include="Presenters\BasePresenter.cs" />
     <Compile Include="Presenters\IPresenters\IBasePresenter.cs" />
     <Compile Include="Presenters\IPresenters\ILaunchPresenter.cs" />
@@ -77,6 +77,8 @@
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Managers\" />
+  </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
 </Project>
