@@ -48,6 +48,8 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>StringResources.resx</DependentUpon>
     </Compile>
+    <Compile Include="Services\Navigation\INavigationService.cs" />
+    <Compile Include="Services\Navigation\NavigationPage.cs" />
     <Compile Include="Utils\Validators.cs" />
     <Compile Include="ViewInterfaces\IBaseView.cs" />
     <Compile Include="ViewInterfaces\ILaunchView.cs" />
@@ -75,5 +77,6 @@
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
 </Project>
