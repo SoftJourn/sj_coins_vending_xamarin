@@ -1,28 +1,20 @@
 using System;
 using Android.App;
-using Android.Content;
-using Android.Content.Res;
-using Android.Graphics;
 using Android.OS;
-using Android.Support.V4.Content;
 using Android.Support.V7.App;
 using Android.Views;
-using Android.Widget;
 using Autofac;
-using Java.Lang;
 using Softjourn.SJCoins.Core.UI.Bootstrapper;
-using Softjourn.SJCoins.Core.UI.Managers;
-using Softjourn.SJCoins.Droid.Bootstrapping;
-using Softjourn.SJCoins.Droid.Managers;
+using Softjourn.SJCoins.Core.UI.Presenters.IPresenters;
+using Softjourn.SJCoins.Core.UI.ViewInterfaces;
 using Softjourn.SJCoins.Droid.utils;
-using Square.Picasso;
 using String = System.String;
 
 namespace Softjourn.SJCoins.Droid.ui.baseUI
 {
     [Activity(Label = "BaseActivity")]
-    public abstract class BaseActivity<TPresenter> : AppCompatActivity
-        where TPresenter : class
+    public abstract class BaseActivity<TPresenter> : AppCompatActivity, IBaseView
+        where TPresenter : class, IBasePresenter
     {
         protected bool MProfileIsVisible = false;
         protected bool MConfirmDialogIsVisible = false;
@@ -95,6 +87,16 @@ namespace Softjourn.SJCoins.Droid.ui.baseUI
         public abstract void ShowSnackBar(string message);
 
         public abstract void LogOut(IMenuItem item);
+
+        public void AttachEvents()
+        {
+            throw new NotImplementedException();
+        }
+
+        public void DetachEvents()
+        {
+            throw new NotImplementedException();
+        }
 
         //protected void OnCreateConfirmDialog(Product product)//, PurchaseContract.Presenter presenter)
         //{

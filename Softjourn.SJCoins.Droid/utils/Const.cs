@@ -64,5 +64,7 @@ namespace Softjourn.SJCoins.Droid.utils
         public const string IsFirstTimeLaunch = "IS_FIRST_TIME_LAUNCH";
 
         public const string ExtrasCategory = "CATEGORY";
+
+        public const string NavigationKey = "NavigationParams";
     }
 }

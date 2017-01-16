@@ -9,7 +9,7 @@ using Softjourn.SJCoins.Core.UI.ViewInterfaces;
 
 namespace Softjourn.SJCoins.Core.UI.Presenters
 {
-    public class BasePresenter<TView> : IBasePresenter<TView> where TView : class, IBaseView
+    public class BasePresenter<TView> : IBasePresenter where TView : class, IBaseView
     {
         public IAlertManager _alertManager;
         public IAlertManager AlertManager

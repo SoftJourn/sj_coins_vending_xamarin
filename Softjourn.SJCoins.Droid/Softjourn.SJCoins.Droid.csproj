@@ -45,6 +45,10 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="Java.Interop" />
+    <Reference Include="Newtonsoft.Json, Version=9.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.9.0.1\lib\portable-net45+wp80+win8+wpa81\Newtonsoft.Json.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Plugin.Connectivity, Version=2.3.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Xam.Plugin.Connectivity.2.3.0\lib\MonoAndroid10\Plugin.Connectivity.dll</HintPath>
       <Private>True</Private>
@@ -142,10 +146,11 @@
     <Compile Include="Bootstrapping\Bootstrapper.cs" />
     <Compile Include="MainApplication.cs" />
     <Compile Include="Managers\AlertManager.cs" />
-    <Compile Include="Receivers\InternetBroadcastListener.cs" />
     <Compile Include="Resources\Resource.designer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\NavigationService.cs" />
     <Compile Include="ui\activities\LoginActivity.cs" />
+    <Compile Include="ui\activities\MainActivity.cs" />
     <Compile Include="ui\activities\NoInternetActivity.cs" />
     <Compile Include="ui\activities\SplashActivity.cs" />
     <Compile Include="ui\activities\WelcomeActivity.cs" />
@@ -173,6 +178,9 @@
     <AndroidResource Include="Resources\layout\activity_welcome.axml" />
     <AndroidResource Include="Resources\layout\activity_no_internet.axml" />
     <AndroidResource Include="Resources\layout\dialog_error.axml" />
+    <AndroidResource Include="Resources\layout\activity_main.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\values\Strings.xml" />

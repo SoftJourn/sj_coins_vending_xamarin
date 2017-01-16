@@ -12,7 +12,9 @@ using Android.Widget;
 using Autofac;
 using Softjourn.SJCoins.Core.UI.Bootstrapper;
 using Softjourn.SJCoins.Core.UI.Managers;
+using Softjourn.SJCoins.Core.UI.Services.Navigation;
 using Softjourn.SJCoins.Droid.Managers;
+using Softjourn.SJCoins.Droid.Services;
 
 namespace Softjourn.SJCoins.Droid.Bootstrapping
 {
@@ -26,6 +28,7 @@ namespace Softjourn.SJCoins.Droid.Bootstrapping
         protected override void RegisterUIDependencies(ContainerBuilder builder)
         {
             builder.RegisterType<AlertManager>().As<IAlertManager>().SingleInstance();
+            builder.RegisterType<NavigationService>().As<INavigationService>().SingleInstance();
         }
     }
 }

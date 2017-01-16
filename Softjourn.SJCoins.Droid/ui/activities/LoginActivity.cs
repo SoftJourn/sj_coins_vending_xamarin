@@ -117,8 +117,18 @@ namespace Softjourn.SJCoins.Droid.ui.activities
 
         public void ToWelcomePage()
         {
-            NavigationUtils.GoToWelcomeActivity(this);
+            ViewPresenter.ToWelcomePage();
             Finish();
+        }
+
+        public void AttachEvents()
+        {
+            throw new NotImplementedException();
+        }
+
+        public void DetachEvents()
+        {
+            throw new NotImplementedException();
         }
     }
 }

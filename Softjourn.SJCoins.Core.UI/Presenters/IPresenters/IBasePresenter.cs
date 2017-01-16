@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Softjourn.SJCoins.Core.UI.Presenters.IPresenters
 {
-    public interface IBasePresenter<TView> where TView : class, IBaseView
+    public interface IBasePresenter
     {
         void AttachView(IBaseView view);
         void DetachView();
