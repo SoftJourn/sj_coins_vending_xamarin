@@ -13,6 +13,7 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers
 	{
 		//Properties
 		private LoginPresenter _loginPresenter;
+		private KeyboardScrollService _scrollService;
 
 		//Constructor
 		public LoginViewController(IntPtr handle) : base(handle)
