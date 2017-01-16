@@ -1,19 +1,18 @@
 ﻿
 using Softjourn.SJCoins.Core.Helpers;
+using Softjourn.SJCoins.Core.UI.Presenters;
 using Softjourn.SJCoins.Core.UI.Presenters.IPresenters;
 using Softjourn.SJCoins.Core.UI.ViewInterfaces;
 using Softjourn.SJCoins.Core.Utils;
 
 namespace Softjourn.SJCoins.Core.UI.Presenters
 {
-    public class LaunchPresenter : BasePresenter, ILaunchPresenter
+    public class LaunchPresenter : BasePresenter<ILaunchView>
     {
 
-        private ILaunchView _view;
-
-        public LaunchPresenter(ILaunchView view)
+        public LaunchPresenter()
         {
-            _view = view;
+
         }
 
         public void ChooseStartPage()
@@ -22,23 +21,23 @@ namespace Softjourn.SJCoins.Core.UI.Presenters
             {
                 if (Settings.FirstLaunch)
                 {
-                    _view.ToWelcomePage();
+                    View.ToWelcomePage();
                 }
                 else
                 {
                     if (string.IsNullOrEmpty(Settings.AccessToken))
                     {
-                        _view.ToLoginPage();
+                        View.ToLoginPage();
                     }
                     else
                     {
-                        _view.ToMainPage();
+                        View.ToMainPage();
                     }
                 }
             }
             else
             {
-                _view.ShowNoInternetError(Resources.StringResources.internet_turned_off);
+                View.ShowNoInternetError(Resources.StringResources.internet_turned_off);
             }
         }
     }

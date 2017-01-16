@@ -23,7 +23,7 @@ namespace Softjourn.SJCoins.Core.UI.Resources {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    internal class StringResources {
+    public class StringResources {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
@@ -37,7 +37,7 @@ namespace Softjourn.SJCoins.Core.UI.Resources {
         ///   Returns the cached ResourceManager instance used by this class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Resources.ResourceManager ResourceManager {
+        public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
                     global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Softjourn.SJCoins.Core.UI.Resources.StringResources", typeof(StringResources).GetTypeInfo().Assembly);
@@ -52,7 +52,7 @@ namespace Softjourn.SJCoins.Core.UI.Resources {
         ///   resource lookups using this strongly typed resource class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Globalization.CultureInfo Culture {
+        public static global::System.Globalization.CultureInfo Culture {
             get {
                 return resourceCulture;
             }
@@ -64,7 +64,7 @@ namespace Softjourn.SJCoins.Core.UI.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Login should contain only lower case alphabetical characters.
         /// </summary>
-        internal static string activity_login_invalid_email {
+        public static string activity_login_invalid_email {
             get {
                 return ResourceManager.GetString("activity_login_invalid_email", resourceCulture);
             }
@@ -73,7 +73,7 @@ namespace Softjourn.SJCoins.Core.UI.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Password should not be empty.
         /// </summary>
-        internal static string activity_login_invalid_password {
+        public static string activity_login_invalid_password {
             get {
                 return ResourceManager.GetString("activity_login_invalid_password", resourceCulture);
             }
@@ -82,7 +82,7 @@ namespace Softjourn.SJCoins.Core.UI.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Login failed.
         /// </summary>
-        internal static string activity_login_login_failed {
+        public static string activity_login_login_failed {
             get {
                 return ResourceManager.GetString("activity_login_login_failed", resourceCulture);
             }
@@ -91,7 +91,7 @@ namespace Softjourn.SJCoins.Core.UI.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Please take your order.
         /// </summary>
-        internal static string activity_product_take_your_order_message {
+        public static string activity_product_take_your_order_message {
             get {
                 return ResourceManager.GetString("activity_product_take_your_order_message", resourceCulture);
             }
@@ -100,7 +100,7 @@ namespace Softjourn.SJCoins.Core.UI.Resources {
         /// <summary>
         ///   Looks up a localized string similar to SJCoins.
         /// </summary>
-        internal static string app_name {
+        public static string app_name {
             get {
                 return ResourceManager.GetString("app_name", resourceCulture);
             }
@@ -109,7 +109,7 @@ namespace Softjourn.SJCoins.Core.UI.Resources {
         /// <summary>
         ///   Looks up a localized string similar to No Internet connection.
         /// </summary>
-        internal static string internet_turned_off {
+        public static string internet_turned_off {
             get {
                 return ResourceManager.GetString("internet_turned_off", resourceCulture);
             }
@@ -118,7 +118,7 @@ namespace Softjourn.SJCoins.Core.UI.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Please choose machine for correct work of application.
         /// </summary>
-        internal static string machine_not_selected_toast {
+        public static string machine_not_selected_toast {
             get {
                 return ResourceManager.GetString("machine_not_selected_toast", resourceCulture);
             }
@@ -127,7 +127,7 @@ namespace Softjourn.SJCoins.Core.UI.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Sorry… There is no purchases yet.
         /// </summary>
-        internal static string no_purchases_yet {
+        public static string no_purchases_yet {
             get {
                 return ResourceManager.GetString("no_purchases_yet", resourceCulture);
             }
@@ -136,7 +136,7 @@ namespace Softjourn.SJCoins.Core.UI.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Authenticating….
         /// </summary>
-        internal static string progress_authenticating {
+        public static string progress_authenticating {
             get {
                 return ResourceManager.GetString("progress_authenticating", resourceCulture);
             }
@@ -145,7 +145,7 @@ namespace Softjourn.SJCoins.Core.UI.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Loading.
         /// </summary>
-        internal static string progress_loading {
+        public static string progress_loading {
             get {
                 return ResourceManager.GetString("progress_loading", resourceCulture);
             }
@@ -154,7 +154,7 @@ namespace Softjourn.SJCoins.Core.UI.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Not clear request to server.
         /// </summary>
-        internal static string server_error_400 {
+        public static string server_error_400 {
             get {
                 return ResourceManager.GetString("server_error_400", resourceCulture);
             }
@@ -163,7 +163,7 @@ namespace Softjourn.SJCoins.Core.UI.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Something wrong with your authentication. Check your credentials.
         /// </summary>
-        internal static string server_error_401 {
+        public static string server_error_401 {
             get {
                 return ResourceManager.GetString("server_error_401", resourceCulture);
             }
@@ -172,7 +172,7 @@ namespace Softjourn.SJCoins.Core.UI.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Resource is not found.
         /// </summary>
-        internal static string server_error_404 {
+        public static string server_error_404 {
             get {
                 return ResourceManager.GetString("server_error_404", resourceCulture);
             }
@@ -181,7 +181,7 @@ namespace Softjourn.SJCoins.Core.UI.Resources {
         /// <summary>
         ///   Looks up a localized string similar to There is no machines.
         /// </summary>
-        internal static string server_error_40401 {
+        public static string server_error_40401 {
             get {
                 return ResourceManager.GetString("server_error_40401", resourceCulture);
             }
@@ -190,7 +190,7 @@ namespace Softjourn.SJCoins.Core.UI.Resources {
         /// <summary>
         ///   Looks up a localized string similar to There is not such machine.
         /// </summary>
-        internal static string server_error_40402 {
+        public static string server_error_40402 {
             get {
                 return ResourceManager.GetString("server_error_40402", resourceCulture);
             }
@@ -199,7 +199,7 @@ namespace Softjourn.SJCoins.Core.UI.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Data could not be downloaded. Please try again later.
         /// </summary>
-        internal static string server_error_40403 {
+        public static string server_error_40403 {
             get {
                 return ResourceManager.GetString("server_error_40403", resourceCulture);
             }
@@ -208,7 +208,7 @@ namespace Softjourn.SJCoins.Core.UI.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Keep Calm! Chosen product is not available now. Please try to refresh products list.
         /// </summary>
-        internal static string server_error_40404 {
+        public static string server_error_40404 {
             get {
                 return ResourceManager.GetString("server_error_40404", resourceCulture);
             }
@@ -217,7 +217,7 @@ namespace Softjourn.SJCoins.Core.UI.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Data could not be downloaded. Please try again later.
         /// </summary>
-        internal static string server_error_40405 {
+        public static string server_error_40405 {
             get {
                 return ResourceManager.GetString("server_error_40405", resourceCulture);
             }
@@ -226,7 +226,7 @@ namespace Softjourn.SJCoins.Core.UI.Resources {
         /// <summary>
         ///   Looks up a localized string similar to There is no such product. Please try to refresh products list.
         /// </summary>
-        internal static string server_error_40406 {
+        public static string server_error_40406 {
             get {
                 return ResourceManager.GetString("server_error_40406", resourceCulture);
             }
@@ -235,7 +235,7 @@ namespace Softjourn.SJCoins.Core.UI.Resources {
         /// <summary>
         ///   Looks up a localized string similar to There is no such product. Please try to refresh products list.
         /// </summary>
-        internal static string server_error_40407 {
+        public static string server_error_40407 {
             get {
                 return ResourceManager.GetString("server_error_40407", resourceCulture);
             }
@@ -244,7 +244,7 @@ namespace Softjourn.SJCoins.Core.UI.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Unfortunately your History could not be downloaded.
         /// </summary>
-        internal static string server_error_40408 {
+        public static string server_error_40408 {
             get {
                 return ResourceManager.GetString("server_error_40408", resourceCulture);
             }
@@ -253,7 +253,7 @@ namespace Softjourn.SJCoins.Core.UI.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Account is not correct and could not be found.
         /// </summary>
-        internal static string server_error_40409 {
+        public static string server_error_40409 {
             get {
                 return ResourceManager.GetString("server_error_40409", resourceCulture);
             }
@@ -262,7 +262,7 @@ namespace Softjourn.SJCoins.Core.UI.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Could not find your amount. Please contact administrator.
         /// </summary>
-        internal static string server_error_40410 {
+        public static string server_error_40410 {
             get {
                 return ResourceManager.GetString("server_error_40410", resourceCulture);
             }
@@ -271,7 +271,7 @@ namespace Softjourn.SJCoins.Core.UI.Resources {
         /// <summary>
         ///   Looks up a localized string similar to There is some conflict with data on the server.
         /// </summary>
-        internal static string server_error_409 {
+        public static string server_error_409 {
             get {
                 return ResourceManager.GetString("server_error_409", resourceCulture);
             }
@@ -280,7 +280,7 @@ namespace Softjourn.SJCoins.Core.UI.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Ooops… You have not enough money to buy product.
         /// </summary>
-        internal static string server_error_40901 {
+        public static string server_error_40901 {
             get {
                 return ResourceManager.GetString("server_error_40901", resourceCulture);
             }
@@ -289,7 +289,7 @@ namespace Softjourn.SJCoins.Core.UI.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Product is already in favorites.
         /// </summary>
-        internal static string server_error_40902 {
+        public static string server_error_40902 {
             get {
                 return ResourceManager.GetString("server_error_40902", resourceCulture);
             }
@@ -298,7 +298,7 @@ namespace Softjourn.SJCoins.Core.UI.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Product is not in favorites.
         /// </summary>
-        internal static string server_error_40903 {
+        public static string server_error_40903 {
             get {
                 return ResourceManager.GetString("server_error_40903", resourceCulture);
             }
@@ -307,7 +307,7 @@ namespace Softjourn.SJCoins.Core.UI.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Machine is locked by queue. Try again later.
         /// </summary>
-        internal static string server_error_509 {
+        public static string server_error_509 {
             get {
                 return ResourceManager.GetString("server_error_509", resourceCulture);
             }
@@ -316,7 +316,7 @@ namespace Softjourn.SJCoins.Core.UI.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Right now machine is locked by queue. We know it&apos;s annoying. But please try again later.
         /// </summary>
-        internal static string server_error_50901 {
+        public static string server_error_50901 {
             get {
                 return ResourceManager.GetString("server_error_50901", resourceCulture);
             }
@@ -325,7 +325,7 @@ namespace Softjourn.SJCoins.Core.UI.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Unfortunately service is not available right now. Just try again later.
         /// </summary>
-        internal static string server_error_other {
+        public static string server_error_other {
             get {
                 return ResourceManager.GetString("server_error_other", resourceCulture);
             }
@@ -334,7 +334,7 @@ namespace Softjourn.SJCoins.Core.UI.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Currently there are no products in this category.
         /// </summary>
-        internal static string there_are_no_items {
+        public static string there_are_no_items {
             get {
                 return ResourceManager.GetString("there_are_no_items", resourceCulture);
             }
@@ -343,7 +343,7 @@ namespace Softjourn.SJCoins.Core.UI.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Your balance is %s coins.
         /// </summary>
-        internal static string your_balance_is {
+        public static string your_balance_is {
             get {
                 return ResourceManager.GetString("your_balance_is", resourceCulture);
             }
