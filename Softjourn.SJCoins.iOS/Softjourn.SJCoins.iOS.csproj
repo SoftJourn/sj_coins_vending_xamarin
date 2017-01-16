@@ -134,7 +134,11 @@
     <Folder Include="UI\Controllers\Informative\" />
     <Folder Include="Managers\" />
     <Folder Include="Bootstraper\" />
-    <Folder Include="Services\" />
+    <Folder Include="UI\Services\" />
+    <Folder Include="PlatformServices\" />
+    <Folder Include="UI\Views\" />
+    <Folder Include="General\" />
+    <Folder Include="General\Constants\" />
   </ItemGroup>
   <ItemGroup>
     <InterfaceDefinition Include="LaunchScreen.storyboard" />
@@ -173,9 +177,11 @@
     </Compile>
     <Compile Include="Managers\NavigationManager.cs" />
     <Compile Include="Bootstraper\Bootstraper.cs" />
-    <Compile Include="Services\NavigationService.cs" />
-    <Compile Include="Services\KeyboardScrollService.cs" />
-    <Compile Include="Services\FullScreenLoaderService.cs" />
+    <Compile Include="UI\Services\FullScreenLoaderService.cs" />
+    <Compile Include="UI\Services\KeyboardScrollService.cs" />
+    <Compile Include="UI\Services\NavigationService.cs" />
+    <Compile Include="UI\Services\AlertService.cs" />
+    <Compile Include="General\Constants\StoryboardConstants.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
 

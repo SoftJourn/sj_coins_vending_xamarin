@@ -1,5 +1,6 @@
 ﻿using Foundation;
 using UIKit;
+using Softjourn.SJCoins.iOS.Bootstraper;
 
 namespace Softjourn.SJCoins.iOS
 {
@@ -10,16 +11,12 @@ namespace Softjourn.SJCoins.iOS
     {
         // class-level declarations
 
-        public override UIWindow Window
-        {
-            get;
-            set;
-        }
+        public override UIWindow Window { get; set; }
+		public UIViewController VisibleViewController { get; set; }
 
         public override bool FinishedLaunching(UIApplication application, NSDictionary launchOptions)
         {
-            // Override point for customization after application launch.
-            // If not required for your application you can safely delete this method
+			InitIoC();
 
             return true;
         }
@@ -54,6 +51,10 @@ namespace Softjourn.SJCoins.iOS
         {
             // Called when the application is about to terminate. Save data, if needed. See also DidEnterBackground.
         }
+
+		private void InitIoC()
+		{
+			new Bootstraper.Bootstraper().Init();
+		}
     }
 }
-
