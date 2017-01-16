@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Softjourn.SJCoins.Core.UI.Services.Navigation
 {
-    interface INavigationService
+    public interface INavigationService
     {
         void NavigateTo(NavigationPage page);
         void NavigateToAsRoot(NavigationPage page);

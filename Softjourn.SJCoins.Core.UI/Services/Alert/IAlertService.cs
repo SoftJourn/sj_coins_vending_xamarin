@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Softjourn.SJCoins.Core.UI.Managers
+namespace Softjourn.SJCoins.Core.UI.Services.Alert
 {
-    public interface IAlertManager
+    public interface IAlertService
     {
         void ShowInformationDialog(string title, string msg, string btnName, Action btnClicked);
         void ShowConfirmationDialog(string title, string msg, Action btnOkClicked, Action btnCancelClicked);
