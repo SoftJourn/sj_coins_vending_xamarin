@@ -1,12 +1,19 @@
-﻿
+﻿using Softjourn.SJCoins.Core.API;
+using Softjourn.SJCoins.Core.API.Model;
 using Softjourn.SJCoins.Core.UI.Presenters.IPresenters;
+using Softjourn.SJCoins.Core.UI.Services.Navigation;
 using Softjourn.SJCoins.Core.UI.ViewInterfaces;
 using Softjourn.SJCoins.Core.Utils;
+using System;
 
 namespace Softjourn.SJCoins.Core.UI.Presenters
 {
     public class LoginPresenter : BasePresenter<ILoginView>
     {
+        public ApiService RestApiServise
+        {
+            get; set;
+        }
 
         public LoginPresenter()
         {
@@ -34,12 +41,11 @@ namespace Softjourn.SJCoins.Core.UI.Presenters
                     
                     if (NetworkUtils.isConnected)
                         {
-                        //    mModel.makeLoginCall(userName, password);
-                        View.ShowMessage("There should be call");
+                            RestApiServise.MakeLoginRequest(userName, password, "password", new Action<Session>(OnLoginAction));
                         }
                         else
                         {
-                        View.ShowNoInternetError(Resources.StringResources.internet_turned_off);
+                            View.ShowNoInternetError(Resources.StringResources.internet_turned_off);
                         }
                         break;
             }
@@ -47,7 +53,12 @@ namespace Softjourn.SJCoins.Core.UI.Presenters
 
         public void ToWelcomePage()
         {
-            View.ToWelcomePage();
+            NavigationService.NavigateToAsRoot(NavigationPage.Main);
+        }
+
+        public void OnLoginAction(Session session)
+        {
+            AlertService.ShowToastMessage(session.AccessToken);
         }
     }
 }

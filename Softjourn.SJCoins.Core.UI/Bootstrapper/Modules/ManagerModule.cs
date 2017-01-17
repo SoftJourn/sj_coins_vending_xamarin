@@ -1,4 +1,5 @@
 ﻿using Autofac;
+using Softjourn.SJCoins.Core.API;
 using System;
 using System.Collections.Generic;
 using System.Linq;
