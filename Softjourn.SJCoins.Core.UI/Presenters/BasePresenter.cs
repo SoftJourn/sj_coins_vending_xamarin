@@ -13,18 +13,16 @@ namespace Softjourn.SJCoins.Core.UI.Presenters
 {
     public class BasePresenter<TView> : IBasePresenter where TView : class, IBaseView
     {
-        private INavigationService _navigationService;
+
         public INavigationService NavigationService
         {
-            get { return _navigationService; }
-            set { _navigationService = value; }
+            get; set;
         }
 
-        private IAlertService _alertService;
+      
         public IAlertService AlertService
         {
-            get { return _alertService; }
-            set { _alertService = value; }
+            get; set;
         }
 
         public BasePresenter()

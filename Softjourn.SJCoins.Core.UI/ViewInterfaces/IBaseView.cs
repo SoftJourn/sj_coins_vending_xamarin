@@ -8,8 +8,6 @@ namespace Softjourn.SJCoins.Core.UI.ViewInterfaces
 {
     public interface IBaseView
     {
-        void AttachEvents();
 
-        void DetachEvents();
     }
 }

@@ -1,5 +1,6 @@
 ﻿
 using Softjourn.SJCoins.Core.UI.Presenters.IPresenters;
+using Softjourn.SJCoins.Core.UI.Services.Navigation;
 using Softjourn.SJCoins.Core.UI.ViewInterfaces;
 using Softjourn.SJCoins.Core.Utils;
 
@@ -35,7 +36,7 @@ namespace Softjourn.SJCoins.Core.UI.Presenters
                     if (NetworkUtils.isConnected)
                         {
                         //    mModel.makeLoginCall(userName, password);
-                        View.ShowMessage("There should be call");
+                        AlertService.ShowToastMessage("There should be call");
                         }
                         else
                         {
@@ -47,7 +48,7 @@ namespace Softjourn.SJCoins.Core.UI.Presenters
 
         public void ToWelcomePage()
         {
-            View.ToWelcomePage();
+            NavigationService.NavigateToAsRoot(NavigationPage.Main);
         }
     }
 }

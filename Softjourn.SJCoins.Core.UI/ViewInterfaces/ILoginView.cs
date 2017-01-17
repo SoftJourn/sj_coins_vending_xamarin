@@ -12,15 +12,9 @@ namespace Softjourn.SJCoins.Core.UI.ViewInterfaces
 
         void SetPasswordError(string message);
 
-        void ToMainPage();
-
-        void ToWelcomePage();
-
         void ShowProgress(string message);
 
         void HideProgress();
-
-        void ShowMessage(string message);
 
         void ShowNoInternetError(string message);
     }
