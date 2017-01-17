@@ -90,8 +90,8 @@ namespace Softjourn.SJCoins.Droid.ui.activities
 
         protected override void OnDestroy()
         {
-            base.OnDestroy();
             ViewPresenter.DetachView();
+            base.OnDestroy();
         }
 
         private void AddBottomDots(int currentPage)

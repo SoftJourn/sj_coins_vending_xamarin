@@ -33,15 +33,23 @@ namespace Softjourn.SJCoins.Core.API
 
         public async void MakeLoginRequest(string email, string password, string type, Action<Session> action)
         {
-            var request = new RestRequest(UrlLogin, Method.POST);
-            request.AddParameter("username", email);
-            request.AddParameter("password", password);
-            request.AddParameter("grant_type", type);
-            JsonDeserializer deserial = new JsonDeserializer();
-            IRestResponse response = await ApiClient.Execute(request);
-            var content = response.Content;
-            Session session = deserial.Deserialize<Session>(response);
-            action(session);
+            try
+            {
+                var request = new RestRequest(UrlLogin, Method.POST);
+                request.AddParameter("username", email);
+                request.AddParameter("password", password);
+                request.AddParameter("grant_type", type);
+                JsonDeserializer deserial = new JsonDeserializer();
+                IRestResponse response = await ApiClient.Execute(request);
+                var content = response.Content;
+                Session session = deserial.Deserialize<Session>(response);
+                action(session);
+            }
+            catch (Exception)
+            {
+
+                //throw;
+            }
         }
     }
 

@@ -133,7 +133,7 @@
     <item name="android:windowExitAnimation">@anim/fade_out</item>-->
   </style>
 
-  <style name="Splash" parent ="Theme.AppCompat.Light.DarkActionBar">
+  <style name="Splash" parent ="AppTheme.NoActionBar">
     <item name="android:windowBackground">@drawable/splash</item>
     <item name="windowActionBar">false</item>
     <item name="android:windowNoTitle">true</item>
