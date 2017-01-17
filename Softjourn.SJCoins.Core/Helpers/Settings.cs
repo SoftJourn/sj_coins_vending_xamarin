@@ -30,6 +30,9 @@ namespace Softjourn.SJCoins.Core.Helpers
         private const string AccessTokenKey = "access_token_key";
         private static readonly string AccessTokenDefault = string.Empty;
 
+        private const string RefreshTokenKey = "refresh_token_key";
+        private static readonly string RefreshTokenDefault = string.Empty;
+
         #endregion
 
 
@@ -55,6 +58,12 @@ namespace Softjourn.SJCoins.Core.Helpers
         {
             get { return AppSettings.GetValueOrDefault<string>(AccessTokenKey, AccessTokenDefault); }
             set { AppSettings.AddOrUpdateValue(AccessTokenKey, value); }
+        }
+
+        public static string RefreshToken
+        {
+            get { return AppSettings.GetValueOrDefault<string>(RefreshTokenKey, RefreshTokenDefault); }
+            set { AppSettings.AddOrUpdateValue(RefreshTokenKey, value); }
         }
 
     }
