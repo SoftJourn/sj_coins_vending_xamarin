@@ -7,14 +7,19 @@
 using Foundation;
 using System.CodeDom.Compiler;
 
-namespace Softjourn.SJCoins.iOS
+namespace Softjourn.SJCoins.iOS.UI.Controllers
 {
-	[Register ("InitialViewController")]
 	partial class InitialViewController
 	{
+		[Outlet]
+		UIKit.UIImageView ImageLogo { get; set; }
 		
 		void ReleaseDesignerOutlets ()
 		{
+			if (ImageLogo != null) {
+				ImageLogo.Dispose ();
+				ImageLogo = null;
+			}
 		}
 	}
 }

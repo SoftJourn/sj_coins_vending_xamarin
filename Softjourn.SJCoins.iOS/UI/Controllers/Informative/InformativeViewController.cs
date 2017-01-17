@@ -1,16 +1,21 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Autofac;
 using CoreGraphics;
 using Foundation;
+using Softjourn.SJCoins.Core.UI.Presenters;
+using Softjourn.SJCoins.Core.UI.ViewInterfaces;
 using UIKit;
 
 namespace Softjourn.SJCoins.iOS.UI.Controllers.Informative
 {
 	[Register("InformativeViewController")]
-	public partial class InformativeViewController : UIViewController
+	public partial class InformativeViewController : BaseViewController, IWelcomeView
 	{
 		//Properties
+		private WelcomePresenter _welcomePresenter;
+
 		private UIPageViewController pageViewController;
 		private List<string> _pageTitles;
 		private List<ContentViewController> _pages;
@@ -26,6 +31,10 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.Informative
 		public override void ViewDidLoad()
 		{
 			base.ViewDidLoad();
+
+			//Resolve LoginPresenter from container and atach this view
+			_welcomePresenter = _scope.Resolve<WelcomePresenter>();
+			_welcomePresenter.AttachView(this);
 
 			// Create informative content
 			_pageTitles = new List<string> { "How to Log in?", "Buy Products", "Want More Coins?", "Add Favorites" };
@@ -72,7 +81,14 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.Informative
 			pageControl = PageControl;
 		}
 
-		//UIPageViewControllerDataSource
+		#region IWelcomeView implementation
+		public void ToLoginPage()
+		{
+			// navigate to login page
+		}
+		#endregion
+
+		#region UIPageViewControllerDataSource implementation
 		private class PageViewControllerDataSource : UIPageViewControllerDataSource
 		{
 			private List<ContentViewController> _pages;
@@ -112,8 +128,9 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.Informative
 				}
 			}
 		}
+		#endregion
 
-		//UIPageViewControllerDataSource
+		#region PageViewControllerDelegate implementation
 		private class PageViewControllerDelegate : UIPageViewControllerDelegate
 		{
 			public PageViewControllerDelegate()
@@ -129,5 +146,6 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.Informative
 				}
 			}
 		}
+		#endregion
 	}
 }

@@ -1,9 +1,9 @@
 using System;
+using Autofac;
 using BigTed;
 using Foundation;
 using Softjourn.SJCoins.Core.UI.Presenters;
 using Softjourn.SJCoins.Core.UI.ViewInterfaces;
-using Softjourn.SJCoins.iOS.Managers;
 using UIKit;
 
 namespace Softjourn.SJCoins.iOS.UI.Controllers
@@ -25,8 +25,9 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers
 		{
 			base.ViewDidLoad();
 
-			//Create Presenter
-			_loginPresenter = new LoginPresenter(this);
+			//Resolve LoginPresenter from container and atach this view
+			_loginPresenter = _scope.Resolve<LoginPresenter>();
+			_loginPresenter.AttachView(this);
 		}
 
 		public override void ViewWillAppear(bool animated)
@@ -59,7 +60,7 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers
 			//...
 		}
 
-		//ILoginView Interface
+		#region ILoginView implementation
 		public void SetUsernameError(string message)
 		{
 			LoginErrorLabel.Text = message;
@@ -73,17 +74,6 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers
 			PasswordErrorLabel.Hidden = false;
 		}
 
-		public void ToMainPage()
-		{
-			// navigate to home page
-		}
-
-		public void ToWelcomePage()
-		{
-			// navigate to welcome page
-			Console.WriteLine("Navigated to welcome");
-		}
-
 		public void ShowProgress(string message)
 		{
 			BTProgressHUD.Show(message);
@@ -94,17 +84,12 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers
 			BTProgressHUD.Dismiss();
 		}
 
-		public void ShowMessage(string message)
-		{
-			// show login faliled alert
-			new AlertManager().PresentAlert(message);
-		}
-
 		public void ShowNoInternetError(string message)
 		{
 			//show no internet alert
-			new AlertManager().PresentAlert(message);
+			//new AlertManager().PresentAlert(message);
 		}
+		#endregion
 
 		public void AttachEvents()
 		{

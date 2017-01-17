@@ -14,7 +14,6 @@ namespace Softjourn.SJCoins.iOS.UI.Services
 		}
 
 		#region IAlertService implementation
-
 		public void ShowConfirmationDialog(string title, string msg, Action btnOkClicked, Action btnCancelClicked)
 		{
 			// Present confirmation alert with two buttons  
@@ -38,7 +37,6 @@ namespace Softjourn.SJCoins.iOS.UI.Services
 			// Present information alert with one botton
 			PresentAlert(null, msg, null, null, UIAlertActionStyle.Default, null, null);
 		}
-
 		#endregion
 
 		public void ShowActionSheet(string title, string message, string[] items, Action[] itemActions,

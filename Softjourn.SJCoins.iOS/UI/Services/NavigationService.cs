@@ -57,13 +57,13 @@ namespace Softjourn.SJCoins.iOS.Services
 			}
 		}
 
-		private UIViewController GetController(NavigationPage page)
-		{
-			//switch (page)
-			//{
+		//private UIViewController GetController(NavigationPage page)
+		//{
+		//	//switch (page)
+		//	//{
 				
-			//}
-		}
+		//	//}
+		//}
 
 		private UIViewController InstantiateInitial(string storyboard)
 		{

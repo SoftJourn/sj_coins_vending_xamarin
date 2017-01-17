@@ -7,9 +7,7 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers
 	public class BaseViewController : UIViewController
 	{
 		protected AppDelegate currentApplication;
-		//protected TPresenter ViewPresenter { get; private set; }
-
-		private ILifetimeScope _scope;
+		protected ILifetimeScope _scope;
 
 		public BaseViewController(IntPtr handle) : base(handle)
 		{
@@ -20,7 +18,7 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers
 		{
 			base.ViewDidLoad();
 
-			InitPresenter();
+			_scope = Bootstraper.Bootstraper.Container.BeginLifetimeScope();
 		}
 
 		public override void ViewWillAppear(bool animated)
@@ -38,7 +36,7 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers
 		public override void ViewDidUnload()
 		{
 			//ViewPresenter.DetachView();
-			_scope.Dispose(); 
+			_scope.Dispose();
 
 			base.ViewDidUnload();
 		}
@@ -46,15 +44,6 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers
 		private void AttachPullToRefresh()
 		{
 
-		}
-
-		private void InitPresenter()
-		{
-			//_scope = BaseBootstrapper.Container.BeginLifetimeScope();
-
-			//ViewPresenter = _scope.Resolve<TPresenter>();
-			//ViewPresenter.SetNavigationParams(SerializedNavParameters);
-			//ViewPresenter.AttachView(this);
 		}
 	}
 }

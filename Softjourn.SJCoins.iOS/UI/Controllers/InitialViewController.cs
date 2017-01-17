@@ -4,10 +4,11 @@ using Foundation;
 using UIKit;
 using Softjourn.SJCoins.Core.UI.ViewInterfaces;
 using Softjourn.SJCoins.Core.UI.Presenters;
-using Softjourn.SJCoins.iOS.Managers;
+using Autofac;
 
 namespace Softjourn.SJCoins.iOS.UI.Controllers
 {
+	[Register("InitialViewController")]
 	public partial class InitialViewController : BaseViewController, ILaunchView
 	{
 		//Properties
@@ -23,8 +24,8 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers
 		{
 			base.ViewDidLoad();
 
-			//Create Presenter
-			_launchPresenter = new LaunchPresenter();
+			//Resolve LaunchPresenter from container and atach this view
+			_launchPresenter = _scope.Resolve<LaunchPresenter>();
 			_launchPresenter.AttachView(this);
 		}
 
@@ -43,14 +44,15 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers
 		{
 			base.Dispose(disposing);
 
-			_launchPresenter.DetachView();
+			//_launchPresenter.DetachView();
 		}
 
-		//ILaunchView Interface
+		#region ILaunchView implementation
 		public void ShowNoInternetError(string msg)
 		{
 			//show no internet alert
-			new AlertManager().PresentAlert(msg);
+			//new AlertManager().PresentAlert(msg);
 		}
+		#endregion
 	}
 }
