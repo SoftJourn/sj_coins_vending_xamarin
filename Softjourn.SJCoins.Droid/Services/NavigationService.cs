@@ -47,9 +47,9 @@ namespace Softjourn.SJCoins.Droid.Services
                 case NavigationPage.Login:
                     view = new Intent(CrossCurrentActivity.Current.Activity, typeof(LoginActivity));
                     break;
-                //case NavigationPage.Launch:
-                //    view = new Intent(CrossCurrentActivity.Current.Activity, typeof(MainActivity));
-                //    break;
+                case NavigationPage.Main:
+                    view = new Intent(CrossCurrentActivity.Current.Activity, typeof(MainActivity));
+                    break;
                 case NavigationPage.Welcome:
                     view = new Intent(CrossCurrentActivity.Current.Activity, typeof(WelcomeActivity));
                     break;

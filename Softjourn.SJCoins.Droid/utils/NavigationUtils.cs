@@ -8,11 +8,6 @@ namespace Softjourn.SJCoins.Droid.utils
 {
     public class NavigationUtils
     {
-        public static void GoToNoInternetScreen(Context context)
-        {
-            var intent = new Intent(context, typeof(NoInternetActivity));
-            context.StartActivity(intent);
-        }
 
         public static void GoToMainActivity(Context context)
         {

@@ -48,7 +48,7 @@ namespace Softjourn.SJCoins.Droid.ui.activities
 
         private void LinkToWelcomeClick(object sender, EventArgs e)
         {
-            ToWelcomePage();
+            ViewPresenter.ToWelcomePage();
         }
 
         private void LoginButtonOnClick(object sender, EventArgs eventArgs)
@@ -61,8 +61,6 @@ namespace Softjourn.SJCoins.Droid.ui.activities
             var userName = _userName.Text;
             var password = _passwordText.Text;
             ViewPresenter.Login(userName, password);
-
-            //NavigateToMain();
         }
 
     public override void OnBackPressed()
@@ -113,12 +111,6 @@ namespace Softjourn.SJCoins.Droid.ui.activities
         public override void LogOut(IMenuItem item)
         {
             throw new NotImplementedException();
-        }
-
-        public void ToWelcomePage()
-        {
-            ViewPresenter.ToWelcomePage();
-            Finish();
         }
 
         public void AttachEvents()

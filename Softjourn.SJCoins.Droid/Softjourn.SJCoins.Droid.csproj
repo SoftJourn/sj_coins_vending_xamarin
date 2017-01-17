@@ -145,13 +145,12 @@
   <ItemGroup>
     <Compile Include="Bootstrapping\Bootstrapper.cs" />
     <Compile Include="MainApplication.cs" />
-    <Compile Include="Managers\AlertManager.cs" />
+    <Compile Include="Services\AlertService.cs" />
     <Compile Include="Resources\Resource.designer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\NavigationService.cs" />
     <Compile Include="ui\activities\LoginActivity.cs" />
     <Compile Include="ui\activities\MainActivity.cs" />
-    <Compile Include="ui\activities\NoInternetActivity.cs" />
     <Compile Include="ui\activities\SplashActivity.cs" />
     <Compile Include="ui\activities\WelcomeActivity.cs" />
     <Compile Include="ui\adapters\ViewPagerAdapter.cs" />
@@ -179,6 +178,9 @@
     <AndroidResource Include="Resources\layout\activity_no_internet.axml" />
     <AndroidResource Include="Resources\layout\dialog_error.axml" />
     <AndroidResource Include="Resources\layout\activity_main.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\layout\nav_header.axml">
       <SubType>Designer</SubType>
     </AndroidResource>
   </ItemGroup>

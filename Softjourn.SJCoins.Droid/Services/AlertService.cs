@@ -5,11 +5,11 @@ using Android.Support.Design.Widget;
 using Android.Views;
 using Android.Widget;
 using Plugin.CurrentActivity;
-using Softjourn.SJCoins.Core.UI.Managers;
+using Softjourn.SJCoins.Core.UI.Services.Alert;
 
-namespace Softjourn.SJCoins.Droid.Managers
+namespace Softjourn.SJCoins.Droid.Services
 {
-    public class AlertManager : IAlertManager
+    public class AlertService : IAlertService
     {
         public void ShowInformationDialog(string title, string msg, string btnName, Action btnClicked)
         {

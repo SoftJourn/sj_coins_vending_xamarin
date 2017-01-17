@@ -162,8 +162,7 @@ namespace Softjourn.SJCoins.Droid.ui.activities
          */
         public void ToLoginPage()
         {
-            NavigationUtils.GoToLoginActivity(this);
-            Finish();
+            throw new System.NotImplementedException();
         }
 
         public override void ShowSnackBar(string message)

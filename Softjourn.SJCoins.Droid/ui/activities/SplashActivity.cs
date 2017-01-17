@@ -15,8 +15,6 @@ namespace Softjourn.SJCoins.Droid.ui.activities
         {
             base.OnCreate(savedInstanceState);
 
-            //_presenter = new LaunchPresenter(this);
-
             ViewPresenter.ChooseStartPage();
         }
 
@@ -31,6 +29,21 @@ namespace Softjourn.SJCoins.Droid.ui.activities
         }
 
         public override void LogOut(IMenuItem item)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public void ToWelcomePage()
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public void ToMainPage()
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public void ToLoginPage()
         {
             throw new System.NotImplementedException();
         }
