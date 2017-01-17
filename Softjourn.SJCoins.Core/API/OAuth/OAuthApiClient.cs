@@ -7,9 +7,9 @@ using Softjourn.SJCoins.Core.API.Model;
 
 namespace Softjourn.SJCoins.Core.API.OAuth
 {
-    public class OAuthApiClient : IOAuthApiProvider
+    public class OAuthApiClient : BaseApiClient, IOAuthApiProvider
     {
-        public OAuthApiClient()
+        public OAuthApiClient() : base ()
         {
 
         }

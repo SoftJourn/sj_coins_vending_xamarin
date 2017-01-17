@@ -1,4 +1,5 @@
 ﻿using RestSharp.Portable.HttpClient;
+using Softjourn.SJCoins.Core.Utils;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,12 +10,18 @@ namespace Softjourn.SJCoins.Core.API
 {
     public class BaseApiClient
     {
-        public RestClient _apiClient;
+        public RestClient ApiClient
+        {
+            get; set;
+        }
 
         public BaseApiClient()
         {
-            _apiClient = new RestClient();
+            ApiClient = new RestClient();
+            ApiClient.BaseUrl = new System.Uri(Const.BaseUrl);
         }
+
+
 
     }
 }
