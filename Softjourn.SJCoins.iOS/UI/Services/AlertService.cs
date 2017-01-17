@@ -13,22 +13,30 @@ namespace Softjourn.SJCoins.iOS.UI.Services
 			_currentApplicationDelegate = (AppDelegate)UIApplication.SharedApplication.Delegate;
 		}
 
-		#region IDialogService implementation
+		#region IAlertService implementation
 
 		public void ShowConfirmationDialog(string title, string msg, Action btnOkClicked, Action btnCancelClicked)
 		{
+			// Present confirmation alert with two buttons  
+			PresentAlert(title, msg, null, null, UIAlertActionStyle.Default, btnOkClicked, btnCancelClicked);
 		}
 
 		public void ShowInformationDialog(string title, string msg, string btnName, Action btnClicked)
 		{
+			// Present information alert with one botton
+			PresentAlert(title, msg, btnName, null, UIAlertActionStyle.Default, btnClicked, null);
 		}
 
 		public void ShowMessageWithUserInteraction(string title, string msg, string btnName, Action btnClicked)
 		{
+			// Present information alert with one botton
+			PresentAlert(title, msg, btnName, null, UIAlertActionStyle.Default, btnClicked, null);
 		}
 
 		public void ShowToastMessage(string msg)
 		{
+			// Present information alert with one botton
+			PresentAlert(null, msg, null, null, UIAlertActionStyle.Default, null, null);
 		}
 
 		#endregion
@@ -46,27 +54,36 @@ namespace Softjourn.SJCoins.iOS.UI.Services
 			});
 		}
 
-
-
-
-		//private void AddCustomAction(UIAlertController alertController, string title = null, UIAlertActionStyle style = UIAlertActionStyle.Default, Action handler = null)
-		//{
-		//	if (String.IsNullOrEmpty(title))
-		//		var alertAction = UIAlertAction.Create(title, style, ((action) =>
-		//	{
-		//		if (handler != null)
-		//			handler();
-		//	});
-		//		alertController.AddAction
-		//}
-
-
-		public void PresentAlert(string message)
+		private void PresentAlert(string title, string message, string accept, string cancel, UIAlertActionStyle acceptStyle, Action acceptClicked = null, Action cancelClicked = null)
 		{
-			//Method for presenting informative messages.
-			var controller = UIAlertController.Create("", message, preferredStyle: UIAlertControllerStyle.Alert);
-			controller.AddAction(UIAlertAction.Create("Ok", UIAlertActionStyle.Cancel, null));
-			// visibleViewController.PresentViewController(alert, animated: true, completionHandler: null);
+			UIApplication.SharedApplication.InvokeOnMainThread(() =>
+				{
+					try
+					{
+						var alertController = UIAlertController.Create(title, message, UIAlertControllerStyle.Alert);
+
+						AddCustomAction(alertController, cancel, UIAlertActionStyle.Cancel, cancelClicked);
+						AddCustomAction(alertController, accept, acceptStyle, acceptClicked);
+
+						_currentApplicationDelegate.VisibleViewController.PresentViewController(alertController, true, null);
+					}
+					catch { }
+				});
+		}
+
+		private void AddCustomAction(UIAlertController alertController, string title = null, UIAlertActionStyle style = UIAlertActionStyle.Default, Action handler = null)
+		{
+			if (String.IsNullOrEmpty(title))
+			{
+				var alertAction = UIAlertAction.Create(title, style, (action) =>
+				{
+					if (handler != null)
+					{
+						handler();
+					}
+				});
+				alertController.AddAction(alertAction);
+			}
 		}
 	}
 }

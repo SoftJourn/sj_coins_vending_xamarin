@@ -50,11 +50,11 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers
 
 		private void InitPresenter()
 		{
-			_scope = BaseBootstrapper.Container.BeginLifetimeScope();
+			//_scope = BaseBootstrapper.Container.BeginLifetimeScope();
 
-			ViewPresenter = _scope.Resolve<TPresenter>();
-			ViewPresenter.SetNavigationParams(SerializedNavParameters);
-			ViewPresenter.AttachView(this);
+			//ViewPresenter = _scope.Resolve<TPresenter>();
+			//ViewPresenter.SetNavigationParams(SerializedNavParameters);
+			//ViewPresenter.AttachView(this);
 		}
 	}
 }
