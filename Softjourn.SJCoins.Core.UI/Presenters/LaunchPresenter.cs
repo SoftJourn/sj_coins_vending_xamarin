@@ -11,17 +11,10 @@ namespace Softjourn.SJCoins.Core.UI.Presenters
 {
     public class LaunchPresenter : BasePresenter<ILaunchView>, INetworkConnection
     {
-		SJCoins.iOS.UI.Controllers.InitialViewController initialViewController;
-
 		public LaunchPresenter()
         {
 
         }
-
-		public LaunchPresenter(SJCoins.iOS.UI.Controllers.InitialViewController initialViewController)
-		{
-			this.initialViewController = initialViewController;
-		}
 
 		public void ChooseStartPage()
         {

@@ -9,7 +9,7 @@ using UIKit;
 namespace Softjourn.SJCoins.iOS.UI.Controllers
 {
 	[Register("LoginViewController")]
-	public partial class LoginViewController : UIViewController, ILoginView
+	public partial class LoginViewController : BaseViewController, ILoginView
 	{
 		//Properties
 		private LoginPresenter _loginPresenter;
@@ -36,7 +36,11 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers
 			//Hide error labels before view appears
 			LoginErrorLabel.Hidden = true;
 			PasswordErrorLabel.Hidden = true;
+
+			//Set this view controller when visible
+			currentApplication.VisibleViewController = this;
 		}
+
 		protected override void Dispose(bool disposing)
 		{
 			base.Dispose(disposing);

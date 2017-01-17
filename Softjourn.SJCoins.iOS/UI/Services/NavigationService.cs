@@ -20,27 +20,19 @@ namespace Softjourn.SJCoins.iOS.Services
 		{
 			try
 			{
-				//if (page == null)
-				//	throw new ArgumentNullException("page");
-
 				//var visibleController = _currentApplication.VisibleViewController;
 				//if (visibleController == null)
 				//	throw new Exception("Visible Controller is null");
 
+
 			}
-			catch { }
+			catch { throw new Exception("Navigation to controller went wrong"); }
 		}
 
 		public void NavigateToAsRoot(NavigationPage page)
 		{
-			try
-			{
-				if (page == null)
-					throw new ArgumentNullException("page");
-
-				PresentAsRoot(GetRootController(page));
-			}
-			catch { }
+			try { PresentAsRoot(GetRootController(page)); }
+			catch { throw new Exception("Navigation to rootController went wrong"); }
 		}
 
 		//void NavigateBackToAdminRoot();
@@ -57,9 +49,9 @@ namespace Softjourn.SJCoins.iOS.Services
 				case NavigationPage.Welcome:
 				case NavigationPage.Login:
 					return InstantiateInitial(StoryboardConstants.StoryboardLogin);
-				
 				// If Main page instantiate from Main storyboard
-				
+				case NavigationPage.Main:
+					return InstantiateInitial(StoryboardConstants.StoryboardMain);
 				default:
 					throw new ArgumentException("Not valid page");
 			}
@@ -67,7 +59,10 @@ namespace Softjourn.SJCoins.iOS.Services
 
 		private UIViewController GetController(NavigationPage page)
 		{
-
+			//switch (page)
+			//{
+				
+			//}
 		}
 
 		private UIViewController InstantiateInitial(string storyboard)

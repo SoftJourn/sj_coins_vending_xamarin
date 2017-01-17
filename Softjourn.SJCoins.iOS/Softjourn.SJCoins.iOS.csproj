@@ -161,7 +161,6 @@
     <Compile Include="UI\Controllers\InitialViewController.designer.cs">
       <DependentUpon>InitialViewController.cs</DependentUpon>
     </Compile>
-    <Compile Include="Managers\AlertManager.cs" />
     <Compile Include="UI\Controllers\LoginViewController.cs" />
     <Compile Include="UI\Controllers\LoginViewController.designer.cs">
       <DependentUpon>LoginViewController.cs</DependentUpon>
@@ -182,6 +181,7 @@
     <Compile Include="UI\Services\NavigationService.cs" />
     <Compile Include="UI\Services\AlertService.cs" />
     <Compile Include="General\Constants\StoryboardConstants.cs" />
+    <Compile Include="UI\Controllers\BaseViewController.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
 

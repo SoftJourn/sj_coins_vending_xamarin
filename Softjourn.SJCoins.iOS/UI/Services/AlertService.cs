@@ -60,4 +60,13 @@ namespace Softjourn.SJCoins.iOS.UI.Services
 		//		alertController.AddAction
 		//}
 
+
+		public void PresentAlert(string message)
+		{
+			//Method for presenting informative messages.
+			var controller = UIAlertController.Create("", message, preferredStyle: UIAlertControllerStyle.Alert);
+			controller.AddAction(UIAlertAction.Create("Ok", UIAlertActionStyle.Cancel, null));
+			// visibleViewController.PresentViewController(alert, animated: true, completionHandler: null);
+		}
 	}
+}

@@ -8,7 +8,7 @@ using Softjourn.SJCoins.iOS.Managers;
 
 namespace Softjourn.SJCoins.iOS.UI.Controllers
 {
-	public partial class InitialViewController : UIViewController, ILaunchView
+	public partial class InitialViewController : BaseViewController, ILaunchView
 	{
 		//Properties
 		private LaunchPresenter _launchPresenter;
@@ -32,6 +32,9 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers
 		{
 			base.ViewWillAppear(animated);
 
+			//Set this view controller when visible
+			currentApplication.VisibleViewController = this;
+
 			//Verify if its a first launch
 			_launchPresenter.ChooseStartPage();
 		}
@@ -48,21 +51,6 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers
 		{
 			//show no internet alert
 			new AlertManager().PresentAlert(msg);
-		}
-
-		public void ToLoginPage()
-		{
-			//navigate to login page
-		}
-
-		public void ToMainPage()
-		{
-			//navigate to main page
-		}
-
-		public void ToWelcomePage()
-		{
-			//navigate to welcome page
 		}
 	}
 }
