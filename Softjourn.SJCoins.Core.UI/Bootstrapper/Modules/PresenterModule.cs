@@ -12,9 +12,9 @@ namespace Softjourn.SJCoins.Core.UI.Bootstrapper.Modules
     {
         protected override void Load(ContainerBuilder builder)
         {
-            builder.RegisterType<LaunchPresenter>().AsSelf();
-            builder.RegisterType<WelcomePresenter>().AsSelf();
-            builder.RegisterType<LoginPresenter>().AsSelf();
+            builder.RegisterType<LaunchPresenter>().AsSelf().PropertiesAutowired();
+            builder.RegisterType<WelcomePresenter>().AsSelf().PropertiesAutowired();
+            builder.RegisterType<LoginPresenter>().AsSelf().PropertiesAutowired();
         }
     }
 }
