@@ -10,7 +10,7 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers
 	public class BaseViewController<TPresenter> : UIViewController, IBaseView where TPresenter : class, IBasePresenter
 	{
 		#region Properties
-		protected TPresenter Presenter { get; private set; }
+		protected TPresenter Presenter { get; set; }
 		protected AppDelegate currentApplication;
 		protected ILifetimeScope _scope;
 		#endregion
@@ -50,12 +50,19 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers
 
 		public override void ViewDidUnload()
 		{
-			//ViewPresenter.DetachView();
+			//Presenter.DetachView();
 			_scope.Dispose();
 			base.ViewDidUnload();
 		}
+
+		protected override void Dispose(bool disposing)
+		{
+			base.Dispose(disposing);
+			Presenter = null;
+		}
 		#endregion
 
+		#region Private methods
 		private void InitPresenter()
 		{
 			_scope = BaseBootstrapper.Container.BeginLifetimeScope();
@@ -68,5 +75,6 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers
 		//{
 
 		//}
+		#endregion
 	}
 }

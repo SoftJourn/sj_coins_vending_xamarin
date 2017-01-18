@@ -4,6 +4,7 @@ using BigTed;
 using Foundation;
 using Softjourn.SJCoins.Core.UI.Presenters;
 using Softjourn.SJCoins.Core.UI.ViewInterfaces;
+using Softjourn.SJCoins.iOS.UI.Services;
 using UIKit;
 
 namespace Softjourn.SJCoins.iOS.UI.Controllers
@@ -11,43 +12,42 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers
 	[Register("LoginViewController")]
 	public partial class LoginViewController : BaseViewController<LoginPresenter>, ILoginView
 	{
-		//Properties
+		#region Properties
 		private LoginPresenter _loginPresenter;
 		private KeyboardScrollService _scrollService;
+		#endregion
 
-		//Constructor
+		#region Constructor
 		public LoginViewController(IntPtr handle) : base(handle)
 		{
 		}
+		#endregion
 
-		//Life cycle
+		#region Controller Life cycle 
 		public override void ViewDidLoad()
 		{
 			base.ViewDidLoad();
-
-			//Resolve LoginPresenter from container and atach this view
-			_loginPresenter = _scope.Resolve<LoginPresenter>();
-			_loginPresenter.AttachView(this);
 		}
 
 		public override void ViewWillAppear(bool animated)
 		{
 			base.ViewWillAppear(animated);
 
+			//Set this view controller when visible
+			currentApplication.VisibleViewController = this;
+
 			//Hide error labels before view appears
 			LoginErrorLabel.Hidden = true;
 			PasswordErrorLabel.Hidden = true;
-
-			//Set this view controller when visible
-			currentApplication.VisibleViewController = this;
 		}
 
 		protected override void Dispose(bool disposing)
 		{
 			base.Dispose(disposing);
 
-			_loginPresenter = null;
+			Presenter = null;
 		}
+		#endregion
 
 		//Actions
 		partial void LoginButtonPressed(UIButton sender)
@@ -87,10 +87,11 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers
 		public void ShowNoInternetError(string message)
 		{
 			//show no internet alert
-			//new AlertManager().PresentAlert(message);
+			new AlertService().ShowInformationDialog(null, message, "Ok", null);
 		}
 		#endregion
 
+		#region BaseViewController -> IBaseView implementation
 		public void AttachEvents()
 		{
 			
@@ -100,5 +101,6 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers
 		{
 			
 		}
+		#endregion
 	}
 }

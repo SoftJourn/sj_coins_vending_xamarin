@@ -13,7 +13,7 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.Informative
 	[Register("InformativeViewController")]
 	public partial class InformativeViewController : BaseViewController<WelcomePresenter>, IWelcomeView
 	{
-		//Properties
+		#region Properties
 		private WelcomePresenter _welcomePresenter;
 
 		private UIPageViewController pageViewController;
@@ -21,13 +21,15 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.Informative
 		private List<ContentViewController> _pages;
 		private static int index = 0;
 		private static UIPageControl pageControl;
+		#endregion
 
-		//Constructor
+		#region Controller Life cycle
 		public InformativeViewController(IntPtr handle) : base(handle)
 		{  
 		}
+		#endregion
 
-		//Life cycle
+		#region Controller Life cycle
 		public override void ViewDidLoad()
 		{
 			base.ViewDidLoad();
@@ -48,21 +50,9 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.Informative
 			ConfigurePageViewController();
 			ConfigurePageControl();
 		}
+		#endregion
 
-		public override void DidReceiveMemoryWarning()
-		{
-			base.DidReceiveMemoryWarning();
-			// Release any cached data, images, etc that aren't in use.
-		}
-
-		protected override void Dispose(bool disposing)
-		{
-			base.Dispose(disposing);
-
-			Console.WriteLine("InformativeVC disposed");
-		}
-
-		// Methods
+		#region Private methods
 		private void ConfigurePageViewController()
 		{
 			pageViewController.DataSource = new PageViewControllerDataSource(_pages);
@@ -80,11 +70,24 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.Informative
 			PageControl.CurrentPage = 0;
 			pageControl = PageControl;
 		}
+		#endregion
 
 		#region IWelcomeView implementation
 		public void ToLoginPage()
 		{
 			// navigate to login page
+		}
+		#endregion
+
+		#region BaseViewController -> IBaseView implementation
+		public void AttachEvents()
+		{
+			// ToLoginPage event
+		}
+
+		public void DetachEvents()
+		{
+			// ToLoginPage event
 		}
 		#endregion
 
@@ -133,10 +136,6 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.Informative
 		#region PageViewControllerDelegate implementation
 		private class PageViewControllerDelegate : UIPageViewControllerDelegate
 		{
-			public PageViewControllerDelegate()
-			{
-			}
-
 			public override void DidFinishAnimating(UIPageViewController pageViewController, bool finished, UIViewController[] previousViewControllers, bool completed)
 			{
 				if (completed)

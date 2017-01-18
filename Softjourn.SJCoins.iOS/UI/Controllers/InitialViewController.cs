@@ -9,8 +9,6 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers
 	[Register("InitialViewController")]
 	public partial class InitialViewController : BaseViewController<LaunchPresenter>, ILaunchView
 	{
-		//Properties
-
 		#region Constructor
 		public InitialViewController (IntPtr handle) : base (handle)
 		{
@@ -18,12 +16,12 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers
 		#endregion
 
 		#region Controller Life cycle 
-		public void ViewDidLoad()
+		public override void ViewDidLoad()
 		{
 			base.ViewDidLoad();
 		}
 
-		public void ViewWillAppear(bool animated)
+		public override void ViewWillAppear(bool animated)
 		{
 			base.ViewWillAppear(animated);
 
@@ -33,14 +31,6 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers
 			//Verify if its a first launch
 			Presenter.ChooseStartPage();
 		}
-
-		protected void Dispose(bool disposing)
-		{
-			base.Dispose(disposing);
-
-			//Detach this view to presentera
-			Presenter.DetachView();
-		}
 		#endregion
 
 		#region ILaunchView implementation
@@ -49,10 +39,6 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers
 			//show no internet alert
 			new AlertService().ShowInformationDialog(null, msg, "Ok", null);
 		}
-		#endregion
-
-		#region Private methods
-
 		#endregion
 	}
 }
