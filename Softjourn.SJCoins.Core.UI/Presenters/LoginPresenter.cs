@@ -36,16 +36,15 @@ namespace Softjourn.SJCoins.Core.UI.Presenters
                 case ValidateCredentialsResult.PasswordNotValid:
                     View.SetPasswordError(Resources.StringResources.activity_login_invalid_password);
                     break;
-                default:
-                    View.ShowProgress(Resources.StringResources.progress_authenticating);
-                    
-                    if (NetworkUtils.isConnected)
+                default:                  
+                    if (NetworkUtils.IsConnected)
                         {
-                            RestApiServise.MakeLoginRequest(userName, password, "password", new Action<Session>(OnLoginAction));
+                        View.ShowProgress(Resources.StringResources.progress_authenticating);
+                        RestApiServise.MakeLoginRequest(userName, password, "password", new Action<Session>(OnLoginAction));
                         }
                         else
                         {
-                            View.ShowNoInternetError(Resources.StringResources.internet_turned_off);
+                            AlertService.ShowToastMessage(Resources.StringResources.internet_turned_off);
                         }
                         break;
             }

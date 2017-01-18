@@ -19,7 +19,7 @@ namespace Softjourn.SJCoins.Core.UI.Presenters
 
         public void ChooseStartPage()
         {
-            if (NetworkUtils.isConnected)
+            if (NetworkUtils.IsConnected)
             {
                 if (Settings.FirstLaunch)
                 {
@@ -40,7 +40,7 @@ namespace Softjourn.SJCoins.Core.UI.Presenters
             else
             {
                 View.ShowNoInternetError(Resources.StringResources.internet_turned_off);
-                NetworkUtils.onConnectionChanged(this);
+                NetworkUtils.OnConnectionChanged(this);
             }
         }
 

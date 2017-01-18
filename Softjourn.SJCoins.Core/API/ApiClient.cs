@@ -37,8 +37,11 @@ namespace Softjourn.SJCoins.Core.API
                 request.AddParameter("username", email);
                 request.AddParameter("password", password);
                 request.AddParameter("grant_type", type);
+                request.AddHeader("Content-Type", "application/x-www-form-urlencoded");
+                request.AddHeader("Authorization", "Basic dXNlcl9jcmVkOnN1cGVyc2VjcmV0");
                 JsonDeserializer deserial = new JsonDeserializer();
                 IRestResponse response = await ApiClient.Execute(request);
+                response.
                 var content = response.Content;
                 Session session = deserial.Deserialize<Session>(response);
                 action(session);

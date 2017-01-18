@@ -1,5 +1,6 @@
 ﻿
 using Softjourn.SJCoins.Core.UI.Presenters.IPresenters;
+using Softjourn.SJCoins.Core.UI.Services.Navigation;
 using Softjourn.SJCoins.Core.UI.ViewInterfaces;
 
 namespace Softjourn.SJCoins.Core.UI.Presenters
@@ -18,7 +19,7 @@ namespace Softjourn.SJCoins.Core.UI.Presenters
 
         public void ToLoginScreen()
         {
-            View.ToLoginPage();
+            NavigationService.NavigateToAsRoot(NavigationPage.Login);
         }
     }
 }
