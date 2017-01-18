@@ -18,11 +18,15 @@ namespace Softjourn.SJCoins.Core.API
 
         public BaseApiClient()
         {
-            ApiClient = new RestClient();
-            ApiClient.BaseUrl = new System.Uri(Const.BaseUrl);
+
         }
 
-
+        public IRestClient GetApiClient()
+        {
+            IRestClient apiClient = new RestClient();
+            apiClient.BaseUrl = new Uri(Const.BaseUrl);
+            return apiClient;
+        }
 
     }
 }

@@ -25,15 +25,5 @@ namespace Softjourn.SJCoins.Core.API
 
         }
 
-        public void MakeLoginRequest(string login, string password, string type, Action<Session> action)
-        {
-            ApiClient.MakeLoginRequest(login, password, type, new Action<Session>((session) => 
-            {
-                Settings.AccessToken = session.AccessToken;
-                Settings.RefreshToken = session.RefreshToken;
-                action(session);
-            }));
-            
-        }
-    }
+            }
 }
