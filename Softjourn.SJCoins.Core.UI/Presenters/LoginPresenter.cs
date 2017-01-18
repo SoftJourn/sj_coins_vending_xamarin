@@ -22,7 +22,7 @@ namespace Softjourn.SJCoins.Core.UI.Presenters
 
         public enum ValidateCredentialsResult { FieldsAreAmpty, UserNameNotValid, PasswordNotValid, CredentialsAreValid }
 
-        public void Login(string userName, string password)
+        public async void Login(string userName, string password)
         {
 
             switch (Utils.Validators.ValidateCredentials(userName, password))
@@ -36,28 +36,27 @@ namespace Softjourn.SJCoins.Core.UI.Presenters
                 case ValidateCredentialsResult.PasswordNotValid:
                     View.SetPasswordError(Resources.StringResources.activity_login_invalid_password);
                     break;
-                default:                  
+                default:
                     if (NetworkUtils.IsConnected)
-                        {
+                    {
                         View.ShowProgress(Resources.StringResources.progress_authenticating);
-                        RestApiServise.MakeLoginRequest(userName, password, "password", new Action<Session>(OnLoginAction));
-                        }
-                        else
-                        {
-                            AlertService.ShowToastMessage(Resources.StringResources.internet_turned_off);
-                        }
-                        break;
+                        Session session = await RestApiServise.ApiClient.MakeLoginRequest(userName, password);
+                        // NavigationService.NavigateToAsRoot(NavigationPage.Main);
+                        View.HideProgress();
+                        AlertService.ShowToastMessage(session.AccessToken);
+                    }
+                    else
+                    {
+                        AlertService.ShowToastMessage(Resources.StringResources.internet_turned_off);
+                    }
+                    break;
             }
         }
 
         public void ToWelcomePage()
         {
-            NavigationService.NavigateToAsRoot(NavigationPage.Main);
+            NavigationService.NavigateToAsRoot(NavigationPage.Welcome);
         }
 
-        public void OnLoginAction(Session session)
-        {
-            AlertService.ShowToastMessage(session.AccessToken);
-        }
     }
 }

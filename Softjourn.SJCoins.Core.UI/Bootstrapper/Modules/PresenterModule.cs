@@ -15,6 +15,7 @@ namespace Softjourn.SJCoins.Core.UI.Bootstrapper.Modules
             builder.RegisterType<LaunchPresenter>().AsSelf().PropertiesAutowired();
             builder.RegisterType<WelcomePresenter>().AsSelf().PropertiesAutowired();
             builder.RegisterType<LoginPresenter>().AsSelf().PropertiesAutowired();
+            builder.RegisterType<MainPresenter>().AsSelf().PropertiesAutowired();
         }
     }
 }
