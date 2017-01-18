@@ -32,20 +32,5 @@ namespace Softjourn.SJCoins.Droid.ui.activities
         {
             throw new System.NotImplementedException();
         }
-
-        public void ToWelcomePage()
-        {
-            throw new System.NotImplementedException();
-        }
-
-        public void ToMainPage()
-        {
-            throw new System.NotImplementedException();
-        }
-
-        public void ToLoginPage()
-        {
-            throw new System.NotImplementedException();
-        }
     }
 }

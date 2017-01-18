@@ -33,8 +33,6 @@ namespace Softjourn.SJCoins.Core.API
 
         public async void MakeLoginRequest(string email, string password, string type, Action<Session> action)
         {
-            try
-            {
                 var request = new RestRequest(UrlLogin, Method.POST);
                 request.AddParameter("username", email);
                 request.AddParameter("password", password);
@@ -45,12 +43,6 @@ namespace Softjourn.SJCoins.Core.API
                 Session session = deserial.Deserialize<Session>(response);
                 action(session);
             }
-            catch (Exception)
-            {
-
-                //throw;
-            }
         }
-    }
 
 }
