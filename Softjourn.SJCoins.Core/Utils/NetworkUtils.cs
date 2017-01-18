@@ -9,26 +9,31 @@ namespace Softjourn.SJCoins.Core.Utils
 {
     public class NetworkUtils
     {
-        public static bool isConnected
+        public static bool IsConnected
         {
             get { return CrossConnectivity.Current.IsConnected; }
         }
 
-        public static void onConnectionChanged(INetworkConnection listener)
+        public static void OnConnectionChanged(INetworkConnection listener)
         {
-            if (listener != null) {
                 CrossConnectivity.Current.ConnectivityChanged += (sender, args) =>
                 {
-                    if (isConnected)
+                    if (IsConnected)
                     {
-                        listener.OnInternetAppeared();
+                        if (listener != null)
+                        {
+                            listener.OnInternetAppeared();
+                        }
                     }
                     else
                     {
-                        listener.OnInternetDismissed();
+                        if (listener != null)
+                        {
+                            listener.OnInternetDismissed();
+                        }
                     }
                 };
-            };
+
         }
 }
 }
