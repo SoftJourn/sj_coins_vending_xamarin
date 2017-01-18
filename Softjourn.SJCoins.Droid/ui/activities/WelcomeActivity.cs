@@ -10,12 +10,13 @@ using Softjourn.SJCoins.Core.UI.Presenters;
 using Softjourn.SJCoins.Core.UI.Presenters.IPresenters;
 using Softjourn.SJCoins.Core.UI.ViewInterfaces;
 using Softjourn.SJCoins.Droid.ui.adapters;
+using Softjourn.SJCoins.Droid.ui.baseUI;
 using Softjourn.SJCoins.Droid.utils;
 
 namespace Softjourn.SJCoins.Droid.ui.activities
 {
     [Activity(Label = "WelcomeActivity", Theme = "@style/NoActionBarLoginTheme")]
-    public class WelcomeActivity : AppCompatActivity, ViewPager.IOnPageChangeListener, IWelcomeView
+    public class WelcomeActivity : BaseActivity<WelcomePresenter>, ViewPager.IOnPageChangeListener, IWelcomeView
     {
 
         private ViewPager _viewPager;
@@ -27,7 +28,7 @@ namespace Softjourn.SJCoins.Droid.ui.activities
         private ViewPagerAdapter _viewPagerAdapter;
         private int[] _layouts;
 
-        private IWelcomePresenter _presenter;
+        //private IWelcomePresenter _presenter;
 
 
         protected override void OnCreate(Bundle savedInstanceState)
@@ -48,7 +49,7 @@ namespace Softjourn.SJCoins.Droid.ui.activities
             _btnSkip = FindViewById<Button>(Resource.Id.btn_skip);
             _btnNext = FindViewById<Button>(Resource.Id.btn_next);
 
-            _presenter = new WelcomePresenter(this);
+            //_presenter = new WelcomePresenter(this);
 
             // _layouts of all welcome sliders
             // add few more _layouts if you want
@@ -70,8 +71,8 @@ namespace Softjourn.SJCoins.Droid.ui.activities
 
             _btnSkip.Click += (s, e) =>
             {
-                _presenter.DisableWelcomePageOnLaunch();
-                _presenter.ToLoginScreen();
+                ViewPresenter.DisableWelcomePageOnLaunch();
+                ViewPresenter.ToLoginScreen();
             };
 
             _btnNext.Click += (s, e) =>
@@ -81,16 +82,16 @@ namespace Softjourn.SJCoins.Droid.ui.activities
                 var current = GetItem(+1);
                 if (current >= _layouts.Length)
                 {
-                    _presenter.DisableWelcomePageOnLaunch();
-                    _presenter.ToLoginScreen();
+                    ViewPresenter.DisableWelcomePageOnLaunch();
+                    ViewPresenter.ToLoginScreen();
                 }
             };
         }
 
         protected override void OnDestroy()
         {
+            ViewPresenter.DetachView();
             base.OnDestroy();
-            _presenter = null;
         }
 
         private void AddBottomDots(int currentPage)
@@ -161,8 +162,17 @@ namespace Softjourn.SJCoins.Droid.ui.activities
          */
         public void ToLoginPage()
         {
-            NavigationUtils.GoToLoginActivity(this);
-            Finish();
+            throw new System.NotImplementedException();
+        }
+
+        public override void ShowSnackBar(string message)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public override void LogOut(IMenuItem item)
+        {
+            throw new System.NotImplementedException();
         }
     }
 }

@@ -1,30 +1,30 @@
 using System;
 using Android.App;
-using Android.Content;
-using Android.Content.Res;
-using Android.Graphics;
 using Android.OS;
-using Android.Support.V4.Content;
 using Android.Support.V7.App;
 using Android.Views;
-using Android.Widget;
-using Java.Lang;
+using Autofac;
+using Softjourn.SJCoins.Core.UI.Bootstrapper;
+using Softjourn.SJCoins.Core.UI.Presenters.IPresenters;
+using Softjourn.SJCoins.Core.UI.ViewInterfaces;
 using Softjourn.SJCoins.Droid.utils;
-using Square.Picasso;
 using String = System.String;
 
 namespace Softjourn.SJCoins.Droid.ui.baseUI
 {
     [Activity(Label = "BaseActivity")]
-    public abstract class BaseActivity : AppCompatActivity
+    public abstract class BaseActivity<TPresenter> : AppCompatActivity, IBaseView
+        where TPresenter : class, IBasePresenter
     {
         protected bool MProfileIsVisible = false;
         protected bool MConfirmDialogIsVisible = false;
 
         private ProgressDialog _progressDialog;
+        private ILifetimeScope _scope;
 
         protected Dialog ConfirmDialog;
 
+        protected TPresenter ViewPresenter { get; private set; }
 
         protected override void OnCreate(Bundle savedInstanceState)
         {
@@ -32,6 +32,11 @@ namespace Softjourn.SJCoins.Droid.ui.baseUI
 
             _progressDialog = new ProgressDialog(this);
             _progressDialog.SetProgressStyle(ProgressDialogStyle.Spinner);
+
+            _scope = BaseBootstrapper.Container.BeginLifetimeScope();
+
+            ViewPresenter = _scope.Resolve<TPresenter>();
+            ViewPresenter.AttachView(this);
         }
 
         public override bool OnCreateOptionsMenu(IMenu menu)
@@ -48,6 +53,12 @@ namespace Softjourn.SJCoins.Droid.ui.baseUI
                 default:
                     return base.OnOptionsItemSelected(item);
             }
+        }
+
+        protected override void OnDestroy()
+        {
+            base.OnDestroy();
+            ViewPresenter = null;
         }
 
         public virtual void HideProgress()
@@ -76,6 +87,16 @@ namespace Softjourn.SJCoins.Droid.ui.baseUI
         public abstract void ShowSnackBar(string message);
 
         public abstract void LogOut(IMenuItem item);
+
+        public void AttachEvents()
+        {
+            throw new NotImplementedException();
+        }
+
+        public void DetachEvents()
+        {
+            throw new NotImplementedException();
+        }
 
         //protected void OnCreateConfirmDialog(Product product)//, PurchaseContract.Presenter presenter)
         //{
@@ -151,28 +172,5 @@ namespace Softjourn.SJCoins.Droid.ui.baseUI
         //    }
         //}
 
-
-        //public void OnCreateErrorDialog(string message)
-        //{
-        //    Dialog dialog = new Dialog(this);
-        //    dialog.Window.RequestFeature(WindowFeatures.NoTitle);
-        //    dialog.SetContentView(Resource.Layout.dialog_error);
-
-        //    // set the custom dialog components
-        //    var text = dialog.FindViewById<TextView>(Resource.Id.text);
-        //    text.Text = message;
-
-        //    var cancelButton = dialog.FindViewById<Button>(Resource.Id.dialogButtonCancel);
-        //    cancelButton.Click += (sender, e) =>
-        //    {
-        //        dialog.Dismiss();
-        //    };
-
-        //    if (!dialog.IsShowing)
-        //    {
-        //        dialog.Window.Attributes.WindowAnimations = Resource.Style.ConfirmDialogAnimation;
-        //        dialog.Show();
-        //    }
-        //}
     }
 }

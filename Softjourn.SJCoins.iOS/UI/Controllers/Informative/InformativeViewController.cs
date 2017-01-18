@@ -11,7 +11,7 @@ using UIKit;
 namespace Softjourn.SJCoins.iOS.UI.Controllers.Informative
 {
 	[Register("InformativeViewController")]
-	public partial class InformativeViewController : BaseViewController, IWelcomeView
+	public partial class InformativeViewController : BaseViewController<WelcomePresenter>, IWelcomeView
 	{
 		//Properties
 		private WelcomePresenter _welcomePresenter;

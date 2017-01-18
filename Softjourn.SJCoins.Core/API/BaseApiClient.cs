@@ -1,4 +1,5 @@
-﻿using RestSharp.Portable.HttpClient;
+﻿using RestSharp.Portable;
+using RestSharp.Portable.HttpClient;
 using Softjourn.SJCoins.Core.Utils;
 using System;
 using System.Collections.Generic;
@@ -10,7 +11,7 @@ namespace Softjourn.SJCoins.Core.API
 {
     public class BaseApiClient
     {
-        public RestClient ApiClient
+        public IRestClient ApiClient
         {
             get; set;
         }

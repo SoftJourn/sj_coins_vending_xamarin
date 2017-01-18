@@ -1,35 +1,29 @@
 using System;
-
 using Foundation;
-using UIKit;
 using Softjourn.SJCoins.Core.UI.ViewInterfaces;
 using Softjourn.SJCoins.Core.UI.Presenters;
-using Autofac;
+using Softjourn.SJCoins.iOS.UI.Services;
 
 namespace Softjourn.SJCoins.iOS.UI.Controllers
 {
 	[Register("InitialViewController")]
-	public partial class InitialViewController : BaseViewController, ILaunchView
+	public partial class InitialViewController : BaseViewController<LaunchPresenter>, ILaunchView
 	{
 		//Properties
-		private LaunchPresenter _launchPresenter;
 
-		//Constructor
+		#region Constructor
 		public InitialViewController (IntPtr handle) : base (handle)
 		{
 		}
+		#endregion
 
-		//Life cycle
-		public override void ViewDidLoad()
+		#region Controller Life cycle 
+		public void ViewDidLoad()
 		{
 			base.ViewDidLoad();
-
-			//Resolve LaunchPresenter from container and atach this view
-			_launchPresenter = _scope.Resolve<LaunchPresenter>();
-			_launchPresenter.AttachView(this);
 		}
 
-		public override void ViewWillAppear(bool animated)
+		public void ViewWillAppear(bool animated)
 		{
 			base.ViewWillAppear(animated);
 
@@ -37,22 +31,28 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers
 			currentApplication.VisibleViewController = this;
 
 			//Verify if its a first launch
-			_launchPresenter.ChooseStartPage();
+			Presenter.ChooseStartPage();
 		}
 
-		protected override void Dispose(bool disposing)
+		protected void Dispose(bool disposing)
 		{
 			base.Dispose(disposing);
 
-			//_launchPresenter.DetachView();
+			//Detach this view to presentera
+			Presenter.DetachView();
 		}
+		#endregion
 
 		#region ILaunchView implementation
 		public void ShowNoInternetError(string msg)
 		{
 			//show no internet alert
-			//new AlertManager().PresentAlert(msg);
+			new AlertService().ShowInformationDialog(null, msg, "Ok", null);
 		}
+		#endregion
+
+		#region Private methods
+
 		#endregion
 	}
 }

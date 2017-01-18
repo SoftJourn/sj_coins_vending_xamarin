@@ -9,7 +9,7 @@ using UIKit;
 namespace Softjourn.SJCoins.iOS.UI.Controllers
 {
 	[Register("LoginViewController")]
-	public partial class LoginViewController : BaseViewController, ILoginView
+	public partial class LoginViewController : BaseViewController<LoginPresenter>, ILoginView
 	{
 		//Properties
 		private LoginPresenter _loginPresenter;

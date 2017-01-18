@@ -19,7 +19,7 @@
             android:layout_marginStart="@dimen/menu_content_vertical_margins"
             android:layout_marginTop="@dimen/activity_horizontal_margin" />
         <LinearLayout
-            android:id="@+id/login_root"
+            android:id="@+id/layout_root"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical"

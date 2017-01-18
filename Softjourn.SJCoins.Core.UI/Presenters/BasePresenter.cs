@@ -11,7 +11,7 @@ using Softjourn.SJCoins.Core.UI.Services.Alert;
 
 namespace Softjourn.SJCoins.Core.UI.Presenters
 {
-    public class BasePresenter<TView> : IBasePresenter where TView : class, IBaseView
+	public class BasePresenter<TView> : IBasePresenter where TView : class, IBaseView
     {
 
         public INavigationService NavigationService

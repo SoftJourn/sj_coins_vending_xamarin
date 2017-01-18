@@ -1,4 +1,7 @@
-﻿using System;
+﻿using RestSharp.Portable;
+using RestSharp.Portable.Deserializers;
+using Softjourn.SJCoins.Core.API.Model;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -20,12 +23,34 @@ namespace Softjourn.SJCoins.Core.API
 
         public const string UrlLogin = UrlAuthService + "oauth/token";
 
+        //public const string UrlGetMachinesList = UrlVendingService + "machines";
+        //public const string UrlLogin = UrlAuthService + "oauth/token";
+        //public const string UrlLogin = UrlAuthService + "oauth/token";
+
         public ApiClient() : base(){
 
             }
 
+        public async void MakeLoginRequest(string email, string password, string type, Action<Session> action)
+        {
+            try
+            {
+                var request = new RestRequest(UrlLogin, Method.POST);
+                request.AddParameter("username", email);
+                request.AddParameter("password", password);
+                request.AddParameter("grant_type", type);
+                JsonDeserializer deserial = new JsonDeserializer();
+                IRestResponse response = await ApiClient.Execute(request);
+                var content = response.Content;
+                Session session = deserial.Deserialize<Session>(response);
+                action(session);
+            }
+            catch (Exception)
+            {
 
-
+                //throw;
+            }
+        }
     }
 
 }

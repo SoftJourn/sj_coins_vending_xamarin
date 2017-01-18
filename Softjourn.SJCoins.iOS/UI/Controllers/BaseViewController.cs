@@ -1,35 +1,50 @@
 ﻿using System;
 using Autofac;
+using Softjourn.SJCoins.Core.UI.Bootstrapper;
+using Softjourn.SJCoins.Core.UI.Presenters.IPresenters;
+using Softjourn.SJCoins.Core.UI.ViewInterfaces;
 using UIKit;
 
 namespace Softjourn.SJCoins.iOS.UI.Controllers
 {
-	public class BaseViewController : UIViewController
+	public class BaseViewController<TPresenter> : UIViewController, IBaseView where TPresenter : class, IBasePresenter
 	{
+		#region Properties
+		protected TPresenter Presenter { get; private set; }
 		protected AppDelegate currentApplication;
 		protected ILifetimeScope _scope;
+		#endregion
 
+		#region Constructor
 		public BaseViewController(IntPtr handle) : base(handle)
 		{
 			currentApplication = (AppDelegate)UIApplication.SharedApplication.Delegate;
 		}
+		#endregion
 
+		#region IBaseView implementation
+
+		#endregion
+
+		#region Controller Lifecycle
 		public override void ViewDidLoad()
 		{
 			base.ViewDidLoad();
-
-			_scope = Bootstraper.Bootstraper.Container.BeginLifetimeScope();
+			InitPresenter();
+			Presenter.AttachView(this);
 		}
 
 		public override void ViewWillAppear(bool animated)
 		{
 			base.ViewWillAppear(animated);
+			//AttachEvents();
+			Presenter.ViewShowed();
 		}
 
 		public override void ViewWillDisappear(bool animated)
 		{
 			//DetachEvents();
-			//ViewPresenter.ViewHidden();
+			Presenter.ViewHidden();
 			base.ViewWillDisappear(animated);
 		}
 
@@ -37,13 +52,21 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers
 		{
 			//ViewPresenter.DetachView();
 			_scope.Dispose();
-
 			base.ViewDidUnload();
 		}
+		#endregion
 
-		private void AttachPullToRefresh()
+		private void InitPresenter()
 		{
+			_scope = BaseBootstrapper.Container.BeginLifetimeScope();
 
+			Presenter = _scope.Resolve<TPresenter>();
+			Presenter.AttachView(this);
 		}
+
+		//private void AttachPullToRefresh()
+		//{
+
+		//}
 	}
 }
