@@ -43,7 +43,7 @@ namespace Softjourn.SJCoins.Droid.ui.activities
             SetContentView(Resource.Layout.activity_main);
 
             _swipeLayout = FindViewById<SwipeRefreshLayout>(Resource.Id.swipe_container);
-            _swipeLayout.SetColorSchemeColors(GetColor(Resource.Color.colorBlue));
+            _swipeLayout.SetColorSchemeColors(GetColor(Resource.Color.colorAccent));
 
             _drawerLayout = FindViewById<DrawerLayout>(Resource.Id.drawer_layout);
             _navigationView = FindViewById<NavigationView>(Resource.Id.left_side_menu);
@@ -57,17 +57,17 @@ namespace Softjourn.SJCoins.Droid.ui.activities
 
             _seeAllFavoriteTextView.Click += (sender, e) =>
             {
-                ViewPresenter.GoToSeeAllActivity(this, Const.Favorites);
+                //ViewPresenter.GoToSeeAllActivity(this, Const.Favorites);
             };
 
             _seeAllBestSellerTextView.Click += (sender, e) =>
             {
-                ViewPresenter.GoToSeeAllActivity(this, Const.BestSellers);
+                //ViewPresenter.GoToSeeAllActivity(this, Const.BestSellers);
             };
 
             _seeAllLastAddedTextView.Click += (sender, e) =>
             {
-                ViewPresenter.GoToSeeAllActivity(this, Const.LastAdded);
+                //ViewPresenter.GoToSeeAllActivity(this, Const.LastAdded);
             };
 
             InitDrawerToggle();
@@ -79,6 +79,8 @@ namespace Softjourn.SJCoins.Droid.ui.activities
                 HandleNavigation(e.MenuItem);
                 _drawerLayout.CloseDrawers();
             };
+
+            _swipeLayout.Refreshing = true;
 
             Title = "Vending Machine";
         }
@@ -168,55 +170,7 @@ namespace Softjourn.SJCoins.Droid.ui.activities
 
             _drawerLayout.AddDrawerListener(_toggle);
 
-
             _toggle.SyncState();
-        }
-
-        public void ShowMachinesSelector(List<Machines> machines)
-        {
-            var names = machines.Select(machine => machine.Name).ToList();
-
-            Dialog dialog = new Dialog(this);
-            if (!dialog.IsShowing)
-            {
-                dialog.Window.RequestFeature(WindowFeatures.NoTitle);
-                dialog.Window.RequestFeature(WindowFeatures.SwipeToDismiss);
-                dialog.SetContentView(Resource.Layout.dialog_select_machine);
-                var machinesList = dialog.FindViewById<ListView>(Resource.Id.lv);
-                SelectMachineListAdapter adapter = new SelectMachineListAdapter(this,
-                    Android.Resource.Layout.SimpleListItem1, names);
-                machinesList.Adapter = adapter;
-                dialog.Window.Attributes.WindowAnimations = Resource.Style.MachinesDialogAnimation;
-                HideProgress();
-                dialog.Show();
-
-                machinesList.ItemClick += (sender, e) =>
-                {
-                    foreach (Machines machine in machines)
-                    {
-                        if (adapter.GetItem(e.Position).ToString() == machine.Name)
-                        {
-                            Preferences.StoreObject(Const.SelectedMachineId, Java.Lang.String.ValueOf(machine.Id));
-                            Preferences.StoreObject(Const.SelectedMachineName, machine.Name);
-                            break;
-                        }
-                    }
-                    ShowProgress(GetString(Resource.String.progress_loading));
-                    if (MConfirmDialogIsVisible)
-                    {
-                        ConfirmDialog.Dismiss();
-                    }
-                    //LoadProductList();
-                    dialog.Dismiss();
-                };
-                dialog.CancelEvent += (sender, e) =>
-                {
-                    if (TextUtils.IsEmpty(Preferences.RetrieveStringObject(Const.SelectedMachineId)))
-                    {
-                        ShowToastMessage(GetString(Resource.String.machine_not_selected_toast));
-                    }
-                };
-            }
         }
 
         public void OnCategorySelected(IMenuItem item)
