@@ -1,6 +1,7 @@
 ﻿using System;
 using Softjourn.SJCoins.Core.UI.Services.Navigation;
 using Softjourn.SJCoins.iOS.General.Constants;
+using Softjourn.SJCoins.iOS.UI.Controllers.Informative;
 using UIKit;
 
 namespace Softjourn.SJCoins.iOS.Services
@@ -20,18 +21,17 @@ namespace Softjourn.SJCoins.iOS.Services
 		{
 			try
 			{
+				Console.WriteLine("Navigate to executed");
 				//var visibleController = _currentApplication.VisibleViewController;
 				//if (visibleController == null)
 				//	throw new Exception("Visible Controller is null");
-
-
 			}
 			catch { throw new Exception("Navigation to controller went wrong"); }
 		}
 
 		public void NavigateToAsRoot(NavigationPage page)
 		{
-			try { PresentAsRoot(GetRootController(page)); }
+			try { PresentAs(RootController(page)); }
 			catch { throw new Exception("Navigation to rootController went wrong"); }
 		}
 
@@ -41,14 +41,15 @@ namespace Softjourn.SJCoins.iOS.Services
 
 		#endregion
 
-		private UIViewController GetRootController(NavigationPage page)
+		private UIViewController RootController(NavigationPage page)
 		{
 			switch (page)
 			{
 				// If Welcome page or Login page instantiate from Login storyboard
 				case NavigationPage.Welcome:
+					return Instantiate(StoryboardConstants.StoryboardLogin, StoryboardConstants.InformativeViewController);
 				case NavigationPage.Login:
-					return InstantiateInitial(StoryboardConstants.StoryboardLogin);
+					return Instantiate(StoryboardConstants.StoryboardLogin, StoryboardConstants.LoginViewController);
 				// If Main page instantiate from Main storyboard
 				case NavigationPage.Main:
 					return InstantiateInitial(StoryboardConstants.StoryboardMain);
@@ -75,7 +76,7 @@ namespace Softjourn.SJCoins.iOS.Services
 			return UIStoryboard.FromName(storyboard, null).InstantiateViewController(identifier);
 		}
 
-		private void PresentAsRoot(UIViewController viewController)
+		private void PresentAs(UIViewController viewController)
 		{
 			UIApplication.SharedApplication.KeyWindow.RootViewController = viewController;
 		}

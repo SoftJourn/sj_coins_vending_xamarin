@@ -3,6 +3,8 @@ using Foundation;
 using Softjourn.SJCoins.Core.UI.ViewInterfaces;
 using Softjourn.SJCoins.Core.UI.Presenters;
 using Softjourn.SJCoins.iOS.UI.Services;
+using UIKit;
+using System.Threading;
 
 namespace Softjourn.SJCoins.iOS.UI.Controllers
 {
@@ -16,17 +18,9 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers
 		#endregion
 
 		#region Controller Life cycle 
-		public override void ViewDidLoad()
+		public override void ViewDidAppear(bool animated)
 		{
-			base.ViewDidLoad();
-		}
-
-		public override void ViewWillAppear(bool animated)
-		{
-			base.ViewWillAppear(animated);
-
-			//Set this view controller when visible
-			currentApplication.VisibleViewController = this;
+			base.ViewDidAppear(animated);
 
 			//Verify if its a first launch
 			Presenter.ChooseStartPage();

@@ -24,6 +24,18 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers
 
 		#region IBaseView implementation
 
+		public virtual void SetUIAppearance()
+		{
+		}
+
+		public virtual void AttachEvents()
+		{
+		}
+
+		public virtual void DetachEvents()
+		{
+		}
+
 		#endregion
 
 		#region Controller Lifecycle
@@ -39,6 +51,12 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers
 			base.ViewWillAppear(animated);
 			//AttachEvents();
 			Presenter.ViewShowed();
+		}
+		public override void ViewDidAppear(bool animated)
+		{
+			base.ViewDidAppear(animated);
+			//Set this view controller when visible
+			currentApplication.VisibleViewController = this;
 		}
 
 		public override void ViewWillDisappear(bool animated)

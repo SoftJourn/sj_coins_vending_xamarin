@@ -1,11 +1,11 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Autofac;
 using CoreGraphics;
 using Foundation;
 using Softjourn.SJCoins.Core.UI.Presenters;
 using Softjourn.SJCoins.Core.UI.ViewInterfaces;
+using Softjourn.SJCoins.iOS.General.Constants;
 using UIKit;
 
 namespace Softjourn.SJCoins.iOS.UI.Controllers.Informative
@@ -14,12 +14,16 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.Informative
 	public partial class InformativeViewController : BaseViewController<WelcomePresenter>, IWelcomeView
 	{
 		#region Properties
-		private WelcomePresenter _welcomePresenter;
-
 		private UIPageViewController pageViewController;
 		private List<string> _pageTitles;
+		private List<string> _pageImages;
+		private List<int> _r;
+		private List<int> _g;
+		private List<int> _b;
+
 		private List<ContentViewController> _pages;
 		private static int index = 0;
+		private static UIButton gotItButton;
 		private static UIPageControl pageControl;
 		#endregion
 
@@ -34,25 +38,45 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.Informative
 		{
 			base.ViewDidLoad();
 
-			//Resolve LoginPresenter from container and atach this view
-			_welcomePresenter = _scope.Resolve<WelcomePresenter>();
-			_welcomePresenter.AttachView(this);
-
 			// Create informative content
 			_pageTitles = new List<string> { "How to Log in?", "Buy Products", "Want More Coins?", "Add Favorites" };
-			var navigationManager = new NavigationManager();
+			_pageImages = new List<string> { "InfoLoginLogo", "InfoBuyLogo", "InfoCoinsLogo", "InfoFavoritesLogo" };
+			_r = new List<int> { 246, 33, 51, 200 };
+			_g = new List<int> { 76, 193, 149, 115 };
+			_b = new List<int> { 115, 173, 255, 244 };
+
 			_pages = new List<ContentViewController>();
-			_pages = navigationManager.CreateInformativePages(_pageTitles);
+			_pages = CreateInformativePages(_pageTitles);
 
 			// Create UIPageViewController and configure it
-			pageViewController = navigationManager.Instantiate("Login", "PageViewController") as UIPageViewController;
+			pageViewController = Instantiate(StoryboardConstants.StoryboardLogin, StoryboardConstants.PageViewController) as UIPageViewController;
 
 			ConfigurePageViewController();
 			ConfigurePageControl();
+			ConfigureGotItButton();
 		}
 		#endregion
 
 		#region Private methods
+		//-----------------------------------> Helpers
+		private List<ContentViewController> CreateInformativePages(List<string> titles)
+		{
+			var pages = new List<ContentViewController>();
+			for (int i = 0; i < 4; i++)
+			{
+				ContentViewController content = Instantiate(StoryboardConstants.StoryboardLogin, StoryboardConstants.ContentViewController) as ContentViewController;
+				content.Index = i;
+				content.Title = titles[i];
+				content.View.BackgroundColor = UIColor.FromRGB(_r[i], _g[i], _b[i]);
+				//content.LogoString = _pageImages[i];
+				pages.Add(content);
+			}
+			return pages;
+		}
+
+		private UIViewController Instantiate(string storyboard, string viewcontroller) => UIStoryboard.FromName(storyboard, null).InstantiateViewController(viewcontroller);
+		//-----------------------------------> Helpers
+
 		private void ConfigurePageViewController()
 		{
 			pageViewController.DataSource = new PageViewControllerDataSource(_pages);
@@ -70,6 +94,17 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.Informative
 			PageControl.CurrentPage = 0;
 			pageControl = PageControl;
 		}
+
+		private void ConfigureGotItButton()
+		{
+			View.BringSubviewToFront(GotItButton);
+			GotItButton.Hidden = true;
+			gotItButton = GotItButton;
+
+			GotItButton.TouchUpInside += (sender, e) => {
+				Presenter.ToLoginScreen();
+			};
+		}
 		#endregion
 
 		#region IWelcomeView implementation
@@ -80,12 +115,17 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.Informative
 		#endregion
 
 		#region BaseViewController -> IBaseView implementation
-		public void AttachEvents()
+		public override void SetUIAppearance()
+		{
+			base.SetUIAppearance();
+		}
+
+		public override void AttachEvents()
 		{
 			// ToLoginPage event
 		}
 
-		public void DetachEvents()
+		public override void DetachEvents()
 		{
 			// ToLoginPage event
 		}
@@ -105,12 +145,15 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.Informative
 			{
 				var currentViewController = referenceViewController as ContentViewController;
 				index = currentViewController.Index;
-				//Console.WriteLine("index: {0}", index);
 				index++;
 
 				if (index == _pages.Count)
+				{
+					gotItButton.Hidden = false;
 					return null;
+				} 
 				else {
+					gotItButton.Hidden = true;
 					return _pages[index];
 				}
 			}
@@ -119,7 +162,6 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.Informative
 			{
 				var currentViewController = referenceViewController as ContentViewController;
 				index = currentViewController.Index;
-				//Console.WriteLine("index: {0}", index);
 
 				if (currentViewController.Index == 0)
 				{
@@ -142,6 +184,7 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.Informative
 				{
 					pageControl.CurrentPage = index;
 					Console.WriteLine("index: {0}", index);
+
 				}
 			}
 		}

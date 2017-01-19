@@ -1,6 +1,7 @@
 ﻿using Foundation;
 using UIKit;
 using Softjourn.SJCoins.iOS.Bootstraper;
+using Softjourn.SJCoins.iOS.General.Constants;
 
 namespace Softjourn.SJCoins.iOS
 {
@@ -17,8 +18,8 @@ namespace Softjourn.SJCoins.iOS
         public override bool FinishedLaunching(UIApplication application, NSDictionary launchOptions)
         {
 			InitIoC();
-
-            return true;
+			InitInitialViewControllerManually();
+			return true;
         }
 
         public override void OnResignActivation(UIApplication application)
@@ -55,6 +56,15 @@ namespace Softjourn.SJCoins.iOS
 		private void InitIoC()
 		{
 			new Bootstraper.Bootstraper().Init();
+		}
+
+		private void InitInitialViewControllerManually()
+		{
+			Window = new UIWindow(UIScreen.MainScreen.Bounds);
+			var storyboard = UIStoryboard.FromName(StoryboardConstants.StoryboardLogin, null);
+			var controller = storyboard.InstantiateViewController(StoryboardConstants.InitialViewController);
+			Window.RootViewController = controller;
+			Window.MakeKeyAndVisible();
 		}
     }
 }

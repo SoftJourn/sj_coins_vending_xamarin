@@ -29,7 +29,7 @@
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ljM-S2-uPj">
                                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                                         <subviews>
-                                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="F828BA80-531A-4CEA-9FE6-1B77AB897F7D" translatesAutoresizingMaskIntoConstraints="NO" id="7Uf-QG-kb1">
+                                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="vending_logo" translatesAutoresizingMaskIntoConstraints="NO" id="7Uf-QG-kb1">
                                                 <rect key="frame" x="113" y="124" width="150" height="150"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="150" id="buv-jY-cJP"/>
@@ -38,7 +38,7 @@
                                                 <userDefinedRuntimeAttributes>
                                                     <userDefinedRuntimeAttribute type="string" keyPath="layer.cornerRadius" value="frame.height/2"/>
                                                 </userDefinedRuntimeAttributes>
-                                                <variation key="heightClass=regular-widthClass=compact" image="vending_machine"/>
+                                                <variation key="heightClass=regular-widthClass=compact" image="vending_logo"/>
                                             </imageView>
                                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Login" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="aMW-md-VeR" userLabel="Login">
                                                 <rect key="frame" x="28" y="314" width="319" height="40"/>
@@ -94,7 +94,7 @@
                                                 <nil key="highlightedColor"/>
                                             </label>
                                         </subviews>
-                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                         <constraints>
                                             <constraint firstItem="aMW-md-VeR" firstAttribute="height" secondItem="yCO-qR-FRw" secondAttribute="height" id="5w6-nY-7e9"/>
                                             <constraint firstItem="yCO-qR-FRw" firstAttribute="width" secondItem="PL9-iP-f9L" secondAttribute="width" id="6dg-Ac-Tfs"/>
@@ -160,7 +160,7 @@
         <!--Informative View Controller-->
         <scene sceneID="q38-Xd-sW4">
             <objects>
-                <viewController storyboardIdentifier="InformativeViewController" id="4gg-m3-Xji" customClass="InformativeViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="InformativeViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="4gg-m3-Xji" customClass="InformativeViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="aPX-qj-MQm"/>
                         <viewControllerLayoutGuide type="bottom" id="um8-cX-OPZ"/>
@@ -177,20 +177,33 @@
                                 <color key="pageIndicatorTintColor" red="0.0" green="0.47843137250000001" blue="1" alpha="0.5" colorSpace="custom" customColorSpace="sRGB"/>
                                 <color key="currentPageIndicatorTintColor" red="0.0" green="0.47843137250000001" blue="1" alpha="0.89917652030270268" colorSpace="custom" customColorSpace="sRGB"/>
                             </pageControl>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OYJ-5h-pu7">
+                                <rect key="frame" x="36" y="530" width="303" height="40"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="40" id="ncR-6c-08a"/>
+                                </constraints>
+                                <state key="normal" title="Got it">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstItem="OYJ-5h-pu7" firstAttribute="centerX" secondItem="Afd-0a-1ZU" secondAttribute="centerX" id="Dtb-7C-abZ"/>
+                            <constraint firstItem="OYJ-5h-pu7" firstAttribute="leading" secondItem="Afd-0a-1ZU" secondAttribute="leadingMargin" constant="20" id="Eoy-XW-tRZ"/>
+                            <constraint firstItem="vBo-Wj-4Sp" firstAttribute="top" secondItem="OYJ-5h-pu7" secondAttribute="bottom" constant="20" id="JfI-r2-2kZ"/>
                             <constraint firstItem="um8-cX-OPZ" firstAttribute="top" secondItem="vBo-Wj-4Sp" secondAttribute="bottom" constant="40" id="Oie-td-8FT"/>
                             <constraint firstItem="vBo-Wj-4Sp" firstAttribute="centerX" secondItem="Afd-0a-1ZU" secondAttribute="centerX" id="OoC-6K-vBp"/>
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="GotItButton" destination="OYJ-5h-pu7" id="FEs-zu-OTm"/>
                         <outlet property="PageControl" destination="vBo-Wj-4Sp" id="QJf-o0-AAr"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="E1U-go-MKO" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1982" y="345"/>
+            <point key="canvasLocation" x="-1983.2" y="344.97751124437787"/>
         </scene>
         <!--Page View Controller-->
         <scene sceneID="k1N-K8-l1l">
@@ -218,7 +231,7 @@
                                     <constraint firstAttribute="height" constant="120" id="Rqy-vD-gFd"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                                <color key="textColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Title" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="t61-9d-LTm">
@@ -228,14 +241,14 @@
                                     <constraint firstAttribute="width" constant="200" id="wuV-c9-E4h"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
-                                <color key="textColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="shw-hn-WkX">
-                                <rect key="frame" x="87" y="63.5" width="200" height="200"/>
+                                <rect key="frame" x="102" y="103.5" width="170" height="170"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="200" id="Ll1-Fe-B4k"/>
-                                    <constraint firstAttribute="height" constant="200" id="fbA-AK-63i"/>
+                                    <constraint firstAttribute="width" constant="170" id="Ll1-Fe-B4k"/>
+                                    <constraint firstAttribute="height" constant="170" id="fbA-AK-63i"/>
                                 </constraints>
                             </imageView>
                         </subviews>
@@ -247,7 +260,7 @@
                             <constraint firstItem="qmh-ei-HYj" firstAttribute="centerX" secondItem="lIq-C8-wXp" secondAttribute="centerX" id="PFf-HX-7iS"/>
                             <constraint firstItem="qmh-ei-HYj" firstAttribute="trailing" secondItem="lIq-C8-wXp" secondAttribute="trailingMargin" id="QQN-pN-N7S"/>
                             <constraint firstItem="t61-9d-LTm" firstAttribute="centerX" secondItem="lIq-C8-wXp" secondAttribute="centerX" id="ahW-n7-3NT"/>
-                            <constraint firstItem="t61-9d-LTm" firstAttribute="top" secondItem="shw-hn-WkX" secondAttribute="bottom" constant="60" id="f6t-aQ-uF0"/>
+                            <constraint firstItem="t61-9d-LTm" firstAttribute="top" secondItem="shw-hn-WkX" secondAttribute="bottom" constant="50" id="f6t-aQ-uF0"/>
                             <constraint firstItem="qmh-ei-HYj" firstAttribute="top" secondItem="t61-9d-LTm" secondAttribute="bottom" constant="10" id="f86-Pc-2Ru"/>
                         </constraints>
                     </view>
@@ -273,7 +286,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="KeJ-ew-dJ1">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="vending_logo" translatesAutoresizingMaskIntoConstraints="NO" id="KeJ-ew-dJ1">
                                 <rect key="frame" x="113" y="259" width="150" height="150"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="150" id="s82-61-gyG"/>
@@ -297,7 +310,6 @@
         </scene>
     </scenes>
     <resources>
-        <image name="F828BA80-531A-4CEA-9FE6-1B77AB897F7D" width="16" height="16"/>
-        <image name="vending_machine" width="230" height="265"/>
+        <image name="vending_logo" width="230" height="265"/>
     </resources>
 </document>

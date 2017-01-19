@@ -12,6 +12,9 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.Informative
 	partial class InformativeViewController
 	{
 		[Outlet]
+		UIKit.UIButton GotItButton { get; set; }
+
+		[Outlet]
 		UIKit.UIPageControl PageControl { get; set; }
 		
 		void ReleaseDesignerOutlets ()
@@ -19,6 +22,11 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.Informative
 			if (PageControl != null) {
 				PageControl.Dispose ();
 				PageControl = null;
+			}
+
+			if (GotItButton != null) {
+				GotItButton.Dispose ();
+				GotItButton = null;
 			}
 		}
 	}

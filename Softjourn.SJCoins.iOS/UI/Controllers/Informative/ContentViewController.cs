@@ -10,6 +10,7 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.Informative
 		//Properties
 		public int Index = 0;
 		public new string Title;
+		//public new string LogoString;
 
 		//Constructor
 		public ContentViewController(IntPtr handle) : base(handle)
@@ -21,9 +22,11 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.Informative
 		{
 			base.ViewDidLoad();
 
-			Image.BackgroundColor = UIColor.Red.ColorWithAlpha(0.7f);
-			//View.BackgroundColor = UIColor.Black.ColorWithAlpha(0.7f);
 			TitleLabel.Text = Title;
+			//UIImage image = UIImage.FromBundle(LogoString);
+
+			//Console.WriteLine("sdf");
+			//Image.Image = UIImage.FromBundle(ImageLogo1);
 		}
 	}
 }

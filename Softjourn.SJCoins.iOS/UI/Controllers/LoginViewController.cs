@@ -52,7 +52,7 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers
 		//Actions
 		partial void LoginButtonPressed(UIButton sender)
 		{
-			_loginPresenter.Login(LoginTextField.Text, PasswordTextField.Text);
+			Presenter.Login(LoginTextField.Text, PasswordTextField.Text);
 		}
 
 		partial void LoginTextFieldDidChange(UITextField sender)
@@ -92,12 +92,18 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers
 		#endregion
 
 		#region BaseViewController -> IBaseView implementation
-		public void AttachEvents()
+		public override void SetUIAppearance()
+		{
+			base.SetUIAppearance();
+			//_scrollService = new KeyboardScrollService(ScrollView);
+		}
+
+		public override void AttachEvents()
 		{
 			
 		}
 
-		public void DetachEvents()
+		public override void DetachEvents()
 		{
 			
 		}
