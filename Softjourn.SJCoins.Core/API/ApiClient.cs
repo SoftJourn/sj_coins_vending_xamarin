@@ -2,6 +2,7 @@
 using RestSharp.Portable.Deserializers;
 using Softjourn.SJCoins.Core.API;
 using Softjourn.SJCoins.Core.API.Model;
+using Softjourn.SJCoins.Core.API.Model.Machines;
 using Softjourn.SJCoins.Core.Exceptions;
 using Softjourn.SJCoins.Core.Helpers;
 using System;
@@ -31,6 +32,8 @@ namespace Softjourn.SJCoins.Core.API
 
         public const string UrlLogin = UrlAuthService + "oauth/token";
 
+        public const string UrlGetMachinesList = UrlVendingService + "machines";
+
         //public const string UrlGetMachinesList = UrlVendingService + "machines";
         //public const string UrlLogin = UrlAuthService + "oauth/token";
         //public const string UrlLogin = UrlAuthService + "oauth/token";
@@ -41,7 +44,7 @@ namespace Softjourn.SJCoins.Core.API
 
         public async Task<Session> MakeLoginRequest(string userName, string password)
         {
-            var apiClient = GetApiClient();
+            var apiClient = GetApiClient();           
             var request = new RestRequest(UrlLogin, Method.POST);
             request.AddParameter("username", userName);
             request.AddParameter("password", password);
@@ -54,37 +57,27 @@ namespace Softjourn.SJCoins.Core.API
             {
                 IRestResponse response = await apiClient.Execute(request);
 
-               if (response.StatusCode == HttpStatusCode.OK) { 
+               if (response.IsSuccess) { 
                     var content = response.Content;
                     Session session = deserial.Deserialize<Session>(response);
                     SaveTokens(session);
                 return session;
             } else {
-                    apiClient.Dispose();
                     ApiErrorHandler(response);
                 }                       
             }
-            catch (ApiNotAuthorizedException)
-            {
-                await MakeLoginRequest(userName, password);
-
-            }
-            catch (Exception)
-            {
-                apiClient.Dispose();
-            }
             finally
             {
-                
+                apiClient.Dispose(); 
             }
             return null;
         }
 
-        private async void RefreshToken(string refreshToken)
+        private async Task<Session> RefreshToken()
         {
             var apiClient = GetApiClient();
             var request = new RestRequest(UrlLogin, Method.POST);
-            request.AddParameter("refresh_token", refreshToken);
+            request.AddParameter("refresh_token", Settings.RefreshToken);
             request.AddParameter("grant_type", GrandTypePassword);
             request.AddHeader("Content-Type", "application/x-www-form-urlencoded");
             request.AddHeader("Authorization", LoginAuthorizationHeader);
@@ -97,6 +90,7 @@ namespace Softjourn.SJCoins.Core.API
                     var content = response.Content;
                     Session session = deserial.Deserialize<Session>(response);
                     SaveTokens(session);
+                    return session;
                 } else { 
                     ApiErrorHandler(response);
                 }
@@ -108,18 +102,57 @@ namespace Softjourn.SJCoins.Core.API
             
              finally
             {
-
+                apiClient.Dispose();
             }
+            return null;
+        }
+
+        public async Task<List<Machines>> GetMachinesList()
+        {
+            var apiClient = GetApiClient();
+            var request = new RestRequest(UrlGetMachinesList, Method.GET);
+            request.AddHeader("Content-Type", "application/json");
+            request.AddHeader("Authorization", GetOAuthAuthorizationHeader());
+            JsonDeserializer deserial = new JsonDeserializer();
+
+            try
+            {
+                IRestResponse response = await apiClient.Execute(request);
+
+                if (response.IsSuccess)
+                {
+                    var content = response.Content;
+                    List<Machines> machinesList = deserial.Deserialize<List<Machines>>(response);
+                    return machinesList;
+                }
+                else
+                {
+                    ApiErrorHandler(response);
+                }
+            }
+            catch (ApiNotAuthorizedException)
+            {
+                await RefreshToken();
+                return await GetMachinesList();
+            }
+            finally
+            {
+                apiClient.Dispose();
+            }
+            return null;
         }
 
         private void ApiErrorHandler(IRestResponse response)
         {
+            string errorDescription = response.StatusDescription;
             switch (response.StatusCode)
             {
+                case HttpStatusCode.BadRequest:
+                    throw new ApiBadRequestException(errorDescription);
                 case HttpStatusCode.Unauthorized:
-                    throw new ApiNotAuthorizedException("Not Authorized");
+                    throw new ApiNotAuthorizedException(errorDescription);
                 default:
-                    throw new ApiException("general");
+                    throw new ApiException(errorDescription);
             }
         } 
 

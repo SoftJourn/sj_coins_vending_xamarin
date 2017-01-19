@@ -50,8 +50,7 @@ namespace Softjourn.SJCoins.Core.Helpers
 
         public static bool FirstLaunch
         {
-            //get { return AppSettings.GetValueOrDefault<bool>(IsFirstLaunch, IsFirstLaunchDefault); }
-            get { return true; }
+            get { return AppSettings.GetValueOrDefault<bool>(IsFirstLaunch, IsFirstLaunchDefault); }
             set { AppSettings.AddOrUpdateValue(IsFirstLaunch, value); }
         }
 
