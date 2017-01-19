@@ -8,6 +8,7 @@ using Softjourn.SJCoins.Core.Utils;
 using System;
 using System.Collections.Generic;
 using Softjourn.SJCoins.Core.Exceptions;
+using Softjourn.SJCoins.Core.UI.Utils;
 
 namespace Softjourn.SJCoins.Core.UI.Presenters
 {
@@ -23,50 +24,55 @@ namespace Softjourn.SJCoins.Core.UI.Presenters
 
         }
 
-        public enum ValidateCredentialsResult { FieldsAreAmpty, UserNameNotValid, PasswordNotValid, CredentialsAreValid }
-
         public async void Login(string userName, string password)
         {
+            if (!IsPasswordValid(password)) {
+                View.SetPasswordError(Resources.StringResources.activity_login_invalid_password);
+            };
 
-            switch (Utils.Validators.ValidateCredentials(userName, password))
+            if (!IsUserNameValid(userName))
             {
-                case ValidateCredentialsResult.FieldsAreAmpty:
-                    View.SetUsernameError(Resources.StringResources.activity_login_invalid_email);
-                    break;
-                case ValidateCredentialsResult.UserNameNotValid:
-                    View.SetUsernameError(Resources.StringResources.activity_login_invalid_email);
-                    break;
-                case ValidateCredentialsResult.PasswordNotValid:
-                    View.SetPasswordError(Resources.StringResources.activity_login_invalid_password);
-                    break;
-                default:
-                    if (NetworkUtils.IsConnected)
+                View.SetUsernameError(Resources.StringResources.activity_login_invalid_email);
+            };
+
+            if (IsPasswordValid(password) && IsUserNameValid(userName))
+            {
+                if (NetworkUtils.IsConnected)
+                {
+                    View.ShowProgress(Resources.StringResources.progress_authenticating);
+                    Session session;
+                    List<Machines> machinesList = new List<Machines>();
+                    try
                     {
-                        View.ShowProgress(Resources.StringResources.progress_authenticating);
-                        Session session;
-                        List<Machines> machinesList = new List<Machines>();
-                        try
-                        {
-                            session = await RestApiServise.ApiClient.MakeLoginRequest(userName, password);
-                            NavigationService.NavigateToAsRoot(NavigationPage.Main);
-                        }
-                        catch (ApiBadRequestException ex)
-                        {
-                            View.HideProgress();
-                            AlertService.ShowMessageWithUserInteraction("Server Error", Resources.StringResources.server_error_bad_username_or_password, Resources.StringResources.btn_title_ok, null);
-                        }
-                        catch (Exception ex)
-                        {
-                            View.HideProgress();
-                            AlertService.ShowToastMessage(ex.Message);
-                        }
+                        session = await RestApiServise.ApiClient.MakeLoginRequest(userName, password);
+                        NavigationService.NavigateToAsRoot(NavigationPage.Main);
                     }
-                    else
+                    catch (ApiBadRequestException ex)
                     {
-                        AlertService.ShowToastMessage(Resources.StringResources.internet_turned_off);
+                        View.HideProgress();
+                        AlertService.ShowMessageWithUserInteraction("Server Error", Resources.StringResources.server_error_bad_username_or_password, Resources.StringResources.btn_title_ok, null);
                     }
-                    break;
-            }
+                    catch (Exception ex)
+                    {
+                        View.HideProgress();
+                        AlertService.ShowToastMessage(ex.Message);
+                    }
+                }
+                else
+                {
+                    AlertService.ShowToastMessage(Resources.StringResources.internet_turned_off);
+                }
+            }           
+        }
+         
+        public bool IsPasswordValid(string password)
+        {
+            return Validators.IsPasswordValid(password);
+        }
+
+        public bool IsUserNameValid(string userName)
+        {
+            return Validators.IsUserNameValid(userName);
         }
 
         public void ToWelcomePage()

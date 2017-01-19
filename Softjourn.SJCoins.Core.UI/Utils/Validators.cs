@@ -7,26 +7,15 @@ namespace Softjourn.SJCoins.Core.UI.Utils
 {
     public class Validators
     {
-        public static LoginPresenter.ValidateCredentialsResult ValidateCredentials(string userName, string password)
+        public static bool IsPasswordValid(string password)
         {
-            if (password.Length< 1 && userName.Length< 1)
-            {
-                return LoginPresenter.ValidateCredentialsResult.FieldsAreAmpty;
-            }
-
-            if (userName.Length< 1 || !Regex.IsMatch(userName, "[a-z]+"))
-            {
-                return LoginPresenter.ValidateCredentialsResult.UserNameNotValid;
-            }
-
-            if (password.Length< 1)
-            {
-                return LoginPresenter.ValidateCredentialsResult.PasswordNotValid;
-            }
-
-            return LoginPresenter.ValidateCredentialsResult.CredentialsAreValid;
+            return !string.IsNullOrEmpty(password);
         }
 
-        
+        public static bool IsUserNameValid(string userName)
+        {
+            return (!string.IsNullOrEmpty(userName) && Regex.IsMatch(userName, "[a-z]+"));
+        }
+
     }
 }
