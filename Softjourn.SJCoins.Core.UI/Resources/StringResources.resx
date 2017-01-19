@@ -132,6 +132,12 @@
   <data name="app_name" xml:space="preserve">
     <value>SJCoins</value>
   </data>
+  <data name="btn_title_cancel" xml:space="preserve">
+    <value>Cancel</value>
+  </data>
+  <data name="btn_title_ok" xml:space="preserve">
+    <value>Ok</value>
+  </data>
   <data name="internet_turned_off" xml:space="preserve">
     <value>No Internet connection</value>
   </data>
@@ -203,6 +209,9 @@
   </data>
   <data name="server_error_50901" xml:space="preserve">
     <value>Right now machine is locked by queue. We know it's annoying. But please try again later</value>
+  </data>
+  <data name="server_error_bad_username_or_password" xml:space="preserve">
+    <value>Username or password is incorrect</value>
   </data>
   <data name="server_error_other" xml:space="preserve">
     <value>Unfortunately service is not available right now. Just try again later</value>
