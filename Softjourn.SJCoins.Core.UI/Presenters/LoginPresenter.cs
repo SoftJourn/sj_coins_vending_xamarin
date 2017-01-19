@@ -53,7 +53,7 @@ namespace Softjourn.SJCoins.Core.UI.Presenters
                         catch (ApiBadRequestException ex)
                         {
                             View.HideProgress();
-                            AlertService.ShowToastMessage("Bad Login or Password");
+                            AlertService.ShowMessageWithUserInteraction("Server Error", Resources.StringResources.server_error_bad_username_or_password, Resources.StringResources.btn_title_ok, null);
                         }
                         catch (Exception ex)
                         {

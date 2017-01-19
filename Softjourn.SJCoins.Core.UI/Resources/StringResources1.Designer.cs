@@ -107,6 +107,24 @@ namespace Softjourn.SJCoins.Core.UI.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Cancel.
+        /// </summary>
+        public static string btn_title_cancel {
+            get {
+                return ResourceManager.GetString("btn_title_cancel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ok.
+        /// </summary>
+        public static string btn_title_ok {
+            get {
+                return ResourceManager.GetString("btn_title_ok", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to No Internet connection.
         /// </summary>
         public static string internet_turned_off {
@@ -319,6 +337,15 @@ namespace Softjourn.SJCoins.Core.UI.Resources {
         public static string server_error_50901 {
             get {
                 return ResourceManager.GetString("server_error_50901", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Username or password is incorrect.
+        /// </summary>
+        public static string server_error_bad_username_or_password {
+            get {
+                return ResourceManager.GetString("server_error_bad_username_or_password", resourceCulture);
             }
         }
         
