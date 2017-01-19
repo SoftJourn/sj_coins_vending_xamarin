@@ -22,30 +22,5 @@ namespace Softjourn.SJCoins.Droid.ui.activities
         {
             SetContentView(Resource.Layout.activity_no_internet);
         }
-
-        public override void ShowSnackBar(string message)
-        {
-            throw new System.NotImplementedException();
-        }
-
-        public override void LogOut(IMenuItem item)
-        {
-            throw new System.NotImplementedException();
-        }
-
-        public void ToWelcomePage()
-        {
-            throw new System.NotImplementedException();
-        }
-
-        public void ToMainPage()
-        {
-            throw new System.NotImplementedException();
-        }
-
-        public void ToLoginPage()
-        {
-            throw new System.NotImplementedException();
-        }
     }
 }

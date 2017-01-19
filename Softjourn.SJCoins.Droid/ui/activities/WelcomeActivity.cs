@@ -155,24 +155,15 @@ namespace Softjourn.SJCoins.Droid.ui.activities
                 _btnNext.Text = GetString(Resource.String.start);
                 _btnNext.Visibility = ViewStates.Visible;
             }
+            else
+            {
+                _btnNext.Visibility = ViewStates.Gone;
+            }
         }
 
-        /**
-         * IWelcomeView interface implementation
-         */
         public void ToLoginPage()
         {
-            throw new System.NotImplementedException();
-        }
-
-        public override void ShowSnackBar(string message)
-        {
-            throw new System.NotImplementedException();
-        }
-
-        public override void LogOut(IMenuItem item)
-        {
-            throw new System.NotImplementedException();
+            //throw new System.NotImplementedException();
         }
     }
 }

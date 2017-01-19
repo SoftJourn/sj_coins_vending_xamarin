@@ -71,7 +71,7 @@ namespace Softjourn.SJCoins.iOS.UI.Services
 
 		private void AddCustomAction(UIAlertController alertController, string title = null, UIAlertActionStyle style = UIAlertActionStyle.Default, Action handler = null)
 		{
-			if (String.IsNullOrEmpty(title))
+			if (!String.IsNullOrEmpty(title))
 			{
 				var alertAction = UIAlertAction.Create(title, style, (action) =>
 				{

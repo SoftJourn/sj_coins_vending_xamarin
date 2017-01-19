@@ -77,6 +77,7 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers
 		{
 			base.Dispose(disposing);
 			Presenter = null;
+			Console.WriteLine("Presenter is equal NULL");
 		}
 		#endregion
 

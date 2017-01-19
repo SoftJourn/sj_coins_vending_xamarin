@@ -17,12 +17,12 @@ namespace Softjourn.SJCoins.Droid.ui.baseUI
         where TPresenter : class, IBasePresenter
     {
         protected bool MProfileIsVisible = false;
-        protected bool MConfirmDialogIsVisible = false;
+        public bool MConfirmDialogIsVisible = false;
 
         private ProgressDialog _progressDialog;
         private ILifetimeScope _scope;
 
-        protected Dialog ConfirmDialog;
+        public Dialog ConfirmDialog;
 
         protected TPresenter ViewPresenter { get; private set; }
 
@@ -83,10 +83,6 @@ namespace Softjourn.SJCoins.Droid.ui.baseUI
         {
             Utils.ShowErrorToast(this, text);
         }
-
-        public abstract void ShowSnackBar(string message);
-
-        public abstract void LogOut(IMenuItem item);
 
         public void AttachEvents()
         {

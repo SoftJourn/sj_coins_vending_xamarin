@@ -181,7 +181,6 @@
     <Compile Include="AppDelegate.cs" />
     <Compile Include="Bootstraper\Bootstraper.cs" />
     <Compile Include="General\Constants\StoryboardConstants.cs" />
-    <Compile Include="Managers\NavigationManager.cs" />
     <Compile Include="UI\Controllers\BaseViewController.cs" />
     <Compile Include="UI\Controllers\InitialViewController.cs" />
     <Compile Include="UI\Controllers\InitialViewController.designer.cs" />
@@ -191,7 +190,6 @@
     <Compile Include="UI\Controllers\Informative\ContentViewController.designer.cs" />
     <Compile Include="UI\Controllers\Informative\InformativeViewController.cs" />
     <Compile Include="UI\Controllers\Informative\InformativeViewController.designer.cs" />
-    <Compile Include="UI\Controllers\Informative\PageViewController.cs" />
     <Compile Include="UI\Services\AlertService.cs" />
     <Compile Include="UI\Services\FullScreenLoaderService.cs" />
     <Compile Include="UI\Services\KeyboardScrollService.cs" />

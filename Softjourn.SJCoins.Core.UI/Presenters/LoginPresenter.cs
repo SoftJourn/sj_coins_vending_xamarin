@@ -1,10 +1,14 @@
 ﻿using Softjourn.SJCoins.Core.API;
 using Softjourn.SJCoins.Core.API.Model;
+using Softjourn.SJCoins.Core.API.Model.Machines;
 using Softjourn.SJCoins.Core.UI.Presenters.IPresenters;
 using Softjourn.SJCoins.Core.UI.Services.Navigation;
 using Softjourn.SJCoins.Core.UI.ViewInterfaces;
 using Softjourn.SJCoins.Core.Utils;
 using System;
+using System.Collections.Generic;
+using Softjourn.SJCoins.Core.Exceptions;
+using Softjourn.SJCoins.Core.UI.Utils;
 
 namespace Softjourn.SJCoins.Core.UI.Presenters
 {
@@ -20,36 +24,73 @@ namespace Softjourn.SJCoins.Core.UI.Presenters
 
         }
 
-        public enum ValidateCredentialsResult { FieldsAreAmpty, UserNameNotValid, PasswordNotValid, CredentialsAreValid }
-
         public async void Login(string userName, string password)
         {
-
-            switch (Utils.Validators.ValidateCredentials(userName, password))
+            if (!Validators.IsUserNameEmpty(userName) && !Validators.IsPasswordValid(password))
             {
-                case ValidateCredentialsResult.FieldsAreAmpty:
-                    View.SetUsernameError(Resources.StringResources.activity_login_invalid_email);
-                    break;
-                case ValidateCredentialsResult.UserNameNotValid:
-                    View.SetUsernameError(Resources.StringResources.activity_login_invalid_email);
-                    break;
-                case ValidateCredentialsResult.PasswordNotValid:
-                    View.SetPasswordError(Resources.StringResources.activity_login_invalid_password);
-                    break;
-                default:
-                    if (NetworkUtils.IsConnected)
+                View.SetPasswordError(Resources.StringResources.activity_login_invalid_password);
+                View.SetUsernameError(Resources.StringResources.activity_login_empty_username);
+                return;
+            }
+
+            if (!Validators.IsUserNameValid(userName))
+            {
+                View.SetUsernameError(Resources.StringResources.activity_login_invalid_username);
+                return;
+            }
+
+            if (!Validators.IsPasswordValid(password))
+            {
+                View.SetPasswordError(Resources.StringResources.activity_login_invalid_password);
+                return;
+            }
+
+            if (Validators.IsPasswordValid(password) && Validators.IsUserNameValid(userName) && Validators.IsUserNameEmpty(userName))
+            {
+                if (NetworkUtils.IsConnected)
+                {
+                    View.ShowProgress(Resources.StringResources.progress_authenticating);
+                    
+                    try
                     {
-                        View.ShowProgress(Resources.StringResources.progress_authenticating);
-                        Session session = await RestApiServise.ApiClient.MakeLoginRequest(userName, password);
-                        // NavigationService.NavigateToAsRoot(NavigationPage.Main);
+                        await RestApiServise.ApiClient.MakeLoginRequest(userName, password);
+                        NavigationService.NavigateToAsRoot(NavigationPage.Main);
+                    }
+                    catch (ApiBadRequestException ex)
+                    {
                         View.HideProgress();
-                        AlertService.ShowToastMessage(session.AccessToken);
+                        AlertService.ShowMessageWithUserInteraction("Server Error", Resources.StringResources.server_error_bad_username_or_password, Resources.StringResources.btn_title_ok, null);
                     }
-                    else
+                    catch (Exception ex)
                     {
-                        AlertService.ShowToastMessage(Resources.StringResources.internet_turned_off);
+                        View.HideProgress();
+                        AlertService.ShowToastMessage(ex.Message);
                     }
-                    break;
+                }
+                else
+                {
+                    AlertService.ShowToastMessage(Resources.StringResources.internet_turned_off);
+                }
+            }           
+        }
+         
+        public void IsPasswordValid(string password)
+        {
+            if (Validators.IsPasswordValid(password))
+            {
+                View.SetPasswordError(Resources.StringResources.activity_login_invalid_password);
+            }
+        }
+
+        public void IsUserNameValid(string userName)
+        {
+            if (!Validators.IsUserNameEmpty(userName))
+            {
+                View.SetUsernameError(Resources.StringResources.activity_login_empty_username);
+            }
+            if (!Validators.IsUserNameValid(userName))
+            {
+                View.SetUsernameError(Resources.StringResources.activity_login_invalid_username);
             }
         }
 

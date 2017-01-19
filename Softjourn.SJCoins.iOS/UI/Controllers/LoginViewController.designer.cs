@@ -12,6 +12,9 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers
 	partial class LoginViewController
 	{
 		[Outlet]
+		UIKit.UIButton BackButton { get; set; }
+
+		[Outlet]
 		UIKit.UIImageView ImageLogo { get; set; }
 
 		[Outlet]
@@ -34,9 +37,6 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers
 
 		[Outlet]
 		UIKit.UILabel VersionLabel { get; set; }
-
-		[Action ("LoginButtonPressed:")]
-		partial void LoginButtonPressed (UIKit.UIButton sender);
 
 		[Action ("LoginTextFieldDidChange:")]
 		partial void LoginTextFieldDidChange (UIKit.UITextField sender);
@@ -81,6 +81,11 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers
 			if (VersionLabel != null) {
 				VersionLabel.Dispose ();
 				VersionLabel = null;
+			}
+
+			if (BackButton != null) {
+				BackButton.Dispose ();
+				BackButton = null;
 			}
 		}
 	}

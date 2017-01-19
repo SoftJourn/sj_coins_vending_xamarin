@@ -13,7 +13,6 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers
 	public partial class LoginViewController : BaseViewController<LoginPresenter>, ILoginView
 	{
 		#region Properties
-		private LoginPresenter _loginPresenter;
 		private KeyboardScrollService _scrollService;
 		#endregion
 
@@ -27,34 +26,23 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers
 		public override void ViewDidLoad()
 		{
 			base.ViewDidLoad();
+
+			// Add events to buttons
+			BackButton.TouchUpInside += (sender, e) => { Presenter.ToWelcomePage(); };
+			LoginButton.TouchUpInside += (sender, e) => { Presenter.Login(LoginTextField.Text, PasswordTextField.Text); };
 		}
 
 		public override void ViewWillAppear(bool animated)
 		{
 			base.ViewWillAppear(animated);
 
-			//Set this view controller when visible
-			currentApplication.VisibleViewController = this;
-
 			//Hide error labels before view appears
 			LoginErrorLabel.Hidden = true;
 			PasswordErrorLabel.Hidden = true;
 		}
-
-		protected override void Dispose(bool disposing)
-		{
-			base.Dispose(disposing);
-
-			Presenter = null;
-		}
 		#endregion
 
 		//Actions
-		partial void LoginButtonPressed(UIButton sender)
-		{
-			Presenter.Login(LoginTextField.Text, PasswordTextField.Text);
-		}
-
 		partial void LoginTextFieldDidChange(UITextField sender)
 		{
 			//...

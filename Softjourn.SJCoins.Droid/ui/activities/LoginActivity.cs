@@ -17,15 +17,13 @@ namespace Softjourn.SJCoins.Droid.ui.activities
     public class LoginActivity : BaseActivity<LoginPresenter>, ILoginView
     {
 
-    EditText _userName;
+        EditText _userName;
 
-    EditText _passwordText;
+        EditText _passwordText;
 
-    Button _loginButton;
+        Button _loginButton;
 
-    LinearLayout _linearLayout;
-
-    ImageView _arrowToWelcome;
+        ImageView _arrowToWelcome;
 
         //private ILoginPresenter _presenter;
 
@@ -37,8 +35,15 @@ namespace Softjourn.SJCoins.Droid.ui.activities
             _userName = FindViewById<EditText>(Resource.Id.input_email);
             _passwordText = FindViewById<EditText>(Resource.Id.input_password);
             _loginButton = FindViewById<Button>(Resource.Id.btn_login);
-            _linearLayout = FindViewById<LinearLayout>(Resource.Id.layout_root);
             _arrowToWelcome = FindViewById<ImageView>(Resource.Id.link_to_welcome_activity);
+
+            _userName.TextChanged += (s, e) =>
+            {
+                if (!_userName.Text.EndsWith("-") || _userName.Text.EndsWith("_"))
+                {
+                    ViewPresenter.IsUserNameValid(_userName.Text);
+                }
+            };
 
             _loginButton.Click += LoginButtonOnClick;
             _arrowToWelcome.Click += LinkToWelcomeClick;
@@ -63,54 +68,31 @@ namespace Softjourn.SJCoins.Droid.ui.activities
             ViewPresenter.Login(userName, password);
         }
 
-    public override void OnBackPressed()
+        public override void OnBackPressed()
         {
             MoveTaskToBack(true);
         }
 
-    public override bool OnCreateOptionsMenu(IMenu menu)
+        public override bool OnCreateOptionsMenu(IMenu menu)
         {
             return false;
         }
 
-    public override void ShowSnackBar(string message)
-        {
-
-        }
-
-    public void SetUsernameError(string message)
+        public void SetUsernameError(string message)
         {
             _userName.RequestFocus();
             _userName.SetError(message, null);
         }
 
-    public void SetPasswordError(string message)
+        public void SetPasswordError(string message)
         {
             _passwordText.RequestFocus();
             _passwordText.SetError(message, null);
         }
 
-    public void ToMainPage()
+        public void ShowNoInternetError(string message)
         {
-            //NavigationUtils.GoToVendingActivity(this);
-            Finish();
-        }
-
-    public void ShowMessage(string message)
-        {
-            Utils.ShowSnackBar(FindViewById(Resource.Id.layout_root), message);
-            _userName.StartAnimation(AnimationUtils.LoadAnimation(this, Resource.Animation.shake));
-            _passwordText.StartAnimation(AnimationUtils.LoadAnimation(this, Resource.Animation.shake));
-        }
-
-    public void ShowNoInternetError(string message)
-        {
-            OnNoInternetAvailable(message);
-        }
-
-        public override void LogOut(IMenuItem item)
-        {
-            throw new NotImplementedException();
+            //OnNoInternetAvailable(message);
         }
 
         public void AttachEvents()

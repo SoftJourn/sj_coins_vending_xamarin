@@ -32,7 +32,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
-                    tools:context=".ui.activities.VendingActivity">
+                    tools:context=".ui.activities.MainActivity">
                     <TextView
                         android:id="@+id/balance"
                         android:layout_width="wrap_content"

@@ -62,11 +62,11 @@ namespace Softjourn.SJCoins.Core.UI.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Login should contain only lower case alphabetical characters.
+        ///   Looks up a localized string similar to Field should not be empty.
         /// </summary>
-        public static string activity_login_invalid_email {
+        public static string activity_login_empty_username {
             get {
-                return ResourceManager.GetString("activity_login_invalid_email", resourceCulture);
+                return ResourceManager.GetString("activity_login_empty_username", resourceCulture);
             }
         }
         
@@ -76,6 +76,15 @@ namespace Softjourn.SJCoins.Core.UI.Resources {
         public static string activity_login_invalid_password {
             get {
                 return ResourceManager.GetString("activity_login_invalid_password", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Symbol is not allowed.
+        /// </summary>
+        public static string activity_login_invalid_username {
+            get {
+                return ResourceManager.GetString("activity_login_invalid_username", resourceCulture);
             }
         }
         
@@ -103,6 +112,24 @@ namespace Softjourn.SJCoins.Core.UI.Resources {
         public static string app_name {
             get {
                 return ResourceManager.GetString("app_name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Cancel.
+        /// </summary>
+        public static string btn_title_cancel {
+            get {
+                return ResourceManager.GetString("btn_title_cancel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ok.
+        /// </summary>
+        public static string btn_title_ok {
+            get {
+                return ResourceManager.GetString("btn_title_ok", resourceCulture);
             }
         }
         
@@ -319,6 +346,15 @@ namespace Softjourn.SJCoins.Core.UI.Resources {
         public static string server_error_50901 {
             get {
                 return ResourceManager.GetString("server_error_50901", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Username or password is incorrect.
+        /// </summary>
+        public static string server_error_bad_username_or_password {
+            get {
+                return ResourceManager.GetString("server_error_bad_username_or_password", resourceCulture);
             }
         }
         

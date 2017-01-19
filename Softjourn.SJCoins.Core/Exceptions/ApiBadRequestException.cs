@@ -6,12 +6,12 @@ using System.Threading.Tasks;
 
 namespace Softjourn.SJCoins.Core.Exceptions
 {
-    public class ApiNotAuthorizedException : Exception
+    public class ApiBadRequestException : Exception
     {
 
-            public ApiNotAuthorizedException(string message)
-                : base(message)
-            {
-            }
+        public ApiBadRequestException(string message)
+            : base(message)
+        {
         }
+    }
 }

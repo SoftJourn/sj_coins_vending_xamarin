@@ -13,6 +13,12 @@
 		public const string InformativeViewController = "InformativeViewController";
 		public const string ContentViewController = "ContentViewController";
 		public const string LoginViewController = "LoginViewController";
+
+		// Informative pages
+		public const string InformativeLoginPage = "InformativeLoginPage";
+		public const string InformativeBuyPage = "InformativeBuyPage";
+		public const string InformativeCoinsPage = "InformativeCoinsPage";
+		public const string InformativeFavoritesPage = "InformativeFavoritesPage";
 		#endregion
 	}
 }
