@@ -1,10 +1,13 @@
 ﻿using Softjourn.SJCoins.Core.API;
 using Softjourn.SJCoins.Core.API.Model;
+using Softjourn.SJCoins.Core.API.Model.Machines;
 using Softjourn.SJCoins.Core.UI.Presenters.IPresenters;
 using Softjourn.SJCoins.Core.UI.Services.Navigation;
 using Softjourn.SJCoins.Core.UI.ViewInterfaces;
 using Softjourn.SJCoins.Core.Utils;
 using System;
+using System.Collections.Generic;
+using Softjourn.SJCoins.Core.Exceptions;
 
 namespace Softjourn.SJCoins.Core.UI.Presenters
 {
@@ -40,10 +43,21 @@ namespace Softjourn.SJCoins.Core.UI.Presenters
                     if (NetworkUtils.IsConnected)
                     {
                         View.ShowProgress(Resources.StringResources.progress_authenticating);
-                        Session session = await RestApiServise.ApiClient.MakeLoginRequest(userName, password);
-                        // NavigationService.NavigateToAsRoot(NavigationPage.Main);
-                        View.HideProgress();
-                        AlertService.ShowToastMessage(session.AccessToken);
+                        Session session;
+                        List<Machines> machinesList = new List<Machines>();
+                        try
+                        {
+                            session = await RestApiServise.ApiClient.MakeLoginRequest(userName, password);
+                            NavigationService.NavigateToAsRoot(NavigationPage.Main);
+                        }
+                        catch (ApiBadRequestException ex)
+                        {
+                            AlertService.ShowToastMessage("Bad Login or Password");
+                        }
+                        catch (Exception ex)
+                        {
+                            AlertService.ShowToastMessage(ex.Message);
+                        }
                     }
                     else
                     {

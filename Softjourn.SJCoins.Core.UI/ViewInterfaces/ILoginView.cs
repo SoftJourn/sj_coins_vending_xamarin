@@ -15,7 +15,5 @@ namespace Softjourn.SJCoins.Core.UI.ViewInterfaces
         void ShowProgress(string message);
 
         void HideProgress();
-
-        void ShowNoInternetError(string message);
     }
 }

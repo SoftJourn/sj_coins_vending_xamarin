@@ -25,6 +25,7 @@ namespace Softjourn.SJCoins.Core.API
         {
             IRestClient apiClient = new RestClient();
             apiClient.BaseUrl = new Uri(Const.BaseUrl);
+            apiClient.IgnoreResponseStatusCode = true;
             return apiClient;
         }
 
