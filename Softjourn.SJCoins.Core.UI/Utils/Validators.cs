@@ -14,7 +14,12 @@ namespace Softjourn.SJCoins.Core.UI.Utils
 
         public static bool IsUserNameValid(string userName)
         {
-            return !string.IsNullOrEmpty(userName) && Regex.IsMatch(userName, "^[a-z]+(?:[ _-][a-z]+)*$");
+            return Regex.IsMatch(userName, "^[a-z]+(?:[ _-][a-z]+)*$");
+        }
+
+        public static bool IsUserNameEmpty(string userName)
+        {
+            return !string.IsNullOrEmpty(userName);
         }
     }
 }

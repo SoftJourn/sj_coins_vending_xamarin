@@ -26,17 +26,26 @@ namespace Softjourn.SJCoins.Core.UI.Presenters
 
         public async void Login(string userName, string password)
         {
-            if (!Validators.IsPasswordValid(password))
+            if (!Validators.IsUserNameEmpty(userName) && !Validators.IsPasswordValid(password))
             {
                 View.SetPasswordError(Resources.StringResources.activity_login_invalid_password);
+                View.SetUsernameError(Resources.StringResources.activity_login_empty_username);
+                return;
             }
 
             if (!Validators.IsUserNameValid(userName))
             {
                 View.SetUsernameError(Resources.StringResources.activity_login_invalid_username);
+                return;
             }
 
-            if (Validators.IsPasswordValid(password) && Validators.IsUserNameValid(userName))
+            if (!Validators.IsPasswordValid(password))
+            {
+                View.SetPasswordError(Resources.StringResources.activity_login_invalid_password);
+                return;
+            }
+
+            if (Validators.IsPasswordValid(password) && Validators.IsUserNameValid(userName) && Validators.IsUserNameEmpty(userName))
             {
                 if (NetworkUtils.IsConnected)
                 {
@@ -75,6 +84,10 @@ namespace Softjourn.SJCoins.Core.UI.Presenters
 
         public void IsUserNameValid(string userName)
         {
+            if (!Validators.IsUserNameEmpty(userName))
+            {
+                View.SetUsernameError(Resources.StringResources.activity_login_empty_username);
+            }
             if (!Validators.IsUserNameValid(userName))
             {
                 View.SetUsernameError(Resources.StringResources.activity_login_invalid_username);
