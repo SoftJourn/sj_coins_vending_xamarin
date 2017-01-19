@@ -62,6 +62,15 @@ namespace Softjourn.SJCoins.Core.UI.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Field should not be empty.
+        /// </summary>
+        public static string activity_login_empty_username {
+            get {
+                return ResourceManager.GetString("activity_login_empty_username", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Password should not be empty.
         /// </summary>
         public static string activity_login_invalid_password {
