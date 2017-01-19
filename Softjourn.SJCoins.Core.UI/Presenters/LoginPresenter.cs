@@ -52,10 +52,12 @@ namespace Softjourn.SJCoins.Core.UI.Presenters
                         }
                         catch (ApiBadRequestException ex)
                         {
+                            View.HideProgress();
                             AlertService.ShowToastMessage("Bad Login or Password");
                         }
                         catch (Exception ex)
                         {
+                            View.HideProgress();
                             AlertService.ShowToastMessage(ex.Message);
                         }
                     }
