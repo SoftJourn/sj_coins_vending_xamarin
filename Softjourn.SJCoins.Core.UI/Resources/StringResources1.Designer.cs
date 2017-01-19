@@ -62,20 +62,20 @@ namespace Softjourn.SJCoins.Core.UI.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Login should contain only lower case alphabetical characters.
-        /// </summary>
-        public static string activity_login_invalid_email {
-            get {
-                return ResourceManager.GetString("activity_login_invalid_email", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Password should not be empty.
         /// </summary>
         public static string activity_login_invalid_password {
             get {
                 return ResourceManager.GetString("activity_login_invalid_password", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Symbol is not allowed.
+        /// </summary>
+        public static string activity_login_invalid_username {
+            get {
+                return ResourceManager.GetString("activity_login_invalid_username", resourceCulture);
             }
         }
         

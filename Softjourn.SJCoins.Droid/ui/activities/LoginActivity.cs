@@ -17,13 +17,13 @@ namespace Softjourn.SJCoins.Droid.ui.activities
     public class LoginActivity : BaseActivity<LoginPresenter>, ILoginView
     {
 
-    EditText _userName;
+        EditText _userName;
 
-    EditText _passwordText;
+        EditText _passwordText;
 
-    Button _loginButton;
+        Button _loginButton;
 
-    ImageView _arrowToWelcome;
+        ImageView _arrowToWelcome;
 
         //private ILoginPresenter _presenter;
 
@@ -36,6 +36,14 @@ namespace Softjourn.SJCoins.Droid.ui.activities
             _passwordText = FindViewById<EditText>(Resource.Id.input_password);
             _loginButton = FindViewById<Button>(Resource.Id.btn_login);
             _arrowToWelcome = FindViewById<ImageView>(Resource.Id.link_to_welcome_activity);
+
+            _userName.TextChanged += (s, e) =>
+            {
+                if (!_userName.Text.EndsWith("-") || _userName.Text.EndsWith("_"))
+                {
+                    ViewPresenter.IsUserNameValid(_userName.Text);
+                }
+            };
 
             _loginButton.Click += LoginButtonOnClick;
             _arrowToWelcome.Click += LinkToWelcomeClick;
@@ -60,29 +68,29 @@ namespace Softjourn.SJCoins.Droid.ui.activities
             ViewPresenter.Login(userName, password);
         }
 
-    public override void OnBackPressed()
+        public override void OnBackPressed()
         {
             MoveTaskToBack(true);
         }
 
-    public override bool OnCreateOptionsMenu(IMenu menu)
+        public override bool OnCreateOptionsMenu(IMenu menu)
         {
             return false;
         }
 
-    public void SetUsernameError(string message)
+        public void SetUsernameError(string message)
         {
             _userName.RequestFocus();
             _userName.SetError(message, null);
         }
 
-    public void SetPasswordError(string message)
+        public void SetPasswordError(string message)
         {
             _passwordText.RequestFocus();
             _passwordText.SetError(message, null);
         }
 
-    public void ShowNoInternetError(string message)
+        public void ShowNoInternetError(string message)
         {
             //OnNoInternetAvailable(message);
         }

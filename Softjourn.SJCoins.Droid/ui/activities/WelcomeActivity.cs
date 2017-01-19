@@ -155,6 +155,10 @@ namespace Softjourn.SJCoins.Droid.ui.activities
                 _btnNext.Text = GetString(Resource.String.start);
                 _btnNext.Visibility = ViewStates.Visible;
             }
+            else
+            {
+                _btnNext.Visibility = ViewStates.Gone;
+            }
         }
 
         public void ToLoginPage()

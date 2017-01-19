@@ -26,25 +26,25 @@ namespace Softjourn.SJCoins.Core.UI.Presenters
 
         public async void Login(string userName, string password)
         {
-            if (!IsPasswordValid(password)) {
-                View.SetPasswordError(Resources.StringResources.activity_login_invalid_password);
-            };
-
-            if (!IsUserNameValid(userName))
+            if (!Validators.IsPasswordValid(password))
             {
-                View.SetUsernameError(Resources.StringResources.activity_login_invalid_email);
-            };
+                View.SetPasswordError(Resources.StringResources.activity_login_invalid_password);
+            }
 
-            if (IsPasswordValid(password) && IsUserNameValid(userName))
+            if (!Validators.IsUserNameValid(userName))
+            {
+                View.SetUsernameError(Resources.StringResources.activity_login_invalid_username);
+            }
+
+            if (Validators.IsPasswordValid(password) && Validators.IsUserNameValid(userName))
             {
                 if (NetworkUtils.IsConnected)
                 {
                     View.ShowProgress(Resources.StringResources.progress_authenticating);
-                    Session session;
-                    List<Machines> machinesList = new List<Machines>();
+                    
                     try
                     {
-                        session = await RestApiServise.ApiClient.MakeLoginRequest(userName, password);
+                        await RestApiServise.ApiClient.MakeLoginRequest(userName, password);
                         NavigationService.NavigateToAsRoot(NavigationPage.Main);
                     }
                     catch (ApiBadRequestException ex)
@@ -65,14 +65,20 @@ namespace Softjourn.SJCoins.Core.UI.Presenters
             }           
         }
          
-        public bool IsPasswordValid(string password)
+        public void IsPasswordValid(string password)
         {
-            return Validators.IsPasswordValid(password);
+            if (Validators.IsPasswordValid(password))
+            {
+                View.SetPasswordError(Resources.StringResources.activity_login_invalid_password);
+            }
         }
 
-        public bool IsUserNameValid(string userName)
+        public void IsUserNameValid(string userName)
         {
-            return Validators.IsUserNameValid(userName);
+            if (!Validators.IsUserNameValid(userName))
+            {
+                View.SetUsernameError(Resources.StringResources.activity_login_invalid_username);
+            }
         }
 
         public void ToWelcomePage()
