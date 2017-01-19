@@ -139,7 +139,7 @@ namespace Softjourn.SJCoins.Droid.ui.activities
                     //NavigationUtils.GoToSeeAllActivity(this, Const.BestSellers);
                     break;
                 case Resource.Id.menu_logout_item:
-                    LogOut(item);
+                    //ViewPresenter.LogOut();
                     //mMenuLayout.closeDrawer(GravityCompat.START);
                     break;
                 default:
@@ -285,20 +285,10 @@ namespace Softjourn.SJCoins.Droid.ui.activities
             }
         }
 
-        public override void ShowSnackBar(string message)
-        {
-            Utils.ShowSnackBar(FindViewById<View>(Resource.Id.layout_root), message);
-        }
-
         public void OnCreateErrorDialog(string message)
         {
             //base.OnCreateErrorDialog(message);
             _swipeLayout.Refreshing = false;
-        }
-
-        public override void LogOut(IMenuItem item)
-        {
-
         }
     }
 }

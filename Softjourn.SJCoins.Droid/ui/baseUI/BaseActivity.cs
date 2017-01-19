@@ -84,10 +84,6 @@ namespace Softjourn.SJCoins.Droid.ui.baseUI
             Utils.ShowErrorToast(this, text);
         }
 
-        public abstract void ShowSnackBar(string message);
-
-        public abstract void LogOut(IMenuItem item);
-
         public void AttachEvents()
         {
             throw new NotImplementedException();
