@@ -76,7 +76,7 @@ namespace Softjourn.SJCoins.Core.UI.Presenters
          
         public void IsPasswordValid(string password)
         {
-            if (Validators.IsPasswordValid(password))
+            if (!Validators.IsPasswordValid(password))
             {
                 View.SetPasswordError(Resources.StringResources.activity_login_invalid_password);
             }

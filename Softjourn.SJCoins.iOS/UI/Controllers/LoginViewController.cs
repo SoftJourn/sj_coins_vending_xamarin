@@ -28,9 +28,15 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers
 		{
 			base.ViewDidLoad();
 
-			// Add events to buttons
+			LoginTextField.Delegate = new TextDieldDelegate(this);
+			PasswordTextField.Delegate = new TextDieldDelegate(this);
+
+			// Add events
 			BackButton.TouchUpInside += (sender, e) => { Presenter.ToWelcomePage(); };
 			LoginButton.TouchUpInside += (sender, e) => { Presenter.Login(LoginTextField.Text, PasswordTextField.Text); };
+
+			//LoginTextField.ShouldReturn += (sender, e) => { Presenter.ToWelcomePage(); };
+
 		}
 
 		public override void ViewWillAppear(bool animated)
@@ -46,11 +52,19 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers
 		}
 		#endregion
 
-		//Actions
+		#region Native actions implementation
 		partial void LoginTextFieldDidChange(UITextField sender)
 		{
-			//...
+			LoginErrorLabel.Hidden = true;
+			Presenter.IsUserNameValid(LoginTextField.Text);
 		}
+
+		partial void PasswordTextFieldDidChange(UITextField sender)
+		{
+			PasswordErrorLabel.Hidden = true;
+			Presenter.IsPasswordValid(PasswordTextField.Text);
+		}
+		#endregion
 
 		#region ILoginView implementation
 		public void SetUsernameError(string message)
@@ -86,18 +100,45 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers
 		#region BaseViewController -> IBaseView implementation
 		public override void SetUIAppearance()
 		{
-			base.SetUIAppearance();
-			//_scrollService = new KeyboardScrollService(ScrollView);
 		}
 
 		public override void AttachEvents()
 		{
-			
 		}
 
 		public override void DetachEvents()
 		{
-			
+		}
+		#endregion
+
+		#region UITextFieldDelegate implementation
+		private class TextDieldDelegate : UITextFieldDelegate
+		{
+			private LoginViewController parent;
+
+			public TextDieldDelegate(LoginViewController parent)
+			{
+				this.parent = parent;
+			}
+
+			public override bool ShouldChangeCharacters(UITextField textField, NSRange range, string replacementString)
+			{
+				return replacementString == " " ? false : true;
+			}
+
+			public override bool ShouldReturn(UITextField textField)
+			{
+				if (textField == parent.LoginTextField)
+				{
+					parent.PasswordTextField.BecomeFirstResponder();
+				}
+				if (textField == parent.PasswordTextField)
+				{
+					parent.PasswordTextField.ResignFirstResponder();
+					textField.ReturnKeyType = UIReturnKeyType.Done;
+				}
+				return true;
+			}
 		}
 		#endregion
 	}

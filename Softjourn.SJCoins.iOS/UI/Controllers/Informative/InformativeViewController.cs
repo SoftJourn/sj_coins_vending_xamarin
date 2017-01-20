@@ -15,13 +15,9 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.Informative
 	{
 		#region Properties
 		private UIPageViewController pageViewController;
-		private static List<ContentViewController> _pages;
-		private static int currentIndex = 0;
-		private static int pendingIndex;
-
-		private static UIButton gotItButton;
-		private static UIPageControl pageControl;
-		private static UIView view;
+		private List<ContentViewController> _pages;
+		private int currentIndex = 0;
+		private int pendingIndex;
 		#endregion
 
 		#region Controller Life cycle
@@ -38,9 +34,6 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.Informative
 			// Create informative content
 			_pages = new List<ContentViewController>();
 			_pages = CreateInformativePages();
-
-			// Set view to property for internal class
-			view = View;
 
 			//Set configuration of internal view elements
 			ConfigurePageViewController();
@@ -67,8 +60,8 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.Informative
 		{
 			// Create UIPageViewController and configure it
 			pageViewController = Instantiate(StoryboardConstants.StoryboardLogin, StoryboardConstants.PageViewController) as UIPageViewController;
-			pageViewController.DataSource = new PageViewControllerDataSource();
-			pageViewController.Delegate = new PageViewControllerDelegate();
+			pageViewController.DataSource = new PageViewControllerDataSource(this);
+			pageViewController.Delegate = new PageViewControllerDelegate(this);
 			var viewControllers = new UIViewController[] { _pages.ElementAt(0) };
 			pageViewController.SetViewControllers(viewControllers, UIPageViewControllerNavigationDirection.Forward, false, null);
 			pageViewController.View.Frame = new CGRect(0, 0, this.View.Frame.Width, this.View.Frame.Size.Height);
@@ -80,19 +73,17 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.Informative
 			View.BringSubviewToFront(PageControl);
 			PageControl.Pages = _pages.Count;
 			PageControl.CurrentPage = 0;
-			pageControl = PageControl;
 		}
 
 		private void ConfigureGotItButton()
 		{
 			View.BringSubviewToFront(GotItButton);
 			GotItButton.Hidden = true;
-			gotItButton = GotItButton;
 			// Add event to button
 			GotItButton.TouchUpInside += (sender, e) => { Presenter.ToLoginScreen(); };
 		}
 
-		public static void ConfigureDinamicUIElements()
+		public void ConfigureDinamicUIElements()
 		{
 			if (currentIndex == _pages.Count - 1)
 			{
@@ -103,18 +94,18 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.Informative
 			}
 		}
 
-		private static void ConfigureFirstPage()
+		private void ConfigureFirstPage()
 		{
 			// set background color as first page and hide button
-			view.BackgroundColor = UIColor.FromRGB(246, 76, 115).ColorWithAlpha(1.0f);
-			gotItButton.Hidden = true;
+			View.BackgroundColor = UIColor.FromRGB(246, 76, 115).ColorWithAlpha(1.0f);
+			GotItButton.Hidden = true;
 		}
 
-		private static void ConfigureLastPage()
+		private void ConfigureLastPage()
 		{
 			// set background color as last page and show button
-			view.BackgroundColor = UIColor.FromRGB(200, 115, 244).ColorWithAlpha(1.0f);
-			gotItButton.Hidden = false;
+			View.BackgroundColor = UIColor.FromRGB(200, 115, 244).ColorWithAlpha(1.0f);
+			GotItButton.Hidden = false;
 		}
 		#endregion
 
@@ -145,36 +136,50 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.Informative
 		#region UIPageViewControllerDataSource implementation
 		private class PageViewControllerDataSource : UIPageViewControllerDataSource
 		{
+			private InformativeViewController parent;
+
+			public PageViewControllerDataSource(InformativeViewController parent)
+			{
+				this.parent = parent;
+			}
+
 			public override UIViewController GetNextViewController(UIPageViewController pageViewController, UIViewController referenceViewController)
 			{
-				currentIndex = _pages.IndexOf(referenceViewController as ContentViewController);
-				return currentIndex == _pages.Count - 1 ? null : _pages[(currentIndex + 1) % _pages.Count];
+				parent.currentIndex = parent._pages.IndexOf(referenceViewController as ContentViewController);
+				return parent.currentIndex == parent._pages.Count - 1 ? null : parent._pages[(parent.currentIndex + 1) % parent._pages.Count];
 			}
 
 			public override UIViewController GetPreviousViewController(UIPageViewController pageViewController, UIViewController referenceViewController)
 			{
-				currentIndex = _pages.IndexOf(referenceViewController as ContentViewController);
-				return currentIndex == 0 ? null : _pages[(currentIndex - 1) % _pages.Count];
+				parent.currentIndex = parent._pages.IndexOf(referenceViewController as ContentViewController);
+				return parent.currentIndex == 0 ? null : parent._pages[(parent.currentIndex - 1) % parent._pages.Count];
 			}
 		}
 		#endregion
 
-		#region PageViewControllerDelegate implementation
+		#region UIPageViewControllerDelegate implementation
 		private class PageViewControllerDelegate : UIPageViewControllerDelegate
 		{
+			private InformativeViewController parent;
+
+			public PageViewControllerDelegate(InformativeViewController parent)
+			{
+				this.parent = parent;
+			}
+
 			public override void WillTransition(UIPageViewController pageViewController, UIViewController[] pendingViewControllers)
 			{
-				pendingIndex = _pages.IndexOf(pendingViewControllers.First() as ContentViewController);
+				parent.pendingIndex = parent._pages.IndexOf(pendingViewControllers.First() as ContentViewController);
 			}
 
 			public override void DidFinishAnimating(UIPageViewController pageViewController, bool finished, UIViewController[] previousViewControllers, bool completed)
 			{
 				if (completed)
 				{
-					currentIndex = pendingIndex;
-					pageControl.CurrentPage = currentIndex;
+					parent.currentIndex = parent.pendingIndex;
+					parent.PageControl.CurrentPage = parent.currentIndex;
 
-					ConfigureDinamicUIElements();
+					parent.ConfigureDinamicUIElements();
 				}
 			}
 		}

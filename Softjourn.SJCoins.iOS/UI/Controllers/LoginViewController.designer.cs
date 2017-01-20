@@ -40,6 +40,9 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers
 
 		[Action ("LoginTextFieldDidChange:")]
 		partial void LoginTextFieldDidChange (UIKit.UITextField sender);
+
+		[Action ("PasswordTextFieldDidChange:")]
+		partial void PasswordTextFieldDidChange (UIKit.UITextField sender);
 		
 		void ReleaseDesignerOutlets ()
 		{
@@ -78,14 +81,14 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers
 				PasswordTextField = null;
 			}
 
-			if (VersionLabel != null) {
-				VersionLabel.Dispose ();
-				VersionLabel = null;
-			}
-
 			if (ScrollView != null) {
 				ScrollView.Dispose ();
 				ScrollView = null;
+			}
+
+			if (VersionLabel != null) {
+				VersionLabel.Dispose ();
+				VersionLabel = null;
 			}
 		}
 	}
