@@ -169,21 +169,21 @@
     <Compile Include="Resources\Resource.designer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\NavigationService.cs" />
-    <Compile Include="ui\activities\LoginActivity.cs" />
-    <Compile Include="ui\activities\MainActivity.cs" />
-    <Compile Include="ui\activities\SplashActivity.cs" />
-    <Compile Include="ui\activities\WelcomeActivity.cs" />
-    <Compile Include="ui\adapters\SelectMachineListAdapter.cs" />
-    <Compile Include="ui\adapters\ViewPagerAdapter.cs" />
-    <Compile Include="ui\baseUI\BaseActivity.cs" />
-    <Compile Include="utils\Const.cs" />
-    <Compile Include="utils\JavaHolder.cs" />
-    <Compile Include="utils\NavigationUtils.cs" />
-    <Compile Include="utils\NetworkUtils.cs" />
-    <Compile Include="utils\ObjectExtensions.cs" />
-    <Compile Include="utils\Preferences.cs" />
-    <Compile Include="utils\TimeUtils.cs" />
-    <Compile Include="utils\Utils.cs" />
+    <Compile Include="UI\Activities\LoginActivity.cs" />
+    <Compile Include="UI\Activities\MainActivity.cs" />
+    <Compile Include="UI\Activities\SplashActivity.cs" />
+    <Compile Include="UI\Activities\WelcomeActivity.cs" />
+    <Compile Include="UI\Adapters\SelectMachineListAdapter.cs" />
+    <Compile Include="UI\Adapters\ViewPagerAdapter.cs" />
+    <Compile Include="UI\BaseUI\BaseActivity.cs" />
+    <Compile Include="Utils\Const.cs" />
+    <Compile Include="Utils\JavaHolder.cs" />
+    <Compile Include="Utils\NavigationUtils.cs" />
+    <Compile Include="Utils\NetworkUtils.cs" />
+    <Compile Include="Utils\ObjectExtensions.cs" />
+    <Compile Include="Utils\Preferences.cs" />
+    <Compile Include="Utils\TimeUtils.cs" />
+    <Compile Include="Utils\Utils.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
