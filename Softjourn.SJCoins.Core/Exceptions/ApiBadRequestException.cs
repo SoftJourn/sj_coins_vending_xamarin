@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Softjourn.SJCoins.Core.Exceptions
 {
-    public class ApiBadRequestException : Exception
+    public class ApiBadRequestException : ApiException
     {
 
         public ApiBadRequestException(string message)

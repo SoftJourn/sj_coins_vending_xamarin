@@ -29,9 +29,7 @@
   <ItemGroup>
     <Compile Include="API\ApiClient.cs" />
     <Compile Include="API\ApiService.cs" />
-    <Compile Include="API\BaseApiClient.cs" />
-    <Compile Include="API\Coins\CoinsApiClient.cs" />
-    <Compile Include="API\Coins\ICoinsApiProvider.cs" />
+    <Compile Include="API\IApiService.cs" />
     <Compile Include="API\Model\AccountInfo\Account.cs" />
     <Compile Include="API\Model\AccountInfo\Balance.cs" />
     <Compile Include="API\Model\History.cs" />
@@ -43,10 +41,6 @@
     <Compile Include="API\Model\Products\Featured.cs" />
     <Compile Include="API\Model\Products\Product.cs" />
     <Compile Include="API\Model\Session.cs" />
-    <Compile Include="API\OAuth\IOAuthApiProvider.cs" />
-    <Compile Include="API\OAuth\OAuthApiClient.cs" />
-    <Compile Include="API\Vending\IVendingApiProvider.cs" />
-    <Compile Include="API\Vending\VendingApiClient.cs" />
     <Compile Include="Exceptions\ApiBadRequestException.cs" />
     <Compile Include="Exceptions\ApiException.cs" />
     <Compile Include="Exceptions\ApiNotAuthorizedException.cs" />

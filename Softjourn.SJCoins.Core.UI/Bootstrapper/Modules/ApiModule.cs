@@ -13,7 +13,7 @@ namespace Softjourn.SJCoins.Core.UI.Bootstrapper.Modules
         protected override void Load(ContainerBuilder builder)
         {
             builder.RegisterType<ApiClient>().AsSelf();
-            builder.RegisterType<ApiService>().AsSelf().PropertiesAutowired();
+            builder.RegisterType<ApiService>().As<IApiService>().PropertiesAutowired();
         }
 
     }

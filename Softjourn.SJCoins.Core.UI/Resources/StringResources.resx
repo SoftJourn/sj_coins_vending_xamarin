@@ -121,7 +121,7 @@
     <value>Symbol is not allowed</value>
   </data>
   <data name="activity_login_empty_username" xml:space="preserve">
-    <value>Field should not be empty</value>
+    <value>Login should not be empty</value>
   </data>
   <data name="activity_login_invalid_password" xml:space="preserve">
     <value>Password should not be empty</value>

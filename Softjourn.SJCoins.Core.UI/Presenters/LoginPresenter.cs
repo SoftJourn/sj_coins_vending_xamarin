@@ -53,7 +53,7 @@ namespace Softjourn.SJCoins.Core.UI.Presenters
                     
                     try
                     {
-                        await RestApiServise.ApiClient.MakeLoginRequest(userName, password);
+                        await RestApiServise.MakeLoginRequest(userName, password);
                         NavigationService.NavigateToAsRoot(NavigationPage.Main);
                     }
                     catch (ApiBadRequestException ex)

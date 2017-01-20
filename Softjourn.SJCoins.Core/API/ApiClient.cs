@@ -1,10 +1,12 @@
 ﻿using RestSharp.Portable;
 using RestSharp.Portable.Deserializers;
+using RestSharp.Portable.HttpClient;
 using Softjourn.SJCoins.Core.API;
 using Softjourn.SJCoins.Core.API.Model;
 using Softjourn.SJCoins.Core.API.Model.Machines;
 using Softjourn.SJCoins.Core.Exceptions;
 using Softjourn.SJCoins.Core.Helpers;
+using Softjourn.SJCoins.Core.Utils;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,7 +16,7 @@ using System.Threading.Tasks;
 
 namespace Softjourn.SJCoins.Core.API
 {
-    public class ApiClient : BaseApiClient
+    public class ApiClient
     {
 
         public const string GrandTypePassword = "password";
@@ -30,19 +32,17 @@ namespace Softjourn.SJCoins.Core.API
         public const string UrlVendingService = "/vending/" + VendingApiVersion;
         public const string UrlCoinService = "/coins/" + CoinsApiVersion;
 
-        //public const string UrlGetMachinesList = UrlVendingService + "machines";
-        //public const string UrlLogin = UrlAuthService + "oauth/token";
-        //public const string UrlLogin = UrlAuthService + "oauth/token";
 
-        public ApiClient() : base(){
+        public ApiClient() {
 
             }
 
+        #region OAuth Server Calls
         public async Task<Session> MakeLoginRequest(string userName, string password)
         {
             var apiClient = GetApiClient();
-            string UrlLogin = UrlAuthService + "oauth/token";
-            var request = new RestRequest(UrlLogin, Method.POST);
+            string url = UrlAuthService + "oauth/token";
+            var request = new RestRequest(url, Method.POST);
             request.AddParameter("username", userName);
             request.AddParameter("password", password);
             request.AddParameter("grant_type", GrandTypePassword);
@@ -63,6 +63,7 @@ namespace Softjourn.SJCoins.Core.API
                     ApiErrorHandler(response);
                 }                       
             }
+            // catch is missing because all exceptions should be caught on Presenter side
             finally
             {
                 apiClient.Dispose(); 
@@ -73,8 +74,8 @@ namespace Softjourn.SJCoins.Core.API
         private async Task<Session> RefreshToken()
         {
             var apiClient = GetApiClient();
-            string UrlLogin = UrlAuthService + "oauth/token";
-            var request = new RestRequest(UrlLogin, Method.POST);
+            string url = UrlAuthService + "oauth/token";
+            var request = new RestRequest(url, Method.POST);
             request.AddParameter("refresh_token", Settings.RefreshToken);
             request.AddParameter("grant_type", GrandTypeRefreshToken);
             request.AddHeader("Content-Type", "application/x-www-form-urlencoded");
@@ -92,55 +93,41 @@ namespace Softjourn.SJCoins.Core.API
                 } else { 
                     ApiErrorHandler(response);
                 }
-
-            } catch (ApiNotAuthorizedException)
-            {
-                throw new ApiException("Not Authorized");
-            }                
-            
-             finally
+            }
+            // catch is missing because all exceptions should be caught on Presenter side
+            finally
             {
                 apiClient.Dispose();
             }
             return null;
         }
 
-        //public async Task<List<Machines>> GetMachinesList()
-        //{
-        //    var apiClient = GetApiClient();
-        //    string url = UrlVendingService + "machines";
-        //    var request = new RestRequest(url, Method.GET);
-        //    request.AddHeader("Content-Type", "application/json");
-        //    request.AddHeader("Authorization", GetOAuthAuthorizationHeader());
-        //    JsonDeserializer deserial = new JsonDeserializer();
+        public async void RevokeToken()
+        {
+            var apiClient = GetApiClient();
+            string url = UrlAuthService + "oauth/token/revoke";
+            var request = new RestRequest(url, Method.POST);
+            request.AddParameter("token_value", Settings.RefreshToken);
+            request.AddHeader("Content-Type", "application/x-www-form-urlencoded");
+            request.AddHeader("Authorization", LoginAuthorizationHeader);
 
-        //    try
-        //    {
-        //        IRestResponse response = await apiClient.Execute(request);
+            try
+            {
+                IRestResponse response = await apiClient.Execute(request);
+                if (!response.IsSuccess)
+                {
+                    ApiErrorHandler(response);
+                }
+            }
+            // catch is missing because all exceptions should be caught on Presenter side
+            finally
+            {
+                apiClient.Dispose();
+            }
+        }
+        #endregion
 
-        //        if (response.IsSuccess)
-        //        {
-        //            var content = response.Content;
-        //            List<Machines> machinesList = deserial.Deserialize<List<Machines>>(response);
-        //            return machinesList;
-        //        }
-        //        else
-        //        {
-        //            ApiErrorHandler(response);
-        //        }
-        //    }
-        //    catch (ApiNotAuthorizedException)
-        //    {
-        //        await RefreshToken();
-        //        return await GetMachinesList();
-        //    }
-        //    finally
-        //    {
-        //        apiClient.Dispose();
-        //    }
-        //    return null;
-        //}
-
+        #region Vending machines calls
         public async Task<List<Machines>> GetMachinesList()
         {
             string url = UrlVendingService + "machines";
@@ -148,41 +135,13 @@ namespace Softjourn.SJCoins.Core.API
             return list;
         }
 
-        //public async Task<Machines> GetMachineById(string machineId)
-        //{
-        //    var apiClient = GetApiClient();
-        //    string url = UrlVendingService + $"machines/{machineId}";
-        //    var request = new RestRequest(url, Method.GET);
-        //    request.AddHeader("Content-Type", "application/json");
-        //    request.AddHeader("Authorization", GetOAuthAuthorizationHeader());
-        //    JsonDeserializer deserial = new JsonDeserializer();
-
-        //    try
-        //    {
-        //        IRestResponse response = await apiClient.Execute(request);
-
-        //        if (response.IsSuccess)
-        //        {
-        //            var content = response.Content;
-        //            Machines machine = deserial.Deserialize<Machines>(response);
-        //            return machine;
-        //        }
-        //        else
-        //        {
-        //            ApiErrorHandler(response);
-        //        }
-        //    }
-        //    catch (ApiNotAuthorizedException)
-        //    {
-        //        await RefreshToken();
-        //        return await GetMachineById(machineId);
-        //    }
-        //    finally
-        //    {
-        //        apiClient.Dispose();
-        //    }
-        //    return null;
-        //}
+        public async Task<Machines> GetMachineById(string machineId)
+        {
+            string url = UrlVendingService + $"machines/{machineId}";
+            Machines machine = await MakeRequest<Machines>(url, Method.GET);
+            return machine;
+        }
+        #endregion
 
         private async Task<TResult> MakeRequest<TResult>(string url, Method httpMethod)
         {
@@ -210,8 +169,9 @@ namespace Softjourn.SJCoins.Core.API
             catch (ApiNotAuthorizedException)
             {
                 await RefreshToken();
-                return await MakeRequest<TResult>(url, httpMethod) ;
+                return await MakeRequest<TResult>(url, httpMethod);
             }
+            // all another exceptions should be caught on Presenter side
             finally
             {
                 apiClient.Dispose();
@@ -219,14 +179,6 @@ namespace Softjourn.SJCoins.Core.API
 
             return default(TResult);
         }
-
-        public async Task<Machines> GetMachineById(string machineId)
-        {
-            string url = UrlVendingService + $"machines/{machineId}";
-            Machines machine = await MakeRequest<Machines>(url, Method.GET);
-            return machine;
-        }
-
 
         private void ApiErrorHandler(IRestResponse response)
         {
@@ -240,7 +192,15 @@ namespace Softjourn.SJCoins.Core.API
                 default:
                     throw new ApiException(errorDescription);
             }
-        } 
+        }
+
+        private IRestClient GetApiClient()
+        {
+            IRestClient apiClient = new RestClient();
+            apiClient.BaseUrl = new Uri(Const.BaseUrl);
+            apiClient.IgnoreResponseStatusCode = true;
+            return apiClient;
+        }
 
         private string GetOAuthAuthorizationHeader()
         {

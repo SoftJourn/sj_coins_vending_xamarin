@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Softjourn.SJCoins.Core.Exceptions
 {
-    public class ApiNotAuthorizedException : Exception
+    public class ApiNotAuthorizedException : ApiException
     {
 
             public ApiNotAuthorizedException(string message)

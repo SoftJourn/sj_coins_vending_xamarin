@@ -66,5 +66,11 @@ namespace Softjourn.SJCoins.Core.Helpers
             set { AppSettings.AddOrUpdateValue(RefreshTokenKey, value); }
         }
 
+        public static void ClearUserData()
+        {
+            AccessToken = AccessTokenDefault;
+            RefreshToken = RefreshTokenDefault;
+        }
+
     }
 }
