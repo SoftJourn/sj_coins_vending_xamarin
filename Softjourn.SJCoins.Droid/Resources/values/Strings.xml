@@ -1,5 +1,176 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
 <resources>
-	<string name="hello">Hello World, Click Me!</string>
-	<string name="app_name">Softjourn.SJCoins.Droid</string>
+  <string name="ApplicationName">SJ_coin</string>
+
+  <!--Login-->
+  <string name="screen_login_username_hint">Login</string>
+  <string name="screen_login_password_hint">Password</string>
+  <string name="screen_login_login_button">Login</string>
+  <string name="activity_login_login_failed">Login failed</string>
+  <string name="activity_login_invalid_email">Login should contain only lower case alphabetical characters</string>
+  <string name="activity_login_invalid_password">Password should not be empty</string>
+
+  <!--Vending Activity-->
+  <string name="layout_vending_best_sellers">Best Sellers</string>
+  <string name="layout_vending_new_products">Last Added</string>
+  <string name="layout_vending_see_all">SHOW ALL</string>
+  <string name="your_balance_is">"Your balance is %s coins"</string>
+
+  <!-- Item Labels-->
+  <string name="dummy_text_view_text">Dummy text</string>
+  <string name="dummy_long_description">
+    "Material is the metaphor.\n\n"
+
+    "A material metaphor is the unifying theory of a rationalized space and a system of motion."
+    "The material is grounded in tactile reality, inspired by the study of paper and ink, yet "
+    "technologically advanced and open to imagination and magic.\n"
+    "Surfaces and edges of the material provide visual cues that are grounded in reality. The "
+    "use of familiar tactile attributes helps users quickly understand affordances. Yet the "
+    "flexibility of the material creates new affordances that supercede those in the physical "
+    "world, without breaking the rules of physics.\n"
+    "The fundamentals of light, surface, and movement are key to conveying how objects move, "
+    "interact, and exist in space and in relation to each other. Realistic lighting shows "
+    "seams, divides space, and indicates moving parts.\n\n"
+  </string>
+
+  <string name="product_image">Product Image</string>
+  <string name="company_logo">Company Logo</string>
+  <string name="item_coins">Coins</string>
+  <string name="item_product_buy">Buy</string>
+  <string name="confirm_dialog_image_content_description">ProductImage</string>
+  <string name="favorite_icon_content_description">Favorite Icon</string>
+
+  <!--Menu Main-->
+  <string name="menu_log_out">Log Out</string>
+  <string name="menu_item_search">Search</string>
+
+  <!--Profile Screen-->
+  <string name="profile_amount_available">9999</string>
+  <string name="coins">"%1$d coins"</string>
+
+  <!--Purchase History-->
+  <string name="purchase_history_price">20 Coins</string>
+  <string name="name_purchase_history_name">Name</string>
+  <string name="purchase_history_date">11/11/2011</string>
+  <string name="purchase_history">Purchase History</string>
+
+  <!--Progress Messages-->
+  <string name="progress_loading">Loading</string>
+  <string name="progress_authenticating">Authenticating…</string>
+
+  <!--Server Errors-->
+  <string name="server_error_400">Not clear request to server.</string>
+  <string name="server_error_401">Something wrong with your authentication. Check your credentials</string>
+  <string name="server_error_404">Resource is not found.</string>
+  <string name="server_error_409">There is some conflict with data on the server.</string>
+  <string name="server_error_509">Machine is locked by queue. Try again later.</string>
+  <string name="server_error_40401">There is no machines.</string>
+  <string name="server_error_40402">There is not such machine</string>
+  <string name="server_error_40403">Data could not be downloaded. Please try again later</string>
+  <string name="server_error_40404">Keep Calm! Chosen product is not available now. Please try to refresh products list</string>
+  <string name="server_error_40405">Data could not be downloaded. Please try again later</string>
+  <string name="server_error_40406">There is no such product. Please try to refresh products list</string>
+  <string name="server_error_40407">There is no such product. Please try to refresh products list</string>
+  <string name="server_error_40408">Unfortunately your History could not be downloaded</string>
+  <string name="server_error_40409">Account is not correct and could not be found.</string>
+  <string name="server_error_40410">Could not find your amount. Please contact administrator.</string>
+  <string name="server_error_40901">Ooops… You have not enough money to buy product.</string>
+  <string name="server_error_40902">Product is already in favorites</string>
+  <string name="server_error_40903">Product is not in favorites</string>
+  <string name="server_error_50901">Right now machine is locked by queue. We know it\'s annoying. But please try again later. </string>
+  <string name="server_error_other">Unfortunately service is not available right now. Just try again later</string>
+
+  <!--Sorting Button Bar-->
+  <string name="button_sort_name">Name</string>
+  <string name="button_sort_price">Price</string>
+
+  <!--Toast Messages-->
+  <string name="internet_turned_off">No Internet connection</string>
+  <string name="activity_product_take_your_order_message">Please take your order</string>
+  <string name="there_are_no_items">Currently there are no products in this category</string>
+  <string name="no_purchases_yet">Sorry… There is no purchases yet.</string>
+  <string name="machine_not_selected_toast">Please choose machine for correct work of application</string>
+
+  <!-- Confirmation Dialog-->
+  <string name="confirm_purchase">Confirm Purchase</string>
+  <string name="confirm_dialog_ok">Confirm</string>
+  <string name="confirm_dialog_cancel">Cancel</string>
+  <string name="search_hint">Product Name</string>
+  <string name="layout_vending_favorites">Favorites</string>
+  <string name="dialog_msg_confirm_buy_product">Buy %1$s for %2$d coins?</string>
+
+  <!--Error Dialog-->
+  <string name="error_dialog_ok">OK</string>
+  <string name="error_dialog_title">Can\'t process request</string>
+
+
+  <!-- Navigation Drawer Items-->
+  <string name="allItems">All Items</string>
+  <string name="favorites">Favorites</string>
+  <string name="lastAdded">Last Added</string>
+  <string name="bestSellers">Best Sellers</string>
+  <string name="navigation_drawer_open">Open navigation drawer</string>
+  <string name="navigation_drawer_close">Close navigation drawer</string>
+
+
+  <!-- Select Machine functionality-->
+  <string name="machine_name">Select Machine</string>
+  <string name="dialog_select_machine_title">Select Machine</string>
+  <string name="product_is_not_available_in_machine">Chosen product is not available in current vending machine</string>
+  <string name="profile_activity_label">Profile</string>
+  <string name="see_all_activity_label">All Products</string>
+  <string name="menu_icon_description">profile_image</string>
+  <string name="menu_default_username">John Smith</string>
+  <string name="menu_header_label_categories">Categories</string>
+  <string name="order_processing_message">Processing…</string>
+  <string name="profile_updating_label">Updating…</string>
+
+  <string-array name="t_rex_strings">
+    <item>M143,49.5l0,4.5 -4.5,0 -4.5,0 0,29 0,29 -4.5,0 -4.5,0 0,4.5 0,4.5 -7,0 -7,0 0,4.5 0,4.5 -6.5,0 -6.5,0 0,4.5 0,4.5 -4.5,0 -4.5,0 0,4.5 0,4.5 -9,0 -9,0 0,-4.5 0,-4.5 -4.5,0 -4.5,0 0,-3.5 0,-4.5 -4.5,0 -4.5,0 0,-9 0,-9 -4.5,0 -4.5,0 0,27 0,27 4.5,0 4.5,0 0,4.5 0,4.5 4.5,0 4.5,0 0,4.5 0,4.5 4.5,0 4.5,0 0,4.5 0,4.5 4.5,0 4.5,0 0,4.5 0,4.5 4.5,0 4.5,0 0,18 0,18 9,0 9,0 0,-4.5 0,-4.5 -4.5,0 -4.5,0 0,-4.5 0,-4.5 4.5,0 4.5,0 0,-4.5 0,-4.5 4.5,0 4.5,0 0,-4.5 0,-4.5 4.5,0 4.5,0 0,4.5 0,4.5 4.5,0 4.5,0 0,13.5 0,13.5 9,0 9,0 0,-4.5 0,-4.5 -4.5,0 -4.5,0 0,-18 0,-18 4.5,0 4.5,0 0,-4.5 0,-4.5 4.5,0 4.5,0 0,-6.5 0,-6.5 4.5,0 4.5,0 0,-16 0,-16 4.5,0 4.5,0 0,4.5 0,4.5 4.5,0 4.5,0 0,-9 0,-9 -9,0 -9,0 0,-9 0,-9 18,0 18,0 0,-4.5 0,-4.5 -13.5,0 -13.5,0 0,-4.5 0,-4.5 22.5,0 22.5,0 0,-20 0,-20 -4.5,0 -4.5,0 0,-4.5 0,-4.5 -36,0 -36,0 0,4.5zM162,62.5l0,4.5 -4.5,0 -4.5,0 0,-4.5 0,-4.5 4.5,0 4.5,0 0,4.5z</item>
+    <item>M0,204.5l0,2.5 36,0 36,0 0,-2.5 0,-2.5 -36,0 -36,0 0,2.5z</item>
+    <item>M162,204.5l0,2.5 63,0 63,0 0,-2.5 0,-2.5 -63,0 -63,0 0,2.5z</item>
+    <item>M247,218c0,1.8 0.7,2 7,2 6.3,0 7,-0.2 7,-2 0,-1.8 -0.7,-2 -7,-2 -6.3,0 -7,0.2 -7,2z</item>
+    <item>M27,222.5c0,2.5 0.1,2.5 9,2.5 8.9,0 9,0 9,-2.5 0,-2.5 -0.1,-2.5 -9,-2.5 -8.9,0 -9,0 -9,2.5z</item>
+    <item>M184,231.5c0,2 0.5,2.5 2.5,2.5 2,0 2.5,-0.5 2.5,-2.5 0,-2 -0.5,-2.5 -2.5,-2.5 -2,0 -2.5,0.5 -2.5,2.5z</item>
+    <item>M0,236c0,1.9 0.7,2 9,2 8.3,0 9,-0.1 9,-2 0,-1.9 -0.7,-2 -9,-2 -8.3,0 -9,0.1 -9,2z</item>
+    <item>M63,236c0,1.7 0.7,2 4.5,2 3.8,0 4.5,-0.3 4.5,-2 0,-1.7 -0.7,-2 -4.5,-2 -3.8,0 -4.5,0.3 -4.5,2z</item>
+    <item>M216,236c0,1.9 0.7,2 9,2 8.3,0 9,-0.1 9,-2 0,-1.9 -0.7,-2 -9,-2 -8.3,0 -9,0.1 -9,2z</item>
+  </string-array>
+
+  <integer-array name="t_rex_colors">
+    <item>@color/colorSecondaryText</item>
+    <item>@color/colorBlue</item>
+    <item>@color/colorBlue</item>
+    <item>@color/colorBlue</item>
+    <item>@color/colorBlue</item>
+    <item>@color/colorBlue</item>
+    <item>@color/colorBlue</item>
+    <item>@color/colorBlue</item>
+    <item>@color/colorBlue</item>
+  </integer-array>
+
+  <string name="action_settings">Settings</string>
+
+  <!-- Welcome Activity-->
+  <string name="next">NEXT</string>
+  <string name="skip">SKIP</string>
+  <string name="start">GOT IT</string>
+
+  <string name="slide_1_title">How to Log in?</string>
+  <string name="slide_1_desc">Use your LDAP credentials to log in. In case you can\'t find them in your mail you can ask a sysadmin to help you with that!</string>
+
+  <string name="slide_2_title">Buy Products</string>
+  <string name="slide_2_desc">You can buy any product as long as it is available and you have enough money! In case of any issues, e.g. the product has got stuck just ask the person responsible and you will get your product as soon as possible.</string>
+
+  <string name="slide_3_title">Want More Coins?</string>
+  <string name="slide_3_desc">No Problem! Ask our coins administrator to buy some coins for cash. The current exchange rate: 100 coins = 1 UAH</string>
+
+  <string name="slide_4_title">Add Favorites</string>
+  <string name="slide_4_desc">You can add products to favorite so they are always on the top of the screen. Don\'t forget to refresh your Product List to always keep in touch with the server!</string>
+
+  <!-- Content description-->
+  <string name="link_to_welcome_page">Link to Welcome Page</string>
+  <string name="welcome_page_image">Welcome Page Image</string>
+  <string name="favorites_image">Favorites Image</string>
+  <string name="no_available_machines_message">Currently there is no available machines</string>
+
 </resources>

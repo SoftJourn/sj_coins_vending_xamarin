@@ -1,5 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<manifest xmlns:android="http://schemas.android.com/apk/res/android" android:versionCode="1" android:versionName="1.0" package="com.softjourn.sjcoins">
-	<uses-sdk android:minSdkVersion="19" />
-	<application android:label="SJCoins"></application>
+﻿<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android" android:versionCode="1" android:versionName="1.0" package="com.softjourn.sjcoins" android:installLocation="auto">
+	<uses-sdk android:minSdkVersion="19" android:targetSdkVersion="24" />
+	<application android:label="SJCoinsX" android:icon="@drawable/ic_launcher" android:allowBackup="false" android:fullBackupContent="false"></application>
 </manifest>

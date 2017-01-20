@@ -1,0 +1,37 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+  <group
+    android:id="@+id/root_menu"
+    android:checkableBehavior="single">
+
+    <item
+      android:id="@+id/menu_all_products"
+      android:title="@string/allItems" />
+    <item
+      android:id="@+id/menu_favorites"
+      android:title="@string/favorites" />
+    <item
+      android:id="@+id/menu_last_added"
+      android:title="@string/lastAdded" />
+    <item
+      android:id="@+id/menu_best_sellers"
+      android:title="@string/bestSellers" />
+
+    <item
+      android:id="@+id/categories_subheader"
+      android:title="@string/menu_header_label_categories">
+      <menu android:id="@+id/categories_menu" />
+    </item>
+
+    <group
+      android:id="@+id/menu_group_signing"
+      android:checkableBehavior="single"
+      android:menuCategory="secondary">
+      <item
+        android:id="@+id/menu_logout_item"
+        android:title="@string/menu_log_out" />
+    </group>
+  </group>
+</menu>

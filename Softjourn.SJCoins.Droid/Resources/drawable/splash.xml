@@ -1,0 +1,12 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+  <item>
+    <color android:color="@color/colorBackgroundNoInternet"/>
+  </item>
+  <item>
+    <bitmap
+        android:src="@drawable/vending_machine_png"
+        android:tileMode="disabled"
+        android:gravity="center"/>
+  </item>
+</layer-list>
