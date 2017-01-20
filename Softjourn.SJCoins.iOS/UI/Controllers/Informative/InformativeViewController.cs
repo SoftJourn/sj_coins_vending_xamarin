@@ -21,6 +21,7 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.Informative
 
 		private static UIButton gotItButton;
 		private static UIPageControl pageControl;
+		private static UIView view;
 		#endregion
 
 		#region Controller Life cycle
@@ -38,9 +39,14 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.Informative
 			_pages = new List<ContentViewController>();
 			_pages = CreateInformativePages();
 
+			// Set view to property for internal class
+			view = View;
+
+			//Set configuration of internal view elements
 			ConfigurePageViewController();
 			ConfigurePageControl();
 			ConfigureGotItButton();
+			ConfigureFirstPage();
 		}
 		#endregion
 
@@ -84,6 +90,31 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.Informative
 			gotItButton = GotItButton;
 			// Add event to button
 			GotItButton.TouchUpInside += (sender, e) => { Presenter.ToLoginScreen(); };
+		}
+
+		public static void ConfigureDinamicUIElements()
+		{
+			if (currentIndex == _pages.Count - 1)
+			{
+				ConfigureLastPage();
+			}
+			else {
+				ConfigureFirstPage();
+			}
+		}
+
+		private static void ConfigureFirstPage()
+		{
+			// set background color as first page and hide button
+			view.BackgroundColor = UIColor.FromRGB(246, 76, 115).ColorWithAlpha(1.0f);
+			gotItButton.Hidden = true;
+		}
+
+		private static void ConfigureLastPage()
+		{
+			// set background color as last page and show button
+			view.BackgroundColor = UIColor.FromRGB(200, 115, 244).ColorWithAlpha(1.0f);
+			gotItButton.Hidden = false;
 		}
 		#endregion
 
@@ -139,13 +170,12 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.Informative
 			public override void DidFinishAnimating(UIPageViewController pageViewController, bool finished, UIViewController[] previousViewControllers, bool completed)
 			{
 				if (completed)
+				{
 					currentIndex = pendingIndex;
 					pageControl.CurrentPage = currentIndex;
 
-				if (currentIndex == _pages.Count - 1)
-					gotItButton.Hidden = false;
-				else 
-					gotItButton.Hidden = true;
+					ConfigureDinamicUIElements();
+				}
 			}
 		}
 		#endregion

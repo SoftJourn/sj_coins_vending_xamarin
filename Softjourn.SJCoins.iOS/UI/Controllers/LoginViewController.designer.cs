@@ -33,7 +33,7 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers
 		UIKit.UITextField PasswordTextField { get; set; }
 
 		[Outlet]
-		UIKit.UIView ScrollView { get; set; }
+		UIKit.UIScrollView ScrollView { get; set; }
 
 		[Outlet]
 		UIKit.UILabel VersionLabel { get; set; }
@@ -43,6 +43,11 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers
 		
 		void ReleaseDesignerOutlets ()
 		{
+			if (BackButton != null) {
+				BackButton.Dispose ();
+				BackButton = null;
+			}
+
 			if (ImageLogo != null) {
 				ImageLogo.Dispose ();
 				ImageLogo = null;
@@ -73,19 +78,14 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers
 				PasswordTextField = null;
 			}
 
-			if (ScrollView != null) {
-				ScrollView.Dispose ();
-				ScrollView = null;
-			}
-
 			if (VersionLabel != null) {
 				VersionLabel.Dispose ();
 				VersionLabel = null;
 			}
 
-			if (BackButton != null) {
-				BackButton.Dispose ();
-				BackButton = null;
+			if (ScrollView != null) {
+				ScrollView.Dispose ();
+				ScrollView = null;
 			}
 		}
 	}

@@ -1,5 +1,5 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11762" systemVersion="16C67" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="Zd3-tt-mhE">
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11762" systemVersion="15G1212" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="Zd3-tt-mhE">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -29,7 +29,7 @@
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ljM-S2-uPj">
                                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                                         <subviews>
-                                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="889893E4-7E7D-4426-832D-44F98715D1AD" translatesAutoresizingMaskIntoConstraints="NO" id="7Uf-QG-kb1">
+                                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="4E672826-5AEB-4050-B406-02696A5F2CD7" translatesAutoresizingMaskIntoConstraints="NO" id="7Uf-QG-kb1">
                                                 <rect key="frame" x="113" y="124" width="150" height="150"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="150" id="buv-jY-cJP"/>
@@ -157,7 +157,7 @@
                         <outlet property="LoginTextField" destination="aMW-md-VeR" id="fwL-rh-FAL"/>
                         <outlet property="PasswordErrorLabel" destination="q05-kS-lPh" id="FdG-31-yZQ"/>
                         <outlet property="PasswordTextField" destination="yCO-qR-FRw" id="b2t-Fk-UQi"/>
-                        <outlet property="ScrollView" destination="ljM-S2-uPj" id="wNq-eq-VsM"/>
+                        <outlet property="ScrollView" destination="I3d-3h-pYl" id="t7z-sl-fmh"/>
                         <outlet property="VersionLabel" destination="ft1-Yn-S12" id="4Zq-C1-iN7"/>
                     </connections>
                 </viewController>
@@ -217,7 +217,7 @@
         <!--Page View Controller-->
         <scene sceneID="k1N-K8-l1l">
             <objects>
-                <pageViewController storyboardIdentifier="PageViewController" autoresizesArchivedViewToFullSize="NO" transitionStyle="scroll" navigationOrientation="horizontal" spineLocation="min" id="LWT-y4-0Wu" sceneMemberID="viewController"/>
+                <pageViewController storyboardIdentifier="PageViewController" autoresizesArchivedViewToFullSize="NO" transitionStyle="scroll" navigationOrientation="horizontal" spineLocation="none" id="LWT-y4-0Wu" sceneMemberID="viewController"/>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="VAl-QQ-ruv" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-519" y="323"/>
@@ -504,7 +504,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="889893E4-7E7D-4426-832D-44F98715D1AD" width="230" height="265">
+        <image name="4E672826-5AEB-4050-B406-02696A5F2CD7" width="230" height="265">
             <mutableData key="keyedArchiveRepresentation">
 YnBsaXN0MDDUAQIDBAUGOzxYJHZlcnNpb25YJG9iamVjdHNZJGFyY2hpdmVyVCR0b3ASAAGGoK0HCBMU
 GR4fJSYsLzU4VSRudWxs1QkKCwwNDg8QERJWTlNTaXplViRjbGFzc1xOU0ltYWdlRmxhZ3NWTlNSZXBz

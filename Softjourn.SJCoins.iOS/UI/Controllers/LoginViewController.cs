@@ -4,6 +4,7 @@ using BigTed;
 using Foundation;
 using Softjourn.SJCoins.Core.UI.Presenters;
 using Softjourn.SJCoins.Core.UI.ViewInterfaces;
+using Softjourn.SJCoins.iOS.Services;
 using Softjourn.SJCoins.iOS.UI.Services;
 using UIKit;
 
@@ -35,6 +36,9 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers
 		public override void ViewWillAppear(bool animated)
 		{
 			base.ViewWillAppear(animated);
+
+			_scrollService = new KeyboardScrollService(ScrollView);
+			_scrollService.AttachToKeyboardNotifications();
 
 			//Hide error labels before view appears
 			LoginErrorLabel.Hidden = true;
