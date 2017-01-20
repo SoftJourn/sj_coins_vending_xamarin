@@ -87,10 +87,12 @@ namespace Softjourn.SJCoins.Core.UI.Presenters
             if (!Validators.IsUserNameEmpty(userName))
             {
                 View.SetUsernameError(Resources.StringResources.activity_login_empty_username);
+                return;
             }
             if (!Validators.IsUserNameValid(userName))
             {
                 View.SetUsernameError(Resources.StringResources.activity_login_invalid_username);
+                return;
             }
         }
 
