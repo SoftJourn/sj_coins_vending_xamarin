@@ -130,30 +130,78 @@
     <ImageAsset Include="Assets.xcassets\Contents.json">
       <InProject>false</InProject>
     </ImageAsset>
-    <ImageAsset Include="Assets.xcassets\vending_logo.imageset\Contents.json" />
-    <ImageAsset Include="Assets.xcassets\vending_logo.imageset\vending_machine.png" />
-    <ImageAsset Include="Assets.xcassets\vending_logo.imageset\vending_machine2x.png" />
-    <ImageAsset Include="Assets.xcassets\vending_logo.imageset\vending_machine3x.png" />
-    <ImageAsset Include="Assets.xcassets\InfoCoinsLogo.imageset\Contents.json" />
-    <ImageAsset Include="Assets.xcassets\InfoBuyLogo.imageset\Contents.json" />
-    <ImageAsset Include="Assets.xcassets\InfoLoginLogo.imageset\Contents.json" />
-    <ImageAsset Include="Assets.xcassets\InfoFavoritesLogo.imageset\Contents.json" />
-    <ImageAsset Include="Assets.xcassets\InfoFavoritesLogo.imageset\like.png" />
-    <ImageAsset Include="Assets.xcassets\InfoFavoritesLogo.imageset\like%402x.png" />
-    <ImageAsset Include="Assets.xcassets\InfoFavoritesLogo.imageset\like%403x.png" />
-    <ImageAsset Include="Assets.xcassets\InfoCoinsLogo.imageset\get_money.png" />
-    <ImageAsset Include="Assets.xcassets\InfoCoinsLogo.imageset\get_money%402x.png" />
-    <ImageAsset Include="Assets.xcassets\InfoCoinsLogo.imageset\get_money%403x.png" />
-    <ImageAsset Include="Assets.xcassets\InfoBuyLogo.imageset\online_store.png" />
-    <ImageAsset Include="Assets.xcassets\InfoBuyLogo.imageset\online_store%402x.png" />
-    <ImageAsset Include="Assets.xcassets\InfoBuyLogo.imageset\online_store%403x.png" />
-    <ImageAsset Include="Assets.xcassets\InfoLoginLogo.imageset\login.png" />
-    <ImageAsset Include="Assets.xcassets\InfoLoginLogo.imageset\login%402x.png" />
-    <ImageAsset Include="Assets.xcassets\InfoLoginLogo.imageset\login%403x.png" />
-    <ImageAsset Include="Assets.xcassets\BackImage.imageset\Contents.json" />
-    <ImageAsset Include="Assets.xcassets\BackImage.imageset\back_icon.png" />
-    <ImageAsset Include="Assets.xcassets\BackImage.imageset\back_icon%402x.png" />
-    <ImageAsset Include="Assets.xcassets\BackImage.imageset\back_icon%403x.png" />
+    <ImageAsset Include="Assets.xcassets\vending_logo.imageset\Contents.json">
+      <InProject>false</InProject>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\vending_logo.imageset\vending_machine.png">
+      <InProject>false</InProject>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\vending_logo.imageset\vending_machine2x.png">
+      <InProject>false</InProject>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\vending_logo.imageset\vending_machine3x.png">
+      <InProject>false</InProject>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\InfoCoinsLogo.imageset\Contents.json">
+      <InProject>false</InProject>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\InfoBuyLogo.imageset\Contents.json">
+      <InProject>false</InProject>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\InfoLoginLogo.imageset\Contents.json">
+      <InProject>false</InProject>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\InfoFavoritesLogo.imageset\Contents.json">
+      <InProject>false</InProject>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\InfoFavoritesLogo.imageset\like.png">
+      <InProject>false</InProject>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\InfoFavoritesLogo.imageset\like%402x.png">
+      <InProject>false</InProject>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\InfoFavoritesLogo.imageset\like%403x.png">
+      <InProject>false</InProject>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\InfoCoinsLogo.imageset\get_money.png">
+      <InProject>false</InProject>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\InfoCoinsLogo.imageset\get_money%402x.png">
+      <InProject>false</InProject>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\InfoCoinsLogo.imageset\get_money%403x.png">
+      <InProject>false</InProject>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\InfoBuyLogo.imageset\online_store.png">
+      <InProject>false</InProject>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\InfoBuyLogo.imageset\online_store%402x.png">
+      <InProject>false</InProject>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\InfoBuyLogo.imageset\online_store%403x.png">
+      <InProject>false</InProject>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\InfoLoginLogo.imageset\login.png">
+      <InProject>false</InProject>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\InfoLoginLogo.imageset\login%402x.png">
+      <InProject>false</InProject>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\InfoLoginLogo.imageset\login%403x.png">
+      <InProject>false</InProject>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\BackImage.imageset\Contents.json">
+      <InProject>false</InProject>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\BackImage.imageset\back_icon.png">
+      <InProject>false</InProject>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\BackImage.imageset\back_icon%402x.png">
+      <InProject>false</InProject>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\BackImage.imageset\back_icon%403x.png">
+      <InProject>false</InProject>
+    </ImageAsset>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Resources\" />

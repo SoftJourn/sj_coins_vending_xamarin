@@ -213,5 +213,4 @@ namespace Softjourn.SJCoins.Core.API
             Settings.RefreshToken = session.RefreshToken;
         }
     }
-
 }
