@@ -35,6 +35,8 @@ namespace Softjourn.SJCoins.Core.Helpers
 
         private const string SelectedMachineIdKey = "selected_machine_id_key";
         private static readonly string SelectedMachineIdDefault = null;
+        private const string SelectedMachineNameKey = "selected_machine_name_key";
+        private static readonly string SelectedMachineNameDefault = null;
 
         #endregion
 
@@ -75,11 +77,19 @@ namespace Softjourn.SJCoins.Core.Helpers
             set { AppSettings.AddOrUpdateValue(SelectedMachineIdKey, value); }
         }
 
+        public static string SelectedMachineName
+        {
+            get { return AppSettings.GetValueOrDefault<string>(SelectedMachineNameKey, SelectedMachineNameDefault); }
+            set { AppSettings.AddOrUpdateValue(SelectedMachineNameKey, value); }
+        }
+
         public static void ClearUserData()
         {
             AccessToken = AccessTokenDefault;
             RefreshToken = RefreshTokenDefault;
             SelectedMachineId = SelectedMachineIdDefault;
+            SelectedMachineName = SelectedMachineNameDefault;
+
         }
 
     }

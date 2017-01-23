@@ -14,10 +14,6 @@ namespace Softjourn.SJCoins.Core.UI.Presenters
 {
     public class LoginPresenter : BasePresenter<ILoginView>
     {
-        public ApiService RestApiServise
-        {
-            get; set;
-        }
 
         public LoginPresenter()
         {

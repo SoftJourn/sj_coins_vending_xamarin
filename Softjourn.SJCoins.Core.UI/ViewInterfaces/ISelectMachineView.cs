@@ -13,10 +13,9 @@ namespace Softjourn.SJCoins.Core.UI.ViewInterfaces
 
         void HideProgress();
 
-        void ShowNoMachineView();
+        void ShowNoMachineView(string message);
 
-        void ShowMachinesList(List<Machines> list);
-
+        void ShowMachinesList(List<Machines> list, Machines selectedMachine = null);
        
     }
 }
