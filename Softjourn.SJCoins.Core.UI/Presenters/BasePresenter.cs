@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using Softjourn.SJCoins.Core.UI.ViewInterfaces;
 using Softjourn.SJCoins.Core.UI.Services.Navigation;
 using Softjourn.SJCoins.Core.UI.Services.Alert;
+using Softjourn.SJCoins.Core.API;
 
 namespace Softjourn.SJCoins.Core.UI.Presenters
 {
@@ -21,6 +22,11 @@ namespace Softjourn.SJCoins.Core.UI.Presenters
 
       
         public IAlertService AlertService
+        {
+            get; set;
+        }
+
+        public ApiService RestApiServise
         {
             get; set;
         }

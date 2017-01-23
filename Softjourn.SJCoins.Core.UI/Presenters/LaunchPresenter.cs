@@ -33,7 +33,13 @@ namespace Softjourn.SJCoins.Core.UI.Presenters
                     }
                     else
                     {
-                        NavigationService.NavigateToAsRoot(NavigationPage.Main);
+                        if (string.IsNullOrEmpty(Settings.SelectedMachineId))
+                        {
+                            NavigationService.NavigateToAsRoot(NavigationPage.SelectMachine);
+                        } else
+                        {
+                            NavigationService.NavigateToAsRoot(NavigationPage.Main);
+                        }
                     }
                 }
             }
