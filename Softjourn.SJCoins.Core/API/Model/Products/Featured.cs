@@ -4,7 +4,7 @@ using Newtonsoft.Json;
 
 namespace Softjourn.SJCoins.Core.API.Model.Products
 {
-    class Featured
+    public class Featured
     {
         [JsonProperty("lastAdded")]
         public List<int> LastAdded { get; set;}

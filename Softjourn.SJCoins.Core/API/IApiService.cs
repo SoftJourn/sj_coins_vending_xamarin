@@ -18,6 +18,7 @@ namespace Softjourn.SJCoins.Core.API
         #region Machine Api calls
         Task<List<Machines>> GetMachinesList();
         Task<Machines> GetMachineById(string machineId);
+        
         #endregion
 
         #region Coins Api call
