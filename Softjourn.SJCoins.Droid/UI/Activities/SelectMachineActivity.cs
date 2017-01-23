@@ -44,9 +44,10 @@ namespace Softjourn.SJCoins.Droid.UI.Activities
             ViewPresenter.GetMachinesList();
         }
 
-        public void ShowNoMachineView()
+        public void ShowNoMachineView(string message)
         {
             _noMachinesTextView.Visibility = ViewStates.Visible;
+            _noMachinesTextView.Text = message;
         }
 
         public void ShowMachinesList(List<Machines> list, Machines selectedMachine = null)
@@ -63,7 +64,7 @@ namespace Softjourn.SJCoins.Droid.UI.Activities
                 {
                     if (adapter.GetItem(e.Position).ToString() == machine.Name)
                     {
-                        ViewPresenter.OnMachineSelected(machine.Id);
+                        ViewPresenter.OnMachineSelected(machine);
                     }
                 }
             };
