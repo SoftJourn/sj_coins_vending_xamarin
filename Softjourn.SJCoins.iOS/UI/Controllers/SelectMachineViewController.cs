@@ -6,6 +6,7 @@ using Softjourn.SJCoins.Core.API.Model.Machines;
 using Softjourn.SJCoins.Core.UI.Presenters;
 using Softjourn.SJCoins.Core.UI.ViewInterfaces;
 using Softjourn.SJCoins.iOS.UI.Controllers;
+using Softjourn.SJCoins.iOS.UI.Services;
 using UIKit;
 
 namespace Softjourn.SJCoins.iOS.UI.Controllers
@@ -45,12 +46,12 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers
 		#region ISelectMachineView implementation
 		public void ShowProgress(string message)
 		{
-			BTProgressHUD.Show(message);
+			LoaderService.Show(message);
 		}
 
 		public void HideProgress()
 		{
-			BTProgressHUD.Dismiss();
+			LoaderService.Hide();
 		}
 
 		public void ShowNoMachineView(string message)
@@ -97,9 +98,22 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers
 
 			public override nint RowsInSection(UITableView tableview, nint section) => parent.machines == null ? 0 : parent.machines.Count;
 
-			public override UITableViewCell GetCell(UITableView tableView, NSIndexPath indexPath)
+			public override UITableViewCell GetCell(UITableView tableView, NSIndexPath indexPath) => tableView.DequeueReusableCell(SelectMachineCell.Key, indexPath);
+		}
+		#endregion
+
+		#region SelectMachineViewControllerDelegate implementation
+		private class SelectMachineViewControllerDelegate : UITableViewDelegate
+		{
+			private SelectMachineViewController parent;
+
+			public SelectMachineViewControllerDelegate(SelectMachineViewController parent)
 			{
-				var cell = tableView.DequeueReusableCell(SelectMachineCell.Key, indexPath);
+				this.parent = parent;
+			}
+
+			public override void WillDisplay(UITableView tableView, UITableViewCell cell, NSIndexPath indexPath)
+			{
 				if (parent.machines != null)
 				{
 					cell.TextLabel.Text = parent.machines[indexPath.Row].Name;
@@ -114,35 +128,6 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers
 						}
 					}
 				}
-				return cell;
-			}
-
-			//public override void WillDisplay(UITableView tableView, UITableViewCell cell, NSIndexPath indexPath)
-			//{
-			//	Console.WriteLine("WillDisplay called");
-			//	if (parent.machines != null)
-			//	{
-			//		cell.TextLabel.Text = parent.machines[indexPath.Row].Name;
-			//		if (parent.machines[indexPath.Row].Id == parent.selectedMachine.Id)
-			//		{
-			//			cell.Accessory = UITableViewCellAccessory.Checkmark;
-			//		}
-			//		else {
-			//			cell.Accessory = UITableViewCellAccessory.None;
-			//		}
-			//	}
-			//}
-		}
-		#endregion
-
-		#region SelectMachineViewControllerDelegate implementation
-		private class SelectMachineViewControllerDelegate : UITableViewDelegate
-		{
-			private SelectMachineViewController parent;
-
-			public SelectMachineViewControllerDelegate(SelectMachineViewController parent)
-			{
-				this.parent = parent;
 			}
 
 			public override nfloat GetHeightForHeader(UITableView tableView, nint section) => section == 0 ? 40 : 0;
@@ -151,8 +136,12 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers
 			{
 				if (parent.machines != null)
 				{
+					// change checkmark
 					parent.selectedMachine = parent.machines[indexPath.Row];
 					tableView.ReloadData();
+
+					// sent to presenter selected machine
+					parent.Presenter.OnMachineSelected(parent.selectedMachine);
 				}
 			}
 		}

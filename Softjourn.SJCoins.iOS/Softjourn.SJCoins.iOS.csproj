@@ -240,7 +240,7 @@
     <Compile Include="UI\Controllers\Informative\InformativeViewController.cs" />
     <Compile Include="UI\Controllers\Informative\InformativeViewController.designer.cs" />
     <Compile Include="UI\Services\AlertService.cs" />
-    <Compile Include="UI\Services\FullScreenLoaderService.cs" />
+    <Compile Include="UI\Services\LoaderService.cs" />
     <Compile Include="UI\Services\KeyboardScrollService.cs" />
     <Compile Include="UI\Services\NavigationService.cs" />
     <Compile Include="UI\Controllers\SelectMachineViewController.cs" />
