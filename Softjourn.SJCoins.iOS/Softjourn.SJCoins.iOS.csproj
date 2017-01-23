@@ -243,10 +243,6 @@
     <Compile Include="UI\Services\FullScreenLoaderService.cs" />
     <Compile Include="UI\Services\KeyboardScrollService.cs" />
     <Compile Include="UI\Services\NavigationService.cs" />
-    <Compile Include="SettingsViewController.cs" />
-    <Compile Include="SettingsViewController.designer.cs">
-      <DependentUpon>SettingsViewController.cs</DependentUpon>
-    </Compile>
     <Compile Include="UI\Controllers\SelectMachineViewController.cs" />
     <Compile Include="UI\Controllers\SelectMachineViewController.designer.cs">
       <DependentUpon>SelectMachineViewController.cs</DependentUpon>

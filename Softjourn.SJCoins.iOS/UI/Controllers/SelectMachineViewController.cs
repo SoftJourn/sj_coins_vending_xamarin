@@ -8,7 +8,7 @@ using Softjourn.SJCoins.Core.UI.ViewInterfaces;
 using Softjourn.SJCoins.iOS.UI.Controllers;
 using UIKit;
 
-namespace Softjourn.SJCoins.iOS
+namespace Softjourn.SJCoins.iOS.UI.Controllers
 {
 	[Register("SelectMachineViewController")]
 	public partial class SelectMachineViewController : BaseViewController<SelectMachinePresenter>, ISelectMachineView
@@ -29,7 +29,16 @@ namespace Softjourn.SJCoins.iOS
 		{
 			base.ViewDidLoad();
 
+			TableView.Source = new SelectMachineViewControllerDataSource(this);
+			TableView.Delegate = new SelectMachineViewControllerDelegate(this);
 			Presenter.GetMachinesList();
+		}
+
+		public override void ViewWillAppear(bool animated)
+		{
+			base.ViewWillAppear(animated);
+
+			NoMachinesLabel.Hidden = true;
 		}
 		#endregion
 
@@ -44,16 +53,19 @@ namespace Softjourn.SJCoins.iOS
 			BTProgressHUD.Dismiss();
 		}
 
-		public void ShowMachinesList(List<Machines> list)
+		public void ShowNoMachineView(string message)
+		{
+			// show label that no machines fetched
+			NoMachinesLabel.Text = message;
+			NoMachinesLabel.Hidden = false;
+		}
+
+		public void ShowMachinesList(List<Machines> list, Machines selectedMachine = null)
 		{
 			// save list in controller and reload tableView
 			machines = list;
+			this.selectedMachine = selectedMachine;
 			TableView.ReloadData();
-		}
-
-		public void ShowNoMachineView()
-		{
-			// show label that no machines
 		}
 		#endregion
 
@@ -83,24 +95,43 @@ namespace Softjourn.SJCoins.iOS
 
 			public override nint NumberOfSections(UITableView tableView) => 1;
 
-			public override nint RowsInSection(UITableView tableview, nint section) => 1; 
+			public override nint RowsInSection(UITableView tableview, nint section) => parent.machines == null ? 0 : parent.machines.Count;
 
-			public override UITableViewCell GetCell(UITableView tableView, NSIndexPath indexPath) => tableView.DequeueReusableCell(SelectMachineCell.Key, indexPath);
-
-			public override void WillDisplay(UITableView tableView, UITableViewCell cell, NSIndexPath indexPath)
+			public override UITableViewCell GetCell(UITableView tableView, NSIndexPath indexPath)
 			{
+				var cell = tableView.DequeueReusableCell(SelectMachineCell.Key, indexPath);
 				if (parent.machines != null)
 				{
 					cell.TextLabel.Text = parent.machines[indexPath.Row].Name;
-					if (parent.machines[indexPath.Row].Id == parent.selectedMachine.Id)
+					if (parent.selectedMachine != null)
 					{
-						cell.Accessory = UITableViewCellAccessory.Checkmark;
-					}
-					else {
-						cell.Accessory = UITableViewCellAccessory.None;
+						if (parent.machines[indexPath.Row].Id == parent.selectedMachine.Id)
+						{
+							cell.Accessory = UITableViewCellAccessory.Checkmark;
+						}
+						else {
+							cell.Accessory = UITableViewCellAccessory.None;
+						}
 					}
 				}
+				return cell;
 			}
+
+			//public override void WillDisplay(UITableView tableView, UITableViewCell cell, NSIndexPath indexPath)
+			//{
+			//	Console.WriteLine("WillDisplay called");
+			//	if (parent.machines != null)
+			//	{
+			//		cell.TextLabel.Text = parent.machines[indexPath.Row].Name;
+			//		if (parent.machines[indexPath.Row].Id == parent.selectedMachine.Id)
+			//		{
+			//			cell.Accessory = UITableViewCellAccessory.Checkmark;
+			//		}
+			//		else {
+			//			cell.Accessory = UITableViewCellAccessory.None;
+			//		}
+			//	}
+			//}
 		}
 		#endregion
 

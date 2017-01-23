@@ -51,8 +51,8 @@ namespace Softjourn.SJCoins.iOS.Services
 				case NavigationPage.Login:
 					return Instantiate(StoryboardConstants.StoryboardLogin, StoryboardConstants.LoginViewController);
 				// If Main page instantiate from Main storyboard
-				case NavigationPage.Main:
-					return InstantiateInitial(StoryboardConstants.StoryboardMain);
+				case NavigationPage.SelectMachine:
+					return Instantiate(StoryboardConstants.StoryboardMain, StoryboardConstants.SelectMachineViewController);
 				default:
 					throw new ArgumentException("Not valid page");
 			}
