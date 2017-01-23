@@ -5,6 +5,7 @@ using Newtonsoft.Json;
 using Plugin.CurrentActivity;
 using Softjourn.SJCoins.Core.UI.Services.Navigation;
 using Softjourn.SJCoins.Droid.ui.activities;
+using Softjourn.SJCoins.Droid.UI.Activities;
 
 namespace Softjourn.SJCoins.Droid.Services
 {
@@ -53,6 +54,8 @@ namespace Softjourn.SJCoins.Droid.Services
                 case NavigationPage.Welcome:
                     view = new Intent(CrossCurrentActivity.Current.Activity, typeof(WelcomeActivity));
                     break;
+                case NavigationPage.SelectMachine:
+                    view = new Intent(CrossCurrentActivity.Current.Activity, typeof(SelectMachineActivity));
                 default:
                     throw new ArgumentException("Not valid page");
             }
