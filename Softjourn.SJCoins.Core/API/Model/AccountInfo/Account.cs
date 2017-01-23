@@ -4,7 +4,7 @@ using Newtonsoft.Json;
 
 namespace Softjourn.SJCoins.Core.API.Model.AccountInfo
 {
-    class Account
+    public class Account
     {
         [JsonProperty("amount")]
         private int Amount { get; set; }
