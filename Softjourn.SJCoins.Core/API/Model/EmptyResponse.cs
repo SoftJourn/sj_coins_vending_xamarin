@@ -4,10 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Softjourn.SJCoins.Core.UI.Services.Navigation
+namespace Softjourn.SJCoins.Core.API.Model
 {
-    public enum NavigationPage
+    public class EmptyResponse
     {
-        Welcome, Login, Main, SelectMachine
     }
 }

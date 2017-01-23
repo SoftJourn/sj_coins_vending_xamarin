@@ -4,6 +4,7 @@ using RestSharp.Portable.HttpClient;
 using Softjourn.SJCoins.Core.API;
 using Softjourn.SJCoins.Core.API.Model;
 using Softjourn.SJCoins.Core.API.Model.Machines;
+using Softjourn.SJCoins.Core.API.Model.Products;
 using Softjourn.SJCoins.Core.Exceptions;
 using Softjourn.SJCoins.Core.Helpers;
 using Softjourn.SJCoins.Core.Utils;
@@ -141,6 +142,60 @@ namespace Softjourn.SJCoins.Core.API
             Machines machine = await MakeRequest<Machines>(url, Method.GET);
             return machine;
         }
+
+        public async Task<Featured> GetFeaturedProducts(string machineId)
+        {
+            string url = UrlVendingService + $"machines/{machineId}/features";
+            Featured featuredProducts = await MakeRequest<Featured>(url, Method.GET);
+            return featuredProducts;
+        }
+
+        public async Task<List<Product>> GetProductsList(string machineId)
+        {
+            string url = UrlVendingService + $"machines/{machineId}/products";
+            List<Product> productsList = await MakeRequest<List<Product>>(url, Method.GET);
+            return productsList;
+        }
+
+        public async Task<Amount> BuyProductById(string machineId, string productId)
+        {
+            string url = UrlVendingService + $"machines/{machineId}/products/{productId}";
+            Amount productAmount = await MakeRequest<Amount>(url, Method.POST);
+            return productAmount;
+        }
+
+        public async Task<List<Favorites>> GetFavoritesList()
+        {
+            string url = UrlVendingService + $"favorites";
+            List<Favorites> favoritesList = await MakeRequest<List<Favorites>>(url, Method.GET);
+            return favoritesList;
+        }
+
+        public async Task<EmptyResponse> AddProductToFavorites(string productId)
+        {
+            string url = UrlVendingService + $"favorites/{productId}";
+            EmptyResponse response = await MakeRequest<EmptyResponse>(url, Method.POST);
+            return response;
+        }
+
+        public async Task<EmptyResponse> RemoveProductToFavorites(string productId)
+        {
+            string url = UrlVendingService + $"favorites/{productId}";
+            EmptyResponse response = await MakeRequest<EmptyResponse>(url, Method.DELETE);
+            return response;
+        }
+
+        public async Task<List<History>> GetPurchaseHistory(string productId)
+        {
+            string url = UrlVendingService + "machines/last";
+            List<History> historyList = await MakeRequest<List<History>>(url, Method.GET);
+            return historyList;
+        }
+
+        #endregion
+
+        #region
+
         #endregion
 
         private async Task<TResult> MakeRequest<TResult>(string url, Method httpMethod)

@@ -212,6 +212,7 @@
     <Folder Include="Assets.xcassets\InfoLoginLogo.imageset\" />
     <Folder Include="Assets.xcassets\InfoFavoritesLogo.imageset\" />
     <Folder Include="Assets.xcassets\BackImage.imageset\" />
+    <Folder Include="UI\Cells\" />
   </ItemGroup>
   <ItemGroup>
     <InterfaceDefinition Include="LaunchScreen.storyboard" />
@@ -247,6 +248,13 @@
       <DependentUpon>SettingsViewController.cs</DependentUpon>
     </Compile>
     <Compile Include="UI\Controllers\SelectMachineViewController.cs" />
+    <Compile Include="UI\Controllers\SelectMachineViewController.designer.cs">
+      <DependentUpon>SelectMachineViewController.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Cells\SelectMachineCell.cs" />
+    <Compile Include="UI\Cells\SelectMachineCell.designer.cs">
+      <DependentUpon>SelectMachineCell.cs</DependentUpon>
+    </Compile>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
 </Project>

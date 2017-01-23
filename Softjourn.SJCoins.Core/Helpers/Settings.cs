@@ -33,6 +33,9 @@ namespace Softjourn.SJCoins.Core.Helpers
         private const string RefreshTokenKey = "refresh_token_key";
         private static readonly string RefreshTokenDefault = string.Empty;
 
+        private const string SelectedMachineIdKey = "selected_machine_id_key";
+        private static readonly string SelectedMachineIdDefault = null;
+
         #endregion
 
 
@@ -66,10 +69,17 @@ namespace Softjourn.SJCoins.Core.Helpers
             set { AppSettings.AddOrUpdateValue(RefreshTokenKey, value); }
         }
 
+        public static string SelectedMachineId
+        {
+            get { return AppSettings.GetValueOrDefault<string>(SelectedMachineIdKey, SelectedMachineIdDefault); }
+            set { AppSettings.AddOrUpdateValue(SelectedMachineIdKey, value); }
+        }
+
         public static void ClearUserData()
         {
             AccessToken = AccessTokenDefault;
             RefreshToken = RefreshTokenDefault;
+            SelectedMachineId = SelectedMachineIdDefault;
         }
 
     }

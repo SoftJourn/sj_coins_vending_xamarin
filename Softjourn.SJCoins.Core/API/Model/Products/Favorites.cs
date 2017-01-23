@@ -3,7 +3,7 @@ using Newtonsoft.Json;
 
 namespace Softjourn.SJCoins.Core.API.Model.Products
 {
-    class Favorites
+    public class Favorites
     {
         [JsonProperty("id")]
         public int Id { get; set; }

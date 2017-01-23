@@ -54,7 +54,7 @@ namespace Softjourn.SJCoins.Core.UI.Presenters
                     try
                     {
                         await RestApiServise.MakeLoginRequest(userName, password);
-                        NavigationService.NavigateToAsRoot(NavigationPage.Main);
+                        NavigationService.NavigateToAsRoot(NavigationPage.SelectMachine);
                         View.HideProgress();
                     }
                     catch (ApiBadRequestException ex)
