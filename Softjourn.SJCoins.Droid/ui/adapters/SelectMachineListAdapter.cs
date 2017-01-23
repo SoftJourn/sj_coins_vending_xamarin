@@ -19,22 +19,28 @@ namespace Softjourn.SJCoins.Droid.ui.adapters
 {
     public class SelectMachineListAdapter : BaseAdapter
     {
-        private List<String> mItems;
+        private readonly List<string> _items;
 
-        private Context mContext;
+        private readonly Context _context;
 
-        public SelectMachineListAdapter(Context context, int resource, List<String> list)
+        private string _selectedMachine = "";
+
+        public SelectMachineListAdapter(Context context, int resource, List<string> list, string selectedMachine = null)
         {
-            mItems = list;
-            mContext = context;
+            _items = list;
+            _context = context;
+            if (selectedMachine != null)
+            {
+                _selectedMachine = selectedMachine;
+            }
         }
 
 
-    public override int Count => mItems.Count;
+    public override int Count => _items.Count;
 
         public override Object GetItem(int position)
         {
-            return mItems[position];
+            return _items[position];
         }
 
     public override long GetItemId(int position)
@@ -46,28 +52,23 @@ namespace Softjourn.SJCoins.Droid.ui.adapters
     public override View GetView(int position, View convertView, ViewGroup parent)
         {
 
-            View view = convertView;
+            var view = convertView;
             if (view == null)
             {
                 LayoutInflater li;
-                li = LayoutInflater.From(mContext);
+                li = LayoutInflater.From(_context);
                 view = li.Inflate(Resource.Layout.select_machine_text_view, null);
             }
 
-            String name = GetItem(position).ToString();
+            var name = GetItem(position).ToString();
 
-            TextView machineName = view.FindViewById<TextView>(Resource.Id.text1);
+            var machineName = view.FindViewById<TextView>(Resource.Id.text1);
             machineName.Text = name;
 
-            if (name == Preferences.RetrieveStringObject(Const.SelectedMachineName))
-            {
-                machineName.SetTextColor(new Color(ContextCompat.GetColor(mContext, Resource.Color.colorBlue)));
-            }
-            else
-            {
-                machineName.SetTextColor(new Color(ContextCompat.GetColor(mContext, Resource.Color.menuBackground)));
-            }
-            return view;
+        machineName.SetTextColor(name == _selectedMachine
+            ? new Color(ContextCompat.GetColor(_context, Resource.Color.colorBlue))
+            : new Color(ContextCompat.GetColor(_context, Resource.Color.menuBackground)));
+        return view;
         }
 
     }
