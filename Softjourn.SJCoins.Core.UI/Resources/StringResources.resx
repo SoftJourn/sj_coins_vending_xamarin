@@ -225,4 +225,10 @@
   <data name="your_balance_is" xml:space="preserve">
     <value>Your balance is %s coins</value>
   </data>
+  <data name="error_msg_empty_machines_list" xml:space="preserve">
+    <value>There are no active machines. Please try to refresh list</value>
+  </data>
+  <data name="error_msg_invalid_selected_machine" xml:space="preserve">
+    <value>Invalid selected machine</value>
+  </data>
 </root>

@@ -134,6 +134,24 @@ namespace Softjourn.SJCoins.Core.UI.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to There are no active machines. Please try to refresh list.
+        /// </summary>
+        public static string error_msg_empty_machines_list {
+            get {
+                return ResourceManager.GetString("error_msg_empty_machines_list", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Invalid selected machine.
+        /// </summary>
+        public static string error_msg_invalid_selected_machine {
+            get {
+                return ResourceManager.GetString("error_msg_invalid_selected_machine", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to No Internet connection.
         /// </summary>
         public static string internet_turned_off {
