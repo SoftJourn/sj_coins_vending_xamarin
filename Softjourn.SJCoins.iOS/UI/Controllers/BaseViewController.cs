@@ -13,6 +13,7 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers
 		protected TPresenter Presenter { get; set; }
 		protected AppDelegate currentApplication;
 		protected ILifetimeScope _scope;
+		protected UIRefreshControl _refreshControl;
 		#endregion
 
 		#region Constructor
@@ -26,14 +27,19 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers
 
 		public virtual void SetUIAppearance()
 		{
+			AttachPullToRefresh();
 		}
 
 		public virtual void AttachEvents()
 		{
+			if (_refreshControl != null)
+				_refreshControl.ValueChanged += PullToRefreshTriggered;
 		}
 
 		public virtual void DetachEvents()
 		{
+			if (_refreshControl != null)
+				_refreshControl.ValueChanged -= PullToRefreshTriggered;
 		}
 
 		#endregion
@@ -81,6 +87,19 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers
 		}
 		#endregion
 
+		#region Methods for inheritanse
+		protected virtual UIScrollView GetRefreshableScrollView()
+		{
+			// virtual method for taking UIscrollView (tableview, collectionview) from child of this class
+			return null;
+		}
+
+		protected virtual void PullToRefreshTriggered(object sender, EventArgs e)
+		{
+			
+		}
+		#endregion
+
 		#region Private methods
 		private void InitPresenter()
 		{
@@ -90,10 +109,12 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers
 			Presenter.AttachView(this);
 		}
 
-		//private void AttachPullToRefresh()
-		//{
-
-		//}
+		private void AttachPullToRefresh()
+		{
+			var refreshableScrollView = GetRefreshableScrollView();
+			_refreshControl = new UIRefreshControl();
+			refreshableScrollView.AddSubview(_refreshControl);
+		}
 		#endregion
 	}
 }

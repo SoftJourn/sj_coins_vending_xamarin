@@ -7,6 +7,8 @@ using Softjourn.SJCoins.Core.UI.Presenters;
 using Softjourn.SJCoins.Core.UI.ViewInterfaces;
 using Softjourn.SJCoins.iOS.UI.Controllers;
 using Softjourn.SJCoins.iOS.UI.Services;
+using CoreGraphics;
+
 using UIKit;
 
 namespace Softjourn.SJCoins.iOS.UI.Controllers
@@ -84,6 +86,21 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers
 		}
 		#endregion
 
+		#region Private methods
+		private UIView ConfigureVendingMachinesHeader()
+		{
+			UIView view = new UIView();
+			UILabel label = new UILabel(frame: new CGRect(x: 25, y: 15, width: 300, height: 20));
+			label.TextAlignment = UITextAlignment.Left;
+			label.Text = "Vending Machines";
+			label.TextColor = UIColor.Gray;
+			view.Add(label);
+			return view;
+		}
+
+		protected override UIScrollView GetRefreshableScrollView() => TableView;
+		#endregion
+
 		#region SelectMachineViewControllerDataSource implementation
 		private class SelectMachineViewControllerDataSource : UITableViewSource
 		{
@@ -97,6 +114,8 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers
 			public override nint NumberOfSections(UITableView tableView) => 1;
 
 			public override nint RowsInSection(UITableView tableview, nint section) => parent.machines == null ? 0 : parent.machines.Count;
+
+			//public override UIView GetViewForHeader(UITableView tableView, nint section) => parent.ConfigureHeader();
 
 			public override UITableViewCell GetCell(UITableView tableView, NSIndexPath indexPath) => tableView.DequeueReusableCell(SelectMachineCell.Key, indexPath);
 		}
@@ -117,6 +136,8 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers
 				if (parent.machines != null)
 				{
 					cell.TextLabel.Text = parent.machines[indexPath.Row].Name;
+
+					// display checkmarks
 					if (parent.selectedMachine != null)
 					{
 						if (parent.machines[indexPath.Row].Id == parent.selectedMachine.Id)
@@ -131,6 +152,8 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers
 			}
 
 			public override nfloat GetHeightForHeader(UITableView tableView, nint section) => section == 0 ? 40 : 0;
+
+			public override UIView GetViewForHeader(UITableView tableView, nint section) => parent.ConfigureVendingMachinesHeader();
 
 			public override void RowSelected(UITableView tableView, NSIndexPath indexPath)
 			{
