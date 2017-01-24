@@ -115,8 +115,6 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers
 
 			public override nint RowsInSection(UITableView tableview, nint section) => parent.machines == null ? 0 : parent.machines.Count;
 
-			//public override UIView GetViewForHeader(UITableView tableView, nint section) => parent.ConfigureHeader();
-
 			public override UITableViewCell GetCell(UITableView tableView, NSIndexPath indexPath) => tableView.DequeueReusableCell(SelectMachineCell.Key, indexPath);
 		}
 		#endregion

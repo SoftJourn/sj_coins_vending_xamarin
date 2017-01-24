@@ -213,6 +213,8 @@
     <Folder Include="Assets.xcassets\InfoFavoritesLogo.imageset\" />
     <Folder Include="Assets.xcassets\BackImage.imageset\" />
     <Folder Include="UI\Cells\" />
+    <Folder Include="UI\Controllers\Main\" />
+    <Folder Include="General\Extensions\" />
   </ItemGroup>
   <ItemGroup>
     <InterfaceDefinition Include="LaunchScreen.storyboard" />
@@ -251,6 +253,26 @@
     <Compile Include="UI\Cells\SelectMachineCell.designer.cs">
       <DependentUpon>SelectMachineCell.cs</DependentUpon>
     </Compile>
+    <Compile Include="CustomSegmentControl.cs" />
+    <Compile Include="CustomSegmentControl.designer.cs">
+      <DependentUpon>CustomSegmentControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Controllers\Main\HomeViewController.cs" />
+    <Compile Include="UI\Controllers\Main\FavoritesViewController.cs" />
+    <Compile Include="UI\Controllers\Main\AllItemsViewController.cs" />
+    <Compile Include="UI\Controllers\Main\AccountViewController.cs" />
+    <Compile Include="UI\Controllers\Main\HomeViewController.designer.cs">
+      <DependentUpon>HomeViewController.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Cells\HomeCell.cs" />
+    <Compile Include="UI\Cells\HomeCell.designer.cs">
+      <DependentUpon>HomeCell.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Cells\HomeInternalCell.cs" />
+    <Compile Include="UI\Cells\HomeInternalCell.designer.cs">
+      <DependentUpon>HomeInternalCell.cs</DependentUpon>
+    </Compile>
+    <Compile Include="General\Extensions\VerifyingExtensions.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
 </Project>

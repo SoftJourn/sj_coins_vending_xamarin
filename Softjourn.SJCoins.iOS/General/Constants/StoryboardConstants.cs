@@ -16,11 +16,18 @@
 		public const string SelectMachineViewController = "SelectMachineViewController";
 		public const string MainTabBarViewController = "MainTabBarViewController";
 
+		// Main pages 
+		public const string HomeViewController = "HomeViewController";
+		public const string FavoritesViewController = "FavoritesViewController";
+		public const string AllProductsViewController = "AllProductsViewController";
+		public const string AccountViewController = "AccountViewController";
+
 		// Informative pages
 		public const string InformativeLoginPage = "InformativeLoginPage";
 		public const string InformativeBuyPage = "InformativeBuyPage";
 		public const string InformativeCoinsPage = "InformativeCoinsPage";
 		public const string InformativeFavoritesPage = "InformativeFavoritesPage";
 		#endregion
+
 	}
 }
