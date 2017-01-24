@@ -25,13 +25,21 @@ namespace Softjourn.SJCoins.Core.UI.Presenters
            try
             {
                 List<Machines> machinesList = await RestApiServise.GetMachinesList();
-                Machines selectedMachine = null;
-                if (machinesList != null)
+                View.HideProgress();                
+                if (machinesList != null && machinesList.Count != 0)
                 {
-                    selectedMachine = GetSelectedMachine(machinesList);
+                    if (machinesList.Count == 1)
+                    {
+                        OnMachineSelected(machinesList.First<Machines>());
+                    } else {
+                        Machines selectedMachine = GetSelectedMachine(machinesList);
+                        View.ShowMachinesList(machinesList, selectedMachine);
+                    }                   
+                } else
+                {
+                    View.ShowNoMachineView(Resources.StringResources.error_msg_empty_machines_list);
                 }
-                View.ShowMachinesList(machinesList, selectedMachine);
-                View.HideProgress();
+                
             } catch (ApiException ex)
             {
                 View.HideProgress();
@@ -52,7 +60,7 @@ namespace Softjourn.SJCoins.Core.UI.Presenters
                 NavigationService.NavigateToAsRoot(NavigationPage.Main);
             } else
             {
-                AlertService.ShowToastMessage("Invalid selected machine");
+                AlertService.ShowToastMessage(Resources.StringResources.error_msg_invalid_selected_machine);
             }
         }
 
