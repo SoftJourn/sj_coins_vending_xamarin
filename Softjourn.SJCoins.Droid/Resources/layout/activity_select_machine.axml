@@ -9,21 +9,28 @@
         android:id="@+id/swipe_container"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-        <TextView
-            android:id="@+id/textViewNoMachines"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAlignment="center"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginTop="@dimen/category_header_bottom_margin"
-            android:textSize="18sp"
-            android:text="asdkaskjdkjashd akjsdhkjasdhas ajsdhkjashdkjas asjhdjahs" />
-        <ListView
-            android:id="@+id/listViewMachines"
-            android:dividerHeight="1dp"
-            android:divider="@color/colorBlue"
-            android:choiceMode="singleChoice"
+        <RelativeLayout
+            android:id="@+id/container"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="match_parent">
+            <TextView
+                android:id="@+id/textViewNoMachines"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAlignment="center"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="@dimen/category_header_bottom_margin"
+                android:textSize="18sp"
+                android:visibility="gone"/>
+            <ListView
+                android:id="@+id/listViewMachines"
+                android:dividerHeight="1dp"
+                android:divider="@color/colorBlue"
+                android:choiceMode="singleChoice"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_below="@id/textViewNoMachines"
+                android:visibility="gone"/>
+        </RelativeLayout>
     </android.support.v4.widget.SwipeRefreshLayout>
 </LinearLayout>

@@ -32,6 +32,11 @@ namespace Softjourn.SJCoins.Droid.ui.adapters
         }
 
 
+        public Machines GetMachine(int position)
+        {
+            return _items[position];
+        }
+
         public override long GetItemId(int position)
         {
             return position;
