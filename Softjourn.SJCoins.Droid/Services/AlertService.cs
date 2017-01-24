@@ -52,52 +52,52 @@ namespace Softjourn.SJCoins.Droid.Services
             });
         }
 
-        public void CreateMachineSelectorDialog(List<Machines> machines, MainActivity activity)
-        {
-            var names = machines.Select(machine => machine.Name).ToList();
+        //public void CreateMachineSelectorDialog(List<Machines> machines, MainActivity activity)
+        //{
+        //    var names = machines.Select(machine => machine.Name).ToList();
 
-            Dialog dialog = new Dialog(activity);
-            if (!dialog.IsShowing)
-            {
-                dialog.Window.RequestFeature(WindowFeatures.NoTitle);
-                dialog.Window.RequestFeature(WindowFeatures.SwipeToDismiss);
-                dialog.SetContentView(Resource.Layout.dialog_select_machine);
-                var machinesList = dialog.FindViewById<ListView>(Resource.Id.lv);
-                SelectMachineListAdapter adapter = new SelectMachineListAdapter(activity,
-                    Android.Resource.Layout.SimpleListItem1, names);
-                machinesList.Adapter = adapter;
-                dialog.Window.Attributes.WindowAnimations = Resource.Style.MachinesDialogAnimation;
-                activity.HideProgress();
-                dialog.Show();
+        //    Dialog dialog = new Dialog(activity);
+        //    if (!dialog.IsShowing)
+        //    {
+        //        dialog.Window.RequestFeature(WindowFeatures.NoTitle);
+        //        dialog.Window.RequestFeature(WindowFeatures.SwipeToDismiss);
+        //        dialog.SetContentView(Resource.Layout.dialog_select_machine);
+        //        var machinesList = dialog.FindViewById<ListView>(Resource.Id.lv);
+        //        SelectMachineListAdapter adapter = new SelectMachineListAdapter(activity,
+        //            Android.Resource.Layout.SimpleListItem1, names);
+        //        machinesList.Adapter = adapter;
+        //        dialog.Window.Attributes.WindowAnimations = Resource.Style.MachinesDialogAnimation;
+        //        activity.HideProgress();
+        //        dialog.Show();
 
-                machinesList.ItemClick += (sender, e) =>
-                {
-                    foreach (Machines machine in machines)
-                    {
-                        if (adapter.GetItem(e.Position).ToString() == machine.Name)
-                        {
-                            //Preferences.StoreObject(Const.SelectedMachineId, Java.Lang.String.ValueOf(machine.Id));
-                            //Preferences.StoreObject(Const.SelectedMachineName, machine.Name);
-                            break;
-                        }
-                    }
-                    activity.ShowProgress(activity.GetString(Resource.String.progress_loading));
-                    if (activity.MConfirmDialogIsVisible)
-                    {
-                        activity.ConfirmDialog.Dismiss();
-                    }
-                    //LoadProductList();
-                    dialog.Dismiss();
-                };
-                dialog.CancelEvent += (sender, e) =>
-                {
-                    //if (TextUtils.IsEmpty(Preferences.RetrieveStringObject(Const.SelectedMachineId)))
-                    //{
-                    //    ShowToastMessage(activity.GetString(Resource.String.machine_not_selected_toast));
-                    //}
-                };
-            }
-        }
+        //        machinesList.ItemClick += (sender, e) =>
+        //        {
+        //            foreach (Machines machine in machines)
+        //            {
+        //                if (adapter.GetItem(e.Position).ToString() == machine.Name)
+        //                {
+        //                    //Preferences.StoreObject(Const.SelectedMachineId, Java.Lang.String.ValueOf(machine.Id));
+        //                    //Preferences.StoreObject(Const.SelectedMachineName, machine.Name);
+        //                    break;
+        //                }
+        //            }
+        //            activity.ShowProgress(activity.GetString(Resource.String.progress_loading));
+        //            if (activity.MConfirmDialogIsVisible)
+        //            {
+        //                activity.ConfirmDialog.Dismiss();
+        //            }
+        //            //LoadProductList();
+        //            dialog.Dismiss();
+        //        };
+        //        dialog.CancelEvent += (sender, e) =>
+        //        {
+        //            //if (TextUtils.IsEmpty(Preferences.RetrieveStringObject(Const.SelectedMachineId)))
+        //            //{
+        //            //    ShowToastMessage(activity.GetString(Resource.String.machine_not_selected_toast));
+        //            //}
+        //        };
+        //    }
+        //}
 
         private void CreateAlertDialog(string title, string msg, Action btnClicked, string btnName = null)
         {

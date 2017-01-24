@@ -18,21 +18,27 @@ using Softjourn.SJCoins.Droid.ui.baseUI;
 
 namespace Softjourn.SJCoins.Droid.UI.Activities
 {
-    [Activity(Label = "Select Machine", Theme = "@style/AppThemeForCustomToolbar")]
+    [Activity(Label = "Select Machine", Theme = "@style/AppTheme")]
     public class SelectMachineActivity : BaseActivity<SelectMachinePresenter>, ISelectMachineView
     {
 
         private SwipeRefreshLayout _swipeLayout;
         private TextView _noMachinesTextView;
         private ListView _machineListView;
+        private List<Machines> _machinesList = new List<Machines>();
+        private SelectMachineListAdapter _adapter; 
 
         protected override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
             SetContentView(Resource.Layout.activity_select_machine);
+            Title = "Select Machine";
 
             _noMachinesTextView = FindViewById<TextView>(Resource.Id.textViewNoMachines);
             _machineListView = FindViewById<ListView>(Resource.Id.listViewMachines);
+
+            _adapter = new SelectMachineListAdapter(this, _machinesList);
+            _machineListView.Adapter = _adapter;
 
             _swipeLayout = FindViewById<SwipeRefreshLayout>(Resource.Id.swipe_container);
             _swipeLayout.SetColorSchemeColors(GetColor(Resource.Color.colorAccent));
@@ -44,6 +50,11 @@ namespace Softjourn.SJCoins.Droid.UI.Activities
             ViewPresenter.GetMachinesList();
         }
 
+        public override bool OnCreateOptionsMenu(IMenu menu)
+        {
+            return false;
+        }
+
         public void ShowNoMachineView(string message)
         {
             _noMachinesTextView.Visibility = ViewStates.Visible;
@@ -52,23 +63,24 @@ namespace Softjourn.SJCoins.Droid.UI.Activities
 
         public void ShowMachinesList(List<Machines> list, Machines selectedMachine = null)
         {
+            _machinesList = list;
             _machineListView.Visibility = ViewStates.Visible;
-            var names = list.Select(machine => machine.Name).ToList();
 
-            var adapter = new SelectMachineListAdapter(this,
-                Android.Resource.Layout.SimpleListItem1, names, selectedMachine?.Name);
-            _machineListView.Adapter = adapter;
-            _machineListView.ItemClick += (sender, e) =>
+
+            _adapter.SetSelectedMachine(selectedMachine);
+            _adapter.SetData(list);
+            //_machineListView.ItemClick += OnListItemClick;
+        }
+
+        private void OnListItemClick(object sender, AdapterView.ItemClickEventArgs e)
+        {
+            foreach (var machine in _machinesList)
             {
-                foreach (var machine in list)
+                if (e.Position.ToString() == machine.Name)
                 {
-                    if (adapter.GetItem(e.Position).ToString() == machine.Name)
-                    {
-                        ViewPresenter.OnMachineSelected(machine);
-                    }
+                    ViewPresenter.OnMachineSelected(machine);
                 }
-            };
-
+            }
         }
 
         public override void ShowProgress(string message)

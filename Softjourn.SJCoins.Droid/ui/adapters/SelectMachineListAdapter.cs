@@ -12,63 +12,72 @@ using Android.Support.V4.Content;
 using Android.Views;
 using Android.Widget;
 using Java.Lang;
-using Softjourn.SJCoins.Droid.utils;
-using String = System.String;
+using Softjourn.SJCoins.Core.API.Model.Machines;
+
 
 namespace Softjourn.SJCoins.Droid.ui.adapters
 {
-    public class SelectMachineListAdapter : BaseAdapter
+    public class SelectMachineListAdapter : BaseAdapter<Machines>
     {
-        private readonly List<string> _items;
+        private List<Machines> _items;
 
-        private readonly Context _context;
+        private Context _context;
 
         private string _selectedMachine = "";
 
-        public SelectMachineListAdapter(Context context, int resource, List<string> list, string selectedMachine = null)
+        public SelectMachineListAdapter(Context context, List<Machines> list) : base()
         {
             _items = list;
             _context = context;
-            if (selectedMachine != null)
-            {
-                _selectedMachine = selectedMachine;
-            }
         }
 
 
-    public override int Count => _items.Count;
-
-        public override Object GetItem(int position)
-        {
-            return _items[position];
-        }
-
-    public override long GetItemId(int position)
+        public override long GetItemId(int position)
         {
             return position;
         }
+        public override Machines this[int position]
+        {
+            get { return _items[position]; }
+        }
+        public override int Count
+        {
+            get { return _items.Count; }
+        }
 
 
-    public override View GetView(int position, View convertView, ViewGroup parent)
+        public override View GetView(int position, View convertView, ViewGroup parent)
         {
 
             var view = convertView;
             if (view == null)
             {
-                LayoutInflater li;
-                li = LayoutInflater.From(_context);
-                view = li.Inflate(Resource.Layout.select_machine_text_view, null);
+                view = LayoutInflater.From(_context).Inflate(Resource.Layout.select_machine_text_view, null, false);
             }
 
-            var name = GetItem(position).ToString();
+            var machines = this[position];
 
             var machineName = view.FindViewById<TextView>(Resource.Id.text1);
-            machineName.Text = name;
+            machineName.Text = machines.Name;
 
-        machineName.SetTextColor(name == _selectedMachine
+        machineName.SetTextColor(machines.Name == _selectedMachine
             ? new Color(ContextCompat.GetColor(_context, Resource.Color.colorBlue))
             : new Color(ContextCompat.GetColor(_context, Resource.Color.menuBackground)));
         return view;
+        }
+
+        public void SetData(List<Machines> list)
+        {
+            _items = list;
+            NotifyDataSetChanged();
+        }
+
+        public void SetSelectedMachine(Machines machine)
+        {
+            if (machine != null)
+            {
+                _selectedMachine = machine.Name;
+            }
         }
 
     }
