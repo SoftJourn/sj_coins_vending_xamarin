@@ -2,16 +2,13 @@ using System;
 using Android.App;
 using Android.OS;
 using Android.Views;
-using Android.Views.Animations;
 using Android.Widget;
 using Softjourn.SJCoins.Core.UI.Presenters;
-using Softjourn.SJCoins.Core.UI.Presenters.IPresenters;
 using Softjourn.SJCoins.Core.UI.ViewInterfaces;
 using Softjourn.SJCoins.Droid.ui.baseUI;
-using Softjourn.SJCoins.Droid.utils;
 
 
-namespace Softjourn.SJCoins.Droid.ui.activities
+namespace Softjourn.SJCoins.Droid.UI.Activities
 {
     [Activity(Label = "SomeLabel", Theme = "@style/NoActionBarLoginTheme")]
     public class LoginActivity : BaseActivity<LoginPresenter>, ILoginView

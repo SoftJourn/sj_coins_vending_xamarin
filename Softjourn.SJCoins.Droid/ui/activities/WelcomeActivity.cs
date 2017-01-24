@@ -2,18 +2,15 @@ using Android.App;
 using Android.Graphics;
 using Android.OS;
 using Android.Support.V4.View;
-using Android.Support.V7.App;
 using Android.Text;
 using Android.Views;
 using Android.Widget;
 using Softjourn.SJCoins.Core.UI.Presenters;
-using Softjourn.SJCoins.Core.UI.Presenters.IPresenters;
 using Softjourn.SJCoins.Core.UI.ViewInterfaces;
 using Softjourn.SJCoins.Droid.ui.adapters;
 using Softjourn.SJCoins.Droid.ui.baseUI;
-using Softjourn.SJCoins.Droid.utils;
 
-namespace Softjourn.SJCoins.Droid.ui.activities
+namespace Softjourn.SJCoins.Droid.UI.Activities
 {
     [Activity(Label = "WelcomeActivity", Theme = "@style/NoActionBarLoginTheme")]
     public class WelcomeActivity : BaseActivity<WelcomePresenter>, ViewPager.IOnPageChangeListener, IWelcomeView

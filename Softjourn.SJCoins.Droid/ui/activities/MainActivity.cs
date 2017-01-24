@@ -1,26 +1,18 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 using Android.App;
-using Android.Content;
 using Android.OS;
-using Android.Runtime;
 using Android.Support.Design.Widget;
 using Android.Support.V4.Widget;
 using Android.Support.V7.App;
 using Android.Text;
 using Android.Views;
 using Android.Widget;
-using Softjourn.SJCoins.Core.API.Model.Machines;
 using Softjourn.SJCoins.Core.UI.Presenters;
 using Softjourn.SJCoins.Core.UI.ViewInterfaces;
-using Softjourn.SJCoins.Droid.ui.adapters;
 using Softjourn.SJCoins.Droid.ui.baseUI;
 using Softjourn.SJCoins.Droid.utils;
 
-namespace Softjourn.SJCoins.Droid.ui.activities
+namespace Softjourn.SJCoins.Droid.UI.Activities
 {
     [Activity(Label = "Vending Machine", Theme = "@style/AppThemeForCustomToolbar")]
     public class MainActivity : BaseActivity<MainPresenter>, IMainView
