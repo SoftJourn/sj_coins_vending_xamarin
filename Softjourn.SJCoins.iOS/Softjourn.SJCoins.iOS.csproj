@@ -214,7 +214,6 @@
     <Folder Include="Assets.xcassets\BackImage.imageset\" />
     <Folder Include="UI\Cells\" />
     <Folder Include="UI\Controllers\Main\" />
-    <Folder Include="General\Extensions\" />
   </ItemGroup>
   <ItemGroup>
     <InterfaceDefinition Include="LaunchScreen.storyboard" />
@@ -272,7 +271,6 @@
     <Compile Include="UI\Cells\HomeInternalCell.designer.cs">
       <DependentUpon>HomeInternalCell.cs</DependentUpon>
     </Compile>
-    <Compile Include="General\Extensions\VerifyingExtensions.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
 </Project>

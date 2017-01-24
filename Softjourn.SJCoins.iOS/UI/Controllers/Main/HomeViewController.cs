@@ -3,12 +3,15 @@ using System.Collections.Generic;
 using Foundation;
 using Softjourn.SJCoins.Core.API.Model.Products;
 using UIKit;
+using CoreGraphics;
 
 namespace Softjourn.SJCoins.iOS.UI.Controllers.Main
 {
 	[Register("HomeViewController")]
 	public partial class HomeViewController : UIViewController
 	{
+		private const int cellHeight = 180;
+
 		#region Properties
 		private List<Categories> categories;
 		#endregion
@@ -73,14 +76,30 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.Main
 				if (parent.categories != null)
 				{
 					var category = parent.categories[indexPath.Row];
-					if (category.Products != null && category.Products.Count > 0)
+					if (category.Products != null || category.Products.Count != 0)
 					{
-						
+						// set delegate to cell
+						// if (category.name == favorite)
+						// {
+						//	configure cell with name items etc.	
+						// }
 					}
-
 				}
-
 			}
+		}
+		#endregion
+
+		#region UICollectionViewDelegateFlowLayout implementation
+		private class HomeViewControllerDelegateFlowLayout : UICollectionViewDelegateFlowLayout
+		{
+			private HomeViewController parent;
+
+			public HomeViewControllerDelegateFlowLayout(HomeViewController parent)
+			{
+				this.parent = parent;
+			}
+
+			public override CGSize GetSizeForItem(UICollectionView collectionView, UICollectionViewLayout layout, NSIndexPath indexPath) => new CGSize(collectionView.Bounds.Width, cellHeight);
 		}
 		#endregion
 	}
