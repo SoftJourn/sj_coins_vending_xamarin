@@ -2,6 +2,7 @@
 using UIKit;
 using Softjourn.SJCoins.iOS.Bootstraper;
 using Softjourn.SJCoins.iOS.General.Constants;
+using BigTed;
 
 namespace Softjourn.SJCoins.iOS
 {
@@ -19,6 +20,7 @@ namespace Softjourn.SJCoins.iOS
         {
 			InitIoC();
 			InitInitialViewControllerManually();
+			ConfigureProgressHUD();
 			return true;
         }
 
@@ -65,6 +67,12 @@ namespace Softjourn.SJCoins.iOS
 			var controller = storyboard.InstantiateViewController(StoryboardConstants.InitialViewController);
 			Window.RootViewController = controller;
 			Window.MakeKeyAndVisible();
+		}
+
+		private void ConfigureProgressHUD()
+		{
+			ProgressHUD.Shared.HudBackgroundColour = UIColor.Black;
+			ProgressHUD.Shared.HudForegroundColor = UIColor.White;
 		}
     }
 }

@@ -82,12 +82,12 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers
 
 		public void ShowProgress(string message)
 		{
-			BTProgressHUD.Show(message);
+			LoaderService.Show(message);
 		}
 
 		public void HideProgress()
 		{
-			BTProgressHUD.Dismiss();
+			LoaderService.Hide();
 		}
 
 		public void ShowNoInternetError(string message)

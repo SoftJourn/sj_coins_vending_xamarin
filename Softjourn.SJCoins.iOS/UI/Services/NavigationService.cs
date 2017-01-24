@@ -1,7 +1,6 @@
 ﻿using System;
 using Softjourn.SJCoins.Core.UI.Services.Navigation;
 using Softjourn.SJCoins.iOS.General.Constants;
-using Softjourn.SJCoins.iOS.UI.Controllers.Informative;
 using UIKit;
 
 namespace Softjourn.SJCoins.iOS.Services
@@ -51,8 +50,10 @@ namespace Softjourn.SJCoins.iOS.Services
 				case NavigationPage.Login:
 					return Instantiate(StoryboardConstants.StoryboardLogin, StoryboardConstants.LoginViewController);
 				// If Main page instantiate from Main storyboard
+				case NavigationPage.SelectMachine:
+					return Instantiate(StoryboardConstants.StoryboardMain, StoryboardConstants.SelectMachineViewController);
 				case NavigationPage.Main:
-					return InstantiateInitial(StoryboardConstants.StoryboardMain);
+					return Instantiate(StoryboardConstants.StoryboardMain, StoryboardConstants.MainTabBarViewController);
 				default:
 					throw new ArgumentException("Not valid page");
 			}
@@ -66,15 +67,7 @@ namespace Softjourn.SJCoins.iOS.Services
 		//	//}
 		//}
 
-		private UIViewController InstantiateInitial(string storyboard)
-		{
-			return UIStoryboard.FromName(storyboard, null).InstantiateInitialViewController();
-		}
-
-		private UIViewController Instantiate(string storyboard, string identifier)
-		{
-			return UIStoryboard.FromName(storyboard, null).InstantiateViewController(identifier);
-		}
+		private UIViewController Instantiate(string storyboard, string identifier) => UIStoryboard.FromName(storyboard, null).InstantiateViewController(identifier);
 
 		private void PresentAs(UIViewController viewController)
 		{

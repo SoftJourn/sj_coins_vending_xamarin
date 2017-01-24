@@ -13,6 +13,8 @@
 		public const string InformativeViewController = "InformativeViewController";
 		public const string ContentViewController = "ContentViewController";
 		public const string LoginViewController = "LoginViewController";
+		public const string SelectMachineViewController = "SelectMachineViewController";
+		public const string MainTabBarViewController = "MainTabBarViewController";
 
 		// Informative pages
 		public const string InformativeLoginPage = "InformativeLoginPage";
