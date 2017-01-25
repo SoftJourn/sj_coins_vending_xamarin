@@ -11,16 +11,15 @@ using Softjourn.SJCoins.Core.UI.Presenters;
 using Softjourn.SJCoins.Core.UI.ViewInterfaces;
 using Softjourn.SJCoins.Droid.ui.baseUI;
 using Softjourn.SJCoins.Droid.utils;
+using Softjourn.SJCoins.Droid.UI.BaseUI;
+using Softjourn.SJCoins.Droid.UI.Fragments;
 
 namespace Softjourn.SJCoins.Droid.UI.Activities
 {
     [Activity(Label = "Vending Machine", Theme = "@style/AppThemeForCustomToolbar")]
-    public class MainActivity : BaseActivity<MainPresenter>, IMainView
+    public class MainActivity : BaseMenuActivity<MainPresenter>, IMainView
     {
 
-        private DrawerLayout _drawerLayout;
-        private NavigationView _navigationView;
-        private ActionBarDrawerToggle _toggle;
         private SwipeRefreshLayout _swipeLayout;
         private int _viewCounter = 0;
         private View _headerView;
@@ -36,9 +35,6 @@ namespace Softjourn.SJCoins.Droid.UI.Activities
 
             _swipeLayout = FindViewById<SwipeRefreshLayout>(Resource.Id.swipe_container);
             _swipeLayout.SetColorSchemeColors(GetColor(Resource.Color.colorAccent));
-
-            _drawerLayout = FindViewById<DrawerLayout>(Resource.Id.drawer_layout);
-            _navigationView = FindViewById<NavigationView>(Resource.Id.left_side_menu);
 
             var toolbar = FindViewById<Android.Support.V7.Widget.Toolbar>(Resource.Id.toolbar_base);
             SetSupportActionBar(toolbar);
@@ -62,16 +58,6 @@ namespace Softjourn.SJCoins.Droid.UI.Activities
                 //ViewPresenter.GoToSeeAllActivity(this, Const.LastAdded);
             };
 
-            InitDrawerToggle();
-
-            _headerView = _navigationView.GetHeaderView(0);
-            _navigationView.NavigationItemSelected += (sender, e) =>
-            {
-                e.MenuItem.SetChecked(true);
-                HandleNavigation(e.MenuItem);
-                _drawerLayout.CloseDrawers();
-            };
-
             _swipeLayout.Refreshing = true;
 
             Title = "Vending Machine";
@@ -82,7 +68,7 @@ namespace Softjourn.SJCoins.Droid.UI.Activities
             switch (item.ItemId)
             {
                 case Android.Resource.Id.Home:
-                    _drawerLayout.OpenDrawer(Android.Support.V4.View.GravityCompat.Start);
+                    _menuLayout.OpenDrawer(Android.Support.V4.View.GravityCompat.Start);
                     return true;
                 case Resource.Id.select_machine:
                     //ViewPresenter.getMachinesList();
@@ -107,10 +93,21 @@ namespace Softjourn.SJCoins.Droid.UI.Activities
             }
         }
 
-        private bool HandleNavigation(IMenuItem item)
+        public override void SetBalance(View headerView)
         {
+            var userBalanceView = headerView.FindViewById<TextView>(Resource.Id.user_balance);
+            userBalanceView.Text = ViewPresenter.GetUserBalance() ?? (string) "";
+        }
 
-            int id = item.ItemId;
+        public override void SetUserName(View headerView)
+        {
+            var userNameView = headerView.FindViewById<TextView>(Resource.Id.menu_user_name);
+            userNameView.Text = ViewPresenter.GetUserName() ?? (string)"";
+        }
+
+        public override bool HandleNavigation(IMenuItem item)
+        {
+            var id = item.ItemId;
             switch (id)
             {
                 case Resource.Id.menu_all_products:
@@ -131,7 +128,7 @@ namespace Softjourn.SJCoins.Droid.UI.Activities
                     //NavigationUtils.GoToSeeAllActivity(this, Const.BestSellers);
                     break;
                 case Resource.Id.menu_logout_item:
-                    //ViewPresenter.LogOut();
+                    LogOut();
                     //mMenuLayout.closeDrawer(GravityCompat.START);
                     break;
                 default:
@@ -143,31 +140,27 @@ namespace Softjourn.SJCoins.Droid.UI.Activities
             return true;
         }
 
+        public override void LogOut()
+        {
+            ViewPresenter.LogOut();
+        }
+
 
         public void ShowToastMessage(string message)
         {
             ShowToast(message);
         }
 
-        private void InitDrawerToggle()
-        {
-            _toggle = new ActionBarDrawerToggle(
-                this, _drawerLayout, Resource.String.navigation_drawer_open, Resource.String.navigation_drawer_close);
-
-            if (SupportActionBar != null)
-            {
-                SupportActionBar.SetDisplayHomeAsUpEnabled(true);
-                SupportActionBar.SetHomeButtonEnabled(true);
-            }
-
-            _drawerLayout.AddDrawerListener(_toggle);
-
-            _toggle.SyncState();
-        }
-
-        public void OnCategorySelected(IMenuItem item)
+        public override void OnCategorySelected(IMenuItem item)
         {
             //NavigationUtils.GoToSeeAllActivity(this, item.TitleFormatted.ToString());
+        }
+
+        public override void SetUpNavigationViewContent()
+        {
+            //LeftSideMenuController leftSideMenuController = new LeftSideMenuController(mMenuView);
+            //leftSideMenuController.unCheckAllMenuItems(mMenuView);
+            //leftSideMenuController.addCategoriesToMenu(getMenu(), mVendingPresenter.getCategories());
         }
 
         public new void HideProgress()
@@ -178,28 +171,23 @@ namespace Softjourn.SJCoins.Droid.UI.Activities
 
         private void AttachFragment(string categoryName, int headerId, int containerId, int seeAllId)
         {
-            //FragmentManager.BeginTransaction()
-            //    .Replace(containerId, ProductListFragment.NewInstance(categoryName, headerId, containerId),
-            //        Preferences.RetrieveStringObject(categoryName.ToUpper()))
-            //    .Commit();
+            FragmentManager.BeginTransaction()
+                .Replace(containerId, ProductListFragment.NewInstance(categoryName, headerId, containerId),
+                 Preferences.RetrieveStringObject(categoryName.ToUpper()))
+                .Commit();
         }
 
-        public void CreateContainer(string categoryName)
+        public void CreateCategory(string categoryName)
         {
             _viewCounter++;
 
             var mainLayout = FindViewById<LinearLayout>(Resource.Id.layout_root);
 
-            LinearLayout ll;
-
             var inflater = Application.Context.GetSystemService(LayoutInflaterService) as LayoutInflater;
 
-            ll = (LinearLayout)inflater.Inflate(Resource.Layout.category_header_layout, null);
+            var ll = (LinearLayout)inflater.Inflate(Resource.Layout.category_header_layout, null);
 
-            if (mainLayout != null)
-            {
-                mainLayout.AddView(ll);
-            }
+            mainLayout?.AddView(ll);
 
             var llHeader = FindViewById<LinearLayout>(Resource.Id.dummyHeaderID);
             if (llHeader != null)
@@ -268,12 +256,9 @@ namespace Softjourn.SJCoins.Droid.UI.Activities
         private void RemoveContainers()
         {
             var layout = FindViewById<LinearLayout>(Resource.Id.layout_root);
-            for (int i = 0; i < _viewCounter; i++)
+            for (var i = 0; i < _viewCounter; i++)
             {
-                if (layout != null)
-                {
-                    layout.RemoveView(FindViewById<View>(Resource.Id.categoryLayout));
-                }
+                layout?.RemoveView(FindViewById<View>(Resource.Id.categoryLayout));
             }
         }
 
