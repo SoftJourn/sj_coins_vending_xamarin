@@ -3,6 +3,7 @@ using RestSharp.Portable.Deserializers;
 using RestSharp.Portable.HttpClient;
 using Softjourn.SJCoins.Core.API;
 using Softjourn.SJCoins.Core.API.Model;
+using Softjourn.SJCoins.Core.API.Model.AccountInfo;
 using Softjourn.SJCoins.Core.API.Model.Machines;
 using Softjourn.SJCoins.Core.API.Model.Products;
 using Softjourn.SJCoins.Core.Exceptions;
@@ -103,7 +104,7 @@ namespace Softjourn.SJCoins.Core.API
             return null;
         }
 
-        public async void RevokeToken()
+        public async Task<EmptyResponse> RevokeToken()
         {
             var apiClient = GetApiClient();
             string url = UrlAuthService + "oauth/token/revoke";
@@ -111,11 +112,17 @@ namespace Softjourn.SJCoins.Core.API
             request.AddParameter("token_value", Settings.RefreshToken);
             request.AddHeader("Content-Type", "application/x-www-form-urlencoded");
             request.AddHeader("Authorization", LoginAuthorizationHeader);
-
+            JsonDeserializer deserial = new JsonDeserializer();
             try
             {
                 IRestResponse response = await apiClient.Execute(request);
-                if (!response.IsSuccess)
+                if (response.IsSuccess)
+                {
+                    var content = response.Content;
+                    EmptyResponse emptyResponce = deserial.Deserialize<EmptyResponse>(response);
+                    return emptyResponce;
+                }
+                else
                 {
                     ApiErrorHandler(response);
                 }
@@ -125,6 +132,7 @@ namespace Softjourn.SJCoins.Core.API
             {
                 apiClient.Dispose();
             }
+            return null;
         }
         #endregion
 
@@ -178,14 +186,14 @@ namespace Softjourn.SJCoins.Core.API
             return response;
         }
 
-        public async Task<EmptyResponse> RemoveProductToFavorites(string productId)
+        public async Task<EmptyResponse> RemoveProductFromFavorites(string productId)
         {
             string url = UrlVendingService + $"favorites/{productId}";
             EmptyResponse response = await MakeRequest<EmptyResponse>(url, Method.DELETE);
             return response;
         }
 
-        public async Task<List<History>> GetPurchaseHistory(string productId)
+        public async Task<List<History>> GetPurchaseHistory()
         {
             string url = UrlVendingService + "machines/last";
             List<History> historyList = await MakeRequest<List<History>>(url, Method.GET);
@@ -194,7 +202,21 @@ namespace Softjourn.SJCoins.Core.API
 
         #endregion
 
-        #region
+        #region Coins server endpoints
+
+        public async Task<Account> GetUserAccountAsync()
+        {
+            string url = UrlCoinService + "account";
+            Account account = await MakeRequest<Account>(url, Method.GET);
+            return account;
+        }
+
+        public async Task<Balance> GetBalanceAsync()
+        {
+            string url = UrlCoinService + "amount";
+            Balance balance = await MakeRequest<Balance>(url, Method.GET);
+            return balance;
+        }
 
         #endregion
 
