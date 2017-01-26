@@ -219,6 +219,7 @@
     <InterfaceDefinition Include="LaunchScreen.storyboard" />
     <InterfaceDefinition Include="Main.storyboard" />
     <InterfaceDefinition Include="Login.storyboard" />
+    <InterfaceDefinition Include="UI\Cells\ProductCell.xib" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
@@ -270,6 +271,19 @@
     <Compile Include="UI\Cells\HomeInternalCell.cs" />
     <Compile Include="UI\Cells\HomeInternalCell.designer.cs">
       <DependentUpon>HomeInternalCell.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Cells\ProductCell.cs" />
+    <Compile Include="UI\Cells\ProductCell.designer.cs">
+      <DependentUpon>ProductCell.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Controllers\Main\AccountViewController.designer.cs">
+      <DependentUpon>AccountViewController.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Controllers\Main\AllItemsViewController.designer.cs">
+      <DependentUpon>AllItemsViewController.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Controllers\Main\FavoritesViewController.designer.cs">
+      <DependentUpon>FavoritesViewController.cs</DependentUpon>
     </Compile>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />

@@ -30,8 +30,9 @@ namespace Softjourn.SJCoins.iOS.Services
 
 		public void NavigateToAsRoot(NavigationPage page)
 		{
-			try { PresentAs(RootController(page)); }
-			catch { throw new Exception("Navigation to rootController went wrong"); }
+			PresentAs(RootController(page));
+			//try { PresentAs(RootController(page)); }
+			//catch { throw new Exception("Navigation to rootController went wrong"); }
 		}
 
 		//void NavigateBackToAdminRoot();

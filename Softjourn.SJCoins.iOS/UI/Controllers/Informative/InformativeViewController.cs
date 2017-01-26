@@ -40,6 +40,8 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.Informative
 			ConfigurePageControl();
 			ConfigureGotItButton();
 			ConfigureFirstPage();
+
+			//Presenter.
 		}
 		#endregion
 
@@ -79,8 +81,13 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.Informative
 		{
 			View.BringSubviewToFront(GotItButton);
 			GotItButton.Hidden = true;
+
 			// Add event to button
-			GotItButton.TouchUpInside += (sender, e) => { Presenter.ToLoginScreen(); };
+			GotItButton.TouchUpInside += (sender, e) => 
+			{ 
+				Presenter.ToLoginScreen();
+				Presenter.DisableWelcomePageOnLaunch();
+			};
 		}
 
 		public void ConfigureDinamicUIElements()

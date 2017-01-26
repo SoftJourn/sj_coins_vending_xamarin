@@ -252,6 +252,7 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="R8i-LZ-RZu">
+                        <nil key="title"/>
                         <button key="titleView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="PVc-7w-99e">
                             <rect key="frame" x="124" y="7" width="128" height="30"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -270,9 +271,12 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="FilterButton" destination="PVc-7w-99e" id="dFy-75-CAu"/>
+                        <outlet property="NoItemsLabel" destination="D65-22-HdK" id="gWF-zT-gKr"/>
+                        <outlet property="SearchButton" destination="wEY-b6-570" id="uPg-As-M9N"/>
+                        <outlet property="TableView" destination="hzM-ok-9xB" id="ocd-D9-oOk"/>
                         <outlet property="noItems" destination="D65-22-HdK" id="e6h-Jz-UB0"/>
                         <outlet property="segmentControl" destination="buZ-Oi-KDG" id="Hdo-DF-jVo"/>
-                        <outlet property="tableView" destination="hzM-ok-9xB" id="aN8-rp-r77"/>
                         <outlet property="titleButton" destination="PVc-7w-99e" id="IsR-sh-Llx"/>
                     </connections>
                 </viewController>
@@ -283,7 +287,7 @@
         <!--Tab Bar Controller-->
         <scene sceneID="NKS-NL-BY7">
             <objects>
-                <tabBarController id="PDk-qK-qJ0" sceneMemberID="viewController">
+                <tabBarController storyboardIdentifier="MainTabBarViewController" id="PDk-qK-qJ0" sceneMemberID="viewController">
                     <tabBar key="tabBar" contentMode="scaleToFill" id="YYr-xz-Z6N">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="49"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -291,9 +295,6 @@
                     </tabBar>
                     <connections>
                         <segue destination="a2G-nF-aRd" kind="relationship" relationship="viewControllers" id="oTW-bh-NrA"/>
-                        <segue destination="CU5-0C-ykE" kind="relationship" relationship="viewControllers" id="f20-IZ-P2X"/>
-                        <segue destination="UxB-iK-pO6" kind="relationship" relationship="viewControllers" id="avb-rI-wDL"/>
-                        <segue destination="B7R-EP-Hzm" kind="relationship" relationship="viewControllers" id="sFW-UM-ShE"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Eog-el-05r" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -321,7 +322,7 @@
                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </view>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="FavoritesTableViewCell" rowHeight="62" id="JL7-gP-hkc">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="ProductCell" rowHeight="62" id="JL7-gP-hkc" customClass="ProductCell">
                                         <rect key="frame" x="0.0" y="28" width="375" height="62"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="JL7-gP-hkc" id="aMs-eZ-Fn1">
@@ -431,8 +432,8 @@
                     </view>
                     <navigationItem key="navigationItem" title="Favorites" id="M4r-NY-yUe"/>
                     <connections>
-                        <outlet property="noItemsLabel" destination="nOT-bG-axl" id="nKY-ab-2PD"/>
-                        <outlet property="tableView" destination="59a-1I-sh6" id="hWI-U7-xU5"/>
+                        <outlet property="NoItemsLabel" destination="nOT-bG-axl" id="UJb-Cy-jPC"/>
+                        <outlet property="TableView" destination="59a-1I-sh6" id="Wza-9H-XCq"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="RJF-Zh-fzI" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -480,7 +481,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" style="plain" separatorStyle="default" allowsSelection="NO" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="AXm-9m-go8">
-                                <rect key="frame" x="0.0" y="219" width="375" height="400"/>
+                                <rect key="frame" x="0.0" y="219" width="375" height="449"/>
                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <view key="tableFooterView" contentMode="scaleToFill" id="MOK-mR-ucO" userLabel="FooterView">
                                     <rect key="frame" x="0.0" y="72" width="375" height="0.0"/>
@@ -606,6 +607,9 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="AmountLabel" destination="sUT-rl-su9" id="DLo-dX-T4G"/>
+                        <outlet property="LogOutButton" destination="MiX-AV-1cp" id="8aq-kd-Nx8"/>
+                        <outlet property="NameLabel" destination="MHV-zA-S2Q" id="VPW-Oi-JEf"/>
                         <outlet property="amountLabel" destination="sUT-rl-su9" id="tG3-su-T1N"/>
                         <outlet property="nameLabel" destination="MHV-zA-S2Q" id="dxt-J6-4QS"/>
                         <outlet property="tableView" destination="AXm-9m-go8" id="DeI-IY-Qmj"/>

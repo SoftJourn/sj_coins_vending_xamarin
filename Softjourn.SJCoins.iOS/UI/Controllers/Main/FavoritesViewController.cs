@@ -1,14 +1,16 @@
-﻿using System;
+using System;
+using System.Collections.Generic;
 using Foundation;
+using Softjourn.SJCoins.Core.API.Model.Products;
 using UIKit;
 
 namespace Softjourn.SJCoins.iOS.UI.Controllers.Main
 {
 	[Register("FavoritesViewController")]
-	public class FavoritesViewController : UIViewController
+	public partial class FavoritesViewController : UIViewController
 	{
 		#region Properties
-		//private List<Categories> categories;
+		private List<Product> favorites;
 		#endregion
 
 		#region Constructor
@@ -21,6 +23,9 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.Main
 		public override void ViewDidLoad()
 		{
 			base.ViewDidLoad();
+
+			//Working with Presenter (fetch products etc) 
+			//Presenter.LoadProducts(); 
 		}
 
 		public override void ViewWillAppear(bool animated)
@@ -49,13 +54,19 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.Main
 
 			public override nint RowsInSection(UITableView tableview, nint section)
 			{
-				throw new NotImplementedException();
+				if (parent.favorites != null || parent.favorites.Count != 0)
+				{
+					parent.NoItemsLabel.Hidden = true;
+					parent.NoItemsLabel.Text = "";
+					return 0;
+				}
+				else {
+					parent.NoItemsLabel.Hidden = false;
+					return parent.favorites.Count;
+				}
 			}
 
-			public override UITableViewCell GetCell(UITableView tableView, NSIndexPath indexPath)
-			{
-				throw new NotImplementedException();
-			}
+			public override UITableViewCell GetCell(UITableView tableView, NSIndexPath indexPath) => tableView.DequeueReusableCell(ProductCell.Key, indexPath);
 		}
 
 		#endregion
@@ -69,6 +80,8 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.Main
 			{
 				this.parent = parent;
 			}
+
+
 
 		}
 		#endregion
