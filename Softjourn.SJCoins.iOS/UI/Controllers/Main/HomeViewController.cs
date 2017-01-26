@@ -19,7 +19,6 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.Main
 
 		#region Properties
 		private List<Categories> categories;
-		private List<Favorites> favorites;
 		private Account account;
 		#endregion
 
@@ -132,6 +131,12 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.Main
 
 		// Throw CollectionView to parent
 		protected override UIScrollView GetRefreshableScrollView() => CollectionView;
+
+		// Delegate method executed from HomeCell
+		private void ExecuteBuying()
+		{
+			//Presenter.BuyProduct();
+		}
 		#endregion
 
 		#region UICollectionViewSource implementation
@@ -170,6 +175,8 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.Main
 					if (category.Products != null || category.Products.Count != 0)
 					{
 						// set delegate to cell
+
+
 						// if (category.name == favorite)
 						// {
 						//	configure cell with name unavailable items etc.	

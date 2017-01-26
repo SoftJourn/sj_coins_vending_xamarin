@@ -11,6 +11,8 @@ namespace Softjourn.SJCoins.iOS
 		public static readonly NSString Key = new NSString("HomeCell");
 		public static readonly UINib Nib;
 
+		public event EventHandler<Product> ItemSelected;
+
 		private string categoryName; 
 		private List<Product> categoryProducts;
 
@@ -63,18 +65,17 @@ namespace Softjourn.SJCoins.iOS
 			public override void WillDisplayCell(UICollectionView collectionView, UICollectionViewCell cell, NSIndexPath indexPath)
 			{
 				var _cell = cell as HomeInternalCell;
-				if (parent.categoryProducts != null || parent.categoryProducts.Count != 0)
-				{
-					var item = parent.categoryProducts[indexPath.Row];
-					_cell.ConfigureWith(item)
-				}
+				var item = parent.categoryProducts[indexPath.Row];
+				_cell.ConfigureWith(item)
 			}
 
 			public override void ItemSelected(UICollectionView collectionView, NSIndexPath indexPath)
 			{
-				if (parent.categoryProducts != null || parent.categoryProducts.Count != 0)
+				var selectedItem = parent.categoryProducts[indexPath.Row];
+				var handler = ItemSelected;
+				if (handler != null)
 				{
-					
+					handler(this, selectedItem);
 				}
 			}
 		}
