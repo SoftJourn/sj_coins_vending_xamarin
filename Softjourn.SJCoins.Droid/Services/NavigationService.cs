@@ -4,7 +4,6 @@ using Android.Content;
 using Newtonsoft.Json;
 using Plugin.CurrentActivity;
 using Softjourn.SJCoins.Core.UI.Services.Navigation;
-using Softjourn.SJCoins.Droid.ui.activities;
 using Softjourn.SJCoins.Droid.UI.Activities;
 
 namespace Softjourn.SJCoins.Droid.Services
@@ -48,7 +47,7 @@ namespace Softjourn.SJCoins.Droid.Services
                 case NavigationPage.Login:
                     view = new Intent(CrossCurrentActivity.Current.Activity, typeof(LoginActivity));
                     break;
-                case NavigationPage.Main:
+                case NavigationPage.Home:
                     view = new Intent(CrossCurrentActivity.Current.Activity, typeof(MainActivity));
                     break;
                 case NavigationPage.Welcome:

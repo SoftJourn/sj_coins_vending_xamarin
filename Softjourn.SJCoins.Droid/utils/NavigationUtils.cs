@@ -2,7 +2,7 @@ using System;
 
 using Android.App;
 using Android.Content;
-using Softjourn.SJCoins.Droid.ui.activities;
+using Softjourn.SJCoins.Droid.UI.Activities;
 
 namespace Softjourn.SJCoins.Droid.utils
 {

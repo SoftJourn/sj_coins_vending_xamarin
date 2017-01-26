@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorBackgroundNoInternet"
+    android:orientation="vertical"
+    android:animateLayoutChanges="true">
+    <LinearLayout
+        style="?android:buttonBarStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <Button
+            android:id="@+id/button_sort_name"
+            style="@style/SortButtonBar"
+            android:text="@string/button_sort_name" />
+        <Button
+            android:id="@+id/button_sort_price"
+            style="@style/SortButtonBar"
+            android:text="@string/button_sort_price" />
+    </LinearLayout>
+    <View
+        style="@style/VendingActivitySplitter" />
+    <TextView
+        android:id="@+id/textViewNoProductsInCategory"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/there_are_no_items"
+        android:textAlignment="center"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="@dimen/category_header_bottom_margin"
+        android:textSize="18sp"
+        android:visibility="gone" />
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/list_items_recycler_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scrollbars="horizontal" />
+</LinearLayout>
