@@ -80,6 +80,13 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers
 			PasswordErrorLabel.Hidden = false;
 		}
 
+		public void ShowNoInternetError(string message)
+		{
+			//show no internet alert
+			new AlertService().ShowInformationDialog(null, message, "Ok", null);
+		}
+
+		//IBaseView
 		public void ShowProgress(string message)
 		{
 			LoaderService.Show(message);
@@ -88,12 +95,6 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers
 		public void HideProgress()
 		{
 			LoaderService.Hide();
-		}
-
-		public void ShowNoInternetError(string message)
-		{
-			//show no internet alert
-			new AlertService().ShowInformationDialog(null, message, "Ok", null);
 		}
 		#endregion
 

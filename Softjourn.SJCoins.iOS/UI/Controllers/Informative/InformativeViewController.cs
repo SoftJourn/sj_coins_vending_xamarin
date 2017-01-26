@@ -6,6 +6,7 @@ using Foundation;
 using Softjourn.SJCoins.Core.UI.Presenters;
 using Softjourn.SJCoins.Core.UI.ViewInterfaces;
 using Softjourn.SJCoins.iOS.General.Constants;
+using Softjourn.SJCoins.iOS.UI.Services;
 using UIKit;
 
 namespace Softjourn.SJCoins.iOS.UI.Controllers.Informative
@@ -40,8 +41,6 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.Informative
 			ConfigurePageControl();
 			ConfigureGotItButton();
 			ConfigureFirstPage();
-
-			//Presenter.
 		}
 		#endregion
 

@@ -7,6 +7,7 @@ using CoreGraphics;
 using Softjourn.SJCoins.Core.API.Model.AccountInfo;
 using Softjourn.SJCoins.Core.UI.Presenters;
 using Softjourn.SJCoins.Core.UI.ViewInterfaces;
+using Softjourn.SJCoins.iOS.UI.Services;
 
 namespace Softjourn.SJCoins.iOS.UI.Controllers.Main
 {
@@ -14,6 +15,7 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.Main
 	public partial class HomeViewController : BaseViewController<HomePresenter>, IHomeView
 	{
 		private const int cellHeight = 180;
+		private const string confirmTitle = "Confirm Purchase";
 
 		#region Properties
 		private List<Categories> categories;
@@ -48,6 +50,7 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.Main
 		public override void ViewDidAppear(bool animated)
 		{
 			base.ViewDidAppear(animated);
+
 		}
 		#endregion
 
@@ -57,11 +60,6 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.Main
 			// Show user balance
 			//string balance = account.Amount.ToString();
 			//SetBalance(balance);
-		}
-
-		private void SetBalance(string balance)
-		{ 
-			BalanceLabel.Text = "Your balance is" + balance + "coins";
 		}
 
 		public void SetUserBalance(string balance)
@@ -85,7 +83,9 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.Main
 
 		public void showPurchaseConfirmationDialog(Product product)
 		{
-			
+			string price = product.Price.ToString();
+			string confirmMessage = "Buy" + product.Name + "for the" + price + "coins";
+			new AlertService().ShowConfirmationDialog(confirmTitle, confirmMessage, null, null);
 		}
 		#endregion
 
@@ -104,6 +104,11 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.Main
 		#endregion
 
 		#region Private methods
+		private void SetBalance(string balance)
+		{
+			BalanceLabel.Text = "Your balance is" + balance + "coins";
+		}
+
 		private UIView ConfigureVendingMachinesHeader()
 		{
 			UIView view = new UIView();
@@ -127,9 +132,6 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.Main
 
 		// Throw CollectionView to parent
 		protected override UIScrollView GetRefreshableScrollView() => CollectionView;
-
-
-
 		#endregion
 
 		#region UICollectionViewSource implementation
@@ -149,7 +151,7 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.Main
 
 		#endregion
 
-		#region HomeViewControllerDelegate implementation
+		#region UICollectionViewDelegate implementation
 		private class HomeViewControllerDelegate : UICollectionViewDelegate
 		{
 			private HomeViewController parent;
@@ -170,8 +172,10 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.Main
 						// set delegate to cell
 						// if (category.name == favorite)
 						// {
-						//	configure cell with name items etc.	
+						//	configure cell with name unavailable items etc.	
 						// }
+
+						_cell.ConfigureWith(category);
 					}
 				}
 			}

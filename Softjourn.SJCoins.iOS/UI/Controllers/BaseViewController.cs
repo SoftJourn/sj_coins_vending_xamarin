@@ -3,6 +3,7 @@ using Autofac;
 using Softjourn.SJCoins.Core.UI.Bootstrapper;
 using Softjourn.SJCoins.Core.UI.Presenters.IPresenters;
 using Softjourn.SJCoins.Core.UI.ViewInterfaces;
+using Softjourn.SJCoins.iOS.UI.Services;
 using UIKit;
 
 namespace Softjourn.SJCoins.iOS.UI.Controllers
@@ -42,6 +43,16 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers
 				_refreshControl.ValueChanged -= PullToRefreshTriggered;
 		}
 
+		//IBaseView
+		public void ShowProgress(string message)
+		{
+			LoaderService.Show(message);
+		}
+
+		public void HideProgress()
+		{
+			LoaderService.Hide();
+		}
 		#endregion
 
 		#region Controller Lifecycle

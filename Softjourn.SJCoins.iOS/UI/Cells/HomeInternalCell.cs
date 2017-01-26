@@ -1,6 +1,7 @@
 ﻿using System;
 
 using Foundation;
+using Softjourn.SJCoins.Core.API.Model.Products;
 using UIKit;
 
 namespace Softjourn.SJCoins.iOS
@@ -18,6 +19,11 @@ namespace Softjourn.SJCoins.iOS
 		protected HomeInternalCell(IntPtr handle) : base(handle)
 		{
 			// Note: this .ctor should not contain any initialization logic.
+		}
+
+		public void ConfigureWith(Product product)
+		{
+			
 		}
 	}
 }

@@ -795,9 +795,10 @@
                                             <constraint firstAttribute="trailingMargin" secondItem="x1J-sd-xf4" secondAttribute="trailing" constant="2" id="oty-fS-Kvs"/>
                                         </constraints>
                                         <connections>
+                                            <outlet property="CategoryNameLabel" destination="OOP-oR-jwc" id="VwC-S8-hcL"/>
+                                            <outlet property="InternalCollectionView" destination="c2N-Ft-Gdn" id="3qQ-fu-BG6"/>
+                                            <outlet property="ShowAllButton" destination="x1J-sd-xf4" id="wjC-Pi-TUy"/>
                                             <outlet property="categoryNameLabel" destination="OOP-oR-jwc" id="RV6-GT-oL4"/>
-                                            <outlet property="collectionView" destination="c2N-Ft-Gdn" id="GV1-p0-CJJ"/>
-                                            <outlet property="showAllButton" destination="x1J-sd-xf4" id="4a8-Fq-a3w"/>
                                         </connections>
                                     </collectionViewCell>
                                 </cells>
