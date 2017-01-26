@@ -39,7 +39,6 @@
     <Compile Include="API\Model\Products\Amount.cs" />
     <Compile Include="API\Model\Products\Categories.cs" />
     <Compile Include="API\Model\Products\Category.cs" />
-    <Compile Include="API\Model\Products\Favorites.cs" />
     <Compile Include="API\Model\Products\Featured.cs" />
     <Compile Include="API\Model\Products\Product.cs" />
     <Compile Include="API\Model\Session.cs" />

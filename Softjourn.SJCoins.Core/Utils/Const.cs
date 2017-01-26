@@ -66,5 +66,7 @@ namespace Softjourn.SJCoins.Core.Utils
         public const string IsFirstTimeLaunch = "IS_FIRST_TIME_LAUNCH";
 
         public const string ExtrasCategory = "CATEGORY";
+
+        public const int INVALID_PRODUCT_ID = -1;
     }
 }
