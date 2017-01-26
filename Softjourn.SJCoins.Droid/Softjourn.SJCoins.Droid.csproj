@@ -174,9 +174,16 @@
     <Compile Include="UI\Activities\SelectMachineActivity.cs" />
     <Compile Include="UI\Activities\SplashActivity.cs" />
     <Compile Include="UI\Activities\WelcomeActivity.cs" />
+    <Compile Include="UI\Adapters\FeaturedProductItemsAdapter.cs" />
+    <Compile Include="UI\Adapters\FeatureViewHolder.cs" />
     <Compile Include="UI\Adapters\SelectMachineListAdapter.cs" />
     <Compile Include="UI\Adapters\ViewPagerAdapter.cs" />
     <Compile Include="UI\BaseUI\BaseActivity.cs" />
+    <Compile Include="UI\BaseUI\BaseMenuActivity.cs" />
+    <Compile Include="UI\Fragments\ProductListFragment.cs" />
+    <Compile Include="UI\UIStrategies\IProductsListFragmentStrategy.cs" />
+    <Compile Include="UI\UIStrategies\ParentSeeAllActivityStrategy.cs" />
+    <Compile Include="UI\UIStrategies\VendingActivityStrategy.cs" />
     <Compile Include="Utils\Const.cs" />
     <Compile Include="Utils\JavaHolder.cs" />
     <Compile Include="Utils\NavigationUtils.cs" />
@@ -206,12 +213,15 @@
     <AndroidResource Include="Resources\layout\nav_header.axml">
       <SubType>Designer</SubType>
     </AndroidResource>
-    <AndroidResource Include="Resources\layout\dialog_select_machine.axml" />
     <AndroidResource Include="Resources\layout\select_machine_text_view.axml" />
     <AndroidResource Include="Resources\layout\category_header_layout.axml" />
     <AndroidResource Include="Resources\layout\activity_select_machine.axml">
       <SubType>Designer</SubType>
     </AndroidResource>
+    <AndroidResource Include="Resources\layout\fragment_products_list.axml" />
+    <AndroidResource Include="Resources\layout\fragment_see_all_snacks_drinks.axml" />
+    <AndroidResource Include="Resources\layout\recycler_machine_view_item.axml" />
+    <AndroidResource Include="Resources\layout\recycler_see_all_item.axml" />
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\values\Strings.xml" />

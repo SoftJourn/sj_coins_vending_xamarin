@@ -4,7 +4,6 @@ using Android.Content;
 using Newtonsoft.Json;
 using Plugin.CurrentActivity;
 using Softjourn.SJCoins.Core.UI.Services.Navigation;
-using Softjourn.SJCoins.Droid.ui.activities;
 using Softjourn.SJCoins.Droid.UI.Activities;
 
 namespace Softjourn.SJCoins.Droid.Services

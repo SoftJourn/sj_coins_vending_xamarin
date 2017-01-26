@@ -113,27 +113,27 @@ namespace Softjourn.SJCoins.Droid.UI.Fragments
          */
         private void GetLocalProductsList()
         {
-            switch (_productsCategory)
-            {
-                case Const.AllItems:
-                    //mPresenter.getLocalProductList();
-                    break;
-                case Const.Favorites:
-                    _headers = Resource.Id.favoritesHeader;
-                    //mPresenter.getLocalFavorites();
-                    break;
-                case Const.LastAdded:
-                    _headers = Resource.Id.newProductsHeader;
-                    //mPresenter.getLocalLastAddedProducts();
-                    break;
-                case Const.BestSellers:
-                    _headers = Resource.Id.bestSellersHeader;
-                    //mPresenter.getLocalBestSellers();
-                    break;
-                default:
-                    //mPresenter.getLocalCategoryProducts(_productsCategory);
-                    break;
-            }
+            //switch (_productsCategory)
+            //{
+            //    case Const.AllItems:
+            //        //mPresenter.getLocalProductList();
+            //        break;
+            //    case Const.Favorites:
+            //        _headers = Resource.Id.favoritesHeader;
+            //        //mPresenter.getLocalFavorites();
+            //        break;
+            //    case Const.LastAdded:
+            //        _headers = Resource.Id.newProductsHeader;
+            //        //mPresenter.getLocalLastAddedProducts();
+            //        break;
+            //    case Const.BestSellers:
+            //        _headers = Resource.Id.bestSellersHeader;
+            //        //mPresenter.getLocalBestSellers();
+            //        break;
+            //    default:
+            //        //mPresenter.getLocalCategoryProducts(_productsCategory);
+            //        break;
+            //}
         }
 
         public void SetFragmentFields(RecyclerView recyclerView, Button buttonSortName, Button buttonSortPrice,

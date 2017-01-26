@@ -43,21 +43,6 @@ namespace Softjourn.SJCoins.Droid.UI.Activities
             _seeAllLastAddedTextView = FindViewById<TextView>(Resource.Id.textViewLastAddedSeeAll);
             _seeAllBestSellerTextView = FindViewById<TextView>(Resource.Id.textViewBestSellersSeeAll);
 
-            _seeAllFavoriteTextView.Click += (sender, e) =>
-            {
-                //ViewPresenter.GoToSeeAllActivity(this, Const.Favorites);
-            };
-
-            _seeAllBestSellerTextView.Click += (sender, e) =>
-            {
-                //ViewPresenter.GoToSeeAllActivity(this, Const.BestSellers);
-            };
-
-            _seeAllLastAddedTextView.Click += (sender, e) =>
-            {
-                //ViewPresenter.GoToSeeAllActivity(this, Const.LastAdded);
-            };
-
             _swipeLayout.Refreshing = true;
 
             Title = "Vending Machine";
@@ -96,13 +81,13 @@ namespace Softjourn.SJCoins.Droid.UI.Activities
         public override void SetBalance(View headerView)
         {
             var userBalanceView = headerView.FindViewById<TextView>(Resource.Id.user_balance);
-            userBalanceView.Text = ViewPresenter.GetUserBalance() ?? (string) "";
+            //userBalanceView.Text = ViewPresenter.GetUserBalance() ?? (string) "";
         }
 
         public override void SetUserName(View headerView)
         {
             var userNameView = headerView.FindViewById<TextView>(Resource.Id.menu_user_name);
-            userNameView.Text = ViewPresenter.GetUserName() ?? (string)"";
+            //userNameView.Text = ViewPresenter.GetUserName() ?? (string)"";
         }
 
         public override bool HandleNavigation(IMenuItem item)
@@ -142,7 +127,7 @@ namespace Softjourn.SJCoins.Droid.UI.Activities
 
         public override void LogOut()
         {
-            ViewPresenter.LogOut();
+            //ViewPresenter.LogOut();
         }
 
 
