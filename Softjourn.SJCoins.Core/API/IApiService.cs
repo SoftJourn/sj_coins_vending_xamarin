@@ -12,7 +12,7 @@ namespace Softjourn.SJCoins.Core.API
     {
         #region OAuth Api calls
         Task<Session> MakeLoginRequest(string userName, string password);
-        void RevokeToken();
+        Task<EmptyResponse> RevokeToken();
         #endregion;
 
         #region Machine Api calls

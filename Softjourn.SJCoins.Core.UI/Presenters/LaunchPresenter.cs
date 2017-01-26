@@ -38,7 +38,7 @@ namespace Softjourn.SJCoins.Core.UI.Presenters
                             NavigationService.NavigateToAsRoot(NavigationPage.SelectMachine);
                         } else
                         {
-                            NavigationService.NavigateToAsRoot(NavigationPage.Main);
+                            NavigationService.NavigateToAsRoot(NavigationPage.Home);
                         }
                     }
                 }

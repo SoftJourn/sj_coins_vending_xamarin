@@ -9,13 +9,8 @@ namespace Softjourn.SJCoins.Core.UI.ViewInterfaces
 {
     public interface ISelectMachineView : IBaseView
     {
-        void ShowProgress(string message);
-
-        void HideProgress();
-
         void ShowNoMachineView(string message);
 
-        void ShowMachinesList(List<Machines> list, Machines selectedMachine = null);
-       
+        void ShowMachinesList(List<Machines> list, Machines selectedMachine = null);       
     }
 }

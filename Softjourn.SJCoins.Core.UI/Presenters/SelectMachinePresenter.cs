@@ -57,7 +57,7 @@ namespace Softjourn.SJCoins.Core.UI.Presenters
             {
                 Settings.SelectedMachineId = machine.Id.ToString();
                 Settings.SelectedMachineName = machine.Name;
-                NavigationService.NavigateToAsRoot(NavigationPage.Main);
+                NavigationService.NavigateToAsRoot(NavigationPage.Home);
             } else
             {
                 AlertService.ShowToastMessage(Resources.StringResources.error_msg_invalid_selected_machine);
