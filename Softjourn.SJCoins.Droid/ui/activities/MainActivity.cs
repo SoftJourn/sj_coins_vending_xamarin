@@ -23,7 +23,7 @@ using Softjourn.SJCoins.Droid.utils;
 namespace Softjourn.SJCoins.Droid.ui.activities
 {
     [Activity(Label = "Vending Machine", Theme = "@style/AppThemeForCustomToolbar")]
-    public class MainActivity : BaseActivity<MainPresenter>, IMainView
+    public class MainActivity : BaseActivity<HomePresenter>, IHomeView
     {
 
         private DrawerLayout _drawerLayout;

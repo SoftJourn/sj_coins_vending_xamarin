@@ -5,11 +5,13 @@ using Softjourn.SJCoins.Core.API.Model.Products;
 using UIKit;
 using CoreGraphics;
 using Softjourn.SJCoins.Core.API.Model.AccountInfo;
+using Softjourn.SJCoins.Core.UI.Presenters;
+using Softjourn.SJCoins.Core.UI.ViewInterfaces;
 
 namespace Softjourn.SJCoins.iOS.UI.Controllers.Main
 {
 	[Register("HomeViewController")]
-	public partial class HomeViewController : UIViewController
+	public partial class HomeViewController : BaseViewController<HomePresenter>, IHomeView
 	{
 		private const int cellHeight = 180;
 
@@ -34,16 +36,13 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.Main
 			CollectionView.Delegate = new HomeViewControllerDelegate(this);
 			CollectionView.AlwaysBounceVertical = true;
 
-			//Presenter.StartLoading();
+			Presenter.OnStartLoadingPage();
 			ConfigureSettingButton();
 		}
 
 		public override void ViewWillAppear(bool animated)
 		{
 			base.ViewWillAppear(animated);
-
-			// Set chosenMachine name as title to viewController 
-			//NavigationItem.Title = 
 		}
 
 		public override void ViewDidAppear(bool animated)
@@ -53,6 +52,41 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.Main
 		#endregion
 
 		#region IHomeView implementation
+		public void SetAccountInfo(Account account)
+		{
+			// Show user balance
+			//string balance = account.Amount.ToString();
+			//SetBalance(balance);
+		}
+
+		private void SetBalance(string balance)
+		{ 
+			BalanceLabel.Text = "Your balance is" + balance + "coins";
+		}
+
+		public void SetUserBalance(string balance)
+		{
+			// Show user balance
+			SetBalance(balance);
+		}
+
+		public void SetMachineName(string name)
+		{
+			// Set chosenMachine name as title to viewController 
+			NavigationItem.Title = name;
+		}
+
+		public void ShowProducts(List<Categories> listCategories)
+		{
+			// Save downloaded data and show them on view
+			categories = listCategories;
+			CollectionView.ReloadData();
+		}
+
+		public void showPurchaseConfirmationDialog(Product product)
+		{
+			
+		}
 		#endregion
 
 		#region BaseViewController -> IBaseView implementation
@@ -86,13 +120,15 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.Main
 			// Add click event to button
 			SettingButton.Clicked += (sender, e) =>
 			{
-				Presenter.ToLoginScreen();
-				Presenter.DisableWelcomePageOnLaunch();
+				// Show SettingViewController
+				//Presenter.ToSettingScreen();
 			};
 		}
 
 		// Throw CollectionView to parent
 		protected override UIScrollView GetRefreshableScrollView() => CollectionView;
+
+
 
 		#endregion
 

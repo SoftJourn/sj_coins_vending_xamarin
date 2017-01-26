@@ -7,9 +7,19 @@ using System.Threading.Tasks;
 
 namespace Softjourn.SJCoins.Core.UI.Presenters
 {
-    public class MainPresenter  : BasePresenter<IMainView>
+    public class HomePresenter  : BasePresenter<IHomeView>
     {
-        public MainPresenter()
+        public HomePresenter()
+        {
+
+        }
+
+        public void OnStartLoadingPage()
+        {
+
+        }
+
+        public void OnRefresh()
         {
 
         }

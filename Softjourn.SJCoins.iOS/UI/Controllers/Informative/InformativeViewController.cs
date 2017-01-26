@@ -117,10 +117,6 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.Informative
 		#endregion
 
 		#region IWelcomeView implementation
-		public void ToLoginPage()
-		{
-			// navigate to login page
-		}
 		#endregion
 
 		#region BaseViewController -> IBaseView implementation

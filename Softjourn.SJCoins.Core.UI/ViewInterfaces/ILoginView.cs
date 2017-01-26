@@ -11,9 +11,5 @@ namespace Softjourn.SJCoins.Core.UI.ViewInterfaces
         void SetUsernameError(string message);
 
         void SetPasswordError(string message);
-
-        void ShowProgress(string message);
-
-        void HideProgress();
     }
 }

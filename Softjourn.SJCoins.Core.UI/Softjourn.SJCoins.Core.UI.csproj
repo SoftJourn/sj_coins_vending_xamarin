@@ -33,7 +33,7 @@
     <Compile Include="Bootstrapper\Modules\ApiModule.cs" />
     <Compile Include="Bootstrapper\Modules\ManagerModule.cs" />
     <Compile Include="Bootstrapper\Modules\PresenterModule.cs" />
-    <Compile Include="Presenters\MainPresenter.cs" />
+    <Compile Include="Presenters\HomePresenter.cs" />
     <Compile Include="Presenters\SelectMachinePresenter.cs" />
     <Compile Include="Services\Alert\IAlertService.cs" />
     <Compile Include="Presenters\BasePresenter.cs" />
@@ -56,7 +56,7 @@
     <Compile Include="ViewInterfaces\IBaseView.cs" />
     <Compile Include="ViewInterfaces\ILaunchView.cs" />
     <Compile Include="ViewInterfaces\ILoginView.cs" />
-    <Compile Include="ViewInterfaces\IMainView.cs" />
+    <Compile Include="ViewInterfaces\IHomeView.cs" />
     <Compile Include="ViewInterfaces\ISelectMachineView.cs" />
     <Compile Include="ViewInterfaces\IWelcomeView.cs" />
   </ItemGroup>
