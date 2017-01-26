@@ -13,8 +13,8 @@ namespace Softjourn.SJCoins.Core.UI.ViewInterfaces
         void SetAccountInfo(Account account);
         void SetUserBalance(String balance);
         void SetMachineName(String name);
-
         void ShowProducts(List<Categories> listCategories); //have to add Favorites to the first place to list
+
         void showPurchaseConfirmationDialog(Product product); 
     }
 }

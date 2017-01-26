@@ -45,12 +45,6 @@ namespace Softjourn.SJCoins.Core.API
             return await ApiClient.GetMachineById(machineId);
         }
 
-        public async Task<Featured> GetFeaturesProducts()
-        {
-            string machineId = Settings.SelectedMachineId;
-            return await ApiClient.GetFeaturedProducts(machineId);
-        }
-
         public async Task<Featured> GetFeaturedProducts()
         {
             string machineId = Settings.SelectedMachineId;
@@ -69,7 +63,7 @@ namespace Softjourn.SJCoins.Core.API
             return await ApiClient.BuyProductById(machineId, productId);
         }
 
-        public async Task<List<Favorites>> GetFavoritesList()
+        public async Task<List<Product>> GetFavoritesList()
         {
             return await ApiClient.GetFavoritesList();
         }

@@ -7,13 +7,13 @@ namespace Softjourn.SJCoins.Core.API.Model.AccountInfo
     public class Account
     {
         [JsonProperty("amount")]
-        private int Amount { get; set; }
+        public int Amount { get; set; }
 
         [JsonProperty("image")]
         public string Image { get; set; }
 
         [JsonProperty("name")]
-        private string Name { get; set; }
+        public string Name { get; set; }
 
         [JsonProperty("surname")]
         public String Surname { get; set; }

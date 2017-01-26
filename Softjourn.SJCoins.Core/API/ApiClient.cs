@@ -172,10 +172,10 @@ namespace Softjourn.SJCoins.Core.API
             return productAmount;
         }
 
-        public async Task<List<Favorites>> GetFavoritesList()
+        public async Task<List<Product>> GetFavoritesList()
         {
             string url = UrlVendingService + $"favorites";
-            List<Favorites> favoritesList = await MakeRequest<List<Favorites>>(url, Method.GET);
+            List<Product> favoritesList = await MakeRequest<List<Product>>(url, Method.GET);
             return favoritesList;
         }
 
