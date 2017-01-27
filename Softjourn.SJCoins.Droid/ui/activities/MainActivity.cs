@@ -1,4 +1,5 @@
 
+using System;
 using System.Collections.Generic;
 using Android.App;
 using Android.OS;
@@ -57,7 +58,7 @@ namespace Softjourn.SJCoins.Droid.UI.Activities
                     _menuLayout.OpenDrawer(Android.Support.V4.View.GravityCompat.Start);
                     return true;
                 case Resource.Id.select_machine:
-                    //ViewPresenter.getMachinesList();
+                    ViewPresenter.OnSettingsButtonClick();
                     return true;
                 default:
                     return base.OnOptionsItemSelected(item);
@@ -149,7 +150,12 @@ namespace Softjourn.SJCoins.Droid.UI.Activities
             //leftSideMenuController.addCategoriesToMenu(getMenu(), mVendingPresenter.getCategories());
         }
 
-        public new void HideProgress()
+        public override void ShowProgress(string message)
+        {
+            _swipeLayout.Refreshing = true;
+        }
+
+        public override void HideProgress()
         {
             base.HideProgress();
             _swipeLayout.Refreshing = false;
@@ -256,17 +262,17 @@ namespace Softjourn.SJCoins.Droid.UI.Activities
 
         public void SetAccountInfo(Account account)
         {
-            _account = account
+            _account = account;
         }
 
         public void SetUserBalance(string balance)
         {
-            //throw new System.NotImplementedException();
+            _balance.Text = string.Format(GetString(Resource.String.your_balance_is, balance));
         }
 
         public void SetMachineName(string name)
         {
-            //throw new System.NotImplementedException();
+            Title = name;
         }
 
         public void ShowProducts(List<Categories> listCategories)

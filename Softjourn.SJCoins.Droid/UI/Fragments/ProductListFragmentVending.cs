@@ -1,9 +1,13 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Text;
 using System.Text.RegularExpressions;
 using Android.App;
+using Android.Content;
 using Android.Graphics;
 using Android.OS;
+using Android.Runtime;
 using Android.Support.V4.Content;
 using Android.Support.V7.Widget;
 using Android.Views;
@@ -15,13 +19,14 @@ using Softjourn.SJCoins.Droid.UI.UIStrategies;
 
 namespace Softjourn.SJCoins.Droid.UI.Fragments
 {
-    public class ProductListFragment : Fragment
+    public class ProductListFragmentVending : Fragment
     {
+
         private string _productsCategory;
 
         protected bool _sortingByNameForward = false;
         protected bool _sortingByPriceForward = true;
-        private static string TagProductsCategory = "PRODUCTS CATEGORY";
+        private const string TagProductsCategory = "PRODUCTS CATEGORY";
 
         //private VendingFragmentContract.Presenter mPresenter;
         private FeaturedProductItemsAdapter _productAdapter;
@@ -38,9 +43,10 @@ namespace Softjourn.SJCoins.Droid.UI.Fragments
 
         public static ProductListFragment NewInstance(string category, int? headers, int? container, List<Product> productList)
         {
-            var bundle = new Bundle();
+            Bundle bundle = new Bundle();
             bundle.PutString(TagProductsCategory, category);
             bundle.PutString("HEADER", Java.Lang.String.ValueOf(headers));
+            bundle.PutParcelableArray("PRODUCT_LIST", productList);
             var fragment = new ProductListFragment { Arguments = bundle };
             return fragment;
         }
@@ -55,17 +61,11 @@ namespace Softjourn.SJCoins.Droid.UI.Fragments
 
         public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
         {
-            if (Regex.IsMatch(this.Activity.LocalClassName, ".*SeeAllActivity"))
-            {
-                _strategy = new ParentSeeAllActivityStrategy(Activity, _productsCategory, this);
-                Activity.Title = _productsCategory;
-            }
-            else if (Regex.IsMatch(this.Activity.LocalClassName, ".*VendingActivity"))
-            {
-                _strategy = new VendingActivityStrategy(Activity, _productsCategory);
-            }
+            var view = inflater.Inflate(Resource.Layout.fragment_products_list, container, false);
+            _machineItems = view.FindViewById<RecyclerView>(Resource.Id.list_items_recycler_view);
 
-            var view = _strategy.OnCreateView(inflater, container, savedInstanceState);
+            _layoutManager = new LinearLayoutManager(Activity, LinearLayoutManager.Horizontal, false);
+            _productAdapter = new FeaturedProductItemsAdapter(_productsCategory, null, Activity);
 
             _buttonSortByName.Click += OnClickSortByNameButton;
             _buttonSortByPrice.Click += OnClickSortByPriceButton;
@@ -99,11 +99,9 @@ namespace Softjourn.SJCoins.Droid.UI.Fragments
         public override void OnViewCreated(View view, Bundle savedInstanceState)
         {
             base.OnViewCreated(view, savedInstanceState);
-            //mPresenter = new VendingFragmentPresenter(this);
-
             if (savedInstanceState == null)
             {
-                GetLocalProductsList();
+                _productAdapter.SetData(_productList);
             }
         }
 
@@ -259,3 +257,5 @@ namespace Softjourn.SJCoins.Droid.UI.Fragments
         }
     }
 }
+
+
