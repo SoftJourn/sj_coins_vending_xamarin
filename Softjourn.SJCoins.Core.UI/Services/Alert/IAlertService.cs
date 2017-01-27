@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Softjourn.SJCoins.Core.API.Model.Products;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -19,5 +20,8 @@ namespace Softjourn.SJCoins.Core.UI.Services.Alert
 
         // show SnackBar with message and Button on Android or Dialog with text message and Button on Ios
         void ShowMessageWithUserInteraction(string title, string msg, string btnName, Action btnClicked);
+
+        // show Dialog with product info and button for purchaising
+        //void ShowPurchaseConfirmationDialod(Product product, Action onPurchase);
     }
 }
