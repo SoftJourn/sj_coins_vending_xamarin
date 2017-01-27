@@ -188,6 +188,15 @@ namespace Softjourn.SJCoins.Core.UI.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Buying.
+        /// </summary>
+        public static string progress_buying {
+            get {
+                return ResourceManager.GetString("progress_buying", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Loading.
         /// </summary>
         public static string progress_loading {

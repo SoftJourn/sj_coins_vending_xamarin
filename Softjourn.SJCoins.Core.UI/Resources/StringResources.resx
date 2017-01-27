@@ -231,4 +231,7 @@
   <data name="error_msg_invalid_selected_machine" xml:space="preserve">
     <value>Invalid selected machine</value>
   </data>
+  <data name="progress_buying" xml:space="preserve">
+    <value>Buying</value>
+  </data>
 </root>

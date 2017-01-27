@@ -7,7 +7,7 @@ using Newtonsoft.Json;
 
 namespace Softjourn.SJCoins.Core.API.Model.Products
 {
-    public class Product
+    public class Product 
     {
         [JsonProperty("id")]
         public int Id { get; set; }
