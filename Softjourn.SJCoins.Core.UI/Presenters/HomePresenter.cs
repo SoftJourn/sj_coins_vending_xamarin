@@ -139,5 +139,15 @@ namespace Softjourn.SJCoins.Core.UI.Presenters
         {
             NavigationService.NavigateTo(NavigationPage.Settings);
         }
+
+        public void OnProductClick(Product product)
+        {
+
+        }
+
+        private void OnProductPurchased(Product product)
+        {
+
+        }
     }
 }

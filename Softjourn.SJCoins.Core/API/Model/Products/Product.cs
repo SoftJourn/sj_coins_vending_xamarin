@@ -13,7 +13,7 @@ namespace Softjourn.SJCoins.Core.API.Model.Products
         public int Id { get; set; }
 
         [JsonProperty("price")]
-        public int Price { get; set; }
+        public float Price { get; set; }
 
         [JsonProperty("name")]
         public string Name { get; set; }

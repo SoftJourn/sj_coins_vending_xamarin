@@ -16,6 +16,6 @@ namespace Softjourn.SJCoins.Core.API.Model.AccountInfo
         public string Name { get; set; }
 
         [JsonProperty("surname")]
-        public String Surname { get; set; }
+        public string Surname { get; set; }
     }
 }
