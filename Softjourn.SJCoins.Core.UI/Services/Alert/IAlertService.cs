@@ -22,6 +22,6 @@ namespace Softjourn.SJCoins.Core.UI.Services.Alert
         void ShowMessageWithUserInteraction(string title, string msg, string btnName, Action btnClicked);
 
         // show Dialog with product info and button for purchaising
-        //void ShowPurchaseConfirmationDialod(Product product, Action onPurchase);
+        void ShowPurchaseConfirmationDialod(Product product, Action<Product> onPurchaseProductAction);
     }
 }
