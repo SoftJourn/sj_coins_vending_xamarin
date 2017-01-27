@@ -202,6 +202,10 @@
     <ImageAsset Include="Assets.xcassets\BackImage.imageset\back_icon%403x.png">
       <InProject>false</InProject>
     </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\Placeholder.imageset\Contents.json" />
+    <ImageAsset Include="Assets.xcassets\Placeholder.imageset\placeholder_tv.png" />
+    <ImageAsset Include="Assets.xcassets\Placeholder.imageset\placeholder_tv%402x.png" />
+    <ImageAsset Include="Assets.xcassets\Placeholder.imageset\placeholder_tv%403x.png" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Resources\" />
@@ -214,6 +218,7 @@
     <Folder Include="Assets.xcassets\BackImage.imageset\" />
     <Folder Include="UI\Cells\" />
     <Folder Include="UI\Controllers\Main\" />
+    <Folder Include="Assets.xcassets\Placeholder.imageset\" />
   </ItemGroup>
   <ItemGroup>
     <InterfaceDefinition Include="LaunchScreen.storyboard" />

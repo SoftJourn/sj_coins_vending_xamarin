@@ -131,10 +131,10 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.Main
 		// Throw CollectionView to parent
 		protected override UIScrollView GetRefreshableScrollView() => CollectionView;
 
-		// Delegate method executed from HomeCell
-		private void ExecuteBuying()
+		// Trigg presenter that user click on some product 
+		private static void OnItemSelected(object sender, Product product)
 		{
-			//Presenter.BuyProduct();
+			//Presenter.OnProductClick(product);
 		}
 		#endregion
 
@@ -170,11 +170,13 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.Main
 				var _cell = cell as HomeCell;
 				var category = parent.categories[indexPath.Row];
 					{
-						_cell.ConfigureWith(category);
 						// if (category.name == favorite)
 						// {
 						//	configure cell with name unavailable items etc.	
 						// }
+						_cell.ConfigureWith(category);
+						_cell.ItemSelected -= OnItemSelected;
+						_cell.ItemSelected += OnItemSelected;
 					}
 			}
 		}

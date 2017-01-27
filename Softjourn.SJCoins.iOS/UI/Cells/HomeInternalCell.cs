@@ -24,6 +24,9 @@ namespace Softjourn.SJCoins.iOS
 		public void ConfigureWith(Product product)
 		{
 			
+			NameLabel.Text = product.Name;
+			PriceLabel.Text = product.Price.ToString();
+
 		}
 	}
 }

@@ -11,9 +11,9 @@ namespace Softjourn.SJCoins.iOS
 		public static readonly NSString Key = new NSString("HomeCell");
 		public static readonly UINib Nib;
 
-		public event EventHandler<Product> ItemSelected;
+		public event EventHandler<Product> ItemSelected = delegate {};
 
-		//private string categoryName; 
+		private string categoryName; 
 		private List<Product> categoryProducts;
 
 		static HomeCell()
@@ -78,12 +78,7 @@ namespace Softjourn.SJCoins.iOS
 			public override void ItemSelected(UICollectionView collectionView, NSIndexPath indexPath)
 			{
 				var selectedItem = parent.categoryProducts[indexPath.Row];
-
-				var handler = parent.ItemSelected;
-				if (handler != null)
-				{
-					handler(this, selectedItem);
-				}
+				parent.ItemSelected(this, selectedItem);
 			}
 		}
 		#endregion
