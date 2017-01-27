@@ -19,7 +19,7 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.Main
 
 		#region Properties
 		private List<Categories> categories;
-		private Account account;
+		private Account _account;
 		#endregion
 
 		#region Constructor
@@ -49,7 +49,6 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.Main
 		public override void ViewDidAppear(bool animated)
 		{
 			base.ViewDidAppear(animated);
-
 		}
 		#endregion
 
@@ -57,8 +56,8 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.Main
 		public void SetAccountInfo(Account account)
 		{
 			// Show user balance
-			//string balance = account.Amount.ToString();
-			//SetBalance(balance);
+			string balance = account.Amount.ToString();
+			SetBalance(balance);
 		}
 
 		public void SetUserBalance(string balance)
@@ -125,7 +124,7 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.Main
 			SettingButton.Clicked += (sender, e) =>
 			{
 				// Show SettingViewController
-				//Presenter.ToSettingScreen();
+				Presenter.OnSettingsButtonClick(); 
 			};
 		}
 
@@ -169,22 +168,14 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.Main
 			public override void WillDisplayCell(UICollectionView collectionView, UICollectionViewCell cell, NSIndexPath indexPath)
 			{
 				var _cell = cell as HomeCell;
-				if (parent.categories != null)
-				{
-					var category = parent.categories[indexPath.Row];
-					if (category.Products != null || category.Products.Count != 0)
+				var category = parent.categories[indexPath.Row];
 					{
-						// set delegate to cell
-
-
+						_cell.ConfigureWith(category);
 						// if (category.name == favorite)
 						// {
 						//	configure cell with name unavailable items etc.	
 						// }
-
-						_cell.ConfigureWith(category);
 					}
-				}
 			}
 		}
 		#endregion

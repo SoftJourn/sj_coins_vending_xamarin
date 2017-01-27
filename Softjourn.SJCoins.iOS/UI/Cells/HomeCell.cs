@@ -13,7 +13,7 @@ namespace Softjourn.SJCoins.iOS
 
 		public event EventHandler<Product> ItemSelected;
 
-		private string categoryName; 
+		//private string categoryName; 
 		private List<Product> categoryProducts;
 
 		static HomeCell()
@@ -29,10 +29,16 @@ namespace Softjourn.SJCoins.iOS
 		public void ConfigureWith(Categories category)
 		{
 			// Save and set category name
-			categoryName = category.Name;
+			//categoryName = category.Name;
 			CategoryNameLabel.Text = category.Name;
 			// Save list of products
 			categoryProducts = category.Products;
+
+
+			//ItemSelected -=
+			InternalCollectionView.Source = new HomeCellDataSource(this);
+			InternalCollectionView.Delegate = new HomeCellDelegate(this);
+			InternalCollectionView.ReloadData();
 		}
 
 		#region UICollectionViewSource implementation
@@ -66,13 +72,14 @@ namespace Softjourn.SJCoins.iOS
 			{
 				var _cell = cell as HomeInternalCell;
 				var item = parent.categoryProducts[indexPath.Row];
-				_cell.ConfigureWith(item)
+				_cell.ConfigureWith(item);
 			}
 
 			public override void ItemSelected(UICollectionView collectionView, NSIndexPath indexPath)
 			{
 				var selectedItem = parent.categoryProducts[indexPath.Row];
-				var handler = ItemSelected;
+
+				var handler = parent.ItemSelected;
 				if (handler != null)
 				{
 					handler(this, selectedItem);
@@ -80,6 +87,5 @@ namespace Softjourn.SJCoins.iOS
 			}
 		}
 		#endregion
-
 	}
 }
