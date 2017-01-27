@@ -27,14 +27,13 @@ namespace Softjourn.SJCoins.Droid.UI.Activities
         private int _viewCounter = 0;
         private View _headerView;
 
-        private TextView _seeAllFavoriteTextView;
-        private TextView _seeAllLastAddedTextView;
-        private TextView _seeAllBestSellerTextView;
-
         protected override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
             SetContentView(Resource.Layout.activity_main);
+
+            _menuLayout = FindViewById<DrawerLayout>(Resource.Id.drawer_layout);
+            _menuView = FindViewById<NavigationView>(Resource.Id.left_side_menu);
 
             _swipeLayout = FindViewById<SwipeRefreshLayout>(Resource.Id.swipe_container);
             _swipeLayout.SetColorSchemeColors(GetColor(Resource.Color.colorAccent));
@@ -42,26 +41,8 @@ namespace Softjourn.SJCoins.Droid.UI.Activities
             var toolbar = FindViewById<Android.Support.V7.Widget.Toolbar>(Resource.Id.toolbar_base);
             SetSupportActionBar(toolbar);
 
-            _seeAllFavoriteTextView = FindViewById<TextView>(Resource.Id.textViewFavoritesSeeAll);
-            _seeAllLastAddedTextView = FindViewById<TextView>(Resource.Id.textViewLastAddedSeeAll);
-            _seeAllBestSellerTextView = FindViewById<TextView>(Resource.Id.textViewBestSellersSeeAll);
-
-            _seeAllFavoriteTextView.Click += (sender, e) =>
-            {
-                //ViewPresenter.GoToSeeAllActivity(this, Const.Favorites);
-            };
-
-            _seeAllBestSellerTextView.Click += (sender, e) =>
-            {
-                //ViewPresenter.GoToSeeAllActivity(this, Const.BestSellers);
-            };
-
-            _seeAllLastAddedTextView.Click += (sender, e) =>
-            {
-                //ViewPresenter.GoToSeeAllActivity(this, Const.LastAdded);
-            };
-
             _swipeLayout.Refreshing = true;
+            ViewPresenter.OnStartLoadingPage();
 
             Title = "Vending Machine";
         }
@@ -227,7 +208,7 @@ namespace Softjourn.SJCoins.Droid.UI.Activities
 
             if (llHeader != null && llContainer != null && tvSeeAll != null)
             {
-                AttachFragment(categoryName, llHeader.Id, llContainer.Id, tvSeeAll.Id);
+                //AttachFragment(categoryName, llHeader.Id, llContainer.Id, tvSeeAll.Id);
             }
         }
 
@@ -273,27 +254,30 @@ namespace Softjourn.SJCoins.Droid.UI.Activities
 
         public void SetAccountInfo(Account account)
         {
-            throw new System.NotImplementedException();
+            //throw new System.NotImplementedException();
         }
 
         public void SetUserBalance(string balance)
         {
-            throw new System.NotImplementedException();
+            //throw new System.NotImplementedException();
         }
 
         public void SetMachineName(string name)
         {
-            throw new System.NotImplementedException();
+            //throw new System.NotImplementedException();
         }
 
         public void ShowProducts(List<Categories> listCategories)
         {
-            throw new System.NotImplementedException();
+            foreach (var category in listCategories)
+            {
+                CreateCategory(category.Name);
+            }
         }
 
         public void showPurchaseConfirmationDialog(Product product)
         {
-            throw new System.NotImplementedException();
+            //throw new System.NotImplementedException();
         }
     }
 }
