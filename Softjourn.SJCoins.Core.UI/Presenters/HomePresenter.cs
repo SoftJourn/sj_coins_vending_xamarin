@@ -142,12 +142,20 @@ namespace Softjourn.SJCoins.Core.UI.Presenters
 
         public void OnProductClick(Product product)
         {
+            Action<Product> OnPurchaseAction = new Action<Product>(OnProductPurchased);
 
+            AlertService.ShowPurchaseConfirmationDialod(product, OnPurchaseAction);
         }
 
-        private void OnProductPurchased(Product product)
+        private async void OnProductPurchased(Product product)
         {
-
+            View.ShowProgress(Resources.StringResources.progress_buying);
+            Amount leftAmount = await RestApiServise.BuyProductById(product.Id.ToString());
+            if (leftAmount != null)
+            {
+                View.SetUserBalance(leftAmount.Balance);
+            }
+            View.HideProgress();
         }
     }
 }

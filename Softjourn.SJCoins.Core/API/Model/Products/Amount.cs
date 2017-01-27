@@ -10,6 +10,6 @@ namespace Softjourn.SJCoins.Core.API.Model.Products
     public class Amount
     {
         [JsonProperty("amount")]
-        public string ProductAmount { get; set; }
+        public string Balance { get; set; }
     }
 }
