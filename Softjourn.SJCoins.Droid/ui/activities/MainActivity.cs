@@ -26,6 +26,8 @@ namespace Softjourn.SJCoins.Droid.UI.Activities
         private SwipeRefreshLayout _swipeLayout;
         private int _viewCounter = 0;
         private View _headerView;
+        private Account _account;
+        private TextView _balance;
 
         protected override void OnCreate(Bundle savedInstanceState)
         {
@@ -36,7 +38,7 @@ namespace Softjourn.SJCoins.Droid.UI.Activities
             _menuView = FindViewById<NavigationView>(Resource.Id.left_side_menu);
 
             _swipeLayout = FindViewById<SwipeRefreshLayout>(Resource.Id.swipe_container);
-            _swipeLayout.SetColorSchemeColors(GetColor(Resource.Color.colorAccent));
+            _swipeLayout.SetColorSchemeColors(Resource.Color.colorAccent);
 
             var toolbar = FindViewById<Android.Support.V7.Widget.Toolbar>(Resource.Id.toolbar_base);
             SetSupportActionBar(toolbar);
@@ -80,13 +82,13 @@ namespace Softjourn.SJCoins.Droid.UI.Activities
         public override void SetBalance(View headerView)
         {
             var userBalanceView = headerView.FindViewById<TextView>(Resource.Id.user_balance);
-            //userBalanceView.Text = ViewPresenter.GetUserBalance() ?? (string) "";
+            userBalanceView.Text = _account.Name + " " + _account.Surname ?? (string) "";
         }
 
         public override void SetUserName(View headerView)
         {
             var userNameView = headerView.FindViewById<TextView>(Resource.Id.menu_user_name);
-            //userNameView.Text = ViewPresenter.GetUserName() ?? (string)"";
+            userNameView.Text = _account.Amount.ToString() ?? (string)"";
         }
 
         public override bool HandleNavigation(IMenuItem item)
@@ -254,7 +256,7 @@ namespace Softjourn.SJCoins.Droid.UI.Activities
 
         public void SetAccountInfo(Account account)
         {
-            //throw new System.NotImplementedException();
+            _account = account
         }
 
         public void SetUserBalance(string balance)

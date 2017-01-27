@@ -41,7 +41,7 @@ namespace Softjourn.SJCoins.Droid.UI.Activities
             _machineListView.Adapter = _adapter;
 
             _swipeLayout = FindViewById<SwipeRefreshLayout>(Resource.Id.swipe_container);
-            _swipeLayout.SetColorSchemeColors(GetColor(Resource.Color.colorAccent));
+            _swipeLayout.SetColorSchemeColors(Resource.Color.colorAccent);
             _swipeLayout.Refresh += (s, e) =>
             {
                 ViewPresenter.GetMachinesList();
