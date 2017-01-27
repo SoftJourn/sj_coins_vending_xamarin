@@ -56,6 +56,9 @@ namespace Softjourn.SJCoins.Droid.Services
                 case NavigationPage.SelectMachine:
                     view = new Intent(CrossCurrentActivity.Current.Activity, typeof(SelectMachineActivity));
                     break;
+                case NavigationPage.Settings:
+                    view = new Intent(CrossCurrentActivity.Current.Activity, typeof(SelectMachineActivity));
+                    break;
                 default:
                     throw new ArgumentException("Not valid page");
             }

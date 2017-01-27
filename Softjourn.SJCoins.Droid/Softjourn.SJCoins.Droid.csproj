@@ -181,6 +181,7 @@
     <Compile Include="UI\BaseUI\BaseActivity.cs" />
     <Compile Include="UI\BaseUI\BaseMenuActivity.cs" />
     <Compile Include="UI\Fragments\ProductListFragment.cs" />
+    <Compile Include="UI\Fragments\ProductListFragmentVending.cs" />
     <Compile Include="UI\UIStrategies\IProductsListFragmentStrategy.cs" />
     <Compile Include="UI\UIStrategies\ParentSeeAllActivityStrategy.cs" />
     <Compile Include="UI\UIStrategies\VendingActivityStrategy.cs" />
@@ -222,9 +223,12 @@
     <AndroidResource Include="Resources\layout\fragment_see_all_snacks_drinks.axml" />
     <AndroidResource Include="Resources\layout\recycler_see_all_item.axml" />
     <AndroidResource Include="Resources\layout\recycler_machine_view_item.axml" />
+    <AndroidResource Include="Resources\layout\confirm_dialog.axml" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\values\Strings.xml" />
+    <AndroidResource Include="Resources\values\Strings.xml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
     <AndroidResource Include="Resources\mipmap-hdpi\Icon.png" />
     <AndroidResource Include="Resources\mipmap-mdpi\Icon.png" />
     <AndroidResource Include="Resources\mipmap-xhdpi\Icon.png" />
@@ -364,10 +368,10 @@
     <AndroidResource Include="Resources\menu\nav_menu.xml" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\values\colors.xml" />
+    <AndroidResource Include="Resources\values\Colors.xml" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\values\dimens.xml" />
+    <AndroidResource Include="Resources\values\Dimens.xml" />
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\values\Style.xml" />

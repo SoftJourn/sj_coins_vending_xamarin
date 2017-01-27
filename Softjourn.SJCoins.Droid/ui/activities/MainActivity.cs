@@ -20,7 +20,7 @@ using Softjourn.SJCoins.Droid.UI.Fragments;
 
 namespace Softjourn.SJCoins.Droid.UI.Activities
 {
-    [Activity(Label = "Vending Machine", Theme = "@style/AppThemeForCustomToolbar")]
+    [Activity(Theme = "@style/AppThemeForCustomToolbar")]
     public class MainActivity : BaseMenuActivity<HomePresenter>, IHomeView
     {
 
@@ -46,8 +46,6 @@ namespace Softjourn.SJCoins.Droid.UI.Activities
 
             _swipeLayout.Refreshing = true;
             ViewPresenter.OnStartLoadingPage();
-
-            Title = "Vending Machine";
         }
 
         public override bool OnOptionsItemSelected(IMenuItem item)
@@ -83,13 +81,13 @@ namespace Softjourn.SJCoins.Droid.UI.Activities
         public override void SetBalance(View headerView)
         {
             var userBalanceView = headerView.FindViewById<TextView>(Resource.Id.user_balance);
-            userBalanceView.Text = _account.Name + " " + _account.Surname ?? (string) "";
+            userBalanceView.Text = _account != null ? _account.Amount.ToString() : "";
         }
 
         public override void SetUserName(View headerView)
         {
             var userNameView = headerView.FindViewById<TextView>(Resource.Id.menu_user_name);
-            userNameView.Text = _account.Amount.ToString() ?? (string)"";
+            userNameView.Text = _account != null ? _account.Name + " " + _account.Surname : "";
         }
 
         public override bool HandleNavigation(IMenuItem item)
@@ -161,23 +159,21 @@ namespace Softjourn.SJCoins.Droid.UI.Activities
             _swipeLayout.Refreshing = false;
         }
 
-        private void AttachFragment(string categoryName, int headerId, int containerId, int seeAllId)
+        private void AttachFragment(string categoryName, int headerId, int containerId, int seeAllId, List<Product> listProducts )
         {
             FragmentManager.BeginTransaction()
-                .Replace(containerId, ProductListFragment.NewInstance(categoryName, headerId, containerId),
+                .Replace(containerId, ProductListFragmentVending.NewInstance(categoryName, headerId, containerId, listProducts),
                  Preferences.RetrieveStringObject(categoryName.ToUpper()))
                 .Commit();
         }
 
-        public void CreateCategory(string categoryName)
+        public void CreateCategory(string categoryName, List<Product> listProducts)
         {
             _viewCounter++;
 
             var mainLayout = FindViewById<LinearLayout>(Resource.Id.layout_root);
 
-            var inflater = Application.Context.GetSystemService(LayoutInflaterService) as LayoutInflater;
-
-            var ll = (LinearLayout)inflater.Inflate(Resource.Layout.category_header_layout, null);
+            var ll = LayoutInflater.Inflate(Resource.Layout.category_header_layout, null) as LinearLayout;
 
             mainLayout?.AddView(ll);
 
@@ -216,7 +212,7 @@ namespace Softjourn.SJCoins.Droid.UI.Activities
 
             if (llHeader != null && llContainer != null && tvSeeAll != null)
             {
-                //AttachFragment(categoryName, llHeader.Id, llContainer.Id, tvSeeAll.Id);
+                AttachFragment(categoryName, llHeader.Id, llContainer.Id, tvSeeAll.Id, listProducts);
             }
         }
 
@@ -272,14 +268,14 @@ namespace Softjourn.SJCoins.Droid.UI.Activities
 
         public void SetMachineName(string name)
         {
-            Title = name;
+            SupportActionBar.Title = name;
         }
 
         public void ShowProducts(List<Categories> listCategories)
         {
             foreach (var category in listCategories)
             {
-                CreateCategory(category.Name);
+                CreateCategory(category.Name, category.Products);
             }
         }
 
