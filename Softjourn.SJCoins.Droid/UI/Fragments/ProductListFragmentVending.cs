@@ -1,4 +1,5 @@
 
+using System;
 using System.Collections.Generic;
 using Android.App;
 using Android.OS;
@@ -6,6 +7,7 @@ using Android.Support.V7.Widget;
 using Android.Views;
 using Android.Widget;
 using Softjourn.SJCoins.Core.API.Model.Products;
+using Softjourn.SJCoins.Droid.UI.Activities;
 using Softjourn.SJCoins.Droid.UI.Adapters;
 using Softjourn.SJCoins.Droid.UI.UIStrategies;
 
@@ -50,6 +52,9 @@ namespace Softjourn.SJCoins.Droid.UI.Fragments
             _layoutManager = new LinearLayoutManager(Activity, LinearLayoutManager.Horizontal, false);
             _productAdapter = new FeaturedProductItemsAdapter(_productsCategory, null, Activity);
 
+            _productAdapter.ProductSelected -= ProductSelected;
+            _productAdapter.ProductSelected += ProductSelected;
+
             _machineItems.SetLayoutManager(_layoutManager);
 
             _machineItems.SetAdapter(_productAdapter);
@@ -70,6 +75,27 @@ namespace Softjourn.SJCoins.Droid.UI.Fragments
             TextView noProducts)
         {
             _machineItems = recyclerView;
+        }
+
+        public void AttachEvents()
+        {
+            if (_productAdapter != null)
+            {
+                _productAdapter.ProductSelected += ProductSelected;
+            }
+        }
+
+        public void DetachEvents()
+        {
+            if (_productAdapter != null)
+            {
+                _productAdapter.ProductSelected -= ProductSelected;
+            }
+        }
+
+        private void ProductSelected(object sender, Product product)
+        {
+           ((MainActivity)Activity).Purchase(product);
         }
     }
 }

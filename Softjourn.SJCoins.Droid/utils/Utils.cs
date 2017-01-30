@@ -5,6 +5,7 @@ using Android.Views;
 using Android.Widget;
 using Java.Lang;
 using Java.Util;
+using Softjourn.SJCoins.Droid.Utils;
 using String = System.String;
 
 namespace Softjourn.SJCoins.Droid.utils

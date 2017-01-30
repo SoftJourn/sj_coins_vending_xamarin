@@ -2,6 +2,7 @@ using System;
 
 using Android.App;
 using Android.Content;
+using Softjourn.SJCoins.Droid.Utils;
 
 namespace Softjourn.SJCoins.Droid.utils
 {

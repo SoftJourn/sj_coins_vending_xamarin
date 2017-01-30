@@ -96,7 +96,7 @@
   <string name="confirm_dialog_cancel">Cancel</string>
   <string name="search_hint">Product Name</string>
   <string name="layout_vending_favorites">Favorites</string>
-  <string name="dialog_msg_confirm_buy_product">Buy %1$s for %2$d coins?</string>
+  <string name="dialog_msg_confirm_buy_product">Buy %1$s for %2$f coins?</string>
 
   <!--Error Dialog-->
   <string name="error_dialog_ok">OK</string>

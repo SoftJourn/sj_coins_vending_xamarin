@@ -13,15 +13,17 @@ using Android.Widget;
 
 namespace Softjourn.SJCoins.Droid.UI.Adapters
 {
-    public class FeatureViewHolder : RecyclerView.ViewHolder
+    public class FeatureViewHolder : RecyclerView.ViewHolder, View.IOnClickListener
     {
+
+        public event EventHandler Click;
+            
         public View ParentView { get; set; }
         public View ParentViewSeeAll { get; set; }
         public TextView ProductPrice { get; set; }
         public TextView ProductName { get; set; }
         public TextView BuyProduct { get; set; }
         public TextView ProductDescription { get; set; }
-
         public ImageView ProductImage { get; set; }
         public ImageView AddFavorite { get; set; }
 
@@ -35,6 +37,13 @@ namespace Softjourn.SJCoins.Droid.UI.Adapters
             BuyProduct = v.FindViewById<TextView>(Resource.Id.layout_item_product_buy);
             ProductDescription = v.FindViewById<TextView>(Resource.Id.layout_item_product_description);
             AddFavorite = v.FindViewById<ImageView>(Resource.Id.imageViewFavorite);
+
+            v.SetOnClickListener(this);
+        }
+
+        public void OnClick(View v)
+        {
+            Click?.Invoke(this, EventArgs.Empty);
         }
     }
 }

@@ -86,7 +86,7 @@ namespace Softjourn.SJCoins.Droid.UI.BaseUI
             {
                 SetBalance(headerView);
                 SetUserName(headerView);
-                SetUpNavigationViewContent();
+                SetUpNavigationViewContent(_menuView);
             };
 
             headerView.SetBackgroundColor(new Color(ContextCompat.GetColor(this, Resource.Color.colorBlue)));
@@ -113,7 +113,7 @@ namespace Softjourn.SJCoins.Droid.UI.BaseUI
 
         public abstract void OnCategorySelected(IMenuItem item);
 
-        public abstract void SetUpNavigationViewContent();
+        public abstract void SetUpNavigationViewContent(NavigationView menuView);
 
 
         public override void OnConfigurationChanged(Configuration newConfig)

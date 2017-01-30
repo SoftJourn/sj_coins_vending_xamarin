@@ -3,7 +3,7 @@ using Android.Content;
 using Android.Net;
 
 
-namespace Softjourn.SJCoins.Droid.utils
+namespace Softjourn.SJCoins.Droid.Utils
 {
     public class NetworkUtils
     {

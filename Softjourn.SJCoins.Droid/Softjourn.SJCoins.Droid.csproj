@@ -187,6 +187,7 @@
     <Compile Include="UI\UIStrategies\VendingActivityStrategy.cs" />
     <Compile Include="Utils\Const.cs" />
     <Compile Include="Utils\JavaHolder.cs" />
+    <Compile Include="Utils\LeftSideMenuController.cs" />
     <Compile Include="Utils\NavigationUtils.cs" />
     <Compile Include="Utils\NetworkUtils.cs" />
     <Compile Include="Utils\ObjectExtensions.cs" />

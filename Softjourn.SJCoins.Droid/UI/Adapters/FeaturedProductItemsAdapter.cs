@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Android.App;
@@ -12,7 +13,11 @@ using Android.Widget;
 using Java.Lang;
 using Softjourn.SJCoins.Core.API.Model.Products;
 using Softjourn.SJCoins.Droid.utils;
+using Softjourn.SJCoins.Droid.Utils;
 using Square.Picasso;
+using Const = Softjourn.SJCoins.Droid.Utils.Const;
+using Exception = System.Exception;
+using Object = Java.Lang.Object;
 
 namespace Softjourn.SJCoins.Droid.UI.Adapters
 {
@@ -22,8 +27,8 @@ namespace Softjourn.SJCoins.Droid.UI.Adapters
         private string _category;
         private string _coins;
 
-        public List<Product> _listProducts = new List<Product>();
-        //private DataManager mDataManager = new DataManager();
+        public EventHandler<Product> ProductSelected;
+        public List<Product> ListProducts = new List<Product>();
         public List<Product> _original = new List<Product>();
         private List<Product> _favoritesList; // = mDataManager.loadFavorites();
         private Context _context;
@@ -58,24 +63,23 @@ namespace Softjourn.SJCoins.Droid.UI.Adapters
 
         public void NotifyDataChanges()
         {
-            //_favoritesList = mDataManager.loadFavorites();
             NotifyDataSetChanged();
         }
 
         public void SetData(List<Product> data)
         {
-            _listProducts = new List<Product>(data);
+            ListProducts = new List<Product>(data);
             _original = new List<Product>(data);
             NotifyDataSetChanged();
         }
 
         public void RemoveItem(int id)
         {
-            for (int i = 0; i < _listProducts.Count; i++)
+            for (int i = 0; i < ListProducts.Count; i++)
             {
-                if (_listProducts[i].Id == id)
+                if (ListProducts[i].Id == id)
                 {
-                    _listProducts.Remove(_listProducts[i]);
+                    ListProducts.Remove(ListProducts[i]);
                     NotifyItemRemoved(i);
                     NotifyItemRangeChanged(0, ItemCount + 1);
                 }
@@ -85,32 +89,32 @@ namespace Softjourn.SJCoins.Droid.UI.Adapters
         public override RecyclerView.ViewHolder OnCreateViewHolder(ViewGroup parent, int viewType)
         {
             View v;
-                switch (_recyclerViewType)
-                {
-                    case "DEFAULT":
-                        v = LayoutInflater.From(parent.Context)
-                            .Inflate(Resource.Layout.recycler_machine_view_item, parent, false);
-                        break;
-                    case "SEE_ALL_SNACKS_DRINKS":
-                        v = LayoutInflater.From(parent.Context)
-                            .Inflate(Resource.Layout.recycler_see_all_item, parent, false);
-                        break;
-                    default:
-                        v = LayoutInflater.From(parent.Context)
-                            .Inflate(Resource.Layout.recycler_machine_view_item, parent, false);
-                        break;
-                }
+            switch (_recyclerViewType)
+            {
+                case "DEFAULT":
+                    v = LayoutInflater.From(parent.Context)
+                        .Inflate(Resource.Layout.recycler_machine_view_item, parent, false);
+                    break;
+                case "SEE_ALL_SNACKS_DRINKS":
+                    v = LayoutInflater.From(parent.Context)
+                        .Inflate(Resource.Layout.recycler_see_all_item, parent, false);
+                    break;
+                default:
+                    v = LayoutInflater.From(parent.Context)
+                        .Inflate(Resource.Layout.recycler_machine_view_item, parent, false);
+                    break;
+            }
             return new FeatureViewHolder(v);
         }
 
         public override void OnBindViewHolder(RecyclerView.ViewHolder viewHolder, int position)
         {
             var holder = viewHolder as FeatureViewHolder;
-            var product = _listProducts[holder.AdapterPosition];
+            var product = ListProducts[holder.AdapterPosition];
 
             bool isCurrentProductInMachine = true; //mDataManager.isSingleProductPresent(product.Id);
 
-            holder.ProductName.Text = _listProducts[holder.AdapterPosition].Name;
+            holder.ProductName.Text = ListProducts[holder.AdapterPosition].Name;
             holder.ProductPrice.Text = Java.Lang.String.ValueOf(product.Price) + _coins;
 
             if (holder.ProductDescription != null)
@@ -119,19 +123,17 @@ namespace Softjourn.SJCoins.Droid.UI.Adapters
             }
 
             if (holder.ParentView != null)
-            {
-                holder.ParentView.Click += (s, e) =>
-                {
-                    //EventBus.getDefault().post(new OnProductItemClickEvent(mListProducts.get(holder.getAdapterPosition())));
-                };
+            { 
+                holder.Click -= OnClickBuyClicked;
+                holder.Click += OnClickBuyClicked;
             }
             if (holder.ParentViewSeeAll != null)
             {
                 holder.ParentViewSeeAll.Click += (s, e) =>
 
                 {
-                       //EventBus.getDefault().post(new OnProductDetailsClick(mListProducts.get(holder.getAdapterPosition())));
-                   };
+                    //EventBus.getDefault().post(new OnProductDetailsClick(mListProducts.get(holder.getAdapterPosition())));
+                };
             }
 
             /**
@@ -148,10 +150,7 @@ namespace Softjourn.SJCoins.Droid.UI.Adapters
                 {
                     holder.BuyProduct.SetTextColor(new Color(ContextCompat.GetColor(_context, Resource.Color.colorScreenBackground)));
                 }
-                holder.BuyProduct.Click += (s, e) =>
-                {
-                           //EventBus.getDefault().post(new OnProductBuyClickEvent(mListProducts.get(holder.getAdapterPosition())));
-                       };
+                //holder.BuyProduct.Click += OnClickBuyClicked;
             }
             /**
              * Here We compare ID of product from general products list
@@ -195,7 +194,7 @@ namespace Softjourn.SJCoins.Droid.UI.Adapters
                         {
                             if (_category == Const.Favorites)
                             {
-                                _listProducts.Remove(_listProducts[holder.AdapterPosition]);
+                                ListProducts.Remove(ListProducts[holder.AdapterPosition]);
                                 NotifyItemRemoved(holder.AdapterPosition);
                                 NotifyItemRangeChanged(0, ItemCount + 1);
                                 if (ItemCount < 1)
@@ -217,12 +216,26 @@ namespace Softjourn.SJCoins.Droid.UI.Adapters
             }
             else
             {
-                Picasso.With(_context).Load(Const.UrlVendingService + _listProducts[holder.AdapterPosition].ImageUrl).Into(holder.ProductImage);
+                Picasso.With(_context).Load(Const.UrlVendingService + ListProducts[holder.AdapterPosition].ImageUrl).Into(holder.ProductImage);
                 holder.ProductImage.Alpha = !isCurrentProductInMachine ? 0.3f : 1.0f;
             }
         }
 
-        public override int ItemCount => _listProducts?.Count ?? 0;
+        public override int ItemCount => ListProducts?.Count ?? 0;
+
+        public void OnClickBuyClicked(object sender, EventArgs eventArgs)
+        {
+            var holder = sender as FeatureViewHolder;
+            if (holder == null)
+            {
+                throw new Exception("Holder is null");
+            }
+            var selectedIndex = holder.AdapterPosition;
+            var handler = ProductSelected;
+            if (handler == null) return;
+            var selectedProduct = ListProducts[selectedIndex];
+            handler(this, selectedProduct);
+        }
 
         public Filter Filter { get; private set; }
 
@@ -240,7 +253,7 @@ namespace Softjourn.SJCoins.Droid.UI.Adapters
                 var oReturn = new FilterResults();
                 var results = new List<Product>();
                 if (_adapter._original == null || _adapter._original.Count <= 0)
-                    _adapter._original = _adapter._listProducts;
+                    _adapter._original = _adapter.ListProducts;
                 if (constraint != null)
                 {
                     if (_adapter._original != null && _adapter._original.Count > 0)
@@ -262,9 +275,9 @@ namespace Softjourn.SJCoins.Droid.UI.Adapters
 
             protected override void PublishResults(ICharSequence constraint, FilterResults results)
             {
-                if (_adapter._listProducts == null || _adapter._listProducts.Count<=0) return;
+                if (_adapter.ListProducts == null || _adapter.ListProducts.Count <= 0) return;
                 using (var values = results.Values)
-                    _adapter._listProducts = values.ToArray<Object>()
+                    _adapter.ListProducts = values.ToArray<Object>()
                         .Select(r => r.ToNetObject<Product>()).ToList();
 
                 _adapter.NotifyDataSetChanged();

@@ -33,7 +33,7 @@ namespace Softjourn.SJCoins.Droid.Services
             try
             {
                 data = JsonConvert.SerializeObject(navigationParams);
-                view.PutExtra(utils.Const.NavigationKey, data);
+                view.PutExtra(Utils.Const.NavigationKey, data);
             }
             catch { }
             return view;

@@ -17,6 +17,7 @@ using Softjourn.SJCoins.Droid.ui.baseUI;
 using Softjourn.SJCoins.Droid.utils;
 using Softjourn.SJCoins.Droid.UI.BaseUI;
 using Softjourn.SJCoins.Droid.UI.Fragments;
+using Softjourn.SJCoins.Droid.Utils;
 
 namespace Softjourn.SJCoins.Droid.UI.Activities
 {
@@ -28,6 +29,7 @@ namespace Softjourn.SJCoins.Droid.UI.Activities
         private int _viewCounter = 0;
         private View _headerView;
         private Account _account;
+        private List<Categories> _listCategories;
         private TextView _balance;
 
         protected override void OnCreate(Bundle savedInstanceState)
@@ -37,12 +39,15 @@ namespace Softjourn.SJCoins.Droid.UI.Activities
 
             _menuLayout = FindViewById<DrawerLayout>(Resource.Id.drawer_layout);
             _menuView = FindViewById<NavigationView>(Resource.Id.left_side_menu);
-
+   
             _swipeLayout = FindViewById<SwipeRefreshLayout>(Resource.Id.swipe_container);
-            _swipeLayout.SetColorSchemeColors(Resource.Color.colorAccent);
+            _swipeLayout.SetColorSchemeResources(Resource.Color.colorAccent);
+            _swipeLayout.Refresh += OnRefresh;
 
             var toolbar = FindViewById<Android.Support.V7.Widget.Toolbar>(Resource.Id.toolbar_base);
             SetSupportActionBar(toolbar);
+
+            _balance = FindViewById<TextView>(Resource.Id.balance);
 
             _swipeLayout.Refreshing = true;
             ViewPresenter.OnStartLoadingPage();
@@ -64,18 +69,10 @@ namespace Softjourn.SJCoins.Droid.UI.Activities
         }
 
 
-        public void OnRefresh()
+        public void OnRefresh(object sender, EventArgs e)
         {
-            if (TextUtils.IsEmpty(Preferences.RetrieveStringObject(Const.SelectedMachineId)))
-            {
-                ShowToastMessage(GetString(Resource.String.machine_not_selected_toast));
-                _swipeLayout.Refreshing = false;
-            }
-            else
-            {
-                RemoveContainers();
-                //LoadProductList();
-            }
+            RemoveContainers();
+            ViewPresenter.OnRefresh();
         }
 
         public override void SetBalance(View headerView)
@@ -141,11 +138,14 @@ namespace Softjourn.SJCoins.Droid.UI.Activities
             //NavigationUtils.GoToSeeAllActivity(this, item.TitleFormatted.ToString());
         }
 
-        public override void SetUpNavigationViewContent()
+        public override void SetUpNavigationViewContent(NavigationView menuView)
         {
-            //LeftSideMenuController leftSideMenuController = new LeftSideMenuController(mMenuView);
-            //leftSideMenuController.unCheckAllMenuItems(mMenuView);
-            //leftSideMenuController.addCategoriesToMenu(getMenu(), mVendingPresenter.getCategories());
+            var leftSideMenuController = new LeftSideMenuController(menuView);
+            leftSideMenuController.UnCheckAllMenuItems(menuView);
+            if (_listCategories != null)
+            {
+                leftSideMenuController.AddCategoriesToMenu(GetMenu(), _listCategories);
+            }
         }
 
         public override void ShowProgress(string message)
@@ -259,10 +259,13 @@ namespace Softjourn.SJCoins.Droid.UI.Activities
         public void SetAccountInfo(Account account)
         {
             _account = account;
+            _balance.Visibility = ViewStates.Visible;
+            _balance.Text = string.Format(GetString(Resource.String.your_balance_is, account.Amount));
         }
 
         public void SetUserBalance(string balance)
         {
+            _balance.Visibility = ViewStates.Visible;
             _balance.Text = string.Format(GetString(Resource.String.your_balance_is, balance));
         }
 
@@ -273,15 +276,21 @@ namespace Softjourn.SJCoins.Droid.UI.Activities
 
         public void ShowProducts(List<Categories> listCategories)
         {
+            _listCategories = listCategories;
             foreach (var category in listCategories)
             {
                 CreateCategory(category.Name, category.Products);
             }
         }
 
-        public void showPurchaseConfirmationDialog(Product product)
+        public void ShowPurchaseConfirmationDialog(Product product)
         {
             //throw new System.NotImplementedException();
+        }
+
+        public void Purchase(Product product)
+        {
+            ViewPresenter.OnProductClick(product);
         }
     }
 }

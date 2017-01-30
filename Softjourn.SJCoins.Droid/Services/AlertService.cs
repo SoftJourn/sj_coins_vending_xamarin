@@ -10,7 +10,7 @@ using Plugin.CurrentActivity;
 using Softjourn.SJCoins.Core.UI.Services.Alert;
 using Softjourn.SJCoins.Core.API.Model.Products;
 using Softjourn.SJCoins.Core.Helpers;
-using Softjourn.SJCoins.Core.Utils;
+using Softjourn.SJCoins.Droid.Utils;
 using Square.Picasso;
 
 namespace Softjourn.SJCoins.Droid.Services
@@ -53,6 +53,11 @@ namespace Softjourn.SJCoins.Droid.Services
             });
         }
 
+        public void ShowPurchaseConfirmationDialod(Product product, Action<Product> onPurchaseProductAction)
+        {
+            CreateConfirmationDialog(product, onPurchaseProductAction);
+        }
+
         private void CreateAlertDialog(string title, string msg, Action btnClicked, string btnName = null)
         {
             var activity = CrossCurrentActivity.Current.Activity;
@@ -87,9 +92,9 @@ namespace Softjourn.SJCoins.Droid.Services
             });
         }
 
-    private void CreateConfirmationDialog(Product product)
+    private void CreateConfirmationDialog(Product product, Action<Product> onPurchaseProductAction)
     {
-        var context = CrossCurrentActivity.Current.Activity.ApplicationContext;
+        var context = CrossCurrentActivity.Current.Activity;
         var confirmDialog = new Dialog(context);
             confirmDialog.Window.RequestFeature(WindowFeatures.NoTitle);
             confirmDialog.Window.RequestFeature(WindowFeatures.SwipeToDismiss);
@@ -107,25 +112,25 @@ namespace Softjourn.SJCoins.Droid.Services
                 confirmDialog.Show();
         }
         var okButton = confirmDialog.FindViewById<Button>(Resource.Id.dialogButtonOK);
-        if (product.Price > Int64.Parse(Settings.AccessToken))
-        {
-            okButton.SetTextColor(new Color(ContextCompat.GetColor(context, Resource.Color.colorScreenBackground)));
-        }
-        else
-        {
+        //if (product.Price > Int64.Parse(Settings.AccessToken))
+        //{
+        //    okButton.SetTextColor(new Color(ContextCompat.GetColor(context, Resource.Color.colorScreenBackground)));
+        //}
+        //else
+        //{
             okButton.SetTextColor(new Color(ContextCompat.GetColor(context, Resource.Color.colorBlue)));
-        }
+        //}
         okButton.Click += (sender, e) =>
         {
-            if (product.Price > Int64.Parse(Settings.AccessToken))
-            {
+            //if (product.Price > Int64.Parse(Settings.AccessToken))
+            //{
                 ShowMessageWithUserInteraction(null, context.GetString(Resource.String.server_error_40901), null, null);
-            }
-            else
-            {
-                //presenter.buyProduct(Java.Lang.String.ValueOf(product.Id), this);
+            //}
+            //else
+            //{
+                onPurchaseProductAction.Invoke(product);
                 confirmDialog.Dismiss();
-            }
+            //}
         };
 
         var cancelButton = confirmDialog.FindViewById<Button>(Resource.Id.dialogButtonCancel);

@@ -81,7 +81,7 @@ namespace Softjourn.SJCoins.Droid.ui.baseUI
 
         public void ShowToast(String text)
         {
-            Utils.ShowErrorToast(this, text);
+            //Utils.ShowErrorToast(this, text);
         }
 
         public void AttachEvents()
