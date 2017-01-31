@@ -164,6 +164,7 @@ namespace Softjourn.SJCoins.Core.UI.Presenters
             NavigationService.NavigateTo(NavigationPage.Settings);
         }
 
+        // show purchase dialog with proposal to purchase product
         public void OnProductClick(Product product)
         {
             Action<Product> OnPurchaseAction = new Action<Product>(OnProductPurchased);
@@ -171,6 +172,7 @@ namespace Softjourn.SJCoins.Core.UI.Presenters
             AlertService.ShowPurchaseConfirmationDialod(product, OnPurchaseAction);
         }
 
+        // check is balance enough and make purchase
         private async void OnProductPurchased(Product product)
         {
             if (_balance >= product.IntPrice)
@@ -179,18 +181,25 @@ namespace Softjourn.SJCoins.Core.UI.Presenters
                 try
                 {
                     Amount leftAmount = await RestApiServise.BuyProductById(product.Id.ToString());
-                    if (leftAmount != null)
+                    if (leftAmount != null) // them set new balance amount
                 {
                     _balance = int.Parse(leftAmount.Balance);
                     View.SetUserBalance(leftAmount.Balance);
                 }
-                View.HideProgress();
+                    View.HideProgress();
+                    AlertService.ShowMessageWithUserInteraction("Purchase", Resources.StringResources.activity_product_take_your_order_message, Resources.StringResources.btn_title_ok, null);
                 }
+
                 catch (ApiNotAuthorizedException ex)
                 {
                     View.HideProgress();
                     AlertService.ShowToastMessage(ex.Message);
                     NavigationService.NavigateToAsRoot(NavigationPage.Login);
+                }
+                catch (ApiNotFoundException ex)
+                {
+                    View.HideProgress();
+                    AlertService.ShowMessageWithUserInteraction("Error", ex.Message, Resources.StringResources.btn_title_ok, null);
                 }
                 catch (Exception ex)
                 {
