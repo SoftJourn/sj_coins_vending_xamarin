@@ -84,5 +84,7 @@ namespace Softjourn.SJCoins.Core.UI.Presenters
             throw new NotImplementedException();
         }
 
+
+
     }
 }

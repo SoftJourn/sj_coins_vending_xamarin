@@ -40,7 +40,7 @@ namespace Softjourn.SJCoins.Core.API
             }
 
         #region OAuth Server Calls
-        public async Task<Session> MakeLoginRequest(string userName, string password)
+        public async Task<Session> MakeLoginRequestAsync(string userName, string password)
         {
             var apiClient = GetApiClient();
             string url = UrlAuthService + "oauth/token";
@@ -57,7 +57,6 @@ namespace Softjourn.SJCoins.Core.API
                 IRestResponse response = await apiClient.Execute(request);
 
                if (response.IsSuccess) { 
-                    var content = response.Content;
                     Session session = deserial.Deserialize<Session>(response);
                     SaveTokens(session);
                 return session;
@@ -73,7 +72,7 @@ namespace Softjourn.SJCoins.Core.API
             return null;
         }
 
-        private async Task<Session> RefreshToken()
+        private async Task<Session> RefreshTokenAsync()
         {
             var apiClient = GetApiClient();
             string url = UrlAuthService + "oauth/token";
@@ -88,7 +87,6 @@ namespace Softjourn.SJCoins.Core.API
             {
                 IRestResponse response = await apiClient.Execute(request);
                 if (response.IsSuccess) {
-                    var content = response.Content;
                     Session session = deserial.Deserialize<Session>(response);
                     SaveTokens(session);
                     return session;
@@ -118,7 +116,6 @@ namespace Softjourn.SJCoins.Core.API
                 IRestResponse response = await apiClient.Execute(request);
                 if (response.IsSuccess)
                 {
-                    var content = response.Content;
                     EmptyResponse emptyResponce = deserial.Deserialize<EmptyResponse>(response);
                     return emptyResponce;
                 }
@@ -137,66 +134,66 @@ namespace Softjourn.SJCoins.Core.API
         #endregion
 
         #region Vending machines calls
-        public async Task<List<Machines>> GetMachinesList()
+        public async Task<List<Machines>> GetMachinesListAsync()
         {
             string url = UrlVendingService + "machines";
-            List<Machines> list = await MakeRequest<List<Machines>>(url, Method.GET);
+            List<Machines> list = await MakeRequestAsync<List<Machines>>(url, Method.GET);
             return list;
         }
 
-        public async Task<Machines> GetMachineById(string machineId)
+        public async Task<Machines> GetMachineByIdAsync(string machineId)
         {
             string url = UrlVendingService + $"machines/{machineId}";
-            Machines machine = await MakeRequest<Machines>(url, Method.GET);
+            Machines machine = await MakeRequestAsync<Machines>(url, Method.GET);
             return machine;
         }
 
-        public async Task<Featured> GetFeaturedProducts(string machineId)
+        public async Task<Featured> GetFeaturedProductsAsync(string machineId)
         {
             string url = UrlVendingService + $"machines/{machineId}/features";
-            Featured featuredProducts = await MakeRequest<Featured>(url, Method.GET);
+            Featured featuredProducts = await MakeRequestAsync<Featured>(url, Method.GET);
             return featuredProducts;
         }
 
-        public async Task<List<Product>> GetProductsList(string machineId)
+        public async Task<List<Product>> GetProductsListAsync(string machineId)
         {
             string url = UrlVendingService + $"machines/{machineId}/products";
-            List<Product> productsList = await MakeRequest<List<Product>>(url, Method.GET);
+            List<Product> productsList = await MakeRequestAsync<List<Product>>(url, Method.GET);
             return productsList;
         }
 
-        public async Task<Amount> BuyProductById(string machineId, string productId)
+        public async Task<Amount> BuyProductByIdAsync(string machineId, string productId)
         {
             string url = UrlVendingService + $"machines/{machineId}/products/{productId}";
-            Amount productAmount = await MakeRequest<Amount>(url, Method.POST);
+            Amount productAmount = await MakeRequestAsync<Amount>(url, Method.POST);
             return productAmount;
         }
 
-        public async Task<List<Product>> GetFavoritesList()
+        public async Task<List<Product>> GetFavoritesListAsync()
         {
             string url = UrlVendingService + $"favorites";
-            List<Product> favoritesList = await MakeRequest<List<Product>>(url, Method.GET);
+            List<Product> favoritesList = await MakeRequestAsync<List<Product>>(url, Method.GET);
             return favoritesList;
         }
 
-        public async Task<EmptyResponse> AddProductToFavorites(string productId)
+        public async Task<EmptyResponse> AddProductToFavoritesAsync(string productId)
         {
             string url = UrlVendingService + $"favorites/{productId}";
-            EmptyResponse response = await MakeRequest<EmptyResponse>(url, Method.POST);
+            EmptyResponse response = await MakeRequestAsync<EmptyResponse>(url, Method.POST);
             return response;
         }
 
-        public async Task<EmptyResponse> RemoveProductFromFavorites(string productId)
+        public async Task<EmptyResponse> RemoveProductFromFavoritesAsync(string productId)
         {
             string url = UrlVendingService + $"favorites/{productId}";
-            EmptyResponse response = await MakeRequest<EmptyResponse>(url, Method.DELETE);
+            EmptyResponse response = await MakeRequestAsync<EmptyResponse>(url, Method.DELETE);
             return response;
         }
 
-        public async Task<List<History>> GetPurchaseHistory()
+        public async Task<List<History>> GetPurchaseHistoryAsync()
         {
             string url = UrlVendingService + "machines/last";
-            List<History> historyList = await MakeRequest<List<History>>(url, Method.GET);
+            List<History> historyList = await MakeRequestAsync<List<History>>(url, Method.GET);
             return historyList;
         }
 
@@ -207,20 +204,20 @@ namespace Softjourn.SJCoins.Core.API
         public async Task<Account> GetUserAccountAsync()
         {
             string url = UrlCoinService + "account";
-            Account account = await MakeRequest<Account>(url, Method.GET);
+            Account account = await MakeRequestAsync<Account>(url, Method.GET);
             return account;
         }
 
         public async Task<Balance> GetBalanceAsync()
         {
             string url = UrlCoinService + "amount";
-            Balance balance = await MakeRequest<Balance>(url, Method.GET);
+            Balance balance = await MakeRequestAsync<Balance>(url, Method.GET);
             return balance;
         }
 
         #endregion
 
-        private async Task<TResult> MakeRequest<TResult>(string url, Method httpMethod)
+        private async Task<TResult> MakeRequestAsync<TResult>(string url, Method httpMethod)
         {
             var apiClient = GetApiClient();
             var request = new RestRequest(url, httpMethod);
@@ -234,7 +231,6 @@ namespace Softjourn.SJCoins.Core.API
 
                 if (response.IsSuccess)
                 {
-                    var content = response.Content;
                     TResult data = deserial.Deserialize<TResult>(response);
                     return data;
                 }
@@ -245,8 +241,8 @@ namespace Softjourn.SJCoins.Core.API
             }
             catch (ApiNotAuthorizedException)
             {
-                await RefreshToken();
-                return await MakeRequest<TResult>(url, httpMethod);
+                await RefreshTokenAsync();
+                return await MakeRequestAsync<TResult>(url, httpMethod);
             }
             // all another exceptions should be caught on Presenter side
             finally
@@ -257,16 +253,30 @@ namespace Softjourn.SJCoins.Core.API
             return default(TResult);
         }
 
+        // get error code from response and generate Exception with needed message
         private void ApiErrorHandler(IRestResponse response)
         {
+
             string errorDescription = response.StatusDescription;
             switch (response.StatusCode)
             {
-                case HttpStatusCode.BadRequest:
-                    throw new ApiBadRequestException(errorDescription);
-                case HttpStatusCode.Unauthorized:
-                    throw new ApiNotAuthorizedException(errorDescription);
-                default:
+                case HttpStatusCode.BadRequest: // code 400
+                    throw new ApiBadRequestException(Resources.StringResources.server_error_400);
+
+                case HttpStatusCode.Unauthorized: // code 401 
+                    throw new ApiNotAuthorizedException(Resources.StringResources.server_error_401);
+
+                case HttpStatusCode.NotFound: // code 404
+                    JsonDeserializer deserial = new JsonDeserializer();
+                    BadResponse badResponse = deserial.Deserialize<BadResponse>(response);
+                    if (badResponse != null)
+                    {
+                        throw new ApiNotFoundException(NetworkErrorUtils.GetErrorMessage(badResponse.Code));
+                    } else
+                    {
+                        throw new ApiNotFoundException(NetworkErrorUtils.GetErrorMessage(404));
+                    }
+                default: // for all rest codes
                     throw new ApiException(errorDescription);
             }
         }
