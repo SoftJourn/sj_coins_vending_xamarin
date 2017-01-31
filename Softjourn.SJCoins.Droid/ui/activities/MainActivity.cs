@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using Android.App;
+using Android.Content.PM;
 using Android.OS;
 using Android.Support.Design.Widget;
 using Android.Support.V4.Widget;
@@ -18,10 +19,11 @@ using Softjourn.SJCoins.Droid.utils;
 using Softjourn.SJCoins.Droid.UI.BaseUI;
 using Softjourn.SJCoins.Droid.UI.Fragments;
 using Softjourn.SJCoins.Droid.Utils;
+using Orientation = Android.Content.Res.Orientation;
 
 namespace Softjourn.SJCoins.Droid.UI.Activities
 {
-    [Activity(Theme = "@style/AppThemeForCustomToolbar")]
+    [Activity(Theme = "@style/AppThemeForCustomToolbar", ScreenOrientation = ScreenOrientation.Portrait)]
     public class MainActivity : BaseMenuActivity<HomePresenter>, IHomeView
     {
 

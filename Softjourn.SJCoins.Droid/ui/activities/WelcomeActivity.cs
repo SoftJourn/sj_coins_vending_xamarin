@@ -1,4 +1,5 @@
 using Android.App;
+using Android.Content.PM;
 using Android.Graphics;
 using Android.OS;
 using Android.Support.V4.View;
@@ -12,7 +13,7 @@ using Softjourn.SJCoins.Droid.ui.baseUI;
 
 namespace Softjourn.SJCoins.Droid.UI.Activities
 {
-    [Activity(Label = "WelcomeActivity", Theme = "@style/NoActionBarLoginTheme")]
+    [Activity(Label = "WelcomeActivity", Theme = "@style/NoActionBarLoginTheme", ScreenOrientation = ScreenOrientation.Portrait)]
     public class WelcomeActivity : BaseActivity<WelcomePresenter>, ViewPager.IOnPageChangeListener, IWelcomeView
     {
 
