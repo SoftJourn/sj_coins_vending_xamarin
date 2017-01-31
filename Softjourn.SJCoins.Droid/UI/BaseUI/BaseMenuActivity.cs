@@ -47,6 +47,7 @@ namespace Softjourn.SJCoins.Droid.UI.BaseUI
                 throw new IllegalStateException("Activity must have view with left_side_menu id");
             }
 
+            SetUpNavigationViewContent(_menuView);
             InitActionBarToggle();
             InitNavigationDrawer();
         }

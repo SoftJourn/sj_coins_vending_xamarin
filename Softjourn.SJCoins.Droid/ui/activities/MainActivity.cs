@@ -6,20 +6,16 @@ using Android.Content.PM;
 using Android.OS;
 using Android.Support.Design.Widget;
 using Android.Support.V4.Widget;
-using Android.Support.V7.App;
-using Android.Text;
 using Android.Views;
 using Android.Widget;
 using Softjourn.SJCoins.Core.API.Model.AccountInfo;
 using Softjourn.SJCoins.Core.API.Model.Products;
 using Softjourn.SJCoins.Core.UI.Presenters;
 using Softjourn.SJCoins.Core.UI.ViewInterfaces;
-using Softjourn.SJCoins.Droid.ui.baseUI;
 using Softjourn.SJCoins.Droid.utils;
 using Softjourn.SJCoins.Droid.UI.BaseUI;
 using Softjourn.SJCoins.Droid.UI.Fragments;
 using Softjourn.SJCoins.Droid.Utils;
-using Orientation = Android.Content.Res.Orientation;
 
 namespace Softjourn.SJCoins.Droid.UI.Activities
 {
@@ -250,12 +246,6 @@ namespace Softjourn.SJCoins.Droid.UI.Activities
             {
                 layout?.RemoveView(FindViewById<View>(Resource.Id.categoryLayout));
             }
-        }
-
-        public void OnCreateErrorDialog(string message)
-        {
-            //base.OnCreateErrorDialog(message);
-            _swipeLayout.Refreshing = false;
         }
 
         public void SetAccountInfo(Account account)
