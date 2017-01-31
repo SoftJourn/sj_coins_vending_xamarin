@@ -11,6 +11,5 @@ namespace Softjourn.SJCoins.Core.UI.Presenters.IPresenters
         void Login(string userName, string password);
 
         void ToWelcomePage();
-
     }
 }

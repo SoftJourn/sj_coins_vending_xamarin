@@ -72,7 +72,7 @@ namespace Softjourn.SJCoins.Core.UI.Presenters
             string storedMachineId = Settings.SelectedMachineId;
             foreach (var machine in machinesList)
             {
-                if (machine.Id.Equals(storedMachineId))
+                if (machine.Id.ToString().Equals(storedMachineId))
                 {
                     return machine;
                 }

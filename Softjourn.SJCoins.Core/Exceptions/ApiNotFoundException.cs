@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Softjourn.SJCoins.Core.Exceptions
 {
-    class ApiNotFoundException : ApiException
+    public class ApiNotFoundException : ApiException
     {        
         public ApiNotFoundException(string message)
                 : base(message)
