@@ -176,13 +176,27 @@ namespace Softjourn.SJCoins.Core.UI.Presenters
             if (_balance >= product.IntPrice)
             {
                 View.ShowProgress(Resources.StringResources.progress_buying);
-                Amount leftAmount = await RestApiServise.BuyProductById(product.Id.ToString());
-                if (leftAmount != null)
+                try
+                {
+                    Amount leftAmount = await RestApiServise.BuyProductById(product.Id.ToString());
+                    if (leftAmount != null)
                 {
                     _balance = int.Parse(leftAmount.Balance);
                     View.SetUserBalance(leftAmount.Balance);
                 }
                 View.HideProgress();
+                }
+                catch (ApiNotAuthorizedException ex)
+                {
+                    View.HideProgress();
+                    AlertService.ShowToastMessage(ex.Message);
+                    NavigationService.NavigateToAsRoot(NavigationPage.Login);
+                }
+                catch (Exception ex)
+                {
+                    View.HideProgress();
+                    AlertService.ShowToastMessage(ex.Message);
+                }
             } else
             {
                 AlertService.ShowMessageWithUserInteraction("Error", Resources.StringResources.error_not_enough_money, Resources.StringResources.btn_title_ok, null);
