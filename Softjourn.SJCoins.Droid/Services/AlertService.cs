@@ -102,7 +102,7 @@ namespace Softjourn.SJCoins.Droid.Services
 
         // set the custom dialog components
         var text = confirmDialog.FindViewById<TextView>(Resource.Id.text);
-        text.Text = string.Format(context.GetString(Resource.String.dialog_msg_confirm_buy_product, product.Name, product.Price));
+        text.Text = string.Format(context.GetString(Resource.String.dialog_msg_confirm_buy_product, product.Name, product.IntPrice));
         var image = confirmDialog.FindViewById<ImageView>(Resource.Id.image);
         Picasso.With(context).Load(Const.UrlVendingService + product.ImageUrl).Into(image);
 
@@ -124,7 +124,7 @@ namespace Softjourn.SJCoins.Droid.Services
         {
             //if (product.Price > Int64.Parse(Settings.AccessToken))
             //{
-                ShowMessageWithUserInteraction(null, context.GetString(Resource.String.server_error_40901), null, null);
+            //    ShowMessageWithUserInteraction(null, context.GetString(Resource.String.server_error_40901), null, null);
             //}
             //else
             //{

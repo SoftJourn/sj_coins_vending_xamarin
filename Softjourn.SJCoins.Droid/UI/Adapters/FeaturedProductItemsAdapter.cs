@@ -115,7 +115,7 @@ namespace Softjourn.SJCoins.Droid.UI.Adapters
             bool isCurrentProductInMachine = true; //mDataManager.isSingleProductPresent(product.Id);
 
             holder.ProductName.Text = ListProducts[holder.AdapterPosition].Name;
-            holder.ProductPrice.Text = Java.Lang.String.ValueOf(product.Price) + _coins;
+            holder.ProductPrice.Text = Java.Lang.String.ValueOf(product.IntPrice) + _coins;
 
             if (holder.ProductDescription != null)
             {
