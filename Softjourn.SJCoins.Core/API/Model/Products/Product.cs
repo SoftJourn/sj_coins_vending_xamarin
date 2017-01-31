@@ -15,6 +15,8 @@ namespace Softjourn.SJCoins.Core.API.Model.Products
         [JsonProperty("price")]
         public float Price { get; set; }
 
+        public int IntPrice { get { return int.Parse(Price.ToString()); } }
+
         [JsonProperty("name")]
         public string Name { get; set; }
 

@@ -24,7 +24,7 @@ namespace Softjourn.SJCoins.Core.UI.Presenters
             View.ShowProgress(Resources.StringResources.progress_loading);
            try
             {
-                List<Machines> machinesList = await RestApiServise.GetMachinesList();
+                List<Machines> machinesList = await RestApiServise.GetMachinesListAsync();
                 View.HideProgress();                
                 if (machinesList != null && machinesList.Count != 0)
                 {
@@ -39,12 +39,15 @@ namespace Softjourn.SJCoins.Core.UI.Presenters
                 {
                     View.ShowNoMachineView(Resources.StringResources.error_msg_empty_machines_list);
                 }
-                
-            } catch (ApiException ex)
+
+            }
+            catch (ApiNotAuthorizedException ex)
             {
                 View.HideProgress();
                 AlertService.ShowToastMessage(ex.Message);
-            } catch (Exception ex)
+                NavigationService.NavigateToAsRoot(NavigationPage.Login);
+            }
+            catch (Exception ex)
             {
                 View.HideProgress();
                 AlertService.ShowToastMessage(ex.Message);
