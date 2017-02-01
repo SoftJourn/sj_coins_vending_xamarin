@@ -14,8 +14,6 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.Main
 	[Register("HomeViewController")]
 	public partial class HomeViewController : BaseViewController<HomePresenter>, IHomeView
 	{
-		private const string confirmTitle = "Confirm Purchase";
-
 		#region Properties
 		public List<Categories> categories { get; private set; }
 
@@ -76,15 +74,12 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.Main
 			// Save downloaded data and show them on view
 			categories = listCategories;
 			_dataSource.SetCategories(listCategories);
-
-			//CollectionView.ReloadData();
+			CollectionView.ReloadData();
 		}
 
 		//public void showPurchaseConfirmationDialog(Product product)
 		//{
-		//	string price = product.Price.ToString();
-		//	string confirmMessage = "Buy" + product.Name + "for the" + price + "coins";
-		//	new AlertService().ShowConfirmationDialog(confirmTitle, confirmMessage, null, null);
+		//	
 		//}
 		#endregion
 

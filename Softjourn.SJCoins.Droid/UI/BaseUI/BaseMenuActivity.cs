@@ -47,6 +47,7 @@ namespace Softjourn.SJCoins.Droid.UI.BaseUI
                 throw new IllegalStateException("Activity must have view with left_side_menu id");
             }
 
+            SetUpNavigationViewContent(_menuView);
             InitActionBarToggle();
             InitNavigationDrawer();
         }
@@ -86,7 +87,7 @@ namespace Softjourn.SJCoins.Droid.UI.BaseUI
             {
                 SetBalance(headerView);
                 SetUserName(headerView);
-                SetUpNavigationViewContent();
+                SetUpNavigationViewContent(_menuView);
             };
 
             headerView.SetBackgroundColor(new Color(ContextCompat.GetColor(this, Resource.Color.colorBlue)));
@@ -113,7 +114,7 @@ namespace Softjourn.SJCoins.Droid.UI.BaseUI
 
         public abstract void OnCategorySelected(IMenuItem item);
 
-        public abstract void SetUpNavigationViewContent();
+        public abstract void SetUpNavigationViewContent(NavigationView menuView);
 
 
         public override void OnConfigurationChanged(Configuration newConfig)

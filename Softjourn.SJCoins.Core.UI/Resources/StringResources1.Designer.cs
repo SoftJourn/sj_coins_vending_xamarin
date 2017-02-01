@@ -152,6 +152,15 @@ namespace Softjourn.SJCoins.Core.UI.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Not enough money!.
+        /// </summary>
+        public static string error_not_enough_money {
+            get {
+                return ResourceManager.GetString("error_not_enough_money", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to No Internet connection.
         /// </summary>
         public static string internet_turned_off {
@@ -206,191 +215,11 @@ namespace Softjourn.SJCoins.Core.UI.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Not clear request to server.
-        /// </summary>
-        public static string server_error_400 {
-            get {
-                return ResourceManager.GetString("server_error_400", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Something wrong with your authentication. Check your credentials.
-        /// </summary>
-        public static string server_error_401 {
-            get {
-                return ResourceManager.GetString("server_error_401", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Resource is not found.
-        /// </summary>
-        public static string server_error_404 {
-            get {
-                return ResourceManager.GetString("server_error_404", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to There is no machines.
-        /// </summary>
-        public static string server_error_40401 {
-            get {
-                return ResourceManager.GetString("server_error_40401", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to There is not such machine.
-        /// </summary>
-        public static string server_error_40402 {
-            get {
-                return ResourceManager.GetString("server_error_40402", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Data could not be downloaded. Please try again later.
-        /// </summary>
-        public static string server_error_40403 {
-            get {
-                return ResourceManager.GetString("server_error_40403", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Keep Calm! Chosen product is not available now. Please try to refresh products list.
-        /// </summary>
-        public static string server_error_40404 {
-            get {
-                return ResourceManager.GetString("server_error_40404", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Data could not be downloaded. Please try again later.
-        /// </summary>
-        public static string server_error_40405 {
-            get {
-                return ResourceManager.GetString("server_error_40405", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to There is no such product. Please try to refresh products list.
-        /// </summary>
-        public static string server_error_40406 {
-            get {
-                return ResourceManager.GetString("server_error_40406", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to There is no such product. Please try to refresh products list.
-        /// </summary>
-        public static string server_error_40407 {
-            get {
-                return ResourceManager.GetString("server_error_40407", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Unfortunately your History could not be downloaded.
-        /// </summary>
-        public static string server_error_40408 {
-            get {
-                return ResourceManager.GetString("server_error_40408", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Account is not correct and could not be found.
-        /// </summary>
-        public static string server_error_40409 {
-            get {
-                return ResourceManager.GetString("server_error_40409", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Could not find your amount. Please contact administrator.
-        /// </summary>
-        public static string server_error_40410 {
-            get {
-                return ResourceManager.GetString("server_error_40410", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to There is some conflict with data on the server.
-        /// </summary>
-        public static string server_error_409 {
-            get {
-                return ResourceManager.GetString("server_error_409", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Ooops… You have not enough money to buy product.
-        /// </summary>
-        public static string server_error_40901 {
-            get {
-                return ResourceManager.GetString("server_error_40901", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Product is already in favorites.
-        /// </summary>
-        public static string server_error_40902 {
-            get {
-                return ResourceManager.GetString("server_error_40902", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Product is not in favorites.
-        /// </summary>
-        public static string server_error_40903 {
-            get {
-                return ResourceManager.GetString("server_error_40903", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Machine is locked by queue. Try again later.
-        /// </summary>
-        public static string server_error_509 {
-            get {
-                return ResourceManager.GetString("server_error_509", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Right now machine is locked by queue. We know it&apos;s annoying. But please try again later.
-        /// </summary>
-        public static string server_error_50901 {
-            get {
-                return ResourceManager.GetString("server_error_50901", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Username or password is incorrect.
         /// </summary>
         public static string server_error_bad_username_or_password {
             get {
                 return ResourceManager.GetString("server_error_bad_username_or_password", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Unfortunately service is not available right now. Just try again later.
-        /// </summary>
-        public static string server_error_other {
-            get {
-                return ResourceManager.GetString("server_error_other", resourceCulture);
             }
         }
         

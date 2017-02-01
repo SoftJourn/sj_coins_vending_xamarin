@@ -1,10 +1,17 @@
 using System;
 using Android.App;
+using Android.Content;
+using Android.Graphics;
 using Android.Support.Design.Widget;
+using Android.Support.V4.Content;
 using Android.Views;
 using Android.Widget;
 using Plugin.CurrentActivity;
 using Softjourn.SJCoins.Core.UI.Services.Alert;
+using Softjourn.SJCoins.Core.API.Model.Products;
+using Softjourn.SJCoins.Core.Helpers;
+using Softjourn.SJCoins.Droid.Utils;
+using Square.Picasso;
 
 namespace Softjourn.SJCoins.Droid.Services
 {
@@ -12,7 +19,7 @@ namespace Softjourn.SJCoins.Droid.Services
     {
         public void ShowInformationDialog(string title, string msg, string btnName, Action btnClicked)
         {
-            CreateAlertDialog(title,msg, btnClicked,btnName);
+            CreateAlertDialog(title, msg, btnClicked, btnName);
         }
 
         public void ShowConfirmationDialog(string title, string msg, Action btnOkClicked, Action btnCancelClicked)
@@ -44,6 +51,11 @@ namespace Softjourn.SJCoins.Droid.Services
                         Snackbar.LengthLong);
                 snackbar.Show();
             });
+        }
+
+        public void ShowPurchaseConfirmationDialod(Product product, Action<Product> onPurchaseProductAction)
+        {
+            CreateConfirmationDialog(product, onPurchaseProductAction);
         }
 
         private void CreateAlertDialog(string title, string msg, Action btnClicked, string btnName = null)
@@ -79,5 +91,74 @@ namespace Softjourn.SJCoins.Droid.Services
                 dialog.Show();
             });
         }
+
+    private void CreateConfirmationDialog(Product product, Action<Product> onPurchaseProductAction)
+    {
+        var context = CrossCurrentActivity.Current.Activity;
+        var confirmDialog = new Dialog(context);
+            confirmDialog.Window.RequestFeature(WindowFeatures.NoTitle);
+            confirmDialog.Window.RequestFeature(WindowFeatures.SwipeToDismiss);
+            confirmDialog.SetContentView(Resource.Layout.confirm_dialog);
+
+        // set the custom dialog components
+        var text = confirmDialog.FindViewById<TextView>(Resource.Id.text);
+        text.Text = string.Format(context.GetString(Resource.String.dialog_msg_confirm_buy_product, product.Name, product.IntPrice));
+        var image = confirmDialog.FindViewById<ImageView>(Resource.Id.image);
+        Picasso.With(context).Load(Const.UrlVendingService + product.ImageUrl).Into(image);
+
+        if (!confirmDialog.IsShowing)
+        {
+                confirmDialog.Window.Attributes.WindowAnimations = Resource.Style.ConfirmDialogAnimation;
+                confirmDialog.Show();
+        }
+        var okButton = confirmDialog.FindViewById<Button>(Resource.Id.dialogButtonOK);
+        //if (product.Price > Int64.Parse(Settings.AccessToken))
+        //{
+        //    okButton.SetTextColor(new Color(ContextCompat.GetColor(context, Resource.Color.colorScreenBackground)));
+        //}
+        //else
+        //{
+            okButton.SetTextColor(new Color(ContextCompat.GetColor(context, Resource.Color.colorBlue)));
+        //}
+        okButton.Click += (sender, e) =>
+        {
+            //if (product.Price > Int64.Parse(Settings.AccessToken))
+            //{
+            //    ShowMessageWithUserInteraction(null, context.GetString(Resource.String.server_error_40901), null, null);
+            //}
+            //else
+            //{
+                onPurchaseProductAction.Invoke(product);
+                confirmDialog.Dismiss();
+            //}
+        };
+
+        var cancelButton = confirmDialog.FindViewById<Button>(Resource.Id.dialogButtonCancel);
+        cancelButton.Click += (sender, e) =>
+        {
+            confirmDialog.Dismiss();
+        };
+
+            confirmDialog.SetOnDismissListener(new OnDismissListener(() =>
+        {
+            confirmDialog.Dismiss();
+        }));
     }
+
+    private sealed class OnDismissListener : Java.Lang.Object, IDialogInterfaceOnDismissListener
+    {
+        private readonly Action _action;
+
+        public OnDismissListener(Action action)
+        {
+            this._action = action;
+        }
+
+        public void OnDismiss(IDialogInterface dialog)
+        {
+            this._action();
+        }
+    }
+
+}
 }

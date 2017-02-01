@@ -5,6 +5,7 @@ using System.Text;
 
 using Android.App;
 using Android.Content;
+using Android.Content.PM;
 using Android.OS;
 using Android.Runtime;
 using Android.Support.V4.Widget;
@@ -18,7 +19,7 @@ using Softjourn.SJCoins.Droid.ui.baseUI;
 
 namespace Softjourn.SJCoins.Droid.UI.Activities
 {
-    [Activity(Label = "Select Machine", Theme = "@style/AppTheme")]
+    [Activity(Label = "Select Machine", Theme = "@style/AppTheme", ScreenOrientation = ScreenOrientation.Portrait)]
     public class SelectMachineActivity : BaseActivity<SelectMachinePresenter>, ISelectMachineView
     {
 

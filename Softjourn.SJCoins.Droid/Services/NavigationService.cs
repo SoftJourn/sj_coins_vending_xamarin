@@ -33,7 +33,7 @@ namespace Softjourn.SJCoins.Droid.Services
             try
             {
                 data = JsonConvert.SerializeObject(navigationParams);
-                view.PutExtra(utils.Const.NavigationKey, data);
+                view.PutExtra(Utils.Const.NavigationKey, data);
             }
             catch { }
             return view;
@@ -54,6 +54,9 @@ namespace Softjourn.SJCoins.Droid.Services
                     view = new Intent(CrossCurrentActivity.Current.Activity, typeof(WelcomeActivity));
                     break;
                 case NavigationPage.SelectMachine:
+                    view = new Intent(CrossCurrentActivity.Current.Activity, typeof(SelectMachineActivity));
+                    break;
+                case NavigationPage.Settings:
                     view = new Intent(CrossCurrentActivity.Current.Activity, typeof(SelectMachineActivity));
                     break;
                 default:

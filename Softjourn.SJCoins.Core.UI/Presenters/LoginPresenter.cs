@@ -49,7 +49,7 @@ namespace Softjourn.SJCoins.Core.UI.Presenters
                     
                     try
                     {
-                        await RestApiServise.MakeLoginRequest(userName, password);
+                        await RestApiServise.MakeLoginRequestAsync(userName, password);
                         NavigationService.NavigateToAsRoot(NavigationPage.SelectMachine);
                         View.HideProgress();
                     }

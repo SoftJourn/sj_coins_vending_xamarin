@@ -1,5 +1,6 @@
 using System;
 using Android.App;
+using Android.Content.PM;
 using Android.OS;
 using Android.Views;
 using Android.Widget;
@@ -10,7 +11,7 @@ using Softjourn.SJCoins.Droid.ui.baseUI;
 
 namespace Softjourn.SJCoins.Droid.UI.Activities
 {
-    [Activity(Label = "SomeLabel", Theme = "@style/NoActionBarLoginTheme")]
+    [Activity(Label = "SomeLabel", Theme = "@style/NoActionBarLoginTheme", ScreenOrientation = ScreenOrientation.Portrait)]
     public class LoginActivity : BaseActivity<LoginPresenter>, ILoginView
     {
 

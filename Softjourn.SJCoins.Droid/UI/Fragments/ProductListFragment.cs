@@ -36,9 +36,9 @@ namespace Softjourn.SJCoins.Droid.UI.Fragments
         TextView _noProductsInCategory;
 
 
-        public static ProductListFragment NewInstance(string category, int? headers, int? container)
+        public static ProductListFragment NewInstance(string category, int? headers, int? container, List<Product> productList)
         {
-            Bundle bundle = new Bundle();
+            var bundle = new Bundle();
             bundle.PutString(TagProductsCategory, category);
             bundle.PutString("HEADER", Java.Lang.String.ValueOf(headers));
             var fragment = new ProductListFragment { Arguments = bundle };

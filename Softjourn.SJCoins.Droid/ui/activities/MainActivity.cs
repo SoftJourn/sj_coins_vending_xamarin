@@ -1,25 +1,25 @@
 
+using System;
 using System.Collections.Generic;
 using Android.App;
+using Android.Content.PM;
 using Android.OS;
 using Android.Support.Design.Widget;
 using Android.Support.V4.Widget;
-using Android.Support.V7.App;
-using Android.Text;
 using Android.Views;
 using Android.Widget;
 using Softjourn.SJCoins.Core.API.Model.AccountInfo;
 using Softjourn.SJCoins.Core.API.Model.Products;
 using Softjourn.SJCoins.Core.UI.Presenters;
 using Softjourn.SJCoins.Core.UI.ViewInterfaces;
-using Softjourn.SJCoins.Droid.ui.baseUI;
 using Softjourn.SJCoins.Droid.utils;
 using Softjourn.SJCoins.Droid.UI.BaseUI;
 using Softjourn.SJCoins.Droid.UI.Fragments;
+using Softjourn.SJCoins.Droid.Utils;
 
 namespace Softjourn.SJCoins.Droid.UI.Activities
 {
-    [Activity(Label = "Vending Machine", Theme = "@style/AppThemeForCustomToolbar")]
+    [Activity(Theme = "@style/AppThemeForCustomToolbar", ScreenOrientation = ScreenOrientation.Portrait)]
     public class MainActivity : BaseMenuActivity<HomePresenter>, IHomeView
     {
 
@@ -27,6 +27,7 @@ namespace Softjourn.SJCoins.Droid.UI.Activities
         private int _viewCounter = 0;
         private View _headerView;
         private Account _account;
+        private List<Categories> _listCategories;
         private TextView _balance;
 
         protected override void OnCreate(Bundle savedInstanceState)
@@ -36,17 +37,18 @@ namespace Softjourn.SJCoins.Droid.UI.Activities
 
             _menuLayout = FindViewById<DrawerLayout>(Resource.Id.drawer_layout);
             _menuView = FindViewById<NavigationView>(Resource.Id.left_side_menu);
-
+   
             _swipeLayout = FindViewById<SwipeRefreshLayout>(Resource.Id.swipe_container);
-            _swipeLayout.SetColorSchemeColors(Resource.Color.colorAccent);
+            _swipeLayout.SetColorSchemeResources(Resource.Color.colorAccent);
+            _swipeLayout.Refresh += OnRefresh;
 
             var toolbar = FindViewById<Android.Support.V7.Widget.Toolbar>(Resource.Id.toolbar_base);
             SetSupportActionBar(toolbar);
 
+            _balance = FindViewById<TextView>(Resource.Id.balance);
+
             _swipeLayout.Refreshing = true;
             ViewPresenter.OnStartLoadingPage();
-
-            Title = "Vending Machine";
         }
 
         public override bool OnOptionsItemSelected(IMenuItem item)
@@ -57,7 +59,7 @@ namespace Softjourn.SJCoins.Droid.UI.Activities
                     _menuLayout.OpenDrawer(Android.Support.V4.View.GravityCompat.Start);
                     return true;
                 case Resource.Id.select_machine:
-                    //ViewPresenter.getMachinesList();
+                    ViewPresenter.OnSettingsButtonClick();
                     return true;
                 default:
                     return base.OnOptionsItemSelected(item);
@@ -65,30 +67,22 @@ namespace Softjourn.SJCoins.Droid.UI.Activities
         }
 
 
-        public void OnRefresh()
+        public void OnRefresh(object sender, EventArgs e)
         {
-            if (TextUtils.IsEmpty(Preferences.RetrieveStringObject(Const.SelectedMachineId)))
-            {
-                ShowToastMessage(GetString(Resource.String.machine_not_selected_toast));
-                _swipeLayout.Refreshing = false;
-            }
-            else
-            {
-                RemoveContainers();
-                //LoadProductList();
-            }
+            RemoveContainers();
+            ViewPresenter.OnRefresh();
         }
 
         public override void SetBalance(View headerView)
         {
             var userBalanceView = headerView.FindViewById<TextView>(Resource.Id.user_balance);
-            userBalanceView.Text = _account.Name + " " + _account.Surname ?? (string) "";
+            userBalanceView.Text = _account != null ? _account.Amount.ToString() : "";
         }
 
         public override void SetUserName(View headerView)
         {
             var userNameView = headerView.FindViewById<TextView>(Resource.Id.menu_user_name);
-            userNameView.Text = _account.Amount.ToString() ?? (string)"";
+            userNameView.Text = _account != null ? _account.Name + " " + _account.Surname : "";
         }
 
         public override bool HandleNavigation(IMenuItem item)
@@ -142,36 +136,42 @@ namespace Softjourn.SJCoins.Droid.UI.Activities
             //NavigationUtils.GoToSeeAllActivity(this, item.TitleFormatted.ToString());
         }
 
-        public override void SetUpNavigationViewContent()
+        public override void SetUpNavigationViewContent(NavigationView menuView)
         {
-            //LeftSideMenuController leftSideMenuController = new LeftSideMenuController(mMenuView);
-            //leftSideMenuController.unCheckAllMenuItems(mMenuView);
-            //leftSideMenuController.addCategoriesToMenu(getMenu(), mVendingPresenter.getCategories());
+            var leftSideMenuController = new LeftSideMenuController(menuView);
+            leftSideMenuController.UnCheckAllMenuItems(menuView);
+            if (_listCategories != null)
+            {
+                leftSideMenuController.AddCategoriesToMenu(GetMenu(), _listCategories);
+            }
         }
 
-        public new void HideProgress()
+        public override void ShowProgress(string message)
+        {
+            _swipeLayout.Refreshing = true;
+        }
+
+        public override void HideProgress()
         {
             base.HideProgress();
             _swipeLayout.Refreshing = false;
         }
 
-        private void AttachFragment(string categoryName, int headerId, int containerId, int seeAllId)
+        private void AttachFragment(string categoryName, int headerId, int containerId, int seeAllId, List<Product> listProducts )
         {
             FragmentManager.BeginTransaction()
-                .Replace(containerId, ProductListFragment.NewInstance(categoryName, headerId, containerId),
+                .Replace(containerId, ProductListFragmentVending.NewInstance(categoryName, headerId, containerId, listProducts),
                  Preferences.RetrieveStringObject(categoryName.ToUpper()))
                 .Commit();
         }
 
-        public void CreateCategory(string categoryName)
+        public void CreateCategory(string categoryName, List<Product> listProducts)
         {
             _viewCounter++;
 
             var mainLayout = FindViewById<LinearLayout>(Resource.Id.layout_root);
 
-            var inflater = Application.Context.GetSystemService(LayoutInflaterService) as LayoutInflater;
-
-            var ll = (LinearLayout)inflater.Inflate(Resource.Layout.category_header_layout, null);
+            var ll = LayoutInflater.Inflate(Resource.Layout.category_header_layout, null) as LinearLayout;
 
             mainLayout?.AddView(ll);
 
@@ -210,7 +210,7 @@ namespace Softjourn.SJCoins.Droid.UI.Activities
 
             if (llHeader != null && llContainer != null && tvSeeAll != null)
             {
-                //AttachFragment(categoryName, llHeader.Id, llContainer.Id, tvSeeAll.Id);
+                AttachFragment(categoryName, llHeader.Id, llContainer.Id, tvSeeAll.Id, listProducts);
             }
         }
 
@@ -248,38 +248,41 @@ namespace Softjourn.SJCoins.Droid.UI.Activities
             }
         }
 
-        public void OnCreateErrorDialog(string message)
-        {
-            //base.OnCreateErrorDialog(message);
-            _swipeLayout.Refreshing = false;
-        }
-
         public void SetAccountInfo(Account account)
         {
-            _account = account
+            _account = account;
+            _balance.Visibility = ViewStates.Visible;
+            _balance.Text = string.Format(GetString(Resource.String.your_balance_is, account.Amount));
         }
 
         public void SetUserBalance(string balance)
         {
-            //throw new System.NotImplementedException();
+            _balance.Visibility = ViewStates.Visible;
+            _balance.Text = string.Format(GetString(Resource.String.your_balance_is, balance));
         }
 
         public void SetMachineName(string name)
         {
-            //throw new System.NotImplementedException();
+            SupportActionBar.Title = name;
         }
 
         public void ShowProducts(List<Categories> listCategories)
         {
+            _listCategories = listCategories;
             foreach (var category in listCategories)
             {
-                CreateCategory(category.Name);
+                CreateCategory(category.Name, category.Products);
             }
         }
 
-        public void showPurchaseConfirmationDialog(Product product)
+        public void ShowPurchaseConfirmationDialog(Product product)
         {
             //throw new System.NotImplementedException();
+        }
+
+        public void Purchase(Product product)
+        {
+            ViewPresenter.OnProductClick(product);
         }
     }
 }

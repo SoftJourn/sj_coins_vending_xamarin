@@ -10,15 +10,15 @@ namespace Softjourn.SJCoins.Core.API.Model
     public class BadResponse
     {
         [JsonProperty("title")]
-        public int Title { get; set; }
+        public string Title { get; set; }
 
         [JsonProperty("detail")]
-        public int Detail { get; set; }
+        public string Detail { get; set; }
 
         [JsonProperty("code")]
         public int Code { get; set; }
 
         [JsonProperty("developerMessage")]
-        public int DeveloperMessage { get; set; }
+        public string DeveloperMessage { get; set; }
     }
 }

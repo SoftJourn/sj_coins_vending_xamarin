@@ -47,7 +47,6 @@
                     <View
                         style="@style/VendingActivitySplitter"
                         android:layout_marginBottom="@dimen/activity_vertical_margin" />
-                 
                 </LinearLayout>
             </ScrollView>
         </android.support.v4.widget.SwipeRefreshLayout>

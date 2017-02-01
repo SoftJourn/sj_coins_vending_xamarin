@@ -1,4 +1,5 @@
 ﻿using System;
+using Softjourn.SJCoins.Core.API.Model.Products;
 using Softjourn.SJCoins.Core.UI.Services.Alert;
 using UIKit;
 
@@ -6,6 +7,8 @@ namespace Softjourn.SJCoins.iOS.UI.Services
 {
 	public class AlertService : IAlertService
 	{
+		private const string confirmTitle = "Confirm Purchase";
+
 		private AppDelegate _currentApplicationDelegate;
 
 		public AlertService()
@@ -37,6 +40,17 @@ namespace Softjourn.SJCoins.iOS.UI.Services
 			// Present information alert with one botton
 			PresentAlert(null, msg, null, null, UIAlertActionStyle.Default, null, null);
 		}
+
+		public void ShowPurchaseConfirmationDialod(Product product, Action<Product> onPurchaseProductAction)
+		{
+			// Present purchace confirmation alert with two buttons
+			string price = product.Price.ToString();
+			string confirmMessage = "Buy" + product.Name + "for the" + price + "coins";
+
+
+			//PresentAlert(confirmTitle, confirmMessage, "Confirm", "Cancel", UIAlertActionStyle.Default, onPurchaseProductAction(product => ), null);
+		}
+
 		#endregion
 
 		public void ShowActionSheet(string title, string message, string[] items, Action[] itemActions,

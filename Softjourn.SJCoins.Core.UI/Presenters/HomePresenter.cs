@@ -1,5 +1,6 @@
 ﻿using Softjourn.SJCoins.Core.API.Model.AccountInfo;
 using Softjourn.SJCoins.Core.API.Model.Products;
+using Softjourn.SJCoins.Core.Exceptions;
 using Softjourn.SJCoins.Core.Helpers;
 using Softjourn.SJCoins.Core.UI.Services.Navigation;
 using Softjourn.SJCoins.Core.UI.ViewInterfaces;
@@ -13,6 +14,8 @@ namespace Softjourn.SJCoins.Core.UI.Presenters
 {
     public class HomePresenter : BasePresenter<IHomeView>
     {
+        private int _balance;
+
         public HomePresenter()
         {
 
@@ -25,33 +28,54 @@ namespace Softjourn.SJCoins.Core.UI.Presenters
 
         public async void OnStartLoadingPage()
         {
-            View.ShowProgress(Resources.StringResources.progress_loading);
-            Account userAccount = await RestApiServise.GetUserAccountAsync();
-            View.SetAccountInfo(userAccount);
-            View.SetMachineName(Settings.SelectedMachineName);
-            List<Product> favoritesList = await RestApiServise.GetFavoritesList();
-            List<Categories> productCategoriesList = new List<Categories>();
-
-            // add favorites category to result list if favorites exists
-            if (favoritesList != null && favoritesList.Count > 0)
+            try
             {
-                Categories favoriteCategory = new Categories();
-                favoriteCategory.Name = "Favorites";
-                favoriteCategory.Products = favoritesList;
-                productCategoriesList.Add(favoriteCategory);
-            }
+                View.ShowProgress(Resources.StringResources.progress_loading);
+                Account userAccount = await RestApiServise.GetUserAccountAsync();
+                _balance = userAccount.Amount;
+                View.SetAccountInfo(userAccount);
+                View.SetMachineName(Settings.SelectedMachineName);
+                List<Product> favoritesList = await RestApiServise.GetFavoritesList();
+                List<Categories> productCategoriesList = new List<Categories>();
 
-            Featured featuredProducts = await RestApiServise.GetFeaturedProducts();
+                // add favorites category to result list if favorites exists
+                if (favoritesList != null && favoritesList.Count > 0)
+                {
+                    Categories favoriteCategory = new Categories();
+                    favoriteCategory.Name = "Favorites";
+                    favoriteCategory.Products = favoritesList;
+                    productCategoriesList.Add(favoriteCategory);
+                }
 
-            List<Categories> featuredCategoriesList = GetCategoriesListFromFeaturedProduct(featuredProducts);
+                Featured featuredProducts = await RestApiServise.GetFeaturedProductsAsync();
 
-            if (featuredCategoriesList != null && featuredCategoriesList.Count > 0)
+                List<Categories> featuredCategoriesList = GetCategoriesListFromFeaturedProduct(featuredProducts);
+
+                if (featuredCategoriesList != null && featuredCategoriesList.Count > 0)
+                {
+                    // add to result array category which products list are not empty
+                    foreach (var category in featuredCategoriesList)
+                    {
+                        if (category.Products != null && category.Products.Count > 0)
+                        {
+                            productCategoriesList.Add(category);
+                        }
+                    }                        
+                }
+
+                View.ShowProducts(productCategoriesList);
+                View.HideProgress();
+            } catch (ApiNotAuthorizedException ex)
             {
-                productCategoriesList.AddRange(featuredCategoriesList);
+                View.HideProgress();
+                AlertService.ShowToastMessage(ex.Message);
+                NavigationService.NavigateToAsRoot(NavigationPage.Login);
             }
-
-            View.ShowProducts(productCategoriesList);
-            View.HideProgress();
+            catch (Exception ex)
+            {
+                View.HideProgress();
+                AlertService.ShowToastMessage(ex.Message);
+            }
         }
 
         // get list with all categories from featured product. 
@@ -140,6 +164,7 @@ namespace Softjourn.SJCoins.Core.UI.Presenters
             NavigationService.NavigateTo(NavigationPage.Settings);
         }
 
+        // show purchase dialog with proposal to purchase product
         public void OnProductClick(Product product)
         {
             Action<Product> OnPurchaseAction = new Action<Product>(OnProductPurchased);
@@ -147,15 +172,44 @@ namespace Softjourn.SJCoins.Core.UI.Presenters
             AlertService.ShowPurchaseConfirmationDialod(product, OnPurchaseAction);
         }
 
+        // check is balance enough and make purchase
         private async void OnProductPurchased(Product product)
         {
-            View.ShowProgress(Resources.StringResources.progress_buying);
-            Amount leftAmount = await RestApiServise.BuyProductById(product.Id.ToString());
-            if (leftAmount != null)
+            if (_balance >= product.IntPrice)
             {
-                View.SetUserBalance(leftAmount.Balance);
+                View.ShowProgress(Resources.StringResources.progress_buying);
+                try
+                {
+                    Amount leftAmount = await RestApiServise.BuyProductById(product.Id.ToString());
+                    if (leftAmount != null) // them set new balance amount
+                {
+                    _balance = int.Parse(leftAmount.Balance);
+                    View.SetUserBalance(leftAmount.Balance);
+                }
+                    View.HideProgress();
+                    AlertService.ShowMessageWithUserInteraction("Purchase", Resources.StringResources.activity_product_take_your_order_message, Resources.StringResources.btn_title_ok, null);
+                }
+
+                catch (ApiNotAuthorizedException ex)
+                {
+                    View.HideProgress();
+                    AlertService.ShowToastMessage(ex.Message);
+                    NavigationService.NavigateToAsRoot(NavigationPage.Login);
+                }
+                catch (ApiNotFoundException ex)
+                {
+                    View.HideProgress();
+                    AlertService.ShowMessageWithUserInteraction("Error", ex.Message, Resources.StringResources.btn_title_ok, null);
+                }
+                catch (Exception ex)
+                {
+                    View.HideProgress();
+                    AlertService.ShowToastMessage(ex.Message);
+                }
+            } else
+            {
+                AlertService.ShowMessageWithUserInteraction("Error", Resources.StringResources.error_not_enough_money, Resources.StringResources.btn_title_ok, null);
             }
-            View.HideProgress();
         }
     }
 }

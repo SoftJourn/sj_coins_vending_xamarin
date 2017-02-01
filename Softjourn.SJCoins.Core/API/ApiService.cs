@@ -25,62 +25,62 @@ namespace Softjourn.SJCoins.Core.API
 
         }
 
-        public async Task<Session> MakeLoginRequest(string userName, string password)
+        public async Task<Session> MakeLoginRequestAsync(string userName, string password)
         {
-            return await ApiClient.MakeLoginRequest(userName, password);
+            return await ApiClient.MakeLoginRequestAsync(userName, password);
         }
 
-        public async Task<EmptyResponse> RevokeToken()
+        public async Task<EmptyResponse> RevokeTokenAsync()
         {
             return await ApiClient.RevokeToken();
         }
 
-        public async Task<List<Machines>> GetMachinesList()
+        public async Task<List<Machines>> GetMachinesListAsync()
         {
-            return await ApiClient.GetMachinesList();
+            return await ApiClient.GetMachinesListAsync();
         }
 
-        public async Task<Machines> GetMachineById(string machineId)
+        public async Task<Machines> GetMachineByIdAsync(string machineId)
         {
-            return await ApiClient.GetMachineById(machineId);
+            return await ApiClient.GetMachineByIdAsync(machineId);
         }
 
-        public async Task<Featured> GetFeaturedProducts()
+        public async Task<Featured> GetFeaturedProductsAsync()
         {
             string machineId = Settings.SelectedMachineId;
-            return await ApiClient.GetFeaturedProducts(machineId);
+            return await ApiClient.GetFeaturedProductsAsync(machineId);
         }
 
         public async Task<List<Product>> GetProductsList()
         {
             string machineId = Settings.SelectedMachineId;
-            return await ApiClient.GetProductsList(machineId);
+            return await ApiClient.GetProductsListAsync(machineId);
         }
 
         public async Task<Amount> BuyProductById(string productId)
         {
             string machineId = Settings.SelectedMachineId;
-            return await ApiClient.BuyProductById(machineId, productId);
+            return await ApiClient.BuyProductByIdAsync(machineId, productId);
         }
 
         public async Task<List<Product>> GetFavoritesList()
         {
-            return await ApiClient.GetFavoritesList();
+            return await ApiClient.GetFavoritesListAsync();
         }
 
         public async Task<EmptyResponse> AddProductToFavorites(string productId)
         {
-            return await ApiClient.AddProductToFavorites(productId);
+            return await ApiClient.AddProductToFavoritesAsync(productId);
         }
 
         public async Task<EmptyResponse> RemoveProductFromFavorites(string productId)
         {
-            return await ApiClient.RemoveProductFromFavorites(productId);
+            return await ApiClient.RemoveProductFromFavoritesAsync(productId);
         }
 
         public async Task<List<History>> GetPurchaseHistory()
         {
-            return await ApiClient.GetPurchaseHistory();
+            return await ApiClient.GetPurchaseHistoryAsync();
         }
 
         public async Task<Account> GetUserAccountAsync()
