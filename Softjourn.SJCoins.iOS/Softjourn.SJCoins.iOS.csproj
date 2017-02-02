@@ -112,6 +112,9 @@
     <Reference Include="BTProgressHUD">
       <HintPath>..\packages\BTProgressHUD.1.2.0.3\lib\Xamarin.iOS10\BTProgressHUD.dll</HintPath>
     </Reference>
+    <Reference Include="SDWebImage">
+      <HintPath>..\packages\Xamarin.SDWebImage.3.7.5\lib\Xamarin.iOS\SDWebImage.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Softjourn.SJCoins.Core\Softjourn.SJCoins.Core.csproj">
@@ -209,7 +212,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Resources\" />
-    <Folder Include="PlatformServices\" />
     <Folder Include="Assets.xcassets\vending_logo.imageset\" />
     <Folder Include="Assets.xcassets\InfoCoinsLogo.imageset\" />
     <Folder Include="Assets.xcassets\InfoBuyLogo.imageset\" />

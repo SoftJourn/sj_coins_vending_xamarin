@@ -15,10 +15,9 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.Main
 	public partial class HomeViewController : BaseViewController<HomePresenter>, IHomeView
 	{
 		#region Properties
-		public List<Categories> categories { get; private set; }
+		public List<Categories> Categories { get; private set; } = new List<Categories>();
 
 		private HomeViewControllerDataSource _dataSource;
-		private Account _account;
 		#endregion
 
 		#region Constructor
@@ -72,15 +71,10 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.Main
 		public void ShowProducts(List<Categories> listCategories)
 		{
 			// Save downloaded data and show them on view
-			categories = listCategories;
-			_dataSource.SetCategories(listCategories);
+			Categories = listCategories;
+			_dataSource.Categories = listCategories;
 			CollectionView.ReloadData();
 		}
-
-		//public void showPurchaseConfirmationDialog(Product product)
-		//{
-		//	
-		//}
 		#endregion
 
 		#region BaseViewController -> IBaseView implementation
@@ -105,6 +99,7 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.Main
 
 		private UIView ConfigureVendingMachinesHeader()
 		{
+			// Customize header view
 			UIView view = new UIView();
 			UILabel label = new UILabel(frame: new CGRect(x: 25, y: 15, width: 300, height: 20));
 			label.TextAlignment = UITextAlignment.Left;
@@ -126,10 +121,10 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.Main
 
 		private void ConfigureCollectionView()
 		{
-			_dataSource = new HomeViewControllerDataSource(categories);
+			_dataSource = new HomeViewControllerDataSource();
 
-			CollectionView.Source = _dataSource;
-			CollectionView.Delegate = new HomeViewControllerDelegate(this);
+			CollectionView.DataSource = _dataSource;
+			CollectionView.Delegate = new HomeViewControllerDelegateFlowLayout(this);
 			CollectionView.AlwaysBounceVertical = true;
 		}
 
@@ -145,63 +140,50 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.Main
 	}
 
 	#region UICollectionViewSource implementation
-	public class HomeViewControllerDataSource : UICollectionViewSource
+	public class HomeViewControllerDataSource : UICollectionViewDataSource
 	{
-		private List<Categories> _categories;
+		public List<Categories> Categories { get; set; } = new List<Categories>();
 
-		public HomeViewControllerDataSource(List<Categories> categories)
+		public override nint NumberOfSections(UICollectionView collectionView) => 1;
+
+		public override nint GetItemsCount(UICollectionView collectionView, nint section)
 		{
-			_categories = categories;
+			return Categories.Count;
 		}
 
-		public void SetCategories(List<Categories> categories)
+		public override UICollectionViewCell GetCell(UICollectionView collectionView, NSIndexPath indexPath) 
 		{
-			_categories = categories;
-		}
-
-		public override nint NumberOfSections(UICollectionView collectionView) => _categories == null ? 0 : _categories.Count;
-
-		public override UICollectionViewCell GetCell(UICollectionView collectionView, NSIndexPath indexPath) => collectionView.DequeueReusableCell(HomeCell.Key, indexPath) as UICollectionViewCell;
-	}
-	#endregion
-
-	#region UICollectionViewDelegate implementation
-	public class HomeViewControllerDelegate : UICollectionViewDelegate
-	{
-		private HomeViewController parent;
-
-		public HomeViewControllerDelegate(HomeViewController parent)
-		{
-			this.parent = parent;
-		}
-
-		public override void WillDisplayCell(UICollectionView collectionView, UICollectionViewCell cell, NSIndexPath indexPath)
-		{
-			var _cell = cell as HomeCell;
-			var category = parent.categories[indexPath.Row];
-			{
-				// if (category.name == favorite)
-				// {
-				//	configure cell with name unavailable items etc.	
-				// }
-
-				// Create delegate object with event and throw it to cell
-				var _delegate = new HomeCellDelegate(category.Products);
-				_delegate.ItemSelectedEvent -= parent.OnItemSelected;
-				_delegate.ItemSelectedEvent -= parent.OnItemSelected;
-
-				_cell.ConfigureWith(category, _delegate);
-			}
+			return (UICollectionViewCell)collectionView.DequeueReusableCell(HomeCell.Key, indexPath);
 		}
 	}
+	
 	#endregion
 
 	#region UICollectionViewDelegateFlowLayout implementation
 	public class HomeViewControllerDelegateFlowLayout : UICollectionViewDelegateFlowLayout
 	{
 		private const int cellHeight = 180;
+		private HomeViewController parent;
+
+		public HomeViewControllerDelegateFlowLayout(HomeViewController parent)
+		{
+			this.parent = parent;
+		}
 
 		public override CGSize GetSizeForItem(UICollectionView collectionView, UICollectionViewLayout layout, NSIndexPath indexPath) => new CGSize(collectionView.Bounds.Width, cellHeight);
+
+		public override void WillDisplayCell(UICollectionView collectionView, UICollectionViewCell cell, NSIndexPath indexPath)
+		{
+			var _cell = (HomeCell)cell;
+			var category = parent.Categories[indexPath.Row];
+
+			// Create delegateobject with event and throw it to cell
+			var _delegate = new HomeCellDelegate(category.Products);
+			_delegate.ItemSelectedEvent -= parent.OnItemSelected;
+			_delegate.ItemSelectedEvent += parent.OnItemSelected;
+
+			_cell.ConfigureWith(category, _delegate);
+		}
 	}
 	#endregion
 }

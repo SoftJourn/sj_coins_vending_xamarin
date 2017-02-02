@@ -20,23 +20,22 @@ namespace Softjourn.SJCoins.iOS
 
 		protected HomeCell(IntPtr handle) : base(handle)
 		{
-			// Note: this .ctor should not contain any initialization logic.
 		}
 
-		public void ConfigureWith(Categories category, HomeCellDelegate del)
+		public void ConfigureWith(Categories category, HomeCellDelegate _delegate)
 		{
 			// Save and set category name
 			categoryName = category.Name;
 			CategoryNameLabel.Text = category.Name;
 
-			InternalCollectionView.Source = new HomeCellDataSource(category.Products);
-			InternalCollectionView.Delegate = del;
+			InternalCollectionView.DataSource = new HomeCellDataSource(category.Products);
+			InternalCollectionView.Delegate = _delegate;
 			InternalCollectionView.ReloadData();
 		}
 	}
 
 	#region UICollectionViewSource implementation
-	public class HomeCellDataSource : UICollectionViewSource
+	public class HomeCellDataSource : UICollectionViewDataSource
 	{
 		private List<Product> _products;
 
@@ -45,9 +44,9 @@ namespace Softjourn.SJCoins.iOS
 			_products = products;
 		}
 
-		public override nint NumberOfSections(UICollectionView collectionView) => _products == null ? 0 : _products.Count;
+		public override nint GetItemsCount(UICollectionView collectionView, nint section) => _products == null ? 0 : _products.Count;
 
-		public override UICollectionViewCell GetCell(UICollectionView collectionView, NSIndexPath indexPath) => collectionView.DequeueReusableCell(HomeInternalCell.Key, indexPath) as UICollectionViewCell;
+		public override UICollectionViewCell GetCell(UICollectionView collectionView, NSIndexPath indexPath) => (UICollectionViewCell)collectionView.DequeueReusableCell(HomeInternalCell.Key, indexPath);
 	}
 
 	#endregion

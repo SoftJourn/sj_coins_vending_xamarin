@@ -45,9 +45,9 @@ namespace Softjourn.SJCoins.iOS.UI.Services
 		{
 			// Present purchace confirmation alert with two buttons
 			string price = product.Price.ToString();
-			string confirmMessage = "Buy" + product.Name + "for the" + price + "coins";
+			string confirmMessage = "Buy " + product.Name + " for the " + price + " coins";
 
-
+			Console.WriteLine(confirmMessage);
 			//PresentAlert(confirmTitle, confirmMessage, "Confirm", "Cancel", UIAlertActionStyle.Default, onPurchaseProductAction(product => ), null);
 		}
 
