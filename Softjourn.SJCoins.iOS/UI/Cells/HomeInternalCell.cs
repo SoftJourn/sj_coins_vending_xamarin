@@ -4,6 +4,7 @@ using Foundation;
 using Softjourn.SJCoins.Core.API.Model.Products;
 using UIKit;
 using SDWebImage;
+using Softjourn.SJCoins.Core.Utils;
 
 namespace Softjourn.SJCoins.iOS
 {
@@ -27,8 +28,7 @@ namespace Softjourn.SJCoins.iOS
 			// Set outlets
 			NameLabel.Text = product.Name;
 			PriceLabel.Text = product.Price.ToString() + " coins";
-
-			Logo.SetImage(url: new NSUrl("https://vending.softjourn.if.ua/api/vending/v1/"+product.ImageUrl), placeholder: UIImage.FromBundle("Placeholder.png"));
+			Logo.SetImage(url: new NSUrl(Const.BaseUrl+Const.UrlVendingService+product.ImageUrl), placeholder: UIImage.FromBundle("Placeholder.png"));
 		}
 	}
 }
