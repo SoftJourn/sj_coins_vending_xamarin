@@ -9,18 +9,23 @@ using Softjourn.SJCoins.Core.UI.ViewInterfaces;
 using Softjourn.SJCoins.Core.UI.Services.Navigation;
 using Softjourn.SJCoins.Core.UI.Services.Alert;
 using Softjourn.SJCoins.Core.API;
+using Autofac;
+using Softjourn.SJCoins.Core.UI.Bootstrapper;
+using Softjourn.SJCoins.Core.Managers;
 
 namespace Softjourn.SJCoins.Core.UI.Presenters
 {
     public class BasePresenter<TView> : IBasePresenter where TView : class, IBaseView
     {
+		#region Properties
+		protected ILifetimeScope _scope;
+		protected DataManager dataManager;
 
-        public INavigationService NavigationService
+		public INavigationService NavigationService
         {
             get; set;
         }
 
-      
         public IAlertService AlertService
         {
             get; set;
@@ -30,15 +35,20 @@ namespace Softjourn.SJCoins.Core.UI.Presenters
         {
             get; set;
         }
+		#endregion
 
-        public BasePresenter()
+		#region Constructor
+		public BasePresenter()
         {
-            
+			// Take container and resolve DataManager 
+			_scope = BaseBootstrapper.Container.BeginLifetimeScope();
+			dataManager = _scope.Resolve<DataManager>();
         }
+		#endregion
 
-        #region View
+		#region View
 
-        protected TView View { get; set; }
+		protected TView View { get; set; }
 
         public void AttachView(IBaseView view)
         {
