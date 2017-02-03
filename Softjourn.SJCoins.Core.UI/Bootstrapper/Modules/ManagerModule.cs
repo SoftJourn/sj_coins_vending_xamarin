@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Softjourn.SJCoins.Core.Managers;
 
 namespace Softjourn.SJCoins.Core.UI.Bootstrapper.Modules
 {
@@ -12,7 +13,7 @@ namespace Softjourn.SJCoins.Core.UI.Bootstrapper.Modules
     {
         protected override void Load(ContainerBuilder builder)
         {
-            
+			builder.RegisterType<DataManager>().SingleInstance();
         }
     }
 }

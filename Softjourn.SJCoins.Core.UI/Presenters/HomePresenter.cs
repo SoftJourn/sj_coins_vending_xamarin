@@ -31,9 +31,9 @@ namespace Softjourn.SJCoins.Core.UI.Presenters
             try
             {
                 View.ShowProgress(Resources.StringResources.progress_loading);
-                Account userAccount = await RestApiServise.GetUserAccountAsync();
-                _balance = userAccount.Amount;
-                View.SetAccountInfo(userAccount);
+				dataManager.Profile = await RestApiServise.GetUserAccountAsync();
+                _balance = dataManager.Profile.Amount;
+                View.SetAccountInfo(dataManager.Profile);
                 View.SetMachineName(Settings.SelectedMachineName);
                 List<Product> favoritesList = await RestApiServise.GetFavoritesList();
                 List<Categories> productCategoriesList = new List<Categories>();
