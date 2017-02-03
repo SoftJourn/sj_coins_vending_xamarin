@@ -47,11 +47,11 @@ namespace Softjourn.SJCoins.iOS.Services
 					return Instantiate(StoryboardConstants.StoryboardLogin, StoryboardConstants.InformativeViewController);
 				case NavigationPage.Login:
 					return Instantiate(StoryboardConstants.StoryboardLogin, StoryboardConstants.LoginViewController);
-				// If Main page instantiate from Main storyboard
+				// If Home page or SelectMachine page instantiate from Main storyboard
 				case NavigationPage.SelectMachine:
 					return Instantiate(StoryboardConstants.StoryboardMain, StoryboardConstants.SelectMachineViewController);
 				case NavigationPage.Home:
-					return Instantiate(StoryboardConstants.StoryboardMain, StoryboardConstants.MainTabBarViewController);
+					return Instantiate(StoryboardConstants.StoryboardMain, StoryboardConstants.MainTabBarViewController) as UITabBarController;
 				default:
 					throw new ArgumentException("Not valid page");
 			}
@@ -71,6 +71,9 @@ namespace Softjourn.SJCoins.iOS.Services
 
 		private UIViewController Instantiate(string storyboard, string identifier) => UIStoryboard.FromName(storyboard, null).InstantiateViewController(identifier);
 
-		private void PresentAs(UIViewController viewController) => UIApplication.SharedApplication.KeyWindow.RootViewController = viewController;
+		private void PresentAs(UIViewController viewController)
+		{
+			UIApplication.SharedApplication.KeyWindow.RootViewController = viewController;
+		}
 	}
 }

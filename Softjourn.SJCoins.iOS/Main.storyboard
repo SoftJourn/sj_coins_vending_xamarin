@@ -282,7 +282,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="FyA-Ec-j0O" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4980" y="158.77061469265368"/>
+            <point key="canvasLocation" x="7633" y="186"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="NKS-NL-BY7">
@@ -294,12 +294,13 @@
                         <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
                     </tabBar>
                     <connections>
-                        <segue destination="a2G-nF-aRd" kind="relationship" relationship="viewControllers" id="oTW-bh-NrA"/>
+                        <segue destination="a2G-nF-aRd" kind="relationship" relationship="viewControllers" id="XhI-NA-edE"/>
+                        <segue destination="B7R-EP-Hzm" kind="relationship" relationship="viewControllers" id="O2T-ea-ykO"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Eog-el-05r" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2646" y="903"/>
+            <point key="canvasLocation" x="3006" y="904"/>
         </scene>
         <!--Favorites-->
         <scene sceneID="jTd-Te-Ec9">
@@ -438,7 +439,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="RJF-Zh-fzI" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4980" y="-595"/>
+            <point key="canvasLocation" x="7633" y="-568"/>
         </scene>
         <!--All Items-->
         <scene sceneID="vus-eu-tpe">
@@ -457,7 +458,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="wRD-Bi-2xQ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4172" y="158.77061469265368"/>
+            <point key="canvasLocation" x="6825" y="186"/>
         </scene>
         <!--Profile-->
         <scene sceneID="kSB-JS-C9k">
@@ -481,7 +482,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" style="plain" separatorStyle="default" allowsSelection="NO" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="AXm-9m-go8">
-                                <rect key="frame" x="0.0" y="219" width="375" height="449"/>
+                                <rect key="frame" x="0.0" y="219" width="375" height="400"/>
                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <view key="tableFooterView" contentMode="scaleToFill" id="MOK-mR-ucO" userLabel="FooterView">
                                     <rect key="frame" x="0.0" y="72" width="375" height="0.0"/>
@@ -619,11 +620,13 @@
             </objects>
             <point key="canvasLocation" x="4980" y="902.69865067466276"/>
         </scene>
-        <!--Profile-->
+        <!-- -->
         <scene sceneID="CO4-Vg-Nqy">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="B7R-EP-Hzm" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Profile" image="Profile" id="E8B-dY-u9a"/>
+                    <tabBarItem key="tabBarItem" title=" " selectedImage="AccountTabIcon" id="E8B-dY-u9a">
+                        <offsetWrapper key="titlePositionAdjustment" horizontal="0.0" vertical="0.0"/>
+                    </tabBarItem>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="wCP-3e-CSw">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
@@ -655,7 +658,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="6dA-Zs-Xn1" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4172" y="-595"/>
+            <point key="canvasLocation" x="6825" y="-568"/>
         </scene>
         <!--Home View Controller-->
         <scene sceneID="Fko-FZ-iJf">
@@ -852,13 +855,13 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="zke-1i-8Ju" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4980" y="-1337.1814092953525"/>
+            <point key="canvasLocation" x="4980" y="186"/>
         </scene>
-        <!--Home-->
+        <!-- -->
         <scene sceneID="aGG-FU-vZf">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="a2G-nF-aRd" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Home" image="Home" id="81M-oD-fvv"/>
+                    <tabBarItem key="tabBarItem" title=" " image="Home" selectedImage="HomeTabIcon" id="81M-oD-fvv"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="VGi-CX-2GB">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
@@ -871,15 +874,16 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Sry-cP-2n7" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4172" y="-1337"/>
+            <point key="canvasLocation" x="4172" y="186"/>
         </scene>
     </scenes>
     <resources>
+        <image name="AccountTabIcon" width="25" height="25"/>
         <image name="All Items" width="16" height="16"/>
         <image name="Favourites" width="16" height="16"/>
         <image name="Home" width="16" height="16"/>
+        <image name="HomeTabIcon" width="25" height="25"/>
         <image name="Placeholder" width="355" height="200"/>
-        <image name="Profile" width="16" height="16"/>
         <image name="unchecked" width="16" height="16"/>
     </resources>
 </document>
