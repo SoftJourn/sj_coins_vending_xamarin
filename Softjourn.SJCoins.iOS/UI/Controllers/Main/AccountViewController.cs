@@ -1,5 +1,8 @@
 using System;
 using Foundation;
+using Softjourn.SJCoins.Core.API.Model.AccountInfo;
+using Softjourn.SJCoins.Core.UI.Presenters;
+using Softjourn.SJCoins.Core.UI.ViewInterfaces;
 using UIKit;
 
 namespace Softjourn.SJCoins.iOS.UI.Controllers.Main
@@ -20,6 +23,8 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.Main
 		public override void ViewDidLoad()
 		{
 			base.ViewDidLoad();
+
+			Presenter.OnStartLoadingPage();
 		}
 
 		public override void ViewWillAppear(bool animated)
@@ -34,6 +39,10 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.Main
 		#endregion
 
 		#region IAccountView implementation
+		public void SetAccountInfo(Account account)
+		{
+			AmountLabel.Text = account.Amount.ToString() + " coins";
+		}
 		#endregion
 
 		#region BaseViewController -> IBaseView implementation
