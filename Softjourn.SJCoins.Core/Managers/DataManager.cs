@@ -1,4 +1,6 @@
-﻿using Softjourn.SJCoins.Core.API.Model.AccountInfo;
+﻿using System.Collections.Generic;
+using Softjourn.SJCoins.Core.API.Model.AccountInfo;
+using Softjourn.SJCoins.Core.API.Model.Products;
 
 namespace Softjourn.SJCoins.Core.Managers
 {
@@ -6,6 +8,7 @@ namespace Softjourn.SJCoins.Core.Managers
 	{
 		#region Properties
 		public Account Profile { get; set; }
-		#endregion
+	    public List<Categories> ProductList { get; set; }
+	    #endregion
 	}
 }

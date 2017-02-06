@@ -41,15 +41,15 @@ namespace Softjourn.SJCoins.Core.UI.Presenters
                 // add favorites category to result list if favorites exists
                 if (favoritesList != null && favoritesList.Count > 0)
                 {
-                    Categories favoriteCategory = new Categories();
+                    var favoriteCategory = new Categories();
                     favoriteCategory.Name = "Favorites";
                     favoriteCategory.Products = favoritesList;
                     productCategoriesList.Add(favoriteCategory);
                 }
 
-                Featured featuredProducts = await RestApiServise.GetFeaturedProductsAsync();
+                var featuredProducts = await RestApiServise.GetFeaturedProductsAsync();
 
-                List<Categories> featuredCategoriesList = GetCategoriesListFromFeaturedProduct(featuredProducts);
+                var featuredCategoriesList = GetCategoriesListFromFeaturedProduct(featuredProducts);
 
                 if (featuredCategoriesList != null && featuredCategoriesList.Count > 0)
                 {
@@ -62,8 +62,8 @@ namespace Softjourn.SJCoins.Core.UI.Presenters
                         }
                     }                        
                 }
-
-                View.ShowProducts(productCategoriesList);
+                dataManager.ProductList = productCategoriesList;
+                View.ShowProducts(dataManager.ProductList);
                 View.HideProgress();
             } catch (ApiNotAuthorizedException ex)
             {
