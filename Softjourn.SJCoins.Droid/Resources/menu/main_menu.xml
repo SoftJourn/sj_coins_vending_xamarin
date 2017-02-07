@@ -15,4 +15,10 @@
       android:title="@string/machine_name"
       android:icon="@drawable/ic_select_machine"
       app:showAsAction="ifRoom"/>
+
+  <item
+      android:id="@+id/profile"
+      android:title="@string/menu_bottombar_profile"
+      android:icon="@drawable/ic_account_circle_black_24dp"
+      app:showAsAction="ifRoom"/>
 </menu>

@@ -102,7 +102,10 @@
   <string name="error_dialog_ok">OK</string>
   <string name="error_dialog_title">Can\'t process request</string>
 
-
+  <!--BottomBar Items-->
+  <string name="menu_bottombar_home">Home</string>
+  <string name="menu_bottombar_profile">Profile</string>
+  
   <!-- Navigation Drawer Items-->
   <string name="allItems">All Items</string>
   <string name="favorites">Favorites</string>

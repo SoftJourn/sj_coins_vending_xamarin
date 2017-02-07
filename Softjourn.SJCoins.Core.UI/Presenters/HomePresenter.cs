@@ -117,7 +117,6 @@ namespace Softjourn.SJCoins.Core.UI.Presenters
                     {
                         await RestApiServise.AddProductToFavorites(product.Id.ToString());
                         dataManager.AddProductToFavorite(product);
-                        
                     }
                 }
                 catch (ApiNotAuthorizedException ex)
