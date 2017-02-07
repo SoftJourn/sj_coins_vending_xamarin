@@ -110,13 +110,14 @@ namespace Softjourn.SJCoins.Core.UI.Presenters
                 {
                     if (product.IsProductFavorite)
                     {
-                        await RestApiServise.AddProductToFavorites(product.Id.ToString());
-                        dataManager.AddProductToFavorite(product);
+                        await RestApiServise.RemoveProductFromFavorites(product.Id.ToString());
+                        dataManager.RemoveProductFromFavorite(product);
                     }
                     else
                     {
-                        await RestApiServise.RemoveProductFromFavorites(product.Id.ToString());
-                        dataManager.RemoveProductFromFavorite(product);
+                        await RestApiServise.AddProductToFavorites(product.Id.ToString());
+                        dataManager.AddProductToFavorite(product);
+                        
                     }
                 }
                 catch (ApiNotAuthorizedException ex)
@@ -166,7 +167,10 @@ namespace Softjourn.SJCoins.Core.UI.Presenters
                     {
                         foreach (var favorite in favorites)
                         {
-                            product.IsProductFavorite = product.Id == favorite.Id;
+                            if (product.Id == favorite.Id)
+                            {
+                                product.IsProductFavorite = true;
+                            }
                         }
                     }
                 }

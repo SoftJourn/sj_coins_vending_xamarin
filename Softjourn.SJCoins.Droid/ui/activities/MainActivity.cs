@@ -290,5 +290,10 @@ namespace Softjourn.SJCoins.Droid.UI.Activities
             BottomSheetDialogFragment bottomSheetDialogFragment = new ProductDetailsFragment(product, _listCategories);
             bottomSheetDialogFragment.Show(SupportFragmentManager, bottomSheetDialogFragment.Tag);
         }
+
+        public void TrigFavorite(Product product)
+        {
+            ViewPresenter.OnFavoriteClick(product);
+        }
     }
 }
