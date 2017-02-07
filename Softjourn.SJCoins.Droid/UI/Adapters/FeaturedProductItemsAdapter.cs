@@ -26,8 +26,11 @@ namespace Softjourn.SJCoins.Droid.UI.Adapters
         private string _category;
         private string _coins;
 
+        public event EventHandler<Product> AddToFavorites;
+        public event EventHandler<Product> RemoveFromFavorites;
+
         public EventHandler<Product> ProductSelected;
-        public EventHandler<Product> ProductDetailsSelected; 
+        public EventHandler<Product> ProductDetailsSelected;
         public List<Product> ListProducts = new List<Product>();
         public List<Product> _original = new List<Product>();
         private List<Product> _favoritesList; // = mDataManager.loadFavorites();
@@ -123,7 +126,7 @@ namespace Softjourn.SJCoins.Droid.UI.Adapters
             }
 
             if (holder.ParentView != null)
-            { 
+            {
                 holder.Click -= OnClickBuyClicked;
                 holder.Click += OnClickBuyClicked;
                 holder.LongClick -= OnLongClick;
@@ -166,45 +169,37 @@ namespace Softjourn.SJCoins.Droid.UI.Adapters
             if (holder.AddFavorite != null)
             {
                 holder.AddFavorite.SetTag(TagKey, false);
-                if (_favoritesList != null && _favoritesList.Count > 0)
+                if (product.IsProductFavorite)
                 {
-                    for (int i = 0; i < _favoritesList.Count; i++)
-                    {
-                        if (_favoritesList[i].Id == product.Id)
-                        {
-                            Picasso.With(_context).Load(Resource.Drawable.ic_favorite_pink).Into(holder.AddFavorite);
-                            holder.AddFavorite.SetTag(TagKey, true);
-                            break;
-                        }
-                        Picasso.With(_context).Load(Resource.Drawable.ic_favorite_border).Into(holder.AddFavorite);
-                        holder.AddFavorite.SetTag(TagKey, false);
-                    }
+                    Picasso.With(_context).Load(Resource.Drawable.ic_favorite_pink).Into(holder.AddFavorite);
+                    holder.AddFavorite.SetTag(TagKey, true);
                 }
                 else
                 {
                     Picasso.With(_context).Load(Resource.Drawable.ic_favorite_border).Into(holder.AddFavorite);
+                    holder.AddFavorite.SetTag(TagKey, false);
                 }
                 holder.AddFavorite.Click += (s, e) =>
                 {
-                    if ((bool)holder.AddFavorite.GetTag(TagKey) != true)
+                    if (product.IsProductFavorite)
                     {
-                        //EventBus.getDefault().post(new OnAddFavoriteEvent(mListProducts.get(holder.getAdapterPosition())));
+                        AddToFavorites(this, product);
                     }
                     else
                     {
-                        //EventBus.getDefault().post(new OnRemoveFavoriteEvent(mListProducts.get(holder.getAdapterPosition())));
-                        if (NetworkUtils.IsNetworkEnabled())
+                        if (_category == Const.Favorites)
                         {
-                            if (_category == Const.Favorites)
+                            ListProducts.Remove(ListProducts[holder.AdapterPosition]);
+                            NotifyItemRemoved(holder.AdapterPosition);
+                            NotifyItemRangeChanged(0, ItemCount + 1);
+                            if (ItemCount < 1)
                             {
-                                ListProducts.Remove(ListProducts[holder.AdapterPosition]);
-                                NotifyItemRemoved(holder.AdapterPosition);
-                                NotifyItemRangeChanged(0, ItemCount + 1);
-                                if (ItemCount < 1)
-                                {
-                                    //EventBus.getDefault().post(new OnRemovedLastFavoriteEvent(mListProducts));
-                                }
+                                //EventBus.getDefault().post(new OnRemovedLastFavoriteEvent(mListProducts));
                             }
+                        }
+                        else
+                        {
+                           RemoveFromFavorites(this, product);
                         }
                     }
                 };

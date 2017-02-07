@@ -1,4 +1,5 @@
 
+using System;
 using System.Collections.Generic;
 
 using Android.App;
@@ -103,12 +104,14 @@ namespace Softjourn.SJCoins.Droid.UI.Fragments
         {
             if (!(bool)_favorites.Tag)
             {
+                ((MainActivity)Activity).TrigFavorite(_product);
                 Picasso.With(Activity).Load(Resource.Drawable.ic_favorite_pink).Into(_favorites);
                 _favorites.Tag = true;
                 _isRemovedFromFavorite = false;
             }
             else
             {
+                ((MainActivity)Activity).TrigFavorite(_product);
                 Picasso.With(Activity).Load(Resource.Drawable.ic_favorite_border_white).Into(_favorites);
                 _favorites.Tag = false;
                 _isRemovedFromFavorite = true;

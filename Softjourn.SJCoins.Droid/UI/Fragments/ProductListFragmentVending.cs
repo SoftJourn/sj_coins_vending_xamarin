@@ -58,11 +58,27 @@ namespace Softjourn.SJCoins.Droid.UI.Fragments
             _productAdapter.ProductDetailsSelected -= ProductDetailsSelected;
             _productAdapter.ProductDetailsSelected += ProductDetailsSelected;
 
+            _productAdapter.AddToFavorites -= AddProductToFavorite;
+            _productAdapter.AddToFavorites += AddProductToFavorite;
+
+            _productAdapter.RemoveFromFavorites -= RemoveProductFromFavorite;
+            _productAdapter.RemoveFromFavorites += RemoveProductFromFavorite;
+
             _machineItems.SetLayoutManager(_layoutManager);
 
             _machineItems.SetAdapter(_productAdapter);
 
             return view;
+        }
+
+        private void RemoveProductFromFavorite(object sender, Product e)
+        {
+            ((MainActivity)Activity).TrigFavorite(e);
+        }
+
+        private void AddProductToFavorite(object sender, Product e)
+        {
+            ((MainActivity)Activity).TrigFavorite(e);
         }
 
         public override void OnViewCreated(View view, Bundle savedInstanceState)
