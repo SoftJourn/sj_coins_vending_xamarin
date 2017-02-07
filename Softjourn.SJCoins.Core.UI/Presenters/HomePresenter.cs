@@ -9,6 +9,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Softjourn.SJCoins.Core.Utils;
 
 namespace Softjourn.SJCoins.Core.UI.Presenters
 {
@@ -28,54 +29,149 @@ namespace Softjourn.SJCoins.Core.UI.Presenters
 
         public async void OnStartLoadingPage()
         {
-            try
+            if (NetworkUtils.IsConnected)
             {
-                View.ShowProgress(Resources.StringResources.progress_loading);
-				dataManager.Profile = await RestApiServise.GetUserAccountAsync();
-                _balance = dataManager.Profile.Amount;
-                View.SetAccountInfo(dataManager.Profile);
-                View.SetMachineName(Settings.SelectedMachineName);
-                List<Product> favoritesList = await RestApiServise.GetFavoritesList();
-                List<Categories> productCategoriesList = new List<Categories>();
-
-                // add favorites category to result list if favorites exists
-                if (favoritesList != null && favoritesList.Count > 0)
+                try
                 {
-                    Categories favoriteCategory = new Categories();
-                    favoriteCategory.Name = "Favorites";
-                    favoriteCategory.Products = favoritesList;
-                    productCategoriesList.Add(favoriteCategory);
-                }
+                    View.ShowProgress(Resources.StringResources.progress_loading);
+                    dataManager.Profile = await RestApiServise.GetUserAccountAsync();
+                    _balance = dataManager.Profile.Amount;
+                    View.SetAccountInfo(dataManager.Profile);
+                    View.SetMachineName(Settings.SelectedMachineName);
+                    List<Product> favoritesList = await RestApiServise.GetFavoritesList();
+                    List<Categories> productCategoriesList = new List<Categories>();
 
-                Featured featuredProducts = await RestApiServise.GetFeaturedProductsAsync();
-
-                List<Categories> featuredCategoriesList = GetCategoriesListFromFeaturedProduct(featuredProducts);
-
-                if (featuredCategoriesList != null && featuredCategoriesList.Count > 0)
-                {
-                    // add to result array category which products list are not empty
-                    foreach (var category in featuredCategoriesList)
+                    // add favorites category to result list if favorites exists
+                    if (favoritesList != null && favoritesList.Count > 0)
                     {
-                        if (category.Products != null && category.Products.Count > 0)
-                        {
-                            productCategoriesList.Add(category);
-                        }
-                    }                        
-                }
+                        var favoriteCategory = new Categories();
+                        favoriteCategory.Name = "Favorites";
+                        favoriteCategory.Products = favoritesList;
+                        productCategoriesList.Add(favoriteCategory);
+                    }
 
-                View.ShowProducts(productCategoriesList);
-                View.HideProgress();
-            } catch (ApiNotAuthorizedException ex)
-            {
-                View.HideProgress();
-                AlertService.ShowToastMessage(ex.Message);
-                NavigationService.NavigateToAsRoot(NavigationPage.Login);
+                    var featuredProducts = await RestApiServise.GetFeaturedProductsAsync();
+
+                    var featuredCategoriesList = GetCategoriesListFromFeaturedProduct(featuredProducts);
+
+                    if (featuredCategoriesList != null && featuredCategoriesList.Count > 0)
+                    {
+                        // add to result array category which products list are not empty
+                        foreach (var category in featuredCategoriesList)
+                        {
+                            if (category.Products != null && category.Products.Count > 0)
+                            {
+                                productCategoriesList.Add(category);
+                            }
+                        }
+                    }
+                    dataManager.ProductList = AddFavoriteFlagToProducts(productCategoriesList);
+                    View.ShowProducts(dataManager.ProductList);
+                    View.HideProgress();
+                }
+                catch (ApiNotAuthorizedException ex)
+                {
+                    View.HideProgress();
+                    AlertService.ShowToastMessage(ex.Message);
+                    NavigationService.NavigateToAsRoot(NavigationPage.Login);
+                }
+                catch (Exception ex)
+                {
+                    View.HideProgress();
+                    AlertService.ShowToastMessage(ex.Message);
+                }
             }
-            catch (Exception ex)
+            else
             {
-                View.HideProgress();
-                AlertService.ShowToastMessage(ex.Message);
+                AlertService.ShowToastMessage(Resources.StringResources.internet_turned_off);
             }
+        }
+
+        // Called when Settings btn is clicked
+        public void OnSettingsButtonClick()
+        {
+            NavigationService.NavigateTo(NavigationPage.Settings);
+        }
+
+        // show purchase dialog with proposal to purchase product
+        public void OnProductClick(Product product)
+        {
+            Action<Product> OnPurchaseAction = new Action<Product>(OnProductPurchased);
+
+            AlertService.ShowPurchaseConfirmationDialod(product, OnPurchaseAction);
+        }
+
+        //Trig adding or removing product from favorite category depends on current state of product.
+        public async void OnFavoriteClick(Product product)
+        {
+            if (NetworkUtils.IsConnected)
+            {
+                try
+                {
+                    if (product.IsProductFavorite)
+                    {
+                        await RestApiServise.AddProductToFavorites(product.Id.ToString());
+                        dataManager.AddProductToFavorite(product);
+                    }
+                    else
+                    {
+                        await RestApiServise.RemoveProductFromFavorites(product.Id.ToString());
+                        dataManager.RemoveProductFromFavorite(product);
+                    }
+                }
+                catch (ApiNotAuthorizedException ex)
+                {
+                    AlertService.ShowToastMessage(ex.Message);
+                    NavigationService.NavigateToAsRoot(NavigationPage.Login);
+                }
+                catch (Exception ex)
+                {
+                    AlertService.ShowToastMessage(ex.Message);
+                }
+            }
+            else
+            {
+                AlertService.ShowToastMessage(Resources.StringResources.internet_turned_off);
+            }
+        }
+
+        //Is called when user click on Profile button (is using only for droid)
+        public void OnProfileButtonClicked()
+        {
+            NavigationService.NavigateTo(NavigationPage.Profile);
+        }
+
+        //Adding Favorite flag to product before returning to View
+        private List<Categories> AddFavoriteFlagToProducts(List<Categories> categoriesList)
+        {
+            var favorites = new List<Product>();
+            foreach (var category in categoriesList)
+            {
+                if (category.Name != "Favorites") continue;
+                favorites.AddRange(category.Products);
+                break;
+            }
+            foreach (var category in categoriesList)
+            {
+                if (category.Name == "Favorites")
+                {
+                    foreach (var product in category.Products)
+                    {
+                        product.IsProductFavorite = true;
+                    }
+                }
+                else
+                {
+                    foreach (var product in category.Products)
+                    {
+                        foreach (var favorite in favorites)
+                        {
+                            product.IsProductFavorite = product.Id == favorite.Id;
+                        }
+                    }
+                }
+            }
+            return categoriesList;
         }
 
         // get list with all categories from featured product. 
@@ -158,57 +254,55 @@ namespace Softjourn.SJCoins.Core.UI.Presenters
             return null;
         }
 
-        // Called when Settings btn is clicked
-        public void OnSettingsButtonClick()
-        {
-            NavigationService.NavigateTo(NavigationPage.Settings);
-        }
-
-        // show purchase dialog with proposal to purchase product
-        public void OnProductClick(Product product)
-        {
-            Action<Product> OnPurchaseAction = new Action<Product>(OnProductPurchased);
-
-            AlertService.ShowPurchaseConfirmationDialod(product, OnPurchaseAction);
-        }
-
         // check is balance enough and make purchase
         private async void OnProductPurchased(Product product)
         {
-            if (_balance >= product.IntPrice)
+            if (NetworkUtils.IsConnected)
             {
-                View.ShowProgress(Resources.StringResources.progress_buying);
-                try
+                if (_balance >= product.IntPrice)
                 {
-                    Amount leftAmount = await RestApiServise.BuyProductById(product.Id.ToString());
-                    if (leftAmount != null) // them set new balance amount
-                {
-                    _balance = int.Parse(leftAmount.Balance);
-                    View.SetUserBalance(leftAmount.Balance);
-                }
-                    View.HideProgress();
-                    AlertService.ShowMessageWithUserInteraction("Purchase", Resources.StringResources.activity_product_take_your_order_message, Resources.StringResources.btn_title_ok, null);
-                }
+                    View.ShowProgress(Resources.StringResources.progress_buying);
+                    try
+                    {
+                        Amount leftAmount = await RestApiServise.BuyProductById(product.Id.ToString());
+                        if (leftAmount != null) // them set new balance amount
+                        {
+                            _balance = int.Parse(leftAmount.Balance);
+                            View.SetUserBalance(leftAmount.Balance);
+                        }
+                        View.HideProgress();
+                        AlertService.ShowMessageWithUserInteraction("Purchase",
+                            Resources.StringResources.activity_product_take_your_order_message,
+                            Resources.StringResources.btn_title_ok, null);
+                    }
 
-                catch (ApiNotAuthorizedException ex)
-                {
-                    View.HideProgress();
-                    AlertService.ShowToastMessage(ex.Message);
-                    NavigationService.NavigateToAsRoot(NavigationPage.Login);
+                    catch (ApiNotAuthorizedException ex)
+                    {
+                        View.HideProgress();
+                        AlertService.ShowToastMessage(ex.Message);
+                        NavigationService.NavigateToAsRoot(NavigationPage.Login);
+                    }
+                    catch (ApiNotFoundException ex)
+                    {
+                        View.HideProgress();
+                        AlertService.ShowMessageWithUserInteraction("Error", ex.Message,
+                            Resources.StringResources.btn_title_ok, null);
+                    }
+                    catch (Exception ex)
+                    {
+                        View.HideProgress();
+                        AlertService.ShowToastMessage(ex.Message);
+                    }
                 }
-                catch (ApiNotFoundException ex)
+                else
                 {
-                    View.HideProgress();
-                    AlertService.ShowMessageWithUserInteraction("Error", ex.Message, Resources.StringResources.btn_title_ok, null);
+                    AlertService.ShowMessageWithUserInteraction("Error",
+                        Resources.StringResources.error_not_enough_money, Resources.StringResources.btn_title_ok, null);
                 }
-                catch (Exception ex)
-                {
-                    View.HideProgress();
-                    AlertService.ShowToastMessage(ex.Message);
-                }
-            } else
+            }
+            else
             {
-                AlertService.ShowMessageWithUserInteraction("Error", Resources.StringResources.error_not_enough_money, Resources.StringResources.btn_title_ok, null);
+                AlertService.ShowToastMessage(Resources.StringResources.internet_turned_off);
             }
         }
     }

@@ -89,6 +89,10 @@
       <HintPath>..\packages\Xam.Plugins.Settings.2.5.1.0\lib\MonoAndroid10\Plugin.Settings.Abstractions.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="Refractored.Controls.CircleImageView, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Refractored.Controls.CircleImageView.1.0.1\lib\MonoAndroid10\Refractored.Controls.CircleImageView.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Square.OkHttp, Version=2.4.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Square.OkHttp.2.4.0.0\lib\MonoAndroid\Square.OkHttp.dll</HintPath>
       <Private>True</Private>
@@ -180,6 +184,7 @@
     <Compile Include="UI\Adapters\ViewPagerAdapter.cs" />
     <Compile Include="UI\BaseUI\BaseActivity.cs" />
     <Compile Include="UI\BaseUI\BaseMenuActivity.cs" />
+    <Compile Include="UI\Fragments\ProductDetailsFragment.cs" />
     <Compile Include="UI\Fragments\ProductListFragment.cs" />
     <Compile Include="UI\Fragments\ProductListFragmentVending.cs" />
     <Compile Include="UI\UIStrategies\IProductsListFragmentStrategy.cs" />
@@ -225,6 +230,9 @@
     <AndroidResource Include="Resources\layout\recycler_see_all_item.axml" />
     <AndroidResource Include="Resources\layout\recycler_machine_view_item.axml" />
     <AndroidResource Include="Resources\layout\confirm_dialog.axml" />
+    <AndroidResource Include="Resources\layout\fragment_product_details.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\values\Strings.xml">

@@ -15,7 +15,6 @@ using Softjourn.SJCoins.Core.API.Model.Products;
 using Softjourn.SJCoins.Droid.utils;
 using Softjourn.SJCoins.Droid.Utils;
 using Square.Picasso;
-using Const = Softjourn.SJCoins.Droid.Utils.Const;
 using Exception = System.Exception;
 using Object = Java.Lang.Object;
 
@@ -28,6 +27,7 @@ namespace Softjourn.SJCoins.Droid.UI.Adapters
         private string _coins;
 
         public EventHandler<Product> ProductSelected;
+        public EventHandler<Product> ProductDetailsSelected; 
         public List<Product> ListProducts = new List<Product>();
         public List<Product> _original = new List<Product>();
         private List<Product> _favoritesList; // = mDataManager.loadFavorites();
@@ -126,6 +126,9 @@ namespace Softjourn.SJCoins.Droid.UI.Adapters
             { 
                 holder.Click -= OnClickBuyClicked;
                 holder.Click += OnClickBuyClicked;
+                holder.LongClick -= OnLongClick;
+                holder.LongClick += OnLongClick;
+
             }
             if (holder.ParentViewSeeAll != null)
             {
@@ -216,12 +219,26 @@ namespace Softjourn.SJCoins.Droid.UI.Adapters
             }
             else
             {
-                Picasso.With(_context).Load(Const.UrlVendingService + ListProducts[holder.AdapterPosition].ImageUrl).Into(holder.ProductImage);
+                Picasso.With(_context).Load(Core.Utils.Const.BaseUrl + Core.Utils.Const.UrlVendingService + ListProducts[holder.AdapterPosition].ImageUrl).Into(holder.ProductImage);
                 holder.ProductImage.Alpha = !isCurrentProductInMachine ? 0.3f : 1.0f;
             }
         }
 
         public override int ItemCount => ListProducts?.Count ?? 0;
+
+        public void OnLongClick(object sender, EventArgs e)
+        {
+            var holder = sender as FeatureViewHolder;
+            if (holder == null)
+            {
+                throw new Exception("Holder is null");
+            }
+            var selectedIndex = holder.AdapterPosition;
+            var handler = ProductDetailsSelected;
+            if (handler == null) return;
+            var selectedProduct = ListProducts[selectedIndex];
+            handler(this, selectedProduct);
+        }
 
         public void OnClickBuyClicked(object sender, EventArgs eventArgs)
         {

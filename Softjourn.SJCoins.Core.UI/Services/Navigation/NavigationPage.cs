@@ -8,6 +8,6 @@ namespace Softjourn.SJCoins.Core.UI.Services.Navigation
 {
     public enum NavigationPage
     {
-        Welcome, Login, Home, SelectMachine, Settings
+        Welcome, Login, Home, SelectMachine, Settings, Profile
     }
 }

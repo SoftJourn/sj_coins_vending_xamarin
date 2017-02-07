@@ -61,10 +61,11 @@ namespace Softjourn.SJCoins.iOS
 
 		public UIViewController GetViewControllerForPreview(IUIViewControllerPreviewing previewingContext, CGPoint location)
 		{
-			// Obtain the index path and the cell that was pressed.
-			CGPoint p = _currentApplication.VisibleViewController.View.ConvertPointToView(location, InternalCollectionView);
+			// Convert location to collection view coordinate system.
+			CGPoint newLocation = _currentApplication.VisibleViewController.View.ConvertPointToView(location, InternalCollectionView);
 
-			var indexPath = InternalCollectionView.IndexPathForItemAtPoint(p);
+			// Obtain the index path and the cell that was pressed.
+			var indexPath = InternalCollectionView.IndexPathForItemAtPoint(newLocation);
 
 			if (indexPath == null)
 				return null;

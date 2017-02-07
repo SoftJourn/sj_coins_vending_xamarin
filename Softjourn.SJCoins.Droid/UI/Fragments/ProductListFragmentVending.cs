@@ -55,6 +55,9 @@ namespace Softjourn.SJCoins.Droid.UI.Fragments
             _productAdapter.ProductSelected -= ProductSelected;
             _productAdapter.ProductSelected += ProductSelected;
 
+            _productAdapter.ProductDetailsSelected -= ProductDetailsSelected;
+            _productAdapter.ProductDetailsSelected += ProductDetailsSelected;
+
             _machineItems.SetLayoutManager(_layoutManager);
 
             _machineItems.SetAdapter(_productAdapter);
@@ -96,6 +99,11 @@ namespace Softjourn.SJCoins.Droid.UI.Fragments
         private void ProductSelected(object sender, Product product)
         {
            ((MainActivity)Activity).Purchase(product);
+        }
+
+        private void ProductDetailsSelected(object sender, Product product)
+        {
+            ((MainActivity) Activity).ShowDetails(product);
         }
     }
 }

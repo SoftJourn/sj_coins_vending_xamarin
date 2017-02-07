@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
+using Softjourn.SJCoins.Core.Utils;
 
 namespace Softjourn.SJCoins.Core.API.Model.Products
 {
@@ -16,6 +17,10 @@ namespace Softjourn.SJCoins.Core.API.Model.Products
         public float Price { get; set; }
 
         public int IntPrice { get { return int.Parse(Price.ToString()); } }
+
+        public string ImageFullUrl => Const.BaseUrl + Const.UrlVendingService + ImageUrl;
+
+        public bool IsProductFavorite { get; set; }
 
         [JsonProperty("name")]
         public string Name { get; set; }
