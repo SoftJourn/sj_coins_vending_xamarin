@@ -208,10 +208,6 @@
     <ImageAsset Include="Assets.xcassets\Placeholder.imageset\placeholder_tv.png" />
     <ImageAsset Include="Assets.xcassets\Placeholder.imageset\placeholder_tv%402x.png" />
     <ImageAsset Include="Assets.xcassets\Placeholder.imageset\placeholder_tv%403x.png" />
-    <ImageAsset Include="Assets.xcassets\HomeTabIcon.imageset\Contents.json" />
-    <ImageAsset Include="Assets.xcassets\HomeTabIcon.imageset\HomeTab.png" />
-    <ImageAsset Include="Assets.xcassets\AccountTabIcon.imageset\Contents.json" />
-    <ImageAsset Include="Assets.xcassets\AccountTabIcon.imageset\profileTab.png" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Resources\" />
@@ -296,6 +292,10 @@
     <Compile Include="UI\Controllers\Main\PreViewController.cs" />
     <Compile Include="UI\Controllers\Main\PreViewController.designer.cs">
       <DependentUpon>PreViewController.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Controllers\Main\DetailViewController.cs" />
+    <Compile Include="UI\Controllers\Main\DetailViewController.designer.cs">
+      <DependentUpon>DetailViewController.cs</DependentUpon>
     </Compile>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
