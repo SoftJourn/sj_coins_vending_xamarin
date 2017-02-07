@@ -22,14 +22,9 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers
 		{
 			get
 			{
-				var action1 = PreviewActionForTitle("Default Action");
-				var action2 = PreviewActionForTitle("Destructive Action", UIPreviewActionStyle.Destructive);
-
-				var subAction1 = PreviewActionForTitle("Sub Action 1");
-				var subAction2 = PreviewActionForTitle("Sub Action 2");
-				var groupedActions = UIPreviewActionGroup.Create("Sub Actions…", UIPreviewActionStyle.Default, new[] { subAction1, subAction2 });
-
-				return new IUIPreviewActionItem[] { action1, action2, groupedActions };
+				var action1 = PreviewActionForTitle("Buy");
+				var action2 = PreviewActionForTitle("Add to favorite");
+				return new IUIPreviewActionItem[] { action1, action2 };
 			}
 		}
 		#endregion
@@ -48,6 +43,13 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers
 			if (!string.IsNullOrEmpty(DetailItemTitle))
 				Title.Text = DetailItemTitle;
 		}
+
+		//protected override void Dispose(bool disposing)
+		//{
+		//	base.Dispose(disposing);
+
+		//	Console.WriteLine("PreViewController disposed");
+		//}
 
 		static UIPreviewAction PreviewActionForTitle(string title, UIPreviewActionStyle style = UIPreviewActionStyle.Default)
 		{

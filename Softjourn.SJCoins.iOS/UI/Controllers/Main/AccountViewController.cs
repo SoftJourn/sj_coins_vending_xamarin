@@ -44,7 +44,8 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.Main
 		public void SetAccountInfo(Account account)
 		{
 			Console.WriteLine("ololo");
-			//AmountLabel.Text = account.Amount.ToString() + " coins";
+			NameLabel.Text = account.Name + " " + account.Surname;
+			AmountLabel.Text = account.Amount.ToString() + " coins";
 		}
 		#endregion
 

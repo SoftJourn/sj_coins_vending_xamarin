@@ -19,6 +19,7 @@ namespace Softjourn.SJCoins.iOS
 		}
 		private string categoryName; 
 		private List<Product> categoryProducts;
+		public event EventHandler<string> SeeAllClickedEvent = delegate { };
 
 		static HomeCell()
 		{
@@ -39,8 +40,19 @@ namespace Softjourn.SJCoins.iOS
 			InternalCollectionView.DataSource = new HomeCellDataSource(category.Products);
 			InternalCollectionView.Delegate = _delegate;
 			InternalCollectionView.ReloadData();
+
+			ConfigureSeeAllButton();
 		}
 
+		private void ConfigureSeeAllButton()
+		{
+			// Add click event to button
+			ShowAllButton.TouchUpInside += (o,s) =>
+			{
+				// Execute event and throw category name to HomeViewController
+				SeeAllClickedEvent(this, categoryName);
+			};
+		}
 		#region IUIViewControllerPreviewingDelegate implementation
 		public override void TraitCollectionDidChange(UITraitCollection previousTraitCollection)
 		{

@@ -34,7 +34,6 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.Main
 			ConfigureCollectionView();
 			ConfigureSettingButton();
 
-			// Give 
 			Presenter.OnStartLoadingPage();
 		}
 
@@ -132,10 +131,16 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.Main
 		// Throw CollectionView to parent
 		protected override UIScrollView GetRefreshableScrollView() => CollectionView;
 
-		// Trigg presenter that user click on some product 
 		public void OnItemSelected(object sender, Product product)
 		{
-			Presenter.OnProductClick(product);
+			// Trigg presenter that user click on some product for showing details controllers
+			Presenter.OnProductClick(product); 
+		}
+
+		public void OnSeeAllClicked(object sender, string categoryName)
+		{
+			// Trigg presenter that user click on SeeAll button 
+			//Presenter.OnSeeAllClick(categoryName);
 		}
 		#endregion
 	}
@@ -177,10 +182,14 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.Main
 			var _cell = (HomeCell)cell;
 			var category = parent.Categories[indexPath.Row];
 
-			// Create delegateobject with event and throw it to cell
+			// Create delegate object with event and throw it to cell
 			var _delegate = new HomeCellDelegate(category.Products);
 			_delegate.ItemSelectedEvent -= parent.OnItemSelected;
 			_delegate.ItemSelectedEvent += parent.OnItemSelected;
+
+			// Add seeAll event
+			_cell.SeeAllClickedEvent -= parent.OnSeeAllClicked;
+			_cell.SeeAllClickedEvent += parent.OnSeeAllClicked;
 
 			_cell.ConfigureWith(category, _delegate);
 		}

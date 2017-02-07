@@ -306,7 +306,7 @@
         <scene sceneID="vus-eu-tpe">
             <objects>
                 <navigationController storyboardIdentifier="AllProductsNavigationController" automaticallyAdjustsScrollViewInsets="NO" id="UxB-iK-pO6" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="All Items" image="81BCCD90-C404-4CE5-B0D9-A80645D53FEA" id="eof-dA-PO7"/>
+                    <tabBarItem key="tabBarItem" title="All Items" image="99103B00-65D1-4D42-A12A-09A8BDB7A658" id="eof-dA-PO7"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="iHX-3p-5pT">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
@@ -374,11 +374,11 @@
             </objects>
             <point key="canvasLocation" x="4980" y="902.69865067466276"/>
         </scene>
-        <!-- -->
+        <!--Navigation Controller-->
         <scene sceneID="CO4-Vg-Nqy">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="B7R-EP-Hzm" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title=" " image="AccountTabIcon" selectedImage="AccountTabIcon" id="E8B-dY-u9a">
+                    <tabBarItem key="tabBarItem" selectedImage="AccountTabIcon" systemItem="contacts" id="E8B-dY-u9a">
                         <offsetWrapper key="titlePositionAdjustment" horizontal="0.0" vertical="0.0"/>
                     </tabBarItem>
                     <toolbarItems/>
@@ -548,9 +548,6 @@
                                                     </constraints>
                                                     <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                     <state key="normal" title="Show All"/>
-                                                    <connections>
-                                                        <action selector="seeAllButtonPressed:" destination="5Ln-Y8-8B7" eventType="touchUpInside" id="5uC-cL-qqT"/>
-                                                    </connections>
                                                 </button>
                                             </subviews>
                                         </view>
@@ -628,11 +625,11 @@
             </objects>
             <point key="canvasLocation" x="4980" y="186"/>
         </scene>
-        <!-- -->
+        <!--Navigation Controller-->
         <scene sceneID="aGG-FU-vZf">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="a2G-nF-aRd" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title=" " image="Home" selectedImage="HomeTabIcon" id="81M-oD-fvv"/>
+                    <tabBarItem key="tabBarItem" selectedImage="HomeTabIcon" systemItem="featured" id="81M-oD-fvv"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="VGi-CX-2GB">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
@@ -649,7 +646,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="81BCCD90-C404-4CE5-B0D9-A80645D53FEA" width="16" height="16">
+        <image name="99103B00-65D1-4D42-A12A-09A8BDB7A658" width="16" height="16">
             <mutableData key="keyedArchiveRepresentation">
 YnBsaXN0MDDUAQIDBAUGODlYJHZlcnNpb25YJG9iamVjdHNZJGFyY2hpdmVyVCR0b3ASAAGGoKwHCBEW
 GxwiIyksMjVVJG51bGzUCQoLDA0ODxBWJGNsYXNzXE5TSW1hZ2VGbGFnc1ZOU1JlcHNXTlNDb2xvcoAL
@@ -665,7 +662,6 @@ pwCuALYAwgDEAMYAyAFHAUwBVwFgAWYBaQFyAXcBfwGCAYkBkQGeAaMBpQGnAawBtAG3AbwBxAHHAdkB
 </mutableData>
         </image>
         <image name="AccountTabIcon" width="25" height="25"/>
-        <image name="Home" width="16" height="16"/>
         <image name="HomeTabIcon" width="25" height="25"/>
         <image name="Placeholder" width="355" height="200"/>
         <image name="unchecked" width="16" height="16"/>
