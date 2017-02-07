@@ -284,5 +284,11 @@ namespace Softjourn.SJCoins.Droid.UI.Activities
         {
             ViewPresenter.OnProductClick(product);
         }
+
+        public void ShowDetails(Product product)
+        {
+            BottomSheetDialogFragment bottomSheetDialogFragment = new ProductDetailsFragment(product, _listCategories);
+            bottomSheetDialogFragment.Show(SupportFragmentManager, bottomSheetDialogFragment.Tag);
+        }
     }
 }

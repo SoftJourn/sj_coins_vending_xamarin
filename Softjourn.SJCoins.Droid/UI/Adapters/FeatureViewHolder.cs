@@ -13,10 +13,11 @@ using Android.Widget;
 
 namespace Softjourn.SJCoins.Droid.UI.Adapters
 {
-    public class FeatureViewHolder : RecyclerView.ViewHolder, View.IOnClickListener
+    public class FeatureViewHolder : RecyclerView.ViewHolder, View.IOnClickListener, View.IOnLongClickListener
     {
 
         public event EventHandler Click;
+        public event EventHandler LongClick;
             
         public View ParentView { get; set; }
         public View ParentViewSeeAll { get; set; }
@@ -39,11 +40,19 @@ namespace Softjourn.SJCoins.Droid.UI.Adapters
             AddFavorite = v.FindViewById<ImageView>(Resource.Id.imageViewFavorite);
 
             v.SetOnClickListener(this);
+            v.SetOnLongClickListener(this);
         }
 
         public void OnClick(View v)
         {
             Click?.Invoke(this, EventArgs.Empty);
+        }
+
+        public bool OnLongClick(View v)
+        {
+            if (v == null) return false;
+            LongClick?.Invoke(this, EventArgs.Empty);
+            return true;
         }
     }
 }
