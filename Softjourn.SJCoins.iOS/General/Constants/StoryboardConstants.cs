@@ -15,6 +15,7 @@
 		public const string LoginViewController = "LoginViewController";
 		public const string SelectMachineViewController = "SelectMachineViewController";
 		public const string MainTabBarViewController = "MainTabBarViewController";
+		public const string PreViewController = "PreViewController";
 
 		// Main pages 
 		public const string HomeViewController = "HomeViewController";

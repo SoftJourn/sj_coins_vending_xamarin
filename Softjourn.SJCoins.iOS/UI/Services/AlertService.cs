@@ -1,4 +1,5 @@
 ﻿using System;
+using BigTed;
 using Softjourn.SJCoins.Core.API.Model.Products;
 using Softjourn.SJCoins.Core.UI.Services.Alert;
 using UIKit;
@@ -38,7 +39,8 @@ namespace Softjourn.SJCoins.iOS.UI.Services
 		public void ShowToastMessage(string msg)
 		{
 			// Present information alert with one botton
-			PresentAlert(null, msg, null, null, UIAlertActionStyle.Default, null, null);
+			//PresentAlert(null, msg, "Ok", null, UIAlertActionStyle.Default, null, null);
+			//BTProgressHUD.ShowToast(msg, true, 1000.0);
 		}
 
 		public void ShowPurchaseConfirmationDialod(Product product, Action<Product> onPurchaseProductAction)
@@ -58,18 +60,23 @@ namespace Softjourn.SJCoins.iOS.UI.Services
 				try
 				{
 					var alertController = UIAlertController.Create(title, message, UIAlertControllerStyle.Alert);
-
-					var cancelAction = UIAlertAction.Create(cancel, UIAlertActionStyle.Cancel, null);
-					var acceptAction = UIAlertAction.Create(accept, acceptStyle, (action) => {
-						
-						if (acceptClicked != null)
+					if (acceptClicked != null)
+					{
+						var cancelAction = UIAlertAction.Create(cancel, UIAlertActionStyle.Cancel, null);
+						var acceptAction = UIAlertAction.Create(accept, acceptStyle, (action) =>
 						{
-							acceptClicked(product);
-						}
-					});
+							if (acceptClicked != null)
+							{
+								acceptClicked(product);
+							}
+						});
 					alertController.AddAction(cancelAction);
 					alertController.AddAction(acceptAction);
-
+					}
+					else {
+						var okAction = UIAlertAction.Create("Ok", UIAlertActionStyle.Cancel, null);
+						alertController.AddAction(okAction);
+					}
 					_currentApplicationDelegate.VisibleViewController.PresentViewController(alertController, true, null);
 				}
 				catch { }

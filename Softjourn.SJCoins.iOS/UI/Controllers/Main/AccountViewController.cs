@@ -23,25 +23,28 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.Main
 		public override void ViewDidLoad()
 		{
 			base.ViewDidLoad();
-
-			Presenter.OnStartLoadingPage();
 		}
 
 		public override void ViewWillAppear(bool animated)
 		{
 			base.ViewWillAppear(animated);
+
+			Presenter.OnStartLoadingPage();
 		}
 
 		public override void ViewDidAppear(bool animated)
 		{
 			base.ViewDidAppear(animated);
+
+
 		}
 		#endregion
 
 		#region IAccountView implementation
 		public void SetAccountInfo(Account account)
 		{
-			AmountLabel.Text = account.Amount.ToString() + " coins";
+			Console.WriteLine("ololo");
+			//AmountLabel.Text = account.Amount.ToString() + " coins";
 		}
 		#endregion
 

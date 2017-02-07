@@ -85,17 +85,6 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers
 			//show no internet alert
 			new AlertService().ShowInformationDialog(null, message, "Ok", null);
 		}
-
-		//IBaseView
-		public void ShowProgress(string message)
-		{
-			LoaderService.Show(message);
-		}
-
-		public void HideProgress()
-		{
-			LoaderService.Hide();
-		}
 		#endregion
 
 		#region BaseViewController -> IBaseView implementation

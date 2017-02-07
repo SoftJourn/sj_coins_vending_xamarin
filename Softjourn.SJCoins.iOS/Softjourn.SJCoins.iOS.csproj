@@ -298,6 +298,10 @@
     <Compile Include="UI\Controllers\Main\FavoritesViewController.designer.cs">
       <DependentUpon>FavoritesViewController.cs</DependentUpon>
     </Compile>
+    <Compile Include="UI\Controllers\PreViewController.cs" />
+    <Compile Include="UI\Controllers\PreViewController.designer.cs">
+      <DependentUpon>PreViewController.cs</DependentUpon>
+    </Compile>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
 </Project>

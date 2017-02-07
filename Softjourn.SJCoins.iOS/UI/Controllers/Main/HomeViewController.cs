@@ -34,6 +34,7 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.Main
 			ConfigureCollectionView();
 			ConfigureSettingButton();
 
+			// Give 
 			Presenter.OnStartLoadingPage();
 		}
 
@@ -156,7 +157,6 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.Main
 			return (UICollectionViewCell)collectionView.DequeueReusableCell(HomeCell.Key, indexPath);
 		}
 	}
-	
 	#endregion
 
 	#region UICollectionViewDelegateFlowLayout implementation
