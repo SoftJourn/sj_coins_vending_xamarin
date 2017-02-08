@@ -2,13 +2,11 @@
 using Softjourn.SJCoins.Core.API.Model.Products;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Softjourn.SJCoins.Core.UI.Interfaces;
 
 namespace Softjourn.SJCoins.Core.UI.ViewInterfaces
 {
-    public interface IHomeView : IBaseView
+    public interface IHomeView : IBaseProductView
     {        
         void SetAccountInfo(Account account);
         void SetUserBalance(String balance);
