@@ -1,4 +1,5 @@
-﻿<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">iPhoneSimulator</Platform>
@@ -204,10 +205,18 @@
     <ImageAsset Include="Assets.xcassets\BackImage.imageset\back_icon%403x.png">
       <InProject>false</InProject>
     </ImageAsset>
-    <ImageAsset Include="Assets.xcassets\Placeholder.imageset\Contents.json" />
-    <ImageAsset Include="Assets.xcassets\Placeholder.imageset\placeholder_tv.png" />
-    <ImageAsset Include="Assets.xcassets\Placeholder.imageset\placeholder_tv%402x.png" />
-    <ImageAsset Include="Assets.xcassets\Placeholder.imageset\placeholder_tv%403x.png" />
+    <ImageAsset Include="Assets.xcassets\Placeholder.imageset\Contents.json">
+      <InProject>false</InProject>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\Placeholder.imageset\placeholder_tv.png">
+      <InProject>false</InProject>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\Placeholder.imageset\placeholder_tv%402x.png">
+      <InProject>false</InProject>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\Placeholder.imageset\placeholder_tv%403x.png">
+      <InProject>false</InProject>
+    </ImageAsset>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Resources\" />
