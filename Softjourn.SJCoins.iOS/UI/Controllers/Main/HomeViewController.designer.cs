@@ -18,23 +18,31 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.Main
 		UIKit.UICollectionView CollectionView { get; set; }
 
 		[Outlet]
+		UIKit.UILabel NoItemsLabel { get; set; }
+
+		[Outlet]
 		UIKit.UIBarButtonItem SettingButton { get; set; }
 		
 		void ReleaseDesignerOutlets ()
 		{
-			if (CollectionView != null) {
-				CollectionView.Dispose ();
-				CollectionView = null;
-			}
-
 			if (BalanceLabel != null) {
 				BalanceLabel.Dispose ();
 				BalanceLabel = null;
 			}
 
+			if (CollectionView != null) {
+				CollectionView.Dispose ();
+				CollectionView = null;
+			}
+
 			if (SettingButton != null) {
 				SettingButton.Dispose ();
 				SettingButton = null;
+			}
+
+			if (NoItemsLabel != null) {
+				NoItemsLabel.Dispose ();
+				NoItemsLabel = null;
 			}
 		}
 	}

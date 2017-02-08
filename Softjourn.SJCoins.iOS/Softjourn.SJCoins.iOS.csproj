@@ -1,5 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+﻿<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">iPhoneSimulator</Platform>
@@ -112,6 +111,9 @@
     <Reference Include="BTProgressHUD">
       <HintPath>..\packages\BTProgressHUD.1.2.0.3\lib\Xamarin.iOS10\BTProgressHUD.dll</HintPath>
     </Reference>
+    <Reference Include="SDWebImage">
+      <HintPath>..\packages\Xamarin.SDWebImage.3.7.5\lib\Xamarin.iOS\SDWebImage.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Softjourn.SJCoins.Core\Softjourn.SJCoins.Core.csproj">
@@ -202,10 +204,13 @@
     <ImageAsset Include="Assets.xcassets\BackImage.imageset\back_icon%403x.png">
       <InProject>false</InProject>
     </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\Placeholder.imageset\Contents.json" />
+    <ImageAsset Include="Assets.xcassets\Placeholder.imageset\placeholder_tv.png" />
+    <ImageAsset Include="Assets.xcassets\Placeholder.imageset\placeholder_tv%402x.png" />
+    <ImageAsset Include="Assets.xcassets\Placeholder.imageset\placeholder_tv%403x.png" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Resources\" />
-    <Folder Include="PlatformServices\" />
     <Folder Include="Assets.xcassets\vending_logo.imageset\" />
     <Folder Include="Assets.xcassets\InfoCoinsLogo.imageset\" />
     <Folder Include="Assets.xcassets\InfoBuyLogo.imageset\" />
@@ -214,6 +219,9 @@
     <Folder Include="Assets.xcassets\BackImage.imageset\" />
     <Folder Include="UI\Cells\" />
     <Folder Include="UI\Controllers\Main\" />
+    <Folder Include="Assets.xcassets\Placeholder.imageset\" />
+    <Folder Include="Assets.xcassets\HomeTabIcon.imageset\" />
+    <Folder Include="Assets.xcassets\AccountTabIcon.imageset\" />
   </ItemGroup>
   <ItemGroup>
     <InterfaceDefinition Include="LaunchScreen.storyboard" />
@@ -258,7 +266,6 @@
       <DependentUpon>CustomSegmentControl.cs</DependentUpon>
     </Compile>
     <Compile Include="UI\Controllers\Main\HomeViewController.cs" />
-    <Compile Include="UI\Controllers\Main\FavoritesViewController.cs" />
     <Compile Include="UI\Controllers\Main\AllItemsViewController.cs" />
     <Compile Include="UI\Controllers\Main\AccountViewController.cs" />
     <Compile Include="UI\Controllers\Main\HomeViewController.designer.cs">
@@ -282,6 +289,15 @@
     <Compile Include="UI\Controllers\Main\AllItemsViewController.designer.cs">
       <DependentUpon>AllItemsViewController.cs</DependentUpon>
     </Compile>
+    <Compile Include="UI\Controllers\Main\PreViewController.cs" />
+    <Compile Include="UI\Controllers\Main\PreViewController.designer.cs">
+      <DependentUpon>PreViewController.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Controllers\Main\DetailViewController.cs" />
+    <Compile Include="UI\Controllers\Main\DetailViewController.designer.cs">
+      <DependentUpon>DetailViewController.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Controllers\Main\FavoritesViewController.cs" />
     <Compile Include="UI\Controllers\Main\FavoritesViewController.designer.cs">
       <DependentUpon>FavoritesViewController.cs</DependentUpon>
     </Compile>

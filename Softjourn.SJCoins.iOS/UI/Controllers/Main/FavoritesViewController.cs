@@ -10,7 +10,7 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.Main
 	public partial class FavoritesViewController : UIViewController
 	{
 		#region Properties
-		private List<Product> favorites;
+		public List<Product> FavoriteProducts { get; private set; } = new List<Product>();
 		#endregion
 
 		#region Constructor
@@ -24,66 +24,71 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.Main
 		{
 			base.ViewDidLoad();
 
-			//Working with Presenter (fetch products etc) 
-			//Presenter.LoadProducts(); 
+			ConfigurePage();
 		}
 
 		public override void ViewWillAppear(bool animated)
 		{
 			base.ViewWillAppear(animated);
+
+			//Presenter.OnStartLoadingPage();
 		}
 
 		public override void ViewDidAppear(bool animated)
 		{
 			base.ViewDidAppear(animated);
+
+			TableView.RegisterNibForCellReuse(ProductCell.Nib, ProductCell.Key);
 		}
+		#endregion
+
+		#region Private methods
+		private void ConfigurePage()
+		{
+			//Hide no items label
+			NoItemsLabel.Hidden = true;
+
+			// Configure datasource and delegate
+			TableView.Source = new FavoritesViewControllerSource(this);
+		}
+
+		// Throw CollectionView to parent
+		//protected override UIScrollView GetRefreshableScrollView() => TableView;
+
+		//public void OnItemSelected(object sender, Product product)
+		//{
+		//	// Trigg presenter that user click on some product for showing details controllers
+		//	Presenter.OnProductClick(product);
+		//}
+		#endregion
+
+		#region IFavoritesView implementation
 		#endregion
 
 		#region BaseViewController -> IBaseView implementation
 		#endregion
-
-		#region UITableViewSource implementation
-		private class FavoritesViewControllerDataSource : UITableViewSource
-		{
-			private FavoritesViewController parent;
-
-			public FavoritesViewControllerDataSource(FavoritesViewController parent)
-			{
-				this.parent = parent;
-			}
-
-			public override nint RowsInSection(UITableView tableview, nint section)
-			{
-				if (parent.favorites != null || parent.favorites.Count != 0)
-				{
-					parent.NoItemsLabel.Hidden = true;
-					parent.NoItemsLabel.Text = "";
-					return 0;
-				}
-				else {
-					parent.NoItemsLabel.Hidden = false;
-					return parent.favorites.Count;
-				}
-			}
-
-			public override UITableViewCell GetCell(UITableView tableView, NSIndexPath indexPath) => tableView.DequeueReusableCell(ProductCell.Key, indexPath);
-		}
-
-		#endregion
-
-		#region UITableViewDelegate implementation
-		private class FavoritesViewControllerDelegate : UITableViewDelegate
-		{
-			private FavoritesViewController parent;
-
-			public FavoritesViewControllerDelegate(FavoritesViewController parent)
-			{
-				this.parent = parent;
-			}
-
-
-
-		}
-		#endregion
 	}
+
+	#region UITableViewSource implementation
+	public class FavoritesViewControllerSource : UITableViewSource
+	{
+		private FavoritesViewController parent;
+
+		public FavoritesViewControllerSource(FavoritesViewController parent)
+		{
+			this.parent = parent;
+		}
+
+		public override nint RowsInSection(UITableView tableview, nint section) => parent.FavoriteProducts.Count;
+
+		public override UITableViewCell GetCell(UITableView tableView, NSIndexPath indexPath) => tableView.DequeueReusableCell(ProductCell.Key, indexPath);	
+
+		public override void WillDisplay(UITableView tableView, UITableViewCell cell, NSIndexPath indexPath)
+		{
+			var _cell = (ProductCell)cell;
+			//var category = parent.Categories[indexPath.Row];
+
+		}
+	}
+	#endregion
 }

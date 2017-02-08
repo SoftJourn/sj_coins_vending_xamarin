@@ -3,6 +3,8 @@
 using Foundation;
 using Softjourn.SJCoins.Core.API.Model.Products;
 using UIKit;
+using SDWebImage;
+using Softjourn.SJCoins.Core.Utils;
 
 namespace Softjourn.SJCoins.iOS
 {
@@ -23,7 +25,10 @@ namespace Softjourn.SJCoins.iOS
 
 		public void ConfigureWith(Product product)
 		{
-			
+			// Set outlets
+			NameLabel.Text = product.Name;
+			PriceLabel.Text = product.Price.ToString() + " coins";
+			Logo.SetImage(url: new NSUrl(Const.BaseUrl+Const.UrlVendingService+product.ImageUrl), placeholder: UIImage.FromBundle("Placeholder.png"));
 		}
 	}
 }

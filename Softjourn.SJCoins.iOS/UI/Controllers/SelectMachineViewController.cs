@@ -46,16 +46,6 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers
 		#endregion
 
 		#region ISelectMachineView implementation
-		public void ShowProgress(string message)
-		{
-			LoaderService.Show(message);
-		}
-
-		public void HideProgress()
-		{
-			LoaderService.Hide();
-		}
-
 		public void ShowNoMachineView(string message)
 		{
 			// show label that no machines fetched

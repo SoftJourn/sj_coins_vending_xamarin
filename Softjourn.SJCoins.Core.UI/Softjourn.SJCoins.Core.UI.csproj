@@ -61,6 +61,8 @@
     <Compile Include="ViewInterfaces\IWelcomeView.cs" />
     <Compile Include="Presenters\AccountPresenter.cs" />
     <Compile Include="ViewInterfaces\IAccountView.cs" />
+    <Compile Include="Presenters\BaseProductPresenter.cs" />
+    <Compile Include="ViewInterfaces\IBaseProductView.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Softjourn.SJCoins.Core\Softjourn.SJCoins.Core.csproj">
