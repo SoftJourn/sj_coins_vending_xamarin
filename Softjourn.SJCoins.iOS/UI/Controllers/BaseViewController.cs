@@ -101,7 +101,7 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers
 		#region Methods for inheritanse
 		protected virtual UIScrollView GetRefreshableScrollView()
 		{
-			// virtual method for taking UIscrollView (tableview, collectionview) from child of this class
+			// virtual method for taking UIScrollView (tableview, collectionview) from child of this class
 			return null;
 		}
 

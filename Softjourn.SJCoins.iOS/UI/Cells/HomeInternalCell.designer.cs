@@ -1,18 +1,42 @@
-﻿// WARNING
+// WARNING
 //
-// This file has been generated automatically by Xamarin Studio from the outlets and
-// actions declared in your storyboard file.
-// Manual changes to this file will not be maintained.
+// This file has been generated automatically by Xamarin Studio to store outlets and
+// actions made in the UI designer. If it is removed, they will be lost.
+// Manual changes to this file may not be handled correctly.
 //
 using Foundation;
+using System.CodeDom.Compiler;
 
 namespace Softjourn.SJCoins.iOS
 {
-	[Register("HomeInternalCell")]
+	[Register ("HomeInternalCell")]
 	partial class HomeInternalCell
 	{
-		void ReleaseDesignerOutlets()
+		[Outlet]
+		UIKit.UIImageView Logo { get; set; }
+
+		[Outlet]
+		UIKit.UILabel NameLabel { get; set; }
+
+		[Outlet]
+		UIKit.UILabel PriceLabel { get; set; }
+		
+		void ReleaseDesignerOutlets ()
 		{
+			if (Logo != null) {
+				Logo.Dispose ();
+				Logo = null;
+			}
+
+			if (NameLabel != null) {
+				NameLabel.Dispose ();
+				NameLabel = null;
+			}
+
+			if (PriceLabel != null) {
+				PriceLabel.Dispose ();
+				PriceLabel = null;
+			}
 		}
 	}
 }

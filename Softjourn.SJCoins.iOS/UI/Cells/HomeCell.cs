@@ -1,20 +1,25 @@
 ﻿using System;
 using System.Collections.Generic;
+using CoreGraphics;
 using Foundation;
 using Softjourn.SJCoins.Core.API.Model.Products;
+using Softjourn.SJCoins.iOS.General.Constants;
 using UIKit;
 
 namespace Softjourn.SJCoins.iOS
 {
-	public partial class HomeCell : UICollectionViewCell
+	public partial class HomeCell : UICollectionViewCell, IUIViewControllerPreviewingDelegate
 	{
 		public static readonly NSString Key = new NSString("HomeCell");
 		public static readonly UINib Nib;
 
-		public event EventHandler<Product> ItemSelected;
-
+		private AppDelegate _currentApplication
+		{
+			get { return (AppDelegate)UIApplication.SharedApplication.Delegate; }
+		}
 		private string categoryName; 
 		private List<Product> categoryProducts;
+		public event EventHandler<string> SeeAllClickedEvent = delegate { };
 
 		static HomeCell()
 		{
@@ -23,63 +28,122 @@ namespace Softjourn.SJCoins.iOS
 
 		protected HomeCell(IntPtr handle) : base(handle)
 		{
-			// Note: this .ctor should not contain any initialization logic.
 		}
 
-		public void ConfigureWith(Categories category)
+		public void ConfigureWith(Categories category, HomeCellDelegate _delegate)
 		{
 			// Save and set category name
 			categoryName = category.Name;
 			CategoryNameLabel.Text = category.Name;
-			// Save list of products
 			categoryProducts = category.Products;
+
+			InternalCollectionView.DataSource = new HomeCellDataSource(category.Products);
+			InternalCollectionView.Delegate = _delegate;
+			InternalCollectionView.ReloadData();
+
+			ConfigureSeeAllButton();
 		}
 
-		#region UICollectionViewSource implementation
-		private class HomeCellDataSource : UICollectionViewSource
+		private void ConfigureSeeAllButton()
 		{
-			private HomeCell parent;
-
-			public HomeCellDataSource(HomeCell parent)
+			// Add click event to button
+			ShowAllButton.TouchUpInside += (o,s) =>
 			{
-				this.parent = parent;
-			}
-
-			public override nint NumberOfSections(UICollectionView collectionView) => parent.categoryProducts == null ? 0 : parent.categoryProducts.Count;
-
-			public override UICollectionViewCell GetCell(UICollectionView collectionView, NSIndexPath indexPath) => collectionView.DequeueReusableCell(HomeInternalCell.Key, indexPath) as UICollectionViewCell;
+				// Execute event and throw category name to HomeViewController
+				SeeAllClickedEvent(this, categoryName);
+			};
 		}
-
-		#endregion
-
-		#region UICollectionViewDelegate implementation
-		private class HomeCellDelegate : UICollectionViewDelegate
+		#region IUIViewControllerPreviewingDelegate implementation
+		public override void TraitCollectionDidChange(UITraitCollection previousTraitCollection)
 		{
-			private HomeCell parent;
+			// Must call base method
+			base.TraitCollectionDidChange(previousTraitCollection);
 
-			public HomeCellDelegate(HomeCell parent)
+			if (TraitCollection.ForceTouchCapability == UIForceTouchCapability.Available)
 			{
-				this.parent = parent;
+				var visibleController = _currentApplication.VisibleViewController;
+				visibleController.RegisterForPreviewingWithDelegate(this, visibleController.View);
 			}
-
-			public override void WillDisplayCell(UICollectionView collectionView, UICollectionViewCell cell, NSIndexPath indexPath)
-			{
-				var _cell = cell as HomeInternalCell;
-				var item = parent.categoryProducts[indexPath.Row];
-				_cell.ConfigureWith(item)
-			}
-
-			public override void ItemSelected(UICollectionView collectionView, NSIndexPath indexPath)
-			{
-				var selectedItem = parent.categoryProducts[indexPath.Row];
-				var handler = ItemSelected;
-				if (handler != null)
-				{
-					handler(this, selectedItem);
-				}
+			else {
+				// Need move fom here !!!
+				UIAlertController alertController = UIAlertController.Create("3D Touch Not Available", "Unsupported device.", UIAlertControllerStyle.Alert);
+				_currentApplication.VisibleViewController.PresentViewController(alertController, true, null);
 			}
 		}
-		#endregion
 
+		public UIViewController GetViewControllerForPreview(IUIViewControllerPreviewing previewingContext, CGPoint location)
+		{
+			// Convert location to collection view coordinate system.
+			CGPoint newLocation = _currentApplication.VisibleViewController.View.ConvertPointToView(location, InternalCollectionView);
+
+			// Obtain the index path and the cell that was pressed.
+			var indexPath = InternalCollectionView.IndexPathForItemAtPoint(newLocation);
+
+			if (indexPath == null)
+				return null;
+
+			var cell = InternalCollectionView.CellForItem(indexPath);
+
+			if (cell == null)
+				return null;
+
+			// Create a preview controller and set its properties.
+			var previewController = UIStoryboard.FromName(StoryboardConstants.StoryboardMain, null).InstantiateViewController(StoryboardConstants.PreViewController);
+			if (previewController == null)
+				return null;
+			
+			var previewItem = categoryProducts[indexPath.Row];
+			previewController.PreferredContentSize = new CGSize(0, 320);
+			previewingContext.SourceRect = cell.Frame;
+			return previewController;
+		}
+
+		public void CommitViewController(IUIViewControllerPreviewing previewingContext, UIViewController viewControllerToCommit)
+		{
+			_currentApplication.VisibleViewController.ShowViewController(viewControllerToCommit, this);
+		}
+		#endregion
 	}
+
+	#region UICollectionViewSource implementation
+	public class HomeCellDataSource : UICollectionViewDataSource
+	{
+		private List<Product> _products;
+
+		public HomeCellDataSource(List<Product> products)
+		{
+			_products = products;
+		}
+
+		public override nint GetItemsCount(UICollectionView collectionView, nint section) => _products == null ? 0 : _products.Count;
+
+		public override UICollectionViewCell GetCell(UICollectionView collectionView, NSIndexPath indexPath) => (UICollectionViewCell)collectionView.DequeueReusableCell(HomeInternalCell.Key, indexPath);
+	}
+
+	#endregion
+
+	#region UICollectionViewDelegate implementation
+	public class HomeCellDelegate : UICollectionViewDelegate
+	{
+		private List<Product> _products;
+		public event EventHandler<Product> ItemSelectedEvent = delegate { };
+
+		public HomeCellDelegate(List<Product> products)
+		{
+			_products = products;
+		}
+
+		public override void WillDisplayCell(UICollectionView collectionView, UICollectionViewCell cell, NSIndexPath indexPath)
+		{
+			var _cell = cell as HomeInternalCell;
+			var item = _products[indexPath.Row];
+			_cell.ConfigureWith(item);
+		}
+
+		public override void ItemSelected(UICollectionView collectionView, NSIndexPath indexPath)
+		{
+			ItemSelectedEvent(this, _products[indexPath.Row]);
+		}
+	}
+	#endregion
 }

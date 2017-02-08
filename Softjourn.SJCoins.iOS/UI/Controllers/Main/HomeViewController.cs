@@ -14,12 +14,10 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.Main
 	[Register("HomeViewController")]
 	public partial class HomeViewController : BaseViewController<HomePresenter>, IHomeView
 	{
-		private const int cellHeight = 180;
-		private const string confirmTitle = "Confirm Purchase";
-
 		#region Properties
-		private List<Categories> categories;
-		private Account account;
+		public List<Categories> Categories { get; private set; } = new List<Categories>();
+
+		private HomeViewControllerDataSource _dataSource;
 		#endregion
 
 		#region Constructor
@@ -33,12 +31,8 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.Main
 		{
 			base.ViewDidLoad();
 
-			CollectionView.Source = new HomeViewControllerDataSource(this);
-			CollectionView.Delegate = new HomeViewControllerDelegate(this);
-			CollectionView.AlwaysBounceVertical = true;
-
+			ConfigurePage();
 			Presenter.OnStartLoadingPage();
-			ConfigureSettingButton();
 		}
 
 		public override void ViewWillAppear(bool animated)
@@ -49,7 +43,6 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.Main
 		public override void ViewDidAppear(bool animated)
 		{
 			base.ViewDidAppear(animated);
-
 		}
 		#endregion
 
@@ -57,8 +50,8 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.Main
 		public void SetAccountInfo(Account account)
 		{
 			// Show user balance
-			//string balance = account.Amount.ToString();
-			//SetBalance(balance);
+			string balance = account.Amount.ToString();
+			SetBalance(balance);
 		}
 
 		public void SetUserBalance(string balance)
@@ -76,15 +69,9 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.Main
 		public void ShowProducts(List<Categories> listCategories)
 		{
 			// Save downloaded data and show them on view
-			categories = listCategories;
+			Categories = listCategories;
+			_dataSource.Categories = listCategories;
 			CollectionView.ReloadData();
-		}
-
-		public void showPurchaseConfirmationDialog(Product product)
-		{
-			string price = product.Price.ToString();
-			string confirmMessage = "Buy" + product.Name + "for the" + price + "coins";
-			new AlertService().ShowConfirmationDialog(confirmTitle, confirmMessage, null, null);
 		}
 		#endregion
 
@@ -105,11 +92,12 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.Main
 		#region Private methods
 		private void SetBalance(string balance)
 		{
-			BalanceLabel.Text = "Your balance is" + balance + "coins";
+			BalanceLabel.Text = "Your balance is " + balance + " coins";
 		}
 
 		private UIView ConfigureVendingMachinesHeader()
 		{
+			// Customize header view
 			UIView view = new UIView();
 			UILabel label = new UILabel(frame: new CGRect(x: 25, y: 15, width: 300, height: 20));
 			label.TextAlignment = UITextAlignment.Left;
@@ -119,88 +107,91 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.Main
 			return view;
 		}
 
-		private void ConfigureSettingButton()
+		private void ConfigurePage()
 		{
+			//Hide no items label
+			NoItemsLabel.Hidden = true;
+
 			// Add click event to button
 			SettingButton.Clicked += (sender, e) =>
 			{
 				// Show SettingViewController
-				//Presenter.ToSettingScreen();
+				Presenter.OnSettingsButtonClick();
 			};
+
+			// Configure datasource and delegate
+			_dataSource = new HomeViewControllerDataSource();
+
+			CollectionView.DataSource = _dataSource;
+			CollectionView.Delegate = new HomeViewControllerDelegateFlowLayout(this);
+			CollectionView.AlwaysBounceVertical = true;
 		}
 
 		// Throw CollectionView to parent
 		protected override UIScrollView GetRefreshableScrollView() => CollectionView;
 
-		// Delegate method executed from HomeCell
-		private void ExecuteBuying()
+		public void OnItemSelected(object sender, Product product)
 		{
-			//Presenter.BuyProduct();
-		}
-		#endregion
-
-		#region UICollectionViewSource implementation
-		private class HomeViewControllerDataSource : UICollectionViewSource
-		{
-			private HomeViewController parent;
-
-			public HomeViewControllerDataSource(HomeViewController parent)
-			{
-				this.parent = parent;
-			}
-
-			public override nint NumberOfSections(UICollectionView collectionView) => parent.categories == null ? 0 : parent.categories.Count;
-
-			public override UICollectionViewCell GetCell(UICollectionView collectionView, NSIndexPath indexPath) => collectionView.DequeueReusableCell(HomeCell.Key, indexPath) as UICollectionViewCell;
+			// Trigg presenter that user click on some product for showing details controllers
+			Presenter.OnProductClick(product); 
 		}
 
-		#endregion
-
-		#region UICollectionViewDelegate implementation
-		private class HomeViewControllerDelegate : UICollectionViewDelegate
+		public void OnSeeAllClicked(object sender, string categoryName)
 		{
-			private HomeViewController parent;
-
-			public HomeViewControllerDelegate(HomeViewController parent)
-			{
-				this.parent = parent;
-			}
-
-			public override void WillDisplayCell(UICollectionView collectionView, UICollectionViewCell cell, NSIndexPath indexPath)
-			{
-				var _cell = cell as HomeCell;
-				if (parent.categories != null)
-				{
-					var category = parent.categories[indexPath.Row];
-					if (category.Products != null || category.Products.Count != 0)
-					{
-						// set delegate to cell
-
-
-						// if (category.name == favorite)
-						// {
-						//	configure cell with name unavailable items etc.	
-						// }
-
-						_cell.ConfigureWith(category);
-					}
-				}
-			}
-		}
-		#endregion
-
-		#region UICollectionViewDelegateFlowLayout implementation
-		private class HomeViewControllerDelegateFlowLayout : UICollectionViewDelegateFlowLayout
-		{
-			private HomeViewController parent;
-
-			public HomeViewControllerDelegateFlowLayout(HomeViewController parent)
-			{
-				this.parent = parent;
-			}
-
-			public override CGSize GetSizeForItem(UICollectionView collectionView, UICollectionViewLayout layout, NSIndexPath indexPath) => new CGSize(collectionView.Bounds.Width, cellHeight);
+			// Trigg presenter that user click on SeeAll button 
+			//Presenter.OnSeeAllClick(categoryName);
 		}
 		#endregion
 	}
+
+	#region UICollectionViewSource implementation
+	public class HomeViewControllerDataSource : UICollectionViewDataSource
+	{
+		public List<Categories> Categories { get; set; } = new List<Categories>();
+
+		public override nint NumberOfSections(UICollectionView collectionView) => 1;
+
+		public override nint GetItemsCount(UICollectionView collectionView, nint section)
+		{
+			return Categories.Count;
+		}
+
+		public override UICollectionViewCell GetCell(UICollectionView collectionView, NSIndexPath indexPath) 
+		{
+			return (UICollectionViewCell)collectionView.DequeueReusableCell(HomeCell.Key, indexPath);
+		}
+	}
+	#endregion
+
+	#region UICollectionViewDelegateFlowLayout implementation
+	public class HomeViewControllerDelegateFlowLayout : UICollectionViewDelegateFlowLayout
+	{
+		private const int cellHeight = 180;
+		private HomeViewController parent;
+
+		public HomeViewControllerDelegateFlowLayout(HomeViewController parent)
+		{
+			this.parent = parent;
+		}
+
+		public override CGSize GetSizeForItem(UICollectionView collectionView, UICollectionViewLayout layout, NSIndexPath indexPath) => new CGSize(collectionView.Bounds.Width, cellHeight);
+
+		public override void WillDisplayCell(UICollectionView collectionView, UICollectionViewCell cell, NSIndexPath indexPath)
+		{
+			var _cell = (HomeCell)cell;
+			var category = parent.Categories[indexPath.Row];
+
+			// Create delegate object with event and throw it to cell
+			var _delegate = new HomeCellDelegate(category.Products);
+			_delegate.ItemSelectedEvent -= parent.OnItemSelected;
+			_delegate.ItemSelectedEvent += parent.OnItemSelected;
+
+			// Add seeAll event
+			_cell.SeeAllClickedEvent -= parent.OnSeeAllClicked;
+			_cell.SeeAllClickedEvent += parent.OnSeeAllClicked;
+
+			_cell.ConfigureWith(category, _delegate);
+		}
+	}
+	#endregion
 }

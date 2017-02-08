@@ -1,14 +1,16 @@
 using System;
 using Foundation;
+using Softjourn.SJCoins.Core.API.Model.AccountInfo;
+using Softjourn.SJCoins.Core.UI.Presenters;
+using Softjourn.SJCoins.Core.UI.ViewInterfaces;
 using UIKit;
 
 namespace Softjourn.SJCoins.iOS.UI.Controllers.Main
 {
 	[Register("AccountViewController")]
-	public partial class AccountViewController : UIViewController
+	public partial class AccountViewController : BaseViewController<AccountPresenter>, IAccountView
 	{
 		#region Properties
-		//private List<Categories> categories;
 		#endregion
 
 		#region Constructor
@@ -26,51 +28,28 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.Main
 		public override void ViewWillAppear(bool animated)
 		{
 			base.ViewWillAppear(animated);
+
+			Presenter.OnStartLoadingPage();
 		}
 
 		public override void ViewDidAppear(bool animated)
 		{
 			base.ViewDidAppear(animated);
+
+
+		}
+		#endregion
+
+		#region IAccountView implementation
+		public void SetAccountInfo(Account account)
+		{
+			Console.WriteLine("ololo");
+			NameLabel.Text = account.Name + " " + account.Surname;
+			AmountLabel.Text = account.Amount.ToString() + " coins";
 		}
 		#endregion
 
 		#region BaseViewController -> IBaseView implementation
-		#endregion
-
-		#region UITableViewSource implementation
-		private class AccountViewControllerDataSource : UITableViewSource
-		{
-			private AccountViewController parent;
-
-			public AccountViewControllerDataSource(AccountViewController parent)
-			{
-				this.parent = parent;
-			}
-
-			public override nint RowsInSection(UITableView tableview, nint section)
-			{
-				throw new NotImplementedException();
-			}
-
-			public override UITableViewCell GetCell(UITableView tableView, NSIndexPath indexPath)
-			{
-				throw new NotImplementedException();
-			}
-		}
-
-		#endregion
-
-		#region UITableViewDelegate implementation
-		private class AccountViewControllerDelegate : UITableViewDelegate
-		{
-			private AccountViewController parent;
-
-			public AccountViewControllerDelegate(AccountViewController parent)
-			{
-				this.parent = parent;
-			}
-
-		}
 		#endregion
 	}
 }
