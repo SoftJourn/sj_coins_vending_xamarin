@@ -9,35 +9,19 @@ using System.CodeDom.Compiler;
 
 namespace Softjourn.SJCoins.iOS.UI.Controllers.Main
 {
-	partial class HomeViewController
+	partial class FavoritesViewController
 	{
-		[Outlet]
-		UIKit.UILabel BalanceLabel { get; set; }
-
-		[Outlet]
-		UIKit.UICollectionView CollectionView { get; set; }
-
 		[Outlet]
 		UIKit.UILabel NoItemsLabel { get; set; }
 
 		[Outlet]
-		UIKit.UIBarButtonItem SettingButton { get; set; }
+		UIKit.UITableView TableView { get; set; }
 		
 		void ReleaseDesignerOutlets ()
 		{
-			if (BalanceLabel != null) {
-				BalanceLabel.Dispose ();
-				BalanceLabel = null;
-			}
-
-			if (CollectionView != null) {
-				CollectionView.Dispose ();
-				CollectionView = null;
-			}
-
-			if (SettingButton != null) {
-				SettingButton.Dispose ();
-				SettingButton = null;
+			if (TableView != null) {
+				TableView.Dispose ();
+				TableView = null;
 			}
 
 			if (NoItemsLabel != null) {

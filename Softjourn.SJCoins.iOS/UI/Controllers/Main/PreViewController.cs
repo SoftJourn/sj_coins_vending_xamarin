@@ -5,7 +5,7 @@ using UIKit;
 namespace Softjourn.SJCoins.iOS.UI.Controllers
 {
 	[Register("PreViewController")]
-	public partial class PreViewController : UIViewController
+	public partial class PreViewController : UIViewController // detail presenter
 	{
 		#region Properties
 		public string DetailItemTitle { get; set; }

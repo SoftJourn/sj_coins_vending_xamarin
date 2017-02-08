@@ -31,9 +31,7 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.Main
 		{
 			base.ViewDidLoad();
 
-			ConfigureCollectionView();
-			ConfigureSettingButton();
-
+			ConfigurePage();
 			Presenter.OnStartLoadingPage();
 		}
 
@@ -109,18 +107,19 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.Main
 			return view;
 		}
 
-		private void ConfigureSettingButton()
+		private void ConfigurePage()
 		{
+			//Hide no items label
+			NoItemsLabel.Hidden = true;
+
 			// Add click event to button
 			SettingButton.Clicked += (sender, e) =>
 			{
 				// Show SettingViewController
-				Presenter.OnSettingsButtonClick(); 
+				Presenter.OnSettingsButtonClick();
 			};
-		}
 
-		private void ConfigureCollectionView()
-		{
+			// Configure datasource and delegate
 			_dataSource = new HomeViewControllerDataSource();
 
 			CollectionView.DataSource = _dataSource;
