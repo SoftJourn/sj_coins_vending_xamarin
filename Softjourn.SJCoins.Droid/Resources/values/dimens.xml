@@ -1,6 +1,8 @@
 ﻿<resources>
   <!--Profile Activity -->
   <dimen name="purchase_header_bottom_margin">16dp</dimen>
+  <dimen name="profile_avatar_top_margin">24dp</dimen>
+  <dimen name="profile_avatar_size">160dp</dimen>
 
   <!--Fragment List View margins. -->
   <dimen name="recycler_view_layout_left_margin">10dp</dimen>

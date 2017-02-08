@@ -63,8 +63,11 @@ namespace Softjourn.SJCoins.Droid.UI.Activities
                 case Android.Resource.Id.Home:
                     //_menuLayout.OpenDrawer(Android.Support.V4.View.GravityCompat.Start);
                     return true;
-                case Resource.Id.select_machine:
-                    ViewPresenter.OnSettingsButtonClick();
+                case Resource.Id.menu_favorites:
+                    //ViewPresenter.OnFavoritesButtonClick();
+                    return true;
+                case Resource.Id.profile:
+                    ViewPresenter.OnProfileButtonClicked();
                     return true;
                 default:
                     return base.OnOptionsItemSelected(item);
