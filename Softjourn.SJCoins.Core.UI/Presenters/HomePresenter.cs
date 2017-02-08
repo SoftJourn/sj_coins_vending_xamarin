@@ -13,14 +13,7 @@ using Softjourn.SJCoins.Core.Utils;
 namespace Softjourn.SJCoins.Core.UI.Presenters
 {
 	public class HomePresenter : BaseProductPresenter<IHomeView>
-    {
-        private int _balance;
-
-        public HomePresenter()
-        {
-
-        }
-
+	{
         public void OnRefresh()
         {
             OnStartLoadingPage();
@@ -34,7 +27,7 @@ namespace Softjourn.SJCoins.Core.UI.Presenters
                 {
                     View.ShowProgress(Resources.StringResources.progress_loading);
                     dataManager.Profile = await RestApiServise.GetUserAccountAsync();
-                    _balance = dataManager.Profile.Amount;
+					MyBalance = dataManager.Profile.Amount;
                     View.SetAccountInfo(dataManager.Profile);
                     View.SetMachineName(Settings.SelectedMachineName);
                     List<Product> favoritesList = await RestApiServise.GetFavoritesList();
