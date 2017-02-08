@@ -290,13 +290,18 @@ namespace Softjourn.SJCoins.Droid.UI.Activities
 
         public void Purchase(Product product)
         {
-            ViewPresenter.OnProductClick(product);
+            ViewPresenter.OnBuyProductClick(product);
+        }
+
+        public void ShowPreview(Product product)
+        {
+            BottomSheetDialogFragment bottomSheetDialogFragment = new ProductDetailsFragment(product, _listCategories);
+            bottomSheetDialogFragment.Show(SupportFragmentManager, bottomSheetDialogFragment.Tag);
         }
 
         public void ShowDetails(Product product)
         {
-            BottomSheetDialogFragment bottomSheetDialogFragment = new ProductDetailsFragment(product, _listCategories);
-            bottomSheetDialogFragment.Show(SupportFragmentManager, bottomSheetDialogFragment.Tag);
+
         }
 
         public void TrigFavorite(Product product)

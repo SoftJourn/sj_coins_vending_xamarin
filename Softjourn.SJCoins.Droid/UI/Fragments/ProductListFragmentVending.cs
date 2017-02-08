@@ -114,12 +114,12 @@ namespace Softjourn.SJCoins.Droid.UI.Fragments
 
         private void ProductSelected(object sender, Product product)
         {
-           ((MainActivity)Activity).Purchase(product);
+           ((MainActivity)Activity).ShowDetails(product);
         }
 
         private void ProductDetailsSelected(object sender, Product product)
         {
-            ((MainActivity) Activity).ShowDetails(product);
+            ((MainActivity) Activity).ShowPreview(product);
         }
     }
 }
