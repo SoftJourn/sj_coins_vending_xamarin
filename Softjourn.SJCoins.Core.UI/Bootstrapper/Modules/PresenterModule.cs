@@ -1,10 +1,5 @@
 ﻿using Autofac;
 using Softjourn.SJCoins.Core.UI.Presenters;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Softjourn.SJCoins.Core.UI.Bootstrapper.Modules
 {
@@ -18,6 +13,8 @@ namespace Softjourn.SJCoins.Core.UI.Bootstrapper.Modules
             builder.RegisterType<HomePresenter>().AsSelf().PropertiesAutowired();
             builder.RegisterType<SelectMachinePresenter>().AsSelf().PropertiesAutowired();
 			builder.RegisterType<AccountPresenter>().AsSelf().PropertiesAutowired();
+            builder.RegisterType<DetailPresenter>().AsSelf().PropertiesAutowired();
+            builder.RegisterType<ShowAllPresenter>().AsSelf().PropertiesAutowired();
         }
     }
 }
