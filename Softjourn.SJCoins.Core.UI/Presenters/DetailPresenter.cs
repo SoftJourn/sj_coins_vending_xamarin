@@ -2,7 +2,7 @@
 using Softjourn.SJCoins.Core.UI.Presenters;
 using Softjourn.SJCoins.Core.UI.ViewInterfaces;
 
-namespace Softjourn.SJCoins.Core.UI.Controllers.Main
+namespace Softjourn.SJCoins.Core.UI.Presenters
 {
 	public class DetailPresenter : BaseProductPresenter<IDetailView>
 	{

@@ -2,11 +2,11 @@
 using Softjourn.SJCoins.Core.UI.Presenters;
 using Softjourn.SJCoins.Core.UI.ViewInterfaces;
 
-namespace Softjourn.SJCoins.Core.UI.Controllers.Main
+namespace Softjourn.SJCoins.Core.UI.Presenters
 {
-	public class FavoritePresenter : BaseProductPresenter<IFavoriteView>
+	public class ShowAllPresenter : BaseProductPresenter<IShowAllView>
 	{
-		public FavoritePresenter()
+		public ShowAllPresenter()
 		{
 		}
 
