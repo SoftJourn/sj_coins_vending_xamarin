@@ -15,7 +15,7 @@
             <rect key="frame" x="0.0" y="0.0" width="320" height="62"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="cxk-wN-pdQ" id="YTl-1W-gDM">
-                <rect key="frame" x="0.0" y="0.0" width="320" height="62"/>
+                <rect key="frame" x="0.0" y="0.0" width="320" height="61"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="Placeholder" translatesAutoresizingMaskIntoConstraints="NO" id="RmD-Yl-Ems">
@@ -49,11 +49,18 @@
                     </label>
                 </subviews>
             </tableViewCellContentView>
+            <connections>
+                <outlet property="BuyButton" destination="9xs-wh-8FD" id="K0c-KO-2Mq"/>
+                <outlet property="FavoriteButton" destination="PHV-Hh-Vwr" id="4pa-Z6-auo"/>
+                <outlet property="ImageLogo" destination="RmD-Yl-Ems" id="Ncx-2R-yBQ"/>
+                <outlet property="NameLabel" destination="oUr-FA-xMw" id="OhF-FZ-Xnx"/>
+                <outlet property="PriceLabel" destination="CHi-pO-SLn" id="KoH-86-LyQ"/>
+            </connections>
             <point key="canvasLocation" x="25" y="43"/>
         </tableViewCell>
     </objects>
     <resources>
-        <image name="Placeholder" width="16" height="16"/>
+        <image name="Placeholder" width="355" height="200"/>
         <image name="unchecked" width="16" height="16"/>
     </resources>
 </document>

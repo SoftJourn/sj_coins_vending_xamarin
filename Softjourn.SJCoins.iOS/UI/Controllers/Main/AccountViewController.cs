@@ -1,5 +1,7 @@
 using System;
+using CoreAnimation;
 using Foundation;
+using SDWebImage;
 using Softjourn.SJCoins.Core.API.Model.AccountInfo;
 using Softjourn.SJCoins.Core.UI.Presenters;
 using Softjourn.SJCoins.Core.UI.ViewInterfaces;
@@ -46,6 +48,19 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.Main
 			Console.WriteLine("ololo");
 			NameLabel.Text = account.Name + " " + account.Surname;
 			AmountLabel.Text = account.Amount.ToString() + " coins";
+
+			AvatarImage.SetImage(url: new NSUrl("https://sjcoins-testing.softjourn.if.ua/vending/v1/products/100/image.jpeg"), placeholder: UIImage.FromBundle("Placeholder.png"));
+			CircleImage(AvatarImage);
+		}
+		#endregion
+
+		#region Private methods
+		private void CircleImage(UIImageView imageView)
+		{
+			CALayer imageCircle = imageView.Layer;
+			imageCircle.CornerRadius = 60;
+			imageCircle.BorderWidth = 0.2f;
+			imageCircle.MasksToBounds = true;
 		}
 		#endregion
 

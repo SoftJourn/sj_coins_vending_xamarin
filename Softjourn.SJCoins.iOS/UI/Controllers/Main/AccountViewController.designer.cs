@@ -15,6 +15,9 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.Main
 		UIKit.UILabel AmountLabel { get; set; }
 
 		[Outlet]
+		UIKit.UIImageView AvatarImage { get; set; }
+
+		[Outlet]
 		UIKit.UIBarButtonItem LogOutButton { get; set; }
 
 		[Outlet]
@@ -22,6 +25,16 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.Main
 		
 		void ReleaseDesignerOutlets ()
 		{
+			if (AvatarImage != null) {
+				AvatarImage.Dispose ();
+				AvatarImage = null;
+			}
+
+			if (AmountLabel != null) {
+				AmountLabel.Dispose ();
+				AmountLabel = null;
+			}
+
 			if (LogOutButton != null) {
 				LogOutButton.Dispose ();
 				LogOutButton = null;
@@ -30,11 +43,6 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.Main
 			if (NameLabel != null) {
 				NameLabel.Dispose ();
 				NameLabel = null;
-			}
-
-			if (AmountLabel != null) {
-				AmountLabel.Dispose ();
-				AmountLabel = null;
 			}
 		}
 	}

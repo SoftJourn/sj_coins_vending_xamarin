@@ -295,7 +295,7 @@
         <scene sceneID="vus-eu-tpe">
             <objects>
                 <navigationController storyboardIdentifier="AllProductsNavigationController" automaticallyAdjustsScrollViewInsets="NO" id="UxB-iK-pO6" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="All Items" image="3CB08C48-CC7A-41F1-BEEA-A93DBCCCF196" id="eof-dA-PO7"/>
+                    <tabBarItem key="tabBarItem" title="All Items" image="ED5DDC4B-80F9-4397-8145-2171A8E4D118" id="eof-dA-PO7"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="iHX-3p-5pT">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
@@ -323,7 +323,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="..." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MHV-zA-S2Q">
-                                <rect key="frame" x="36" y="104" width="303" height="30"/>
+                                <rect key="frame" x="36" y="214" width="303" height="30"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="30" id="WDD-o9-s7M"/>
                                 </constraints>
@@ -332,7 +332,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="..." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sUT-rl-su9">
-                                <rect key="frame" x="36" y="164" width="303" height="30"/>
+                                <rect key="frame" x="36" y="274" width="303" height="30"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="30" id="EPX-uy-YHy"/>
                                 </constraints>
@@ -340,13 +340,22 @@
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="hFi-Eo-5E5">
+                                <rect key="frame" x="127" y="74" width="120" height="120"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="120" id="MxM-Ed-CNh"/>
+                                    <constraint firstAttribute="width" constant="120" id="gyJ-xo-7MU"/>
+                                </constraints>
+                            </imageView>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstAttribute="trailingMargin" secondItem="sUT-rl-su9" secondAttribute="trailing" constant="20" id="19g-x3-yV8"/>
                             <constraint firstItem="MHV-zA-S2Q" firstAttribute="leading" secondItem="UkE-P0-iZ9" secondAttribute="leadingMargin" constant="20" id="22x-Eq-7Tt"/>
                             <constraint firstItem="sUT-rl-su9" firstAttribute="centerX" secondItem="UkE-P0-iZ9" secondAttribute="centerX" id="2jy-Mv-eNZ"/>
-                            <constraint firstItem="MHV-zA-S2Q" firstAttribute="top" secondItem="shj-Bd-8F9" secondAttribute="bottom" constant="40" id="6CL-zv-Frd"/>
+                            <constraint firstItem="MHV-zA-S2Q" firstAttribute="top" secondItem="hFi-Eo-5E5" secondAttribute="bottom" constant="20" id="CdX-JZ-sMN"/>
+                            <constraint firstItem="hFi-Eo-5E5" firstAttribute="top" secondItem="shj-Bd-8F9" secondAttribute="bottom" constant="10" id="JZc-fw-PhH"/>
+                            <constraint firstItem="hFi-Eo-5E5" firstAttribute="centerX" secondItem="UkE-P0-iZ9" secondAttribute="centerX" id="Vob-yw-o1R"/>
                             <constraint firstItem="sUT-rl-su9" firstAttribute="leading" secondItem="UkE-P0-iZ9" secondAttribute="leadingMargin" constant="20" id="aTv-MA-gkK"/>
                             <constraint firstItem="sUT-rl-su9" firstAttribute="top" secondItem="MHV-zA-S2Q" secondAttribute="bottom" constant="30" id="bYP-Y7-42z"/>
                             <constraint firstItem="MHV-zA-S2Q" firstAttribute="centerX" secondItem="UkE-P0-iZ9" secondAttribute="centerX" id="mqr-Oo-ltH"/>
@@ -356,6 +365,7 @@
                     <navigationItem key="navigationItem" title="Profile" id="hjl-Gf-gBT"/>
                     <connections>
                         <outlet property="AmountLabel" destination="sUT-rl-su9" id="DLo-dX-T4G"/>
+                        <outlet property="AvatarImage" destination="hFi-Eo-5E5" id="skx-Yp-Pcb"/>
                         <outlet property="NameLabel" destination="MHV-zA-S2Q" id="VPW-Oi-JEf"/>
                     </connections>
                 </viewController>
@@ -726,7 +736,8 @@
         </scene>
     </scenes>
     <resources>
-        <image name="3CB08C48-CC7A-41F1-BEEA-A93DBCCCF196" width="16" height="16">
+        <image name="AccountTabIcon" width="25" height="25"/>
+        <image name="ED5DDC4B-80F9-4397-8145-2171A8E4D118" width="16" height="16">
             <mutableData key="keyedArchiveRepresentation">
 YnBsaXN0MDDUAQIDBAUGODlYJHZlcnNpb25YJG9iamVjdHNZJGFyY2hpdmVyVCR0b3ASAAGGoKwHCBEW
 GxwiIyksMjVVJG51bGzUCQoLDA0ODxBWJGNsYXNzXE5TSW1hZ2VGbGFnc1ZOU1JlcHNXTlNDb2xvcoAL
@@ -741,7 +752,6 @@ pwCuALYAwgDEAMYAyAFHAUwBVwFgAWYBaQFyAXcBfwGCAYkBkQGeAaMBpQGnAawBtAG3AbwBxAHHAdkB
 3AHhAAAAAAAAAgEAAAAAAAAAPAAAAAAAAAAAAAAAAAAAAeM
 </mutableData>
         </image>
-        <image name="AccountTabIcon" width="25" height="25"/>
         <image name="HomeTabIcon" width="25" height="25"/>
     </resources>
 </document>
