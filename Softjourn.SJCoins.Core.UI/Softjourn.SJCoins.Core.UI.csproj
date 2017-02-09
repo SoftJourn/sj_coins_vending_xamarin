@@ -63,9 +63,9 @@
     <Compile Include="ViewInterfaces\IAccountView.cs" />
     <Compile Include="Presenters\BaseProductPresenter.cs" />
     <Compile Include="ViewInterfaces\IBaseProductView.cs" />
-    <Compile Include="Presenters\FavoritePresenter.cs" />
+    <Compile Include="Presenters\ShowAllPresenter.cs" />
     <Compile Include="Presenters\DetailPresenter.cs" />
-    <Compile Include="ViewInterfaces\IFavoriteView.cs" />
+    <Compile Include="ViewInterfaces\IShowAllView.cs" />
     <Compile Include="ViewInterfaces\IDetailView.cs" />
   </ItemGroup>
   <ItemGroup>

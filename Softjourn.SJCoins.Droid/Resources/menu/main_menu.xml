@@ -21,4 +21,16 @@
       android:title="@string/menu_bottombar_profile"
       android:icon="@drawable/ic_account_circle_white_24dp"
       app:showAsAction="ifRoom"/>
+
+  <item
+      android:id="@+id/menu_buy"
+      android:title="@string/menu_buy"
+      android:icon="@drawable/ic_basket_white_6"
+      app:showAsAction="ifRoom"/>
+
+  <item
+      android:id="@+id/menu_add_favorite"
+      android:title="@string/menu_add_favorites"
+      android:icon="@drawable/ic_favorite_border_white"
+      app:showAsAction="ifRoom"/>
 </menu>

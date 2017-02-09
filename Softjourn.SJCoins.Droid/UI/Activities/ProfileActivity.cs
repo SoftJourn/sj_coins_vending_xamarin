@@ -46,6 +46,8 @@ namespace Softjourn.SJCoins.Droid.UI.Activities
 
             _options = FindViewById<ListView>(Resource.Id.profile_more_options);
             var adapter = new ArrayAdapter<string>(this, Android.Resource.Layout.SimpleListItem1, ViewPresenter.GetOptionsList());
+            _options.Adapter = adapter;
+            _options.Visibility = ViewStates.Visible;
 
             ViewPresenter.OnStartLoadingPage();
         }
@@ -59,6 +61,15 @@ namespace Softjourn.SJCoins.Droid.UI.Activities
         {
             return false;
         }
+
+        public override bool OnOptionsItemSelected(IMenuItem item)
+        {
+            if (item.ItemId == Android.Resource.Id.Home)
+                this.OnBackPressed();
+
+            return base.OnOptionsItemSelected(item);
+        }
+
 
         public void SetAccountInfo(Account account)
         {
