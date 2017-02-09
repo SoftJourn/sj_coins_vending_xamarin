@@ -71,6 +71,7 @@ namespace Softjourn.SJCoins.Droid.UI.Fragments
 
         private void HandleBuyButton()
         {
+            Dismiss();
             ((MainActivity)Activity).Purchase(_product);
         }
 

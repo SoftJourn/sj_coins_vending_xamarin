@@ -179,6 +179,7 @@
     <Compile Include="Services\NavigationService.cs" />
     <Compile Include="UI\Activities\LoginActivity.cs" />
     <Compile Include="UI\Activities\MainActivity.cs" />
+    <Compile Include="UI\Activities\ProfileActivity.cs" />
     <Compile Include="UI\Activities\SelectMachineActivity.cs" />
     <Compile Include="UI\Activities\SplashActivity.cs" />
     <Compile Include="UI\Activities\WelcomeActivity.cs" />
@@ -235,6 +236,9 @@
     <AndroidResource Include="Resources\layout\recycler_machine_view_item.axml" />
     <AndroidResource Include="Resources\layout\confirm_dialog.axml" />
     <AndroidResource Include="Resources\layout\fragment_product_details.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\layout\activity_profile.axml">
       <SubType>Designer</SubType>
     </AndroidResource>
   </ItemGroup>
@@ -442,6 +446,21 @@
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\drawable-xxhdpi\ic_home_white_24dp.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable-mdpi\ic_favorite_white_24dp.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable-hdpi\ic_favorite_white_24dp.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable-xhdpi\ic_favorite_white_24dp.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable-xxhdpi\ic_favorite_white_24dp.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\noavatar.png" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
   <Import Project="..\packages\Xamarin.Android.Support.Vector.Drawable.24.2.1\build\Xamarin.Android.Support.Vector.Drawable.targets" Condition="Exists('..\packages\Xamarin.Android.Support.Vector.Drawable.24.2.1\build\Xamarin.Android.Support.Vector.Drawable.targets')" />
