@@ -14,6 +14,7 @@ namespace Softjourn.SJCoins.Core.UI.Bootstrapper.Modules
         protected override void Load(ContainerBuilder builder)
         {
 			builder.RegisterType<DataManager>().SingleInstance();
+            builder.RegisterType<PhotoManager>().SingleInstance();
         }
     }
 }

@@ -23,5 +23,7 @@ namespace Softjourn.SJCoins.Core.UI.Services.Alert
 
         // show Dialog with product info and button for purchaising
         void ShowPurchaseConfirmationDialod(Product product, Action<Product> onPurchaseProductAction);
+
+        void ShowPhotoSelectorDialog(List<string> photoSource, Action fromCamera, Action fromGallery);
     }
 }

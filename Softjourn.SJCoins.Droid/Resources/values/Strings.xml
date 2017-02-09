@@ -46,6 +46,7 @@
   <!--Profile Screen-->
   <string name="profile_amount_available">9999</string>
   <string name="coins">"%1$d coins"</string>
+  <string name="dialog_select_photo_source">Select Photo Source</string>
 
   <!--Purchase History-->
   <string name="purchase_history_price">20 Coins</string>

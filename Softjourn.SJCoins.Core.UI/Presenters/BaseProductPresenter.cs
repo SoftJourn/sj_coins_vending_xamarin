@@ -31,7 +31,7 @@ namespace Softjourn.SJCoins.Core.UI.Presenters
 						// Execute remove favorite call
 						await RestApiServise.RemoveProductFromFavorites(product.Id.ToString());
 						// Remove favorite locally
-						dataManager.RemoveProductFromFavorite(product);
+						DataManager.RemoveProductFromFavorite(product);
 						// Trigg view that process success 
 
 					}
@@ -40,7 +40,7 @@ namespace Softjourn.SJCoins.Core.UI.Presenters
 						// Execute add favorite call
 						await RestApiServise.AddProductToFavorites(product.Id.ToString());
 						// Add favorite locally
-						dataManager.AddProductToFavorite(product);
+						DataManager.AddProductToFavorite(product);
 						// Trigg view that process success 
 
 					}

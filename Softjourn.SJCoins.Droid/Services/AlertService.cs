@@ -1,4 +1,6 @@
 using System;
+using System.Collections.Generic;
+using System.Text.RegularExpressions;
 using Android.App;
 using Android.Content;
 using Android.Graphics;
@@ -56,6 +58,39 @@ namespace Softjourn.SJCoins.Droid.Services
         public void ShowPurchaseConfirmationDialod(Product product, Action<Product> onPurchaseProductAction)
         {
             CreateConfirmationDialog(product, onPurchaseProductAction);
+        }
+
+        public void ShowPhotoSelectorDialog(List<string> photoSource, Action fromCamera, Action fromGallery)
+        {
+            var activity = CrossCurrentActivity.Current.Activity;
+
+            var dialog = new Dialog(activity);
+            if (!dialog.IsShowing)
+            {
+                dialog.Window.RequestFeature(WindowFeatures.NoTitle);
+                dialog.Window.RequestFeature(WindowFeatures.SwipeToDismiss);
+                dialog.SetContentView(Resource.Layout.dialog_select_photo);
+                var sourceList = dialog.FindViewById<ListView>(Resource.Id.lv);
+                var adapter = new ArrayAdapter(activity,
+                    Android.Resource.Layout.SimpleListItem1, photoSource);
+                sourceList.Adapter = adapter;
+                dialog.Window.Attributes.WindowAnimations = Resource.Style.MachinesDialogAnimation;
+                dialog.Show();
+
+                sourceList.ItemClick += (sender, e) =>
+                {
+                    if (Regex.IsMatch(adapter.GetItem(e.Position).ToString(), ".*Camera.*"))
+                    {
+                        fromCamera?.Invoke();
+                        dialog.Dismiss();
+                    }
+                    else
+                    {
+                        fromGallery?.Invoke();
+                        dialog.Dismiss();
+                    }
+                };
+            }
         }
 
         private void CreateAlertDialog(string title, string msg, Action btnClicked, string btnName = null)

@@ -26,9 +26,9 @@ namespace Softjourn.SJCoins.Core.UI.Presenters
                 try
                 {
                     View.ShowProgress(Resources.StringResources.progress_loading);
-                    dataManager.Profile = await RestApiServise.GetUserAccountAsync();
-					MyBalance = dataManager.Profile.Amount;
-                    View.SetAccountInfo(dataManager.Profile);
+                    DataManager.Profile = await RestApiServise.GetUserAccountAsync();
+					MyBalance = DataManager.Profile.Amount;
+                    View.SetAccountInfo(DataManager.Profile);
                     View.SetMachineName(Settings.SelectedMachineName);
                     List<Product> favoritesList = await RestApiServise.GetFavoritesList();
                     List<Categories> productCategoriesList = new List<Categories>();
@@ -57,8 +57,8 @@ namespace Softjourn.SJCoins.Core.UI.Presenters
                             }
                         }
                     }
-                    dataManager.ProductList = AddFavoriteFlagToProducts(productCategoriesList);
-                    View.ShowProducts(dataManager.ProductList);
+                    DataManager.ProductList = AddFavoriteFlagToProducts(productCategoriesList);
+                    View.ShowProducts(DataManager.ProductList);
                     View.HideProgress();
                 }
                 catch (ApiNotAuthorizedException ex)

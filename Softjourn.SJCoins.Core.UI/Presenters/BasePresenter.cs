@@ -19,7 +19,8 @@ namespace Softjourn.SJCoins.Core.UI.Presenters
     {
 		#region Properties
 		protected ILifetimeScope _scope;
-		protected DataManager dataManager;
+		protected DataManager DataManager;
+        protected PhotoManager PhotoManager;
 
 		public INavigationService NavigationService
         {
@@ -42,7 +43,8 @@ namespace Softjourn.SJCoins.Core.UI.Presenters
         {
 			// Take container and resolve DataManager 
 			_scope = BaseBootstrapper.Container.BeginLifetimeScope();
-			dataManager = _scope.Resolve<DataManager>();
+			DataManager = _scope.Resolve<DataManager>();
+		    PhotoManager = _scope.Resolve<PhotoManager>();
         }
 		#endregion
 

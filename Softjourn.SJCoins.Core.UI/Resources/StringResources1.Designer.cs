@@ -188,6 +188,15 @@ namespace Softjourn.SJCoins.Core.UI.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Purchase|Reports|Privacy and Terms|Help|Share Funs|Select Machine|Logout.
+        /// </summary>
+        public static string profile_options_array {
+            get {
+                return ResourceManager.GetString("profile_options_array", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Authenticating….
         /// </summary>
         public static string progress_authenticating {
@@ -211,6 +220,24 @@ namespace Softjourn.SJCoins.Core.UI.Resources {
         public static string progress_loading {
             get {
                 return ResourceManager.GetString("progress_loading", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to From Camera.
+        /// </summary>
+        public static string select_source_photo_camera {
+            get {
+                return ResourceManager.GetString("select_source_photo_camera", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to From Gallery.
+        /// </summary>
+        public static string select_source_photo_gallery {
+            get {
+                return ResourceManager.GetString("select_source_photo_gallery", resourceCulture);
             }
         }
         
