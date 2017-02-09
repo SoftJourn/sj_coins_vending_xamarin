@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using Android.App;
+using Android.Content;
 using Android.Content.PM;
 using Android.OS;
 using Android.Support.Design.Widget;
@@ -9,6 +10,7 @@ using Android.Support.V4.Widget;
 using Android.Views;
 using Android.Widget;
 using BottomNavigationBar;
+using Plugin.CurrentActivity;
 using Softjourn.SJCoins.Core.API.Model.AccountInfo;
 using Softjourn.SJCoins.Core.API.Model.Products;
 using Softjourn.SJCoins.Core.UI.Presenters;
@@ -301,7 +303,8 @@ namespace Softjourn.SJCoins.Droid.UI.Activities
 
         public void ShowDetails(Product product)
         {
-
+            var view = new Intent(CrossCurrentActivity.Current.Activity, typeof(DetailsActivity));
+            StartActivity(view);
         }
 
         public void TrigFavorite(Product product)

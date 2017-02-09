@@ -201,12 +201,14 @@
     <Compile Include="Resources\Resource.designer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\NavigationService.cs" />
+    <Compile Include="UI\Activities\DetailsActivity.cs" />
     <Compile Include="UI\Activities\LoginActivity.cs" />
     <Compile Include="UI\Activities\MainActivity.cs" />
     <Compile Include="UI\Activities\ProfileActivity.cs" />
     <Compile Include="UI\Activities\SelectMachineActivity.cs" />
     <Compile Include="UI\Activities\SplashActivity.cs" />
     <Compile Include="UI\Activities\WelcomeActivity.cs" />
+    <Compile Include="UI\Adapters\DetailsPagerAdapter.cs" />
     <Compile Include="UI\Adapters\FeaturedProductItemsAdapter.cs" />
     <Compile Include="UI\Adapters\FeatureViewHolder.cs" />
     <Compile Include="UI\Adapters\SelectMachineListAdapter.cs" />
@@ -263,6 +265,12 @@
       <SubType>Designer</SubType>
     </AndroidResource>
     <AndroidResource Include="Resources\layout\activity_profile.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\layout\activity_details.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\layout\activity_details_view_pager_item.axml">
       <SubType>Designer</SubType>
     </AndroidResource>
   </ItemGroup>
