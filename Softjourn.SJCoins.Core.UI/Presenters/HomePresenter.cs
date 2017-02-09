@@ -85,10 +85,16 @@ namespace Softjourn.SJCoins.Core.UI.Presenters
             NavigationService.NavigateTo(NavigationPage.Settings);
         }
 
-		// show purchase dialog with proposal to purchase product
+		//Is called when user click on product item for displaying detail view
 		public void OnProductClick(Product product)
 		{
 			NavigationService.NavigateTo(NavigationPage.Detail);
+		}
+
+		//Is called when user click on Show All button for displaying another view only with product from category
+		public void OnShowAllButtonClicked(string categoryName)
+		{
+
 		}
 
         //Is called when user click on Profile button (is using only for droid)
