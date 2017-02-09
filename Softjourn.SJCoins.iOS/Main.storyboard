@@ -295,7 +295,7 @@
         <scene sceneID="vus-eu-tpe">
             <objects>
                 <navigationController storyboardIdentifier="AllProductsNavigationController" automaticallyAdjustsScrollViewInsets="NO" id="UxB-iK-pO6" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="All Items" image="5D675B12-AF94-4067-8BE9-D8290ACFF818" id="eof-dA-PO7"/>
+                    <tabBarItem key="tabBarItem" title="All Items" image="3CB08C48-CC7A-41F1-BEEA-A93DBCCCF196" id="eof-dA-PO7"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="iHX-3p-5pT">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
@@ -726,7 +726,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="5D675B12-AF94-4067-8BE9-D8290ACFF818" width="16" height="16">
+        <image name="3CB08C48-CC7A-41F1-BEEA-A93DBCCCF196" width="16" height="16">
             <mutableData key="keyedArchiveRepresentation">
 YnBsaXN0MDDUAQIDBAUGODlYJHZlcnNpb25YJG9iamVjdHNZJGFyY2hpdmVyVCR0b3ASAAGGoKwHCBEW
 GxwiIyksMjVVJG51bGzUCQoLDA0ODxBWJGNsYXNzXE5TSW1hZ2VGbGFnc1ZOU1JlcHNXTlNDb2xvcoAL

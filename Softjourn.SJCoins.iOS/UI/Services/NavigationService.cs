@@ -64,6 +64,8 @@ namespace Softjourn.SJCoins.iOS.Services
 				// If Settings page instantiate from Login storyboard
 				case NavigationPage.Settings:
 					return Instantiate(StoryboardConstants.StoryboardMain, StoryboardConstants.SelectMachineViewController);
+				case NavigationPage.Detail:
+					return Instantiate(StoryboardConstants.StoryboardMain, StoryboardConstants.DetailViewController);
 				default:
 					throw new ArgumentException("Not valid page");
 			}
