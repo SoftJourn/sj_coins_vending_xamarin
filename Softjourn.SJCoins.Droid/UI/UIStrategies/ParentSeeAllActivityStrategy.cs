@@ -33,11 +33,11 @@ namespace Softjourn.SJCoins.Droid.UI.UIStrategies
 
         public View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
         {
-            var view = inflater.Inflate(Resource.Layout.fragment_see_all_snacks_drinks, container, false);
-            _machineItems = view.FindViewById<RecyclerView>(Resource.Id.list_items_recycler_view);
-            _buttonSortByName = view.FindViewById<Button>(Resource.Id.button_sort_name);
-            _buttonSortByPrice = view.FindViewById<Button>(Resource.Id.button_sort_price);
-            _noProductsInCategory = view.FindViewById<TextView>(Resource.Id.textViewNoProductsInCategory);
+            //var view = inflater.Inflate(Resource.Layout.fragment_see_all_snacks_drinks, container, false);
+            //_machineItems = view.FindViewById<RecyclerView>(Resource.Id.list_items_recycler_view);
+            //_buttonSortByName = view.FindViewById<Button>(Resource.Id.button_sort_name);
+            //_buttonSortByPrice = view.FindViewById<Button>(Resource.Id.button_sort_price);
+            //_noProductsInCategory = view.FindViewById<TextView>(Resource.Id.textViewNoProductsInCategory);
 
 
             _layoutManager = new LinearLayoutManager(_activity, LinearLayoutManager.Vertical, false);
@@ -58,7 +58,7 @@ namespace Softjourn.SJCoins.Droid.UI.UIStrategies
             //((SeeAllActivity)_activity).SetButtons(_buttonSortByName, _buttonSortByPrice);
             //((ProductListFragment) _fragment).SetFragmentFields(_machineItems, _buttonSortByName, _buttonSortByPrice,
             //    _noProductsInCategory);
-            return view;
+            return null;
         }
 
 

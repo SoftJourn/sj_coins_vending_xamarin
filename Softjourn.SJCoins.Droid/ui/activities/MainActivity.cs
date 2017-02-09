@@ -58,6 +58,17 @@ namespace Softjourn.SJCoins.Droid.UI.Activities
             ViewPresenter.OnStartLoadingPage();
         }
 
+        public override bool OnCreateOptionsMenu(IMenu menu)
+        {
+            MenuInflater inflater = MenuInflater;
+            inflater.Inflate(Resource.Menu.main_menu, menu);
+            var buyItem = menu.FindItem(Resource.Id.menu_buy);
+            var favoriteItem = menu.FindItem(Resource.Id.menu_add_favorite);
+            buyItem.SetVisible(false);
+            favoriteItem.SetVisible(false);
+            return true;
+        }
+
         public override bool OnOptionsItemSelected(IMenuItem item)
         {
             switch (item.ItemId)
