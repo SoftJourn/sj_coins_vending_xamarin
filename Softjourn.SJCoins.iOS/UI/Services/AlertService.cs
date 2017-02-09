@@ -57,11 +57,34 @@ namespace Softjourn.SJCoins.iOS.UI.Services
 		public void ShowPhotoSelectorDialog(List<string> photoSource, Action fromCamera, Action fromGallery)
 		{
 			// Show action sheet with 2 buttons
-			var actions = new List<Action>();
-			actions.Add(fromCamera);
-			actions.Add(fromGallery);
+			//var actions = new List<Action>();
+			//actions.Add(fromCamera);
+			//actions.Add(fromGallery);
 
-			PresentActionSheet(null, null, photoSource, actions);
+			//PresentActionSheet(null, null, photoSource, actions);
+
+
+
+
+			var alertController = UIAlertController.Create(null, null, UIAlertControllerStyle.ActionSheet);
+				
+			alertController.AddAction(UIAlertAction.Create(photoSource[0], UIAlertActionStyle.Default, (itemAction) =>
+			{
+				fromCamera();
+			}));
+
+			alertController.AddAction(UIAlertAction.Create(photoSource[1], UIAlertActionStyle.Default, (itemAction) =>
+			{
+				fromGallery();
+			}));
+
+			alertController.AddAction(UIAlertAction.Create("Cancel", UIAlertActionStyle.Cancel, null));
+
+			_currentApplicationDelegate.VisibleViewController.PresentViewController(alertController, true, null);
+
+
+
+
 		}
 		#endregion
 
@@ -100,11 +123,11 @@ namespace Softjourn.SJCoins.iOS.UI.Services
 			UIApplication.SharedApplication.InvokeOnMainThread(() =>
 			{
 				var alertController = UIAlertController.Create(title, message, UIAlertControllerStyle.ActionSheet);
-				for (int i = 0; i < items.Count; i++)
+				for (int i = 0; i <= items.Count ; i++)
 				{
 					var action = UIAlertAction.Create(items[i], UIAlertActionStyle.Default, (itemAction) =>
 					{
-						itemActions[i].Invoke();
+						itemActions[i]();
 					});
 					alertController.AddAction(action);
 				}
