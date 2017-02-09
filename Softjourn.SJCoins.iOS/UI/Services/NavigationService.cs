@@ -83,6 +83,9 @@ namespace Softjourn.SJCoins.iOS.Services
 					case NavigationPage.Detail:
 						visibleController.NavigationController.PushViewController(GetController(page), animated: true);
 						break;
+					case NavigationPage.Settings:
+						visibleController.PresentViewController(GetController(page), animated: true, completionHandler: null);
+						break;
 					default:
 						throw new ArgumentException("Not valid page");
 				}

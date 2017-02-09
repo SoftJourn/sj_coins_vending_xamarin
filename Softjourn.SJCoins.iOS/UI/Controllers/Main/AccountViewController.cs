@@ -25,6 +25,8 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.Main
 		public override void ViewDidLoad()
 		{
 			base.ViewDidLoad();
+
+			ConfigureAvatarImage(AvatarImage);
 		}
 
 		public override void ViewWillAppear(bool animated)
@@ -50,17 +52,32 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.Main
 			AmountLabel.Text = account.Amount.ToString() + " coins";
 
 			AvatarImage.SetImage(url: new NSUrl("https://sjcoins-testing.softjourn.if.ua/vending/v1/products/100/image.jpeg"), placeholder: UIImage.FromBundle("Placeholder.png"));
-			CircleImage(AvatarImage);
 		}
 		#endregion
 
 		#region Private methods
-		private void CircleImage(UIImageView imageView)
+		private void ConfigureAvatarImage(UIImageView imageView)
 		{
+			// Add tap gesture to avatar image
+			imageView.AddGestureRecognizer(new UITapGestureRecognizer(OnAvatarTap));
+
+			// Make image rounded
 			CALayer imageCircle = imageView.Layer;
 			imageCircle.CornerRadius = 60;
 			imageCircle.BorderWidth = 0.2f;
 			imageCircle.MasksToBounds = true;
+		}
+
+		private void OnAvatarTap()
+		{
+			//Presenter shows action sheet
+			Presenter.OnPhotoClicked();
+		}
+
+		public void ImageAcquired(byte[] receipt)
+		{
+			// Set image to imageView
+			throw new NotImplementedException();
 		}
 		#endregion
 

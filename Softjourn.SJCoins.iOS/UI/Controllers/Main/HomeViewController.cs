@@ -139,7 +139,7 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.Main
 		public void OnSeeAllClicked(object sender, string categoryName)
 		{
 			// Trigg presenter that user click on SeeAll button 
-			//Presenter.OnSeeAllClick(categoryName);
+			Presenter.OnShowAllButtonClicked(categoryName);
 		}
 		#endregion
 	}

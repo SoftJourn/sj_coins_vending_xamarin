@@ -3,7 +3,7 @@
 <plist version="1.0">
 <dict>
 	<key>CFBundleName</key>
-	<string>SJCoins</string>
+	<string>SJCoinsX</string>
 	<key>CFBundleIdentifier</key>
 	<string>com.softjourn.sjcoins</string>
 	<key>CFBundleShortVersionString</key>
@@ -13,7 +13,7 @@
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>MinimumOSVersion</key>
-	<string>9.0</string>
+	<string>10.2</string>
 	<key>UIDeviceFamily</key>
 	<array>
 		<integer>1</integer>

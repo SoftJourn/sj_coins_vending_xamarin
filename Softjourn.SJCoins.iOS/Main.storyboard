@@ -295,7 +295,7 @@
         <scene sceneID="vus-eu-tpe">
             <objects>
                 <navigationController storyboardIdentifier="AllProductsNavigationController" automaticallyAdjustsScrollViewInsets="NO" id="UxB-iK-pO6" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="All Items" image="ED5DDC4B-80F9-4397-8145-2171A8E4D118" id="eof-dA-PO7"/>
+                    <tabBarItem key="tabBarItem" title="All Items" image="D81AB165-3389-4714-B4FD-42B04A12F111" id="eof-dA-PO7"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="iHX-3p-5pT">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
@@ -340,7 +340,7 @@
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="hFi-Eo-5E5">
+                            <imageView contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="hFi-Eo-5E5">
                                 <rect key="frame" x="127" y="74" width="120" height="120"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="120" id="MxM-Ed-CNh"/>
@@ -737,7 +737,7 @@
     </scenes>
     <resources>
         <image name="AccountTabIcon" width="25" height="25"/>
-        <image name="ED5DDC4B-80F9-4397-8145-2171A8E4D118" width="16" height="16">
+        <image name="D81AB165-3389-4714-B4FD-42B04A12F111" width="16" height="16">
             <mutableData key="keyedArchiveRepresentation">
 YnBsaXN0MDDUAQIDBAUGODlYJHZlcnNpb25YJG9iamVjdHNZJGFyY2hpdmVyVCR0b3ASAAGGoKwHCBEW
 GxwiIyksMjVVJG51bGzUCQoLDA0ODxBWJGNsYXNzXE5TSW1hZ2VGbGFnc1ZOU1JlcHNXTlNDb2xvcoAL

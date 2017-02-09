@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using BigTed;
 using Softjourn.SJCoins.Core.API.Model.Products;
 using Softjourn.SJCoins.Core.UI.Services.Alert;
@@ -51,6 +53,16 @@ namespace Softjourn.SJCoins.iOS.UI.Services
 
 			PresentAlert(confirmTitle, confirmMessage, "Confirm", "Cancel", UIAlertActionStyle.Default, onPurchaseProductAction, null, product);
 		}
+
+		public void ShowPhotoSelectorDialog(List<string> photoSource, Action fromCamera, Action fromGallery)
+		{
+			// Show action sheet with 2 buttons
+			var actions = new List<Action>();
+			actions.Add(fromCamera);
+			actions.Add(fromGallery);
+
+			PresentActionSheet(null, null, photoSource, actions);
+		}
 		#endregion
 
 		private void PresentAlert(string title, string message, string accept, string cancel, UIAlertActionStyle acceptStyle, Action<Product> acceptClicked = null, Action cancelClicked = null, Product product = null)
@@ -81,6 +93,26 @@ namespace Softjourn.SJCoins.iOS.UI.Services
 				}
 				catch { }
 				});
+		}
+
+		private void PresentActionSheet(string title, string message, List<string> items, List<Action> itemActions)
+		{
+			UIApplication.SharedApplication.InvokeOnMainThread(() =>
+			{
+				var alertController = UIAlertController.Create(title, message, UIAlertControllerStyle.ActionSheet);
+				for (int i = 0; i < items.Count; i++)
+				{
+					var action = UIAlertAction.Create(items[i], UIAlertActionStyle.Default, (itemAction) =>
+					{
+						itemActions[i].Invoke();
+					});
+					alertController.AddAction(action);
+				}
+				var cancelAction = UIAlertAction.Create("Cancel", UIAlertActionStyle.Cancel, null);
+				alertController.AddAction(cancelAction);
+
+				_currentApplicationDelegate.VisibleViewController.PresentViewController(alertController, true, null);
+			});
 		}
 	}
 }
