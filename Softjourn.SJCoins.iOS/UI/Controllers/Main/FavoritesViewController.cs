@@ -79,9 +79,15 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.Main
 			this.parent = parent;
 		}
 
-		public override nint RowsInSection(UITableView tableview, nint section) => parent.FavoriteProducts.Count;
+		public override nint RowsInSection(UITableView tableview, nint section) 
+		{
+			return 3;
+		}
 
-		public override UITableViewCell GetCell(UITableView tableView, NSIndexPath indexPath) => tableView.DequeueReusableCell(ProductCell.Key, indexPath);	
+		public override UITableViewCell GetCell(UITableView tableView, NSIndexPath indexPath) 
+		{
+			return tableView.DequeueReusableCell(ProductCell.Key, indexPath);
+		}	
 
 		public override void WillDisplay(UITableView tableView, UITableViewCell cell, NSIndexPath indexPath)
 		{

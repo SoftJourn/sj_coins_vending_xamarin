@@ -16,13 +16,7 @@ namespace Softjourn.SJCoins.iOS.Services
 
 		public void NavigateTo(NavigationPage page)
 		{
-			try 
-			{
-				var visibleController = _currentApplication.VisibleViewController;
-				if (visibleController == null)
-					throw new Exception("Visible Controller is null");
-				visibleController.PresentViewController(GetController(page), animated: true, completionHandler: null);
-			}
+			try { Navigate(page); }
 			catch { throw new Exception("Navigation to controller went wrong"); }
 		}
 
@@ -64,6 +58,8 @@ namespace Softjourn.SJCoins.iOS.Services
 				// If Settings page instantiate from Login storyboard
 				case NavigationPage.Settings:
 					return Instantiate(StoryboardConstants.StoryboardMain, StoryboardConstants.SelectMachineViewController);
+				case NavigationPage.Detail:
+					return Instantiate(StoryboardConstants.StoryboardMain, StoryboardConstants.DetailViewController);
 				default:
 					throw new ArgumentException("Not valid page");
 			}
@@ -74,6 +70,26 @@ namespace Softjourn.SJCoins.iOS.Services
 		private void PresentAs(UIViewController viewController)
 		{
 			UIApplication.SharedApplication.KeyWindow.RootViewController = viewController;
+		}
+
+		private void Navigate(NavigationPage page)
+		{
+			var visibleController = _currentApplication.VisibleViewController;
+
+			if (visibleController != null)
+			{
+				switch (page)
+				{
+					case NavigationPage.Detail:
+						visibleController.NavigationController.PushViewController(GetController(page), animated: true);
+						break;
+					default:
+						throw new ArgumentException("Not valid page");
+				}
+			}
+			else {
+				throw new Exception("Visible Controller is null");
+			}
 		}
 	}
 }
