@@ -10,7 +10,8 @@ namespace Softjourn.SJCoins.Core.UI.Presenters
 	{
 		public ShowAllPresenter()
 		{
-		}
+            MyBalance = DataManager.Profile.Amount;
+        }
 
 		public override void ChangeUserBalance(string balance)
 		{

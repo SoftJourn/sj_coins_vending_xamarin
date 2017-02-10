@@ -22,14 +22,14 @@ using Square.Picasso;
 namespace Softjourn.SJCoins.Droid.UI.Activities
 {
     [Activity(Label = "Details", Theme = "@style/AppTheme", ScreenOrientation = ScreenOrientation.Portrait)]
-    public class DetailsActivity: BaseActivity<DetailPresenter>, IDetailView
+    public class DetailsActivity : BaseActivity<DetailPresenter>, IDetailView
     {
         private Product _product;
         private ViewPager _viewPager;
         private const string ProductID = Const.NavigationKey;
         private TextView _productPrice;
         private TextView _productDescription;
-        private List<string> _images; 
+        private List<string> _images;
 
         private DetailsPagerAdapter adapter;
 
@@ -66,6 +66,7 @@ namespace Softjourn.SJCoins.Droid.UI.Activities
             menu.FindItem(Resource.Id.menu_favorites).SetVisible(false);
             menu.FindItem(Resource.Id.menu_buy).SetVisible(true);
             menu.FindItem(Resource.Id.menu_add_favorite).SetVisible(true);
+            ChangeIcon(menu.FindItem(Resource.Id.menu_add_favorite));
             return true;
         }
 
@@ -81,22 +82,23 @@ namespace Softjourn.SJCoins.Droid.UI.Activities
                     break;
                 case Resource.Id.menu_add_favorite:
                     ViewPresenter.OnFavoriteClick(_product);
-                    ChangeIcon(item);
+                    ChangeProductFavorite(item);
                     break;
             }
             return base.OnOptionsItemSelected(item);
         }
 
+        private void ChangeProductFavorite(IMenuItem item)
+        {
+            _product.IsProductFavorite = !_product.IsProductFavorite;
+            ChangeIcon(item);
+        }
+
         private void ChangeIcon(IMenuItem item)
         {
-            if (_product.IsProductFavorite)
-            {
-                item.SetIcon(Resource.Drawable.ic_favorite_white_24dp);
-            }
-            else
-            {
-                item.SetIcon(Resource.Drawable.ic_favorite_border_white);
-            }
+            item.SetIcon(_product.IsProductFavorite
+                ? Resource.Drawable.ic_favorite_white_24dp
+                : Resource.Drawable.ic_favorite_border_white);
         }
     }
 }
