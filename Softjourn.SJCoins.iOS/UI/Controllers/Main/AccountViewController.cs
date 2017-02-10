@@ -47,11 +47,13 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.Main
 		#region IAccountView implementation
 		public void SetAccountInfo(Account account)
 		{
-			Console.WriteLine("ololo");
-			NameLabel.Text = account.Name + " " + account.Surname;
-			AmountLabel.Text = account.Amount.ToString() + " coins";
+			if (account != null)
+			{
+				NameLabel.Text = account.Name + " " + account.Surname;
+				AmountLabel.Text = account.Amount.ToString() + " coins";
 
-			AvatarImage.SetImage(url: new NSUrl("https://sjcoins-testing.softjourn.if.ua/vending/v1/products/100/image.jpeg"), placeholder: UIImage.FromBundle("Placeholder.png"));
+				AvatarImage.SetImage(url: new NSUrl("https://sjcoins-testing.softjourn.if.ua/vending/v1/products/100/image.jpeg"), placeholder: UIImage.FromBundle("Placeholder.png"));
+			}
 		}
 		#endregion
 
