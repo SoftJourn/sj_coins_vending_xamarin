@@ -133,13 +133,13 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.Main
 		public void OnItemSelected(object sender, Product product)
 		{
 			// Trigg presenter that user click on some product for showing details controllers
-			Presenter.OnProductClick(product); 
+			Presenter.OnProductDetailsClick(product.Id); 
 		}
 
 		public void OnSeeAllClicked(object sender, string categoryName)
 		{
 			// Trigg presenter that user click on SeeAll button 
-			Presenter.OnShowAllButtonClicked(categoryName);
+			Presenter.OnShowAllClick(categoryName);
 		}
 		#endregion
 	}
