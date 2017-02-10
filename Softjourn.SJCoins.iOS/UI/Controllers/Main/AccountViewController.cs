@@ -27,13 +27,13 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.Main
 			base.ViewDidLoad();
 
 			ConfigureAvatarImage(AvatarImage);
+			Presenter.OnStartLoadingPage();
 		}
 
 		public override void ViewWillAppear(bool animated)
 		{
 			base.ViewWillAppear(animated);
 
-			Presenter.OnStartLoadingPage();
 		}
 
 		public override void ViewDidAppear(bool animated)
@@ -77,7 +77,7 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.Main
 		public void ImageAcquired(byte[] receipt)
 		{
 			// Set image to imageView
-			throw new NotImplementedException();
+			AvatarImage.Image = UIImage.LoadFromData(NSData.FromArray(receipt));
 		}
 		#endregion
 

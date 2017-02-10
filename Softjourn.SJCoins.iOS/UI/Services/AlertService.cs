@@ -62,29 +62,6 @@ namespace Softjourn.SJCoins.iOS.UI.Services
 			actions.Add(fromGallery);
 
 			PresentActionSheet(null, null, photoSource.ToArray(), actions.ToArray());
-
-
-
-
-			//var alertController = UIAlertController.Create(null, null, UIAlertControllerStyle.ActionSheet);
-				
-			//alertController.AddAction(UIAlertAction.Create(photoSource[0], UIAlertActionStyle.Default, (itemAction) =>
-			//{
-			//	fromCamera();
-			//}));
-
-			//alertController.AddAction(UIAlertAction.Create(photoSource[1], UIAlertActionStyle.Default, (itemAction) =>
-			//{
-			//	fromGallery();
-			//}));
-
-			//alertController.AddAction(UIAlertAction.Create("Cancel", UIAlertActionStyle.Cancel, null));
-
-			//_currentApplicationDelegate.VisibleViewController.PresentViewController(alertController, true, null);
-
-
-
-
 		}
 		#endregion
 
@@ -129,17 +106,6 @@ namespace Softjourn.SJCoins.iOS.UI.Services
 					AddActionToAlert(alertController, items[i], UIAlertActionStyle.Default, itemActions[i]);
 				}
 				AddActionToAlert(alertController, "Cancel", UIAlertActionStyle.Cancel, null);
-
-				//for (int i = 0; i < items.Length ; i++)
-				//{
-				//	var action = UIAlertAction.Create(items[i], UIAlertActionStyle.Default, (itemAction) =>
-				//	{
-				//		itemActions[i]();
-				//	});
-				//	alertController.AddAction(action);
-				//}
-				//var cancelAction = UIAlertAction.Create("Cancel", UIAlertActionStyle.Cancel, null);
-				//alertController.AddAction(cancelAction);
 
 				_currentApplicationDelegate.VisibleViewController.PresentViewController(alertController, true, null);
 			});
