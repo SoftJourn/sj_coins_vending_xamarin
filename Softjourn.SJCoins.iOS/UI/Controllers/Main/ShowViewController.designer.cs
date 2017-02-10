@@ -9,17 +9,8 @@ using System.CodeDom.Compiler;
 
 namespace Softjourn.SJCoins.iOS.UI.Controllers.Main
 {
-	partial class AllItemsViewController
+	partial class ShowViewController
 	{
-		[Outlet]
-		UIKit.UIButton FilterButton { get; set; }
-
-		[Outlet]
-		UIKit.UILabel NoItemsLabel { get; set; }
-
-		[Outlet]
-		UIKit.UIBarButtonItem SearchButton { get; set; }
-
 		[Outlet]
 		UIKit.UITableView TableView { get; set; }
 		
@@ -28,21 +19,6 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.Main
 			if (TableView != null) {
 				TableView.Dispose ();
 				TableView = null;
-			}
-
-			if (NoItemsLabel != null) {
-				NoItemsLabel.Dispose ();
-				NoItemsLabel = null;
-			}
-
-			if (SearchButton != null) {
-				SearchButton.Dispose ();
-				SearchButton = null;
-			}
-
-			if (FilterButton != null) {
-				FilterButton.Dispose ();
-				FilterButton = null;
 			}
 		}
 	}

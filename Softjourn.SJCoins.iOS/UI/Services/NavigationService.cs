@@ -1,6 +1,9 @@
 ﻿using System;
+using Softjourn.SJCoins.Core.API.Model.Products;
 using Softjourn.SJCoins.Core.UI.Services.Navigation;
 using Softjourn.SJCoins.iOS.General.Constants;
+using Softjourn.SJCoins.iOS.UI.Controllers;
+using Softjourn.SJCoins.iOS.UI.Controllers.Main;
 using UIKit;
 
 namespace Softjourn.SJCoins.iOS.Services
@@ -14,9 +17,9 @@ namespace Softjourn.SJCoins.iOS.Services
 
 		#region INavigationService implementation
 
-		public void NavigateTo(NavigationPage page)
+		public void NavigateTo(NavigationPage page, object obj = null)
 		{
-			try { Navigate(page); }
+			try { Navigate(page, obj); }
 			catch { throw new Exception("Navigation to controller went wrong"); }
 		}
 
@@ -60,6 +63,8 @@ namespace Softjourn.SJCoins.iOS.Services
 					return Instantiate(StoryboardConstants.StoryboardMain, StoryboardConstants.SelectMachineViewController);
 				case NavigationPage.Detail:
 					return Instantiate(StoryboardConstants.StoryboardMain, StoryboardConstants.DetailViewController);
+				case NavigationPage.ShowAll:
+				return Instantiate(StoryboardConstants.StoryboardMain, StoryboardConstants.ShowViewController);
 				default:
 					throw new ArgumentException("Not valid page");
 			}
@@ -72,7 +77,7 @@ namespace Softjourn.SJCoins.iOS.Services
 			UIApplication.SharedApplication.KeyWindow.RootViewController = viewController;
 		}
 
-		private void Navigate(NavigationPage page)
+		private void Navigate(NavigationPage page, object obj = null)
 		{
 			var visibleController = _currentApplication.VisibleViewController;
 
@@ -80,8 +85,21 @@ namespace Softjourn.SJCoins.iOS.Services
 			{
 				switch (page)
 				{
+					case NavigationPage.ShowAll:
+						var showAllController = (ShowViewController)GetController(page);
+						if (obj is string)
+						{
+							showAllController.CategoryName = (string)obj;
+						}
+						visibleController.NavigationController.PushViewController(showAllController, animated: true);
+						break;
 					case NavigationPage.Detail:
-						visibleController.NavigationController.PushViewController(GetController(page), animated: true);
+						var detailController = (DetailViewController)GetController(page);
+						if (obj is int)
+						{
+							detailController.ProductId = (int)obj;
+						}
+						visibleController.NavigationController.PushViewController(detailController, animated: true);
 						break;
 					case NavigationPage.Settings:
 						visibleController.PresentViewController(GetController(page), animated: true, completionHandler: null);

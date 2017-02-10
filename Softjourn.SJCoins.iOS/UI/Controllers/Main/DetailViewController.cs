@@ -1,13 +1,18 @@
 using System;
 using Foundation;
+using Softjourn.SJCoins.Core.API.Model.Products;
+using Softjourn.SJCoins.Core.UI.Presenters;
+using Softjourn.SJCoins.Core.UI.ViewInterfaces;
 using UIKit;
 
 namespace Softjourn.SJCoins.iOS.UI.Controllers
 {
 	[Register("DetailViewController")]
-	public partial class DetailViewController : UIViewController
+	public partial class DetailViewController : BaseViewController<DetailPresenter>, IDetailView
 	{
 		#region Properties
+		public int ProductId { get; set; }
+		public Product SelectedProduct;
 		#endregion
 
 		#region Constructor
@@ -20,19 +25,19 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers
 		public override void ViewDidLoad()
 		{
 			base.ViewDidLoad();
+
+			SelectedProduct = Presenter.GetProduct(ProductId);
 		}
 
 		public override void ViewWillAppear(bool animated)
 		{
 			base.ViewWillAppear(animated);
 
-			//Presenter.OnStartLoadingPage();
 		}
 
 		public override void ViewDidAppear(bool animated)
 		{
 			base.ViewDidAppear(animated);
-
 
 		}
 		#endregion

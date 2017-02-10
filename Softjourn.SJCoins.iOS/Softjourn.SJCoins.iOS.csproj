@@ -287,7 +287,6 @@
       <DependentUpon>CustomSegmentControl.cs</DependentUpon>
     </Compile>
     <Compile Include="UI\Controllers\Main\HomeViewController.cs" />
-    <Compile Include="UI\Controllers\Main\AllItemsViewController.cs" />
     <Compile Include="UI\Controllers\Main\AccountViewController.cs" />
     <Compile Include="UI\Controllers\Main\HomeViewController.designer.cs">
       <DependentUpon>HomeViewController.cs</DependentUpon>
@@ -307,9 +306,6 @@
     <Compile Include="UI\Controllers\Main\AccountViewController.designer.cs">
       <DependentUpon>AccountViewController.cs</DependentUpon>
     </Compile>
-    <Compile Include="UI\Controllers\Main\AllItemsViewController.designer.cs">
-      <DependentUpon>AllItemsViewController.cs</DependentUpon>
-    </Compile>
     <Compile Include="UI\Controllers\Main\PreViewController.cs" />
     <Compile Include="UI\Controllers\Main\PreViewController.designer.cs">
       <DependentUpon>PreViewController.cs</DependentUpon>
@@ -321,6 +317,10 @@
     <Compile Include="UI\Controllers\Main\FavoritesViewController.cs" />
     <Compile Include="UI\Controllers\Main\FavoritesViewController.designer.cs">
       <DependentUpon>FavoritesViewController.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Controllers\Main\ShowViewController.cs" />
+    <Compile Include="UI\Controllers\Main\ShowViewController.designer.cs">
+      <DependentUpon>ShowViewController.cs</DependentUpon>
     </Compile>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
