@@ -62,10 +62,8 @@ namespace Softjourn.SJCoins.Droid.UI.Activities
         {
             MenuInflater inflater = MenuInflater;
             inflater.Inflate(Resource.Menu.main_menu, menu);
-            var buyItem = menu.FindItem(Resource.Id.menu_buy);
-            var favoriteItem = menu.FindItem(Resource.Id.menu_add_favorite);
-            buyItem.SetVisible(false);
-            favoriteItem.SetVisible(false);
+            menu.FindItem(Resource.Id.menu_buy).SetVisible(false);
+            menu.FindItem(Resource.Id.menu_add_favorite).SetVisible(false);
             return true;
         }
 
@@ -225,7 +223,7 @@ namespace Softjourn.SJCoins.Droid.UI.Activities
             {
                 tvSeeAll.Click += (sender, e) =>
                 {
-                    //NavigationUtils.GoToSeeAllActivity(this, categoryName);
+                    ViewPresenter.OnShowAllClick(categoryName);
                 };
             }
 
@@ -308,14 +306,13 @@ namespace Softjourn.SJCoins.Droid.UI.Activities
 
         public void ShowPreview(Product product)
         {
-            BottomSheetDialogFragment bottomSheetDialogFragment = new ProductDetailsFragment(product, _listCategories);
+            BottomSheetDialogFragment bottomSheetDialogFragment = new ProductDetailsFragment(product);
             bottomSheetDialogFragment.Show(SupportFragmentManager, bottomSheetDialogFragment.Tag);
         }
 
         public void ShowDetails(Product product)
         {
-            var view = new Intent(CrossCurrentActivity.Current.Activity, typeof(DetailsActivity));
-            StartActivity(view);
+            ViewPresenter.OnProductDetailsClick(product.Id);
         }
 
         public void TrigFavorite(Product product)

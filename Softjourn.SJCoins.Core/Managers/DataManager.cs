@@ -67,6 +67,35 @@ namespace Softjourn.SJCoins.Core.Managers
                 }
             }
         }
+
+        public Product GetProductFromListById(int productId)
+        {
+            var categoriesList = ProductList;
+
+            foreach (var category in categoriesList)
+            {
+                foreach (var product in category.Products)
+                {
+                    if (product.Id == productId)
+                    {
+                        return product;
+                    }
+                }
+            }
+            return null;
+        }
+
+        public List<Product> GetProductListByGivenCategory(string categoryInput)
+        {
+            foreach (var category in ProductList)
+            {
+                if (categoryInput == category.Name)
+                {
+                    return category.Products;
+                }
+            }
+            return null;
+        } 
         #endregion
     }
 }

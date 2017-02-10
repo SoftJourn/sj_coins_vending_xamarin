@@ -223,5 +223,15 @@ namespace Softjourn.SJCoins.Core.UI.Presenters
 		{
 			View.SetUserBalance(balance);
 		}
+
+	    public void OnProductDetailsClick(int productID)
+	    {
+	        NavigationService.NavigateTo(NavigationPage.Detail,productID);
+	    }
+
+	    public void OnShowAllClick(string category)
+	    {
+	        NavigationService.NavigateTo(NavigationPage.ShowAll,category);
+	    }
     }
 }
