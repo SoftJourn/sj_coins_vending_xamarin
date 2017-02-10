@@ -21,21 +21,11 @@ namespace Softjourn.SJCoins.Droid.UI.Fragments
 
         private bool _isRemovedFromFavorite = false;
 
-        private readonly List<Product> _favoritesList = new List<Product>();
-
         private readonly Product _product;
 
-        public ProductDetailsFragment(Product product, List<Categories> categories)
+        public ProductDetailsFragment(Product product)
         {
             _product = product;
-            foreach (var category in categories)
-            {
-                if (category.Name == "Favorites")
-                {
-                    _favoritesList.AddRange(category.Products);
-                    break;
-                }
-            }
         }
 
         public override void OnViewCreated(View contentView, Bundle savedInstanceState)
@@ -66,7 +56,7 @@ namespace Softjourn.SJCoins.Droid.UI.Fragments
 
             _buyProduct.Click += (s, e) => HandleBuyButton();
 
-            _favorites.Click += (s,e) => HandleOnFavoriteClick();
+            _favorites.Click += (s, e) => HandleOnFavoriteClick();
         }
 
         private void HandleBuyButton()
@@ -78,26 +68,16 @@ namespace Softjourn.SJCoins.Droid.UI.Fragments
         private void LoadFavoriteIcon()
         {
             _favorites.Tag = false;
-            if (_favoritesList != null && _favoritesList.Count > 0)
+            if (_product.IsProductFavorite)
             {
-                for (int i = 0; i < _favoritesList.Count; i++)
-                {
-                    if (_favoritesList[i].Id == _product.Id)
-                    {
-                        Picasso.With(Activity).Load(Resource.Drawable.ic_favorite_pink).Into(_favorites);
-                        _favorites.Tag = true;
-                        break;
-                    }
-                    else
-                    {
-                        Picasso.With(Activity).Load(Resource.Drawable.ic_favorite_border_white).Into(_favorites);
-                        _favorites.Tag = false;
-                    }
-                }
+                Picasso.With(Activity).Load(Resource.Drawable.ic_favorite_pink).Into(_favorites);
+                _favorites.Tag = true;
+
             }
             else
             {
                 Picasso.With(Activity).Load(Resource.Drawable.ic_favorite_border_white).Into(_favorites);
+                _favorites.Tag = false;
             }
         }
 

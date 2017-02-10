@@ -258,7 +258,6 @@
       <SubType>Designer</SubType>
     </AndroidResource>
     <AndroidResource Include="Resources\layout\fragment_products_list.axml" />
-    <AndroidResource Include="Resources\layout\fragment_show_all.axml" />
     <AndroidResource Include="Resources\layout\recycler_see_all_item.axml" />
     <AndroidResource Include="Resources\layout\recycler_machine_view_item.axml" />
     <AndroidResource Include="Resources\layout\confirm_dialog.axml" />

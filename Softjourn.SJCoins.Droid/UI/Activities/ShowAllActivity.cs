@@ -1,24 +1,34 @@
 
+using System.Collections.Generic;
 using Android.App;
+using Android.Content;
 using Android.Content.PM;
 using Android.Graphics;
 using Android.OS;
 using Android.Provider;
 using Android.Runtime;
+using Android.Support.Design.Widget;
 using Android.Support.V4.Content;
+using Android.Support.V7.Widget;
 using Android.Text;
 using Android.Views;
 using Android.Views.InputMethods;
 using Android.Widget;
+using Plugin.CurrentActivity;
+using Softjourn.SJCoins.Core.API.Model.Products;
 using Softjourn.SJCoins.Core.UI.Presenters;
+using Softjourn.SJCoins.Core.UI.ViewInterfaces;
 using Softjourn.SJCoins.Droid.ui.baseUI;
 using Softjourn.SJCoins.Droid.utils;
 using Softjourn.SJCoins.Droid.UI.Adapters;
+using Softjourn.SJCoins.Droid.UI.Fragments;
+using Softjourn.SJCoins.Droid.UI.UIStrategies;
 using Softjourn.SJCoins.Droid.Utils;
 
 namespace Softjourn.SJCoins.Droid.UI.Activities
 {
-    public class ShowAllActivity : BaseActivity<ShowAllPresenter>
+    [Activity(Theme = "@style/AppTheme", ScreenOrientation = ScreenOrientation.Portrait)]
+    public class ShowAllActivity : BaseActivity<ShowAllPresenter>, IShowAllView
     {
         private FeaturedProductItemsAdapter _adapter;
 
@@ -27,32 +37,61 @@ namespace Softjourn.SJCoins.Droid.UI.Activities
         private Button _fragmentsSortNameButton;
         private Button _fragmentsSortPriceButton;
 
+        private string _productsCategory;
+        private const string ProductsCategory = Const.NavigationKey;
+
+        private static RecyclerView.LayoutManager _layoutManager;
+        private List<Product> _productList;
+
+        RecyclerView _machineItems;
+
         protected override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
             SetContentView(Resource.Layout.activity_show_all);
 
-            RequestedOrientation = ScreenOrientation.Portrait;
-
-            //mVendingPresenter = new SeeAllPresenter(this);
-            //mPurchasePresenter = new PurchasePresenter(this);
-
-            _category = Intent.GetStringExtra(Const.ExtrasCategory);
+            _category = Intent.GetStringExtra(ProductsCategory);
             Title = _category;
 
             SupportActionBar?.SetDisplayHomeAsUpEnabled(true);
-            AttachFragment(_category);
+
+            _productList = ViewPresenter.GetProductList(_category);
+
+            _machineItems = FindViewById<RecyclerView>(Resource.Id.list_items_recycler_view);
+
+            _layoutManager = new LinearLayoutManager(this, LinearLayoutManager.Horizontal, false);
+            _adapter = new FeaturedProductItemsAdapter(_productsCategory, null, this);
+
+            _adapter.ProductSelected -= ProductSelected;
+            _adapter.ProductSelected += ProductSelected;
+
+            _adapter.ProductDetailsSelected -= ProductDetailsSelected;
+            _adapter.ProductDetailsSelected += ProductDetailsSelected;
+
+            _adapter.AddToFavorites -= TrigFavorite;
+            _adapter.AddToFavorites += TrigFavorite;
+
+            _adapter.RemoveFromFavorites -= TrigFavorite;
+            _adapter.RemoveFromFavorites += TrigFavorite;
+
+            _machineItems.SetLayoutManager(_layoutManager);
+
+            _machineItems.SetAdapter(_adapter);
+
+            _adapter.SetData(_productList);
+
         }
 
         public override bool OnCreateOptionsMenu(IMenu menu)
         {
-            base.OnCreateOptionsMenu(menu);
+            var inflater = MenuInflater;
+            inflater.Inflate(Resource.Menu.main_menu, menu);
             if (_category != Const.Favorites)
             {
                 menu.FindItem(Resource.Id.action_search).SetVisible(true);
             }
+            menu.FindItem(Resource.Id.profile).SetVisible(true);
             menu.FindItem(Resource.Id.menu_favorites).SetVisible(false);
-            menu.FindItem(Resource.Id.profile).SetVisible(false);
 
             var manager = (SearchManager)GetSystemService(SearchService);
 
@@ -115,47 +154,6 @@ namespace Softjourn.SJCoins.Droid.UI.Activities
             return base.OnOptionsItemSelected(item);
         }
 
-
-        /*@Override
-            public void navigateToBuyProduct(Product product)
-        {
-            onCreateConfirmDialog(product, mPurchasePresenter);
-        }
-
-        @Override
-            public void logOut()
-        {
-            Utils.clearUsersData();
-            Navigation.goToLoginActivity(this);
-            finish();
-        }
-
-        @Override
-            public void showToastMessage(String message)
-        {
-            super.showToast(message);
-        }
-
-        @Override
-            public void showNoInternetError()
-        {
-            onNoInternetAvailable();
-        }*/
-
-        protected override void OnDestroy()
-        {
-            base.OnDestroy();
-            //mVendingPresenter.onDestroy();
-            //mPurchasePresenter.onDestroy();
-            //mVendingPresenter = null;
-            //mPurchasePresenter = null;
-        }
-
-        private void AttachFragment(string stringExtra)
-        {
-            //NavigationUtils.NavigationOnCategoriesSeeAll(-1, this, _category);
-        }
-
         /**
          * Method to disable sorting buttons in case Search is active as Search is handling in Activity class
          * and Buttons are on the Fragment side.
@@ -181,6 +179,23 @@ namespace Softjourn.SJCoins.Droid.UI.Activities
             _category = category;
             _adapter = adapter;
             InvalidateOptionsMenu();
+        }
+
+        private void ProductSelected(object sender, Product product)
+        {
+            var view = new Intent(CrossCurrentActivity.Current.Activity, typeof(DetailsActivity));
+            StartActivity(view);
+        }
+
+        private void ProductDetailsSelected(object sender, Product product)
+        {
+            BottomSheetDialogFragment bottomSheetDialogFragment = new ProductDetailsFragment(product);
+            bottomSheetDialogFragment.Show(SupportFragmentManager, bottomSheetDialogFragment.Tag);
+        }
+
+        public void TrigFavorite(object sender, Product e)
+        {
+            ViewPresenter.OnFavoriteClick(e);
         }
     }
 }

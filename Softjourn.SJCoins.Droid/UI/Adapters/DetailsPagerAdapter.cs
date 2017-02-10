@@ -1,18 +1,20 @@
 
+using System.Collections.Generic;
 using Android.Content;
 using Android.Support.V4.View;
 using Android.Views;
 using Android.Widget;
+using Square.Picasso;
 
 namespace Softjourn.SJCoins.Droid.UI.Adapters
 {
     public class DetailsPagerAdapter : PagerAdapter
     {
         Context _context;
-        int[] _images;
+        private List<string> _images;
         LayoutInflater _layoutInflater;
 
-        public DetailsPagerAdapter(Context context, int[] images)
+        public DetailsPagerAdapter(Context context, List<string> images)
         {
             _context = context;
             _images = images;
@@ -20,7 +22,7 @@ namespace Softjourn.SJCoins.Droid.UI.Adapters
         }
 
 
-        public override int Count => _images.Length;
+        public override int Count => _images.Count;
 
 
         public override bool IsViewFromObject(View view, Java.Lang.Object obj)
@@ -34,26 +36,12 @@ namespace Softjourn.SJCoins.Droid.UI.Adapters
             var itemView = _layoutInflater.Inflate(Resource.Layout.activity_details_view_pager_item, container, false);
 
             var imageView = itemView.FindViewById<ImageView>(Resource.Id.imageView);
-            imageView.SetImageResource(_images[position]);
+            Picasso.With(_context).Load(_images[position]).Into(imageView);
 
             imageView.Click += (o, e) =>
                 {
                 //your code here
             };
-
-            //Bitmap image = null;
-            //Task.Run(() =>
-            //{
-            //    URL url = new URL(_imageUrls[position]);
-            //    image = BitmapFactory.DecodeStream(url.OpenConnection().InputStream);
-            //}).ContinueWith(t =>
-            //{
-            //    (_context as MainView).RunOnUiThread(() =>
-            //    {
-            //        imageView.SetImageBitmap(image);
-            //    });
-            //});
-
 
             container.AddView(itemView);
             return itemView;
