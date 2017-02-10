@@ -168,16 +168,13 @@ namespace Softjourn.SJCoins.Droid.UI.Adapters
              */
             if (holder.AddFavorite != null)
             {
-                holder.AddFavorite.SetTag(TagKey, false);
                 if (product.IsProductFavorite)
                 {
                     Picasso.With(_context).Load(Resource.Drawable.ic_favorite_pink).Into(holder.AddFavorite);
-                    holder.AddFavorite.SetTag(TagKey, true);
                 }
                 else
                 {
                     Picasso.With(_context).Load(Resource.Drawable.ic_favorite_border).Into(holder.AddFavorite);
-                    holder.AddFavorite.SetTag(TagKey, false);
                 }
                 holder.AddFavorite.Click += (s, e) =>
                 {

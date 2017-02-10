@@ -61,8 +61,7 @@ namespace Softjourn.SJCoins.Droid.UI.Activities
 
         public override bool OnCreateOptionsMenu(IMenu menu)
         {
-            var inflater = MenuInflater;
-            inflater.Inflate(Resource.Menu.main_menu, menu);
+            base.OnCreateOptionsMenu(menu);
 
             var profileItem = menu.FindItem(Resource.Id.profile);
             var favoriteItem = menu.FindItem(Resource.Id.menu_favorites);

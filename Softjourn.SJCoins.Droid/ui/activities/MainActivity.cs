@@ -60,8 +60,7 @@ namespace Softjourn.SJCoins.Droid.UI.Activities
 
         public override bool OnCreateOptionsMenu(IMenu menu)
         {
-            MenuInflater inflater = MenuInflater;
-            inflater.Inflate(Resource.Menu.main_menu, menu);
+            base.OnCreateOptionsMenu(menu);
             menu.FindItem(Resource.Id.menu_buy).SetVisible(false);
             menu.FindItem(Resource.Id.menu_add_favorite).SetVisible(false);
             return true;
