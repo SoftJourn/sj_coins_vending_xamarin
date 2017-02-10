@@ -17,6 +17,7 @@ using Softjourn.SJCoins.Core.UI.ViewInterfaces;
 using Softjourn.SJCoins.Droid.ui.baseUI;
 using Softjourn.SJCoins.Droid.UI.Adapters;
 using Softjourn.SJCoins.Droid.Utils;
+using Square.Picasso;
 
 namespace Softjourn.SJCoins.Droid.UI.Activities
 {
@@ -26,7 +27,6 @@ namespace Softjourn.SJCoins.Droid.UI.Activities
         private Product _product;
         private ViewPager _viewPager;
         private const string ProductID = Const.NavigationKey;
-        //private int[] _images = {Resource.Drawable.get_money,Resource.Drawable.like,Resource.Drawable.noavatar,Resource.Drawable.ic_t_rex};
         private TextView _productPrice;
         private TextView _productDescription;
         private List<string> _images; 
@@ -38,7 +38,7 @@ namespace Softjourn.SJCoins.Droid.UI.Activities
             base.OnCreate(savedInstanceState);
             SetContentView(Resource.Layout.activity_details);
 
-            _product = ViewPresenter.GetProduct(Int32.Parse(Intent.Extras.Get(ProductID).ToString()));
+            _product = ViewPresenter.GetProduct(int.Parse(Intent.Extras.Get(ProductID).ToString()));
 
             _images = new List<string>();
 
@@ -62,26 +62,41 @@ namespace Softjourn.SJCoins.Droid.UI.Activities
         public override bool OnCreateOptionsMenu(IMenu menu)
         {
             base.OnCreateOptionsMenu(menu);
-
-            var profileItem = menu.FindItem(Resource.Id.profile);
-            var favoriteItem = menu.FindItem(Resource.Id.menu_favorites);
-            profileItem.SetVisible(false);
-            favoriteItem.SetVisible(false);
-
-            var buyItem = menu.FindItem(Resource.Id.menu_buy);
-            var addFavoriteItem = menu.FindItem(Resource.Id.menu_add_favorite);
-            buyItem.SetVisible(true);
-            addFavoriteItem.SetVisible(true);
-
+            menu.FindItem(Resource.Id.profile).SetVisible(false);
+            menu.FindItem(Resource.Id.menu_favorites).SetVisible(false);
+            menu.FindItem(Resource.Id.menu_buy).SetVisible(true);
+            menu.FindItem(Resource.Id.menu_add_favorite).SetVisible(true);
             return true;
         }
 
         public override bool OnOptionsItemSelected(IMenuItem item)
         {
-            if (item.ItemId == Android.Resource.Id.Home)
-                this.OnBackPressed();
-
+            switch (item.ItemId)
+            {
+                case Android.Resource.Id.Home:
+                    OnBackPressed();
+                    break;
+                case Resource.Id.menu_buy:
+                    ViewPresenter.OnBuyProductClick(_product);
+                    break;
+                case Resource.Id.menu_add_favorite:
+                    ViewPresenter.OnFavoriteClick(_product);
+                    ChangeIcon(item);
+                    break;
+            }
             return base.OnOptionsItemSelected(item);
+        }
+
+        private void ChangeIcon(IMenuItem item)
+        {
+            if (_product.IsProductFavorite)
+            {
+                item.SetIcon(Resource.Drawable.ic_favorite_white_24dp);
+            }
+            else
+            {
+                item.SetIcon(Resource.Drawable.ic_favorite_border_white);
+            }
         }
     }
 }
