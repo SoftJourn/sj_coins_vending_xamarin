@@ -39,6 +39,7 @@ namespace Softjourn.SJCoins.Droid.UI.Activities
 
         private string _productsCategory;
         private const string ProductsCategory = Const.NavigationKey;
+        private const string RecyclerType = "SEE_ALL_SNACKS_DRINKS";
 
         private static RecyclerView.LayoutManager _layoutManager;
         private List<Product> _productList;
@@ -59,8 +60,8 @@ namespace Softjourn.SJCoins.Droid.UI.Activities
 
             _machineItems = FindViewById<RecyclerView>(Resource.Id.list_items_recycler_view);
 
-            _layoutManager = new LinearLayoutManager(this, LinearLayoutManager.Horizontal, false);
-            _adapter = new FeaturedProductItemsAdapter(_productsCategory, null, this);
+            _layoutManager = new LinearLayoutManager(this, LinearLayoutManager.Vertical, false);
+            _adapter = new FeaturedProductItemsAdapter(_productsCategory, RecyclerType, this);
 
             _adapter.ProductSelected -= ProductSelected;
             _adapter.ProductSelected += ProductSelected;
@@ -84,14 +85,14 @@ namespace Softjourn.SJCoins.Droid.UI.Activities
 
         public override bool OnCreateOptionsMenu(IMenu menu)
         {
-            var inflater = MenuInflater;
-            inflater.Inflate(Resource.Menu.main_menu, menu);
+            base.OnCreateOptionsMenu(menu);
             if (_category != Const.Favorites)
             {
                 menu.FindItem(Resource.Id.action_search).SetVisible(true);
             }
-            menu.FindItem(Resource.Id.profile).SetVisible(true);
             menu.FindItem(Resource.Id.menu_favorites).SetVisible(false);
+            menu.FindItem(Resource.Id.menu_add_favorite).SetVisible(false);
+            menu.FindItem(Resource.Id.menu_buy).SetVisible(false);
 
             var manager = (SearchManager)GetSystemService(SearchService);
 
