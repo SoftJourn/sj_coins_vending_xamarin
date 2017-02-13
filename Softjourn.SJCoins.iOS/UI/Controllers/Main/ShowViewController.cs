@@ -72,6 +72,11 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.Main
 		{
 			Presenter.OnProductDetailsClick(product.Id);
 		}
+
+		public void FavoriteChanged(bool isFavorite)
+		{
+			throw new NotImplementedException();
+		}
 		#endregion
 	}
 

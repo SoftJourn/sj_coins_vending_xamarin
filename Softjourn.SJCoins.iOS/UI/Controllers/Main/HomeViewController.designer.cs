@@ -12,6 +12,9 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.Main
 	partial class HomeViewController
 	{
 		[Outlet]
+		UIKit.UIBarButtonItem AccountButton { get; set; }
+
+		[Outlet]
 		UIKit.UILabel BalanceLabel { get; set; }
 
 		[Outlet]
@@ -35,14 +38,19 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.Main
 				CollectionView = null;
 			}
 
+			if (NoItemsLabel != null) {
+				NoItemsLabel.Dispose ();
+				NoItemsLabel = null;
+			}
+
 			if (SettingButton != null) {
 				SettingButton.Dispose ();
 				SettingButton = null;
 			}
 
-			if (NoItemsLabel != null) {
-				NoItemsLabel.Dispose ();
-				NoItemsLabel = null;
+			if (AccountButton != null) {
+				AccountButton.Dispose ();
+				AccountButton = null;
 			}
 		}
 	}

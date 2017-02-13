@@ -114,10 +114,10 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.Main
 			NoItemsLabel.Hidden = true;
 
 			// Add click event to button
-			SettingButton.Clicked += (sender, e) =>
+			AccountButton.Clicked += (sender, e) =>
 			{
-				// Show SettingViewController
-				Presenter.OnSettingsButtonClick();
+				// Show AccountViewController
+				Presenter.OnProfileButtonClicked();
 			};
 		}
 
@@ -147,6 +147,11 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.Main
 		}
 
 		public void FavoriteChanged()
+		{
+			throw new NotImplementedException();
+		}
+
+		public void FavoriteChanged(bool isFavorite)
 		{
 			throw new NotImplementedException();
 		}

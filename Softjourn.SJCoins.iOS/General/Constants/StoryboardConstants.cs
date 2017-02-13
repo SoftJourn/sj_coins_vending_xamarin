@@ -14,13 +14,12 @@
 		public const string ContentViewController = "ContentViewController";
 		public const string LoginViewController = "LoginViewController";
 		public const string SelectMachineViewController = "SelectMachineViewController";
-		public const string MainTabBarViewController = "MainTabBarViewController";
 		public const string PreViewController = "PreViewController";
 		public const string DetailViewController = "DetailViewController";
 		public const string ShowViewController = "ShowViewController";
 
 		// Main pages 
-		public const string HomeViewController = "HomeViewController";
+		public const string NavigationHomeViewController = "NavigationHomeViewController";
 		public const string FavoritesViewController = "FavoritesViewController";
 		public const string AllProductsViewController = "AllProductsViewController";
 		public const string AccountViewController = "AccountViewController";

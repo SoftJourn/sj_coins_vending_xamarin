@@ -292,10 +292,6 @@
     <Compile Include="UI\Cells\SelectMachineCell.designer.cs">
       <DependentUpon>SelectMachineCell.cs</DependentUpon>
     </Compile>
-    <Compile Include="CustomSegmentControl.cs" />
-    <Compile Include="CustomSegmentControl.designer.cs">
-      <DependentUpon>CustomSegmentControl.cs</DependentUpon>
-    </Compile>
     <Compile Include="UI\Controllers\Main\HomeViewController.cs" />
     <Compile Include="UI\Controllers\Main\AccountViewController.cs" />
     <Compile Include="UI\Controllers\Main\HomeViewController.designer.cs">
@@ -323,10 +319,6 @@
     <Compile Include="UI\Controllers\Main\DetailViewController.cs" />
     <Compile Include="UI\Controllers\Main\DetailViewController.designer.cs">
       <DependentUpon>DetailViewController.cs</DependentUpon>
-    </Compile>
-    <Compile Include="UI\Controllers\Main\FavoritesViewController.cs" />
-    <Compile Include="UI\Controllers\Main\FavoritesViewController.designer.cs">
-      <DependentUpon>FavoritesViewController.cs</DependentUpon>
     </Compile>
     <Compile Include="UI\Controllers\Main\ShowViewController.cs" />
     <Compile Include="UI\Controllers\Main\ShowViewController.designer.cs">

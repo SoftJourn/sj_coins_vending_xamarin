@@ -19,7 +19,7 @@ namespace Softjourn.SJCoins.iOS.Services
 
 		public void NavigateTo(NavigationPage page, object obj = null)
 		{
-			try { Navigate(page, obj); }
+			try { Present(page, obj); }
 			catch { throw new Exception("Navigation to controller went wrong"); }
 		}
 
@@ -48,13 +48,13 @@ namespace Softjourn.SJCoins.iOS.Services
 				case NavigationPage.SelectMachine:
 					return Instantiate(StoryboardConstants.StoryboardMain, StoryboardConstants.SelectMachineViewController);
 				case NavigationPage.Home:
-					return Instantiate(StoryboardConstants.StoryboardMain, StoryboardConstants.MainTabBarViewController) as UITabBarController;
+					return Instantiate(StoryboardConstants.StoryboardMain, StoryboardConstants.NavigationHomeViewController);
 				default:
 					throw new ArgumentException("Not valid page");
 			}
 		}
 
-		private UIViewController GetController(NavigationPage page)
+		private UIViewController Controller(NavigationPage page)
 		{
 			switch (page)
 			{
@@ -64,7 +64,9 @@ namespace Softjourn.SJCoins.iOS.Services
 				case NavigationPage.Detail:
 					return Instantiate(StoryboardConstants.StoryboardMain, StoryboardConstants.DetailViewController);
 				case NavigationPage.ShowAll:
-				return Instantiate(StoryboardConstants.StoryboardMain, StoryboardConstants.ShowViewController);
+					return Instantiate(StoryboardConstants.StoryboardMain, StoryboardConstants.ShowViewController);
+				case NavigationPage.Profile:
+					return Instantiate(StoryboardConstants.StoryboardMain, StoryboardConstants.AccountViewController);
 				default:
 					throw new ArgumentException("Not valid page");
 			}
@@ -77,7 +79,7 @@ namespace Softjourn.SJCoins.iOS.Services
 			UIApplication.SharedApplication.KeyWindow.RootViewController = viewController;
 		}
 
-		private void Navigate(NavigationPage page, object obj = null)
+		private void Present(NavigationPage page, object obj = null)
 		{
 			var visibleController = _currentApplication.VisibleViewController;
 
@@ -86,7 +88,7 @@ namespace Softjourn.SJCoins.iOS.Services
 				switch (page)
 				{
 					case NavigationPage.ShowAll:
-						var showAllController = (ShowViewController)GetController(page);
+						var showAllController = (ShowViewController)Controller(page);
 						if (obj is string)
 						{
 							showAllController.CategoryName = (string)obj;
@@ -94,15 +96,19 @@ namespace Softjourn.SJCoins.iOS.Services
 						visibleController.NavigationController.PushViewController(showAllController, animated: true);
 						break;
 					case NavigationPage.Detail:
-						var detailController = (DetailViewController)GetController(page);
+						var detailController = (DetailViewController)Controller(page);
 						if (obj is int)
 						{
 							detailController.ProductId = (int)obj;
 						}
 						visibleController.NavigationController.PushViewController(detailController, animated: true);
 						break;
+					case NavigationPage.Profile:
+						var accountController = (AccountViewController)Controller(page);
+						visibleController.NavigationController.PushViewController(accountController, animated: true);
+						break;
 					case NavigationPage.Settings:
-						visibleController.PresentViewController(GetController(page), animated: true, completionHandler: null);
+						visibleController.PresentViewController(Controller(page), animated: true, completionHandler: null);
 						break;
 					default:
 						throw new ArgumentException("Not valid page");

@@ -50,6 +50,11 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers
 		{
 			throw new NotImplementedException();
 		}
+
+		public void FavoriteChanged(bool isFavorite)
+		{
+			throw new NotImplementedException();
+		}
 		#endregion
 
 		#region IDetailView implementation
