@@ -15,8 +15,8 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.Main
 		#region Properties
 		public string CategoryName { get; set; }
 		public List<Product> filteredItems;
-		public List<Product> searchData;
-		public UISearchController resultSearchController;
+		//public List<Product> searchData;
+		//public UISearchController resultSearchController;
 		#endregion
 
 		#region Constructor
@@ -33,8 +33,12 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.Main
 			// Throw to presenter category name what needs to be displayed and take products.
 			filteredItems = Presenter.GetProductList(CategoryName);
 
+			TableView.Source = new ShowAllSource(this);
+
+			TableView.RegisterNibForCellReuse(ProductCell.Nib, ProductCell.Key);
+
 			//resultSearchController = new UISearchController();
-			//resultSearchController.SearchResultsUpdater = new ShowViewController(this);
+			//resultSearchController.SearchResultsUpdater = new SearchResultsUpdator(this);
 			//resultSearchController.DimsBackgroundDuringPresentation = false;
 			//resultSearchController.SearchBar.SizeToFit();
 		}
@@ -42,6 +46,8 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.Main
 		public override void ViewWillAppear(bool animated)
 		{
 			base.ViewWillAppear(animated);
+
+			Title = CategoryName;
 		}
 
 		public override void ViewDidAppear(bool animated)
@@ -64,51 +70,49 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.Main
 			this.parent = parent;
 		}
 
-		public override nint RowsInSection(UITableView tableview, nint section) => parent.resultSearchController.Active && parent.resultSearchController.SearchBar.Text != "" ? parent.searchData.Count : NumberOfRows();
+		public override nint RowsInSection(UITableView tableview, nint section) //=> parent.resultSearchController.Active && parent.resultSearchController.SearchBar.Text != "" ? parent.searchData.Count : NumberOfRows();
+		{
+			return parent.filteredItems.Count; //parent.resultSearchController.Active && parent.resultSearchController.SearchBar.Text != "" ? parent.searchData.Count : NumberOfRows();
+		}
 
-		private int NumberOfRows() => (parent.filteredItems == null || parent.filteredItems.Count != 0) ? 0 : parent.filteredItems.Count;
+		//private int NumberOfRows() => (parent.filteredItems == null || parent.filteredItems.Count != 0) ? 0 : parent.filteredItems.Count;
 
 		public override UITableViewCell GetCell(UITableView tableView, NSIndexPath indexPath)
 		{
-			return new UITableViewCell();
+			return (ProductCell)tableView.DequeueReusableCell(ProductCell.Key, indexPath);
+		}
+
+		public override void WillDisplay(UITableView tableView, UITableViewCell cell, NSIndexPath indexPath)
+		{
+			var _cell = (ProductCell)cell;
+			var item = parent.filteredItems[indexPath.Row];
+
+			_cell.ConfigureWith(item);
+		}
+
+		public override void RowSelected(UITableView tableView, NSIndexPath indexPath)
+		{
+			var item = parent.filteredItems[indexPath.Row];
+
+		}
+	}
+	#endregion
+
+	#region UISearchResultsUpdating implementation
+	public class SearchResultsUpdator : UISearchResultsUpdating
+	{
+		//public event Action<string> UpdateSearchResults = delegate { };
+		private ShowViewController parent;
+
+		public SearchResultsUpdator(ShowViewController parent)
+		{
+			this.parent = parent;
+		}
+
+		public override void UpdateSearchResultsForSearchController(UISearchController searchController)
+		{
+			//this.UpdateSearchResults(searchController.SearchBar.Text);
 		}
 	}
 	#endregion
 }
-
-	
-
-
-	//}
-
-	//#endregion
-
-	//#region UITableViewDelegate implementation
-	//private class AllItemsViewControllerDelegate : UITableViewDelegate
-	//{
-	//	private AllItemsViewController parent;
-
-	//	public AllItemsViewControllerDelegate(AllItemsViewController parent)
-	//	{
-	//		this.parent = parent;
-	//	}
-
-	//}
-	//#endregion
-
-	//#region UISearchResultsUpdating implementation
-	//private class AllItemsViewControllerSearch : UISearchResultsUpdating
-	//{
-	//	private AllItemsViewController parent;
-
-	//	public AllItemsViewControllerSearch(AllItemsViewController parent)
-	//	{
-	//		this.parent = parent;
-	//	}
-
-	//	public override void UpdateSearchResultsForSearchController(UISearchController searchController)
-	//	{
-
-	//	}
-	//}
-	//#endregion

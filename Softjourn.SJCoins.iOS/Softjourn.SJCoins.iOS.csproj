@@ -229,6 +229,14 @@
     <ImageAsset Include="Assets.xcassets\Placeholder.imageset\placeholder_tv%403x.png">
       <InProject>false</InProject>
     </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\FavoriteChecked.imageset\Contents.json" />
+    <ImageAsset Include="Assets.xcassets\FavoriteUnchecked.imageset\Contents.json" />
+    <ImageAsset Include="Assets.xcassets\FavoriteChecked.imageset\favorite_checked1x.png" />
+    <ImageAsset Include="Assets.xcassets\FavoriteChecked.imageset\favorite_checked2x.png" />
+    <ImageAsset Include="Assets.xcassets\FavoriteChecked.imageset\favorite_checked3x.png" />
+    <ImageAsset Include="Assets.xcassets\FavoriteUnchecked.imageset\favorite_uhecked1x.png" />
+    <ImageAsset Include="Assets.xcassets\FavoriteUnchecked.imageset\favorite_uhecked2x.png" />
+    <ImageAsset Include="Assets.xcassets\FavoriteUnchecked.imageset\favorite_uhecked3x.png" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Resources\" />
@@ -243,6 +251,8 @@
     <Folder Include="Assets.xcassets\Placeholder.imageset\" />
     <Folder Include="Assets.xcassets\HomeTabIcon.imageset\" />
     <Folder Include="Assets.xcassets\AccountTabIcon.imageset\" />
+    <Folder Include="Assets.xcassets\FavoriteChecked.imageset\" />
+    <Folder Include="Assets.xcassets\FavoriteUnchecked.imageset\" />
   </ItemGroup>
   <ItemGroup>
     <InterfaceDefinition Include="LaunchScreen.storyboard" />
@@ -322,6 +332,7 @@
     <Compile Include="UI\Controllers\Main\ShowViewController.designer.cs">
       <DependentUpon>ShowViewController.cs</DependentUpon>
     </Compile>
+    <Compile Include="General\Constants\ImageConstants.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
 </Project>
