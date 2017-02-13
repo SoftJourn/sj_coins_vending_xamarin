@@ -1,8 +1,10 @@
 using System;
 using Foundation;
+using SDWebImage;
 using Softjourn.SJCoins.Core.API.Model.Products;
 using Softjourn.SJCoins.Core.UI.Presenters;
 using Softjourn.SJCoins.Core.UI.ViewInterfaces;
+using Softjourn.SJCoins.iOS.General.Constants;
 using UIKit;
 
 namespace Softjourn.SJCoins.iOS.UI.Controllers
@@ -12,7 +14,8 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers
 	{
 		#region Properties
 		public int ProductId { get; set; }
-		public Product SelectedProduct;
+
+		private Product selectedProduct;
 		#endregion
 
 		#region Constructor
@@ -26,19 +29,26 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers
 		{
 			base.ViewDidLoad();
 
-			SelectedProduct = Presenter.GetProduct(ProductId);
+			selectedProduct = Presenter.GetProduct(ProductId);
 		}
 
 		public override void ViewWillAppear(bool animated)
 		{
 			base.ViewWillAppear(animated);
 
+			NameLabel.Text = selectedProduct.Name; 
+			PriceLabel.Text = selectedProduct.Price.ToString();
+			Logo.SetImage(url: new NSUrl(selectedProduct.ImageFullUrl), placeholder: UIImage.FromBundle(ImageConstants.Placeholder));
 		}
 
 		public override void ViewDidAppear(bool animated)
 		{
 			base.ViewDidAppear(animated);
+		}
 
+		public void FavoriteChanged()
+		{
+			throw new NotImplementedException();
 		}
 		#endregion
 

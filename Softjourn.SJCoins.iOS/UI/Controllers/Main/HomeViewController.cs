@@ -32,6 +32,7 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.Main
 			base.ViewDidLoad();
 
 			ConfigurePage();
+			ConfigureCollectionView();
 			Presenter.OnStartLoadingPage();
 		}
 
@@ -118,7 +119,10 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.Main
 				// Show SettingViewController
 				Presenter.OnSettingsButtonClick();
 			};
+		}
 
+		private void ConfigureCollectionView()
+		{
 			// Configure datasource and delegate
 			_dataSource = new HomeViewControllerDataSource();
 
@@ -140,6 +144,11 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.Main
 		{
 			// Trigg presenter that user click on SeeAll button 
 			Presenter.OnShowAllClick(categoryName);
+		}
+
+		public void FavoriteChanged()
+		{
+			throw new NotImplementedException();
 		}
 		#endregion
 	}

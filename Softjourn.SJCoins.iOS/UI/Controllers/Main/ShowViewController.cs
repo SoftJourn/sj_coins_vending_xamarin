@@ -13,10 +13,10 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.Main
 	public partial class ShowViewController : BaseViewController<ShowAllPresenter>, IShowAllView
 	{
 		#region Properties
+		private ShowAllSource _tableSource;
+
 		public string CategoryName { get; set; }
 		public List<Product> filteredItems;
-		//public List<Product> searchData;
-		//public UISearchController resultSearchController;
 		#endregion
 
 		#region Constructor
@@ -32,15 +32,8 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.Main
 
 			// Throw to presenter category name what needs to be displayed and take products.
 			filteredItems = Presenter.GetProductList(CategoryName);
-
-			TableView.Source = new ShowAllSource(this);
-
-			TableView.RegisterNibForCellReuse(ProductCell.Nib, ProductCell.Key);
-
-			//resultSearchController = new UISearchController();
-			//resultSearchController.SearchResultsUpdater = new SearchResultsUpdator(this);
-			//resultSearchController.DimsBackgroundDuringPresentation = false;
-			//resultSearchController.SearchBar.SizeToFit();
+			// Configure table view with source and events.
+			ConfigureTableView();
 		}
 
 		public override void ViewWillAppear(bool animated)
@@ -54,64 +47,64 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.Main
 		{
 			base.ViewDidAppear(animated);
 		}
+
+		public void FavoriteChanged()
+		{
+			throw new NotImplementedException();
+		}
 		#endregion
 
 		#region BaseViewController -> IBaseView implementation
+		#endregion
+
+		#region Private methods
+		private void ConfigureTableView()
+		{
+			_tableSource = new ShowAllSource(filteredItems);
+			_tableSource.ItemSelected -= TableSource_ItemSelected;
+			_tableSource.ItemSelected += TableSource_ItemSelected;
+			TableView.Source = _tableSource;
+
+			TableView.RegisterNibForCellReuse(ProductCell.Nib, ProductCell.Key);
+		}
+
+		private void TableSource_ItemSelected(object sender, Product product)
+		{
+			Presenter.OnProductDetailsClick(product.Id);
+		}
 		#endregion
 	}
 
 	#region UITableViewSource implementation
 	public class ShowAllSource : UITableViewSource
 	{
-		private ShowViewController parent;
+		private List<Product> items;
+		public event EventHandler<Product> ItemSelected;
 
-		public ShowAllSource(ShowViewController parent)
+		public ShowAllSource(List<Product> items)
 		{
-			this.parent = parent;
+			this.items = items;
 		}
 
-		public override nint RowsInSection(UITableView tableview, nint section) //=> parent.resultSearchController.Active && parent.resultSearchController.SearchBar.Text != "" ? parent.searchData.Count : NumberOfRows();
-		{
-			return parent.filteredItems.Count; //parent.resultSearchController.Active && parent.resultSearchController.SearchBar.Text != "" ? parent.searchData.Count : NumberOfRows();
-		}
+		public override nint RowsInSection(UITableView tableview, nint section) => items.Count;
 
-		//private int NumberOfRows() => (parent.filteredItems == null || parent.filteredItems.Count != 0) ? 0 : parent.filteredItems.Count;
-
-		public override UITableViewCell GetCell(UITableView tableView, NSIndexPath indexPath)
-		{
-			return (ProductCell)tableView.DequeueReusableCell(ProductCell.Key, indexPath);
-		}
+		public override UITableViewCell GetCell(UITableView tableView, NSIndexPath indexPath) => (ProductCell)tableView.DequeueReusableCell(ProductCell.Key, indexPath);
 
 		public override void WillDisplay(UITableView tableView, UITableViewCell cell, NSIndexPath indexPath)
 		{
 			var _cell = (ProductCell)cell;
-			var item = parent.filteredItems[indexPath.Row];
-
+			var item = items[indexPath.Row];
 			_cell.ConfigureWith(item);
 		}
 
 		public override void RowSelected(UITableView tableView, NSIndexPath indexPath)
 		{
-			var item = parent.filteredItems[indexPath.Row];
-
-		}
-	}
-	#endregion
-
-	#region UISearchResultsUpdating implementation
-	public class SearchResultsUpdator : UISearchResultsUpdating
-	{
-		//public event Action<string> UpdateSearchResults = delegate { };
-		private ShowViewController parent;
-
-		public SearchResultsUpdator(ShowViewController parent)
-		{
-			this.parent = parent;
-		}
-
-		public override void UpdateSearchResultsForSearchController(UISearchController searchController)
-		{
-			//this.UpdateSearchResults(searchController.SearchBar.Text);
+			tableView.DeselectRow(indexPath, true);
+			var item = items[indexPath.Row];
+			if (ItemSelected != null)
+			{
+				ItemSelected(this, item);
+			}
 		}
 	}
 	#endregion
