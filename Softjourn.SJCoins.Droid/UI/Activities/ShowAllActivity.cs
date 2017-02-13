@@ -1,11 +1,10 @@
 
+using System;
 using System.Collections.Generic;
 using Android.App;
-using Android.Content;
 using Android.Content.PM;
 using Android.Graphics;
 using Android.OS;
-using Android.Provider;
 using Android.Runtime;
 using Android.Support.Design.Widget;
 using Android.Support.V4.Content;
@@ -14,15 +13,12 @@ using Android.Text;
 using Android.Views;
 using Android.Views.InputMethods;
 using Android.Widget;
-using Plugin.CurrentActivity;
 using Softjourn.SJCoins.Core.API.Model.Products;
 using Softjourn.SJCoins.Core.UI.Presenters;
 using Softjourn.SJCoins.Core.UI.ViewInterfaces;
 using Softjourn.SJCoins.Droid.ui.baseUI;
-using Softjourn.SJCoins.Droid.utils;
 using Softjourn.SJCoins.Droid.UI.Adapters;
 using Softjourn.SJCoins.Droid.UI.Fragments;
-using Softjourn.SJCoins.Droid.UI.UIStrategies;
 using Softjourn.SJCoins.Droid.Utils;
 
 namespace Softjourn.SJCoins.Droid.UI.Activities
@@ -36,8 +32,8 @@ namespace Softjourn.SJCoins.Droid.UI.Activities
 
         private Button _fragmentsSortNameButton;
         private Button _fragmentsSortPriceButton;
+        private TextView _textViewNoProductsInCategory;
 
-        private string _productsCategory;
         private const string ProductsCategory = Const.NavigationKey;
         private const string RecyclerType = "SEE_ALL_SNACKS_DRINKS";
 
@@ -59,9 +55,10 @@ namespace Softjourn.SJCoins.Droid.UI.Activities
             _productList = ViewPresenter.GetProductList(_category);
 
             _machineItems = FindViewById<RecyclerView>(Resource.Id.list_items_recycler_view);
+            _textViewNoProductsInCategory = FindViewById<TextView>(Resource.Id.textViewNoProductsInCategory);
 
             _layoutManager = new LinearLayoutManager(this, LinearLayoutManager.Vertical, false);
-            _adapter = new FeaturedProductItemsAdapter(_productsCategory, RecyclerType, this);
+            _adapter = new FeaturedProductItemsAdapter(_category, RecyclerType, this);
 
             _adapter.ProductSelected -= ProductSelected;
             _adapter.ProductSelected += ProductSelected;
@@ -74,6 +71,12 @@ namespace Softjourn.SJCoins.Droid.UI.Activities
 
             _adapter.RemoveFromFavorites -= TrigFavorite;
             _adapter.RemoveFromFavorites += TrigFavorite;
+
+            _adapter.BuyClicked -= ProductBuyClicked;
+            _adapter.BuyClicked += ProductBuyClicked;
+
+            _adapter.LastFavoriteRemoved -= ShowEmptyView;
+            _adapter.LastFavoriteRemoved += ShowEmptyView;
 
             _machineItems.SetLayoutManager(_layoutManager);
 
@@ -182,10 +185,14 @@ namespace Softjourn.SJCoins.Droid.UI.Activities
             InvalidateOptionsMenu();
         }
 
+        public void FavoriteChanged()
+        {
+            _adapter.NotifyDataChanges();
+        }
+
         private void ProductSelected(object sender, Product product)
         {
-            var view = new Intent(CrossCurrentActivity.Current.Activity, typeof(DetailsActivity));
-            StartActivity(view);
+            ViewPresenter.OnProductDetailsClick(product.Id);
         }
 
         private void ProductDetailsSelected(object sender, Product product)
@@ -194,9 +201,21 @@ namespace Softjourn.SJCoins.Droid.UI.Activities
             bottomSheetDialogFragment.Show(SupportFragmentManager, bottomSheetDialogFragment.Tag);
         }
 
-        public void TrigFavorite(object sender, Product e)
+        private void ProductBuyClicked(object sender, Product e)
         {
-            ViewPresenter.OnFavoriteClick(e);
+            ViewPresenter.OnBuyProductClick(e);
+        }
+
+        public void TrigFavorite(object sender, Product product)
+        {
+            ViewPresenter.OnFavoriteClick(product);
+        }
+
+        private void ShowEmptyView(object sender, EventArgs e)
+        {
+            _machineItems.Visibility = ViewStates.Gone;
+            _textViewNoProductsInCategory.Visibility = ViewStates.Visible;
+
         }
     }
 }

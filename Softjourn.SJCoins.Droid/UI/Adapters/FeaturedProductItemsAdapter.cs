@@ -28,6 +28,8 @@ namespace Softjourn.SJCoins.Droid.UI.Adapters
 
         public event EventHandler<Product> AddToFavorites;
         public event EventHandler<Product> RemoveFromFavorites;
+        public event EventHandler<Product> BuyClicked;
+        public event EventHandler LastFavoriteRemoved;
 
         public EventHandler<Product> ProductSelected;
         public EventHandler<Product> ProductDetailsSelected;
@@ -66,7 +68,14 @@ namespace Softjourn.SJCoins.Droid.UI.Adapters
 
         public void NotifyDataChanges()
         {
-            NotifyDataSetChanged();
+            if (_category != "Favorites")
+            {
+                NotifyDataSetChanged();
+            }
+            else
+            {
+                
+            }
         }
 
         public void SetData(List<Product> data)
@@ -127,19 +136,18 @@ namespace Softjourn.SJCoins.Droid.UI.Adapters
 
             if (holder.ParentView != null)
             {
-                holder.Click -= OnClickBuyClicked;
-                holder.Click += OnClickBuyClicked;
+                holder.Click -= OnClickClicked;
+                holder.Click += OnClickClicked;
                 holder.LongClick -= OnLongClick;
                 holder.LongClick += OnLongClick;
 
             }
             if (holder.ParentViewSeeAll != null)
             {
-                holder.ParentViewSeeAll.Click += (s, e) =>
-
-                {
-                    //EventBus.getDefault().post(new OnProductDetailsClick(mListProducts.get(holder.getAdapterPosition())));
-                };
+                holder.Click -= OnClickClicked;
+                holder.Click += OnClickClicked;
+                holder.LongClick -= OnLongClick;
+                holder.LongClick += OnLongClick;
             }
 
             /**
@@ -148,15 +156,10 @@ namespace Softjourn.SJCoins.Droid.UI.Adapters
              */
             if (holder.BuyProduct != null)
             {
-                if (isCurrentProductInMachine)
+                holder.BuyProduct.Click += (s, e) =>
                 {
-                    holder.BuyProduct.SetTextColor(new Color(ContextCompat.GetColor(_context, Resource.Color.colorBlue)));
-                }
-                else
-                {
-                    holder.BuyProduct.SetTextColor(new Color(ContextCompat.GetColor(_context, Resource.Color.colorScreenBackground)));
-                }
-                //holder.BuyProduct.Click += OnClickBuyClicked;
+                    BuyClicked(this, product);
+                };
             }
             /**
              * Here We compare ID of product from general products list
@@ -178,7 +181,7 @@ namespace Softjourn.SJCoins.Droid.UI.Adapters
                 }
                 holder.AddFavorite.Click += (s, e) =>
                 {
-                    if (product.IsProductFavorite)
+                    if (!product.IsProductFavorite)
                     {
                         AddToFavorites(this, product);
                     }
@@ -186,12 +189,16 @@ namespace Softjourn.SJCoins.Droid.UI.Adapters
                     {
                         if (_category == Const.Favorites)
                         {
-                            ListProducts.Remove(ListProducts[holder.AdapterPosition]);
-                            NotifyItemRemoved(holder.AdapterPosition);
-                            NotifyItemRangeChanged(0, ItemCount + 1);
-                            if (ItemCount < 1)
+                            if ((holder.AdapterPosition) >= 0)
                             {
-                                //EventBus.getDefault().post(new OnRemovedLastFavoriteEvent(mListProducts));
+                                RemoveFromFavorites(this, product);
+                                ListProducts.Remove(ListProducts[holder.AdapterPosition]);
+                                NotifyItemRemoved(holder.AdapterPosition);
+                                NotifyItemRangeChanged(0, ItemCount);
+                                if (ItemCount < 1)
+                                {
+                                    LastFavoriteRemoved(this, EventArgs.Empty);
+                                }
                             }
                         }
                         else
@@ -232,7 +239,7 @@ namespace Softjourn.SJCoins.Droid.UI.Adapters
             handler(this, selectedProduct);
         }
 
-        public void OnClickBuyClicked(object sender, EventArgs eventArgs)
+        public void OnClickClicked(object sender, EventArgs eventArgs)
         {
             var holder = sender as FeatureViewHolder;
             if (holder == null)

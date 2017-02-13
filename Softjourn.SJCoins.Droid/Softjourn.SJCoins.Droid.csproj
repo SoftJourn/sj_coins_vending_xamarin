@@ -218,11 +218,7 @@
     <Compile Include="UI\BaseUI\BaseActivity.cs" />
     <Compile Include="UI\BaseUI\BaseMenuActivity.cs" />
     <Compile Include="UI\Fragments\ProductDetailsFragment.cs" />
-    <Compile Include="UI\Fragments\ProductListFragment.cs" />
     <Compile Include="UI\Fragments\ProductListFragmentVending.cs" />
-    <Compile Include="UI\UIStrategies\IProductsListFragmentStrategy.cs" />
-    <Compile Include="UI\UIStrategies\ParentSeeAllActivityStrategy.cs" />
-    <Compile Include="UI\UIStrategies\VendingActivityStrategy.cs" />
     <Compile Include="Utils\Const.cs" />
     <Compile Include="Utils\JavaHolder.cs" />
     <Compile Include="Utils\LeftSideMenuController.cs" />

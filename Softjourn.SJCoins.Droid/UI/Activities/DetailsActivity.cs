@@ -30,6 +30,7 @@ namespace Softjourn.SJCoins.Droid.UI.Activities
         private TextView _productPrice;
         private TextView _productDescription;
         private List<string> _images;
+        private IMenu _menu;
 
         private DetailsPagerAdapter adapter;
 
@@ -62,6 +63,7 @@ namespace Softjourn.SJCoins.Droid.UI.Activities
         public override bool OnCreateOptionsMenu(IMenu menu)
         {
             base.OnCreateOptionsMenu(menu);
+            _menu = menu;
             menu.FindItem(Resource.Id.profile).SetVisible(false);
             menu.FindItem(Resource.Id.menu_favorites).SetVisible(false);
             menu.FindItem(Resource.Id.menu_buy).SetVisible(true);
@@ -91,7 +93,7 @@ namespace Softjourn.SJCoins.Droid.UI.Activities
         private void ChangeProductFavorite(IMenuItem item)
         {
             _product.IsProductFavorite = !_product.IsProductFavorite;
-            ChangeIcon(item);
+            //ChangeIcon(item);
         }
 
         private void ChangeIcon(IMenuItem item)
@@ -99,6 +101,11 @@ namespace Softjourn.SJCoins.Droid.UI.Activities
             item.SetIcon(_product.IsProductFavorite
                 ? Resource.Drawable.ic_favorite_white_24dp
                 : Resource.Drawable.ic_favorite_border_white);
+        }
+
+        public void FavoriteChanged()
+        {
+            ChangeIcon(_menu.FindItem(Resource.Id.menu_add_favorite));
         }
     }
 }
