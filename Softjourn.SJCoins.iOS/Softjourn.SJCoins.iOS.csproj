@@ -115,6 +115,18 @@
     <Reference Include="SDWebImage">
       <HintPath>..\packages\Xamarin.SDWebImage.3.7.5\lib\Xamarin.iOS\SDWebImage.dll</HintPath>
     </Reference>
+    <Reference Include="Plugin.Media.Abstractions">
+      <HintPath>..\packages\Xam.Plugin.Media.2.3.0\lib\Xamarin.iOS10\Plugin.Media.Abstractions.dll</HintPath>
+    </Reference>
+    <Reference Include="Plugin.Media">
+      <HintPath>..\packages\Xam.Plugin.Media.2.3.0\lib\Xamarin.iOS10\Plugin.Media.dll</HintPath>
+    </Reference>
+    <Reference Include="Plugin.Permissions.Abstractions">
+      <HintPath>..\packages\Plugin.Permissions.1.2.1\lib\Xamarin.iOS10\Plugin.Permissions.Abstractions.dll</HintPath>
+    </Reference>
+    <Reference Include="Plugin.Permissions">
+      <HintPath>..\packages\Plugin.Permissions.1.2.1\lib\Xamarin.iOS10\Plugin.Permissions.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Softjourn.SJCoins.Core\Softjourn.SJCoins.Core.csproj">
@@ -217,6 +229,14 @@
     <ImageAsset Include="Assets.xcassets\Placeholder.imageset\placeholder_tv%403x.png">
       <InProject>false</InProject>
     </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\FavoriteChecked.imageset\Contents.json" />
+    <ImageAsset Include="Assets.xcassets\FavoriteUnchecked.imageset\Contents.json" />
+    <ImageAsset Include="Assets.xcassets\FavoriteChecked.imageset\favorite_checked1x.png" />
+    <ImageAsset Include="Assets.xcassets\FavoriteChecked.imageset\favorite_checked2x.png" />
+    <ImageAsset Include="Assets.xcassets\FavoriteChecked.imageset\favorite_checked3x.png" />
+    <ImageAsset Include="Assets.xcassets\FavoriteUnchecked.imageset\favorite_uhecked1x.png" />
+    <ImageAsset Include="Assets.xcassets\FavoriteUnchecked.imageset\favorite_uhecked2x.png" />
+    <ImageAsset Include="Assets.xcassets\FavoriteUnchecked.imageset\favorite_uhecked3x.png" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Resources\" />
@@ -231,6 +251,8 @@
     <Folder Include="Assets.xcassets\Placeholder.imageset\" />
     <Folder Include="Assets.xcassets\HomeTabIcon.imageset\" />
     <Folder Include="Assets.xcassets\AccountTabIcon.imageset\" />
+    <Folder Include="Assets.xcassets\FavoriteChecked.imageset\" />
+    <Folder Include="Assets.xcassets\FavoriteUnchecked.imageset\" />
   </ItemGroup>
   <ItemGroup>
     <InterfaceDefinition Include="LaunchScreen.storyboard" />
@@ -275,7 +297,6 @@
       <DependentUpon>CustomSegmentControl.cs</DependentUpon>
     </Compile>
     <Compile Include="UI\Controllers\Main\HomeViewController.cs" />
-    <Compile Include="UI\Controllers\Main\AllItemsViewController.cs" />
     <Compile Include="UI\Controllers\Main\AccountViewController.cs" />
     <Compile Include="UI\Controllers\Main\HomeViewController.designer.cs">
       <DependentUpon>HomeViewController.cs</DependentUpon>
@@ -295,9 +316,6 @@
     <Compile Include="UI\Controllers\Main\AccountViewController.designer.cs">
       <DependentUpon>AccountViewController.cs</DependentUpon>
     </Compile>
-    <Compile Include="UI\Controllers\Main\AllItemsViewController.designer.cs">
-      <DependentUpon>AllItemsViewController.cs</DependentUpon>
-    </Compile>
     <Compile Include="UI\Controllers\Main\PreViewController.cs" />
     <Compile Include="UI\Controllers\Main\PreViewController.designer.cs">
       <DependentUpon>PreViewController.cs</DependentUpon>
@@ -310,6 +328,11 @@
     <Compile Include="UI\Controllers\Main\FavoritesViewController.designer.cs">
       <DependentUpon>FavoritesViewController.cs</DependentUpon>
     </Compile>
+    <Compile Include="UI\Controllers\Main\ShowViewController.cs" />
+    <Compile Include="UI\Controllers\Main\ShowViewController.designer.cs">
+      <DependentUpon>ShowViewController.cs</DependentUpon>
+    </Compile>
+    <Compile Include="General\Constants\ImageConstants.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
 </Project>

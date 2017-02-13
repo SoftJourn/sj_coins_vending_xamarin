@@ -37,10 +37,7 @@ namespace Softjourn.SJCoins.iOS
 			CategoryNameLabel.Text = category.Name;
 			categoryProducts = category.Products;
 
-			InternalCollectionView.DataSource = new HomeCellDataSource(category.Products);
-			InternalCollectionView.Delegate = _delegate;
-			InternalCollectionView.ReloadData();
-
+			ConfigureInternalCollectionView(category.Products, _delegate);
 			ConfigureSeeAllButton();
 		}
 
@@ -53,6 +50,14 @@ namespace Softjourn.SJCoins.iOS
 				SeeAllClickedEvent(this, categoryName);
 			};
 		}
+
+		private void ConfigureInternalCollectionView(List<Product> products, HomeCellDelegate _delegate)
+		{
+			InternalCollectionView.DataSource = new HomeCellDataSource(products);
+			InternalCollectionView.Delegate = _delegate;
+			InternalCollectionView.ReloadData();
+		}
+
 		#region IUIViewControllerPreviewingDelegate implementation
 		public override void TraitCollectionDidChange(UITraitCollection previousTraitCollection)
 		{
@@ -108,14 +113,14 @@ namespace Softjourn.SJCoins.iOS
 	#region UICollectionViewSource implementation
 	public class HomeCellDataSource : UICollectionViewDataSource
 	{
-		private List<Product> _products;
+		private List<Product> products;
 
 		public HomeCellDataSource(List<Product> products)
 		{
-			_products = products;
+			this.products = products;
 		}
 
-		public override nint GetItemsCount(UICollectionView collectionView, nint section) => _products == null ? 0 : _products.Count;
+		public override nint GetItemsCount(UICollectionView collectionView, nint section) => products == null ? 0 : products.Count;
 
 		public override UICollectionViewCell GetCell(UICollectionView collectionView, NSIndexPath indexPath) => (UICollectionViewCell)collectionView.DequeueReusableCell(HomeInternalCell.Key, indexPath);
 	}

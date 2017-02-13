@@ -1,13 +1,21 @@
 using System;
 using Foundation;
+using SDWebImage;
+using Softjourn.SJCoins.Core.API.Model.Products;
+using Softjourn.SJCoins.Core.UI.Presenters;
+using Softjourn.SJCoins.Core.UI.ViewInterfaces;
+using Softjourn.SJCoins.iOS.General.Constants;
 using UIKit;
 
 namespace Softjourn.SJCoins.iOS.UI.Controllers
 {
 	[Register("DetailViewController")]
-	public partial class DetailViewController : UIViewController
+	public partial class DetailViewController : BaseViewController<DetailPresenter>, IDetailView
 	{
 		#region Properties
+		public int ProductId { get; set; }
+
+		private Product selectedProduct;
 		#endregion
 
 		#region Constructor
@@ -20,20 +28,27 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers
 		public override void ViewDidLoad()
 		{
 			base.ViewDidLoad();
+
+			selectedProduct = Presenter.GetProduct(ProductId);
 		}
 
 		public override void ViewWillAppear(bool animated)
 		{
 			base.ViewWillAppear(animated);
 
-			//Presenter.OnStartLoadingPage();
+			NameLabel.Text = selectedProduct.Name; 
+			PriceLabel.Text = selectedProduct.Price.ToString();
+			Logo.SetImage(url: new NSUrl(selectedProduct.ImageFullUrl), placeholder: UIImage.FromBundle(ImageConstants.Placeholder));
 		}
 
 		public override void ViewDidAppear(bool animated)
 		{
 			base.ViewDidAppear(animated);
+		}
 
-
+		public void FavoriteChanged()
+		{
+			throw new NotImplementedException();
 		}
 		#endregion
 

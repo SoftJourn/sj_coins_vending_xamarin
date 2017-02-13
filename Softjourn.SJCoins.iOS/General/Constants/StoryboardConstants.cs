@@ -17,6 +17,7 @@
 		public const string MainTabBarViewController = "MainTabBarViewController";
 		public const string PreViewController = "PreViewController";
 		public const string DetailViewController = "DetailViewController";
+		public const string ShowViewController = "ShowViewController";
 
 		// Main pages 
 		public const string HomeViewController = "HomeViewController";
