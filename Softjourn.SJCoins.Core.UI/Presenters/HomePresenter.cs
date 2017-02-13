@@ -5,9 +5,6 @@ using Softjourn.SJCoins.Core.UI.Services.Navigation;
 using Softjourn.SJCoins.Core.UI.ViewInterfaces;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Softjourn.SJCoins.Core.Utils;
 
 namespace Softjourn.SJCoins.Core.UI.Presenters
@@ -30,8 +27,8 @@ namespace Softjourn.SJCoins.Core.UI.Presenters
 					MyBalance = DataManager.Profile.Amount;
                     View.SetAccountInfo(DataManager.Profile);
                     View.SetMachineName(Settings.SelectedMachineName);
-                    List<Product> favoritesList = await RestApiServise.GetFavoritesList();
-                    List<Categories> productCategoriesList = new List<Categories>();
+                    var favoritesList = await RestApiServise.GetFavoritesList();
+                    var productCategoriesList = new List<Categories>();
 
                     // add favorites category to result list if favorites exists
                     if (favoritesList != null && favoritesList.Count > 0)
@@ -85,17 +82,23 @@ namespace Softjourn.SJCoins.Core.UI.Presenters
             NavigationService.NavigateTo(NavigationPage.Settings);
         }
 
-		//Is called when user click on product item for displaying detail view
-		public void OnProductClick(Product product)
-		{
-			NavigationService.NavigateTo(NavigationPage.Detail);
-		}
+        //Setting user's balance after buying ar grabbing new data
+        public override void ChangeUserBalance(string balance)
+        {
+            View.SetUserBalance(balance);
+        }
 
-		//Is called when user click on Show All button for displaying another view only with product from category
-		public void OnShowAllButtonClicked(string categoryName)
-		{
+        //Is called when user clicks on Product to show Detail page of chosen product.
+        public void OnProductDetailsClick(int productID)
+        {
+            NavigationService.NavigateTo(NavigationPage.Detail, productID);
+        }
 
-		}
+        //Is called when user click on Show All button for displaying another view only with product from category
+        public void OnShowAllClick(string category)
+        {
+            NavigationService.NavigateTo(NavigationPage.ShowAll, category);
+        }
 
         //Is called when user click on Profile button (is using only for droid)
         public void OnProfileButtonClicked()
@@ -144,27 +147,27 @@ namespace Softjourn.SJCoins.Core.UI.Presenters
         {
             if (featuredProducts != null)
             {
-                List<Categories> categoriesList = new List<Categories>(); //empty result list with Categories
-                List<Categories> featuredCategoriesList = featuredProducts.Categories; // categories list with products from FeaturedProducts
+                var categoriesList = new List<Categories>(); //empty result list with Categories
+                var featuredCategoriesList = featuredProducts.Categories; // categories list with products from FeaturedProducts
 
                 if (featuredCategoriesList != null && featuredCategoriesList.Count > 0) // if featuredCategoriesList ie empty we can't create any list
                 {
 
                     // check and add to list last added products
-                    List<int> lastAddedIdList = featuredProducts.LastAdded;
+                    var lastAddedIdList = featuredProducts.LastAdded;
                     if (lastAddedIdList != null && lastAddedIdList.Count > 0)
                     {
-                        Categories categoryLastAdded = new Categories();
+                        var categoryLastAdded = new Categories();
                         categoryLastAdded.Name = "Last Added";
                         categoryLastAdded.Products = GetProductList(lastAddedIdList, featuredCategoriesList);
                         categoriesList.Add(categoryLastAdded);
                     }
 
                     // check and add to list best sellers products
-                    List<int> bestSellersIdList = featuredProducts.BestSellers;
+                    var bestSellersIdList = featuredProducts.BestSellers;
                     if (bestSellersIdList != null && bestSellersIdList.Count > 0)
                     {
-                        Categories bestSellersCategory = new Categories();
+                        var bestSellersCategory = new Categories();
                         bestSellersCategory.Name = "Best Sellers";
                         bestSellersCategory.Products = GetProductList(bestSellersIdList, featuredCategoriesList);
                         categoriesList.Add(bestSellersCategory);
@@ -188,14 +191,14 @@ namespace Softjourn.SJCoins.Core.UI.Presenters
         //return list with products if we just have list with int id. Is looking for products using list of categories
         private List<Product> GetProductList(List<int> idList, List<Categories> categoriesList)
         {
-            List<Product> list = new List<Product>();
+            var list = new List<Product>();
 
             foreach (int id in idList)
             {
                 foreach (var category in categoriesList)
                 {
-                    List<Product> productList = category.Products;
-                    Product product = GetProductFromListById(id, productList);
+                    var productList = category.Products;
+                    var product = GetProductFromListById(id, productList);
                     if (product != null)
                     {
                         list.Add(product);
@@ -218,20 +221,5 @@ namespace Softjourn.SJCoins.Core.UI.Presenters
             }
             return null;
         }
-
-		public override void ChangeUserBalance(string balance)
-		{
-			View.SetUserBalance(balance);
-		}
-
-	    public void OnProductDetailsClick(int productID)
-	    {
-	        NavigationService.NavigateTo(NavigationPage.Detail,productID);
-	    }
-
-	    public void OnShowAllClick(string category)
-	    {
-	        NavigationService.NavigateTo(NavigationPage.ShowAll,category);
-	    }
     }
 }
