@@ -76,9 +76,6 @@ namespace Softjourn.SJCoins.Droid.UI.Activities
                 case Android.Resource.Id.Home:
                     //_menuLayout.OpenDrawer(Android.Support.V4.View.GravityCompat.Start);
                     return true;
-                case Resource.Id.menu_favorites:
-                    //ViewPresenter.OnFavoritesButtonClick();
-                    return true;
                 case Resource.Id.profile:
                     ViewPresenter.OnProfileButtonClicked();
                     return true;
@@ -178,7 +175,7 @@ namespace Softjourn.SJCoins.Droid.UI.Activities
             _swipeLayout.Refreshing = false;
         }
 
-        public void FavoriteChanged()
+        public void FavoriteChanged(bool isFavorite)
         {
             foreach (var container in _containerIds)
             {

@@ -65,10 +65,9 @@ namespace Softjourn.SJCoins.Droid.UI.Activities
             base.OnCreateOptionsMenu(menu);
             _menu = menu;
             menu.FindItem(Resource.Id.profile).SetVisible(false);
-            menu.FindItem(Resource.Id.menu_favorites).SetVisible(false);
             menu.FindItem(Resource.Id.menu_buy).SetVisible(true);
             menu.FindItem(Resource.Id.menu_add_favorite).SetVisible(true);
-            ChangeIcon(menu.FindItem(Resource.Id.menu_add_favorite));
+            ChangeIcon(menu.FindItem(Resource.Id.menu_add_favorite),_product.IsProductFavorite);
             return true;
         }
 
@@ -92,20 +91,17 @@ namespace Softjourn.SJCoins.Droid.UI.Activities
 
         private void ChangeProductFavorite(IMenuItem item)
         {
-            _product.IsProductFavorite = !_product.IsProductFavorite;
-            //ChangeIcon(item);
+            
         }
 
-        private void ChangeIcon(IMenuItem item)
+        private void ChangeIcon(IMenuItem item, bool isFavorite)
         {
-            item.SetIcon(_product.IsProductFavorite
-                ? Resource.Drawable.ic_favorite_white_24dp
-                : Resource.Drawable.ic_favorite_border_white);
+            item.SetIcon(isFavorite ? Resource.Drawable.ic_favorite_white_24dp : Resource.Drawable.ic_favorite_border_white);
         }
 
-        public void FavoriteChanged()
+        public void FavoriteChanged(bool isFavorite)
         {
-            ChangeIcon(_menu.FindItem(Resource.Id.menu_add_favorite));
+            ChangeIcon(_menu.FindItem(Resource.Id.menu_add_favorite), isFavorite);
         }
     }
 }

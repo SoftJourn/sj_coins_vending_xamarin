@@ -11,12 +11,6 @@
       app:showAsAction="ifRoom" />
 
   <item
-      android:id="@+id/menu_favorites"
-      android:title="@string/favorites"
-      android:icon="@drawable/ic_favorite_white_24dp"
-      app:showAsAction="ifRoom"/>
-
-  <item
       android:id="@+id/profile"
       android:title="@string/menu_bottombar_profile"
       android:icon="@drawable/ic_account_circle_white_24dp"

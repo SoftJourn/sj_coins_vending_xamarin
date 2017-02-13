@@ -18,7 +18,7 @@ namespace Softjourn.SJCoins.Droid.UI.Adapters
 
         public event EventHandler Click;
         public event EventHandler LongClick;
-        public event EventHandler BuyClick;
+        public event EventHandler AddFavoriteClick;
             
         public View ParentView { get; set; }
         public View ParentViewSeeAll { get; set; }
@@ -40,17 +40,17 @@ namespace Softjourn.SJCoins.Droid.UI.Adapters
             ProductDescription = v.FindViewById<TextView>(Resource.Id.layout_item_product_description);
             AddFavorite = v.FindViewById<ImageView>(Resource.Id.imageViewFavorite);
 
-            BuyProduct?.SetOnClickListener(this);
-
             v.SetOnClickListener(this);
             v.SetOnLongClickListener(this);
+            AddFavorite?.SetOnClickListener(this);
         }
 
         public void OnClick(View v)
         {
-            if (v.Id == Resource.Id.layout_item_product_buy)
+            if (v is ImageView)
             {
-                BuyClick?.Invoke(this,EventArgs.Empty);
+                AddFavoriteClick?.Invoke(this,EventArgs.Empty);
+                return;
             }
             Click?.Invoke(this, EventArgs.Empty);
         }
@@ -62,6 +62,10 @@ namespace Softjourn.SJCoins.Droid.UI.Adapters
             return true;
         }
 
-
+        protected override void Dispose(bool disposing)
+        {
+            //Do something
+            base.Dispose(disposing);
+        }
     }
 }

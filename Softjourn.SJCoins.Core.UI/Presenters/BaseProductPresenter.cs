@@ -34,7 +34,7 @@ namespace Softjourn.SJCoins.Core.UI.Presenters
 						// Remove favorite locally
 						DataManager.RemoveProductFromFavorite(product);
                         // Trigg view that process success 
-                        View.FavoriteChanged();
+                        View.FavoriteChanged(DataManager.GetProductFromListById(product.Id).IsProductFavorite);
 					}
 					else
 					{
@@ -43,7 +43,7 @@ namespace Softjourn.SJCoins.Core.UI.Presenters
 						// Add favorite locally
 						DataManager.AddProductToFavorite(product);
                         // Trigg view that process success 
-                        View.FavoriteChanged();
+                        View.FavoriteChanged(DataManager.GetProductFromListById(product.Id).IsProductFavorite);
                     }
 				}
 				catch (ApiNotAuthorizedException ex)

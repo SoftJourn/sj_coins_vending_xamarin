@@ -93,7 +93,7 @@ namespace Softjourn.SJCoins.Droid.UI.Activities
             {
                 menu.FindItem(Resource.Id.action_search).SetVisible(true);
             }
-            menu.FindItem(Resource.Id.menu_favorites).SetVisible(false);
+            menu.FindItem(Resource.Id.profile).SetVisible(false);
             menu.FindItem(Resource.Id.menu_add_favorite).SetVisible(false);
             menu.FindItem(Resource.Id.menu_buy).SetVisible(false);
 
@@ -185,7 +185,7 @@ namespace Softjourn.SJCoins.Droid.UI.Activities
             InvalidateOptionsMenu();
         }
 
-        public void FavoriteChanged()
+        public void FavoriteChanged(bool isFavorite)
         {
             _adapter.NotifyDataChanges();
         }

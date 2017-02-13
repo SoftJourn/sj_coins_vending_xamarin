@@ -150,10 +150,7 @@ namespace Softjourn.SJCoins.Droid.UI.Adapters
                 holder.LongClick += OnLongClick;
             }
 
-            /**
-             * Changing color of Buy TextView depends on is product in chosen machine or not
-             * Also if product is not available in current machine there is no listener for click on TextView.
-             */
+
             if (holder.BuyProduct != null)
             {
                 holder.BuyProduct.Click += (s, e) =>
@@ -179,34 +176,37 @@ namespace Softjourn.SJCoins.Droid.UI.Adapters
                 {
                     Picasso.With(_context).Load(Resource.Drawable.ic_favorite_border).Into(holder.AddFavorite);
                 }
-                holder.AddFavorite.Click += (s, e) =>
-                {
-                    if (!product.IsProductFavorite)
-                    {
-                        AddToFavorites(this, product);
-                    }
-                    else
-                    {
-                        if (_category == Const.Favorites)
-                        {
-                            if ((holder.AdapterPosition) >= 0)
-                            {
-                                RemoveFromFavorites(this, product);
-                                ListProducts.Remove(ListProducts[holder.AdapterPosition]);
-                                NotifyItemRemoved(holder.AdapterPosition);
-                                NotifyItemRangeChanged(0, ItemCount);
-                                if (ItemCount < 1)
-                                {
-                                    LastFavoriteRemoved(this, EventArgs.Empty);
-                                }
-                            }
-                        }
-                        else
-                        {
-                           RemoveFromFavorites(this, product);
-                        }
-                    }
-                };
+
+                holder.AddFavoriteClick -= AddFavoriteClick;
+                holder.AddFavoriteClick += AddFavoriteClick;
+                //holder.AddFavorite.Click += (s, e) =>
+                //{
+                //    if (!product.IsProductFavorite)
+                //    {
+                //        AddToFavorites(this, product);
+                //    }
+                //    else
+                //    {
+                //        if (_category == Const.Favorites)
+                //        {
+                //            if ((holder.AdapterPosition) >= 0)
+                //            {
+                //                RemoveFromFavorites(this, product);
+                //                ListProducts.Remove(ListProducts[holder.AdapterPosition]);
+                //                NotifyItemRemoved(holder.AdapterPosition);
+                //                NotifyItemRangeChanged(0, ItemCount);
+                //                if (ItemCount < 1)
+                //                {
+                //                    LastFavoriteRemoved(this, EventArgs.Empty);
+                //                }
+                //            }
+                //        }
+                //        else
+                //        {
+                //           RemoveFromFavorites(this, product);
+                //        }
+                //    }
+                //};
             }
             /**
              * Changing Alpha of image depends on is product present in chosen machine or not
@@ -220,6 +220,41 @@ namespace Softjourn.SJCoins.Droid.UI.Adapters
             {
                 Picasso.With(_context).Load(Core.Utils.Const.BaseUrl + Core.Utils.Const.UrlVendingService + ListProducts[holder.AdapterPosition].ImageUrl).Into(holder.ProductImage);
                 holder.ProductImage.Alpha = !isCurrentProductInMachine ? 0.3f : 1.0f;
+            }
+        }
+
+        private void AddFavoriteClick(object sender, EventArgs e)
+        {
+            var holder = sender as FeatureViewHolder;
+            if (holder == null)
+            {
+                throw new Exception("Holder is null");
+            }
+            var product = ListProducts[holder.AdapterPosition];
+            if (!product.IsProductFavorite)
+            {
+                AddToFavorites?.Invoke(this, product);
+            }
+            else
+            {
+                if (_category == Const.Favorites)
+                {
+                    if ((holder.AdapterPosition) >= 0)
+                    {
+                        RemoveFromFavorites?.Invoke(this, product);
+                        ListProducts.Remove(ListProducts[holder.AdapterPosition]);
+                        NotifyItemRemoved(holder.AdapterPosition);
+                        NotifyItemRangeChanged(0, ItemCount);
+                        if (ItemCount < 1)
+                        {
+                            LastFavoriteRemoved?.Invoke(this, EventArgs.Empty);
+                        }
+                    }
+                }
+                else
+                {
+                    RemoveFromFavorites?.Invoke(this, product);
+                }
             }
         }
 
