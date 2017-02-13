@@ -18,6 +18,7 @@ namespace Softjourn.SJCoins.Droid.UI.Adapters
 
         public event EventHandler Click;
         public event EventHandler LongClick;
+        public event EventHandler BuyClick;
             
         public View ParentView { get; set; }
         public View ParentViewSeeAll { get; set; }
@@ -39,12 +40,18 @@ namespace Softjourn.SJCoins.Droid.UI.Adapters
             ProductDescription = v.FindViewById<TextView>(Resource.Id.layout_item_product_description);
             AddFavorite = v.FindViewById<ImageView>(Resource.Id.imageViewFavorite);
 
+            BuyProduct?.SetOnClickListener(this);
+
             v.SetOnClickListener(this);
             v.SetOnLongClickListener(this);
         }
 
         public void OnClick(View v)
         {
+            if (v.Id == Resource.Id.layout_item_product_buy)
+            {
+                BuyClick?.Invoke(this,EventArgs.Empty);
+            }
             Click?.Invoke(this, EventArgs.Empty);
         }
 
@@ -54,5 +61,7 @@ namespace Softjourn.SJCoins.Droid.UI.Adapters
             LongClick?.Invoke(this, EventArgs.Empty);
             return true;
         }
+
+
     }
 }

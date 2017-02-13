@@ -32,12 +32,15 @@ namespace Softjourn.SJCoins.Droid.UI.Activities
         private View _headerView;
         private Account _account;
         private List<Categories> _listCategories;
+        private List<int> _containerIds; 
         private TextView _balance;
 
         protected override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
             SetContentView(Resource.Layout.activity_main);
+
+            _containerIds = new List<int>();
 
             //_menuLayout = FindViewById<DrawerLayout>(Resource.Id.drawer_layout);
             //_menuView = FindViewById<NavigationView>(Resource.Id.left_side_menu);
@@ -175,6 +178,15 @@ namespace Softjourn.SJCoins.Droid.UI.Activities
             _swipeLayout.Refreshing = false;
         }
 
+        public void FavoriteChanged()
+        {
+            foreach (var container in _containerIds)
+            {
+                var fragment = FragmentManager.FindFragmentById(container) as ProductListFragmentVending;
+                fragment.ChangeFavorite();
+            }
+        }
+
         private void AttachFragment(string categoryName, int headerId, int containerId, int seeAllId, List<Product> listProducts )
         {
             FragmentManager.BeginTransaction()
@@ -216,6 +228,7 @@ namespace Softjourn.SJCoins.Droid.UI.Activities
             if (llContainer != null)
             {
                 llContainer.Id = View.GenerateViewId();
+                _containerIds.Add(llContainer.Id);
             }
 
             if (tvSeeAll != null)

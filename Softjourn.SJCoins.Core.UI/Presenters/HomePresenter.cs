@@ -88,12 +88,6 @@ namespace Softjourn.SJCoins.Core.UI.Presenters
             View.SetUserBalance(balance);
         }
 
-        //Is called when user clicks on Product to show Detail page of chosen product.
-        public void OnProductDetailsClick(int productID)
-        {
-            NavigationService.NavigateTo(NavigationPage.Detail, productID);
-        }
-
         //Is called when user click on Show All button for displaying another view only with product from category
         public void OnShowAllClick(string category)
         {

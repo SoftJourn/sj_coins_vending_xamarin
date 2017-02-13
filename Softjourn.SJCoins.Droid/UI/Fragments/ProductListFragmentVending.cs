@@ -9,7 +9,6 @@ using Android.Widget;
 using Softjourn.SJCoins.Core.API.Model.Products;
 using Softjourn.SJCoins.Droid.UI.Activities;
 using Softjourn.SJCoins.Droid.UI.Adapters;
-using Softjourn.SJCoins.Droid.UI.UIStrategies;
 
 namespace Softjourn.SJCoins.Droid.UI.Fragments
 {
@@ -20,7 +19,6 @@ namespace Softjourn.SJCoins.Droid.UI.Fragments
 
         private FeaturedProductItemsAdapter _productAdapter;
         private static RecyclerView.LayoutManager _layoutManager;
-        private IProductsListFragmentStrategy _strategy;
         private List<Product> _productList;
 
         RecyclerView _machineItems;
@@ -110,6 +108,11 @@ namespace Softjourn.SJCoins.Droid.UI.Fragments
             {
                 _productAdapter.ProductSelected -= ProductSelected;
             }
+        }
+
+        public void ChangeFavorite()
+        {
+            _productAdapter.NotifyDataChanges();
         }
 
         private void ProductSelected(object sender, Product product)

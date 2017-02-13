@@ -1,13 +1,14 @@
 ﻿using System;
 using Softjourn.SJCoins.Core.API.Model.Products;
 using Softjourn.SJCoins.Core.Exceptions;
+using Softjourn.SJCoins.Core.UI.Interfaces;
 using Softjourn.SJCoins.Core.UI.Services.Navigation;
 using Softjourn.SJCoins.Core.UI.ViewInterfaces;
 using Softjourn.SJCoins.Core.Utils;
 
 namespace Softjourn.SJCoins.Core.UI.Presenters
 {
-	public abstract class BaseProductPresenter<TView> : BasePresenter<TView> where TView : class, IBaseView
+	public abstract class BaseProductPresenter<TView> : BasePresenter<TView> where TView : class, IBaseProductView
 	{
 		#region Properties
 		private int _balance;
@@ -32,8 +33,8 @@ namespace Softjourn.SJCoins.Core.UI.Presenters
 						await RestApiServise.RemoveProductFromFavorites(product.Id.ToString());
 						// Remove favorite locally
 						DataManager.RemoveProductFromFavorite(product);
-						// Trigg view that process success 
-
+                        // Trigg view that process success 
+                        View.FavoriteChanged();
 					}
 					else
 					{
@@ -41,9 +42,9 @@ namespace Softjourn.SJCoins.Core.UI.Presenters
 						await RestApiServise.AddProductToFavorites(product.Id.ToString());
 						// Add favorite locally
 						DataManager.AddProductToFavorite(product);
-						// Trigg view that process success 
-
-					}
+                        // Trigg view that process success 
+                        View.FavoriteChanged();
+                    }
 				}
 				catch (ApiNotAuthorizedException ex)
 				{
@@ -72,15 +73,21 @@ namespace Softjourn.SJCoins.Core.UI.Presenters
 
 		public abstract void ChangeUserBalance(string balance);
 
-		//public abstract void BuyingSuccess();
+        //Is called when user clicks on Product to show Detail page of chosen product.
+        public void OnProductDetailsClick(int productID)
+        {
+            NavigationService.NavigateTo(NavigationPage.Detail, productID);
+        }
 
-		//public abstract void FavoriteSuccess();
+        //public abstract void BuyingSuccess();
 
-		#endregion
+        //public abstract void FavoriteSuccess();
 
-		#region Private methods
-		// check is balance enough and make purchase
-		private async void OnProductPurchased(Product product)
+        #endregion
+
+        #region Private methods
+        // check is balance enough and make purchase
+        private async void OnProductPurchased(Product product)
 		{
 			if (NetworkUtils.IsConnected)
 			{
