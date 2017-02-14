@@ -54,6 +54,9 @@ namespace Softjourn.SJCoins.Droid.UI.Activities
 
             _productList = ViewPresenter.GetProductList(_category);
 
+            _fragmentsSortNameButton = FindViewById<Button>(Resource.Id.button_sort_name);
+            _fragmentsSortPriceButton = FindViewById<Button>(Resource.Id.button_sort_price);
+
             _machineItems = FindViewById<RecyclerView>(Resource.Id.list_items_recycler_view);
             _textViewNoProductsInCategory = FindViewById<TextView>(Resource.Id.textViewNoProductsInCategory);
 

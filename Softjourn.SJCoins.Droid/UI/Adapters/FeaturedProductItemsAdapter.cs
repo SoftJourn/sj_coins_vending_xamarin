@@ -38,8 +38,6 @@ namespace Softjourn.SJCoins.Droid.UI.Adapters
         private List<Product> _favoritesList; // = mDataManager.loadFavorites();
         private Context _context;
 
-        private const int TagKey = 100001;
-
         public FeaturedProductItemsAdapter(string featureCategory, string recyclerViewType, Context context)
         {
 
@@ -68,14 +66,7 @@ namespace Softjourn.SJCoins.Droid.UI.Adapters
 
         public void NotifyDataChanges()
         {
-            if (_category != "Favorites")
-            {
-                NotifyDataSetChanged();
-            }
-            else
-            {
-                
-            }
+            NotifyDataSetChanged();
         }
 
         public void SetData(List<Product> data)
@@ -150,14 +141,6 @@ namespace Softjourn.SJCoins.Droid.UI.Adapters
                 holder.LongClick += OnLongClick;
             }
 
-
-            if (holder.BuyProduct != null)
-            {
-                holder.BuyProduct.Click += (s, e) =>
-                {
-                    BuyClicked(this, product);
-                };
-            }
             /**
              * Here We compare ID of product from general products list
              * and ID of favorites list
@@ -179,34 +162,6 @@ namespace Softjourn.SJCoins.Droid.UI.Adapters
 
                 holder.AddFavoriteClick -= AddFavoriteClick;
                 holder.AddFavoriteClick += AddFavoriteClick;
-                //holder.AddFavorite.Click += (s, e) =>
-                //{
-                //    if (!product.IsProductFavorite)
-                //    {
-                //        AddToFavorites(this, product);
-                //    }
-                //    else
-                //    {
-                //        if (_category == Const.Favorites)
-                //        {
-                //            if ((holder.AdapterPosition) >= 0)
-                //            {
-                //                RemoveFromFavorites(this, product);
-                //                ListProducts.Remove(ListProducts[holder.AdapterPosition]);
-                //                NotifyItemRemoved(holder.AdapterPosition);
-                //                NotifyItemRangeChanged(0, ItemCount);
-                //                if (ItemCount < 1)
-                //                {
-                //                    LastFavoriteRemoved(this, EventArgs.Empty);
-                //                }
-                //            }
-                //        }
-                //        else
-                //        {
-                //           RemoveFromFavorites(this, product);
-                //        }
-                //    }
-                //};
             }
             /**
              * Changing Alpha of image depends on is product present in chosen machine or not

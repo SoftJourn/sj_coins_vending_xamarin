@@ -24,7 +24,6 @@ namespace Softjourn.SJCoins.Droid.UI.Adapters
         public View ParentViewSeeAll { get; set; }
         public TextView ProductPrice { get; set; }
         public TextView ProductName { get; set; }
-        public TextView BuyProduct { get; set; }
         public TextView ProductDescription { get; set; }
         public ImageView ProductImage { get; set; }
         public ImageView AddFavorite { get; set; }
@@ -36,14 +35,13 @@ namespace Softjourn.SJCoins.Droid.UI.Adapters
             ProductImage = v.FindViewById<ImageView>(Resource.Id.layout_item_product_img);
             ProductPrice = v.FindViewById<TextView>(Resource.Id.layout_item_product_price);
             ProductName = v.FindViewById<TextView>(Resource.Id.layout_item_product_name);
-            BuyProduct = v.FindViewById<TextView>(Resource.Id.layout_item_product_buy);
             ProductDescription = v.FindViewById<TextView>(Resource.Id.layout_item_product_description);
             AddFavorite = v.FindViewById<ImageView>(Resource.Id.imageViewFavorite);
 
             v.SetOnClickListener(this);
             v.SetOnLongClickListener(this);
             AddFavorite?.SetOnClickListener(this);
-        }
+            }
 
         public void OnClick(View v)
         {
