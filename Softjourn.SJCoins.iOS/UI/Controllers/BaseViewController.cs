@@ -94,7 +94,7 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers
 		{
 			base.Dispose(disposing);
 			Presenter = null;
-			Console.WriteLine("Presenter is equal NULL");
+			Console.WriteLine(String.Format("{0} controller disposed", this.GetType()));
 		}
 		#endregion
 

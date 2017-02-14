@@ -66,7 +66,7 @@ namespace Softjourn.SJCoins.iOS.Services
 				case NavigationPage.ShowAll:
 					return Instantiate(StoryboardConstants.StoryboardMain, StoryboardConstants.ShowViewController);
 				case NavigationPage.Profile:
-					return Instantiate(StoryboardConstants.StoryboardMain, StoryboardConstants.AccountViewController);
+				return Instantiate(StoryboardConstants.StoryboardMain, StoryboardConstants.NavigationAccountViewController);
 				default:
 					throw new ArgumentException("Not valid page");
 			}
@@ -104,8 +104,7 @@ namespace Softjourn.SJCoins.iOS.Services
 						visibleController.NavigationController.PushViewController(detailController, animated: true);
 						break;
 					case NavigationPage.Profile:
-						var accountController = (AccountViewController)Controller(page);
-						visibleController.NavigationController.PushViewController(accountController, animated: true);
+						visibleController.PresentViewController(Controller(page), animated: true, completionHandler: null);
 						break;
 					case NavigationPage.Settings:
 						visibleController.PresentViewController(Controller(page), animated: true, completionHandler: null);

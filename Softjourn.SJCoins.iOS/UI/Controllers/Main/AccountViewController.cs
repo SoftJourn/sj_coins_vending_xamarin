@@ -14,6 +14,7 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.Main
 	public partial class AccountViewController : BaseViewController<AccountPresenter>, IAccountView
 	{
 		#region Properties
+		UITapGestureRecognizer avatarImageTap; 
 		#endregion
 
 		#region Constructor
@@ -26,7 +27,6 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.Main
 		public override void ViewDidLoad()
 		{
 			base.ViewDidLoad();
-
 			ConfigureAvatarImage(AvatarImage);
 			Presenter.OnStartLoadingPage();
 		}
@@ -34,14 +34,26 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.Main
 		public override void ViewWillAppear(bool animated)
 		{
 			base.ViewWillAppear(animated);
-
+			// Attach 
+			DoneButton.Clicked += DoneButtonClickHandler;
+			// Add tap gesture to avatar image
+			avatarImageTap = new UITapGestureRecognizer(AvatarImageTapHandler);
+			AvatarImage.AddGestureRecognizer(avatarImageTap);
 		}
 
 		public override void ViewDidAppear(bool animated)
 		{
 			base.ViewDidAppear(animated);
 
+		}
 
+		public override void ViewWillDisappear(bool animated)
+		{
+			// Detach 
+			DoneButton.Clicked -= DoneButtonClickHandler;
+			// Remove tap gesture from avatar image
+			AvatarImage.RemoveGestureRecognizer(avatarImageTap);
+			base.ViewWillDisappear(animated);
 		}
 		#endregion
 
@@ -56,14 +68,17 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.Main
 				AvatarImage.SetImage(url: new NSUrl("https://sjcoins-testing.softjourn.if.ua/vending/v1/products/100/image.jpeg"), placeholder: UIImage.FromBundle(ImageConstants.Placeholder));
 			}
 		}
+
+		public void ImageAcquired(byte[] receipt)
+		{
+			// Set image to imageView
+			AvatarImage.Image = UIImage.LoadFromData(NSData.FromArray(receipt));
+		}
 		#endregion
 
 		#region Private methods
 		private void ConfigureAvatarImage(UIImageView imageView)
 		{
-			// Add tap gesture to avatar image
-			imageView.AddGestureRecognizer(new UITapGestureRecognizer(OnAvatarTap));
-
 			// Make image rounded
 			CALayer imageCircle = imageView.Layer;
 			imageCircle.CornerRadius = 60;
@@ -71,16 +86,14 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.Main
 			imageCircle.MasksToBounds = true;
 		}
 
-		private void OnAvatarTap()
+		private void DoneButtonClickHandler(object sender, EventArgs e)
 		{
-			//Presenter shows action sheet
-			Presenter.OnPhotoClicked();
+			DismissViewController(animated: true, completionHandler: null);
 		}
 
-		public void ImageAcquired(byte[] receipt)
+		private void AvatarImageTapHandler(UITapGestureRecognizer gestureRecognizer)
 		{
-			// Set image to imageView
-			AvatarImage.Image = UIImage.LoadFromData(NSData.FromArray(receipt));
+			Presenter.OnPhotoClicked();
 		}
 		#endregion
 

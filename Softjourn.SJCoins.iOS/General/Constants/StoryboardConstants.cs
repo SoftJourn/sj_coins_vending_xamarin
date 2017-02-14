@@ -20,9 +20,7 @@
 
 		// Main pages 
 		public const string NavigationHomeViewController = "NavigationHomeViewController";
-		public const string FavoritesViewController = "FavoritesViewController";
-		public const string AllProductsViewController = "AllProductsViewController";
-		public const string AccountViewController = "AccountViewController";
+		public const string NavigationAccountViewController = "NavigationAccountViewController";
 
 		// Informative pages
 		public const string InformativeLoginPage = "InformativeLoginPage";

@@ -18,31 +18,47 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.Main
 		UIKit.UIImageView AvatarImage { get; set; }
 
 		[Outlet]
-		UIKit.UIBarButtonItem LogOutButton { get; set; }
+		UIKit.UIBarButtonItem DoneButton { get; set; }
+
+		[Outlet]
+		UIKit.UIView HeaderView { get; set; }
 
 		[Outlet]
 		UIKit.UILabel NameLabel { get; set; }
+
+		[Outlet]
+		UIKit.UITableView TableView { get; set; }
 		
 		void ReleaseDesignerOutlets ()
 		{
-			if (AvatarImage != null) {
-				AvatarImage.Dispose ();
-				AvatarImage = null;
-			}
-
 			if (AmountLabel != null) {
 				AmountLabel.Dispose ();
 				AmountLabel = null;
 			}
 
-			if (LogOutButton != null) {
-				LogOutButton.Dispose ();
-				LogOutButton = null;
+			if (AvatarImage != null) {
+				AvatarImage.Dispose ();
+				AvatarImage = null;
+			}
+
+			if (DoneButton != null) {
+				DoneButton.Dispose ();
+				DoneButton = null;
+			}
+
+			if (HeaderView != null) {
+				HeaderView.Dispose ();
+				HeaderView = null;
 			}
 
 			if (NameLabel != null) {
 				NameLabel.Dispose ();
 				NameLabel = null;
+			}
+
+			if (TableView != null) {
+				TableView.Dispose ();
+				TableView = null;
 			}
 		}
 	}
