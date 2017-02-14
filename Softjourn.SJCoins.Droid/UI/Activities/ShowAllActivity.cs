@@ -220,5 +220,21 @@ namespace Softjourn.SJCoins.Droid.UI.Activities
             _textViewNoProductsInCategory.Visibility = ViewStates.Visible;
 
         }
+
+        private void SortByName(bool isSortingForward, string productsCategory, Button buttonName, Button buttonPrice) {
+        //mSortingByPriceForward = true;
+        //buttonName.SetBackgroundColor(new Color(this.GetColor(Resource.Color.colorScreenBackground)));
+        //buttonPrice.SetBackgroundColor(new Color(this.GetColor(Resource.Color.transparent)));
+        //ViewPresenter.SortByName(productsCategory, isSortingForward);
+        //mSortingByNameForward = !mSortingByNameForward;
+    }
+
+        private void SortByPrice(bool isSortingForward, string productsCategory, Button buttonName, Button buttonPrice) {
+        //mSortingByNameForward = true;
+        //buttonPrice.setBackgroundColor(ContextCompat.getColor(App.getContext(),R.color.colorScreenBackground));
+        //buttonName.setBackgroundColor(ContextCompat.getColor(App.getContext(),R.color.transparent));
+        //presenter.sortByPrice(productsCategory, isSortingForward);
+        //mSortingByPriceForward = !mSortingByPriceForward;
+    }
     }
 }
