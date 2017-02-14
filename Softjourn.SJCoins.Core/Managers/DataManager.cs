@@ -40,7 +40,7 @@ namespace Softjourn.SJCoins.Core.Managers
         //Remove Product From Favorites in LocalStorage
         public void RemoveProductFromFavorite(Product product)
         {
-            product.IsProductFavorite = true;
+            product.IsProductFavorite = false;
             foreach (var category in ProductList)
             {
                 if (category.Name == "Favorites")

@@ -69,26 +69,16 @@
             android:layout_height="match_parent"
             android:layout_marginRight="@dimen/activity_horizontal_margin"
             android:layout_marginEnd="@dimen/activity_horizontal_margin"
+            android:gravity="center_vertical"
             android:orientation="vertical">
             <ImageView
                 android:contentDescription="@string/favorite_icon_content_description"
                 android:id="@+id/imageViewFavorite"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="top"
-                android:layout_marginTop="@dimen/activity_horizontal_margin"
+                android:layout_gravity="center_vertical"
                 android:background="?attr/selectableItemBackgroundBorderless"
                 android:src="@drawable/ic_favorite_border" />
-            <TextView
-                android:id="@+id/layout_item_product_buy"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="bottom"
-                android:layout_marginTop="@dimen/activity_horizontal_margin"
-                android:text="@string/item_product_buy"
-                android:background="?attr/selectableItemBackgroundBorderless"
-                android:textColor="@color/colorBlue"
-                android:textSize="20sp" />
         </LinearLayout>
     </LinearLayout>
     <View
