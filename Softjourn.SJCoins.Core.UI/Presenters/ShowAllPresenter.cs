@@ -13,13 +13,30 @@ namespace Softjourn.SJCoins.Core.UI.Presenters
             MyBalance = DataManager.Profile.Amount;
         }
 
-		public override void ChangeUserBalance(string balance)
+	    private bool IsSortingNameForward { get; set; }
+	    private bool IsSortingPriceForward { get; set; }
+
+	    public override void ChangeUserBalance(string balance)
 		{
 		}
 
 	    public List<Product> GetProductList(string category)
 	    {
-	        return DataManager.GetProductListByGivenCategory(category);
-	    } 
-	}
+	        return DataManager.GetSortedByNameProductsList(category,true);
+	    }
+
+	    public void OnSortByNameClicked(string category)
+	    {
+            View.ShowSortedList(DataManager.GetSortedByNameProductsList(category, IsSortingNameForward));
+            IsSortingPriceForward = true;
+            IsSortingNameForward = !IsSortingNameForward;
+	    }
+
+        public void OnSortByPriceClicked(string category)
+        {
+            View.ShowSortedList(DataManager.GetSortedByPriceProductsList(category, IsSortingPriceForward));
+            IsSortingNameForward = true;
+            IsSortingPriceForward = !IsSortingPriceForward;
+        }
+    }
 }

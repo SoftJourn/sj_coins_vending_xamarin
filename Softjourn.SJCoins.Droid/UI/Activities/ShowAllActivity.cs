@@ -30,8 +30,8 @@ namespace Softjourn.SJCoins.Droid.UI.Activities
 
         private string _category;
 
-        private Button _fragmentsSortNameButton;
-        private Button _fragmentsSortPriceButton;
+        private Button _sortNameButton;
+        private Button _sortPriceButton;
         private TextView _textViewNoProductsInCategory;
 
         private const string ProductsCategory = Const.NavigationKey;
@@ -54,8 +54,10 @@ namespace Softjourn.SJCoins.Droid.UI.Activities
 
             _productList = ViewPresenter.GetProductList(_category);
 
-            _fragmentsSortNameButton = FindViewById<Button>(Resource.Id.button_sort_name);
-            _fragmentsSortPriceButton = FindViewById<Button>(Resource.Id.button_sort_price);
+            _sortNameButton = FindViewById<Button>(Resource.Id.button_sort_name);
+            _sortNameButton.Click += OnSortByNameClick;
+            _sortPriceButton = FindViewById<Button>(Resource.Id.button_sort_price);
+            _sortPriceButton.Click += OnSortByPriceClick;
 
             _machineItems = FindViewById<RecyclerView>(Resource.Id.list_items_recycler_view);
             _textViewNoProductsInCategory = FindViewById<TextView>(Resource.Id.textViewNoProductsInCategory);
@@ -87,6 +89,20 @@ namespace Softjourn.SJCoins.Droid.UI.Activities
 
             _adapter.SetData(_productList);
 
+        }
+
+        private void OnSortByPriceClick(object sender, EventArgs e)
+        {
+            ViewPresenter.OnSortByPriceClicked(_category);
+            _sortPriceButton.SetBackgroundColor(new Color(GetColor(Resource.Color.colorScreenBackground)));
+            _sortNameButton.SetBackgroundColor(new Color(GetColor(Resource.Color.transparent)));
+        }
+
+        private void OnSortByNameClick(object sender, EventArgs e)
+        {
+            ViewPresenter.OnSortByNameClicked(_category);
+            _sortNameButton.SetBackgroundColor(new Color(GetColor(Resource.Color.colorScreenBackground)));
+            _sortPriceButton.SetBackgroundColor(new Color(GetColor(Resource.Color.transparent)));
         }
 
         public override bool OnCreateOptionsMenu(IMenu menu)
@@ -132,16 +148,16 @@ namespace Softjourn.SJCoins.Droid.UI.Activities
                 {
                     _adapter.Filter.InvokeFilter(e.NewText);
                 }
-                _fragmentsSortNameButton.Enabled = false;
-                _fragmentsSortPriceButton.Enabled = false;
+                _sortNameButton.Enabled = false;
+                _sortPriceButton.Enabled = false;
             };
 
 
             searchView.Close += (s, e) =>
 
             {
-                _fragmentsSortNameButton.Enabled = true;
-                _fragmentsSortPriceButton.Enabled = true;
+                _sortNameButton.Enabled = true;
+                _sortPriceButton.Enabled = true;
                 searchView.ClearFocus();
                 searchView.SetQuery("", false);
                 searchView.OnActionViewCollapsed();
@@ -161,36 +177,14 @@ namespace Softjourn.SJCoins.Droid.UI.Activities
             return base.OnOptionsItemSelected(item);
         }
 
-        /**
-         * Method to disable sorting buttons in case Search is active as Search is handling in Activity class
-         * and Buttons are on the Fragment side.
-         */
-        public void SetButtons(Button nameButton, Button priceButton)
-        {
-            this._fragmentsSortNameButton = nameButton;
-            this._fragmentsSortPriceButton = priceButton;
-            _fragmentsSortNameButton.SetBackgroundColor(new Color(GetColor(Resource.Color.colorScreenBackground)));
-            _fragmentsSortPriceButton.SetBackgroundColor(new Color(GetColor(Resource.Color.transparent)));
-        }
-
-        /**
-         * Method to set Category and adapter for correct appearing title and correct
-         * checking of Item in NavBar.
-         *
-         * @param adapter  is object of FeaturedProductItemsAdapter for correct behaviour of filtering
-         *                 in Search functionality
-         * @param category String with the name of the category
-         */
-        public void ProductsList(FeaturedProductItemsAdapter adapter, string category)
-        {
-            _category = category;
-            _adapter = adapter;
-            InvalidateOptionsMenu();
-        }
-
         public void FavoriteChanged(bool isFavorite)
         {
             _adapter.NotifyDataChanges();
+        }
+
+        public void ShowSortedList(List<Product> products)
+        {
+            _adapter.SetData(products);
         }
 
         private void ProductSelected(object sender, Product product)
@@ -220,21 +214,5 @@ namespace Softjourn.SJCoins.Droid.UI.Activities
             _textViewNoProductsInCategory.Visibility = ViewStates.Visible;
 
         }
-
-        private void SortByName(bool isSortingForward, string productsCategory, Button buttonName, Button buttonPrice) {
-        //mSortingByPriceForward = true;
-        //buttonName.SetBackgroundColor(new Color(this.GetColor(Resource.Color.colorScreenBackground)));
-        //buttonPrice.SetBackgroundColor(new Color(this.GetColor(Resource.Color.transparent)));
-        //ViewPresenter.SortByName(productsCategory, isSortingForward);
-        //mSortingByNameForward = !mSortingByNameForward;
-    }
-
-        private void SortByPrice(bool isSortingForward, string productsCategory, Button buttonName, Button buttonPrice) {
-        //mSortingByNameForward = true;
-        //buttonPrice.setBackgroundColor(ContextCompat.getColor(App.getContext(),R.color.colorScreenBackground));
-        //buttonName.setBackgroundColor(ContextCompat.getColor(App.getContext(),R.color.transparent));
-        //presenter.sortByPrice(productsCategory, isSortingForward);
-        //mSortingByPriceForward = !mSortingByPriceForward;
-    }
     }
 }
