@@ -253,6 +253,7 @@
     <Folder Include="Assets.xcassets\AccountTabIcon.imageset\" />
     <Folder Include="Assets.xcassets\FavoriteChecked.imageset\" />
     <Folder Include="Assets.xcassets\FavoriteUnchecked.imageset\" />
+    <Folder Include="UI\UIElements\" />
   </ItemGroup>
   <ItemGroup>
     <InterfaceDefinition Include="LaunchScreen.storyboard" />
@@ -325,6 +326,7 @@
       <DependentUpon>ShowViewController.cs</DependentUpon>
     </Compile>
     <Compile Include="General\Constants\ImageConstants.cs" />
+    <Compile Include="UI\UIElements\CustomSegmentControl.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
 </Project>

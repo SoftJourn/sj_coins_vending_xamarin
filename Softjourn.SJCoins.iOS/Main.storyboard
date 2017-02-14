@@ -99,10 +99,10 @@
             </objects>
             <point key="canvasLocation" x="1031" y="904"/>
         </scene>
-        <!--CategoryName-->
+        <!--ShowAll-->
         <scene sceneID="IPo-d7-AO7">
             <objects>
-                <viewController storyboardIdentifier="ShowViewController" id="OHh-BL-kNP" customClass="ShowViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="ShowViewController" id="OHh-BL-kNP" userLabel="ShowAll" customClass="ShowViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="i3q-Ut-DEL"/>
                         <viewControllerLayoutGuide type="bottom" id="Ve1-gV-eee"/>
@@ -118,7 +118,7 @@
                                     <rect key="frame" x="0.0" y="0.0" width="376" height="40"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <subviews>
-                                        <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="buZ-Oi-KDG">
+                                        <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="buZ-Oi-KDG" customClass="CustomSegmentControl">
                                             <rect key="frame" x="18" y="8" width="340" height="26"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="25" id="ohj-y1-JhE"/>
@@ -165,6 +165,7 @@
                         <barButtonItem key="rightBarButtonItem" systemItem="search" id="wEY-b6-570"/>
                     </navigationItem>
                     <connections>
+                        <outlet property="SegmentControl" destination="buZ-Oi-KDG" id="Cnw-hc-NFX"/>
                         <outlet property="TableView" destination="hzM-ok-9xB" id="QUT-1t-iTC"/>
                     </connections>
                 </viewController>
@@ -245,11 +246,11 @@
             </objects>
             <point key="canvasLocation" x="6263" y="904"/>
         </scene>
-        <!--All Items-->
+        <!--NavigationShowAll-->
         <scene sceneID="vus-eu-tpe">
             <objects>
-                <navigationController storyboardIdentifier="AllProductsNavigationController" automaticallyAdjustsScrollViewInsets="NO" id="UxB-iK-pO6" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="All Items" image="FC8B1D5C-81B8-4874-BFD7-AC1E6834E61A" id="eof-dA-PO7"/>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="UxB-iK-pO6" userLabel="NavigationShowAll" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="All Items" image="CBE6A723-04BC-428E-8E5A-5D457016A6E1" id="eof-dA-PO7"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="iHX-3p-5pT">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
@@ -641,7 +642,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="FC8B1D5C-81B8-4874-BFD7-AC1E6834E61A" width="16" height="16">
+        <image name="CBE6A723-04BC-428E-8E5A-5D457016A6E1" width="16" height="16">
             <mutableData key="keyedArchiveRepresentation">
 YnBsaXN0MDDUAQIDBAUGODlYJHZlcnNpb25YJG9iamVjdHNZJGFyY2hpdmVyVCR0b3ASAAGGoKwHCBEW
 GxwiIyksMjVVJG51bGzUCQoLDA0ODxBWJGNsYXNzXE5TSW1hZ2VGbGFnc1ZOU1JlcHNXTlNDb2xvcoAL

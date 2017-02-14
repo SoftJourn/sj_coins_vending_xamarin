@@ -19,7 +19,7 @@ namespace Softjourn.SJCoins.iOS
 		}
 		private string categoryName; 
 		private List<Product> categoryProducts;
-		public event EventHandler<string> SeeAllClickedEvent = delegate { };
+		public event EventHandler<string> SeeAllClickedEvent;
 
 		static HomeCell()
 		{

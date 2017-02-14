@@ -53,6 +53,7 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.Main
 			// Show user balance
 			string balance = account.Amount.ToString();
 			SetBalance(balance);
+			BalanceLabel.Hidden = false;
 		}
 
 		public void SetUserBalance(string balance)
@@ -112,6 +113,7 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.Main
 		{
 			//Hide no items label
 			NoItemsLabel.Hidden = true;
+			BalanceLabel.Hidden = true;
 
 			// Add click event to button
 			AccountButton.Clicked += (sender, e) =>

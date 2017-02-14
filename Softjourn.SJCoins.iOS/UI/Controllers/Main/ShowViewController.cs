@@ -41,6 +41,9 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.Main
 			base.ViewWillAppear(animated);
 
 			Title = CategoryName;
+			// Attach 
+			SegmentControl.TouchUpInside += SameButtonClickHandler;
+			SegmentControl.ValueChanged += AnotherButtonClickHandler;
 		}
 
 		public override void ViewDidAppear(bool animated)
@@ -48,9 +51,12 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.Main
 			base.ViewDidAppear(animated);
 		}
 
-		public void FavoriteChanged()
+		public override void ViewWillDisappear(bool animated)
 		{
-			throw new NotImplementedException();
+			// Dettach 
+			SegmentControl.TouchUpInside += SameButtonClickHandler;
+			SegmentControl.ValueChanged += AnotherButtonClickHandler;
+			base.ViewWillDisappear(animated);
 		}
 		#endregion
 
@@ -73,9 +79,42 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.Main
 			Presenter.OnProductDetailsClick(product.Id);
 		}
 
+		private void SameButtonClickHandler(object sender, EventArgs e)
+		{
+			SortItems(CategoryName);
+		}
+
+		private void AnotherButtonClickHandler(object sender, EventArgs e)
+		{
+			SortItems(CategoryName);
+		}
+
+		private void SortItems(string categoryName)
+		{
+			switch (SegmentControl.SelectedSegment)
+			{
+				case 0:
+					Presenter.OnSortByNameClicked(categoryName);
+					break;
+				case 1:
+					Presenter.OnSortByPriceClicked(categoryName);
+					break;
+				default:
+					break;
+			}
+		}
+		#endregion
+
+		#region IAccountView implementation
 		public void FavoriteChanged(bool isFavorite)
 		{
 			throw new NotImplementedException();
+		}
+
+		public void ShowSortedList(List<Product> products)
+		{
+			_tableSource.SetItems(products);
+			TableView.ReloadData();
 		}
 		#endregion
 	}
@@ -87,6 +126,11 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.Main
 		public event EventHandler<Product> ItemSelected;
 
 		public ShowAllSource(List<Product> items)
+		{
+			this.items = items;
+		}
+
+		public void SetItems(List<Product> items)
 		{
 			this.items = items;
 		}
