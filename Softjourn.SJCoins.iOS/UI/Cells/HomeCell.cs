@@ -67,7 +67,7 @@ namespace Softjourn.SJCoins.iOS
 			if (TraitCollection.ForceTouchCapability == UIForceTouchCapability.Available)
 			{
 				var visibleController = _currentApplication.VisibleViewController;
-				visibleController.RegisterForPreviewingWithDelegate(this, visibleController.View);
+				visibleController.RegisterForPreviewingWithDelegate(this, InternalCollectionView);
 			}
 			else {
 				// Need move fom here !!!
@@ -79,10 +79,10 @@ namespace Softjourn.SJCoins.iOS
 		public UIViewController GetViewControllerForPreview(IUIViewControllerPreviewing previewingContext, CGPoint location)
 		{
 			// Convert location to collection view coordinate system.
-			CGPoint newLocation = _currentApplication.VisibleViewController.View.ConvertPointToView(location, InternalCollectionView);
+			//CGPoint newLocation = _currentApplication.VisibleViewController.View.ConvertPointToView(location, InternalCollectionView);
 
 			// Obtain the index path and the cell that was pressed.
-			var indexPath = InternalCollectionView.IndexPathForItemAtPoint(newLocation);
+			var indexPath = InternalCollectionView.IndexPathForItemAtPoint(location);
 
 			if (indexPath == null)
 				return null;
