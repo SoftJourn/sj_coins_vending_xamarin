@@ -69,6 +69,9 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.Main
 			_tableSource = new ShowAllSource(filteredItems);
 			_tableSource.ItemSelected -= TableSource_ItemSelected;
 			_tableSource.ItemSelected += TableSource_ItemSelected;
+
+			_tableSource.FavoriteClicked -= TableSource_FavoriteClicked;
+			_tableSource.FavoriteClicked += TableSource_FavoriteClicked;
 			TableView.Source = _tableSource;
 
 			TableView.RegisterNibForCellReuse(ProductCell.Nib, ProductCell.Key);
@@ -76,16 +79,25 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.Main
 
 		private void TableSource_ItemSelected(object sender, Product product)
 		{
+			// Trigg presenter that user click on some product to see details
 			Presenter.OnProductDetailsClick(product.Id);
+		}
+
+		public void TableSource_FavoriteClicked(object sender, Product product)
+		{
+			// Trigg presenter that user click on some product for adding it to favorite
+			Presenter.OnFavoriteClick(product);
 		}
 
 		private void SameButtonClickHandler(object sender, EventArgs e)
 		{
+			// Handle clicking on the same button of segment control
 			SortItems(CategoryName);
 		}
 
 		private void AnotherButtonClickHandler(object sender, EventArgs e)
 		{
+			// Handle clicking on the another button of segment control
 			SortItems(CategoryName);
 		}
 
@@ -93,10 +105,10 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.Main
 		{
 			switch (SegmentControl.SelectedSegment)
 			{
-				case 0:
+				case 0: // Name button
 					Presenter.OnSortByNameClicked(categoryName);
 					break;
-				case 1:
+				case 1:	// Price button
 					Presenter.OnSortByPriceClicked(categoryName);
 					break;
 				default:
@@ -108,7 +120,8 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.Main
 		#region IAccountView implementation
 		public void FavoriteChanged(bool isFavorite)
 		{
-			throw new NotImplementedException();
+			// table reload row at index
+			TableView.ReloadData();
 		}
 
 		public void ShowSortedList(List<Product> products)
@@ -124,6 +137,7 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.Main
 	{
 		private List<Product> items;
 		public event EventHandler<Product> ItemSelected;
+		public event EventHandler<Product> FavoriteClicked;
 
 		public ShowAllSource(List<Product> items)
 		{
@@ -143,6 +157,10 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.Main
 		{
 			var _cell = (ProductCell)cell;
 			var item = items[indexPath.Row];
+
+			_cell.FavoriteClicked -= FavoriteClicked;
+			_cell.FavoriteClicked += FavoriteClicked;
+
 			_cell.ConfigureWith(item);
 		}
 

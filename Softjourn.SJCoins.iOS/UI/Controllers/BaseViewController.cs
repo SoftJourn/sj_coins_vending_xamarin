@@ -66,7 +66,7 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers
 		public override void ViewWillAppear(bool animated)
 		{
 			base.ViewWillAppear(animated);
-			//AttachEvents();
+			AttachEvents();
 			Presenter.ViewShowed();
 		}
 		public override void ViewDidAppear(bool animated)
@@ -78,7 +78,7 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers
 
 		public override void ViewWillDisappear(bool animated)
 		{
-			//DetachEvents();
+			DetachEvents();
 			Presenter.ViewHidden();
 			base.ViewWillDisappear(animated);
 		}

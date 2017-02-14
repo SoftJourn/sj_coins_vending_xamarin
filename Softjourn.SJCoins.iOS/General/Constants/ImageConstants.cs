@@ -5,6 +5,8 @@ namespace Softjourn.SJCoins.iOS.General.Constants
 	{
 		#region Image from bundle
 		public const string Placeholder = "Placeholder.png";
+		public const string FavoriteChecked = "FavoriteChecked.png";
+		public const string FavoriteUnchecked = "FavoriteUnchecked.png";
 		#endregion
 	}
 }

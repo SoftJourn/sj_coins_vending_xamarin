@@ -13,9 +13,6 @@ namespace Softjourn.SJCoins.iOS
 	partial class ProductCell
 	{
 		[Outlet]
-		UIKit.UIButton BuyButton { get; set; }
-
-		[Outlet]
 		UIKit.UIButton FavoriteButton { get; set; }
 
 		[Outlet]
@@ -29,6 +26,11 @@ namespace Softjourn.SJCoins.iOS
 		
 		void ReleaseDesignerOutlets ()
 		{
+			if (FavoriteButton != null) {
+				FavoriteButton.Dispose ();
+				FavoriteButton = null;
+			}
+
 			if (ImageLogo != null) {
 				ImageLogo.Dispose ();
 				ImageLogo = null;
@@ -42,16 +44,6 @@ namespace Softjourn.SJCoins.iOS
 			if (PriceLabel != null) {
 				PriceLabel.Dispose ();
 				PriceLabel = null;
-			}
-
-			if (FavoriteButton != null) {
-				FavoriteButton.Dispose ();
-				FavoriteButton = null;
-			}
-
-			if (BuyButton != null) {
-				BuyButton.Dispose ();
-				BuyButton = null;
 			}
 		}
 	}
