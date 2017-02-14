@@ -37,6 +37,16 @@ namespace Softjourn.SJCoins.Droid.ui.baseUI
 
             ViewPresenter = _scope.Resolve<TPresenter>();
             ViewPresenter.AttachView(this);
+
+            var vmPolicy = new StrictMode.VmPolicy.Builder();
+            StrictMode.SetVmPolicy(
+                vmPolicy
+                    .DetectActivityLeaks()
+                    .DetectLeakedClosableObjects()
+                    .DetectLeakedSqlLiteObjects()
+                    .DetectLeakedRegistrationObjects()
+                    .PenaltyLog()
+                    .Build());
         }
 
         public override bool OnCreateOptionsMenu(IMenu menu)
