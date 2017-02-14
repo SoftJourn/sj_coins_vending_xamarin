@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using Softjourn.SJCoins.Core.API.Model.AccountInfo;
 using Softjourn.SJCoins.Core.API.Model.Products;
 
@@ -95,7 +96,19 @@ namespace Softjourn.SJCoins.Core.Managers
                 }
             }
             return null;
-        } 
+        }
+
+        public List<Product> GetSortedByNameProductsList(string category, bool sortingForward)
+        {
+            var productList = GetProductListByGivenCategory(category);
+            return sortingForward ? productList.OrderBy(product => product.Name).ToList() : productList.OrderByDescending(product => product.Name).ToList();
+        }
+
+        public List<Product> GetSortedByPriceProductsList(string category, bool sortingForward)
+        {
+            var productList = GetProductListByGivenCategory(category);
+            return sortingForward ? productList.OrderBy(product => product.IntPrice).ToList() : productList.OrderByDescending(product => product.IntPrice).ToList();
+        }
         #endregion
     }
 }
