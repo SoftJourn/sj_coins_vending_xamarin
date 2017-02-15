@@ -12,7 +12,13 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers
 	partial class DetailViewController
 	{
 		[Outlet]
+		UIKit.UIButton BuyButton { get; set; }
+
+		[Outlet]
 		UIKit.UILabel DescriptionLabel { get; set; }
+
+		[Outlet]
+		UIKit.UIButton FavoriteButton { get; set; }
 
 		[Outlet]
 		UIKit.UIImageView Logo { get; set; }
@@ -25,6 +31,11 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers
 		
 		void ReleaseDesignerOutlets ()
 		{
+			if (DescriptionLabel != null) {
+				DescriptionLabel.Dispose ();
+				DescriptionLabel = null;
+			}
+
 			if (Logo != null) {
 				Logo.Dispose ();
 				Logo = null;
@@ -40,9 +51,14 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers
 				PriceLabel = null;
 			}
 
-			if (DescriptionLabel != null) {
-				DescriptionLabel.Dispose ();
-				DescriptionLabel = null;
+			if (FavoriteButton != null) {
+				FavoriteButton.Dispose ();
+				FavoriteButton = null;
+			}
+
+			if (BuyButton != null) {
+				BuyButton.Dispose ();
+				BuyButton = null;
 			}
 		}
 	}

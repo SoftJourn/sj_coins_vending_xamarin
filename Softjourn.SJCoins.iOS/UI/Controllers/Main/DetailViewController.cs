@@ -35,10 +35,9 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers
 		public override void ViewWillAppear(bool animated)
 		{
 			base.ViewWillAppear(animated);
-
-			NameLabel.Text = selectedProduct.Name; 
-			PriceLabel.Text = selectedProduct.Price.ToString();
-			Logo.SetImage(url: new NSUrl(selectedProduct.ImageFullUrl), placeholder: UIImage.FromBundle(ImageConstants.Placeholder));
+			ConfigurePageWith(selectedProduct);
+			// Attach 
+			FavoriteButton.TouchUpInside += FavoriteButtonClickHandler;
 		}
 
 		public override void ViewDidAppear(bool animated)
@@ -46,21 +45,50 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers
 			base.ViewDidAppear(animated);
 		}
 
-		public void FavoriteChanged()
+		public override void ViewWillDisappear(bool animated)
 		{
-			throw new NotImplementedException();
+			// Detach
+			FavoriteButton.TouchUpInside -= FavoriteButtonClickHandler;
+			base.ViewWillDisappear(animated);
 		}
 
-		public void FavoriteChanged(bool isFavorite)
-		{
-			throw new NotImplementedException();
-		}
+
 		#endregion
 
 		#region IDetailView implementation
+		public void FavoriteChanged(bool isFavorite)
+		{
+			// change button image
+			ConfigureFavoriteImage(isFavorite);
+			// TODO let know another controllers in this product is favorite
+		}
 		#endregion
 
 		#region Private methods
+		// ---------------- Buttons methods ---------------- 
+		private void FavoriteButtonClickHandler(object sender, EventArgs e)
+		{
+			// Handle clicking on the Favorite button
+			Presenter.OnFavoriteClick(selectedProduct);
+		}
+		// ------------------------------------------------- 
+
+		private void ConfigurePageWith(Product product)
+		{
+			NameLabel.Text = selectedProduct.Name;
+			PriceLabel.Text = selectedProduct.Price.ToString();
+			Logo.SetImage(url: new NSUrl(selectedProduct.ImageFullUrl), placeholder: UIImage.FromBundle(ImageConstants.Placeholder));
+
+			ConfigureFavoriteImage(product.IsProductFavorite);
+		}
+
+		private void ConfigureFavoriteImage(bool isFavorite)
+		{
+			if (isFavorite)
+				FavoriteButton.SetImage(UIImage.FromBundle(ImageConstants.FavoriteChecked), forState: UIControlState.Normal);
+			else
+				FavoriteButton.SetImage(UIImage.FromBundle(ImageConstants.FavoriteUnchecked), forState: UIControlState.Normal);
+		}
 		#endregion
 
 		#region BaseViewController -> IBaseView implementation

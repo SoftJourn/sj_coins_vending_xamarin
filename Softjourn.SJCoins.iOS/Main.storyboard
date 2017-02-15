@@ -222,21 +222,43 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zbf-MU-MWC">
+                                <rect key="frame" x="167" y="482" width="40" height="40"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="40" id="9Id-he-VbQ"/>
+                                    <constraint firstAttribute="height" constant="40" id="CNK-5d-mBw"/>
+                                </constraints>
+                                <state key="normal" image="FavoriteUnchecked"/>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hoc-RE-AOt">
+                                <rect key="frame" x="137" y="539" width="100" height="40"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="100" id="Goo-fE-lAC"/>
+                                    <constraint firstAttribute="height" constant="40" id="sIp-Yv-C3h"/>
+                                </constraints>
+                                <state key="normal" title="Buy"/>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="0Kc-1R-nf4" firstAttribute="top" secondItem="m8G-dZ-CcC" secondAttribute="bottom" constant="25" id="68Q-Wf-327"/>
                             <constraint firstItem="x8I-4W-hTx" firstAttribute="centerY" secondItem="mPS-Az-vQr" secondAttribute="centerY" id="6xY-aE-F56"/>
+                            <constraint firstItem="zbf-MU-MWC" firstAttribute="centerX" secondItem="mPS-Az-vQr" secondAttribute="centerX" id="AAa-ZQ-KO6"/>
                             <constraint firstItem="x8I-4W-hTx" firstAttribute="top" secondItem="JfG-FF-W0K" secondAttribute="bottom" constant="60" id="AFU-dW-cXQ"/>
                             <constraint firstItem="x8I-4W-hTx" firstAttribute="centerX" secondItem="mPS-Az-vQr" secondAttribute="centerX" id="Bgf-pe-jyk"/>
                             <constraint firstItem="m8G-dZ-CcC" firstAttribute="top" secondItem="x8I-4W-hTx" secondAttribute="bottom" constant="25" id="LjT-pg-b4x"/>
+                            <constraint firstItem="hoc-RE-AOt" firstAttribute="top" secondItem="zbf-MU-MWC" secondAttribute="bottom" constant="17" id="Rgt-lL-kMb"/>
+                            <constraint firstItem="hoc-RE-AOt" firstAttribute="centerX" secondItem="mPS-Az-vQr" secondAttribute="centerX" id="ZGJ-DV-vRG"/>
                             <constraint firstItem="JfG-FF-W0K" firstAttribute="centerX" secondItem="mPS-Az-vQr" secondAttribute="centerX" id="ckH-Lc-8WA"/>
                             <constraint firstItem="0Kc-1R-nf4" firstAttribute="centerX" secondItem="mPS-Az-vQr" secondAttribute="centerX" id="fth-By-sbN"/>
                             <constraint firstItem="m8G-dZ-CcC" firstAttribute="centerX" secondItem="mPS-Az-vQr" secondAttribute="centerX" id="rrY-IQ-O7o"/>
+                            <constraint firstItem="zbf-MU-MWC" firstAttribute="top" secondItem="0Kc-1R-nf4" secondAttribute="bottom" constant="24" id="siX-OM-Spe"/>
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="BuyButton" destination="hoc-RE-AOt" id="AAe-e2-PjW"/>
                         <outlet property="DescriptionLabel" destination="0Kc-1R-nf4" id="y4Y-aK-byV"/>
+                        <outlet property="FavoriteButton" destination="zbf-MU-MWC" id="Jku-ZA-hus"/>
                         <outlet property="Logo" destination="JfG-FF-W0K" id="8wY-1i-Sbd"/>
                         <outlet property="NameLabel" destination="x8I-4W-hTx" id="F0d-Fx-Vkw"/>
                         <outlet property="PriceLabel" destination="m8G-dZ-CcC" id="i92-Vk-xqg"/>
@@ -250,7 +272,7 @@
         <scene sceneID="vus-eu-tpe">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="UxB-iK-pO6" userLabel="NavigationShowAll" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="All Items" image="CBE6A723-04BC-428E-8E5A-5D457016A6E1" id="eof-dA-PO7"/>
+                    <tabBarItem key="tabBarItem" title="All Items" image="A0A9D031-18AA-4840-B83C-F83DB39A1718" id="eof-dA-PO7"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="iHX-3p-5pT">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
@@ -642,7 +664,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="CBE6A723-04BC-428E-8E5A-5D457016A6E1" width="16" height="16">
+        <image name="A0A9D031-18AA-4840-B83C-F83DB39A1718" width="16" height="16">
             <mutableData key="keyedArchiveRepresentation">
 YnBsaXN0MDDUAQIDBAUGODlYJHZlcnNpb25YJG9iamVjdHNZJGFyY2hpdmVyVCR0b3ASAAGGoKwHCBEW
 GxwiIyksMjVVJG51bGzUCQoLDA0ODxBWJGNsYXNzXE5TSW1hZ2VGbGFnc1ZOU1JlcHNXTlNDb2xvcoAL
@@ -657,6 +679,7 @@ pwCuALYAwgDEAMYAyAFHAUwBVwFgAWYBaQFyAXcBfwGCAYkBkQGeAaMBpQGnAawBtAG3AbwBxAHHAdkB
 3AHhAAAAAAAAAgEAAAAAAAAAPAAAAAAAAAAAAAAAAAAAAeM
 </mutableData>
         </image>
+        <image name="FavoriteUnchecked" width="50" height="50"/>
         <image name="HomeTabIcon" width="25" height="25"/>
     </resources>
 </document>
