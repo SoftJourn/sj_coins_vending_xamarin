@@ -29,6 +29,7 @@
         android:layout_height="wrap_content"
         android:text="@string/there_are_no_items"
         android:textAlignment="center"
+        android:gravity ="center"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="@dimen/category_header_bottom_margin"
         android:textSize="18sp"

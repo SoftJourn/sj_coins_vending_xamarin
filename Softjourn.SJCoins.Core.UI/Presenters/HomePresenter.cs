@@ -76,6 +76,11 @@ namespace Softjourn.SJCoins.Core.UI.Presenters
             }
         }
 
+	    public List<Product> GetProductListForGivenCategory(string category)
+	    {
+	        return DataManager.GetProductListByGivenCategory(category);
+	    }
+
         // Called when Settings btn is clicked
         public void OnSettingsButtonClick()
         {
