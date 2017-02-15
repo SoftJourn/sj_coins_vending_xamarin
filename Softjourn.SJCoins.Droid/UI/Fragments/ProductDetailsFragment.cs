@@ -62,7 +62,12 @@ namespace Softjourn.SJCoins.Droid.UI.Fragments
         private void HandleBuyButton()
         {
             Dismiss();
-            ((MainActivity)Activity).Purchase(_product);
+            if (Activity.LocalClassName.Contains("MainActivity"))
+            {
+                ((MainActivity) Activity).Purchase(_product);
+                return;
+            }
+                ((ShowAllActivity)Activity).Purchase(_product);
         }
 
         private void LoadFavoriteIcon()
