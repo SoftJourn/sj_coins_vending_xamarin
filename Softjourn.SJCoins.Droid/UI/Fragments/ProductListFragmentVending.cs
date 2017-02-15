@@ -9,12 +9,13 @@ using Android.Widget;
 using Softjourn.SJCoins.Core.API.Model.Products;
 using Softjourn.SJCoins.Droid.UI.Activities;
 using Softjourn.SJCoins.Droid.UI.Adapters;
+using Softjourn.SJCoins.Droid.Utils;
 
 namespace Softjourn.SJCoins.Droid.UI.Fragments
 {
     public class ProductListFragmentVending : Fragment
     {
-        private string _productsCategory;
+        public string ProductsCategory;
         private const string TagProductsCategory = "PRODUCTS CATEGORY";
 
         private FeaturedProductItemsAdapter _productAdapter;
@@ -39,7 +40,7 @@ namespace Softjourn.SJCoins.Droid.UI.Fragments
         public override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
-            _productsCategory = Arguments.GetString(TagProductsCategory);
+            ProductsCategory = Arguments.GetString(TagProductsCategory);
         }
 
         public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
@@ -48,7 +49,7 @@ namespace Softjourn.SJCoins.Droid.UI.Fragments
             _machineItems = view.FindViewById<RecyclerView>(Resource.Id.list_items_recycler_view);
 
             _layoutManager = new LinearLayoutManager(Activity, LinearLayoutManager.Horizontal, false);
-            _productAdapter = new FeaturedProductItemsAdapter(_productsCategory, null, Activity);
+            _productAdapter = new FeaturedProductItemsAdapter(ProductsCategory, null, Activity);
 
             _productAdapter.ProductSelected -= ProductSelected;
             _productAdapter.ProductSelected += ProductSelected;
@@ -110,19 +111,20 @@ namespace Softjourn.SJCoins.Droid.UI.Fragments
             }
         }
 
-        public void ChangeFavorite()
+        public void ChangeFavorite(List<Product> list)
         {
+            _productAdapter.SetData(list);
             _productAdapter.NotifyDataChanges();
         }
 
         private void ProductSelected(object sender, Product product)
         {
-           ((MainActivity)Activity).ShowDetails(product);
+            ((MainActivity)Activity).ShowDetails(product);
         }
 
         private void ProductDetailsSelected(object sender, Product product)
         {
-            ((MainActivity) Activity).ShowPreview(product);
+            ((MainActivity)Activity).ShowPreview(product);
         }
     }
 }

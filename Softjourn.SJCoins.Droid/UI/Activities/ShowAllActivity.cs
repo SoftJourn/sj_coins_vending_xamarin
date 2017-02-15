@@ -179,7 +179,10 @@ namespace Softjourn.SJCoins.Droid.UI.Activities
 
         public void FavoriteChanged(bool isFavorite)
         {
-            _adapter.NotifyDataChanges();
+            if (!_category.Equals(Const.Favorites))
+            {
+                _adapter.NotifyDataChanges();
+            }
         }
 
         public void ShowSortedList(List<Product> products)

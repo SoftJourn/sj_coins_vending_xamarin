@@ -84,6 +84,12 @@ namespace Softjourn.SJCoins.Droid.UI.Activities
             }
         }
 
+        protected override void OnResume()
+        {
+            base.OnResume();
+            FavoriteChanged(true);
+        }
+
 
         public void OnRefresh(object sender, EventArgs e)
         {
@@ -180,7 +186,11 @@ namespace Softjourn.SJCoins.Droid.UI.Activities
             foreach (var container in _containerIds)
             {
                 var fragment = FragmentManager.FindFragmentById(container) as ProductListFragmentVending;
-                fragment.ChangeFavorite();
+                if (fragment.ProductsCategory.Equals(Const.Favorites))
+                {
+                    fragment.ChangeFavorite(ViewPresenter.GetProductListForGivenCategory(fragment.ProductsCategory));
+                }
+                
             }
         }
 

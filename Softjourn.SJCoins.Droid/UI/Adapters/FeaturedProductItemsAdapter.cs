@@ -194,17 +194,15 @@ namespace Softjourn.SJCoins.Droid.UI.Adapters
             {
                 if (_category == Const.Favorites)
                 {
-                    if ((holder.AdapterPosition) >= 0)
+                    RemoveFromFavorites?.Invoke(this, product);
+                    ListProducts.RemoveAt(holder.AdapterPosition);
+                    NotifyItemRemoved(holder.AdapterPosition);
+                    NotifyItemRangeChanged(holder.AdapterPosition, ItemCount + 1);
+                    if (ItemCount < 1)
                     {
-                        RemoveFromFavorites?.Invoke(this, product);
-                        ListProducts.Remove(ListProducts[holder.AdapterPosition]);
-                        NotifyItemRemoved(holder.AdapterPosition);
-                        NotifyItemRangeChanged(0, ItemCount);
-                        if (ItemCount < 1)
-                        {
-                            LastFavoriteRemoved?.Invoke(this, EventArgs.Empty);
-                        }
+                        LastFavoriteRemoved?.Invoke(this, EventArgs.Empty);
                     }
+
                 }
                 else
                 {
