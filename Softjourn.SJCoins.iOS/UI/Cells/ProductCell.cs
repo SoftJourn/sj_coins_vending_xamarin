@@ -20,9 +20,9 @@ namespace Softjourn.SJCoins.iOS
 			Nib = UINib.FromName("ProductCell", NSBundle.MainBundle);
 		}
 
-		public event EventHandler<Product> FavoriteClicked;
+		public event EventHandler<ProductCell> FavoriteClicked;
 		public bool Favorite { get; set; } = false;
-		private Product product;
+		public Product Product { get; set; }
 		#endregion
 
 		#region Constructor
@@ -34,7 +34,7 @@ namespace Softjourn.SJCoins.iOS
 
 		public void ConfigureWith(Product item)
 		{
-			product = item;
+			Product = item;
 			NameLabel.Text = item.Name;
 			PriceLabel.Text = item.Price.ToString() + " Coins";
 			Favorite = item.IsProductFavorite;
@@ -54,7 +54,7 @@ namespace Softjourn.SJCoins.iOS
 			var handler = FavoriteClicked;
 			if (handler != null)
 			{
-				handler(this, product);
+				handler(this, this);
 			}
 		}
 	}

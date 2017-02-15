@@ -14,6 +14,7 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.Main
 	{
 		#region Properties
 		private ShowAllSource _tableSource;
+		private NSIndexPath _favoriteCellIndex;
 
 		public string CategoryName { get; set; }
 		public List<Product> filteredItems;
@@ -63,7 +64,7 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.Main
 		#region BaseViewController -> IBaseView implementation
 		#endregion
 
-		#region Private methods
+		#region Private methods 
 		private void ConfigureTableView()
 		{
 			_tableSource = new ShowAllSource(filteredItems);
@@ -83,12 +84,14 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.Main
 			Presenter.OnProductDetailsClick(product.Id);
 		}
 
-		public void TableSource_FavoriteClicked(object sender, Product product)
+		public void TableSource_FavoriteClicked(object sender, ProductCell cell)
 		{
 			// Trigg presenter that user click on some product for adding it to favorite
-			Presenter.OnFavoriteClick(product);
+			_favoriteCellIndex = TableView.IndexPathForCell(cell);
+			Presenter.OnFavoriteClick(cell.Product);
 		}
 
+		// ---------------- SegmentControl methods ---------------- 
 		private void SameButtonClickHandler(object sender, EventArgs e)
 		{
 			// Handle clicking on the same button of segment control
@@ -115,13 +118,24 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.Main
 					break;
 			}
 		}
+		// -------------------------------------------------------- 
 		#endregion
 
 		#region IAccountView implementation
 		public void FavoriteChanged(bool isFavorite)
 		{
 			// table reload row at index
-			TableView.ReloadData();
+			if (_favoriteCellIndex != null)
+			{
+				var index = new NSIndexPath[] { _favoriteCellIndex };
+				if (CategoryName == "Favorites")
+				{
+					TableView.DeleteRows(atIndexPaths: index, withRowAnimation: UITableViewRowAnimation.Fade);
+				}
+				else {
+					TableView.ReloadRows(atIndexPaths: index, withRowAnimation: UITableViewRowAnimation.Fade);
+				}
+			}
 		}
 
 		public void ShowSortedList(List<Product> products)
@@ -137,7 +151,7 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.Main
 	{
 		private List<Product> items;
 		public event EventHandler<Product> ItemSelected;
-		public event EventHandler<Product> FavoriteClicked;
+		public event EventHandler<ProductCell> FavoriteClicked;
 
 		public ShowAllSource(List<Product> items)
 		{

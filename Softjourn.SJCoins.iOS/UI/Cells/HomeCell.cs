@@ -113,14 +113,14 @@ namespace Softjourn.SJCoins.iOS
 	#region UICollectionViewSource implementation
 	public class HomeCellDataSource : UICollectionViewDataSource
 	{
-		private List<Product> products;
+		public List<Product> Products { get; set; } = new List<Product>();
 
 		public HomeCellDataSource(List<Product> products)
 		{
-			this.products = products;
+			Products = products;
 		}
 
-		public override nint GetItemsCount(UICollectionView collectionView, nint section) => products == null ? 0 : products.Count;
+		public override nint GetItemsCount(UICollectionView collectionView, nint section) => Products.Count;
 
 		public override UICollectionViewCell GetCell(UICollectionView collectionView, NSIndexPath indexPath) => (UICollectionViewCell)collectionView.DequeueReusableCell(HomeInternalCell.Key, indexPath);
 	}
@@ -130,24 +130,24 @@ namespace Softjourn.SJCoins.iOS
 	#region UICollectionViewDelegate implementation
 	public class HomeCellDelegate : UICollectionViewDelegate
 	{
-		private List<Product> _products;
+		public List<Product> Products { get; set; } = new List<Product>();
 		public event EventHandler<Product> ItemSelectedEvent = delegate { };
 
 		public HomeCellDelegate(List<Product> products)
 		{
-			_products = products;
+			Products = products;
 		}
 
 		public override void WillDisplayCell(UICollectionView collectionView, UICollectionViewCell cell, NSIndexPath indexPath)
 		{
 			var _cell = cell as HomeInternalCell;
-			var item = _products[indexPath.Row];
+			var item = Products[indexPath.Row];
 			_cell.ConfigureWith(item);
 		}
 
 		public override void ItemSelected(UICollectionView collectionView, NSIndexPath indexPath)
 		{
-			ItemSelectedEvent(this, _products[indexPath.Row]);
+			ItemSelectedEvent(this, Products[indexPath.Row]);
 		}
 	}
 	#endregion

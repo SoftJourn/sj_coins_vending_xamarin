@@ -148,11 +148,6 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.Main
 			Presenter.OnShowAllClick(categoryName);
 		}
 
-		public void FavoriteChanged()
-		{
-			throw new NotImplementedException();
-		}
-
 		public void FavoriteChanged(bool isFavorite)
 		{
 			throw new NotImplementedException();
@@ -167,15 +162,9 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.Main
 
 		public override nint NumberOfSections(UICollectionView collectionView) => 1;
 
-		public override nint GetItemsCount(UICollectionView collectionView, nint section)
-		{
-			return Categories.Count;
-		}
+		public override nint GetItemsCount(UICollectionView collectionView, nint section) => Categories.Count;
 
-		public override UICollectionViewCell GetCell(UICollectionView collectionView, NSIndexPath indexPath) 
-		{
-			return (UICollectionViewCell)collectionView.DequeueReusableCell(HomeCell.Key, indexPath);
-		}
+		public override UICollectionViewCell GetCell(UICollectionView collectionView, NSIndexPath indexPath) => (UICollectionViewCell)collectionView.DequeueReusableCell(HomeCell.Key, indexPath);
 	}
 	#endregion
 
@@ -205,6 +194,8 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.Main
 			// Add seeAll event
 			_cell.SeeAllClickedEvent -= parent.OnSeeAllClicked;
 			_cell.SeeAllClickedEvent += parent.OnSeeAllClicked;
+
+			// TODO Add functionality with unavailable product
 
 			_cell.ConfigureWith(category, _delegate);
 		}

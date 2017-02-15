@@ -17,7 +17,6 @@ namespace Softjourn.SJCoins.Core.Managers
         //AddProduct To Favorite in LocalStorage
         public void AddProductToFavorite(Product product)
         {
-            product.IsProductFavorite = true;
             foreach (var category in ProductList)
             {
                 if (category.Name == "Favorites")
@@ -30,7 +29,7 @@ namespace Softjourn.SJCoins.Core.Managers
                     {
                         if (currentProduct.Id == product.Id)
                         {
-                            product = currentProduct;
+							currentProduct.IsProductFavorite = true;
                             break;
                         }
                     }
@@ -41,7 +40,6 @@ namespace Softjourn.SJCoins.Core.Managers
         //Remove Product From Favorites in LocalStorage
         public void RemoveProductFromFavorite(Product product)
         {
-            product.IsProductFavorite = false;
             foreach (var category in ProductList)
             {
                 if (category.Name == "Favorites")
@@ -61,7 +59,7 @@ namespace Softjourn.SJCoins.Core.Managers
                     {
                         if (currentProduct.Id == product.Id)
                         {
-                            product = currentProduct;
+							currentProduct.IsProductFavorite = false;
                             break;
                         }
                     }
