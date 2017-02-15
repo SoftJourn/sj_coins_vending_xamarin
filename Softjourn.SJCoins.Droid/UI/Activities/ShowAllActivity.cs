@@ -187,6 +187,11 @@ namespace Softjourn.SJCoins.Droid.UI.Activities
             _adapter.SetData(products);
         }
 
+        public void Purchase(Product product)
+        {
+            ViewPresenter.OnBuyProductClick(product);
+        }
+
         private void ProductSelected(object sender, Product product)
         {
             ViewPresenter.OnProductDetailsClick(product.Id);
