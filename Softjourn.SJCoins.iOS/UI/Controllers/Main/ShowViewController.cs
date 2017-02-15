@@ -130,6 +130,9 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.Main
 				var index = new NSIndexPath[] { _favoriteCellIndex };
 				if (CategoryName == "Favorites")
 				{
+					// Set new items to table source
+					_tableSource.SetItems(Presenter.GetProductList(CategoryName));
+					// Delete row
 					TableView.DeleteRows(atIndexPaths: index, withRowAnimation: UITableViewRowAnimation.Fade);
 				}
 				else {
