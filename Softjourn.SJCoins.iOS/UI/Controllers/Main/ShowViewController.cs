@@ -4,6 +4,7 @@ using Foundation;
 using Softjourn.SJCoins.Core.API.Model.Products;
 using Softjourn.SJCoins.Core.UI.Presenters;
 using Softjourn.SJCoins.Core.UI.ViewInterfaces;
+using Softjourn.SJCoins.iOS.General.Constants;
 using Softjourn.SJCoins.iOS.UI.Controllers;
 using UIKit;
 
@@ -45,6 +46,11 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.Main
 			// Attach 
 			SegmentControl.TouchUpInside += SameButtonClickHandler;
 			SegmentControl.ValueChanged += AnotherButtonClickHandler;
+
+			//------------------- TODO not reload all table
+			_tableSource.SetItems(Presenter.GetProductList(CategoryName));
+			TableView.ReloadData();
+			//-------------------
 		}
 
 		public override void ViewDidAppear(bool animated)
@@ -55,8 +61,8 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.Main
 		public override void ViewWillDisappear(bool animated)
 		{
 			// Dettach 
-			SegmentControl.TouchUpInside += SameButtonClickHandler;
-			SegmentControl.ValueChanged += AnotherButtonClickHandler;
+			SegmentControl.TouchUpInside -= SameButtonClickHandler;
+			SegmentControl.ValueChanged -= AnotherButtonClickHandler;
 			base.ViewWillDisappear(animated);
 		}
 		#endregion
@@ -128,7 +134,7 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.Main
 			if (_favoriteCellIndex != null)
 			{
 				var index = new NSIndexPath[] { _favoriteCellIndex };
-				if (CategoryName == "Favorites")
+				if (CategoryName == Const.FavoritesCategory)
 				{
 					// Set new items to table source
 					_tableSource.SetItems(Presenter.GetProductList(CategoryName));

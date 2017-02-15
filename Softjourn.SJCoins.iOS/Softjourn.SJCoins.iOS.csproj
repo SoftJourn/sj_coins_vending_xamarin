@@ -343,6 +343,7 @@
     </Compile>
     <Compile Include="General\Constants\ImageConstants.cs" />
     <Compile Include="UI\UIElements\CustomSegmentControl.cs" />
+    <Compile Include="General\Constants\Const.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
 </Project>

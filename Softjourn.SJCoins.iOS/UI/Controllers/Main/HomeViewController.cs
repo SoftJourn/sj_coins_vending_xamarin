@@ -8,6 +8,7 @@ using Softjourn.SJCoins.Core.API.Model.AccountInfo;
 using Softjourn.SJCoins.Core.UI.Presenters;
 using Softjourn.SJCoins.Core.UI.ViewInterfaces;
 using Softjourn.SJCoins.iOS.UI.Services;
+using Softjourn.SJCoins.iOS.General.Constants;
 
 namespace Softjourn.SJCoins.iOS.UI.Controllers.Main
 {
@@ -18,6 +19,7 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.Main
 		public List<Categories> Categories { get; private set; } = new List<Categories>();
 
 		private HomeViewControllerDataSource _dataSource;
+		private bool launched;
 		#endregion
 
 		#region Constructor
@@ -39,6 +41,16 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.Main
 		public override void ViewWillAppear(bool animated)
 		{
 			base.ViewWillAppear(animated);
+
+			if (Categories.Count != 0)
+			{
+				var newFavorites = Presenter.GetProductListForGivenCategory(Const.FavoritesCategory);
+				_dataSource.RefreshFavorites(newFavorites);
+				var firstCell = CollectionView.VisibleCells[0];
+				var indexPath = CollectionView.IndexPathForCell(firstCell);
+				CollectionView.ReloadItems(new NSIndexPath[] { indexPath });
+			}
+
 		}
 
 		public override void ViewDidAppear(bool animated)
@@ -160,7 +172,13 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.Main
 	{
 		public List<Categories> Categories { get; set; } = new List<Categories>();
 
-		public override nint NumberOfSections(UICollectionView collectionView) => 1;
+		public void RefreshFavorites(List<Product> favorites)
+		{
+			if (Categories[0].Name == Const.FavoritesCategory)
+			{
+				Categories[0].Products = favorites; 
+			}
+		}
 
 		public override nint GetItemsCount(UICollectionView collectionView, nint section) => Categories.Count;
 

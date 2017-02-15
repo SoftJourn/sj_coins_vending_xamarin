@@ -41,7 +41,7 @@ namespace Softjourn.SJCoins.iOS.UI.Services
 		public void ShowToastMessage(string msg)
 		{
 			// Present information alert with one botton
-			//PresentAlert(null, msg, "Ok", null, UIAlertActionStyle.Default, null, null);
+			PresentAlert("", msg, "Ok", null, UIAlertActionStyle.Default, null, null);
 			//BTProgressHUD.ShowToast(msg, true, 1000.0);
 		}
 
