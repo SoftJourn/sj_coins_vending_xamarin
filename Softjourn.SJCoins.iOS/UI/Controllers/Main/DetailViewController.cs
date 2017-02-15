@@ -15,7 +15,7 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers
 		#region Properties
 		public int ProductId { get; set; }
 
-		private Product selectedProduct;
+		private Product product;
 		#endregion
 
 		#region Constructor
@@ -29,15 +29,16 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers
 		{
 			base.ViewDidLoad();
 
-			selectedProduct = Presenter.GetProduct(ProductId);
+			product = Presenter.GetProduct(ProductId);
 		}
 
 		public override void ViewWillAppear(bool animated)
 		{
 			base.ViewWillAppear(animated);
-			ConfigurePageWith(selectedProduct);
+			ConfigurePageWith(product);
 			// Attach 
 			FavoriteButton.TouchUpInside += FavoriteButtonClickHandler;
+			BuyButton.TouchUpInside += BuyButtonClickHandler;
 		}
 
 		public override void ViewDidAppear(bool animated)
@@ -49,10 +50,9 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers
 		{
 			// Detach
 			FavoriteButton.TouchUpInside -= FavoriteButtonClickHandler;
+			BuyButton.TouchUpInside -= BuyButtonClickHandler;
 			base.ViewWillDisappear(animated);
 		}
-
-
 		#endregion
 
 		#region IDetailView implementation
@@ -69,15 +69,21 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers
 		private void FavoriteButtonClickHandler(object sender, EventArgs e)
 		{
 			// Handle clicking on the Favorite button
-			Presenter.OnFavoriteClick(selectedProduct);
+			Presenter.OnFavoriteClick(product);
+		}
+
+		private void BuyButtonClickHandler(object sender, EventArgs e)
+		{
+			// Handle clicking on the Buy button
+			Presenter.OnBuyProductClick(product);
 		}
 		// ------------------------------------------------- 
 
 		private void ConfigurePageWith(Product product)
 		{
-			NameLabel.Text = selectedProduct.Name;
-			PriceLabel.Text = selectedProduct.Price.ToString();
-			Logo.SetImage(url: new NSUrl(selectedProduct.ImageFullUrl), placeholder: UIImage.FromBundle(ImageConstants.Placeholder));
+			NameLabel.Text = product.Name;
+			PriceLabel.Text = product.Price.ToString();
+			Logo.SetImage(url: new NSUrl(product.ImageFullUrl), placeholder: UIImage.FromBundle(ImageConstants.Placeholder));
 
 			ConfigureFavoriteImage(product.IsProductFavorite);
 		}
