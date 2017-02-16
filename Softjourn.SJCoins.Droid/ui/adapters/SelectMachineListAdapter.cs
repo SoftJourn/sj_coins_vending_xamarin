@@ -41,14 +41,8 @@ namespace Softjourn.SJCoins.Droid.ui.adapters
         {
             return position;
         }
-        public override Machines this[int position]
-        {
-            get { return _items[position]; }
-        }
-        public override int Count
-        {
-            get { return _items.Count; }
-        }
+        public override Machines this[int position] => _items[position];
+        public override int Count => _items.Count;
 
 
         public override View GetView(int position, View convertView, ViewGroup parent)
@@ -64,19 +58,22 @@ namespace Softjourn.SJCoins.Droid.ui.adapters
 
             var machineName = view.FindViewById<TextView>(Resource.Id.text1);
             machineName.Text = machines.Name;
-
+        
+        //Set Color to selected machine name to highlight it
         machineName.SetTextColor(machines.Name == _selectedMachine
             ? new Color(ContextCompat.GetColor(_context, Resource.Color.colorBlue))
             : new Color(ContextCompat.GetColor(_context, Resource.Color.menuBackground)));
         return view;
         }
 
+        //Setting Machines List and redrawing listView
         public void SetData(List<Machines> list)
         {
             _items = list;
             NotifyDataSetChanged();
         }
 
+        //If Machine is selected set this machine as selected one
         public void SetSelectedMachine(Machines machine)
         {
             if (machine != null)

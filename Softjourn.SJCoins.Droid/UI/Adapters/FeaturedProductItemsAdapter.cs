@@ -28,14 +28,12 @@ namespace Softjourn.SJCoins.Droid.UI.Adapters
 
         public event EventHandler<Product> AddToFavorites;
         public event EventHandler<Product> RemoveFromFavorites;
-        public event EventHandler<Product> BuyClicked;
         public event EventHandler LastFavoriteRemoved;
 
         public EventHandler<Product> ProductSelected;
         public EventHandler<Product> ProductDetailsSelected;
         public List<Product> ListProducts = new List<Product>();
-        public List<Product> _original = new List<Product>();
-        private List<Product> _favoritesList; // = mDataManager.loadFavorites();
+        public List<Product> Original = new List<Product>();
         private Context _context;
 
         public FeaturedProductItemsAdapter(string featureCategory, string recyclerViewType, Context context)
@@ -64,34 +62,11 @@ namespace Softjourn.SJCoins.Droid.UI.Adapters
             _coins = " " + _context.GetString(Resource.String.item_coins);
         }
 
-        public void NotifyDataChanges()
-        {
-            NotifyDataSetChanged();
-        }
-
-        public void SetData(List<Product> data)
-        {
-            ListProducts = new List<Product>(data);
-            _original = new List<Product>(data);
-            NotifyDataSetChanged();
-        }
-
-        public void RemoveItem(int id)
-        {
-            for (int i = 0; i < ListProducts.Count; i++)
-            {
-                if (ListProducts[i].Id == id)
-                {
-                    ListProducts.Remove(ListProducts[i]);
-                    NotifyItemRemoved(i);
-                    NotifyItemRangeChanged(0, ItemCount + 1);
-                }
-            }
-        }
-
+        #region Standart Adapters Methods
         public override RecyclerView.ViewHolder OnCreateViewHolder(ViewGroup parent, int viewType)
         {
             View v;
+            //Attach needed item according to recyclerViewType
             switch (_recyclerViewType)
             {
                 case "DEFAULT":
@@ -115,16 +90,22 @@ namespace Softjourn.SJCoins.Droid.UI.Adapters
             var holder = viewHolder as FeatureViewHolder;
             var product = ListProducts[holder.AdapterPosition];
 
-            bool isCurrentProductInMachine = true; //mDataManager.isSingleProductPresent(product.Id);
+            var isCurrentProductInMachine = true;
 
+            //Setting Name and Price of product
             holder.ProductName.Text = ListProducts[holder.AdapterPosition].Name;
             holder.ProductPrice.Text = Java.Lang.String.ValueOf(product.IntPrice) + _coins;
 
+            //Setting Description of Product
             if (holder.ProductDescription != null)
             {
                 holder.ProductDescription.Text = product.Description;
             }
 
+            /**
+             * Registartion OnClick and OnLongClick events
+             * for Horizontal RecyclerView
+             */
             if (holder.ParentView != null)
             {
                 holder.Click -= OnClickClicked;
@@ -133,6 +114,10 @@ namespace Softjourn.SJCoins.Droid.UI.Adapters
                 holder.LongClick += OnLongClick;
 
             }
+            /**
+             * Registartion OnClick and OnLongClick events
+             * for Vertical RecyclerView
+             */
             if (holder.ParentViewSeeAll != null)
             {
                 holder.Click -= OnClickClicked;
@@ -142,12 +127,7 @@ namespace Softjourn.SJCoins.Droid.UI.Adapters
             }
 
             /**
-             * Here We compare ID of product from general products list
-             * and ID of favorites list
-             * When IDs are the same we change image of Favorites accordingly.
-             * Also we differentiate callbacks on Click on Image depends on
-             * if this product is already in Favorites to remove or add product
-             * to favorites list
+             * If product is Favorite setting appropriate icon
              */
             if (holder.AddFavorite != null)
             {
@@ -165,6 +145,7 @@ namespace Softjourn.SJCoins.Droid.UI.Adapters
             }
             /**
              * Changing Alpha of image depends on is product present in chosen machine or not
+             * TODO: Not implemented yet
              */
             if (TextUtils.IsEmpty(product.ImageUrl))
             {
@@ -178,6 +159,66 @@ namespace Softjourn.SJCoins.Droid.UI.Adapters
             }
         }
 
+        public override int ItemCount => ListProducts?.Count ?? 0;
+
+        #endregion
+
+        #region Public Methods
+        public void NotifyDataChanges()
+        {
+            NotifyDataSetChanged();
+        }
+
+        /**
+         * Sets new List of Data and resetting recyclerView
+         */
+        public void SetData(List<Product> data)
+        {
+            ListProducts = new List<Product>(data);
+            Original = new List<Product>(data);
+            NotifyDataSetChanged();
+        }
+
+        #endregion
+
+        #region Private Event Methods
+        /**
+         * Long Click on Item to show Preview Fragment
+         */
+        private void OnLongClick(object sender, EventArgs e)
+        {
+            var holder = sender as FeatureViewHolder;
+            if (holder == null)
+            {
+                throw new Exception("Holder is null");
+            }
+            var selectedIndex = holder.AdapterPosition;
+            var handler = ProductDetailsSelected;
+            if (handler == null) return;
+            var selectedProduct = ListProducts[selectedIndex];
+            handler(this, selectedProduct);
+        }
+
+        /**
+         * Long Click on Item to show Details Screen
+         */
+        private void OnClickClicked(object sender, EventArgs eventArgs)
+        {
+            var holder = sender as FeatureViewHolder;
+            if (holder == null)
+            {
+                throw new Exception("Holder is null");
+            }
+            var selectedIndex = holder.AdapterPosition;
+            var handler = ProductSelected;
+            if (handler == null) return;
+            var selectedProduct = ListProducts[selectedIndex];
+            handler(this, selectedProduct);
+        }
+
+        /**
+         * Calls by clicking on favorite icon
+         */
         private void AddFavoriteClick(object sender, EventArgs e)
         {
             var holder = sender as FeatureViewHolder;
@@ -192,6 +233,8 @@ namespace Softjourn.SJCoins.Droid.UI.Adapters
             }
             else
             {
+                //If category is favorite we need to remove item from list
+                //and not just change the icon of favorite
                 if (_category == Const.Favorites)
                 {
                     RemoveFromFavorites?.Invoke(this, product);
@@ -210,36 +253,9 @@ namespace Softjourn.SJCoins.Droid.UI.Adapters
                 }
             }
         }
+        #endregion
 
-        public override int ItemCount => ListProducts?.Count ?? 0;
-
-        public void OnLongClick(object sender, EventArgs e)
-        {
-            var holder = sender as FeatureViewHolder;
-            if (holder == null)
-            {
-                throw new Exception("Holder is null");
-            }
-            var selectedIndex = holder.AdapterPosition;
-            var handler = ProductDetailsSelected;
-            if (handler == null) return;
-            var selectedProduct = ListProducts[selectedIndex];
-            handler(this, selectedProduct);
-        }
-
-        public void OnClickClicked(object sender, EventArgs eventArgs)
-        {
-            var holder = sender as FeatureViewHolder;
-            if (holder == null)
-            {
-                throw new Exception("Holder is null");
-            }
-            var selectedIndex = holder.AdapterPosition;
-            var handler = ProductSelected;
-            if (handler == null) return;
-            var selectedProduct = ListProducts[selectedIndex];
-            handler(this, selectedProduct);
-        }
+        #region Filter for SearchView
 
         public Filter Filter { get; private set; }
 
@@ -256,13 +272,13 @@ namespace Softjourn.SJCoins.Droid.UI.Adapters
             {
                 var oReturn = new FilterResults();
                 var results = new List<Product>();
-                if (_adapter._original == null || _adapter._original.Count <= 0)
-                    _adapter._original = _adapter.ListProducts;
+                if (_adapter.Original == null || _adapter.Original.Count <= 0)
+                    _adapter.Original = _adapter.ListProducts;
                 if (constraint != null)
                 {
-                    if (_adapter._original != null && _adapter._original.Count > 0)
+                    if (_adapter.Original != null && _adapter.Original.Count > 0)
                     {
-                        foreach (var g in _adapter._original)
+                        foreach (var g in _adapter.Original)
                         {
                             if (g.Name.ToLower().Contains(constraint.ToString()))
                             {
@@ -287,7 +303,6 @@ namespace Softjourn.SJCoins.Droid.UI.Adapters
                 _adapter.NotifyDataSetChanged();
             }
         }
-
-
+        #endregion
     }
 }

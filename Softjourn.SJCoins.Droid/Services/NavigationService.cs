@@ -1,9 +1,6 @@
 using System;
-using System.Collections.Generic;
 using Android.Content;
-using Newtonsoft.Json;
 using Plugin.CurrentActivity;
-using Softjourn.SJCoins.Core.API.Model.Products;
 using Softjourn.SJCoins.Core.UI.Services.Navigation;
 using Softjourn.SJCoins.Droid.UI.Activities;
 
@@ -26,20 +23,9 @@ namespace Softjourn.SJCoins.Droid.Services
             CrossCurrentActivity.Current.Activity.Finish();
         }
 
-        public void NavigationToShowAll(string category)
-        {
-            var view = new Intent(CrossCurrentActivity.Current.Activity, typeof(ShowAllActivity));
-            view.PutExtra("PRODUCTS CATEGORY", category);
-            CrossCurrentActivity.Current.Activity.StartActivity(view);
-        }
-
-        public void NavigationToDetails(Product product)
-        {
-            var view = new Intent(CrossCurrentActivity.Current.Activity, typeof(DetailsActivity));
-            //view.PutExtra("PRODUCT", product);
-            CrossCurrentActivity.Current.Activity.StartActivity(view);
-        }
-
+        /**
+         * Method for getting data from Intent if exists
+         */
         private Intent GetWithParams(NavigationPage navigationParams, Object obj = null)
         {
             var view = GetView(navigationParams);

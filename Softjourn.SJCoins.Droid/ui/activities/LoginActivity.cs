@@ -23,8 +23,7 @@ namespace Softjourn.SJCoins.Droid.UI.Activities
 
         ImageView _arrowToWelcome;
 
-        //private ILoginPresenter _presenter;
-
+        #region Standart Activity Methods
         protected override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
@@ -35,6 +34,7 @@ namespace Softjourn.SJCoins.Droid.UI.Activities
             _loginButton = FindViewById<Button>(Resource.Id.btn_login);
             _arrowToWelcome = FindViewById<ImageView>(Resource.Id.link_to_welcome_activity);
 
+            //Calling Checking Login each time user enter new character
             _userName.TextChanged += (s, e) =>
             {
                 if (!_userName.Text.EndsWith("-") || _userName.Text.EndsWith("_"))
@@ -45,10 +45,40 @@ namespace Softjourn.SJCoins.Droid.UI.Activities
 
             _loginButton.Click += LoginButtonOnClick;
             _arrowToWelcome.Click += LinkToWelcomeClick;
-
-            //_presenter = new LoginPresenter(this);
         }
 
+        public override void OnBackPressed()
+        {
+            MoveTaskToBack(true);
+        }
+
+        public override bool OnCreateOptionsMenu(IMenu menu)
+        {
+            return false;
+        }
+        #endregion
+
+        #region ILoginView Methods
+        /**
+         * Sets Error to username field with the given message
+         */
+        public void SetUsernameError(string message)
+        {
+            _userName.RequestFocus();
+            _userName.SetError(message, null);
+        }
+
+        /**
+         * Sets Error to password field with the given message
+         */
+        public void SetPasswordError(string message)
+        {
+            _passwordText.RequestFocus();
+            _passwordText.SetError(message, null);
+        }
+        #endregion
+
+        #region Private Methods
         private void LinkToWelcomeClick(object sender, EventArgs e)
         {
             ViewPresenter.ToWelcomePage();
@@ -65,42 +95,6 @@ namespace Softjourn.SJCoins.Droid.UI.Activities
             var password = _passwordText.Text;
             ViewPresenter.Login(userName, password);
         }
-
-        public override void OnBackPressed()
-        {
-            MoveTaskToBack(true);
-        }
-
-        public override bool OnCreateOptionsMenu(IMenu menu)
-        {
-            return false;
-        }
-
-        public void SetUsernameError(string message)
-        {
-            _userName.RequestFocus();
-            _userName.SetError(message, null);
-        }
-
-        public void SetPasswordError(string message)
-        {
-            _passwordText.RequestFocus();
-            _passwordText.SetError(message, null);
-        }
-
-        public void ShowNoInternetError(string message)
-        {
-            //OnNoInternetAvailable(message);
-        }
-
-        public void AttachEvents()
-        {
-            throw new NotImplementedException();
-        }
-
-        public void DetachEvents()
-        {
-            throw new NotImplementedException();
-        }
+        #endregion
     }
 }

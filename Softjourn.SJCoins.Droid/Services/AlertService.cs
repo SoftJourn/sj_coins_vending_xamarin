@@ -60,6 +60,10 @@ namespace Softjourn.SJCoins.Droid.Services
             CreateConfirmationDialog(product, onPurchaseProductAction);
         }
 
+        /**
+         * Method for prompting user pick Photo From Camera or from Gallery
+         * Using from Profile Screen when clicking on Avatar image
+         */
         public void ShowPhotoSelectorDialog(List<string> photoSource, Action fromCamera, Action fromGallery)
         {
             var activity = CrossCurrentActivity.Current.Activity;
@@ -127,73 +131,69 @@ namespace Softjourn.SJCoins.Droid.Services
             });
         }
 
-    private void CreateConfirmationDialog(Product product, Action<Product> onPurchaseProductAction)
-    {
-        var context = CrossCurrentActivity.Current.Activity;
-        var confirmDialog = new Dialog(context);
+        /**
+         * Creates Confirmation Purchase Dialog
+         */
+        private void CreateConfirmationDialog(Product product, Action<Product> onPurchaseProductAction)
+        {
+            var context = CrossCurrentActivity.Current.Activity;
+            var confirmDialog = new Dialog(context);
             confirmDialog.Window.RequestFeature(WindowFeatures.NoTitle);
             confirmDialog.Window.RequestFeature(WindowFeatures.SwipeToDismiss);
             confirmDialog.SetContentView(Resource.Layout.confirm_dialog);
 
-        // set the custom dialog components
-        var text = confirmDialog.FindViewById<TextView>(Resource.Id.text);
-        text.Text = string.Format(context.GetString(Resource.String.dialog_msg_confirm_buy_product, product.Name, product.IntPrice));
-        var image = confirmDialog.FindViewById<ImageView>(Resource.Id.image);
-        Picasso.With(context).Load(Const.UrlVendingService + product.ImageUrl).Into(image);
+            // set the custom dialog components
+            var text = confirmDialog.FindViewById<TextView>(Resource.Id.text);
+            text.Text = string.Format(context.GetString(Resource.String.dialog_msg_confirm_buy_product, product.Name, product.IntPrice));
+            var image = confirmDialog.FindViewById<ImageView>(Resource.Id.image);
+            Picasso.With(context).Load(Const.UrlVendingService + product.ImageUrl).Into(image);
 
-        if (!confirmDialog.IsShowing)
-        {
+            if (!confirmDialog.IsShowing)
+            {
                 confirmDialog.Window.Attributes.WindowAnimations = Resource.Style.ConfirmDialogAnimation;
                 confirmDialog.Show();
-        }
-        var okButton = confirmDialog.FindViewById<Button>(Resource.Id.dialogButtonOK);
-        //if (product.Price > Int64.Parse(Settings.AccessToken))
-        //{
-        //    okButton.SetTextColor(new Color(ContextCompat.GetColor(context, Resource.Color.colorScreenBackground)));
-        //}
-        //else
-        //{
-            okButton.SetTextColor(new Color(ContextCompat.GetColor(context, Resource.Color.colorBlue)));
-        //}
-        okButton.Click += (sender, e) =>
-        {
+            }
+            var okButton = confirmDialog.FindViewById<Button>(Resource.Id.dialogButtonOK);
             //if (product.Price > Int64.Parse(Settings.AccessToken))
             //{
-            //    ShowMessageWithUserInteraction(null, context.GetString(Resource.String.server_error_40901), null, null);
+            //    okButton.SetTextColor(new Color(ContextCompat.GetColor(context, Resource.Color.colorScreenBackground)));
             //}
             //else
             //{
+            okButton.SetTextColor(new Color(ContextCompat.GetColor(context, Resource.Color.colorBlue)));
+            //}
+            okButton.Click += (sender, e) =>
+            {
                 onPurchaseProductAction.Invoke(product);
                 confirmDialog.Dismiss();
-            //}
-        };
+            };
 
-        var cancelButton = confirmDialog.FindViewById<Button>(Resource.Id.dialogButtonCancel);
-        cancelButton.Click += (sender, e) =>
-        {
-            confirmDialog.Dismiss();
-        };
+            var cancelButton = confirmDialog.FindViewById<Button>(Resource.Id.dialogButtonCancel);
+            cancelButton.Click += (sender, e) =>
+            {
+                confirmDialog.Dismiss();
+            };
 
             confirmDialog.SetOnDismissListener(new OnDismissListener(() =>
         {
             confirmDialog.Dismiss();
         }));
-    }
-
-    private sealed class OnDismissListener : Java.Lang.Object, IDialogInterfaceOnDismissListener
-    {
-        private readonly Action _action;
-
-        public OnDismissListener(Action action)
-        {
-            this._action = action;
         }
 
-        public void OnDismiss(IDialogInterface dialog)
+        private sealed class OnDismissListener : Java.Lang.Object, IDialogInterfaceOnDismissListener
         {
-            this._action();
-        }
-    }
+            private readonly Action _action;
 
-}
+            public OnDismissListener(Action action)
+            {
+                this._action = action;
+            }
+
+            public void OnDismiss(IDialogInterface dialog)
+            {
+                this._action();
+            }
+        }
+
+    }
 }
