@@ -1,13 +1,9 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 using Android.App;
-using Android.Content;
 using Android.Content.PM;
 using Android.OS;
-using Android.Runtime;
 using Android.Support.V4.View;
 using Android.Views;
 using Android.Widget;
@@ -17,7 +13,6 @@ using Softjourn.SJCoins.Core.UI.ViewInterfaces;
 using Softjourn.SJCoins.Droid.ui.baseUI;
 using Softjourn.SJCoins.Droid.UI.Adapters;
 using Softjourn.SJCoins.Droid.Utils;
-using Square.Picasso;
 
 namespace Softjourn.SJCoins.Droid.UI.Activities
 {
@@ -32,8 +27,9 @@ namespace Softjourn.SJCoins.Droid.UI.Activities
         private List<string> _images;
         private IMenu _menu;
 
-        private DetailsPagerAdapter adapter;
+        private DetailsPagerAdapter _adapter;
 
+        #region Public  Methods
         protected override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
@@ -43,11 +39,15 @@ namespace Softjourn.SJCoins.Droid.UI.Activities
 
             _images = new List<string>();
 
+            //TODO: Need to make loop for adding list of photos when it will be ready on backend 
             _images.Add(_product.ImageFullUrl);
-            adapter = new DetailsPagerAdapter(this, _images);
 
+            _adapter = new DetailsPagerAdapter(this, _images);
+
+            //View Pager for viewing photos by swiping 
+            //and adapter for it
             _viewPager = FindViewById<ViewPager>(Resource.Id.viewPager);
-            _viewPager.Adapter = adapter;
+            _viewPager.Adapter = _adapter;
 
             _productPrice = FindViewById<TextView>(Resource.Id.details_product_price);
             _productPrice.Text = _product.IntPrice + " coins";
@@ -67,7 +67,7 @@ namespace Softjourn.SJCoins.Droid.UI.Activities
             menu.FindItem(Resource.Id.profile).SetVisible(false);
             menu.FindItem(Resource.Id.menu_buy).SetVisible(true);
             menu.FindItem(Resource.Id.menu_add_favorite).SetVisible(true);
-            ChangeIcon(menu.FindItem(Resource.Id.menu_add_favorite),_product.IsProductFavorite);
+            ChangeIcon(menu.FindItem(Resource.Id.menu_add_favorite), _product.IsProductFavorite);
             return true;
         }
 
@@ -83,25 +83,26 @@ namespace Softjourn.SJCoins.Droid.UI.Activities
                     break;
                 case Resource.Id.menu_add_favorite:
                     ViewPresenter.OnFavoriteClick(_product);
-                    ChangeProductFavorite(item);
                     break;
             }
             return base.OnOptionsItemSelected(item);
-        }
-
-        private void ChangeProductFavorite(IMenuItem item)
-        {
-            
-        }
-
-        private void ChangeIcon(IMenuItem item, bool isFavorite)
-        {
-            item.SetIcon(isFavorite ? Resource.Drawable.ic_favorite_white_24dp : Resource.Drawable.ic_favorite_border_white);
         }
 
         public void FavoriteChanged(bool isFavorite)
         {
             ChangeIcon(_menu.FindItem(Resource.Id.menu_add_favorite), isFavorite);
         }
+
+        #endregion
+
+        #region Private Methods
+        /**
+         * Sets Icon of Favorite according to callback from Presenter
+         */
+        private void ChangeIcon(IMenuItem item, bool isFavorite)
+        {
+            item.SetIcon(isFavorite ? Resource.Drawable.ic_favorite_white_24dp : Resource.Drawable.ic_favorite_border_white);
+        }
+        #endregion
     }
 }

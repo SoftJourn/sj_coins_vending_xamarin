@@ -1,15 +1,12 @@
 
-using System;
 using System.Collections.Generic;
 using Android.App;
 using Android.OS;
 using Android.Support.V7.Widget;
 using Android.Views;
-using Android.Widget;
 using Softjourn.SJCoins.Core.API.Model.Products;
 using Softjourn.SJCoins.Droid.UI.Activities;
 using Softjourn.SJCoins.Droid.UI.Adapters;
-using Softjourn.SJCoins.Droid.Utils;
 
 namespace Softjourn.SJCoins.Droid.UI.Fragments
 {
@@ -26,7 +23,7 @@ namespace Softjourn.SJCoins.Droid.UI.Fragments
 
         public static ProductListFragmentVending NewInstance(string category, int? headers, int? container, List<Product> productList)
         {
-            Bundle bundle = new Bundle();
+            var bundle = new Bundle();
             bundle.PutString(TagProductsCategory, category);
             var fragment = new ProductListFragmentVending(productList) { Arguments = bundle };
             return fragment;
@@ -37,9 +34,11 @@ namespace Softjourn.SJCoins.Droid.UI.Fragments
             _productList = productList;
         }
 
+        #region Fragment Standart Methods
         public override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
+            //sets product Catgeory Name from Bundle
             ProductsCategory = Arguments.GetString(TagProductsCategory);
         }
 
@@ -51,33 +50,14 @@ namespace Softjourn.SJCoins.Droid.UI.Fragments
             _layoutManager = new LinearLayoutManager(Activity, LinearLayoutManager.Horizontal, false);
             _productAdapter = new FeaturedProductItemsAdapter(ProductsCategory, null, Activity);
 
-            _productAdapter.ProductSelected -= ProductSelected;
-            _productAdapter.ProductSelected += ProductSelected;
-
-            _productAdapter.ProductDetailsSelected -= ProductDetailsSelected;
-            _productAdapter.ProductDetailsSelected += ProductDetailsSelected;
-
-            _productAdapter.AddToFavorites -= AddProductToFavorite;
-            _productAdapter.AddToFavorites += AddProductToFavorite;
-
-            _productAdapter.RemoveFromFavorites -= RemoveProductFromFavorite;
-            _productAdapter.RemoveFromFavorites += RemoveProductFromFavorite;
+            DetachEvents();
+            AttachEvents();
 
             _machineItems.SetLayoutManager(_layoutManager);
 
             _machineItems.SetAdapter(_productAdapter);
 
             return view;
-        }
-
-        private void RemoveProductFromFavorite(object sender, Product e)
-        {
-            ((MainActivity)Activity).TrigFavorite(e);
-        }
-
-        private void AddProductToFavorite(object sender, Product e)
-        {
-            ((MainActivity)Activity).TrigFavorite(e);
         }
 
         public override void OnViewCreated(View view, Bundle savedInstanceState)
@@ -89,44 +69,73 @@ namespace Softjourn.SJCoins.Droid.UI.Fragments
             }
         }
 
-        public void SetFragmentFields(RecyclerView recyclerView, Button buttonSortName, Button buttonSortPrice,
-            TextView noProducts)
-        {
-            _machineItems = recyclerView;
-        }
+        #endregion
 
-        public void AttachEvents()
-        {
-            if (_productAdapter != null)
-            {
-                _productAdapter.ProductSelected += ProductSelected;
-            }
-        }
-
-        public void DetachEvents()
-        {
-            if (_productAdapter != null)
-            {
-                _productAdapter.ProductSelected -= ProductSelected;
-            }
-        }
-
+        /**
+         * Make adapter redraw items according to new list of Products
+         * Is called by Activity only if Category is Favorites
+         */
         public void ChangeFavorite(List<Product> list)
         {
             _productAdapter.SetData(list);
             _productAdapter.NotifyDataChanges();
         }
 
+        #region PrivateMethods
+
+        /**
+        * Calls TrigFavorite method on Activity fragment is attached to
+        */
+        private void RemoveProductFromFavorite(object sender, Product e)
+        {
+            ((MainActivity)Activity).TrigFavorite(e);
+        }
+
+        /**
+         * Calls TrigFavorite method on Activity fragment is attached to
+         */
+        private void AddProductToFavorite(object sender, Product e)
+        {
+            ((MainActivity)Activity).TrigFavorite(e);
+        }
+
+        /**
+         * OnClick on Product
+         * Calls to Open Details screen
+         */
         private void ProductSelected(object sender, Product product)
         {
             ((MainActivity)Activity).ShowDetails(product);
         }
 
+        /**
+         * OnLongClick on Product
+         * Calls to Open Preview screen
+         */
         private void ProductDetailsSelected(object sender, Product product)
         {
             ((MainActivity)Activity).ShowPreview(product);
         }
+
+        private void AttachEvents()
+        {
+            if (_productAdapter == null) return;
+            _productAdapter.ProductSelected += ProductSelected;
+            _productAdapter.ProductDetailsSelected += ProductDetailsSelected;
+            _productAdapter.AddToFavorites += AddProductToFavorite;
+            _productAdapter.RemoveFromFavorites += RemoveProductFromFavorite;
+        }
+
+        private void DetachEvents()
+        {
+            if (_productAdapter == null) return;
+            _productAdapter.ProductSelected -= ProductSelected;
+            _productAdapter.ProductDetailsSelected -= ProductDetailsSelected;
+            _productAdapter.AddToFavorites -= AddProductToFavorite;
+            _productAdapter.RemoveFromFavorites -= RemoveProductFromFavorite;
+        }
     }
+    #endregion
 }
 
 

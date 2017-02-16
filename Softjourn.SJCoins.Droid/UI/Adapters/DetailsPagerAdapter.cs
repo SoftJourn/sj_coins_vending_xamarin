@@ -40,7 +40,7 @@ namespace Softjourn.SJCoins.Droid.UI.Adapters
 
             imageView.Click += (o, e) =>
                 {
-                //your code here
+                //TODO: Make zooming of Photo onCLick on Photo
             };
 
             container.AddView(itemView);

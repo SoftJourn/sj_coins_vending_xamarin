@@ -1,7 +1,4 @@
 
-using System;
-using System.Collections.Generic;
-
 using Android.App;
 using Android.OS;
 using Android.Support.Design.Widget;
@@ -18,9 +15,6 @@ namespace Softjourn.SJCoins.Droid.UI.Fragments
     {
         private ImageView _favorites;
         private TextView _buyProduct;
-
-        private bool _isRemovedFromFavorite = false;
-
         private readonly Product _product;
 
         public ProductDetailsFragment(Product product)
@@ -28,6 +22,7 @@ namespace Softjourn.SJCoins.Droid.UI.Fragments
             _product = product;
         }
 
+        #region BottomSheetDialog Fragment Standart methods
         public override void OnViewCreated(View contentView, Bundle savedInstanceState)
         {
             base.OnViewCreated(contentView, savedInstanceState);
@@ -41,35 +36,49 @@ namespace Softjourn.SJCoins.Droid.UI.Fragments
             var contentView = View.Inflate(Context, Resource.Layout.fragment_product_details, null);
             dialog.SetContentView(contentView);
 
+            #region Finding Views
             var productName = contentView.FindViewById<TextView>(Resource.Id.details_product_name);
             var productLongDescription = contentView.FindViewById<TextView>(Resource.Id.details_product_description);
             var productPrice = contentView.FindViewById<TextView>(Resource.Id.details_product_price);
             var productImage = contentView.FindViewById<ImageView>(Resource.Id.details_product_image);
             _favorites = contentView.FindViewById<ImageView>(Resource.Id.details_add_to_favorite);
             _buyProduct = contentView.FindViewById<TextView>(Resource.Id.details_buy_product);
+            #endregion
 
             productName.Text = _product.Name;
             productLongDescription.Text = _product.Description;
             productPrice.Text = _product.IntPrice + " " + Activity.GetString(Resource.String.item_coins);
-            Picasso.With(Activity).Load(Const.BaseUrl + Const.UrlVendingService + _product.ImageUrl).Into(productImage);
+            Picasso.With(Activity).Load(_product.ImageFullUrl).Into(productImage);
             LoadFavoriteIcon();
 
             _buyProduct.Click += (s, e) => HandleBuyButton();
 
             _favorites.Click += (s, e) => HandleOnFavoriteClick();
         }
+        #endregion
 
+        #region Private Methods
+        /**
+         * Calls by clicking on Buy button
+         * Calls Purchase methode on Activity to which is attached to
+         * and transfer Product object to it.
+         */
         private void HandleBuyButton()
         {
             Dismiss();
             if (Activity.LocalClassName.Contains("MainActivity"))
             {
-                ((MainActivity) Activity).Purchase(_product);
+                ((MainActivity)Activity).Purchase(_product);
                 return;
             }
                 ((ShowAllActivity)Activity).Purchase(_product);
         }
 
+        /**
+         * Calls when creating fragment
+         * Sets appropriate iamge to favorite imageView
+         * and changes its tag
+         */
         private void LoadFavoriteIcon()
         {
             _favorites.Tag = false;
@@ -86,22 +95,36 @@ namespace Softjourn.SJCoins.Droid.UI.Fragments
             }
         }
 
+        /**
+         * Calls when clicking favorite image
+         * Sets appropriate iamge to favorite imageView
+         * and changes its tag
+         * Calls TrigFavorite methode on Activity to which is attached to
+         * and transfer Product object to it.
+         */
         private void HandleOnFavoriteClick()
         {
             if (!(bool)_favorites.Tag)
             {
-                ((MainActivity)Activity).TrigFavorite(_product);
+                if (Activity.LocalClassName.Contains("MainActivity"))
+                {
+                    ((MainActivity)Activity).TrigFavorite(_product);
+                }
+                else ((ShowAllActivity)Activity).TrigFavorite(_product);
                 Picasso.With(Activity).Load(Resource.Drawable.ic_favorite_pink).Into(_favorites);
                 _favorites.Tag = true;
-                _isRemovedFromFavorite = false;
             }
             else
             {
-                ((MainActivity)Activity).TrigFavorite(_product);
+                if (Activity.LocalClassName.Contains("MainActivity"))
+                {
+                    ((MainActivity)Activity).TrigFavorite(_product);
+                }
+                else ((ShowAllActivity)Activity).TrigFavorite(_product);
                 Picasso.With(Activity).Load(Resource.Drawable.ic_favorite_border_white).Into(_favorites);
                 _favorites.Tag = false;
-                _isRemovedFromFavorite = true;
             }
         }
+        #endregion
     }
 }

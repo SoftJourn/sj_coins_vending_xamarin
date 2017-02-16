@@ -26,9 +26,6 @@ namespace Softjourn.SJCoins.Droid.UI.Activities
         private ViewPagerAdapter _viewPagerAdapter;
         private int[] _layouts;
 
-        //private IWelcomePresenter _presenter;
-
-
         protected override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
@@ -46,8 +43,6 @@ namespace Softjourn.SJCoins.Droid.UI.Activities
             _dotsLayout = FindViewById<LinearLayout>(Resource.Id.layoutDots);
             _btnSkip = FindViewById<Button>(Resource.Id.btn_skip);
             _btnNext = FindViewById<Button>(Resource.Id.btn_next);
-
-            //_presenter = new WelcomePresenter(this);
 
             // _layouts of all welcome sliders
             // add few more _layouts if you want
@@ -92,6 +87,10 @@ namespace Softjourn.SJCoins.Droid.UI.Activities
             base.OnDestroy();
         }
 
+        #region Private Methods
+        /**
+         * Sets Bottom Dots Colors According to which view is showing right now
+         */
         private void AddBottomDots(int currentPage)
         {
             _dots = new TextView[_layouts.Length];
@@ -118,20 +117,23 @@ namespace Softjourn.SJCoins.Droid.UI.Activities
             return _viewPager.CurrentItem + i;
         }
 
+        /**
+         * Sets StatusBar Color as transparent 
+         * to make allScreenActivity
+         */
         private void ChangeStatusBarColor()
         {
             if (Build.VERSION.SdkInt >= BuildVersionCodes.Lollipop)
             {
-                Window window = Window;
+                var window = Window;
                 window.AddFlags(WindowManagerFlags.DrawsSystemBarBackgrounds);
                 window.SetStatusBarColor(Color.Transparent);
             }
         }
+        #endregion
 
+        #region ViewPager.IOnPageChangeListener interface implementation
 
-        /**
-         * ViewPager.IOnPageChangeListener interface implementation
-         */
         public void OnPageScrollStateChanged(int state)
         {
 
@@ -158,10 +160,6 @@ namespace Softjourn.SJCoins.Droid.UI.Activities
                 _btnNext.Visibility = ViewStates.Gone;
             }
         }
-
-        public void ToLoginPage()
-        {
-            //throw new System.NotImplementedException();
-        }
+        #endregion
     }
 }

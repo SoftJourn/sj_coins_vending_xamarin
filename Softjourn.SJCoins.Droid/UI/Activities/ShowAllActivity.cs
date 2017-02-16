@@ -56,6 +56,7 @@ namespace Softjourn.SJCoins.Droid.UI.Activities
 
             _sortNameButton = FindViewById<Button>(Resource.Id.button_sort_name);
             _sortNameButton.Click += OnSortByNameClick;
+
             _sortPriceButton = FindViewById<Button>(Resource.Id.button_sort_price);
             _sortPriceButton.Click += OnSortByPriceClick;
 
@@ -65,23 +66,8 @@ namespace Softjourn.SJCoins.Droid.UI.Activities
             _layoutManager = new LinearLayoutManager(this, LinearLayoutManager.Vertical, false);
             _adapter = new FeaturedProductItemsAdapter(_category, RecyclerType, this);
 
-            _adapter.ProductSelected -= ProductSelected;
-            _adapter.ProductSelected += ProductSelected;
-
-            _adapter.ProductDetailsSelected -= ProductDetailsSelected;
-            _adapter.ProductDetailsSelected += ProductDetailsSelected;
-
-            _adapter.AddToFavorites -= TrigFavorite;
-            _adapter.AddToFavorites += TrigFavorite;
-
-            _adapter.RemoveFromFavorites -= TrigFavorite;
-            _adapter.RemoveFromFavorites += TrigFavorite;
-
-            _adapter.BuyClicked -= ProductBuyClicked;
-            _adapter.BuyClicked += ProductBuyClicked;
-
-            _adapter.LastFavoriteRemoved -= ShowEmptyView;
-            _adapter.LastFavoriteRemoved += ShowEmptyView;
+            DetachEvents();
+            AttachEvents();
 
             _machineItems.SetLayoutManager(_layoutManager);
 
@@ -91,6 +77,17 @@ namespace Softjourn.SJCoins.Droid.UI.Activities
 
         }
 
+        protected override void OnResume()
+        {
+            base.OnResume();
+            _adapter.SetData(ViewPresenter.GetProductList(_category));
+        }
+
+        /**
+         * Calls when Sort By Price button clicked
+         * Sets colors of button to highlight chosen 
+         * and calls sorting method on Presenters side
+         */
         private void OnSortByPriceClick(object sender, EventArgs e)
         {
             ViewPresenter.OnSortByPriceClicked(_category);
@@ -98,6 +95,11 @@ namespace Softjourn.SJCoins.Droid.UI.Activities
             _sortNameButton.SetBackgroundColor(new Color(GetColor(Resource.Color.transparent)));
         }
 
+        /**
+         * Calls when Sort By Name button clicked
+         * Sets colors of button to highlight chosen 
+         * and calls sorting method on Presenters side
+         */
         private void OnSortByNameClick(object sender, EventArgs e)
         {
             ViewPresenter.OnSortByNameClicked(_category);
@@ -108,6 +110,8 @@ namespace Softjourn.SJCoins.Droid.UI.Activities
         public override bool OnCreateOptionsMenu(IMenu menu)
         {
             base.OnCreateOptionsMenu(menu);
+
+            //Don't show search on Favorites Category
             if (_category != Const.Favorites)
             {
                 menu.FindItem(Resource.Id.action_search).SetVisible(true);
@@ -116,6 +120,7 @@ namespace Softjourn.SJCoins.Droid.UI.Activities
             menu.FindItem(Resource.Id.menu_add_favorite).SetVisible(false);
             menu.FindItem(Resource.Id.menu_buy).SetVisible(false);
 
+            #region SearchView
             var manager = (SearchManager)GetSystemService(SearchService);
 
             var search = menu.FindItem(Resource.Id.action_search).ActionView;
@@ -148,6 +153,8 @@ namespace Softjourn.SJCoins.Droid.UI.Activities
                 {
                     _adapter.Filter.InvokeFilter(e.NewText);
                 }
+
+                //Disable sorting buttons when search is active
                 _sortNameButton.Enabled = false;
                 _sortPriceButton.Enabled = false;
             };
@@ -156,13 +163,18 @@ namespace Softjourn.SJCoins.Droid.UI.Activities
             searchView.Close += (s, e) =>
 
             {
+                //Enabling Sort buttons
                 _sortNameButton.Enabled = true;
                 _sortPriceButton.Enabled = true;
+
+                //Clear search string
                 searchView.ClearFocus();
                 searchView.SetQuery("", false);
+
+                //Close keyboard
                 searchView.OnActionViewCollapsed();
             };
-
+            #endregion
             return true;
         }
 
@@ -177,6 +189,10 @@ namespace Softjourn.SJCoins.Droid.UI.Activities
             return base.OnOptionsItemSelected(item);
         }
 
+        /**
+         * Is called by Presenter when added or removed favorite
+         * to make adapter redraw recyclerview
+         */
         public void FavoriteChanged(bool isFavorite)
         {
             if (!_category.Equals(Const.Favorites))
@@ -185,42 +201,89 @@ namespace Softjourn.SJCoins.Droid.UI.Activities
             }
         }
 
+        /**
+         * Is called by Presenter when List is sorted
+         * to make adapter redraw recyclerview
+         */
         public void ShowSortedList(List<Product> products)
         {
             _adapter.SetData(products);
         }
 
+        /**
+         * Calls Purchase functionality on Presenters side
+         */
         public void Purchase(Product product)
         {
             ViewPresenter.OnBuyProductClick(product);
         }
 
+        /**
+         * Calls navigation to Details screen on Presenter's side
+         * with the given product
+         * Is called by OnClick on product item
+         */
         private void ProductSelected(object sender, Product product)
         {
             ViewPresenter.OnProductDetailsClick(product.Id);
         }
 
+        /**
+         * Attaches BottomSheetFragment with the given product (Preview functionality)
+         * Is called by OnLongClick on product item
+         */
         private void ProductDetailsSelected(object sender, Product product)
         {
             BottomSheetDialogFragment bottomSheetDialogFragment = new ProductDetailsFragment(product);
             bottomSheetDialogFragment.Show(SupportFragmentManager, bottomSheetDialogFragment.Tag);
         }
 
-        private void ProductBuyClicked(object sender, Product e)
-        {
-            ViewPresenter.OnBuyProductClick(e);
-        }
-
+        /**
+         * Calls Add/Remove Favorite on Presenter's side
+         * Is Called by FeaturesAdapter.
+         */
         public void TrigFavorite(object sender, Product product)
         {
             ViewPresenter.OnFavoriteClick(product);
         }
 
+        /**
+         * Calls Add/Remove Favorite on Presenter's side
+         * Is Called by ProductDetailsFragment
+         * TODO: Needed to make this method called by EventHandler as Previous
+         */
+        public void TrigFavorite(Product product)
+        {
+            ViewPresenter.OnFavoriteClick(product);
+        }
+
+        /**
+         * Hides recyclerView and Shows TextView
+         * when there is no products 
+         * e.g. Last Favorite was removed
+         */ 
         private void ShowEmptyView(object sender, EventArgs e)
         {
             _machineItems.Visibility = ViewStates.Gone;
             _textViewNoProductsInCategory.Visibility = ViewStates.Visible;
+        }
 
+        public override void AttachEvents()
+        {
+            _adapter.ProductSelected += ProductSelected;
+            _adapter.ProductDetailsSelected += ProductDetailsSelected;
+            _adapter.AddToFavorites += TrigFavorite;
+            _adapter.RemoveFromFavorites += TrigFavorite;
+            _adapter.LastFavoriteRemoved += ShowEmptyView;
+        }
+
+        public override void DetachEvents()
+        {
+            _adapter.ProductSelected -= ProductSelected;
+            _adapter.ProductDetailsSelected -= ProductDetailsSelected;
+            _adapter.AddToFavorites -= TrigFavorite;
+            _adapter.RemoveFromFavorites -= TrigFavorite;
+            _adapter.LastFavoriteRemoved -= ShowEmptyView;
         }
     }
 }

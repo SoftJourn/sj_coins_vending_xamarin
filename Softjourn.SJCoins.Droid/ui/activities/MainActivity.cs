@@ -2,22 +2,17 @@
 using System;
 using System.Collections.Generic;
 using Android.App;
-using Android.Content;
 using Android.Content.PM;
 using Android.OS;
 using Android.Support.Design.Widget;
 using Android.Support.V4.Widget;
 using Android.Views;
 using Android.Widget;
-using BottomNavigationBar;
-using Plugin.CurrentActivity;
 using Softjourn.SJCoins.Core.API.Model.AccountInfo;
 using Softjourn.SJCoins.Core.API.Model.Products;
 using Softjourn.SJCoins.Core.UI.Presenters;
 using Softjourn.SJCoins.Core.UI.ViewInterfaces;
-using Softjourn.SJCoins.Droid.Services;
 using Softjourn.SJCoins.Droid.ui.baseUI;
-using Softjourn.SJCoins.Droid.UI.BaseUI;
 using Softjourn.SJCoins.Droid.UI.Fragments;
 using Softjourn.SJCoins.Droid.Utils;
 
@@ -29,22 +24,24 @@ namespace Softjourn.SJCoins.Droid.UI.Activities
 
         private SwipeRefreshLayout _swipeLayout;
         private int _viewCounter = 0;
-        private View _headerView;
-        private Account _account;
-        private List<Categories> _listCategories;
-        private List<int> _containerIds; 
         private TextView _balance;
 
+        //Dictionary for saving container and header IDs for created categories
+        //Key - containerId
+        //Value - HeaderId
+        private Dictionary<int, int> _containerIds;
+
+        #region Activity Standart Methods
         protected override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
             SetContentView(Resource.Layout.activity_main);
 
-            _containerIds = new List<int>();
+            _containerIds = new Dictionary<int, int>();
 
             //_menuLayout = FindViewById<DrawerLayout>(Resource.Id.drawer_layout);
             //_menuView = FindViewById<NavigationView>(Resource.Id.left_side_menu);
-   
+
             _swipeLayout = FindViewById<SwipeRefreshLayout>(Resource.Id.swipe_container);
             _swipeLayout.SetColorSchemeResources(Resource.Color.colorAccent);
             _swipeLayout.Refresh += OnRefresh;
@@ -89,13 +86,7 @@ namespace Softjourn.SJCoins.Droid.UI.Activities
             base.OnResume();
             FavoriteChanged(true);
         }
-
-
-        public void OnRefresh(object sender, EventArgs e)
-        {
-            RemoveContainers();
-            ViewPresenter.OnRefresh();
-        }
+        #endregion
 
         //public override void SetBalance(View headerView)
         //{
@@ -149,12 +140,6 @@ namespace Softjourn.SJCoins.Droid.UI.Activities
         //    //ViewPresenter.LogOut();
         //}
 
-
-        public void ShowToastMessage(string message)
-        {
-            ShowToast(message);
-        }
-
         //public override void OnCategorySelected(IMenuItem item)
         //{
         //    //NavigationUtils.GoToSeeAllActivity(this, item.TitleFormatted.ToString());
@@ -170,6 +155,8 @@ namespace Softjourn.SJCoins.Droid.UI.Activities
         //    }
         //}
 
+        #region Methods from IHomeView Interface
+
         public override void ShowProgress(string message)
         {
             _swipeLayout.Refreshing = true;
@@ -181,28 +168,138 @@ namespace Softjourn.SJCoins.Droid.UI.Activities
             _swipeLayout.Refreshing = false;
         }
 
+        /**
+         * Refreshes favorites fragment when OnResume is called.
+         * Is using to add or remove favorite product from favorite fragment when adding ar removing
+         * favorite from details or preview
+         */
         public void FavoriteChanged(bool isFavorite)
         {
             foreach (var container in _containerIds)
             {
-                var fragment = FragmentManager.FindFragmentById(container) as ProductListFragmentVending;
-                if (fragment.ProductsCategory.Equals(Const.Favorites))
+                var fragment = FragmentManager.FindFragmentById(container.Key) as ProductListFragmentVending;
+                if (fragment != null && fragment.ProductsCategory.Equals(Const.Favorites))
                 {
-                    fragment.ChangeFavorite(ViewPresenter.GetProductListForGivenCategory(fragment.ProductsCategory));
+                    var refreshedFavorites = ViewPresenter.GetProductListForGivenCategory(fragment.ProductsCategory);
+                    if (refreshedFavorites.Count == 0)
+                    {
+                        HideContainer(container.Key, container.Value);
+                    }
+                    fragment.ChangeFavorite(refreshedFavorites);
                 }
-                
             }
         }
 
-        private void AttachFragment(string categoryName, int headerId, int containerId, int seeAllId, List<Product> listProducts )
+        /**
+         * Sets user's Account information
+         */
+        public void SetAccountInfo(Account account)
         {
-            FragmentManager.BeginTransaction()
-                .Replace(containerId, ProductListFragmentVending.NewInstance(categoryName, headerId, containerId, listProducts),
-                 categoryName)
-                .Commit();
+            SetUserBalance(account.Amount.ToString());
         }
 
-        public void CreateCategory(string categoryName, List<Product> listProducts)
+        /**
+         * Sets user's balance into balance Text View
+         */
+        public void SetUserBalance(string balance)
+        {
+            _balance.Visibility = ViewStates.Visible;
+            _balance.Text = string.Format(GetString(Resource.String.your_balance_is, balance));
+        }
+
+        /**
+         * Sets selected machine's name as the Title of ActionBar
+         */
+        public void SetMachineName(string name)
+        {
+            SupportActionBar.Title = name;
+        }
+
+        /**
+         * Creates containers for each category from input categories List
+         */
+        public void ShowProducts(List<Categories> listCategories)
+        {
+            foreach (var category in listCategories)
+            {
+                CreateCategory(category.Name, category.Products);
+            }
+        }
+        #endregion
+
+        #region Public Methods
+        public void OnRefresh(object sender, EventArgs e)
+        {
+            RemoveContainers();
+            ViewPresenter.OnRefresh();
+        }
+
+        /**
+         * Calls Purchase functionality on Presenters side
+         */
+        public void Purchase(Product product)
+        {
+            ViewPresenter.OnBuyProductClick(product);
+        }
+
+        /**
+         * Attaches BottomSheetFragment with the given product (Preview functionality)
+         * Is called by OnLongClick on product item
+         */
+        public void ShowPreview(Product product)
+        {
+            BottomSheetDialogFragment bottomSheetDialogFragment = new ProductDetailsFragment(product);
+            bottomSheetDialogFragment.Show(SupportFragmentManager, bottomSheetDialogFragment.Tag);
+        }
+
+        /**
+         * Calls navigation to Details screen on Presenter's side
+         * with the given product
+         * Is called by OnClick on product item
+         */
+        public void ShowDetails(Product product)
+        {
+            ViewPresenter.OnProductDetailsClick(product.Id);
+        }
+
+        /**
+         * Calls Adding/Removing favorite on Presenter's Side
+         * Is Called by Fragments (ProductListFragmentVending and ProductDetailsFragment)
+         */
+        public void TrigFavorite(Product product)
+        {
+            ViewPresenter.OnFavoriteClick(product);
+        }
+
+
+        public void ShowToastMessage(string message)
+        {
+            ShowToast(message);
+        }
+
+        //public override void HandleMenuNavigation(int menuItemId)
+        //{
+        //    switch (menuItemId)
+        //    {
+        //        case Resource.Id.home:
+        //            Toast.MakeText(this, "Home", ToastLength.Long).Show();
+        //            break;
+        //        case Resource.Id.profile:
+        //            Toast.MakeText(this, "Profile", ToastLength.Long).Show();
+        //            break;
+        //    }
+        //}
+
+        #endregion
+
+        #region Private Methods
+        /**
+         * Creates Container and Header for category from dummy layout
+         * sets all needed Ids in category (ShowAllId, ContainerId etc.)
+         * @param categoryName - Name of current category;
+         * @param lsitProducts - list of Produts of current category  
+         */
+        private void CreateCategory(string categoryName, List<Product> listProducts)
         {
             _viewCounter++;
 
@@ -232,10 +329,12 @@ namespace Softjourn.SJCoins.Droid.UI.Activities
             }
 
             var llContainer = FindViewById<LinearLayout>(Resource.Id.container_dummyID);
-            if (llContainer != null)
+            if (llContainer != null && llHeader != null)
             {
                 llContainer.Id = View.GenerateViewId();
-                _containerIds.Add(llContainer.Id);
+
+                //Adding new container to the list of container IDs
+                _containerIds.Add(llContainer.Id, llHeader.Id);
             }
 
             if (tvSeeAll != null)
@@ -248,11 +347,15 @@ namespace Softjourn.SJCoins.Droid.UI.Activities
 
             if (llHeader != null && llContainer != null && tvSeeAll != null)
             {
-                AttachFragment(categoryName, llHeader.Id, llContainer.Id, tvSeeAll.Id, listProducts);
+                AttachFragment(categoryName, llHeader.Id, llContainer.Id, listProducts);
             }
         }
 
-        public void HideContainer(int headers, int fragmentContainerId)
+        /**
+         * Hides conatiner and Header for category which becames empty
+         * e.g. After removing last favorite from Favorites category
+         */
+        private void HideContainer(int headers, int fragmentContainerId)
         {
             var view = FindViewById<View>(headers);
             var fragmentContainer = FindViewById<View>(fragmentContainerId);
@@ -262,21 +365,10 @@ namespace Softjourn.SJCoins.Droid.UI.Activities
                 view.Visibility = ViewStates.Gone;
         }
 
-        public void ShowContainer(int headers, int fragmentContainerId)
-        {
-            var view = FindViewById<View>(headers);
-            var fragmentContainer = FindViewById<View>(fragmentContainerId);
-
-            if (view != null)
-            {
-                view.Visibility = ViewStates.Visible;
-            }
-            if (fragmentContainer != null)
-            {
-                fragmentContainer.Visibility = ViewStates.Visible;
-            }
-        }
-
+        /**
+         * Removes all created containers
+         * Is Used for refreshing layout
+         */
         private void RemoveContainers()
         {
             var layout = FindViewById<LinearLayout>(Resource.Id.layout_root);
@@ -286,70 +378,20 @@ namespace Softjourn.SJCoins.Droid.UI.Activities
             }
         }
 
-        public void SetAccountInfo(Account account)
+        /**
+         * Attach fragment to created container for category.
+         * @param categoryName - Name of current category;
+         * @param headerID - Id of category Header (category name, ShowAllButton)
+         * @param containerID - Id of container for fragment
+         * @param lsitProducts - list of Produts of current category
+         */
+        private void AttachFragment(string categoryName, int headerId, int containerId, List<Product> listProducts)
         {
-            _account = account;
-            _balance.Visibility = ViewStates.Visible;
-            _balance.Text = string.Format(GetString(Resource.String.your_balance_is, account.Amount));
+            FragmentManager.BeginTransaction()
+                .Replace(containerId, ProductListFragmentVending.NewInstance(categoryName, headerId, containerId, listProducts),
+                 categoryName)
+                .Commit();
         }
-
-        public void SetUserBalance(string balance)
-        {
-            _balance.Visibility = ViewStates.Visible;
-            _balance.Text = string.Format(GetString(Resource.String.your_balance_is, balance));
-        }
-
-        public void SetMachineName(string name)
-        {
-            SupportActionBar.Title = name;
-        }
-
-        public void ShowProducts(List<Categories> listCategories)
-        {
-            _listCategories = listCategories;
-            foreach (var category in listCategories)
-            {
-                CreateCategory(category.Name, category.Products);
-            }
-        }
-
-        public void ShowPurchaseConfirmationDialog(Product product)
-        {
-            //throw new System.NotImplementedException();
-        }
-
-        public void Purchase(Product product)
-        {
-            ViewPresenter.OnBuyProductClick(product);
-        }
-
-        public void ShowPreview(Product product)
-        {
-            BottomSheetDialogFragment bottomSheetDialogFragment = new ProductDetailsFragment(product);
-            bottomSheetDialogFragment.Show(SupportFragmentManager, bottomSheetDialogFragment.Tag);
-        }
-
-        public void ShowDetails(Product product)
-        {
-            ViewPresenter.OnProductDetailsClick(product.Id);
-        }
-
-        public void TrigFavorite(Product product)
-        {
-            ViewPresenter.OnFavoriteClick(product);
-        }
-
-        //public override void HandleMenuNavigation(int menuItemId)
-        //{
-        //    switch (menuItemId)
-        //    {
-        //        case Resource.Id.home:
-        //            Toast.MakeText(this, "Home", ToastLength.Long).Show();
-        //            break;
-        //        case Resource.Id.profile:
-        //            Toast.MakeText(this, "Profile", ToastLength.Long).Show();
-        //            break;
-        //    }
-        //}
+        #endregion
     }
 }
