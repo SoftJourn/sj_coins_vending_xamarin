@@ -1,6 +1,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Android.App;
 using Android.Content.PM;
 using Android.OS;
@@ -25,6 +26,9 @@ namespace Softjourn.SJCoins.Droid.UI.Activities
         private SwipeRefreshLayout _swipeLayout;
         private int _viewCounter = 0;
         private TextView _balance;
+        private TextView _favoritesShowAll;
+
+        private bool HaveProducts { get; set; }
 
         //Dictionary for saving container and header IDs for created categories
         //Key - containerId
@@ -38,9 +42,16 @@ namespace Softjourn.SJCoins.Droid.UI.Activities
             SetContentView(Resource.Layout.activity_main);
 
             _containerIds = new Dictionary<int, int>();
+            _containerIds.Add(Resource.Id.favorites_container_ID, Resource.Id.favoriteIdLayout);
 
             //_menuLayout = FindViewById<DrawerLayout>(Resource.Id.drawer_layout);
             //_menuView = FindViewById<NavigationView>(Resource.Id.left_side_menu);
+
+            _favoritesShowAll = FindViewById<TextView>(Resource.Id.favoriteSeeAllID);
+            _favoritesShowAll.Click += (sender, e) =>
+            {
+                ViewPresenter.OnShowAllClick(Const.Favorites);
+            };
 
             _swipeLayout = FindViewById<SwipeRefreshLayout>(Resource.Id.swipe_container);
             _swipeLayout.SetColorSchemeResources(Resource.Color.colorAccent);
@@ -84,6 +95,7 @@ namespace Softjourn.SJCoins.Droid.UI.Activities
         protected override void OnResume()
         {
             base.OnResume();
+            if (HaveProducts)
             FavoriteChanged(true);
         }
         #endregion
@@ -175,18 +187,34 @@ namespace Softjourn.SJCoins.Droid.UI.Activities
          */
         public void FavoriteChanged(bool isFavorite)
         {
-            foreach (var container in _containerIds)
+            //Take Favorites from ProductList
+            var refreshedFavorites = ViewPresenter.GetProductListForGivenCategory(Const.Favorites);
+
+            // Taking containerId and HeaderId of favorite from Dicitionary
+            var favoritesContainerId = _containerIds.ElementAt(0).Key;
+            var favoriteHeaderID = _containerIds.ElementAt(0).Value;
+
+            //Try to find fragment corresponding with containerID
+            var fragment = FragmentManager.FindFragmentById(favoritesContainerId) as ProductListFragmentVending;
+            
+            //if fragment exists
+            if (fragment != null)
             {
-                var fragment = FragmentManager.FindFragmentById(container.Key) as ProductListFragmentVending;
-                if (fragment != null && fragment.ProductsCategory.Equals(Const.Favorites))
+                //if Count of favorites is 0 then hide container
+                if (refreshedFavorites.Count == 0)
                 {
-                    var refreshedFavorites = ViewPresenter.GetProductListForGivenCategory(fragment.ProductsCategory);
-                    if (refreshedFavorites.Count == 0)
-                    {
-                        HideContainer(container.Key, container.Value);
-                    }
-                    fragment.ChangeFavorite(refreshedFavorites);
+                    HideContainer(favoritesContainerId, favoriteHeaderID);
                 }
+                //if count of favorite > 0 then show container and trig method ChangeFavorite in corresponding fragment
+                else ShowContainer(favoritesContainerId, favoriteHeaderID);
+                fragment.ChangeFavorite(refreshedFavorites);
+            }
+            // if there is no fragment for such container then
+            //show container and attach fragment to it.
+            else
+            {
+                ShowContainer(favoritesContainerId, _containerIds.ElementAt(0).Value);
+                AttachFragment(Const.Favorites, _containerIds.ElementAt(0).Value, favoritesContainerId, refreshedFavorites);
             }
         }
 
@@ -220,9 +248,18 @@ namespace Softjourn.SJCoins.Droid.UI.Activities
          */
         public void ShowProducts(List<Categories> listCategories)
         {
+            HaveProducts = true;
             foreach (var category in listCategories)
             {
-                CreateCategory(category.Name, category.Products);
+                if (category.Name == Const.Favorites)
+                {
+                    ShowContainer(Resource.Id.favoriteIdLayout, Resource.Id.favorites_container_ID);
+                    AttachFragment(category.Name, Resource.Id.favoriteIdLayout, Resource.Id.favorites_container_ID, category.Products);
+                }
+                else
+                {
+                    CreateCategory(category.Name, category.Products);
+                }
             }
         }
         #endregion
@@ -230,6 +267,7 @@ namespace Softjourn.SJCoins.Droid.UI.Activities
         #region Public Methods
         public void OnRefresh(object sender, EventArgs e)
         {
+            HideContainer(Resource.Id.favoriteIdLayout, Resource.Id.favorites_container_ID);
             RemoveContainers();
             ViewPresenter.OnRefresh();
         }
@@ -333,8 +371,6 @@ namespace Softjourn.SJCoins.Droid.UI.Activities
             {
                 llContainer.Id = View.GenerateViewId();
 
-                //Adding new container to the list of container IDs
-                _containerIds.Add(llContainer.Id, llHeader.Id);
             }
 
             if (tvSeeAll != null)
@@ -363,6 +399,21 @@ namespace Softjourn.SJCoins.Droid.UI.Activities
                 fragmentContainer.Visibility = ViewStates.Gone;
             if (view != null)
                 view.Visibility = ViewStates.Gone;
+        }
+
+        public void ShowContainer(int headers, int fragmentContainerId)
+        {
+            var view = FindViewById<View>(headers);
+            var fragmentContainer = FindViewById<View>(fragmentContainerId);
+
+            if (view != null)
+            {
+                view.Visibility = ViewStates.Visible;
+            }
+            if (fragmentContainer != null)
+            {
+                fragmentContainer.Visibility = ViewStates.Visible;
+            }
         }
 
         /**
