@@ -114,7 +114,7 @@ namespace Softjourn.SJCoins.Core.Managers
                     return category.Products;
                 }
             }
-            return null;
+            return new List<Product>();
         }
 
         public List<Product> GetSortedByNameProductsList(string category, bool sortingForward)
