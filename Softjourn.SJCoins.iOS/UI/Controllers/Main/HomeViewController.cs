@@ -20,6 +20,7 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.Main
 		public List<Categories> Categories { get; private set; } = new List<Categories>();
 
 		private HomeViewControllerDataSource _dataSource;
+		private HomeViewControllerDelegateFlowLayout _delegate;
 		#endregion
 
 		#region Constructor
@@ -121,10 +122,14 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.Main
 		{
 			// Configure datasource and delegate
 			_dataSource = new HomeViewControllerDataSource(Categories);
+			_delegate = new HomeViewControllerDelegateFlowLayout(this); //TODO retain circle
 
 			CollectionView.DataSource = _dataSource;
-			CollectionView.Delegate = new HomeViewControllerDelegateFlowLayout(this);
+			CollectionView.Delegate = _delegate;
 			CollectionView.AlwaysBounceVertical = true;
+
+			//detach
+			//attach
 		}
 
 		private void RefreshFavoritesCell()
@@ -132,9 +137,6 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.Main
 			if (Categories.Count != 0)
 			{
 				var newList = Presenter.GetCategoriesList();
-
-				// if categories list
-
 				_dataSource.SetCategories(newList);
 				CollectionView.ReloadData();
 
@@ -191,31 +193,6 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.Main
 			this.categories = categories;
 		}
 
-		public void RefreshFavorites(List<Product> favorites)
-		{
-			//foreach (var category in categories)
-			//{
-			//	if (category.Name == Const.FavoritesCategory)
-			//	{
-			//		category.Products = favorites;
-			//		if (category.Products.Count == 0)
-			//		{
-			//			// Remove Favorites category
-			//			categories.RemoveAt(0);
-			//		}
-			//		else {
-			//			// Create and insert Favorites Category
-			//			var favoriteCategory = new Categories()
-			//			{
-			//				Name = Const.FavoritesCategory,
-			//				Products = favorites
-			//			};
-			//			categories.Insert(0, favoriteCategory);
-			//		}
-			//		break;
-			//	}
-			//}
-		}
 
 		public override nint GetItemsCount(UICollectionView collectionView, nint section) => categories.Count;
 
@@ -241,18 +218,14 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.Main
 			var _cell = (HomeCell)cell;
 			var category = parent.Categories[indexPath.Row];
 
-			// Create delegate object with event and throw it to cell
-			var _delegate = new HomeCellDelegate(category.Products);
-			_delegate.ItemSelectedEvent -= parent.OnItemSelected;
-			_delegate.ItemSelectedEvent += parent.OnItemSelected;
+			// TODO Add functionality with unavailable product
+			_cell.ConfigureWith(category);
 
-			// Add seeAll event
+			_cell._delegate.ItemSelectedEvent -= parent.OnItemSelected;
+			_cell._delegate.ItemSelectedEvent += parent.OnItemSelected;
+
 			_cell.SeeAllClickedEvent -= parent.OnSeeAllClicked;
 			_cell.SeeAllClickedEvent += parent.OnSeeAllClicked;
-
-			// TODO Add functionality with unavailable product
-
-			_cell.ConfigureWith(category, _delegate);
 		}
 	}
 	#endregion

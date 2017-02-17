@@ -136,7 +136,8 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.Main
 				if (CategoryName == Const.FavoritesCategory)
 				{
 					// Set new items to table source
-					_tableSource.SetItems(Presenter.GetProductList(CategoryName));
+					var newItems = Presenter.GetProductList(CategoryName);
+					_tableSource.SetItems(newItems);
 					// Delete row
 					TableView.DeleteRows(atIndexPaths: index, withRowAnimation: UITableViewRowAnimation.Fade);
 				}

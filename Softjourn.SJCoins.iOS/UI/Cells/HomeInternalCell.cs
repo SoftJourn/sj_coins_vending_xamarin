@@ -31,5 +31,11 @@ namespace Softjourn.SJCoins.iOS
 			PriceLabel.Text = product.Price.ToString() + " coins";
 			Logo.SetImage(url: new NSUrl(product.ImageFullUrl), placeholder: UIImage.FromBundle(ImageConstants.Placeholder));
 		}
+
+		public override void PrepareForReuse()
+		{
+			//.ItemSelectedEvent -=
+			base.PrepareForReuse();
+		}
 	}
 }

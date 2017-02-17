@@ -20,6 +20,7 @@ namespace Softjourn.SJCoins.iOS
 		private string categoryName; 
 		private List<Product> categoryProducts;
 		public event EventHandler<string> SeeAllClickedEvent;
+		public HomeCellDelegate _delegate;
 
 		static HomeCell()
 		{
@@ -30,34 +31,35 @@ namespace Softjourn.SJCoins.iOS
 		{
 		}
 
-		public void ConfigureWith(Categories category, HomeCellDelegate _delegate)
+		public void ConfigureWith(Categories category)
 		{
 			// Save and set category name
 			categoryName = category.Name;
 			CategoryNameLabel.Text = category.Name;
 			categoryProducts = category.Products;
 
-			ConfigureInternalCollectionView(category.Products, _delegate);
-						             
-			//ConfigureSeeAllButton();
-		}
+			_delegate = new HomeCellDelegate(category.Products);
 
-		//private void ConfigureSeeAllButton()
-		//{
-		//	// Add click event to button
-		//	ShowAllButton.TouchUpInside += (o,s) =>
-		//	{
-		//		// Execute event and throw category name to HomeViewController
-		//		SeeAllClickedEvent(this, categoryName);
-		//	};
-		//}
-
-		private void ConfigureInternalCollectionView(List<Product> products, HomeCellDelegate _delegate)
-		{
-			InternalCollectionView.DataSource = new HomeCellDataSource(products);
+			InternalCollectionView.DataSource = new HomeCellDataSource(category.Products);
 			InternalCollectionView.Delegate = _delegate;
 			InternalCollectionView.ReloadData();
+
+			ShowAllButton.TouchUpInside += OnSeeAllClicked;
 		}
+
+		public override void PrepareForReuse()
+		{
+			ShowAllButton.TouchUpInside -= OnSeeAllClicked;
+			base.PrepareForReuse();
+		}
+
+		// -------------------- Event handlers --------------------
+		public void OnSeeAllClicked(object sender, EventArgs e)
+		{
+			// Execute event and throw category name to HomeViewController
+			SeeAllClickedEvent(this, categoryName);
+		}
+		// --------------------------------------------------------
 
 		#region IUIViewControllerPreviewingDelegate implementation
 		public override void TraitCollectionDidChange(UITraitCollection previousTraitCollection)
@@ -71,7 +73,7 @@ namespace Softjourn.SJCoins.iOS
 				visibleController.RegisterForPreviewingWithDelegate(this, InternalCollectionView);
 			}
 			else {
-				// Need move fom here !!!
+				// TODO Need move fom here !!!
 				UIAlertController alertController = UIAlertController.Create("3D Touch Not Available", "Unsupported device.", UIAlertControllerStyle.Alert);
 				_currentApplication.VisibleViewController.PresentViewController(alertController, true, null);
 			}
@@ -114,14 +116,14 @@ namespace Softjourn.SJCoins.iOS
 	#region UICollectionViewSource implementation
 	public class HomeCellDataSource : UICollectionViewDataSource
 	{
-		public List<Product> Products { get; set; } = new List<Product>();
+		private List<Product> products = new List<Product>(); 
 
 		public HomeCellDataSource(List<Product> products)
 		{
-			Products = products;
+			this.products = products;
 		}
 
-		public override nint GetItemsCount(UICollectionView collectionView, nint section) => Products.Count;
+		public override nint GetItemsCount(UICollectionView collectionView, nint section) => products.Count;
 
 		public override UICollectionViewCell GetCell(UICollectionView collectionView, NSIndexPath indexPath) => (UICollectionViewCell)collectionView.DequeueReusableCell(HomeInternalCell.Key, indexPath);
 	}
@@ -131,24 +133,24 @@ namespace Softjourn.SJCoins.iOS
 	#region UICollectionViewDelegate implementation
 	public class HomeCellDelegate : UICollectionViewDelegate
 	{
-		public List<Product> Products { get; set; } = new List<Product>();
-		public event EventHandler<Product> ItemSelectedEvent = delegate { };
+		private List<Product> products = new List<Product>();
+		public event EventHandler<Product> ItemSelectedEvent;
 
 		public HomeCellDelegate(List<Product> products)
 		{
-			Products = products;
+			this.products = products;
 		}
 
 		public override void WillDisplayCell(UICollectionView collectionView, UICollectionViewCell cell, NSIndexPath indexPath)
 		{
 			var _cell = cell as HomeInternalCell;
-			var item = Products[indexPath.Row];
+			var item = products[indexPath.Row];
 			_cell.ConfigureWith(item);
 		}
 
 		public override void ItemSelected(UICollectionView collectionView, NSIndexPath indexPath)
 		{
-			ItemSelectedEvent(this, Products[indexPath.Row]);
+			ItemSelectedEvent(this, products[indexPath.Row]);
 		}
 	}
 	#endregion
