@@ -270,12 +270,14 @@
     <Folder Include="Assets.xcassets\FavoriteChecked.imageset\" />
     <Folder Include="Assets.xcassets\FavoriteUnchecked.imageset\" />
     <Folder Include="UI\UIElements\" />
+    <Folder Include="UI\Controllers\AccountPage\" />
   </ItemGroup>
   <ItemGroup>
     <InterfaceDefinition Include="LaunchScreen.storyboard" />
     <InterfaceDefinition Include="Main.storyboard" />
     <InterfaceDefinition Include="Login.storyboard" />
     <InterfaceDefinition Include="UI\Cells\ProductCell.xib" />
+    <InterfaceDefinition Include="Account.storyboard" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
@@ -310,7 +312,6 @@
       <DependentUpon>SelectMachineCell.cs</DependentUpon>
     </Compile>
     <Compile Include="UI\Controllers\Main\HomeViewController.cs" />
-    <Compile Include="UI\Controllers\Main\AccountViewController.cs" />
     <Compile Include="UI\Controllers\Main\HomeViewController.designer.cs">
       <DependentUpon>HomeViewController.cs</DependentUpon>
     </Compile>
@@ -325,9 +326,6 @@
     <Compile Include="UI\Cells\ProductCell.cs" />
     <Compile Include="UI\Cells\ProductCell.designer.cs">
       <DependentUpon>ProductCell.cs</DependentUpon>
-    </Compile>
-    <Compile Include="UI\Controllers\Main\AccountViewController.designer.cs">
-      <DependentUpon>AccountViewController.cs</DependentUpon>
     </Compile>
     <Compile Include="UI\Controllers\Main\PreViewController.cs" />
     <Compile Include="UI\Controllers\Main\PreViewController.designer.cs">
@@ -344,6 +342,14 @@
     <Compile Include="General\Constants\ImageConstants.cs" />
     <Compile Include="UI\UIElements\CustomSegmentControl.cs" />
     <Compile Include="General\Constants\Const.cs" />
+    <Compile Include="UI\Controllers\AccountPage\AccountViewController.cs" />
+    <Compile Include="UI\Controllers\AccountPage\AccountViewController.designer.cs">
+      <DependentUpon>AccountViewController.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Cells\AccountCell.cs" />
+    <Compile Include="UI\Cells\AccountCell.designer.cs">
+      <DependentUpon>AccountCell.cs</DependentUpon>
+    </Compile>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
 </Project>

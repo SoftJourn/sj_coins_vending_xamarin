@@ -5,6 +5,7 @@
 		#region Storyboards
 		public const string StoryboardLogin = "Login";
 		public const string StoryboardMain = "Main";
+		public const string StoryboardAccount = "Account";
 		#endregion
 
 		#region Controllers
@@ -18,8 +19,10 @@
 		public const string DetailViewController = "DetailViewController";
 		public const string ShowViewController = "ShowViewController";
 
-		// Main pages 
+		// Main page
 		public const string NavigationHomeViewController = "NavigationHomeViewController";
+
+		// Account page 
 		public const string NavigationAccountViewController = "NavigationAccountViewController";
 
 		// Informative pages

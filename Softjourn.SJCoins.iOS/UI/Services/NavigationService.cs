@@ -66,7 +66,7 @@ namespace Softjourn.SJCoins.iOS.Services
 				case NavigationPage.ShowAll:
 					return Instantiate(StoryboardConstants.StoryboardMain, StoryboardConstants.ShowViewController);
 				case NavigationPage.Profile:
-				return Instantiate(StoryboardConstants.StoryboardMain, StoryboardConstants.NavigationAccountViewController);
+					return Instantiate(StoryboardConstants.StoryboardAccount, StoryboardConstants.NavigationAccountViewController);
 				default:
 					throw new ArgumentException("Not valid page");
 			}
