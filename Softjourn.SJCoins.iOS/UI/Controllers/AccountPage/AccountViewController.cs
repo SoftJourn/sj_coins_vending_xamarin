@@ -40,6 +40,7 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.AccountPage
 			base.ViewWillAppear(animated);
 			// Attach 
 			DoneButton.Clicked += DoneButtonClickHandler;
+			_tableSource.ItemSelected += TableSource_ItemClicked;
 			// Add tap gesture to avatar image
 			avatarImageTap = new UITapGestureRecognizer(AvatarImageTapHandler);
 			AvatarImage.AddGestureRecognizer(avatarImageTap);
@@ -55,6 +56,7 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.AccountPage
 		{
 			// Detach 
 			DoneButton.Clicked -= DoneButtonClickHandler;
+			_tableSource.ItemSelected -= TableSource_ItemClicked;
 			// Remove tap gesture from avatar image
 			AvatarImage.RemoveGestureRecognizer(avatarImageTap);
 			base.ViewWillDisappear(animated);
@@ -99,6 +101,11 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.AccountPage
 		}
 
 		// -------------------- Event handlers --------------------
+		private void TableSource_ItemClicked(object sender, string item)
+		{
+			Presenter.OnItemClick(item);
+		}
+
 		private void DoneButtonClickHandler(object sender, EventArgs e)
 		{
 			DismissViewController(animated: true, completionHandler: null);
