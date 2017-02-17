@@ -4,21 +4,16 @@ using System.Linq;
 using System.Text;
 
 using Android.App;
-using Android.Content;
 using Android.Content.PM;
 using Android.Graphics;
 using Android.OS;
-using Android.Runtime;
 using Android.Views;
 using Android.Widget;
-using Java.IO;
-using Java.Lang;
 using Plugin.Permissions;
 using Softjourn.SJCoins.Core.API.Model.AccountInfo;
 using Softjourn.SJCoins.Core.UI.Presenters;
 using Softjourn.SJCoins.Core.UI.ViewInterfaces;
 using Softjourn.SJCoins.Droid.ui.baseUI;
-using Console = System.Console;
 
 namespace Softjourn.SJCoins.Droid.UI.Activities
 {
@@ -48,17 +43,15 @@ namespace Softjourn.SJCoins.Droid.UI.Activities
             var adapter = new ArrayAdapter<string>(this, Android.Resource.Layout.SimpleListItem1, ViewPresenter.GetOptionsList());
             _options.Adapter = adapter;
             _options.Visibility = ViewStates.Visible;
+            _options.VerticalScrollBarEnabled = false;
+            SetListViewHeightBasedOnChildren(_options);
             _options.ItemClick += (sender, e) =>
             {
                 ViewPresenter.OnItemClick(_options.GetItemAtPosition(e.Position).ToString());
             };
-
+            //To make Actvity Opened
+            _avatar.RequestFocus();
             ViewPresenter.OnStartLoadingPage();
-        }
-
-        private async void ChangePhoto(object sender, EventArgs e)
-        {
-            await ViewPresenter.OnPhotoClicked();
         }
 
         public override bool OnCreateOptionsMenu(IMenu menu)
@@ -90,10 +83,45 @@ namespace Softjourn.SJCoins.Droid.UI.Activities
             PermissionsImplementation.Current.OnRequestPermissionsResult(requestCode, permissions, grantResults);
         }
 
+        #region Private Methods
         private void SetAvatarImage(byte[] data)
         {
             var bmp = BitmapFactory.DecodeByteArray(data, 0, data.Length);
             _avatar.SetImageBitmap(bmp);
         }
+
+        private async void ChangePhoto(object sender, EventArgs e)
+        {
+            await ViewPresenter.OnPhotoClicked();
+        }
+
+        private static void SetListViewHeightBasedOnChildren(ListView listView)
+        {
+            var listAdapter = listView.Adapter;
+            if (listAdapter == null)
+                return;
+
+            int desiredWidth = View.MeasureSpec.MakeMeasureSpec(listView.Width, MeasureSpecMode.Unspecified);
+            int totalHeight = 0;
+            View view = null;
+
+            for (int i = 0; i < listAdapter.Count; i++)
+            {
+                view = listAdapter.GetView(i, view, listView);
+
+                if (i == 0)
+                    view.LayoutParameters = new ViewGroup.LayoutParams(desiredWidth, ViewGroup.LayoutParams.MatchParent);
+
+                view.Measure(desiredWidth, 0);
+                totalHeight += view.MeasuredHeight;
+            }
+
+            var lParams = listView.LayoutParameters;
+            lParams.Height = totalHeight + ((listView.DividerHeight) * (listAdapter.Count));
+
+            listView.LayoutParameters = lParams;
+            listView.RequestLayout();
+        }
+        #endregion
     }
 }
