@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Softjourn.SJCoins.Core.UI.Utils
+namespace Softjourn.SJCoins.Core.Utils
 {
     public class TimeUtils
     {

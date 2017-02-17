@@ -1,12 +1,6 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
-using Android.App;
-using Android.Content;
-using Android.OS;
-using Android.Runtime;
+using System.Collections.Generic;
+
 using Android.Support.V7.Widget;
 using Android.Views;
 using Android.Widget;
@@ -30,8 +24,8 @@ namespace Softjourn.SJCoins.Droid.UI.Adapters
             var historyItem = _historyList[position];
 
             holder._productName.Text = historyItem.Name;
-            //holder._productPrice.Text = (String.format(App.getContext().getResources().getString(R.string.coins), historyItem.getPrice()));
-            //holder._purchaseDate.Text = TimeUtils.getPrettyTime(historyItem.getTime()));
+            holder._productPrice.Text = (historyItem.Price + " coins");
+            holder._purchaseDate.Text = historyItem.PrettyTime;
         }
 
         public override RecyclerView.ViewHolder OnCreateViewHolder(ViewGroup parent, int viewType)

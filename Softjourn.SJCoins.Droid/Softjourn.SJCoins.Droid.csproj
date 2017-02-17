@@ -202,6 +202,7 @@
     <Compile Include="Resources\Resource.designer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\NavigationService.cs" />
+    <Compile Include="UI\Activities\PurchaseActivity.cs" />
     <Compile Include="UI\Activities\ShowAllActivity.cs" />
     <Compile Include="UI\Activities\DetailsActivity.cs" />
     <Compile Include="UI\Activities\LoginActivity.cs" />
@@ -213,6 +214,7 @@
     <Compile Include="UI\Adapters\DetailsPagerAdapter.cs" />
     <Compile Include="UI\Adapters\FeaturedProductItemsAdapter.cs" />
     <Compile Include="UI\Adapters\FeatureViewHolder.cs" />
+    <Compile Include="UI\Adapters\PurchaseHistoryAdapter.cs" />
     <Compile Include="UI\Adapters\SelectMachineListAdapter.cs" />
     <Compile Include="UI\Adapters\ViewPagerAdapter.cs" />
     <Compile Include="UI\BaseUI\BaseActivity.cs" />
@@ -271,6 +273,12 @@
       <SubType>Designer</SubType>
     </AndroidResource>
     <AndroidResource Include="Resources\layout\activity_show_all.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\layout\activity_purchases.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\layout\recycler_purchase_history_item.axml">
       <SubType>Designer</SubType>
     </AndroidResource>
   </ItemGroup>
