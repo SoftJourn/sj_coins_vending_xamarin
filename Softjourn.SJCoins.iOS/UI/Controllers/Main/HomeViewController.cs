@@ -132,6 +132,9 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.Main
 			if (Categories.Count != 0)
 			{
 				var newList = Presenter.GetCategoriesList();
+
+				// if categories list
+
 				_dataSource.SetCategories(newList);
 				CollectionView.ReloadData();
 

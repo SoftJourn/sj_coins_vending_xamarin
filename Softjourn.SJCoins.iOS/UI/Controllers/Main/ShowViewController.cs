@@ -46,7 +46,8 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.Main
 			// Attach 
 			SegmentControl.TouchUpInside += SameButtonClickHandler;
 			SegmentControl.ValueChanged += AnotherButtonClickHandler;
-
+			_tableSource.ItemSelected += TableSource_ItemSelected;
+			_tableSource.FavoriteClicked += TableSource_FavoriteClicked;
 			//------------------- TODO not reload all table
 			_tableSource.SetItems(Presenter.GetProductList(CategoryName));
 			TableView.ReloadData();
@@ -63,6 +64,8 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.Main
 			// Dettach 
 			SegmentControl.TouchUpInside -= SameButtonClickHandler;
 			SegmentControl.ValueChanged -= AnotherButtonClickHandler;
+			_tableSource.ItemSelected -= TableSource_ItemSelected;
+			_tableSource.FavoriteClicked -= TableSource_FavoriteClicked;
 			base.ViewWillDisappear(animated);
 		}
 		#endregion
@@ -74,16 +77,12 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.Main
 		private void ConfigureTableView()
 		{
 			_tableSource = new ShowAllSource(filteredItems);
-			_tableSource.ItemSelected -= TableSource_ItemSelected;
-			_tableSource.ItemSelected += TableSource_ItemSelected;
-
-			_tableSource.FavoriteClicked -= TableSource_FavoriteClicked;
-			_tableSource.FavoriteClicked += TableSource_FavoriteClicked;
 			TableView.Source = _tableSource;
 
 			TableView.RegisterNibForCellReuse(ProductCell.Nib, ProductCell.Key);
 		}
 
+		// -------------------- Event handlers --------------------
 		private void TableSource_ItemSelected(object sender, Product product)
 		{
 			// Trigg presenter that user click on some product to see details
@@ -97,7 +96,7 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.Main
 			Presenter.OnFavoriteClick(cell.Product);
 		}
 
-		// ---------------- SegmentControl methods ---------------- 
+		// SegmentControl methods 
 		private void SameButtonClickHandler(object sender, EventArgs e)
 		{
 			// Handle clicking on the same button of segment control
