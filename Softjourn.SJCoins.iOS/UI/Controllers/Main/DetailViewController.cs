@@ -65,20 +65,6 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers
 		#endregion
 
 		#region Private methods
-		// ---------------- Buttons methods ---------------- 
-		private void FavoriteButtonClickHandler(object sender, EventArgs e)
-		{
-			// Handle clicking on the Favorite button
-			Presenter.OnFavoriteClick(product);
-		}
-
-		private void BuyButtonClickHandler(object sender, EventArgs e)
-		{
-			// Handle clicking on the Buy button
-			Presenter.OnBuyProductClick(product);
-		}
-		// ------------------------------------------------- 
-
 		private void ConfigurePageWith(Product product)
 		{
 			NameLabel.Text = product.Name;
@@ -95,6 +81,20 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers
 			else
 				FavoriteButton.SetImage(UIImage.FromBundle(ImageConstants.FavoriteUnchecked), forState: UIControlState.Normal);
 		}
+
+		// -------------------- Event handlers --------------------
+		private void FavoriteButtonClickHandler(object sender, EventArgs e)
+		{
+			// Handle clicking on the Favorite button
+			Presenter.OnFavoriteClick(product);
+		}
+
+		private void BuyButtonClickHandler(object sender, EventArgs e)
+		{
+			// Handle clicking on the Buy button
+			Presenter.OnBuyProductClick(product);
+		}
+		// -------------------------------------------------------- 
 		#endregion
 
 		#region BaseViewController -> IBaseView implementation

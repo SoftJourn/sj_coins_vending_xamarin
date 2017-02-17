@@ -38,18 +38,19 @@ namespace Softjourn.SJCoins.iOS
 			categoryProducts = category.Products;
 
 			ConfigureInternalCollectionView(category.Products, _delegate);
-			ConfigureSeeAllButton();
+						             
+			//ConfigureSeeAllButton();
 		}
 
-		private void ConfigureSeeAllButton()
-		{
-			// Add click event to button
-			ShowAllButton.TouchUpInside += (o,s) =>
-			{
-				// Execute event and throw category name to HomeViewController
-				SeeAllClickedEvent(this, categoryName);
-			};
-		}
+		//private void ConfigureSeeAllButton()
+		//{
+		//	// Add click event to button
+		//	ShowAllButton.TouchUpInside += (o,s) =>
+		//	{
+		//		// Execute event and throw category name to HomeViewController
+		//		SeeAllClickedEvent(this, categoryName);
+		//	};
+		//}
 
 		private void ConfigureInternalCollectionView(List<Product> products, HomeCellDelegate _delegate)
 		{
