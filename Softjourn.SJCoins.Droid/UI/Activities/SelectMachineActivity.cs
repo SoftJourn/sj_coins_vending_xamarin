@@ -59,6 +59,14 @@ namespace Softjourn.SJCoins.Droid.UI.Activities
             return false;
         }
 
+        public override bool OnOptionsItemSelected(IMenuItem item)
+        {
+            if (item.ItemId == Android.Resource.Id.Home)
+                this.OnBackPressed();
+
+            return base.OnOptionsItemSelected(item);
+        }
+
         public void ShowNoMachineView(string message)
         {
             _noMachinesTextView.Visibility = ViewStates.Visible;
