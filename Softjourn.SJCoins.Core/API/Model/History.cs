@@ -7,7 +7,7 @@ namespace Softjourn.SJCoins.Core.API.Model
     public class History
     {
         [JsonProperty("name")]
-        public String Name { get; set; }
+        public string Name { get; set; }
 
         [JsonProperty("time")]
         public string Time { get; set; }
