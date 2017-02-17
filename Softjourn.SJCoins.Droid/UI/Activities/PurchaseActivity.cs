@@ -11,13 +11,19 @@ using Android.Support.V7.App;
 using Android.Support.V7.Widget;
 using Android.Views;
 using Android.Widget;
+using Softjourn.SJCoins.Core.API.Model;
+using Softjourn.SJCoins.Core.UI.Presenters;
+using Softjourn.SJCoins.Core.UI.ViewInterfaces;
+using Softjourn.SJCoins.Droid.ui.baseUI;
+using Softjourn.SJCoins.Droid.UI.Adapters;
 
 namespace Softjourn.SJCoins.Droid.UI.Activities
 {
-    public class PurchaseActivity : AppCompatActivity
+    public class PurchaseActivity : BaseActivity<PurchasePresenter>, IPurchaseView
     {
         private RecyclerView _purchaseRecyclerView;
         private TextView _noPurchasesTextView;
+        private PurchaseHistoryAdapter _adapter;
 
         protected override void OnCreate(Bundle savedInstanceState)
         {
@@ -27,16 +33,18 @@ namespace Softjourn.SJCoins.Droid.UI.Activities
             _purchaseRecyclerView = FindViewById<RecyclerView>(Resource.Id.list_items_recycler_view);
             _noPurchasesTextView = FindViewById<TextView>(Resource.Id.textViewNoPurchases);
 
-            
+            RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this, LinearLayoutManager.Vertical, false);
+            _adapter = new PurchaseHistoryAdapter();
+            _purchaseRecyclerView.SetLayoutManager(layoutManager);
+            _purchaseRecyclerView.SetAdapter(_adapter);
+
         }
 
-        public void SetData(List<Purchase> listPurchases)
+        public void SetData(List<History> listPurchases)
         {
-            mHistoryList.setVisibility(View.VISIBLE);
-            mHistoryList.startAnimation(AnimationUtils.loadAnimation(this, R.anim.fade_in));
-            mNoPurchasesTextView.setVisibility(GONE);
-            mNoPurchasesTextView.startAnimation(AnimationUtils.loadAnimation(this, R.anim.fade_out));
-            mHistoryAdapter.setData(history);
+            _purchaseRecyclerView.Visibility  = ViewStates.Visible;
+            _noPurchasesTextView.Visibility  = ViewStates.Gone;
+            _adapter.SetData(listPurchases);
         }
     }
 }

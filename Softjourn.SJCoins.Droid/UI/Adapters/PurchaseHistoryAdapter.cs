@@ -10,25 +10,26 @@ using Android.Runtime;
 using Android.Support.V7.Widget;
 using Android.Views;
 using Android.Widget;
+using Softjourn.SJCoins.Core.API.Model;
 
 namespace Softjourn.SJCoins.Droid.UI.Adapters
 {
     public class PurchaseHistoryAdapter : RecyclerView.Adapter
     {
-        //private List<Purchase> _historyList = new List<Purchase>();
+        private List<History> _historyList = new List<History>();
 
-        //public void SetData(List<Purchase> history)
-        //{
-        //    _historyList = history;
-        //    NotifyDataSetChanged();
-        //}
+        public void SetData(List<History> history)
+        {
+            _historyList = history;
+            NotifyDataSetChanged();
+        }
 
         public override void OnBindViewHolder(RecyclerView.ViewHolder viewHolder, int position)
         {
             var holder = viewHolder as HistoryViewHolder;
-            //Purchase historyItem = _historyList.get(position);
+            var historyItem = _historyList[position];
 
-            //holder._productName.Text = historyItem.Name;
+            holder._productName.Text = historyItem.Name;
             //holder._productPrice.Text = (String.format(App.getContext().getResources().getString(R.string.coins), historyItem.getPrice()));
             //holder._purchaseDate.Text = TimeUtils.getPrettyTime(historyItem.getTime()));
         }
