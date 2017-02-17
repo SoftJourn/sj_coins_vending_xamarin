@@ -15,6 +15,7 @@ namespace Softjourn.SJCoins.Core.UI.Bootstrapper.Modules
 			builder.RegisterType<AccountPresenter>().AsSelf().PropertiesAutowired();
             builder.RegisterType<DetailPresenter>().AsSelf().PropertiesAutowired();
             builder.RegisterType<ShowAllPresenter>().AsSelf().PropertiesAutowired();
+            builder.RegisterType<PurchasePresenter>().AsSelf().PropertiesAutowired();
         }
     }
 }

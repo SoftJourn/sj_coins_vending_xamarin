@@ -62,6 +62,7 @@
     <Compile Include="Utils\NetworkUtils.cs" />
     <Compile Include="Managers\DataManager.cs" />
     <Compile Include="Managers\PhotoManager.cs" />
+    <Compile Include="Utils\TimeUtils.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Services\" />

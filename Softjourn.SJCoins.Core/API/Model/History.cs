@@ -7,12 +7,16 @@ namespace Softjourn.SJCoins.Core.API.Model
     public class History
     {
         [JsonProperty("name")]
-        public String Name { get; set; }
+        public string Name { get; set; }
 
         [JsonProperty("time")]
         public string Time { get; set; }
 
         [JsonProperty("price")]
-        public int Price { get; set; }
+        public float Price { get; set; }
+
+        public int IntPrice { get { return int.Parse(Price.ToString()); } }
+
+        public string PrettyTime { get; set; }
     }
 }

@@ -72,10 +72,24 @@ namespace Softjourn.SJCoins.Droid.Services
                 case NavigationPage.Detail:
                     view = new Intent(CrossCurrentActivity.Current.Activity, typeof(DetailsActivity));
                     break;
+                case NavigationPage.Purchase:
+                    view = new Intent(CrossCurrentActivity.Current.Activity, typeof(PurchaseActivity));
+                    break;
+                case NavigationPage.Reports:
+                    //view = new Intent(CrossCurrentActivity.Current.Activity, typeof(ReportsActivity));
+                    break;
+                case NavigationPage.PrivacyTerms:
+                    //view = new Intent(CrossCurrentActivity.Current.Activity, typeof(PrivaceTermsActivity));
+                    break;
+                case NavigationPage.Help:
+                    //view = new Intent(CrossCurrentActivity.Current.Activity, typeof(HelpActivity));
+                    break;
+                case NavigationPage.ShareFuns:
+                    //view = new Intent(CrossCurrentActivity.Current.Activity, typeof(ShareFuns));
+                    break;
                 default:
                     throw new ArgumentException("Not valid page");
             }
-
             return view;
         }
     }

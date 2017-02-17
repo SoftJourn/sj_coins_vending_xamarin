@@ -1,12 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/root_layout_profile"
-    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorBackgroundNoInternet"
-    android:gravity="center_horizontal">
+    android:fillViewport="true"
+    android:background="@color/colorBackgroundNoInternet">
+  <LinearLayout
+      android:focusableInTouchMode="true"
+      android:orientation="vertical"
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      android:gravity="center_horizontal">
     <refractored.controls.CircleImageView
         android:id="@+id/profile_avatar"
         android:layout_marginTop="@dimen/profile_avatar_top_margin"
@@ -43,8 +48,7 @@
         android:id="@+id/profile_coins_label"
         android:visibility="invisible"
         android:layout_gravity="center_horizontal" />
-  
-  <TextView
+    <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
@@ -54,7 +58,6 @@
         android:textColor="@color/colorBlue"
         android:layout_marginTop="10dp"
         android:layout_gravity="center_horizontal" />
-  
     <ListView
         android:id="@+id/profile_more_options"
         android:dividerHeight="1dp"
@@ -62,5 +65,6 @@
         android:choiceMode="singleChoice"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:visibility="gone" />
-</LinearLayout>
+        android:visibility="gone"/>
+  </LinearLayout>
+</ScrollView>
