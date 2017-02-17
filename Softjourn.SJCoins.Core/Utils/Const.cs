@@ -68,5 +68,13 @@ namespace Softjourn.SJCoins.Core.Utils
         public const string ExtrasCategory = "CATEGORY";
 
         public const int INVALID_PRODUCT_ID = -1;
+
+        public const string ProfileOptionsPurchase = "Purchase";
+        public const string ProfileOptionsReports = "Reports";
+        public const string ProfileOptionsPrivacyTerms = "Privace and Terms";
+        public const string ProfileOptionsHelp = "Help";
+        public const string ProfileOptionsShareFuns = "Share Funs";
+        public const string ProfileOptionsSelectMachine = "Select Machine";
+        public const string ProfileOptionsLogout = "Logout";
     }
 }

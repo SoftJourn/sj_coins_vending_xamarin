@@ -188,15 +188,6 @@ namespace Softjourn.SJCoins.Core.UI.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Purchase|Reports|Privacy and Terms|Help|Share Funs|Select Machine|Logout.
-        /// </summary>
-        public static string profile_options_array {
-            get {
-                return ResourceManager.GetString("profile_options_array", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Authenticating….
         /// </summary>
         public static string progress_authenticating {
