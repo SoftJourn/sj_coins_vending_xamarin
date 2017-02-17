@@ -38,6 +38,7 @@ namespace Softjourn.SJCoins.Droid.UI.Activities
             SetContentView(Resource.Layout.activity_main);
 
             _containerIds = new Dictionary<int, int>();
+            _containerIds.Add(Resource.Id.favoriteIdLayout, Resource.Id.favorites_container_ID);
 
             //_menuLayout = FindViewById<DrawerLayout>(Resource.Id.drawer_layout);
             //_menuView = FindViewById<NavigationView>(Resource.Id.left_side_menu);
@@ -184,7 +185,7 @@ namespace Softjourn.SJCoins.Droid.UI.Activities
                     if (refreshedFavorites.Count == 0)
                     {
                         HideContainer(container.Key, container.Value);
-                    }
+                    } else ShowContainer(container.Key, container.Value);
                     fragment.ChangeFavorite(refreshedFavorites);
                 }
             }
@@ -222,7 +223,15 @@ namespace Softjourn.SJCoins.Droid.UI.Activities
         {
             foreach (var category in listCategories)
             {
-                CreateCategory(category.Name, category.Products);
+                if (category.Name == Const.Favorites)
+                {
+                    ShowContainer(Resource.Id.favoriteIdLayout, Resource.Id.favorites_container_ID);
+                    AttachFragment(category.Name, Resource.Id.favoriteIdLayout, Resource.Id.favorites_container_ID, category.Products);
+                }
+                else
+                {
+                    CreateCategory(category.Name, category.Products);
+                }
             }
         }
         #endregion
@@ -363,6 +372,21 @@ namespace Softjourn.SJCoins.Droid.UI.Activities
                 fragmentContainer.Visibility = ViewStates.Gone;
             if (view != null)
                 view.Visibility = ViewStates.Gone;
+        }
+
+        public void ShowContainer(int headers, int fragmentContainerId)
+        {
+            var view = FindViewById<View>(headers);
+            var fragmentContainer = FindViewById<View>(fragmentContainerId);
+
+            if (view != null)
+            {
+                view.Visibility = ViewStates.Visible;
+            }
+            if (fragmentContainer != null)
+            {
+                fragmentContainer.Visibility = ViewStates.Visible;
+            }
         }
 
         /**
