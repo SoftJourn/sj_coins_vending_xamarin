@@ -220,5 +220,7 @@ namespace Softjourn.SJCoins.Core.UI.Presenters
             }
             return null;
         }
+
+		public List<Categories> GetCategoriesList() => DataManager.ProductList;
     }
 }
