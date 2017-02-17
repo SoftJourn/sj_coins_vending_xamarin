@@ -16,14 +16,22 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.Main
 		#region Properties
 		private ShowAllSource _tableSource;
 		private NSIndexPath _favoriteCellIndex;
+		private string categoryName { get; set; }
 
-		public string CategoryName { get; set; }
 		public List<Product> filteredItems;
 		#endregion
 
 		#region Constructor
 		public ShowViewController(IntPtr handle) : base(handle)
 		{
+		}
+
+		public void SetInitialParameter(object categoryName)
+		{
+			if (categoryName is string)
+			{
+				this.categoryName = (string)categoryName;
+			}
 		}
 		#endregion
 
@@ -33,7 +41,7 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.Main
 			base.ViewDidLoad();
 
 			// Throw to presenter category name what needs to be displayed and take products.
-			filteredItems = Presenter.GetProductList(CategoryName);
+			filteredItems = Presenter.GetProductList(categoryName);
 			// Configure table view with source and events.
 			ConfigureTableView();
 		}
@@ -42,14 +50,14 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.Main
 		{
 			base.ViewWillAppear(animated);
 
-			Title = CategoryName;
+			Title = categoryName;
 			// Attach 
 			SegmentControl.TouchUpInside += SameButtonClickHandler;
 			SegmentControl.ValueChanged += AnotherButtonClickHandler;
 			_tableSource.ItemSelected += TableSource_ItemSelected;
 			_tableSource.FavoriteClicked += TableSource_FavoriteClicked;
 			//------------------- TODO not reload all table
-			_tableSource.SetItems(Presenter.GetProductList(CategoryName));
+			_tableSource.SetItems(Presenter.GetProductList(categoryName));
 			TableView.ReloadData();
 			//-------------------
 		}
@@ -73,7 +81,7 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.Main
 		#region BaseViewController -> IBaseView implementation
 		#endregion
 
-		#region Private methods 
+		#region Private methods
 		private void ConfigureTableView()
 		{
 			_tableSource = new ShowAllSource(filteredItems);
@@ -100,24 +108,24 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.Main
 		private void SameButtonClickHandler(object sender, EventArgs e)
 		{
 			// Handle clicking on the same button of segment control
-			SortItems(CategoryName);
+			SortItems(categoryName);
 		}
 
 		private void AnotherButtonClickHandler(object sender, EventArgs e)
 		{
 			// Handle clicking on the another button of segment control
-			SortItems(CategoryName);
+			SortItems(categoryName);
 		}
 
-		private void SortItems(string categoryName)
+		private void SortItems(string category)
 		{
 			switch (SegmentControl.SelectedSegment)
 			{
 				case 0: // Name button
-					Presenter.OnSortByNameClicked(categoryName);
+					Presenter.OnSortByNameClicked(category);
 					break;
 				case 1:	// Price button
-					Presenter.OnSortByPriceClicked(categoryName);
+					Presenter.OnSortByPriceClicked(category);
 					break;
 				default:
 					break;
@@ -133,10 +141,10 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.Main
 			if (_favoriteCellIndex != null)
 			{
 				var index = new NSIndexPath[] { _favoriteCellIndex };
-				if (CategoryName == Const.FavoritesCategory)
+				if (categoryName == Const.FavoritesCategory)
 				{
 					// Set new items to table source
-					var newItems = Presenter.GetProductList(CategoryName);
+					var newItems = Presenter.GetProductList(categoryName);
 					_tableSource.SetItems(newItems);
 					// Delete row
 					TableView.DeleteRows(atIndexPaths: index, withRowAnimation: UITableViewRowAnimation.Fade);

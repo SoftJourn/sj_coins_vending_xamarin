@@ -13,14 +13,22 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers
 	public partial class DetailViewController : BaseViewController<DetailPresenter>, IDetailView
 	{
 		#region Properties
-		public int ProductId { get; set; }
+		private int productId { get; set; }
 
-		private Product product;
+		private Product currentProduct;
 		#endregion
 
 		#region Constructor
 		public DetailViewController(IntPtr handle) : base(handle)
 		{
+		}
+
+		public void SetInitialParameter(object productId)
+		{
+			if (productId is int)
+			{
+				this.productId = (int)productId;
+			}
 		}
 		#endregion
 
@@ -29,13 +37,13 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers
 		{
 			base.ViewDidLoad();
 
-			product = Presenter.GetProduct(ProductId);
+			currentProduct = Presenter.GetProduct(productId);
 		}
 
 		public override void ViewWillAppear(bool animated)
 		{
 			base.ViewWillAppear(animated);
-			ConfigurePageWith(product);
+			ConfigurePageWith(currentProduct);
 			// Attach 
 			FavoriteButton.TouchUpInside += FavoriteButtonClickHandler;
 			BuyButton.TouchUpInside += BuyButtonClickHandler;
@@ -86,13 +94,13 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers
 		private void FavoriteButtonClickHandler(object sender, EventArgs e)
 		{
 			// Handle clicking on the Favorite button
-			Presenter.OnFavoriteClick(product);
+			Presenter.OnFavoriteClick(currentProduct);
 		}
 
 		private void BuyButtonClickHandler(object sender, EventArgs e)
 		{
 			// Handle clicking on the Buy button
-			Presenter.OnBuyProductClick(product);
+			Presenter.OnBuyProductClick(currentProduct);
 		}
 		// -------------------------------------------------------- 
 		#endregion

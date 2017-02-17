@@ -350,6 +350,11 @@
     <Compile Include="UI\Cells\AccountCell.designer.cs">
       <DependentUpon>AccountCell.cs</DependentUpon>
     </Compile>
+    <Compile Include="UI\Controllers\AccountPage\PurchaseViewController.cs" />
+    <Compile Include="UI\Controllers\AccountPage\ReportsViewController.cs" />
+    <Compile Include="UI\Controllers\AccountPage\PrivacyTermsViewController.cs" />
+    <Compile Include="UI\Controllers\AccountPage\HelpViewController.cs" />
+    <Compile Include="UI\Controllers\AccountPage\ShareFunsViewController.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
 </Project>

@@ -10,26 +10,35 @@
 
 		#region Controllers
 		public const string InitialViewController = "InitialViewController";
-		public const string PageViewController = "PageViewController";
-		public const string InformativeViewController = "InformativeViewController";
-		public const string ContentViewController = "ContentViewController";
-		public const string LoginViewController = "LoginViewController";
-		public const string SelectMachineViewController = "SelectMachineViewController";
-		public const string PreViewController = "PreViewController";
-		public const string DetailViewController = "DetailViewController";
-		public const string ShowViewController = "ShowViewController";
-
-		// Main page
-		public const string NavigationHomeViewController = "NavigationHomeViewController";
-
-		// Account page 
-		public const string NavigationAccountViewController = "NavigationAccountViewController";
 
 		// Informative pages
 		public const string InformativeLoginPage = "InformativeLoginPage";
 		public const string InformativeBuyPage = "InformativeBuyPage";
 		public const string InformativeCoinsPage = "InformativeCoinsPage";
 		public const string InformativeFavoritesPage = "InformativeFavoritesPage";
+
+		public const string InformativeViewController = "InformativeViewController";
+		public const string PageViewController = "PageViewController";
+		public const string ContentViewController = "ContentViewController";
+
+		public const string LoginViewController = "LoginViewController";
+
+		// Main page
+		public const string NavigationHomeViewController = "NavigationHomeViewController";
+
+		public const string PreViewController = "PreViewController";
+		public const string DetailViewController = "DetailViewController";
+		public const string ShowViewController = "ShowViewController";
+
+		// Account page 
+		public const string NavigationAccountViewController = "NavigationAccountViewController";
+
+		public const string PurchaseViewController = "PurchaseViewController";
+		public const string ReportsViewController = "ReportsViewController";
+		public const string PrivacyTermsViewController = "PrivacyTermsViewController";
+		public const string HelpViewController = "HelpViewController";
+		public const string ShareFunsViewController = "ShareFunsViewController";
+		public const string SelectMachineViewController = "SelectMachineViewController";
 		#endregion
 
 	}
