@@ -69,19 +69,19 @@ namespace Softjourn.SJCoins.Core.UI.Presenters
                     NavigationService.NavigateTo(NavigationPage.Purchase);
                     return;
                 case Const.ProfileOptionsReports:
-                    NavigationService.NavigateTo(NavigationPage.Purchase);
+                    NavigationService.NavigateTo(NavigationPage.Reports);
                     return;
                 case Const.ProfileOptionsPrivacyTerms:
-                    NavigationService.NavigateTo(NavigationPage.Purchase);
+                    NavigationService.NavigateTo(NavigationPage.PrivacyTerms);
                     return;
                 case Const.ProfileOptionsHelp:
-                    NavigationService.NavigateTo(NavigationPage.Purchase);
+                    NavigationService.NavigateTo(NavigationPage.Help);
                     return;
                 case Const.ProfileOptionsShareFuns:
-                    NavigationService.NavigateTo(NavigationPage.Purchase);
+                    NavigationService.NavigateTo(NavigationPage.ShareFuns);
                     return;
                 case Const.ProfileOptionsSelectMachine:
-                    NavigationService.NavigateTo(NavigationPage.Purchase);
+                    NavigationService.NavigateTo(NavigationPage.SelectMachine);
                     return;
                 case Const.ProfileOptionsLogout:
                     LogOut();

@@ -48,6 +48,10 @@ namespace Softjourn.SJCoins.Droid.UI.Activities
             var adapter = new ArrayAdapter<string>(this, Android.Resource.Layout.SimpleListItem1, ViewPresenter.GetOptionsList());
             _options.Adapter = adapter;
             _options.Visibility = ViewStates.Visible;
+            _options.ItemClick += (sender, e) =>
+            {
+                ViewPresenter.OnItemClick(_options.GetItemAtPosition(e.Position).ToString());
+            };
 
             ViewPresenter.OnStartLoadingPage();
         }
@@ -69,7 +73,6 @@ namespace Softjourn.SJCoins.Droid.UI.Activities
 
             return base.OnOptionsItemSelected(item);
         }
-
 
         public void SetAccountInfo(Account account)
         {
