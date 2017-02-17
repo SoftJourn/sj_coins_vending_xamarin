@@ -14,5 +14,7 @@ namespace Softjourn.SJCoins.Core.API.Model
 
         [JsonProperty("price")]
         public int Price { get; set; }
+
+        public string PrettyTime { get; set; }
     }
 }
