@@ -20,7 +20,6 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.Main
 		public List<Categories> Categories { get; private set; } = new List<Categories>();
 
 		private HomeViewControllerDataSource _dataSource;
-		private bool launched;
 		#endregion
 
 		#region Constructor
@@ -132,9 +131,13 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.Main
 		{
 			if (Categories.Count != 0)
 			{
-				var newFavorites = Presenter.GetProductListForGivenCategory(Const.FavoritesCategory);
-				_dataSource.RefreshFavorites(newFavorites);
+				var newList = Presenter.GetCategoriesList();
+				_dataSource.SetCategories(newList);
 				CollectionView.ReloadData();
+
+				//var newFavorites = Presenter.GetProductListForGivenCategory(Const.FavoritesCategory);
+				//_dataSource.RefreshFavorites(newFavorites);
+				//CollectionView.ReloadData();
 				//var firstCell = CollectionView.VisibleCells[0];
 				//var indexPath = CollectionView.IndexPathForCell(firstCell);
 				//CollectionView.ReloadItems(new NSIndexPath[] { indexPath });
@@ -187,28 +190,28 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.Main
 
 		public void RefreshFavorites(List<Product> favorites)
 		{
-			foreach (var category in categories)
-			{
-				if (category.Name == Const.FavoritesCategory)
-				{
-					category.Products = favorites;
-					if (category.Products.Count == 0)
-					{
-						// Remove Favorites category
-						categories.RemoveAt(0);
-					}
-					else {
-						// Create and insert Favorites Category
-						var favoriteCategory = new Categories()
-						{
-							Name = Const.FavoritesCategory,
-							Products = favorites
-						};
-						categories.Insert(0, favoriteCategory);
-					}
-					break;
-				}
-			}
+			//foreach (var category in categories)
+			//{
+			//	if (category.Name == Const.FavoritesCategory)
+			//	{
+			//		category.Products = favorites;
+			//		if (category.Products.Count == 0)
+			//		{
+			//			// Remove Favorites category
+			//			categories.RemoveAt(0);
+			//		}
+			//		else {
+			//			// Create and insert Favorites Category
+			//			var favoriteCategory = new Categories()
+			//			{
+			//				Name = Const.FavoritesCategory,
+			//				Products = favorites
+			//			};
+			//			categories.Insert(0, favoriteCategory);
+			//		}
+			//		break;
+			//	}
+			//}
 		}
 
 		public override nint GetItemsCount(UICollectionView collectionView, nint section) => categories.Count;
