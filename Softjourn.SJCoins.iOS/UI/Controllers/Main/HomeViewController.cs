@@ -9,6 +9,7 @@ using Softjourn.SJCoins.Core.UI.Presenters;
 using Softjourn.SJCoins.Core.UI.ViewInterfaces;
 using Softjourn.SJCoins.iOS.UI.Services;
 using Softjourn.SJCoins.iOS.General.Constants;
+using System.Linq;
 
 namespace Softjourn.SJCoins.iOS.UI.Controllers.Main
 {
@@ -41,21 +42,21 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.Main
 		public override void ViewWillAppear(bool animated)
 		{
 			base.ViewWillAppear(animated);
-
-			if (Categories.Count != 0)
-			{
-				var newFavorites = Presenter.GetProductListForGivenCategory(Const.FavoritesCategory);
-				_dataSource.RefreshFavorites(newFavorites);
-				var firstCell = CollectionView.VisibleCells[0];
-				var indexPath = CollectionView.IndexPathForCell(firstCell);
-				CollectionView.ReloadItems(new NSIndexPath[] { indexPath });
-			}
-
+			// Attach
+			AccountButton.Clicked += OnAccountClicked;
+			RefreshFavoritesCell();
 		}
 
 		public override void ViewDidAppear(bool animated)
 		{
 			base.ViewDidAppear(animated);
+		}
+
+		public override void ViewWillDisappear(bool animated)
+		{
+			// Detach
+			AccountButton.Clicked -= OnAccountClicked;
+			base.ViewWillDisappear(animated);
 		}
 		#endregion
 
@@ -84,23 +85,12 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.Main
 		{
 			// Save downloaded data and show them on view
 			Categories = listCategories;
-			_dataSource.Categories = listCategories;
+			_dataSource.SetCategories(listCategories);
 			CollectionView.ReloadData();
 		}
 		#endregion
 
 		#region BaseViewController -> IBaseView implementation
-		public override void SetUIAppearance()
-		{
-		}
-
-		public override void AttachEvents()
-		{
-		}
-
-		public override void DetachEvents()
-		{
-		}
 		#endregion
 
 		#region Private methods
@@ -126,27 +116,41 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.Main
 			//Hide no items label
 			NoItemsLabel.Hidden = true;
 			BalanceLabel.Hidden = true;
-
-			// Add click event to button
-			AccountButton.Clicked += (sender, e) =>
-			{
-				// Show AccountViewController
-				Presenter.OnProfileButtonClicked();
-			};
 		}
 
 		private void ConfigureCollectionView()
 		{
 			// Configure datasource and delegate
-			_dataSource = new HomeViewControllerDataSource();
+			_dataSource = new HomeViewControllerDataSource(Categories);
 
 			CollectionView.DataSource = _dataSource;
 			CollectionView.Delegate = new HomeViewControllerDelegateFlowLayout(this);
 			CollectionView.AlwaysBounceVertical = true;
 		}
 
-		// Throw CollectionView to parent
-		protected override UIScrollView GetRefreshableScrollView() => CollectionView;
+		private void RefreshFavoritesCell()
+		{
+			if (Categories.Count != 0)
+			{
+				var newFavorites = Presenter.GetProductListForGivenCategory(Const.FavoritesCategory);
+				_dataSource.RefreshFavorites(newFavorites);
+				CollectionView.ReloadData();
+				//var firstCell = CollectionView.VisibleCells[0];
+				//var indexPath = CollectionView.IndexPathForCell(firstCell);
+				//CollectionView.ReloadItems(new NSIndexPath[] { indexPath });
+			}
+		}
+
+		public void FavoriteChanged(bool isFavorite)
+		{
+		}
+
+		// -------------------- Event handlers --------------------
+		public void OnAccountClicked(object sender, EventArgs e)
+		{
+			// Trigg presenter that user click on account
+			Presenter.OnProfileButtonClicked();
+		}
 
 		public void OnItemSelected(object sender, Product product)
 		{
@@ -159,28 +163,55 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.Main
 			// Trigg presenter that user click on SeeAll button 
 			Presenter.OnShowAllClick(categoryName);
 		}
+		// --------------------------------------------------------
 
-		public void FavoriteChanged(bool isFavorite)
-		{
-			throw new NotImplementedException();
-		}
+		// Throw CollectionView to parent
+		protected override UIScrollView GetRefreshableScrollView() => CollectionView;
 		#endregion
 	}
 
 	#region UICollectionViewSource implementation
 	public class HomeViewControllerDataSource : UICollectionViewDataSource
 	{
-		public List<Categories> Categories { get; set; } = new List<Categories>();
+		private List<Categories> categories;
+
+		public HomeViewControllerDataSource(List<Categories> categories)
+		{
+			this.categories = new List<Categories>(categories.ToList());
+		}
+
+		public void SetCategories(List<Categories> categories)
+		{
+			this.categories = categories;
+		}
 
 		public void RefreshFavorites(List<Product> favorites)
 		{
-			if (Categories[0].Name == Const.FavoritesCategory)
+			foreach (var category in categories)
 			{
-				Categories[0].Products = favorites; 
+				if (category.Name == Const.FavoritesCategory)
+				{
+					category.Products = favorites;
+					if (category.Products.Count == 0)
+					{
+						// Remove Favorites category
+						categories.RemoveAt(0);
+					}
+					else {
+						// Create and insert Favorites Category
+						var favoriteCategory = new Categories()
+						{
+							Name = Const.FavoritesCategory,
+							Products = favorites
+						};
+						categories.Insert(0, favoriteCategory);
+					}
+					break;
+				}
 			}
 		}
 
-		public override nint GetItemsCount(UICollectionView collectionView, nint section) => Categories.Count;
+		public override nint GetItemsCount(UICollectionView collectionView, nint section) => categories.Count;
 
 		public override UICollectionViewCell GetCell(UICollectionView collectionView, NSIndexPath indexPath) => (UICollectionViewCell)collectionView.DequeueReusableCell(HomeCell.Key, indexPath);
 	}
