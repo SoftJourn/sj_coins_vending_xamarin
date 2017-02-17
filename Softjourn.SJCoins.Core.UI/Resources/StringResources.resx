@@ -177,9 +177,6 @@
   <data name="error_not_enough_money" xml:space="preserve">
     <value>Not enough money!</value>
   </data>
-  <data name="profile_options_array" xml:space="preserve">
-    <value>Purchase|Reports|Privacy and Terms|Help|Share Funs|Select Machine|Logout</value>
-  </data>
   <data name="select_source_photo_camera" xml:space="preserve">
     <value>From Camera</value>
   </data>
