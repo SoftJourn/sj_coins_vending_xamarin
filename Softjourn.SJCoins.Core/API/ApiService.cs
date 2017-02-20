@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Android.Telecom;
 using Softjourn.SJCoins.Core.API.Model;
 using Softjourn.SJCoins.Core.Helpers;
 using Softjourn.SJCoins.Core.API.Model.Machines;
@@ -91,6 +92,11 @@ namespace Softjourn.SJCoins.Core.API
         public async Task<Balance> GetBalanceAsync()
         {
             return await ApiClient.GetBalanceAsync();
+        }
+
+        public async Task<DepositeTransaction> GetOfflineCash(Cash scannedCode)
+        {
+            return await ApiClient.GetOfflineMoney(scannedCode);
         }
     }
 }

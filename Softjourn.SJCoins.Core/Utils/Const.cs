@@ -76,5 +76,8 @@ namespace Softjourn.SJCoins.Core.Utils
         public const string ProfileOptionsShareFuns = "Share Funs";
         public const string ProfileOptionsSelectMachine = "Select Machine";
         public const string ProfileOptionsLogout = "Logout";
+
+        public const string QrScreenScanningTag = "Scan";
+        public const string QrScreenGeneratingTag = "Generate";
     }
 }

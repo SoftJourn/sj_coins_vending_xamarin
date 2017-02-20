@@ -78,7 +78,7 @@ namespace Softjourn.SJCoins.Core.UI.Presenters
                     NavigationService.NavigateTo(NavigationPage.Help);
                     return;
                 case Const.ProfileOptionsShareFuns:
-                    NavigationService.NavigateTo(NavigationPage.ShareFuns);
+                    ShowDialogForChoosingQrStrategy();
                     return;
                 case Const.ProfileOptionsSelectMachine:
                     NavigationService.NavigateTo(NavigationPage.SelectMachine);
@@ -91,6 +91,31 @@ namespace Softjourn.SJCoins.Core.UI.Presenters
         #endregion
 
         #region Private Methods
+
+        //Create List for Dialog of choosing QR strategies and make Actions from methods
+        private void ShowDialogForChoosingQrStrategy()
+        {
+            var items = new List<string>
+            {
+                Resources.StringResources.select_strategy_scanning_qr,
+                Resources.StringResources.select_strategy_generating_qr
+            };
+
+            var goToScanningQrAction = new Action(GoToScanningQr);
+            var goToGeneratingQrAction = new Action(GoToGeneratingQr);
+
+            AlertService.ShowQrSelectorDialog(items, goToScanningQrAction, goToGeneratingQrAction);
+        }
+
+        private void GoToScanningQr()
+        {
+            NavigationService.NavigateTo(NavigationPage.ShareFuns, Const.QrScreenScanningTag);
+        }
+
+        private void GoToGeneratingQr()
+        {
+            NavigationService.NavigateTo(NavigationPage.ShareFuns, Const.QrScreenGeneratingTag);
+        }
 
         //If internet is connected clear user's data
         //call revoke token and navigate to LoginPage

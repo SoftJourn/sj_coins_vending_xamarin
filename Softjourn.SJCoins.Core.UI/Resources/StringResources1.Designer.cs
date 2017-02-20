@@ -233,6 +233,24 @@ namespace Softjourn.SJCoins.Core.UI.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Generate Code.
+        /// </summary>
+        public static string select_strategy_generating_qr {
+            get {
+                return ResourceManager.GetString("select_strategy_generating_qr", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Scan Code.
+        /// </summary>
+        public static string select_strategy_scanning_qr {
+            get {
+                return ResourceManager.GetString("select_strategy_scanning_qr", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Username or password is incorrect.
         /// </summary>
         public static string server_error_bad_username_or_password {

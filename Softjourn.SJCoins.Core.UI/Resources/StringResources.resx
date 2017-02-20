@@ -183,4 +183,10 @@
   <data name="select_source_photo_gallery" xml:space="preserve">
     <value>From Gallery</value>
   </data>
+  <data name="select_strategy_scanning_qr" xml:space="preserve">
+    <value>Scan Code</value>
+  </data>
+  <data name="select_strategy_generating_qr" xml:space="preserve">
+    <value>Generate Code</value>
+  </data>
 </root>

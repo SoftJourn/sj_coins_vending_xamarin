@@ -35,6 +35,7 @@
     <Compile Include="Bootstrapper\Modules\PresenterModule.cs" />
     <Compile Include="Presenters\HomePresenter.cs" />
     <Compile Include="Presenters\PurchasePresenter.cs" />
+    <Compile Include="Presenters\QRPresenter.cs" />
     <Compile Include="Presenters\SelectMachinePresenter.cs" />
     <Compile Include="Services\Alert\IAlertService.cs" />
     <Compile Include="Presenters\BasePresenter.cs" />
@@ -59,6 +60,7 @@
     <Compile Include="ViewInterfaces\ILoginView.cs" />
     <Compile Include="ViewInterfaces\IHomeView.cs" />
     <Compile Include="ViewInterfaces\IPurchaseView.cs" />
+    <Compile Include="ViewInterfaces\IQrView.cs" />
     <Compile Include="ViewInterfaces\ISelectMachineView.cs" />
     <Compile Include="ViewInterfaces\IWelcomeView.cs" />
     <Compile Include="Presenters\AccountPresenter.cs" />
