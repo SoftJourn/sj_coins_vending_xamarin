@@ -66,5 +66,8 @@ namespace Softjourn.SJCoins.Droid.Utils
         public const string ExtrasCategory = "CATEGORY";
 
         public const string NavigationKey = "NavigationParams";
+
+        public const string QrScreenScanningTag = "Scan";
+        public const string QrScreenGeneratingTag = "Generate";
     }
 }

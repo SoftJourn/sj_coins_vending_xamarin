@@ -48,7 +48,6 @@ namespace Softjourn.SJCoins.iOS.Services
 					
 				// Present without initial parameter	
 				case NavigationPage.Profile:
-				case NavigationPage.Settings:
 					ShowControllerWith(page, NavigationType.Present);
 					break;
 

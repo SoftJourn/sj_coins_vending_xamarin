@@ -11,8 +11,8 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.AccountPage
 	public partial class QRCodeViewController : BaseViewController<QrPresenter>, IQrView
 	{
 		#region Constants
-		private const string Scan = "ScanMode";
-		private const string Generate = "GenerateMode";
+		private const string Scan = "Scan";
+		private const string Generate = "Generate";
 		#endregion
 
 		#region Properties
@@ -26,9 +26,9 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.AccountPage
 		{
 		}
 
-		public void SetInitialParameter(object productId)
+		public void SetInitialParameter(object initialParameter)
 		{
-			if (productId is string)
+			if (initialParameter is string)
 			{
 				this.initialParameter = (string)initialParameter;
 			}
@@ -90,26 +90,25 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.AccountPage
 			}
 		}
 
+		private void ConfigureScanMode()
+		{
+			AmountTexfield.Hidden = true;
+			GenerateButton.Hidden = true;
+			QRCodeImage.Hidden = true;
+			Presenter.ScanCode();
+		}
+
 		private void ConfigureGenerateMode()
 		{
 			AmountTexfield.Hidden = false;
 			GenerateButton.Hidden = false;
 			QRCodeImage.Hidden = false;
 		}
-
-		private void ConfigureScanMode()
-		{
-			AmountTexfield.Hidden = true;
-			GenerateButton.Hidden = true;
-			QRCodeImage.Hidden = true;
-
-		}
-
 		// -------------------- Event handlers --------------------
 		private void GenerateButtonClickHandler(object sender, EventArgs e)
 		{
 			// Handle clicking on the Generate button
-			//Presenter.OnFavoriteClick(currentProduct);
+			//Presenter.GetMoney();
 		}
 
 		private void DoneButtonClickHandler(object sender, EventArgs e)

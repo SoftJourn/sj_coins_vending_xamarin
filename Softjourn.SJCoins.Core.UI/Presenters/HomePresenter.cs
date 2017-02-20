@@ -81,12 +81,6 @@ namespace Softjourn.SJCoins.Core.UI.Presenters
 	        return DataManager.GetProductListByGivenCategory(category);
 	    }
 
-        // Called when Settings btn is clicked
-        public void OnSettingsButtonClick()
-        {
-            NavigationService.NavigateTo(NavigationPage.Settings);
-        }
-
         //Setting user's balance after buying ar grabbing new data
         public override void ChangeUserBalance(string balance)
         {

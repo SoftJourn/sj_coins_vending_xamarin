@@ -15,6 +15,7 @@ namespace Softjourn.SJCoins.Core.UI.Bootstrapper.Modules
         {
 			builder.RegisterType<DataManager>().SingleInstance();
             builder.RegisterType<PhotoManager>().SingleInstance();
+            builder.RegisterType<QrManager>().SingleInstance();
         }
     }
 }

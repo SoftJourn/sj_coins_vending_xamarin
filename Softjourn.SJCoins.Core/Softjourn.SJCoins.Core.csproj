@@ -33,6 +33,8 @@
     <Compile Include="API\Model\AccountInfo\Account.cs" />
     <Compile Include="API\Model\AccountInfo\Balance.cs" />
     <Compile Include="API\Model\BadResponse.cs" />
+    <Compile Include="API\Model\Cash.cs" />
+    <Compile Include="API\Model\DepositeTransaction.cs" />
     <Compile Include="API\Model\History.cs" />
     <Compile Include="API\Model\Machines\Machines.cs" />
     <Compile Include="API\Model\Machines\Size.cs" />
