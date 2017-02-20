@@ -63,6 +63,16 @@ namespace Softjourn.SJCoins.iOS.UI.Services
 
 			PresentActionSheet(null, null, photoSource.ToArray(), actions.ToArray());
 		}
+
+		public void ShowQrSelectorDialog(List<string> optionsList, Action scanCode, Action generateCode)
+		{
+			// Show action sheet with 2 buttons
+			var actions = new List<Action>();
+			actions.Add(scanCode);
+			actions.Add(generateCode);
+
+			PresentActionSheet(null, null, optionsList.ToArray(), actions.ToArray());
+		}
 		#endregion
 
 		private void PresentAlert(string title, string message, string accept, string cancel, UIAlertActionStyle acceptStyle, Action<Product> acceptClicked = null, Action cancelClicked = null, Product product = null)

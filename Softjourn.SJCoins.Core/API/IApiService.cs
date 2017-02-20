@@ -32,6 +32,7 @@ namespace Softjourn.SJCoins.Core.API
         #region Coins Api call
         Task<Account> GetUserAccountAsync();
         Task<Balance> GetBalanceAsync();
+        Task<DepositeTransaction> GetOfflineCash(Cash scannedCode);
         #endregion
     }
 }

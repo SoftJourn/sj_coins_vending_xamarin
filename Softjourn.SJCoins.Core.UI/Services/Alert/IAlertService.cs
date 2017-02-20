@@ -24,6 +24,10 @@ namespace Softjourn.SJCoins.Core.UI.Services.Alert
         // show Dialog with product info and button for purchaising
         void ShowPurchaseConfirmationDialod(Product product, Action<Product> onPurchaseProductAction);
 
+        //show Dialog to select photo source (Camera or Gallery)
         void ShowPhotoSelectorDialog(List<string> photoSource, Action fromCamera, Action fromGallery);
+
+        //show Dialog to select what to do (Generate QR code or scan exasting one)
+        void ShowQrSelectorDialog(List<string> optionsList, Action scanCode, Action generateCode);
     }
 }

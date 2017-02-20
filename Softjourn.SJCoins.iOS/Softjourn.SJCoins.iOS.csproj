@@ -127,6 +127,18 @@
     <Reference Include="Plugin.Permissions">
       <HintPath>..\packages\Plugin.Permissions.1.2.1\lib\Xamarin.iOS10\Plugin.Permissions.dll</HintPath>
     </Reference>
+    <Reference Include="ZXing.Net.Mobile.Core, Version=2.1.47.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\ZXing.Net.Mobile.2.1.47\lib\Xamarin.iOS10\ZXing.Net.Mobile.Core.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="zxing.portable, Version=2.1.47.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\ZXing.Net.Mobile.2.1.47\lib\Xamarin.iOS10\zxing.portable.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="ZXingNetMobile, Version=2.1.47.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\ZXing.Net.Mobile.2.1.47\lib\Xamarin.iOS10\ZXingNetMobile.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Softjourn.SJCoins.Core\Softjourn.SJCoins.Core.csproj">
@@ -255,22 +267,18 @@
     </ImageAsset>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Resources\" />
-    <Folder Include="Assets.xcassets\vending_logo.imageset\" />
-    <Folder Include="Assets.xcassets\InfoCoinsLogo.imageset\" />
-    <Folder Include="Assets.xcassets\InfoBuyLogo.imageset\" />
-    <Folder Include="Assets.xcassets\InfoLoginLogo.imageset\" />
-    <Folder Include="Assets.xcassets\InfoFavoritesLogo.imageset\" />
-    <Folder Include="Assets.xcassets\BackImage.imageset\" />
-    <Folder Include="UI\Cells\" />
-    <Folder Include="UI\Controllers\Main\" />
-    <Folder Include="Assets.xcassets\Placeholder.imageset\" />
-    <Folder Include="Assets.xcassets\HomeTabIcon.imageset\" />
     <Folder Include="Assets.xcassets\AccountTabIcon.imageset\" />
+    <Folder Include="Assets.xcassets\BackImage.imageset\" />
     <Folder Include="Assets.xcassets\FavoriteChecked.imageset\" />
     <Folder Include="Assets.xcassets\FavoriteUnchecked.imageset\" />
-    <Folder Include="UI\UIElements\" />
-    <Folder Include="UI\Controllers\AccountPage\" />
+    <Folder Include="Assets.xcassets\HomeTabIcon.imageset\" />
+    <Folder Include="Assets.xcassets\InfoBuyLogo.imageset\" />
+    <Folder Include="Assets.xcassets\InfoCoinsLogo.imageset\" />
+    <Folder Include="Assets.xcassets\InfoFavoritesLogo.imageset\" />
+    <Folder Include="Assets.xcassets\InfoLoginLogo.imageset\" />
+    <Folder Include="Assets.xcassets\Placeholder.imageset\" />
+    <Folder Include="Assets.xcassets\vending_logo.imageset\" />
+    <Folder Include="Resources\" />
   </ItemGroup>
   <ItemGroup>
     <InterfaceDefinition Include="LaunchScreen.storyboard" />

@@ -215,6 +215,13 @@ namespace Softjourn.SJCoins.Core.API
             return balance;
         }
 
+        public async Task<DepositeTransaction> GetOfflineMoney(Cash scannedCode)
+        {
+            var url = UrlCoinService + "deposit";
+            var deposit = await MakeRequestWithBodyAsync<DepositeTransaction>(url, Method.POST, scannedCode);
+            return deposit;
+        }
+
         #endregion
 
         private async Task<TResult> MakeRequestAsync<TResult>(string url, Method httpMethod)
@@ -223,6 +230,43 @@ namespace Softjourn.SJCoins.Core.API
             var request = new RestRequest(url, httpMethod);
             request.AddHeader("Content-Type", "application/json");
             request.AddHeader("Authorization", GetOAuthAuthorizationHeader());
+            JsonDeserializer deserial = new JsonDeserializer();
+
+            try
+            {
+                IRestResponse response = await apiClient.Execute(request);
+
+                if (response.IsSuccess)
+                {
+                    TResult data = deserial.Deserialize<TResult>(response);
+                    return data;
+                }
+                else
+                {
+                    ApiErrorHandler(response);
+                }
+            }
+            catch (ApiNotAuthorizedException)
+            {
+                await RefreshTokenAsync();
+                return await MakeRequestAsync<TResult>(url, httpMethod);
+            }
+            // all another exceptions should be caught on Presenter side
+            finally
+            {
+                apiClient.Dispose();
+            }
+
+            return default(TResult);
+        }
+
+        private async Task<TResult> MakeRequestWithBodyAsync<TResult>(string url, Method httpMethod, object body)
+        {
+            var apiClient = GetApiClient();
+            var request = new RestRequest(url, httpMethod);
+            request.AddHeader("Content-Type", "application/json");
+            request.AddHeader("Authorization", GetOAuthAuthorizationHeader());
+            request.AddBody(body);
             JsonDeserializer deserial = new JsonDeserializer();
 
             try
