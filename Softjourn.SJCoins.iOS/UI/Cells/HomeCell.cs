@@ -4,6 +4,7 @@ using CoreGraphics;
 using Foundation;
 using Softjourn.SJCoins.Core.API.Model.Products;
 using Softjourn.SJCoins.iOS.General.Constants;
+using Softjourn.SJCoins.iOS.UI.Controllers;
 using UIKit;
 
 namespace Softjourn.SJCoins.iOS
@@ -81,9 +82,6 @@ namespace Softjourn.SJCoins.iOS
 
 		public UIViewController GetViewControllerForPreview(IUIViewControllerPreviewing previewingContext, CGPoint location)
 		{
-			// Convert location to collection view coordinate system.
-			//CGPoint newLocation = _currentApplication.VisibleViewController.View.ConvertPointToView(location, InternalCollectionView);
-
 			// Obtain the index path and the cell that was pressed.
 			var indexPath = InternalCollectionView.IndexPathForItemAtPoint(location);
 
@@ -96,12 +94,13 @@ namespace Softjourn.SJCoins.iOS
 				return null;
 
 			// Create a preview controller and set its properties.
-			var previewController = UIStoryboard.FromName(StoryboardConstants.StoryboardMain, null).InstantiateViewController(StoryboardConstants.PreViewController);
+			var previewController = (PreViewController)UIStoryboard.FromName(StoryboardConstants.StoryboardMain, null).InstantiateViewController(StoryboardConstants.PreViewController);
 			if (previewController == null)
 				return null;
 			
 			var previewItem = categoryProducts[indexPath.Row];
-			previewController.PreferredContentSize = new CGSize(0, 320);
+			previewController.SetItem(previewItem);
+			previewController.PreferredContentSize = new CGSize(0, 420);
 			previewingContext.SourceRect = cell.Frame;
 			return previewController;
 		}

@@ -193,7 +193,6 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.Main
 			this.categories = categories;
 		}
 
-
 		public override nint GetItemsCount(UICollectionView collectionView, nint section) => categories.Count;
 
 		public override UICollectionViewCell GetCell(UICollectionView collectionView, NSIndexPath indexPath) => (UICollectionViewCell)collectionView.DequeueReusableCell(HomeCell.Key, indexPath);
