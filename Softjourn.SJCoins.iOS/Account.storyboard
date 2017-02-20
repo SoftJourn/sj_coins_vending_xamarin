@@ -303,6 +303,24 @@
                                     <constraint firstAttribute="width" constant="250" id="wGF-eO-e7W"/>
                                 </constraints>
                             </imageView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vln-im-UNq">
+                                <rect key="frame" x="98" y="279" width="180" height="40"/>
+                                <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="40" id="S5p-cX-TsC"/>
+                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="40" id="WJ2-Cu-daq"/>
+                                    <constraint firstAttribute="width" constant="180" id="gro-Qi-6Ix"/>
+                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="180" id="ttY-AR-7ON"/>
+                                </constraints>
+                                <state key="normal" title="Scan QRCode">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                        <integer key="value" value="5"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
@@ -314,6 +332,8 @@
                             <constraint firstItem="ozq-wM-xrJ" firstAttribute="centerX" secondItem="fHL-ol-wxF" secondAttribute="centerX" id="Xck-M0-zcu"/>
                             <constraint firstItem="LYo-M5-Kzl" firstAttribute="top" secondItem="fzT-V2-seY" secondAttribute="bottom" constant="30" id="e0D-Zl-pd6"/>
                             <constraint firstItem="fzT-V2-seY" firstAttribute="top" secondItem="ozq-wM-xrJ" secondAttribute="bottom" constant="25" id="nCf-2f-w1O"/>
+                            <constraint firstItem="vln-im-UNq" firstAttribute="centerX" secondItem="fHL-ol-wxF" secondAttribute="centerX" id="oB1-zO-6vC"/>
+                            <constraint firstItem="vln-im-UNq" firstAttribute="top" secondItem="LYo-M5-Kzl" secondAttribute="bottom" constant="25" id="xCh-Jd-IO8"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="QR Code" id="glI-bE-5Be">
@@ -325,6 +345,7 @@
                         <outlet property="DoneButton" destination="grv-CR-mb4" id="09y-eo-1t2"/>
                         <outlet property="GenerateButton" destination="LYo-M5-Kzl" id="aUu-oS-crm"/>
                         <outlet property="QRCodeImage" destination="ie1-Tg-rGi" id="LzN-Et-xvZ"/>
+                        <outlet property="ScanButton" destination="vln-im-UNq" id="ZPe-Ug-HCD"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Jss-Xf-rDh" userLabel="First Responder" sceneMemberID="firstResponder"/>

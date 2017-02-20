@@ -25,17 +25,25 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.AccountPage
 
 		[Outlet]
 		UIKit.UIImageView QRCodeImage { get; set; }
+
+		[Outlet]
+		UIKit.UIButton ScanButton { get; set; }
 		
 		void ReleaseDesignerOutlets ()
 		{
-			if (DoneButton != null) {
-				DoneButton.Dispose ();
-				DoneButton = null;
-			}
-
 			if (AmountTexfield != null) {
 				AmountTexfield.Dispose ();
 				AmountTexfield = null;
+			}
+
+			if (BalanceLabel != null) {
+				BalanceLabel.Dispose ();
+				BalanceLabel = null;
+			}
+
+			if (DoneButton != null) {
+				DoneButton.Dispose ();
+				DoneButton = null;
 			}
 
 			if (GenerateButton != null) {
@@ -43,9 +51,9 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.AccountPage
 				GenerateButton = null;
 			}
 
-			if (BalanceLabel != null) {
-				BalanceLabel.Dispose ();
-				BalanceLabel = null;
+			if (ScanButton != null) {
+				ScanButton.Dispose ();
+				ScanButton = null;
 			}
 
 			if (QRCodeImage != null) {

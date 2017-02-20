@@ -2,8 +2,8 @@ using System;
 using Foundation;
 using Softjourn.SJCoins.Core.UI.Presenters;
 using Softjourn.SJCoins.Core.UI.ViewInterfaces;
-using Softjourn.SJCoins.iOS.General.Constants;
 using UIKit;
+using ZXing.Mobile;
 
 namespace Softjourn.SJCoins.iOS.UI.Controllers.AccountPage
 {
@@ -17,6 +17,8 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.AccountPage
 
 		#region Properties
 		private string initialParameter { get; set; }
+
+		MobileBarcodeScanner scanner; 
 
 		UITapGestureRecognizer qrcodeImageTap;
 		#endregion
@@ -90,12 +92,17 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.AccountPage
 			}
 		}
 
-		private void ConfigureScanMode()
+		private async void ConfigureScanMode()
 		{
 			AmountTexfield.Hidden = true;
 			GenerateButton.Hidden = true;
 			QRCodeImage.Hidden = true;
-			Presenter.ScanCode();
+
+			scanner = new ZXing.Mobile.MobileBarcodeScanner(this);
+			var result = await scanner.Scan();
+
+			if (result != null)
+				Console.WriteLine("Scanned Barcode: " + result.Text);
 		}
 
 		private void ConfigureGenerateMode()
@@ -104,6 +111,7 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.AccountPage
 			GenerateButton.Hidden = false;
 			QRCodeImage.Hidden = false;
 		}
+
 		// -------------------- Event handlers --------------------
 		private void GenerateButtonClickHandler(object sender, EventArgs e)
 		{
