@@ -15,6 +15,7 @@ using Softjourn.SJCoins.Core.UI.ViewInterfaces;
 using Softjourn.SJCoins.Droid.ui.baseUI;
 using Softjourn.SJCoins.Droid.UI.Fragments;
 using Softjourn.SJCoins.Droid.Utils;
+using ZXing.Mobile;
 
 namespace Softjourn.SJCoins.Droid.UI.Activities
 {
@@ -33,6 +34,7 @@ namespace Softjourn.SJCoins.Droid.UI.Activities
 
             if (fragmentType == Const.QrScreenScanningTag)
             {
+                MobileBarcodeScanner.Initialize(Application);
                 FragmentManager.BeginTransaction()
                 .Replace(Resource.Id.container_fargment, ScanningResultFragment.NewInstance(),
                  Const.QrScreenScanningTag)
