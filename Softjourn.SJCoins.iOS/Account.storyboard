@@ -247,6 +247,90 @@
             </objects>
             <point key="canvasLocation" x="4534" y="1662"/>
         </scene>
+        <!--QR Code-->
+        <scene sceneID="IAR-MY-DuW">
+            <objects>
+                <viewController storyboardIdentifier="QRCodeViewController" id="t1Q-J5-vfn" customClass="QRCodeViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="P7M-RG-ON2"/>
+                        <viewControllerLayoutGuide type="bottom" id="FnN-sF-c1b"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="fHL-ol-wxF">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LYo-M5-Kzl">
+                                <rect key="frame" x="97.5" y="214" width="180" height="40"/>
+                                <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="40" id="7vm-J1-KUO"/>
+                                    <constraint firstAttribute="width" constant="180" id="XMx-gM-9jK"/>
+                                </constraints>
+                                <state key="normal" title="Generate QRCode">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                        <integer key="value" value="5"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </button>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Input amount of Coins" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="fzT-V2-seY">
+                                <rect key="frame" x="98" y="144" width="180" height="40"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="40" id="QMt-8F-ZNc"/>
+                                    <constraint firstAttribute="width" constant="180" id="hXc-y7-d3D"/>
+                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="40" id="mf1-Wo-xjM"/>
+                                </constraints>
+                                <nil key="textColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="BalanceLabel" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ozq-wM-xrJ">
+                                <rect key="frame" x="113" y="89" width="150" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="150" id="Ppr-0T-Gw3"/>
+                                    <constraint firstAttribute="height" constant="30" id="Q5f-OL-7JQ"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="ie1-Tg-rGi">
+                                <rect key="frame" x="63" y="334" width="250" height="250"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="250" id="H6U-5T-hq0"/>
+                                    <constraint firstAttribute="width" constant="250" id="wGF-eO-e7W"/>
+                                </constraints>
+                            </imageView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="fzT-V2-seY" firstAttribute="centerX" secondItem="fHL-ol-wxF" secondAttribute="centerX" id="0rN-3Y-2As"/>
+                            <constraint firstItem="ie1-Tg-rGi" firstAttribute="centerX" secondItem="fHL-ol-wxF" secondAttribute="centerX" id="1tX-iK-njA"/>
+                            <constraint firstItem="ie1-Tg-rGi" firstAttribute="top" secondItem="LYo-M5-Kzl" secondAttribute="bottom" constant="80" id="63a-uA-vmx"/>
+                            <constraint firstItem="LYo-M5-Kzl" firstAttribute="centerX" secondItem="fHL-ol-wxF" secondAttribute="centerX" id="Aeh-y4-SCc"/>
+                            <constraint firstItem="ozq-wM-xrJ" firstAttribute="top" secondItem="P7M-RG-ON2" secondAttribute="bottom" constant="25" id="Kyv-ZS-OOI"/>
+                            <constraint firstItem="ozq-wM-xrJ" firstAttribute="centerX" secondItem="fHL-ol-wxF" secondAttribute="centerX" id="Xck-M0-zcu"/>
+                            <constraint firstItem="LYo-M5-Kzl" firstAttribute="top" secondItem="fzT-V2-seY" secondAttribute="bottom" constant="30" id="e0D-Zl-pd6"/>
+                            <constraint firstItem="fzT-V2-seY" firstAttribute="top" secondItem="ozq-wM-xrJ" secondAttribute="bottom" constant="25" id="nCf-2f-w1O"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" title="QR Code" id="glI-bE-5Be">
+                        <barButtonItem key="rightBarButtonItem" title="Done" id="grv-CR-mb4"/>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="AmountTexfield" destination="fzT-V2-seY" id="aPd-88-G7t"/>
+                        <outlet property="BalanceLabel" destination="ozq-wM-xrJ" id="7Kc-Ms-gPF"/>
+                        <outlet property="DoneButton" destination="grv-CR-mb4" id="09y-eo-1t2"/>
+                        <outlet property="GenerateButton" destination="LYo-M5-Kzl" id="aUu-oS-crm"/>
+                        <outlet property="QRCodeImage" destination="ie1-Tg-rGi" id="LzN-Et-xvZ"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Jss-Xf-rDh" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="6241" y="3043"/>
+        </scene>
         <!--Help View Controller-->
         <scene sceneID="ohu-3D-wCp">
             <objects>
@@ -403,6 +487,24 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="p3A-eY-URW" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="3770" y="3743"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="ZPl-xc-tmc">
+            <objects>
+                <navigationController storyboardIdentifier="NavigationQRCodeViewController" automaticallyAdjustsScrollViewInsets="NO" id="TZt-wm-ZMN" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="vEo-8U-Ntj">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="t1Q-J5-vfn" kind="relationship" relationship="rootViewController" id="gwj-hD-8iR"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="rEe-uE-p5W" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="5390" y="3043"/>
         </scene>
     </scenes>
 </document>
