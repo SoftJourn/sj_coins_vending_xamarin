@@ -3,8 +3,15 @@ namespace Softjourn.SJCoins.iOS.General.Constants
 {
 	public static class Const
 	{
-		#region Image from bundle
+		#region Category names from bundle
 		public const string FavoritesCategory = "Favorites";
+		#endregion
+
+		#region Parameters
+		//public const string FavoritesCategory = "Favorites";
+		//public const string FavoritesCategory = "Favorites";
+
+
 		#endregion
 	}
 }

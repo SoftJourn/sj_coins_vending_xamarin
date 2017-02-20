@@ -329,7 +329,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Jss-Xf-rDh" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="6241" y="3043"/>
+            <point key="canvasLocation" x="4534" y="3045"/>
         </scene>
         <!--Help View Controller-->
         <scene sceneID="ohu-3D-wCp">
@@ -364,40 +364,6 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="mpL-c8-Mdd" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="4534" y="2351"/>
-        </scene>
-        <!--Share Funs View Controller-->
-        <scene sceneID="gNr-x9-VPr">
-            <objects>
-                <viewController storyboardIdentifier="ShareFunsViewController" id="74Q-Sv-Rp8" customClass="ShareFunsViewController" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="eF9-fp-WqZ"/>
-                        <viewControllerLayoutGuide type="bottom" id="5Cy-Mk-fqU"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="JMZ-YI-nEu">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="ShareFuns" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UHr-2g-pMl">
-                                <rect key="frame" x="112" y="319" width="150" height="30"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="30" id="gr5-8v-wVI"/>
-                                    <constraint firstAttribute="width" constant="150" id="lcW-XP-syM"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                        </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <constraints>
-                            <constraint firstItem="UHr-2g-pMl" firstAttribute="centerY" secondItem="JMZ-YI-nEu" secondAttribute="centerY" id="9Bv-rZ-LPY"/>
-                            <constraint firstItem="UHr-2g-pMl" firstAttribute="centerX" secondItem="JMZ-YI-nEu" secondAttribute="centerX" id="cJc-KX-1Rl"/>
-                        </constraints>
-                    </view>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="eSk-oG-1AP" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="4534" y="3043"/>
         </scene>
         <!--Vending Machines-->
         <scene sceneID="Sk6-0P-U4H">
@@ -504,7 +470,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="rEe-uE-p5W" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="5390" y="3043"/>
+            <point key="canvasLocation" x="3769" y="3045"/>
         </scene>
     </scenes>
 </document>

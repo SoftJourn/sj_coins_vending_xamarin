@@ -1,13 +1,23 @@
 using System;
 using Foundation;
+using Softjourn.SJCoins.Core.UI.Presenters;
+using Softjourn.SJCoins.Core.UI.ViewInterfaces;
+using Softjourn.SJCoins.iOS.General.Constants;
 using UIKit;
 
-namespace Softjourn.SJCoins.iOS
+namespace Softjourn.SJCoins.iOS.UI.Controllers.AccountPage
 {
 	[Register("QRCodeViewController")]
-	public partial class QRCodeViewController : UIViewController
+	public partial class QRCodeViewController : BaseViewController<QrPresenter>, IQrView
 	{
+		#region Constants
+		private const string Scan = "ScanMode";
+		private const string Generate = "GenerateMode";
+		#endregion
+
 		#region Properties
+		private string initialParameter { get; set; }
+
 		UITapGestureRecognizer qrcodeImageTap;
 		#endregion
 
@@ -15,12 +25,21 @@ namespace Softjourn.SJCoins.iOS
 		public QRCodeViewController(IntPtr handle) : base(handle)
 		{
 		}
+
+		public void SetInitialParameter(object productId)
+		{
+			if (productId is string)
+			{
+				this.initialParameter = (string)initialParameter;
+			}
+		}
 		#endregion
 
 		#region Controller Life cycle
 		public override void ViewDidLoad()
 		{
 			base.ViewDidLoad();
+			ConfigurePageWith(initialParameter);
 		}
 
 		public override void ViewWillAppear(bool animated)
@@ -49,19 +68,41 @@ namespace Softjourn.SJCoins.iOS
 		}
 		#endregion
 
+		#region IAccountView implementation
+		public void UpdateBalance(string remain)
+		{
+			//Update balance after success debiting funds
+			BalanceLabel.Text = remain;
+		}
+		#endregion
+
 		#region Private methods
-		private void GenerateMode()
+		private void ConfigurePageWith(string parameter)
+		{
+			switch (parameter)
+			{
+				case Scan:
+					ConfigureScanMode();
+					break;
+				case Generate:
+					ConfigureGenerateMode();
+					break;
+			}
+		}
+
+		private void ConfigureGenerateMode()
 		{
 			AmountTexfield.Hidden = false;
 			GenerateButton.Hidden = false;
 			QRCodeImage.Hidden = false;
 		}
 
-		private void ScanMode()
+		private void ConfigureScanMode()
 		{
 			AmountTexfield.Hidden = true;
 			GenerateButton.Hidden = true;
 			QRCodeImage.Hidden = true;
+
 		}
 
 		// -------------------- Event handlers --------------------

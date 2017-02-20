@@ -1,8 +1,8 @@
 ﻿using System;
-using Softjourn.SJCoins.Core.API.Model.Products;
 using Softjourn.SJCoins.Core.UI.Services.Navigation;
 using Softjourn.SJCoins.iOS.General.Constants;
 using Softjourn.SJCoins.iOS.UI.Controllers;
+using Softjourn.SJCoins.iOS.UI.Controllers.AccountPage;
 using Softjourn.SJCoins.iOS.UI.Controllers.Main;
 using UIKit;
 
@@ -42,6 +42,7 @@ namespace Softjourn.SJCoins.iOS.Services
 				// Push with initial parameter
 				case NavigationPage.ShowAll:
 				case NavigationPage.Detail:
+				case NavigationPage.ShareFuns:
 					ShowControllerWith(page, NavigationType.Push, initialParameter);
 					break;	
 					
@@ -50,13 +51,12 @@ namespace Softjourn.SJCoins.iOS.Services
 				case NavigationPage.Settings:
 					ShowControllerWith(page, NavigationType.Present);
 					break;
-					
+
 				// Push without initial parameter	
 				case NavigationPage.Purchase:
 				case NavigationPage.Reports:
 				case NavigationPage.PrivacyTerms:
 				case NavigationPage.Help:
-				case NavigationPage.ShareFuns:
 				case NavigationPage.SelectMachine:
 					ShowControllerWith(page, NavigationType.Push);
 					break;
@@ -141,7 +141,9 @@ namespace Softjourn.SJCoins.iOS.Services
 				case NavigationPage.Help:
 					return Instantiate(StoryboardConstants.StoryboardAccount, StoryboardConstants.HelpViewController);
 				case NavigationPage.ShareFuns:
-					return Instantiate(StoryboardConstants.StoryboardAccount, StoryboardConstants.ShareFunsViewController);
+					var qrcodeViewController = (QRCodeViewController)Instantiate(StoryboardConstants.StoryboardAccount, StoryboardConstants.QRCodeViewController);
+					qrcodeViewController.SetInitialParameter(parameter);
+					return qrcodeViewController;
 				case NavigationPage.SelectMachine:
 					return Instantiate(StoryboardConstants.StoryboardAccount, StoryboardConstants.SelectMachineViewController);
 
