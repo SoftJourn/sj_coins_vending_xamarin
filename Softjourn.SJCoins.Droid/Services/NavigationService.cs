@@ -60,9 +60,6 @@ namespace Softjourn.SJCoins.Droid.Services
                 case NavigationPage.SelectMachine:
                     view = new Intent(CrossCurrentActivity.Current.Activity, typeof(SelectMachineActivity));
                     break;
-                case NavigationPage.Settings:
-                    view = new Intent(CrossCurrentActivity.Current.Activity, typeof(SelectMachineActivity));
-                    break;
                 case NavigationPage.Profile:
                     view = new Intent(CrossCurrentActivity.Current.Activity, typeof(ProfileActivity));
                     break;
@@ -85,7 +82,7 @@ namespace Softjourn.SJCoins.Droid.Services
                     //view = new Intent(CrossCurrentActivity.Current.Activity, typeof(HelpActivity));
                     break;
                 case NavigationPage.ShareFuns:
-                    //view = new Intent(CrossCurrentActivity.Current.Activity, typeof(ShareFuns));
+                    view = new Intent(CrossCurrentActivity.Current.Activity, typeof(QrActivity));
                     break;
                 default:
                     throw new ArgumentException("Not valid page");

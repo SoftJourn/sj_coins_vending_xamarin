@@ -1,9 +1,6 @@
-﻿using System;
+﻿
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
-using Android.Telecom;
 using Softjourn.SJCoins.Core.API.Model;
 using Softjourn.SJCoins.Core.Helpers;
 using Softjourn.SJCoins.Core.API.Model.Machines;

@@ -97,6 +97,39 @@ namespace Softjourn.SJCoins.Droid.Services
             }
         }
 
+        public void ShowQrSelectorDialog(List<string> optionsList, Action scanCode, Action generateCode)
+        {
+            var activity = CrossCurrentActivity.Current.Activity;
+
+            var dialog = new Dialog(activity);
+            if (!dialog.IsShowing)
+            {
+                dialog.Window.RequestFeature(WindowFeatures.NoTitle);
+                dialog.Window.RequestFeature(WindowFeatures.SwipeToDismiss);
+                dialog.SetContentView(Resource.Layout.dialog_select_photo);
+                var sourceList = dialog.FindViewById<ListView>(Resource.Id.lv);
+                var adapter = new ArrayAdapter(activity,
+                    Android.Resource.Layout.SimpleListItem1, optionsList);
+                sourceList.Adapter = adapter;
+                dialog.Window.Attributes.WindowAnimations = Resource.Style.MachinesDialogAnimation;
+                dialog.Show();
+
+                sourceList.ItemClick += (sender, e) =>
+                {
+                    if (Regex.IsMatch(adapter.GetItem(e.Position).ToString(), ".*Scan.*"))
+                    {
+                        scanCode?.Invoke();
+                        dialog.Dismiss();
+                    }
+                    else
+                    {
+                        generateCode?.Invoke();
+                        dialog.Dismiss();
+                    }
+                };
+            }
+        }
+
         private void CreateAlertDialog(string title, string msg, Action btnClicked, string btnName = null)
         {
             var activity = CrossCurrentActivity.Current.Activity;
