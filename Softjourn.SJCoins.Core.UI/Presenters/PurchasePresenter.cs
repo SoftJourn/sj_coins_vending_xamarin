@@ -21,12 +21,24 @@ namespace Softjourn.SJCoins.Core.UI.Presenters
                 {
                     View.ShowProgress(Resources.StringResources.progress_loading);
                     var purchaseList = await RestApiServise.GetPurchaseHistory();
+
+                    //Converting DateTime in appropriate string for UI
                     foreach (var item in purchaseList)
                     {
                         item.PrettyTime = TimeUtils.GetPrettyTime(item.Time);
                     }
                     View.HideProgress();
-                    View.SetData(purchaseList);
+
+                    //If list is Empty Show empty View
+                    //else show data
+                    if (purchaseList.Count == 0)
+                    {
+                        View.ShowEmptyView();
+                    }
+                    else
+                    {
+                        View.SetData(purchaseList);
+                    }
                 }
                 catch (ApiNotAuthorizedException ex)
                 {

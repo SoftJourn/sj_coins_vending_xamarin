@@ -4,10 +4,10 @@
     android:layout_height="match_parent"
     android:background="@color/colorBackgroundNoInternet"
     android:orientation="vertical"
-    android:id="@+id/layout_root"        
+    android:id="@+id/layout_root"
     android:animateLayoutChanges="true">
     <LinearLayout
-        android:id ="@+id/button_bar"
+        android:id="@+id/button_bar"
         style="?android:buttonBarStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -29,7 +29,7 @@
         android:layout_height="wrap_content"
         android:text="@string/there_are_no_items"
         android:textAlignment="center"
-        android:gravity ="center"
+        android:gravity="center"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="@dimen/category_header_bottom_margin"
         android:textSize="18sp"

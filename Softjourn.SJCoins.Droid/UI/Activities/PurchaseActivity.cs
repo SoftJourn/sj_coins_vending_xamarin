@@ -18,8 +18,10 @@ namespace Softjourn.SJCoins.Droid.UI.Activities
     {
         private RecyclerView _purchaseRecyclerView;
         private TextView _noPurchasesTextView;
+        private TextView _loadingTextView;
         private PurchaseHistoryAdapter _adapter;
 
+        #region Activity standart methods
         protected override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
@@ -27,10 +29,12 @@ namespace Softjourn.SJCoins.Droid.UI.Activities
 
             _purchaseRecyclerView = FindViewById<RecyclerView>(Resource.Id.list_items_recycler_view);
             _noPurchasesTextView = FindViewById<TextView>(Resource.Id.textViewNoPurchases);
+            _loadingTextView = FindViewById<TextView>(Resource.Id.textViewLoading);
 
             SupportActionBar.SetDisplayHomeAsUpEnabled(true);
             SupportActionBar.SetHomeButtonEnabled(true);
 
+            //Setting adapter for recycler view
             RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this, LinearLayoutManager.Vertical, false);
             _adapter = new PurchaseHistoryAdapter();
             _purchaseRecyclerView.SetLayoutManager(layoutManager);
@@ -52,12 +56,28 @@ namespace Softjourn.SJCoins.Droid.UI.Activities
 
             return base.OnOptionsItemSelected(item);
         }
+        #endregion
 
+        #region IPurchaseView implementation
+        public override void ShowProgress(string message)
+        {
+            //Do not showing progress as there is TextView "Loading on layout"
+        }
+
+        //Setting data to adapter in case purchase list is not empty
         public void SetData(List<History> listPurchases)
         {
-            _purchaseRecyclerView.Visibility  = ViewStates.Visible;
-            _noPurchasesTextView.Visibility  = ViewStates.Gone;
+            _loadingTextView.Visibility = ViewStates.Gone;
+            _purchaseRecyclerView.Visibility = ViewStates.Visible;
             _adapter.SetData(listPurchases);
         }
+
+        //Showing emptyView in case purchase list is empty
+        public void ShowEmptyView()
+        {
+            _loadingTextView.Visibility = ViewStates.Gone;
+            _noPurchasesTextView.Visibility = ViewStates.Visible;
+        }
+        #endregion
     }
 }
