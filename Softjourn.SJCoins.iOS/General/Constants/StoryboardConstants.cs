@@ -38,6 +38,8 @@
 		public const string PrivacyTermsViewController = "PrivacyTermsViewController";
 		public const string HelpViewController = "HelpViewController";
 		public const string ShareFunsViewController = "ShareFunsViewController";
+		public const string QRCodeViewController = "QRCodeViewController";
+
 		public const string SelectMachineViewController = "SelectMachineViewController";
 		#endregion
 
