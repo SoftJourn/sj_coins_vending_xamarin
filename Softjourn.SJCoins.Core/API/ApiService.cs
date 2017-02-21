@@ -95,5 +95,10 @@ namespace Softjourn.SJCoins.Core.API
         {
             return await ApiClient.GetOfflineMoney(scannedCode);
         }
+
+        public async Task<Cash> WithdrawMoney(Amount amount)
+        {
+            return await ApiClient.WithdrawMoney(amount);
+        }
     }
 }

@@ -1,13 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using Plugin.Media;
 using Plugin.Permissions;
 using Plugin.Permissions.Abstractions;
 using Softjourn.SJCoins.Core.API.Model;
 using Softjourn.SJCoins.Core.Exceptions;
+using ZXing;
+using ZXing.Common;
 
 namespace Softjourn.SJCoins.Core.Managers
 {
@@ -19,7 +17,23 @@ namespace Softjourn.SJCoins.Core.Managers
             return Newtonsoft.Json.JsonConvert.DeserializeObject<Cash>(result.Text);
         }
 
-        public async Task<ZXing.Result> ScanPhoto()
+        public byte[] GenerateCode(Cash amount)
+        {
+            var jsonAmount = Newtonsoft.Json.JsonConvert.SerializeObject(amount);
+            var writer = new BarcodeWriter
+            {
+                Format = BarcodeFormat.QR_CODE,
+                Options = new EncodingOptions
+                {
+                    Height = 600,
+                    Width = 600
+                }
+            };
+            var bitmap = writer.Write(jsonAmount);
+            return bitmap;
+        }
+
+        private async Task<ZXing.Result> ScanPhoto()
         {
             await CheckCameraPermissiomAsync();
 

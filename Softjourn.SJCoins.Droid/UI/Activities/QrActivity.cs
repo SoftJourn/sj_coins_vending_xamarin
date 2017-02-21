@@ -6,6 +6,7 @@ using System.Text;
 using Android.App;
 using Android.Content;
 using Android.Content.PM;
+using Android.Graphics;
 using Android.OS;
 using Android.Runtime;
 using Android.Views;
@@ -31,10 +32,10 @@ namespace Softjourn.SJCoins.Droid.UI.Activities
             var fragmentType = Intent.GetStringExtra(Const.NavigationKey);
 
             _balance = FindViewById<TextView>(Resource.Id.qr_balance);
+            MobileBarcodeScanner.Initialize(Application);
 
             if (fragmentType == Const.QrScreenScanningTag)
             {
-                MobileBarcodeScanner.Initialize(Application);
                 FragmentManager.BeginTransaction()
                 .Replace(Resource.Id.container_fargment, ScanningResultFragment.NewInstance(),
                  Const.QrScreenScanningTag)
@@ -42,11 +43,13 @@ namespace Softjourn.SJCoins.Droid.UI.Activities
             }
             else
             {
-                
+                FragmentManager.BeginTransaction()
+                .Replace(Resource.Id.container_fargment, GenerateCodeFragment.NewInstance(),
+                 Const.QrScreenScanningTag)
+                .Commit();
             }
 
             SupportActionBar?.SetDisplayHomeAsUpEnabled(true);
-
         }
 
         public override bool OnCreateOptionsMenu(IMenu menu)
@@ -62,11 +65,33 @@ namespace Softjourn.SJCoins.Droid.UI.Activities
             return base.OnOptionsItemSelected(item);
         }
 
+        public override void OnBackPressed()
+        {
+            Finish();
+        }
+
         public void UpdateBalance(string remain)
         {
             _balance.Text = remain + " coins";
+
+        }
+
+        public void ShowSuccessFunding()
+        {
             var fragment = FragmentManager.FindFragmentById(Resource.Id.container_fargment) as ScanningResultFragment;
             fragment?.ShowTextViewScanned();
+        }
+
+        public void SetEditFieldError(string message)
+        {
+            var fragment = FragmentManager.FindFragmentById(Resource.Id.container_fargment) as GenerateCodeFragment;
+            fragment?.ShowEditFieldError(message);
+        }
+
+        public void ShowImage(byte[] image)
+        {
+            var fragment = FragmentManager.FindFragmentById(Resource.Id.container_fargment) as GenerateCodeFragment;
+            fragment?.ShowImageCode(image);
         }
 
         public void SetBalance(string amount)
@@ -77,6 +102,11 @@ namespace Softjourn.SJCoins.Droid.UI.Activities
         public void ScanCode()
         {
             ViewPresenter.ScanCode();
+        }
+
+        public void GenerateCode(string amount)
+        {
+            ViewPresenter.GenerateCode(amount);
         }
     }
 }

@@ -134,6 +134,33 @@ namespace Softjourn.SJCoins.Core.UI.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Only Numerical characters allowed.
+        /// </summary>
+        public static string error_field_contains_not_digits {
+            get {
+                return ResourceManager.GetString("error_field_contains_not_digits", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Amount should not be empty.
+        /// </summary>
+        public static string error_field_is_empty {
+            get {
+                return ResourceManager.GetString("error_field_is_empty", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Amount is bigger than your balance.
+        /// </summary>
+        public static string error_field_not_enough_money {
+            get {
+                return ResourceManager.GetString("error_field_not_enough_money", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to There are no active machines. Please try to refresh list.
         /// </summary>
         public static string error_msg_empty_machines_list {

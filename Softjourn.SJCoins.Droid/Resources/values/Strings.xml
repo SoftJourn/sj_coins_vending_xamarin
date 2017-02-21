@@ -186,5 +186,9 @@
   <string name="details_info_fibre">Fibre</string>
   <string name="details_info_rating">Rating</string>
   
+  <!--Generate code Activity-->
+  <string name="button_generate">Generate</string>
+  <string name="input_amount_hint">Enter Amount</string>
+  
 
 </resources>
