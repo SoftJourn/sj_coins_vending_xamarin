@@ -189,6 +189,7 @@
   <!--Generate code Activity-->
   <string name="button_generate">Generate</string>
   <string name="input_amount_hint">Enter Amount</string>
-  
+  <string name="btn_scan_again">Scan Again</string>
+  <string name="wallet_funded">Your coins wallet was funded</string>
 
 </resources>

@@ -18,7 +18,7 @@ namespace Softjourn.SJCoins.Core.UI.Presenters
         public int MyBalance
         {
             get { return DataManager.Profile.Amount; }
-            set {}
+            set { }
         }
 
         private QrManager _qrManager;
@@ -37,6 +37,9 @@ namespace Softjourn.SJCoins.Core.UI.Presenters
                 if (code != null)
                 {
                     var result = await GetMoney(code);
+                    DataManager.Profile.Amount = result.Remain;
+                    View.HideProgress();
+                    View.ShowSuccessFunding();
                     View.UpdateBalance(result.Remain.ToString());
                 }
             }
@@ -52,6 +55,11 @@ namespace Softjourn.SJCoins.Core.UI.Presenters
             {
                 await WithdrawMoney(amount);
             }
+        }
+
+        public int GetBalance()
+        {
+            return MyBalance;
         }
 
         private bool ValidateAmount(string amount)
@@ -111,12 +119,16 @@ namespace Softjourn.SJCoins.Core.UI.Presenters
                 try
                 {
                     View.ShowProgress(Resources.StringResources.progress_loading);
-                    var amountJson = new Amount {Balance = amount};
+                    var amountJson = new Amount { Balance = amount };
 
                     var code = await RestApiServise.WithdrawMoney(amountJson);
+
                     View.HideProgress();
-                    View.UpdateBalance(code.Amount.ToString());
-                    View.ShowImage(_qrManager.GenerateCode(code));
+                    View.ShowImage(_qrManager.ConvertCashObjectToString(code));
+
+                    DataManager.Profile = await RestApiServise.GetUserAccountAsync();
+
+                    View.UpdateBalance(MyBalance.ToString());
 
                 }
                 catch (ApiNotAuthorizedException ex)

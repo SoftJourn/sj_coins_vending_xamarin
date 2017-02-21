@@ -1,11 +1,10 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 using Plugin.Media;
 using Plugin.Permissions;
 using Plugin.Permissions.Abstractions;
 using Softjourn.SJCoins.Core.API.Model;
 using Softjourn.SJCoins.Core.Exceptions;
-using ZXing;
-using ZXing.Common;
 
 namespace Softjourn.SJCoins.Core.Managers
 {
@@ -14,23 +13,19 @@ namespace Softjourn.SJCoins.Core.Managers
         public async Task<Cash> GetCodeFromQr()
         {
             var result = await ScanPhoto();
-            return Newtonsoft.Json.JsonConvert.DeserializeObject<Cash>(result.Text);
+            try
+            {
+                return Newtonsoft.Json.JsonConvert.DeserializeObject<Cash>(result.Text);
+            }
+            catch (NullReferenceException e)
+            {
+                return null;
+            }
         }
 
-        public byte[] GenerateCode(Cash amount)
+        public string ConvertCashObjectToString(Cash amount)
         {
-            var jsonAmount = Newtonsoft.Json.JsonConvert.SerializeObject(amount);
-            var writer = new BarcodeWriter
-            {
-                Format = BarcodeFormat.QR_CODE,
-                Options = new EncodingOptions
-                {
-                    Height = 600,
-                    Width = 600
-                }
-            };
-            var bitmap = writer.Write(jsonAmount);
-            return bitmap;
+            return Newtonsoft.Json.JsonConvert.SerializeObject(amount);
         }
 
         private async Task<ZXing.Result> ScanPhoto()

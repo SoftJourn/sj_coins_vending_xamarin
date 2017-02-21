@@ -14,6 +14,6 @@ namespace Softjourn.SJCoins.Core.UI.ViewInterfaces
 
         void SetEditFieldError(string message);
 
-        void ShowImage(byte[] image);
+        void ShowImage(string image);
     }
 }
