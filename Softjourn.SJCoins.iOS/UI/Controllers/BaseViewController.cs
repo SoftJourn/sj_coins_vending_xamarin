@@ -113,6 +113,16 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers
 		}
 		#endregion
 
+		#region Public methods
+		public void StopRefreshing()
+		{
+			if (_refreshControl != null && _refreshControl.Refreshing)
+			{
+				Invoke(() => _refreshControl.EndRefreshing(), 1); //IOS 10 fix 
+			}
+		}
+		#endregion
+
 		#region Private methods
 		private void InitPresenter()
 		{
@@ -124,9 +134,12 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers
 
 		private void AttachPullToRefresh()
 		{
-			//var refreshableScrollView = GetRefreshableScrollView();
-			//_refreshControl = new UIRefreshControl();
-			//refreshableScrollView.AddSubview(_refreshControl);
+			var refreshableScrollView = GetRefreshableScrollView();
+			if (refreshableScrollView != null)
+			{
+				_refreshControl = new UIRefreshControl();
+				refreshableScrollView.AddSubview(_refreshControl);
+			}
 		}
 		#endregion
 	}

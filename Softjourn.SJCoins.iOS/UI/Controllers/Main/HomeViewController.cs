@@ -187,6 +187,12 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.Main
 
 		// Throw CollectionView to parent
 		protected override UIScrollView GetRefreshableScrollView() => CollectionView;
+
+		protected override void PullToRefreshTriggered(object sender, System.EventArgs e)
+		{
+			StopRefreshing();
+			Presenter.OnStartLoadingPage();
+		}
 		#endregion
 	}
 

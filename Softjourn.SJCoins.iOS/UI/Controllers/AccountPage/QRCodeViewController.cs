@@ -91,6 +91,11 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.AccountPage
 		{
 			throw new NotImplementedException();
 		}
+
+		public void ShowImage(string image)
+		{
+			throw new NotImplementedException();
+		}
 		#endregion
 
 		#region Private methods

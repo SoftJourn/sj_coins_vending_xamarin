@@ -118,6 +118,15 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.AccountPage
 		// -------------------------------------------------------- 
 		#endregion
 
+		// Throw TableView to parent
+		protected override UIScrollView GetRefreshableScrollView() => TableView;
+
+		protected override void PullToRefreshTriggered(object sender, System.EventArgs e)
+		{
+			StopRefreshing();
+			Presenter.OnStartLoadingPage();
+		}
+
 		#region BaseViewController -> IBaseView implementation
 		#endregion
 	}
