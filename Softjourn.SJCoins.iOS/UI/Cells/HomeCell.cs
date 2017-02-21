@@ -70,8 +70,7 @@ namespace Softjourn.SJCoins.iOS
 
 			if (TraitCollection.ForceTouchCapability == UIForceTouchCapability.Available)
 			{
-				var visibleController = _currentApplication.VisibleViewController;
-				visibleController.RegisterForPreviewingWithDelegate(this, InternalCollectionView);
+				_currentApplication.VisibleViewController.RegisterForPreviewingWithDelegate(this, InternalCollectionView);
 			}
 			else {
 				// TODO Need move fom here !!!

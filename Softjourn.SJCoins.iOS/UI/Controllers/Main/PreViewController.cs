@@ -14,8 +14,6 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers
 	{
 		#region Properties
 		private Product currentProduct { get; set; }
-		//private Action<Product> buy;
-		//private Action<Product> favorite;
 
 		public override IUIPreviewActionItem[] PreviewActionItems
 		{
