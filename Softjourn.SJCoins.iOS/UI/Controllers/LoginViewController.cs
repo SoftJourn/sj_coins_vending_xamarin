@@ -88,9 +88,9 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers
 		#endregion
 
 		#region BaseViewController -> IBaseView implementation
-		public override void SetUIAppearance()
-		{
-		}
+		//public override void SetUIAppearance()
+		//{
+		//}
 
 		public override void AttachEvents()
 		{

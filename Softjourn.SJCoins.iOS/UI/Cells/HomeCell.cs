@@ -20,8 +20,13 @@ namespace Softjourn.SJCoins.iOS
 		}
 		private string categoryName; 
 		private List<Product> categoryProducts;
+
+		public event EventHandler<Product> BuyActionExecuted;
+		public event EventHandler<Product> FavoriteActionExecuted;
 		public event EventHandler<string> SeeAllClickedEvent;
+
 		public HomeCellDelegate _delegate;
+		private PreViewController previewController;
 
 		static HomeCell()
 		{
@@ -44,13 +49,21 @@ namespace Softjourn.SJCoins.iOS
 			InternalCollectionView.DataSource = new HomeCellDataSource(category.Products);
 			InternalCollectionView.Delegate = _delegate;
 			InternalCollectionView.ReloadData();
-
+			//Attach
 			ShowAllButton.TouchUpInside += OnSeeAllClicked;
 		}
 
 		public override void PrepareForReuse()
 		{
+			// Dettach
 			ShowAllButton.TouchUpInside -= OnSeeAllClicked;
+
+			if (previewController != null)
+			{
+				previewController.BuyActionExecuted -= OnBuyActionClicked;
+				previewController.FavoriteActionExecuted -= OnFavoriteActionClicked;
+			}
+
 			base.PrepareForReuse();
 		}
 
@@ -58,7 +71,19 @@ namespace Softjourn.SJCoins.iOS
 		public void OnSeeAllClicked(object sender, EventArgs e)
 		{
 			// Execute event and throw category name to HomeViewController
-			SeeAllClickedEvent(this, categoryName);
+			SeeAllClickedEvent?.Invoke(this, categoryName);
+		}
+
+		public void OnBuyActionClicked(object sender, Product product)
+		{
+			// Execute event and throw product to HomeViewController
+			BuyActionExecuted?.Invoke(this, product);
+		}
+
+		public void OnFavoriteActionClicked(object sender, Product product)
+		{
+			// Execute event and throw product to HomeViewController
+			FavoriteActionExecuted?.Invoke(this, product);
 		}
 		// --------------------------------------------------------
 
@@ -93,12 +118,16 @@ namespace Softjourn.SJCoins.iOS
 				return null;
 
 			// Create a preview controller and set its properties.
-			var previewController = (PreViewController)UIStoryboard.FromName(StoryboardConstants.StoryboardMain, null).InstantiateViewController(StoryboardConstants.PreViewController);
+			previewController = (PreViewController)UIStoryboard.FromName(StoryboardConstants.StoryboardMain, null).InstantiateViewController(StoryboardConstants.PreViewController);
 			if (previewController == null)
 				return null;
-			
+
 			var previewItem = categoryProducts[indexPath.Row];
 			previewController.SetItem(previewItem);
+			// Attach
+			previewController.BuyActionExecuted += OnBuyActionClicked;
+			previewController.FavoriteActionExecuted += OnFavoriteActionClicked;
+
 			previewController.PreferredContentSize = new CGSize(0, 420);
 			previewingContext.SourceRect = cell.Frame;
 			return previewController;
@@ -148,7 +177,7 @@ namespace Softjourn.SJCoins.iOS
 
 		public override void ItemSelected(UICollectionView collectionView, NSIndexPath indexPath)
 		{
-			ItemSelectedEvent(this, products[indexPath.Row]);
+			ItemSelectedEvent?.Invoke(this, products[indexPath.Row]);
 		}
 	}
 	#endregion

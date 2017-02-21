@@ -10,10 +10,13 @@ using UIKit;
 namespace Softjourn.SJCoins.iOS.UI.Controllers
 {
 	[Register("PreViewController")]
-	public partial class PreViewController : BaseViewController<DetailPresenter>, IDetailView
+	public partial class PreViewController : UIViewController
 	{
 		#region Properties
 		private Product currentProduct { get; set; }
+
+		public event EventHandler<Product> BuyActionExecuted;
+		public event EventHandler<Product> FavoriteActionExecuted;
 
 		public override IUIPreviewActionItem[] PreviewActionItems
 		{
@@ -23,8 +26,8 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers
 		IUIPreviewActionItem[] PreviewActions
 		{
 			get {
-				var action1 = PreviewActionForTitle("Buy", UIPreviewActionStyle.Default, new Action(BuyClicked));
-				var action2 = PreviewActionForTitle("Add to favorite", UIPreviewActionStyle.Default, new Action(FavoriteClicked));
+				var action1 = PreviewActionForTitle("Buy", UIPreviewActionStyle.Default, new Action(BuyActionClicked));
+				var action2 = PreviewActionForTitle("Add to favorite", UIPreviewActionStyle.Default, new Action(FavoriteActionClicked));
 				return new IUIPreviewActionItem[] { action1, action2 }; 
 			}
 		}
@@ -57,6 +60,11 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers
 		{
 			base.ViewDidAppear(animated);
 		}
+
+		public override void ViewWillDisappear(bool animated)
+		{
+			base.ViewWillDisappear(animated);
+		}
 		#endregion
 
 		#region Private methods
@@ -80,22 +88,17 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers
 				FavoriteButton.SetImage(UIImage.FromBundle(ImageConstants.FavoriteUnchecked), forState: UIControlState.Normal);
 		}
 
-		private void BuyClicked()
+		// -------------------- Action handlers --------------------
+		private void BuyActionClicked()
 		{
-			Presenter.OnBuyProductClick(currentProduct); 
+			BuyActionExecuted?.Invoke(this, currentProduct);
 		}
 
-		private void FavoriteClicked()
+		private void FavoriteActionClicked()
 		{
-			Presenter.OnFavoriteClick(currentProduct);
+			FavoriteActionExecuted?.Invoke(this, currentProduct);
 		}
-		#endregion
-
-		#region IDetailView  implementation
-		public void FavoriteChanged(bool isFavorite)
-		{
-			throw new NotImplementedException();
-		}
+		// --------------------------------------------------------
 		#endregion
 
 		private UIPreviewAction PreviewActionForTitle(string title, UIPreviewActionStyle style = UIPreviewActionStyle.Default, Action handler = null)
@@ -107,6 +110,13 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers
 					handler();
 				}
 			});
+		}
+
+		protected override void Dispose(bool disposing)
+		{
+			base.Dispose(disposing);
+
+			System.Diagnostics.Debug.WriteLine("Softjourn.SJCoins.iOS.UI.Controllers.PreViewController disposed");
 		}
 	}
 }

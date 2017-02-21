@@ -28,7 +28,7 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers
 
 		public virtual void SetUIAppearance()
 		{
-			AttachPullToRefresh();
+			//AttachPullToRefresh();
 		}
 
 		public virtual void AttachEvents()
@@ -61,6 +61,7 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers
 			base.ViewDidLoad();
 			InitPresenter();
 			Presenter.AttachView(this);
+			AttachPullToRefresh();
 		}
 
 		public override void ViewWillAppear(bool animated)
@@ -94,7 +95,8 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers
 		{
 			base.Dispose(disposing);
 			Presenter = null;
-			Console.WriteLine(String.Format("{0} controller disposed", this.GetType()));
+
+			System.Diagnostics.Debug.WriteLine(String.Format("{0} controller disposed", this.GetType()));
 		}
 		#endregion
 
@@ -122,9 +124,9 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers
 
 		private void AttachPullToRefresh()
 		{
-			var refreshableScrollView = GetRefreshableScrollView();
-			_refreshControl = new UIRefreshControl();
-			refreshableScrollView.AddSubview(_refreshControl);
+			//var refreshableScrollView = GetRefreshableScrollView();
+			//_refreshControl = new UIRefreshControl();
+			//refreshableScrollView.AddSubview(_refreshControl);
 		}
 		#endregion
 	}
