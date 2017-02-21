@@ -70,11 +70,26 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.AccountPage
 		}
 		#endregion
 
-		#region IAccountView implementation
+		#region IQrView implementation
 		public void UpdateBalance(string remain)
 		{
 			//Update balance after success debiting funds
 			BalanceLabel.Text = remain;
+		}
+
+		public void ShowSuccessFunding()
+		{
+			throw new NotImplementedException();
+		}
+
+		public void SetEditFieldError(string message)
+		{
+			throw new NotImplementedException();
+		}
+
+		public void ShowImage(byte[] image)
+		{
+			throw new NotImplementedException();
 		}
 		#endregion
 

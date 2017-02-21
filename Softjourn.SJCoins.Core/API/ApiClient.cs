@@ -222,6 +222,13 @@ namespace Softjourn.SJCoins.Core.API
             return deposit;
         }
 
+        public async Task<Cash> WithdrawMoney(Amount amount)
+        {
+            var url = UrlCoinService + "withdraw";
+            var cash = await MakeRequestWithBodyAsync<Cash>(url, Method.POST, amount);
+            return cash;
+        }
+
         #endregion
 
         private async Task<TResult> MakeRequestAsync<TResult>(string url, Method httpMethod)

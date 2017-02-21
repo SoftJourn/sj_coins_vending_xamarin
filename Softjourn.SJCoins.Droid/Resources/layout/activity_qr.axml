@@ -8,6 +8,8 @@
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceSmall"
         android:id="@+id/qr_balance"
+        android:textSize="18sp"
+        android:textStyle="bold"
         android:layout_gravity="center_horizontal" />
     <LinearLayout
         android:id="@+id/container_fargment"

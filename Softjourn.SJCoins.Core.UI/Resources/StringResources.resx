@@ -189,4 +189,13 @@
   <data name="select_strategy_generating_qr" xml:space="preserve">
     <value>Generate Code</value>
   </data>
+  <data name="error_field_contains_not_digits" xml:space="preserve">
+    <value>Only Numerical characters allowed</value>
+  </data>
+  <data name="error_field_is_empty" xml:space="preserve">
+    <value>Amount should not be empty</value>
+  </data>
+  <data name="error_field_not_enough_money" xml:space="preserve">
+    <value>Amount is bigger than your balance</value>
+  </data>
 </root>

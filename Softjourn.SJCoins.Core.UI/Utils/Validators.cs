@@ -21,5 +21,10 @@ namespace Softjourn.SJCoins.Core.UI.Utils
         {
             return !string.IsNullOrEmpty(userName);
         }
+
+        public static bool IsAmountValid(string amount)
+        {
+            return Regex.IsMatch(amount, "\\d+");
+        }
     }
 }
