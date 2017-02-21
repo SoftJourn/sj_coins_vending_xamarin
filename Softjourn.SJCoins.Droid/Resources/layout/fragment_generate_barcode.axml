@@ -27,6 +27,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:backgroundTint="@color/colorBlue"
+        android:textColor="@color/white"
         android:text="@string/button_generate" />
     <FrameLayout
         android:layout_width="wrap_content"

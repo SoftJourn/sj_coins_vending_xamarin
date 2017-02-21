@@ -18,7 +18,7 @@ namespace Softjourn.SJCoins.Core.UI.Presenters
         public int MyBalance
         {
             get { return DataManager.Profile.Amount; }
-            set {}
+            set { }
         }
 
         private QrManager _qrManager;
@@ -37,6 +37,9 @@ namespace Softjourn.SJCoins.Core.UI.Presenters
                 if (code != null)
                 {
                     var result = await GetMoney(code);
+                    DataManager.Profile.Amount = result.Remain;
+                    View.HideProgress();
+                    View.ShowSuccessFunding();
                     View.UpdateBalance(result.Remain.ToString());
                 }
             }
@@ -116,7 +119,7 @@ namespace Softjourn.SJCoins.Core.UI.Presenters
                 try
                 {
                     View.ShowProgress(Resources.StringResources.progress_loading);
-                    var amountJson = new Amount {Balance = amount};
+                    var amountJson = new Amount { Balance = amount };
 
                     var code = await RestApiServise.WithdrawMoney(amountJson);
 

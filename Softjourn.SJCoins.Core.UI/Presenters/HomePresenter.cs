@@ -81,6 +81,14 @@ namespace Softjourn.SJCoins.Core.UI.Presenters
 	        return DataManager.GetProductListByGivenCategory(category);
 	    }
 
+	    public void UpdateBalanceView()
+	    {
+	        if (DataManager.Profile != null)
+	        {
+	            View.SetUserBalance(DataManager.Profile.Amount.ToString());
+	        }
+	    }
+
         //Setting user's balance after buying ar grabbing new data
         public override void ChangeUserBalance(string balance)
         {

@@ -1,23 +1,17 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 using Android.App;
-using Android.Content;
 using Android.OS;
-using Android.Runtime;
-using Android.Support.V7.Widget;
 using Android.Views;
 using Android.Widget;
 using Softjourn.SJCoins.Droid.UI.Activities;
-using Softjourn.SJCoins.Droid.UI.Adapters;
+
 
 namespace Softjourn.SJCoins.Droid.UI.Fragments
 {
     public class ScanningResultFragment : Fragment
     {
         private TextView _walletWasFunded;
+        private Button _buttonScanAgain;
 
         public static ScanningResultFragment NewInstance()
         {
@@ -45,6 +39,11 @@ namespace Softjourn.SJCoins.Droid.UI.Fragments
         {
             base.OnViewCreated(view, savedInstanceState);
             _walletWasFunded = view.FindViewById<TextView>(Resource.Id.money_added_textView);
+            _buttonScanAgain = view.FindViewById<Button>(Resource.Id.btn_scan_again);
+            _buttonScanAgain.Click += (sender, e) =>
+            {
+                ScanCode();
+            };
             ScanCode();
         }
 
@@ -55,6 +54,7 @@ namespace Softjourn.SJCoins.Droid.UI.Fragments
 
         public void ShowTextViewScanned()
         {
+            //_walletWasFunded.Text = string.Format(GetString(Resource.String.wallet_funded, amount));
             _walletWasFunded.Visibility = ViewStates.Visible;
         }
     }

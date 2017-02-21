@@ -8,6 +8,7 @@ using Android.App;
 using Android.Content;
 using Android.Graphics;
 using Android.OS;
+using Android.Provider;
 using Android.Runtime;
 using Android.Views;
 using Android.Widget;
@@ -23,6 +24,8 @@ namespace Softjourn.SJCoins.Droid.UI.Fragments
         private ImageView _imageForQrCode;
         private EditText _inputAmount;
         private Button _buttonGenerate;
+
+        private Bitmap _bitmap;
 
         public static GenerateCodeFragment NewInstance()
         {
@@ -50,6 +53,10 @@ namespace Softjourn.SJCoins.Droid.UI.Fragments
         {
             base.OnViewCreated(view, savedInstanceState);
             _imageForQrCode = view.FindViewById<ImageView>(Resource.Id.qr_code_image);
+            _imageForQrCode.Click += (sender, e) =>
+            {
+                ShareCode();
+            };
             _inputAmount = view.FindViewById<EditText>(Resource.Id.input_amount);
             _buttonGenerate = view.FindViewById<Button>(Resource.Id.btn_generate);
             _buttonGenerate.Click += (sender, e) =>
@@ -84,6 +91,18 @@ namespace Softjourn.SJCoins.Droid.UI.Fragments
 
             _imageForQrCode.Visibility = ViewStates.Visible;
             _imageForQrCode.SetImageBitmap(barcode);
+
+            _bitmap = barcode;
+        }
+
+        private void ShareCode()
+        {
+            var path = MediaStore.Images.Media.InsertImage(Activity.ContentResolver, _bitmap, "MoneyCode", null);
+            var uri = Android.Net.Uri.Parse(path);
+            var share = new Intent(Intent.ActionSend);
+            share.SetType("image/jpeg");
+            share.PutExtra(Intent.ExtraStream, uri);
+            Activity.StartActivity(Intent.CreateChooser(share, "Share Image"));
         }
     }
 }

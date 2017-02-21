@@ -68,7 +68,7 @@ namespace Softjourn.SJCoins.Droid.ui.baseUI
 
         public virtual void HideProgress()
         {
-            _progressDialog.Dismiss();
+            _progressDialog?.Dismiss();
         }
 
         public virtual void ShowProgress(string message)

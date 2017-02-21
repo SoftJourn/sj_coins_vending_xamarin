@@ -67,6 +67,12 @@ namespace Softjourn.SJCoins.Droid.UI.Activities
             return base.OnOptionsItemSelected(item);
         }
 
+        protected override void OnResume()
+        {
+            base.OnResume();
+            ViewPresenter.OnStartLoadingPage();
+        }
+
         public void SetAccountInfo(Account account)
         {
             _username.Text = account.Name + " " + account.Surname;

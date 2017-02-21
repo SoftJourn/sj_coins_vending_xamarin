@@ -95,6 +95,9 @@ namespace Softjourn.SJCoins.Droid.UI.Activities
         protected override void OnResume()
         {
             base.OnResume();
+
+            ViewPresenter.UpdateBalanceView();
+
             if (HaveProducts)
             FavoriteChanged(true);
         }

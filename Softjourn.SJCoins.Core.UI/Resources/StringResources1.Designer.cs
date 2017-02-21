@@ -296,6 +296,15 @@ namespace Softjourn.SJCoins.Core.UI.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Sorry, this code is unknown.
+        /// </summary>
+        public static string unknown_code {
+            get {
+                return ResourceManager.GetString("unknown_code", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Your balance is %s coins.
         /// </summary>
         public static string your_balance_is {

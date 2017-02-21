@@ -198,4 +198,7 @@
   <data name="error_field_not_enough_money" xml:space="preserve">
     <value>Amount is bigger than your balance</value>
   </data>
+  <data name="unknown_code" xml:space="preserve">
+    <value>Sorry, this code is unknown</value>
+  </data>
 </root>
