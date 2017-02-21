@@ -1,14 +1,6 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
 using Android.App;
-using Android.Content;
 using Android.Content.PM;
-using Android.Graphics;
 using Android.OS;
-using Android.Runtime;
 using Android.Views;
 using Android.Widget;
 using Softjourn.SJCoins.Core.UI.Presenters;
@@ -24,6 +16,7 @@ namespace Softjourn.SJCoins.Droid.UI.Activities
     public class QrActivity : BaseActivity<QrPresenter>, IQrView
     {
         private TextView _balance;
+        private string _coinsLabel = " coins";
 
         protected override void OnCreate(Bundle savedInstanceState)
         {
@@ -48,8 +41,9 @@ namespace Softjourn.SJCoins.Droid.UI.Activities
                  Const.QrScreenScanningTag)
                 .Commit();
             }
-
             SupportActionBar?.SetDisplayHomeAsUpEnabled(true);
+            _balance.Visibility = ViewStates.Visible;
+            _balance.Text = ViewPresenter.GetBalance() + _coinsLabel;
         }
 
         public override bool OnCreateOptionsMenu(IMenu menu)
@@ -72,8 +66,7 @@ namespace Softjourn.SJCoins.Droid.UI.Activities
 
         public void UpdateBalance(string remain)
         {
-            _balance.Text = remain + " coins";
-
+            _balance.Text = remain + _coinsLabel;
         }
 
         public void ShowSuccessFunding()
@@ -88,7 +81,7 @@ namespace Softjourn.SJCoins.Droid.UI.Activities
             fragment?.ShowEditFieldError(message);
         }
 
-        public void ShowImage(byte[] image)
+        public void ShowImage(string image)
         {
             var fragment = FragmentManager.FindFragmentById(Resource.Id.container_fargment) as GenerateCodeFragment;
             fragment?.ShowImageCode(image);
@@ -96,7 +89,7 @@ namespace Softjourn.SJCoins.Droid.UI.Activities
 
         public void SetBalance(string amount)
         {
-            _balance.Text = amount + " coins";
+            _balance.Text = amount + _coinsLabel;
         }
 
         public void ScanCode()

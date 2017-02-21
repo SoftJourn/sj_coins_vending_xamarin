@@ -11,8 +11,10 @@ using Android.OS;
 using Android.Runtime;
 using Android.Views;
 using Android.Widget;
+using Java.Lang;
 using Softjourn.SJCoins.Droid.UI.Activities;
 using ZXing;
+using ZXing.Common;
 
 namespace Softjourn.SJCoins.Droid.UI.Fragments
 {
@@ -69,24 +71,19 @@ namespace Softjourn.SJCoins.Droid.UI.Fragments
 
         public void ShowImageCode(string image)
         {
-            //var bitmap = BitmapFactory.DecodeByteArray(image, 0, image.Length);
-            //var stream = new MemoryStream();
-            //bitmap.Compress(Bitmap.CompressFormat.Png, 100, stream);  // this is the diff between iOS and Android
-            //stream.Position = 0;
-
-            var writer = new BarcodeWriter
+            var barcodeWriter = new ZXing.Mobile.BarcodeWriter
             {
-                Format = BarcodeFormat.QR_CODE,
+                Format = ZXing.BarcodeFormat.QR_CODE,
                 Options = new ZXing.Common.EncodingOptions
                 {
-                    Height = 600,
-                    Width = 600
+                    Width = 700,
+                    Height = 700
                 }
             };
-            var bmp = writer.Write(image);
+            var barcode = barcodeWriter.Write(image);
+
             _imageForQrCode.Visibility = ViewStates.Visible;
-            _imageForQrCode.SetImageBitmap(BitmapFactory.DecodeByteArray(bmp, 0, bmp.Length));
-            
+            _imageForQrCode.SetImageBitmap(barcode);
         }
     }
 }
