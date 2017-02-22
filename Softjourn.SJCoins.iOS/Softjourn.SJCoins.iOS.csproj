@@ -365,6 +365,13 @@
     <Compile Include="UI\Controllers\AccountPage\ShareFunsViewController.cs" />
     <Compile Include="UI\Controllers\AccountPage\QRCodeViewController.cs" />
     <Compile Include="UI\Controllers\AccountPage\QRCodeViewController.designer.cs" />
+    <Compile Include="UI\Controllers\AccountPage\PurchaseViewController.designer.cs">
+      <DependentUpon>PurchaseViewController.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Cells\PurchaseCell.cs" />
+    <Compile Include="UI\Cells\PurchaseCell.designer.cs">
+      <DependentUpon>PurchaseCell.cs</DependentUpon>
+    </Compile>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
 </Project>

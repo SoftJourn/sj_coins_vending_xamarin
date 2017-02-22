@@ -14,7 +14,7 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.Main
 	public partial class ShowViewController : BaseViewController<ShowAllPresenter>, IShowAllView
 	{
 		#region Properties
-		private ShowAllSource _tableSource;
+		private ShowAllSource _tableSource = new ShowAllSource();
 		private NSIndexPath _favoriteCellIndex;
 		private string categoryName { get; set; }
 
@@ -84,9 +84,7 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.Main
 		#region Private methods
 		private void ConfigureTableView()
 		{
-			_tableSource = new ShowAllSource(filteredItems);
 			TableView.Source = _tableSource;
-
 			TableView.RegisterNibForCellReuse(ProductCell.Nib, ProductCell.Key);
 		}
 
@@ -175,14 +173,10 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.Main
 	#region UITableViewSource implementation
 	public class ShowAllSource : UITableViewSource
 	{
-		private List<Product> items;
+		private List<Product> items = new List<Product>();
+
 		public event EventHandler<Product> ItemSelected;
 		public event EventHandler<ProductCell> FavoriteClicked;
-
-		public ShowAllSource(List<Product> items)
-		{
-			this.items = items;
-		}
 
 		public void SetItems(List<Product> items)
 		{
@@ -191,7 +185,7 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.Main
 
 		public override nint RowsInSection(UITableView tableview, nint section) => items.Count;
 
-		public override UITableViewCell GetCell(UITableView tableView, NSIndexPath indexPath) => (ProductCell)tableView.DequeueReusableCell(ProductCell.Key, indexPath);
+		public override UITableViewCell GetCell(UITableView tableView, NSIndexPath indexPath) => tableView.DequeueReusableCell(ProductCell.Key, indexPath);
 
 		public override void WillDisplay(UITableView tableView, UITableViewCell cell, NSIndexPath indexPath)
 		{

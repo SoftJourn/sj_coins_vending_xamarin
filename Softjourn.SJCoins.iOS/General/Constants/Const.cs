@@ -6,12 +6,5 @@ namespace Softjourn.SJCoins.iOS.General.Constants
 		#region Category names from bundle
 		public const string FavoritesCategory = "Favorites";
 		#endregion
-
-		#region Parameters
-		//public const string FavoritesCategory = "Favorites";
-		//public const string FavoritesCategory = "Favorites";
-
-
-		#endregion
 	}
 }

@@ -139,11 +139,74 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Purchase" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cPE-2b-LBD">
-                                <rect key="frame" x="112" y="318.5" width="150" height="30"/>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="50" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="hSc-l0-Cdo">
+                                <rect key="frame" x="-0.5" y="-0.5" width="375" height="667"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <view key="tableFooterView" contentMode="scaleToFill" id="b9s-Nj-oI8">
+                                    <rect key="frame" x="0.0" y="78" width="375" height="0.0"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </view>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="PurchaseCell" rowHeight="50" id="77M-jl-yn5" customClass="PurchaseCell">
+                                        <rect key="frame" x="0.0" y="28" width="375" height="50"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="77M-jl-yn5" id="FHg-dB-V4q">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="49"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Cookies Roshen lalalalala" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8Cb-Dq-fiA">
+                                                    <rect key="frame" x="103" y="9.5" width="165" height="30"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="30" id="8dx-ui-je7"/>
+                                                        <constraint firstAttribute="width" constant="165" id="l02-6Z-eCu"/>
+                                                    </constraints>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="17.02.2017" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nvV-2V-xn3">
+                                                    <rect key="frame" x="13" y="9.5" width="80" height="30"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="80" id="m9X-0N-6A1"/>
+                                                        <constraint firstAttribute="height" constant="30" id="paE-sa-5lR"/>
+                                                    </constraints>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1700 coins" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="U7R-dr-0fB">
+                                                    <rect key="frame" x="288" y="10" width="74" height="30"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="30" id="dkp-8k-URn"/>
+                                                    </constraints>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstAttribute="trailingMargin" secondItem="U7R-dr-0fB" secondAttribute="trailing" constant="5" id="8Qp-Qf-hpX"/>
+                                                <constraint firstItem="nvV-2V-xn3" firstAttribute="leading" secondItem="FHg-dB-V4q" secondAttribute="leadingMargin" constant="5" id="HVr-uA-B15"/>
+                                                <constraint firstItem="8Cb-Dq-fiA" firstAttribute="centerY" secondItem="FHg-dB-V4q" secondAttribute="centerY" id="TOK-4c-mze"/>
+                                                <constraint firstItem="U7R-dr-0fB" firstAttribute="centerY" secondItem="FHg-dB-V4q" secondAttribute="centerY" id="UnY-sS-pUO"/>
+                                                <constraint firstItem="nvV-2V-xn3" firstAttribute="centerY" secondItem="FHg-dB-V4q" secondAttribute="centerY" id="ch2-2E-FdR"/>
+                                                <constraint firstItem="8Cb-Dq-fiA" firstAttribute="leading" secondItem="nvV-2V-xn3" secondAttribute="trailing" constant="10" id="nM2-LJ-2v6"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="DateLabel" destination="nvV-2V-xn3" id="aos-bQ-U1a"/>
+                                            <outlet property="NameLabel" destination="8Cb-Dq-fiA" id="f90-HT-7EF"/>
+                                            <outlet property="PriceLabel" destination="U7R-dr-0fB" id="waz-00-Pz4"/>
+                                        </connections>
+                                    </tableViewCell>
+                                </prototypes>
+                            </tableView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Sorry… There is no purchases yet." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jCh-mb-YF0">
+                                <rect key="frame" x="37" y="318.5" width="300" height="30"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="150" id="5xm-MD-7Qn"/>
-                                    <constraint firstAttribute="height" constant="30" id="Nbj-i7-WHu"/>
+                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="30" id="BzS-OS-2Uz"/>
+                                    <constraint firstAttribute="width" constant="300" id="keo-8e-LL4"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
@@ -152,14 +215,22 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="cPE-2b-LBD" firstAttribute="centerY" secondItem="UCf-As-CwF" secondAttribute="centerY" id="F79-4u-sTj"/>
-                            <constraint firstItem="cPE-2b-LBD" firstAttribute="centerX" secondItem="UCf-As-CwF" secondAttribute="centerX" id="dhd-o9-WYc"/>
+                            <constraint firstItem="hSc-l0-Cdo" firstAttribute="height" secondItem="UCf-As-CwF" secondAttribute="height" id="7z9-lJ-VaQ"/>
+                            <constraint firstItem="hSc-l0-Cdo" firstAttribute="width" secondItem="UCf-As-CwF" secondAttribute="width" id="CtZ-dr-1Sx"/>
+                            <constraint firstItem="hSc-l0-Cdo" firstAttribute="centerY" secondItem="UCf-As-CwF" secondAttribute="centerY" id="U4C-Qb-Nls"/>
+                            <constraint firstItem="jCh-mb-YF0" firstAttribute="centerX" secondItem="UCf-As-CwF" secondAttribute="centerX" id="W74-uC-H5K"/>
+                            <constraint firstItem="jCh-mb-YF0" firstAttribute="centerY" secondItem="UCf-As-CwF" secondAttribute="centerY" id="q57-Tf-Ibi"/>
+                            <constraint firstItem="hSc-l0-Cdo" firstAttribute="centerX" secondItem="UCf-As-CwF" secondAttribute="centerX" id="xZN-Ez-2Im"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="NoItemsLabel" destination="jCh-mb-YF0" id="Xhh-SF-5Gz"/>
+                        <outlet property="TableView" destination="hSc-l0-Cdo" id="pJW-2f-IWu"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Zsu-S4-nN1" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4534" y="270"/>
+            <point key="canvasLocation" x="4533.6000000000004" y="269.41529235382313"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="2e8-YA-C3s">
