@@ -12,13 +12,53 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers
 	partial class PreViewController
 	{
 		[Outlet]
-		UIKit.UILabel Title { get; set; }
+		UIKit.UIButton BuyButton { get; set; }
+
+		[Outlet]
+		UIKit.UILabel DescriptionLabel { get; set; }
+
+		[Outlet]
+		UIKit.UIButton FavoriteButton { get; set; }
+
+		[Outlet]
+		UIKit.UIImageView Logo { get; set; }
+
+		[Outlet]
+		UIKit.UILabel NameLabel { get; set; }
+
+		[Outlet]
+		UIKit.UILabel PriceLabel { get; set; }
 		
 		void ReleaseDesignerOutlets ()
 		{
-			if (Title != null) {
-				Title.Dispose ();
-				Title = null;
+			if (BuyButton != null) {
+				BuyButton.Dispose ();
+				BuyButton = null;
+			}
+
+			if (DescriptionLabel != null) {
+				DescriptionLabel.Dispose ();
+				DescriptionLabel = null;
+			}
+
+			if (FavoriteButton != null) {
+				FavoriteButton.Dispose ();
+				FavoriteButton = null;
+			}
+
+			if (Logo != null) {
+				Logo.Dispose ();
+				Logo = null;
+			}
+
+			if (NameLabel != null) {
+				NameLabel.Dispose ();
+				NameLabel = null;
+			}
+
+			if (PriceLabel != null) {
+				PriceLabel.Dispose ();
+				PriceLabel = null;
 			}
 		}
 	}

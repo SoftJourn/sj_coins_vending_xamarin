@@ -363,6 +363,8 @@
     <Compile Include="UI\Controllers\AccountPage\PrivacyTermsViewController.cs" />
     <Compile Include="UI\Controllers\AccountPage\HelpViewController.cs" />
     <Compile Include="UI\Controllers\AccountPage\ShareFunsViewController.cs" />
+    <Compile Include="UI\Controllers\AccountPage\QRCodeViewController.cs" />
+    <Compile Include="UI\Controllers\AccountPage\QRCodeViewController.designer.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
 </Project>

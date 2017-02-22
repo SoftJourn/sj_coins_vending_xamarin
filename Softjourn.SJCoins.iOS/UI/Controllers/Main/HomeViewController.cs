@@ -171,10 +171,28 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.Main
 			// Trigg presenter that user click on SeeAll button 
 			Presenter.OnShowAllClick(categoryName);
 		}
+
+		public void OnBuyActionClicked(object sender, Product product)
+		{
+			// Trigg presenter that user click Buy action on preview page 
+			Presenter.OnBuyProductClick(product);
+		}
+
+		public void OnFavoriteActionClicked(object sender, Product product)
+		{
+			// Trigg presenter that user click Favorite action on preview page 
+			Presenter.OnFavoriteClick(product);
+		}
 		// --------------------------------------------------------
 
 		// Throw CollectionView to parent
 		protected override UIScrollView GetRefreshableScrollView() => CollectionView;
+
+		protected override void PullToRefreshTriggered(object sender, System.EventArgs e)
+		{
+			StopRefreshing();
+			Presenter.OnStartLoadingPage();
+		}
 		#endregion
 	}
 
@@ -192,7 +210,6 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.Main
 		{
 			this.categories = categories;
 		}
-
 
 		public override nint GetItemsCount(UICollectionView collectionView, nint section) => categories.Count;
 
@@ -226,6 +243,12 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.Main
 
 			_cell.SeeAllClickedEvent -= parent.OnSeeAllClicked;
 			_cell.SeeAllClickedEvent += parent.OnSeeAllClicked;
+
+			_cell.BuyActionExecuted -= parent.OnBuyActionClicked;
+			_cell.BuyActionExecuted += parent.OnBuyActionClicked;
+
+			_cell.FavoriteActionExecuted -= parent.OnFavoriteActionClicked;
+			_cell.FavoriteActionExecuted += parent.OnFavoriteActionClicked;
 		}
 	}
 	#endregion

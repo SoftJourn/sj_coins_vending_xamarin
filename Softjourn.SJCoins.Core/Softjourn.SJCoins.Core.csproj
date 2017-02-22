@@ -67,6 +67,8 @@
     <Compile Include="Managers\PhotoManager.cs" />
     <Compile Include="Utils\PermissionsUtils.cs" />
     <Compile Include="Utils\TimeUtils.cs" />
+    <Compile Include="API\Model\Cash.cs" />
+    <Compile Include="API\Model\DepositeTransaction.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Services\" />
