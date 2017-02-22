@@ -21,25 +21,35 @@ namespace Softjourn.SJCoins.Core.UI.Presenters
             set { }
         }
 
-        private QrManager _qrManager;
+        private QrManager QrManager;
+
+        #region Constructor
         public QrPresenter()
         {
             _scope = BaseBootstrapper.Container.BeginLifetimeScope();
-            _qrManager = _scope.Resolve<QrManager>();
+            QrManager = _scope.Resolve<QrManager>();
         }
+        #endregion
 
+        #region Public Methods
+        //Calls Method of ZXing scanning to get code
+        //and if success call API method to proceed transaction
         public async void ScanCode()
         {
             try
             {
-                var code = await _qrManager.GetCodeFromQr();
+                var code = await QrManager.GetCodeFromQr();
 
                 if (code != null)
                 {
                     var result = await GetMoney(code);
+
+                    //Updating Balance in DataMager
                     DataManager.Profile.Amount = result.Remain;
                     View.HideProgress();
-                    View.ShowSuccessFunding();
+                    AlertService.ShowToastMessage(Resources.StringResources.wallet_was_funded);
+
+                    //Updating balance on View
                     View.UpdateBalance(result.Remain.ToString());
                 }
             }
@@ -49,6 +59,7 @@ namespace Softjourn.SJCoins.Core.UI.Presenters
             }
         }
 
+        //If amount is valid call API method for creating transaction
         public async void GenerateCode(string amount)
         {
             if (ValidateAmount(amount))
@@ -57,11 +68,15 @@ namespace Softjourn.SJCoins.Core.UI.Presenters
             }
         }
 
+        //Return Current Balance from DataManager
         public int GetBalance()
         {
             return MyBalance;
         }
+        #endregion
 
+        #region Private Methods
+        //Return true if amount is not empty, is integer and not exceeds user's balance
         private bool ValidateAmount(string amount)
         {
             if (string.IsNullOrEmpty(amount))
@@ -83,6 +98,7 @@ namespace Softjourn.SJCoins.Core.UI.Presenters
             return true;
         }
 
+        //API call to get DepositeTransaction Object
         private async Task<DepositeTransaction> GetMoney(Cash scannedCode)
         {
             if (NetworkUtils.IsConnected)
@@ -112,6 +128,7 @@ namespace Softjourn.SJCoins.Core.UI.Presenters
             return null;
         }
 
+        //Api call to get Cash Object fro generating QR code based on it
         private async Task<Cash> WithdrawMoney(string amount)
         {
             if (NetworkUtils.IsConnected)
@@ -119,15 +136,21 @@ namespace Softjourn.SJCoins.Core.UI.Presenters
                 try
                 {
                     View.ShowProgress(Resources.StringResources.progress_loading);
+
+                    //Creating Object Amount based on Input amount
                     var amountJson = new Amount { Balance = amount };
 
                     var code = await RestApiServise.WithdrawMoney(amountJson);
 
                     View.HideProgress();
-                    View.ShowImage(_qrManager.ConvertCashObjectToString(code));
+                    //Send string built from received CashObject to View
+                    //so it could generate QRCode
+                    View.ShowImage(QrManager.ConvertCashObjectToString(code));
 
+                    //Call Updated UserBalance From server and store it to the DataManager
                     DataManager.Profile = await RestApiServise.GetUserAccountAsync();
 
+                    //Updates user's balance on View from DataManager.Profile
                     View.UpdateBalance(MyBalance.ToString());
 
                 }
@@ -150,5 +173,6 @@ namespace Softjourn.SJCoins.Core.UI.Presenters
             }
             return null;
         }
+        #endregion
     }
 }

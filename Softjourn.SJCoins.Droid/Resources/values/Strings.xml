@@ -1,4 +1,4 @@
-<resources>
+﻿<resources>
   <string name="ApplicationName">SJ_coin</string>
 
   <!--Login-->
@@ -103,7 +103,7 @@
   <!--BottomBar Items-->
   <string name="menu_bottombar_home">Home</string>
   <string name="menu_bottombar_profile">Profile</string>
-  
+
   <!-- Navigation Drawer Items-->
   <string name="allItems">All Items</string>
   <string name="favorites">Favorites</string>
@@ -185,7 +185,7 @@
   <string name="details_info_solt">Salt</string>
   <string name="details_info_fibre">Fibre</string>
   <string name="details_info_rating">Rating</string>
-  
+
   <!--Generate code Activity-->
   <string name="button_generate">Generate</string>
   <string name="input_amount_hint">Enter Amount</string>

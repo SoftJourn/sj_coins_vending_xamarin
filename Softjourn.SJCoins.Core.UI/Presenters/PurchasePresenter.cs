@@ -8,10 +8,6 @@ namespace Softjourn.SJCoins.Core.UI.Presenters
 {
     public class PurchasePresenter : BasePresenter<IPurchaseView>
     {
-        public PurchasePresenter()
-        {
-
-        }
 
         public async void OnStartLoadingPage()
         {

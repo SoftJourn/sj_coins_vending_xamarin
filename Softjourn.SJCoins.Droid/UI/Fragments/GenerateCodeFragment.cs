@@ -1,21 +1,11 @@
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Text;
-
 using Android.App;
 using Android.Content;
 using Android.Graphics;
 using Android.OS;
 using Android.Provider;
-using Android.Runtime;
 using Android.Views;
 using Android.Widget;
-using Java.Lang;
 using Softjourn.SJCoins.Droid.UI.Activities;
-using ZXing;
-using ZXing.Common;
 
 namespace Softjourn.SJCoins.Droid.UI.Fragments
 {
@@ -33,16 +23,7 @@ namespace Softjourn.SJCoins.Droid.UI.Fragments
             return fragment;
         }
 
-        public GenerateCodeFragment()
-        {
-
-        }
-
-        public override void OnCreate(Bundle savedInstanceState)
-        {
-            base.OnCreate(savedInstanceState);
-        }
-
+        #region Fragment Methods
         public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
         {
             var view = inflater.Inflate(Resource.Layout.fragment_generate_barcode, container, false);
@@ -64,18 +45,19 @@ namespace Softjourn.SJCoins.Droid.UI.Fragments
                 GetQrCode(_inputAmount.Text);
             };
         }
+        #endregion
 
-        private void GetQrCode(string amount)
-        {
-            ((QrActivity)Activity).GenerateCode(amount);
-        }
 
+        #region Public methods
+        //Sets Error for EditText Field
         public void ShowEditFieldError(string amount)
         {
             _inputAmount.RequestFocus();
-            _inputAmount.SetError(amount,null);
+            _inputAmount.SetError(amount, null);
         }
 
+        //Generating of QR code based on the 
+        //string taken from Api call
         public void ShowImageCode(string image)
         {
             var barcodeWriter = new ZXing.Mobile.BarcodeWriter
@@ -94,7 +76,17 @@ namespace Softjourn.SJCoins.Droid.UI.Fragments
 
             _bitmap = barcode;
         }
+        #endregion
 
+
+        #region Private Methods
+        //Calls Activity method to get string needed for generating of QRCode
+        private void GetQrCode(string amount)
+        {
+            ((QrActivity)Activity).GenerateCode(amount);
+        }
+
+        //Starts Activity for choosing method of sharing an image of QRCode
         private void ShareCode()
         {
             var path = MediaStore.Images.Media.InsertImage(Activity.ContentResolver, _bitmap, "MoneyCode", null);
@@ -104,5 +96,6 @@ namespace Softjourn.SJCoins.Droid.UI.Fragments
             share.PutExtra(Intent.ExtraStream, uri);
             Activity.StartActivity(Intent.CreateChooser(share, "Share Image"));
         }
+        #endregion
     }
 }

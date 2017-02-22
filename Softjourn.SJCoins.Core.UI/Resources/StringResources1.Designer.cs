@@ -305,6 +305,15 @@ namespace Softjourn.SJCoins.Core.UI.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Your wallet was funded.
+        /// </summary>
+        public static string wallet_was_funded {
+            get {
+                return ResourceManager.GetString("wallet_was_funded", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Your balance is %s coins.
         /// </summary>
         public static string your_balance_is {

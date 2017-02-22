@@ -16,7 +16,9 @@ namespace Softjourn.SJCoins.Droid.UI.Activities
     public class QrActivity : BaseActivity<QrPresenter>, IQrView
     {
         private TextView _balance;
-        private string _coinsLabel = " coins";
+        private const string CoinsLabel = " coins";
+
+        #region Activity methods
 
         protected override void OnCreate(Bundle savedInstanceState)
         {
@@ -25,25 +27,21 @@ namespace Softjourn.SJCoins.Droid.UI.Activities
             var fragmentType = Intent.GetStringExtra(Const.NavigationKey);
 
             _balance = FindViewById<TextView>(Resource.Id.qr_balance);
+            
+            //Initializing of ZXing Scanner
             MobileBarcodeScanner.Initialize(Application);
 
             if (fragmentType == Const.QrScreenScanningTag)
             {
-                FragmentManager.BeginTransaction()
-                .Replace(Resource.Id.container_fargment, ScanningResultFragment.NewInstance(),
-                 Const.QrScreenScanningTag)
-                .Commit();
+                AttachFragment(Const.QrScreenScanningTag, ScanningResultFragment.NewInstance());
             }
             else
             {
-                FragmentManager.BeginTransaction()
-                .Replace(Resource.Id.container_fargment, GenerateCodeFragment.NewInstance(),
-                 Const.QrScreenScanningTag)
-                .Commit();
+                AttachFragment(Const.QrScreenGeneratingTag, GenerateCodeFragment.NewInstance());
             }
             SupportActionBar?.SetDisplayHomeAsUpEnabled(true);
-            _balance.Visibility = ViewStates.Visible;
-            _balance.Text = ViewPresenter.GetBalance() + _coinsLabel;
+
+            SetInitialBalance();
         }
 
         public override bool OnCreateOptionsMenu(IMenu menu)
@@ -63,43 +61,61 @@ namespace Softjourn.SJCoins.Droid.UI.Activities
         {
             Finish();
         }
+        #endregion
 
-        public void UpdateBalance(string remain)
+        #region IQrView Implementation
+        //Updates user balance
+        public void UpdateBalance(string amount)
         {
-            _balance.Text = remain + _coinsLabel;
+            _balance.Text = amount + CoinsLabel;
         }
 
-        public void ShowSuccessFunding()
-        {
-            var fragment = FragmentManager.FindFragmentById(Resource.Id.container_fargment) as ScanningResultFragment;
-            fragment?.ShowTextViewScanned();
-        }
-
+        //If amount is not valid call method on fragment
+        //to set Error to EditField
         public void SetEditFieldError(string message)
         {
-            var fragment = FragmentManager.FindFragmentById(Resource.Id.container_fargment) as GenerateCodeFragment;
+            var fragment = FragmentManager.FindFragmentById(Resource.Id.container_fragment) as GenerateCodeFragment;
             fragment?.ShowEditFieldError(message);
         }
 
-        public void ShowImage(string image)
+        //Call method on Fragment to generate QRcode
+        public void ShowImage(string cashJsonString)
         {
-            var fragment = FragmentManager.FindFragmentById(Resource.Id.container_fargment) as GenerateCodeFragment;
-            fragment?.ShowImageCode(image);
+            var fragment = FragmentManager.FindFragmentById(Resource.Id.container_fragment) as GenerateCodeFragment;
+            fragment?.ShowImageCode(cashJsonString);
         }
+        #endregion
 
-        public void SetBalance(string amount)
-        {
-            _balance.Text = amount + _coinsLabel;
-        }
-
+        #region Public Methods
+        //Call Scanning on Presenters side
         public void ScanCode()
         {
             ViewPresenter.ScanCode();
         }
 
+        //Call Method in Presenter to make api call to get info for
+        //generating of QR code.
         public void GenerateCode(string amount)
         {
             ViewPresenter.GenerateCode(amount);
         }
+        #endregion
+
+        #region Private Methods
+        //Attaches needed fragment
+        private void AttachFragment(string fragmentTag, Fragment fragment)
+        {
+            FragmentManager.BeginTransaction()
+                .Replace(Resource.Id.container_fragment, fragment, fragmentTag)
+                .Commit();
+        }
+
+        //Sets balance as Text to TextView based on Response from Presenter
+        private void SetInitialBalance()
+        {
+            _balance.Visibility = ViewStates.Visible;
+            _balance.Text = ViewPresenter.GetBalance() + CoinsLabel;
+        }
+        #endregion
     }
 }

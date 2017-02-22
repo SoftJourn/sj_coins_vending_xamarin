@@ -63,6 +63,7 @@ namespace Softjourn.SJCoins.Droid.ui.baseUI
         protected override void OnDestroy()
         {
             base.OnDestroy();
+            Console.WriteLine("Destroyed Activity" + this.LocalClassName);
             ViewPresenter = null;
         }
 
