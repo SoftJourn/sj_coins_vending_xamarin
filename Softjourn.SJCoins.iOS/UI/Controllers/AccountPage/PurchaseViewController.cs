@@ -33,7 +33,7 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.AccountPage
 			ConfigureTableView();
 			// Hide NoItems label
 			NoItemsLabel.Hidden = true;
-
+			// SetTitle;
 			Title = Purchases;
 			Presenter.OnStartLoadingPage();
 		}
