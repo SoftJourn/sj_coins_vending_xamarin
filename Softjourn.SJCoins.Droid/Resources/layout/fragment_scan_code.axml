@@ -2,24 +2,14 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:padding="@dimen/login_button_margin_top">
   
-  <TextView
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:textAppearance="?android:attr/textAppearanceLarge"
-      android:id="@+id/money_added_textView"
-      android:text="@string/wallet_funded"
-      android:textStyle="bold"
-      android:layout_marginTop="10dp"
-      android:layout_gravity="center_horizontal"
-      android:visibility="gone"/>
-
-  <Button
+   <Button
       android:id="@+id/btn_scan_again"
-      android:layout_width="wrap_content"
+      android:layout_width="match_parent"
       android:layout_height="wrap_content"
-      android:layout_gravity="center_horizontal"
+      android:layout_gravity="center_horizontal|center_vertical"
       android:backgroundTint="@color/colorBlue"
       android:textColor="@color/white"
       android:text="@string/btn_scan_again" />

@@ -201,4 +201,7 @@
   <data name="unknown_code" xml:space="preserve">
     <value>Sorry, this code is unknown</value>
   </data>
+  <data name="wallet_was_funded" xml:space="preserve">
+    <value>Your wallet was funded</value>
+  </data>
 </root>
