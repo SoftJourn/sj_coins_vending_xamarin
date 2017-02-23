@@ -1,7 +1,5 @@
 using System;
-using CoreFoundation;
 using Foundation;
-using Social;
 using Softjourn.SJCoins.Core.UI.Presenters;
 using Softjourn.SJCoins.Core.UI.ViewInterfaces;
 using Softjourn.SJCoins.iOS.General.Helper;
@@ -158,6 +156,8 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.AccountPage
 			return true;
 		}
 
+		private void PresentSharedSheet()
+
 		// -------------------- Event handlers --------------------
 		private void AmountTextFieldChanged(object sender, EventArgs e)
 		{
@@ -184,6 +184,14 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.AccountPage
 		{
 			// Handle tapping on the QRCode image
 
+			// TODO convert image to string and save it as item
+			var item = UIActivity.FromObject("Test string");  
+			var activityItems = new NSObject[] { item };
+			UIActivity[] applicationActivities = null;
+
+			var activityController = new UIActivityViewController(activityItems, applicationActivities);
+
+			PresentViewController(activityController, true, null);
 		}
 		// -------------------------------------------------------- 
 		#endregion
