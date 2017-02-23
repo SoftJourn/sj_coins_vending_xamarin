@@ -1,5 +1,7 @@
 using System;
+using CoreFoundation;
 using Foundation;
+using Social;
 using Softjourn.SJCoins.Core.UI.Presenters;
 using Softjourn.SJCoins.Core.UI.ViewInterfaces;
 using Softjourn.SJCoins.iOS.General.Helper;
@@ -18,9 +20,13 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.AccountPage
 
 		#region Properties
 		private string initialParameter { get; set; }
+		private string amount 
+		{ 
+			get { return AmountTexfield.Text; } 
+		}
 
 		MobileBarcodeScanner scanner; 
-
+				
 		UITapGestureRecognizer qrcodeImageTap;
 		#endregion
 
@@ -49,9 +55,9 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.AccountPage
 		{
 			base.ViewWillAppear(animated);
 			// Attach 
+			AmountTexfield.EditingChanged += AmountTextFieldChanged;
 			GenerateButton.TouchUpInside += GenerateButtonClickHandler;
 			DoneButton.Clicked += DoneButtonClickHandler;
-
 			// Add tap gesture to QRCode image
 			qrcodeImageTap = new UITapGestureRecognizer(QRCodeImageTapHandler);
 			QRCodeImage.AddGestureRecognizer(qrcodeImageTap);
@@ -65,8 +71,10 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.AccountPage
 		public override void ViewWillDisappear(bool animated)
 		{
 			// Detach
+			AmountTexfield.EditingChanged -= AmountTextFieldChanged;
 			GenerateButton.TouchUpInside -= GenerateButtonClickHandler;
 			DoneButton.Clicked -= DoneButtonClickHandler;
+			QRCodeImage.RemoveGestureRecognizer(qrcodeImageTap);
 			base.ViewWillDisappear(animated);
 		}
 		#endregion
@@ -82,13 +90,16 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.AccountPage
 		public void SetEditFieldError(string message)
 		{
 			// Show error when amount more than balance
-			throw new NotImplementedException();
+			ErrorLabel.Text = message;
+			ErrorLabel.Hidden = false;
 		}
 
 		public void ShowImage(string image)
 		{
 			// Show QRCode after success generating
-			throw new NotImplementedException();
+			QRCodeImage.Image = new QRCodeHelper().GenerateQRImage(image, 700, 700);
+			// Clear texfield
+			AmountTexfield.Text = "";
 		}
 		#endregion
 
@@ -109,16 +120,20 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.AccountPage
 		private void ConfigureScanMode()
 		{
 			BalanceLabel.Hidden = true;
+			ErrorLabel.Hidden = true;
 			AmountTexfield.Hidden = true;
 			GenerateButton.Hidden = true;
 			QRCodeImage.Hidden = true;
+			//Execute scaning
 			ScanQRCode();
 		}
 
 		private void ConfigureGenerateMode()
 		{
-			BalanceLabel.Text = "Your balance is " + Presenter.GetBalance().ToString() + " coins";
+			BalanceLabel.Text = "Your balance is " + Presenter.GetBalance().ToString() + " coins"; 
+			ErrorLabel.Hidden = true;
 			AmountTexfield.Hidden = false;
+			AmountTexfield.ShouldReturn = TextFieldShouldReturn;
 			GenerateButton.Hidden = false;
 			QRCodeImage.Hidden = false;
 		}
@@ -137,12 +152,26 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.AccountPage
 			}
 		}
 
+		private bool TextFieldShouldReturn(UITextField textField)
+		{
+			textField.ResignFirstResponder();
+			return true;
+		}
+
 		// -------------------- Event handlers --------------------
+		private void AmountTextFieldChanged(object sender, EventArgs e)
+		{
+			ErrorLabel.Text = "";
+			Presenter.ValidateAmount(AmountTexfield.Text);
+		}
+
 		private void GenerateButtonClickHandler(object sender, EventArgs e)
 		{
 			// Handle clicking on the Generate button
-			// take ammount from edit field
-			//Presenter.GetMoney();
+
+			Presenter.GenerateCode(amount);
+			// Hide keyboard
+			AmountTexfield.ResignFirstResponder();
 		}
 
 		private void DoneButtonClickHandler(object sender, EventArgs e)

@@ -367,24 +367,36 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="ie1-Tg-rGi">
-                                <rect key="frame" x="63" y="334" width="250" height="250"/>
+                            <imageView contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="ie1-Tg-rGi">
+                                <rect key="frame" x="38" y="294" width="300" height="300"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="250" id="H6U-5T-hq0"/>
-                                    <constraint firstAttribute="width" constant="250" id="wGF-eO-e7W"/>
+                                    <constraint firstAttribute="height" constant="300" id="H6U-5T-hq0"/>
+                                    <constraint firstAttribute="width" constant="300" id="wGF-eO-e7W"/>
                                 </constraints>
                             </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="ErrorLabel" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="riX-SN-XU7">
+                                <rect key="frame" x="38" y="123" width="300" height="16"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="300" id="D8A-Sw-biS"/>
+                                    <constraint firstAttribute="height" constant="16" id="aWA-q8-h3Q"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                <color key="textColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstItem="riX-SN-XU7" firstAttribute="centerX" secondItem="fHL-ol-wxF" secondAttribute="centerX" id="0qr-GN-AbC"/>
                             <constraint firstItem="fzT-V2-seY" firstAttribute="centerX" secondItem="fHL-ol-wxF" secondAttribute="centerX" id="0rN-3Y-2As"/>
                             <constraint firstItem="ie1-Tg-rGi" firstAttribute="centerX" secondItem="fHL-ol-wxF" secondAttribute="centerX" id="1tX-iK-njA"/>
-                            <constraint firstItem="ie1-Tg-rGi" firstAttribute="top" secondItem="LYo-M5-Kzl" secondAttribute="bottom" constant="80" id="63a-uA-vmx"/>
+                            <constraint firstItem="ie1-Tg-rGi" firstAttribute="top" secondItem="LYo-M5-Kzl" secondAttribute="bottom" constant="40" id="63a-uA-vmx"/>
                             <constraint firstItem="LYo-M5-Kzl" firstAttribute="centerX" secondItem="fHL-ol-wxF" secondAttribute="centerX" id="Aeh-y4-SCc"/>
                             <constraint firstItem="ozq-wM-xrJ" firstAttribute="top" secondItem="P7M-RG-ON2" secondAttribute="bottom" constant="25" id="Kyv-ZS-OOI"/>
                             <constraint firstItem="ozq-wM-xrJ" firstAttribute="centerX" secondItem="fHL-ol-wxF" secondAttribute="centerX" id="Xck-M0-zcu"/>
                             <constraint firstItem="LYo-M5-Kzl" firstAttribute="top" secondItem="fzT-V2-seY" secondAttribute="bottom" constant="30" id="e0D-Zl-pd6"/>
                             <constraint firstItem="fzT-V2-seY" firstAttribute="top" secondItem="ozq-wM-xrJ" secondAttribute="bottom" constant="25" id="nCf-2f-w1O"/>
+                            <constraint firstItem="fzT-V2-seY" firstAttribute="top" secondItem="riX-SN-XU7" secondAttribute="bottom" constant="5" id="uLT-io-mlU"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="QR Code" id="glI-bE-5Be">
@@ -394,13 +406,14 @@
                         <outlet property="AmountTexfield" destination="fzT-V2-seY" id="aPd-88-G7t"/>
                         <outlet property="BalanceLabel" destination="ozq-wM-xrJ" id="7Kc-Ms-gPF"/>
                         <outlet property="DoneButton" destination="grv-CR-mb4" id="09y-eo-1t2"/>
+                        <outlet property="ErrorLabel" destination="riX-SN-XU7" id="tKX-Fb-DGO"/>
                         <outlet property="GenerateButton" destination="LYo-M5-Kzl" id="aUu-oS-crm"/>
                         <outlet property="QRCodeImage" destination="ie1-Tg-rGi" id="LzN-Et-xvZ"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Jss-Xf-rDh" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4534" y="3045"/>
+            <point key="canvasLocation" x="4533.6000000000004" y="3044.5277361319345"/>
         </scene>
         <!--Help View Controller-->
         <scene sceneID="ohu-3D-wCp">

@@ -24,7 +24,7 @@ namespace Softjourn.SJCoins.Core.UI.Utils
 
         public static bool IsAmountValid(string amount)
         {
-            return Regex.IsMatch(amount, "\\d+");
+            return Regex.IsMatch(amount, "^[0-9]*$");
         }
     }
 }

@@ -81,6 +81,27 @@ namespace Softjourn.SJCoins.Core.UI.Presenters
 			await PermissionsUtils.CheckCameraPermissiomAsync();
 		}
 
+		//Return true if amount is not empty, is integer and not exceeds user's balance
+		public bool ValidateAmount(string amount)
+		{
+			if (string.IsNullOrEmpty(amount))
+			{
+				View.SetEditFieldError(Resources.StringResources.error_field_is_empty);
+				return false;
+			}
+			if (!Validators.IsAmountValid(amount))
+			{
+				View.SetEditFieldError(Resources.StringResources.error_field_contains_not_digits);
+				return false;
+			}
+
+			if (Convert.ToInt32(amount) > MyBalance)
+			{
+				View.SetEditFieldError(Resources.StringResources.error_field_not_enough_money);
+				return false;
+			}
+			return true;
+		}
 		#endregion
 
 		#region Private Methods
@@ -94,28 +115,6 @@ namespace Softjourn.SJCoins.Core.UI.Presenters
 			//Updating balance on View
 			View.UpdateBalance(result.Remain.ToString());
 		}
-
-        //Return true if amount is not empty, is integer and not exceeds user's balance
-        private bool ValidateAmount(string amount)
-        {
-            if (string.IsNullOrEmpty(amount))
-            {
-                View.SetEditFieldError(Resources.StringResources.error_field_is_empty);
-                return false;
-            }
-            if (!Validators.IsAmountValid(amount))
-            {
-                View.SetEditFieldError(Resources.StringResources.error_field_contains_not_digits);
-                return false;
-            }
-
-            if (Convert.ToInt32(amount) > MyBalance)
-            {
-                View.SetEditFieldError(Resources.StringResources.error_field_not_enough_money);
-                return false;
-            }
-            return true;
-        }
 
         //API call to get DepositeTransaction Object
         private async Task<DepositeTransaction> GetMoney(Cash scannedCode)
