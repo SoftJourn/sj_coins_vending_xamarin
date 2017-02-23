@@ -139,6 +139,9 @@
       <HintPath>..\packages\ZXing.Net.Mobile.2.1.47\lib\Xamarin.iOS10\ZXingNetMobile.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>..\packages\Newtonsoft.Json.9.0.1\lib\portable-net45+wp80+win8+wpa81\Newtonsoft.Json.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Softjourn.SJCoins.Core\Softjourn.SJCoins.Core.csproj">
@@ -279,6 +282,7 @@
     <Folder Include="Assets.xcassets\Placeholder.imageset\" />
     <Folder Include="Assets.xcassets\vending_logo.imageset\" />
     <Folder Include="Resources\" />
+    <Folder Include="General\Helper\" />
   </ItemGroup>
   <ItemGroup>
     <InterfaceDefinition Include="LaunchScreen.storyboard" />
@@ -372,6 +376,7 @@
     <Compile Include="UI\Cells\PurchaseCell.designer.cs">
       <DependentUpon>PurchaseCell.cs</DependentUpon>
     </Compile>
+    <Compile Include="General\Helper\QRCodeHelper.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
 </Project>

@@ -2,6 +2,7 @@ using System;
 using Foundation;
 using Softjourn.SJCoins.Core.UI.Presenters;
 using Softjourn.SJCoins.Core.UI.ViewInterfaces;
+using Softjourn.SJCoins.iOS.General.Helper;
 using UIKit;
 using ZXing.Mobile;
 
@@ -74,26 +75,19 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.AccountPage
 		public void UpdateBalance(string remain)
 		{
 			//Update balance after success debiting funds
-			BalanceLabel.Text = remain;
-		}
-
-		public void ShowSuccessFunding()
-		{
-			throw new NotImplementedException();
+			BalanceLabel.Text = "Your balance is " + remain + " coins";
+			BalanceLabel.Hidden = false;
 		}
 
 		public void SetEditFieldError(string message)
 		{
-			throw new NotImplementedException();
-		}
-
-		public void ShowImage(byte[] image)
-		{
+			// Show error when amount more than balance
 			throw new NotImplementedException();
 		}
 
 		public void ShowImage(string image)
 		{
+			// Show QRCode after success generating
 			throw new NotImplementedException();
 		}
 		#endregion
@@ -112,30 +106,42 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.AccountPage
 			}
 		}
 
-		private async void ConfigureScanMode()
+		private void ConfigureScanMode()
 		{
+			BalanceLabel.Hidden = true;
 			AmountTexfield.Hidden = true;
 			GenerateButton.Hidden = true;
 			QRCodeImage.Hidden = true;
+			ScanQRCode();
+		}
+
+		private void ConfigureGenerateMode()
+		{
+			BalanceLabel.Text = "Your balance is " + Presenter.GetBalance().ToString() + " coins";
+			AmountTexfield.Hidden = false;
+			GenerateButton.Hidden = false;
+			QRCodeImage.Hidden = false;
+		}
+
+		private async void ScanQRCode()
+		{
+			await Presenter.CheckPermission();
 
 			scanner = new ZXing.Mobile.MobileBarcodeScanner(this);
 			var result = await scanner.Scan();
 
 			if (result != null)
-				Console.WriteLine("Scanned Barcode: " + result.Text);
-		}
-
-		private void ConfigureGenerateMode()
-		{
-			AmountTexfield.Hidden = false;
-			GenerateButton.Hidden = false;
-			QRCodeImage.Hidden = false;
+			{
+				var cashObject = new QRCodeHelper().ConvertScanResult(result);
+				Presenter.ScanCodeIOS(cashObject);
+			}
 		}
 
 		// -------------------- Event handlers --------------------
 		private void GenerateButtonClickHandler(object sender, EventArgs e)
 		{
 			// Handle clicking on the Generate button
+			// take ammount from edit field
 			//Presenter.GetMoney();
 		}
 

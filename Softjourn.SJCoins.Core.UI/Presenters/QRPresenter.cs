@@ -39,25 +39,27 @@ namespace Softjourn.SJCoins.Core.UI.Presenters
             try
             {
                 var code = await QrManager.GetCodeFromQr();
-
                 if (code != null)
-                {
-                    var result = await GetMoney(code);
-
-                    //Updating Balance in DataMager
-                    DataManager.Profile.Amount = result.Remain;
-                    View.HideProgress();
-                    AlertService.ShowToastMessage(Resources.StringResources.wallet_was_funded);
-
-                    //Updating balance on View
-                    View.UpdateBalance(result.Remain.ToString());
-                }
+                	UpdateBalance(await GetMoney(code));
             }
             catch (CameraException e)
             {
                 AlertService.ShowToastMessage(e.ToString());
             }
         }
+
+		// Using only on IOS platform
+		public async void ScanCodeIOS(Cash cashObject)
+		{
+			try 
+			{
+				UpdateBalance(await GetMoney(cashObject)); 
+			}
+			catch (CameraException e) 
+			{ 
+				AlertService.ShowToastMessage(e.ToString()); 
+			}
+		}
 
         //If amount is valid call API method for creating transaction
         public async void GenerateCode(string amount)
@@ -73,9 +75,26 @@ namespace Softjourn.SJCoins.Core.UI.Presenters
         {
             return MyBalance;
         }
-        #endregion
 
-        #region Private Methods
+		public async Task CheckPermission()
+		{
+			await PermissionsUtils.CheckCameraPermissiomAsync();
+		}
+
+		#endregion
+
+		#region Private Methods
+		private void UpdateBalance(DepositeTransaction result)
+		{
+			//Updating Balance in DataMager
+			DataManager.Profile.Amount = result.Remain;
+			View.HideProgress();
+			AlertService.ShowToastMessage(Resources.StringResources.wallet_was_funded);
+
+			//Updating balance on View
+			View.UpdateBalance(result.Remain.ToString());
+		}
+
         //Return true if amount is not empty, is integer and not exceeds user's balance
         private bool ValidateAmount(string amount)
         {
