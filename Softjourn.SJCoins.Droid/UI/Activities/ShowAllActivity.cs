@@ -91,8 +91,8 @@ namespace Softjourn.SJCoins.Droid.UI.Activities
         private void OnSortByPriceClick(object sender, EventArgs e)
         {
             ViewPresenter.OnSortByPriceClicked(_category);
-            _sortPriceButton.SetBackgroundColor(new Color(GetColor(Resource.Color.colorScreenBackground)));
-            _sortNameButton.SetBackgroundColor(new Color(GetColor(Resource.Color.transparent)));
+            _sortPriceButton.SetBackgroundColor(new Color(ContextCompat.GetColor(this, Resource.Color.colorScreenBackground)));
+            _sortNameButton.SetBackgroundColor(new Color(ContextCompat.GetColor(this, Resource.Color.transparent)));
         }
 
         /**
@@ -103,8 +103,8 @@ namespace Softjourn.SJCoins.Droid.UI.Activities
         private void OnSortByNameClick(object sender, EventArgs e)
         {
             ViewPresenter.OnSortByNameClicked(_category);
-            _sortNameButton.SetBackgroundColor(new Color(GetColor(Resource.Color.colorScreenBackground)));
-            _sortPriceButton.SetBackgroundColor(new Color(GetColor(Resource.Color.transparent)));
+            _sortNameButton.SetBackgroundColor(new Color(ContextCompat.GetColor(this, Resource.Color.colorScreenBackground)));
+            _sortPriceButton.SetBackgroundColor(new Color(ContextCompat.GetColor(this, Resource.Color.transparent)));
         }
 
         public override bool OnCreateOptionsMenu(IMenu menu)
