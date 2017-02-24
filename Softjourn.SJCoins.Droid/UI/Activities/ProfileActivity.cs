@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 
@@ -92,8 +93,14 @@ namespace Softjourn.SJCoins.Droid.UI.Activities
         #region Private Methods
         private void SetAvatarImage(byte[] data)
         {
+            var byteArrayOutputStream = new MemoryStream();
             var bmp = BitmapFactory.DecodeByteArray(data, 0, data.Length);
-            _avatar.SetImageBitmap(bmp);
+            bmp.Compress(Bitmap.CompressFormat.Jpeg, 40, byteArrayOutputStream);
+
+            var byteArray = byteArrayOutputStream.ToArray();
+
+            var compressedBitmap = BitmapFactory.DecodeByteArray(byteArray, 0, byteArray.Length);
+            _avatar.SetImageBitmap(compressedBitmap);
         }
 
         private async void ChangePhoto(object sender, EventArgs e)
