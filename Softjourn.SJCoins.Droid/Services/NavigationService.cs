@@ -53,6 +53,7 @@ namespace Softjourn.SJCoins.Droid.Services
                     break;
                 case NavigationPage.Home:
                     view = new Intent(CrossCurrentActivity.Current.Activity, typeof(MainActivity));
+                    view.AddFlags(ActivityFlags.ClearTask);
                     break;
                 case NavigationPage.Welcome:
                     view = new Intent(CrossCurrentActivity.Current.Activity, typeof(WelcomeActivity));
