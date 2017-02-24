@@ -1,12 +1,9 @@
 using System;
 using System.Collections.Generic;
-using BigTed;
 using Foundation;
 using Softjourn.SJCoins.Core.API.Model.Machines;
 using Softjourn.SJCoins.Core.UI.Presenters;
 using Softjourn.SJCoins.Core.UI.ViewInterfaces;
-using Softjourn.SJCoins.iOS.UI.Controllers;
-using Softjourn.SJCoins.iOS.UI.Services;
 using CoreGraphics;
 
 using UIKit;
@@ -17,8 +14,7 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers
 	public partial class SelectMachineViewController : BaseViewController<SelectMachinePresenter>, ISelectMachineView
 	{
 		#region Properties
-		private List<Machines> machines;
-		private Machines selectedMachine;
+		private SelectMachineSource _tableSource;
 		#endregion
 
 		#region Constructor
@@ -31,17 +27,23 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers
 		public override void ViewDidLoad()
 		{
 			base.ViewDidLoad();
-
-			TableView.Source = new SelectMachineViewControllerDataSource(this);
-			TableView.Delegate = new SelectMachineViewControllerDelegate(this);
+			ConfigureTableView();
 			Presenter.GetMachinesList();
 		}
 
 		public override void ViewWillAppear(bool animated)
 		{
 			base.ViewWillAppear(animated);
-
+			// Attach 
+			_tableSource.ItemSelected += TableSource_ItemClicked;
 			NoMachinesLabel.Hidden = true;
+		}
+
+		public override void ViewWillDisappear(bool animated)
+		{
+			// Detach 
+			_tableSource.ItemSelected -= TableSource_ItemClicked;
+			base.ViewWillDisappear(animated);
 		}
 		#endregion
 
@@ -56,27 +58,18 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers
 		public void ShowMachinesList(List<Machines> list, Machines selectedMachine = null)
 		{
 			// save list in controller and reload tableView
-			machines = list;
-			this.selectedMachine = selectedMachine;
+			_tableSource.SetParameters(list, selectedMachine, ConfigureVendingMachinesHeader());
 			TableView.ReloadData();
 		}
 		#endregion
 
-		#region BaseViewController -> IBaseView implementation
-		public override void SetUIAppearance()
-		{
-		}
-
-		public override void AttachEvents()
-		{
-		}
-
-		public override void DetachEvents()
-		{
-		}
-		#endregion
-
 		#region Private methods
+		private void ConfigureTableView()
+		{
+			_tableSource = new SelectMachineSource();
+			TableView.Source = _tableSource;
+		}
+
 		private UIView ConfigureVendingMachinesHeader()
 		{
 			UIView view = new UIView();
@@ -88,74 +81,76 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers
 			return view;
 		}
 
+		// -------------------- Event handlers --------------------
+		private void TableSource_ItemClicked(object sender, Machines machine)
+		{
+			Presenter.OnMachineSelected(machine);
+		}
+		// -------------------------------------------------------- 
+		#endregion
+
+		// Throw TableView to parent
 		protected override UIScrollView GetRefreshableScrollView() => TableView;
-		#endregion
 
-		#region SelectMachineViewControllerDataSource implementation
-		private class SelectMachineViewControllerDataSource : UITableViewSource
+		protected override void PullToRefreshTriggered(object sender, EventArgs e)
 		{
-			private SelectMachineViewController parent;
-
-			public SelectMachineViewControllerDataSource(SelectMachineViewController parent)
-			{
-				this.parent = parent;
-			}
-
-			public override nint NumberOfSections(UITableView tableView) => 1;
-
-			public override nint RowsInSection(UITableView tableview, nint section) => parent.machines == null ? 0 : parent.machines.Count;
-
-			public override UITableViewCell GetCell(UITableView tableView, NSIndexPath indexPath) => tableView.DequeueReusableCell(SelectMachineCell.Key, indexPath);
+			StopRefreshing();
+			Presenter.GetMachinesList();
 		}
-		#endregion
-
-		#region SelectMachineViewControllerDelegate implementation
-		private class SelectMachineViewControllerDelegate : UITableViewDelegate
-		{
-			private SelectMachineViewController parent;
-
-			public SelectMachineViewControllerDelegate(SelectMachineViewController parent)
-			{
-				this.parent = parent;
-			}
-
-			public override void WillDisplay(UITableView tableView, UITableViewCell cell, NSIndexPath indexPath)
-			{
-				if (parent.machines != null)
-				{
-					cell.TextLabel.Text = parent.machines[indexPath.Row].Name;
-
-					// display checkmarks
-					if (parent.selectedMachine != null)
-					{
-						if (parent.machines[indexPath.Row].Id == parent.selectedMachine.Id)
-						{
-							cell.Accessory = UITableViewCellAccessory.Checkmark;
-						}
-						else {
-							cell.Accessory = UITableViewCellAccessory.None;
-						}
-					}
-				}
-			}
-
-			public override nfloat GetHeightForHeader(UITableView tableView, nint section) => section == 0 ? 40 : 0;
-
-			public override UIView GetViewForHeader(UITableView tableView, nint section) => parent.ConfigureVendingMachinesHeader();
-
-			public override void RowSelected(UITableView tableView, NSIndexPath indexPath)
-			{
-				if (parent.machines != null)
-				{
-					// change checkmark
-					parent.selectedMachine = parent.machines[indexPath.Row];
-					tableView.ReloadData();
-
-					// sent to presenter selected machine
-					parent.Presenter.OnMachineSelected(parent.selectedMachine);
-				}
-			}
-		}
-		#endregion
 	}
+
+	#region SelectMachineSource implementation
+	public class SelectMachineSource : UITableViewSource
+	{
+		private List<Machines> machines = new List<Machines>();
+		private Machines selectedMachine;
+		private UIView headerView;
+
+		public event EventHandler<Machines> ItemSelected;
+
+		public void SetParameters(List<Machines> machines, Machines selectedMachine = null, UIView headerView = null)
+		{
+			this.machines = machines;
+			this.selectedMachine = selectedMachine;
+			this.headerView = headerView;
+		}
+
+		public override nint RowsInSection(UITableView tableview, nint section) => machines.Count;
+
+		public override UITableViewCell GetCell(UITableView tableView, NSIndexPath indexPath) => tableView.DequeueReusableCell(SelectMachineCell.Key, indexPath);
+
+		public override void WillDisplay(UITableView tableView, UITableViewCell cell, NSIndexPath indexPath)
+		{
+			var item = machines[indexPath.Row];
+			cell.TextLabel.Text = item.Name;
+
+				// display checkmarks
+				if (selectedMachine != null)
+				{
+					if (machines[indexPath.Row].Id == selectedMachine.Id)
+						cell.Accessory = UITableViewCellAccessory.Checkmark;
+					else
+						cell.Accessory = UITableViewCellAccessory.None;
+				}
+		}
+
+		public override nfloat GetHeightForHeader(UITableView tableView, nint section) => section == 0 ? 40 : 0;
+
+		public override UIView GetViewForHeader(UITableView tableView, nint section) => headerView;
+
+		public override void RowSelected(UITableView tableView, NSIndexPath indexPath)
+		{
+			// change checkmark
+			selectedMachine = machines[indexPath.Row];
+			tableView.ReloadData();
+
+			// sent to presenter selected machine
+			tableView.DeselectRow(indexPath, true);
+			if (ItemSelected != null)
+			{
+				ItemSelected?.Invoke(this, selectedMachine);
+			}
+		}
+	}
+	#endregion
 }

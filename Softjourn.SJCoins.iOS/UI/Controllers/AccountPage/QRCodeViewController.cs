@@ -17,8 +17,9 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.AccountPage
 		#endregion
 
 		#region Properties
+		private UIImage qrcode;
 		private string initialParameter { get; set; }
-		private string amount 
+		private string amount
 		{ 
 			get { return AmountTexfield.Text; } 
 		}
@@ -95,7 +96,10 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.AccountPage
 		public void ShowImage(string image)
 		{
 			// Show QRCode after success generating
-			QRCodeImage.Image = new QRCodeHelper().GenerateQRImage(image, 700, 700);
+			qrcode = new QRCodeHelper().GenerateQRImage(image, 800, 800);
+			//QRCodeImage.Layer.CornerRadius = 5;
+			//QRCodeImage.Layer.BorderWidth = 0.1f;
+			QRCodeImage.Image = qrcode;
 			// Clear texfield
 			AmountTexfield.Text = "";
 		}
@@ -157,6 +161,10 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.AccountPage
 		}
 
 		private void PresentSharedSheet()
+		{
+			var activityController = new UIActivityViewController(new NSObject[] { qrcode }, null);
+			PresentViewController(activityController, true, null);
+		}
 
 		// -------------------- Event handlers --------------------
 		private void AmountTextFieldChanged(object sender, EventArgs e)
@@ -183,15 +191,7 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.AccountPage
 		private void QRCodeImageTapHandler(UITapGestureRecognizer gestureRecognizer)
 		{
 			// Handle tapping on the QRCode image
-
-			// TODO convert image to string and save it as item
-			var item = UIActivity.FromObject("Test string");  
-			var activityItems = new NSObject[] { item };
-			UIActivity[] applicationActivities = null;
-
-			var activityController = new UIActivityViewController(activityItems, applicationActivities);
-
-			PresentViewController(activityController, true, null);
+			PresentSharedSheet();
 		}
 		// -------------------------------------------------------- 
 		#endregion

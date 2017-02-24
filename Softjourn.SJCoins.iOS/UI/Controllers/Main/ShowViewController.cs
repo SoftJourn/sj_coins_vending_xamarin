@@ -166,7 +166,7 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.Main
 		protected override void PullToRefreshTriggered(object sender, System.EventArgs e)
 		{
 			StopRefreshing();
-		//	Presenter.RefreshData();
+			Presenter.GetProductList(categoryName);
 		}
 	}
 

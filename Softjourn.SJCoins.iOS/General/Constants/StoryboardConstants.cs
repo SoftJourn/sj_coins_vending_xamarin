@@ -22,6 +22,7 @@
 		public const string ContentViewController = "ContentViewController";
 
 		public const string LoginViewController = "LoginViewController";
+		public const string NavigationSelectMachineViewController = "NavigationSelectMachineViewController";
 
 		// Main page
 		public const string NavigationHomeViewController = "NavigationHomeViewController";

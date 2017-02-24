@@ -1,5 +1,5 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11762" systemVersion="16C67" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11762" systemVersion="15G1217" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -116,12 +116,16 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="JfG-FF-W0K">
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="JfG-FF-W0K">
                                 <rect key="frame" x="112.5" y="108.5" width="150" height="150"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="150" id="7tI-Sk-son"/>
                                     <constraint firstAttribute="height" constant="150" id="zDR-e3-BWp"/>
                                 </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="layer.cornerRadius" value="16"/>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="layer.borderWidth" value="0.1"/>
+                                </userDefinedRuntimeAttributes>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Description" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0Kc-1R-nf4">
                                 <rect key="frame" x="37" y="428" width="300" height="30"/>
@@ -183,7 +187,7 @@
         <scene sceneID="vus-eu-tpe">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="UxB-iK-pO6" userLabel="NavigationShowAll" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="All Items" image="5C583677-E608-405A-B379-F73735449B5E" id="eof-dA-PO7"/>
+                    <tabBarItem key="tabBarItem" title="All Items" image="C6DFC925-1E74-4842-A681-7E940C7AB593" id="eof-dA-PO7"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="iHX-3p-5pT">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
@@ -230,12 +234,16 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="yT8-Ig-6kS">
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="yT8-Ig-6kS">
                                 <rect key="frame" x="112" y="128.5" width="150" height="150"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="150" id="d0B-GK-Hav"/>
                                     <constraint firstAttribute="width" constant="150" id="ey5-Yb-4fT"/>
                                 </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="layer.borderWidth" value="0.1"/>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="layer.cornerRadius" value="16"/>
+                                </userDefinedRuntimeAttributes>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Description" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cCb-pu-hfh">
                                 <rect key="frame" x="37" y="418.5" width="300" height="30"/>
@@ -322,7 +330,7 @@
                                                 </label>
                                                 <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="c2N-Ft-Gdn">
                                                     <rect key="frame" x="0.0" y="30" width="361" height="150"/>
-                                                    <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="150" id="ec4-gc-UdO"/>
                                                     </constraints>
@@ -369,7 +377,7 @@
                                                                     </label>
                                                                 </subviews>
                                                             </view>
-                                                            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                            <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                                                             <constraints>
                                                                 <constraint firstItem="7gN-o1-2ZU" firstAttribute="centerX" secondItem="uQ8-pG-WTx" secondAttribute="centerX" id="05a-FU-ujd"/>
                                                                 <constraint firstItem="1AS-Xo-HJp" firstAttribute="top" secondItem="TrZ-9t-Zff" secondAttribute="bottom" constant="3" id="Cej-yO-kde"/>
@@ -380,6 +388,12 @@
                                                                 <constraint firstItem="1AS-Xo-HJp" firstAttribute="leading" secondItem="uQ8-pG-WTx" secondAttribute="leadingMargin" constant="-3" id="mbC-CM-PPo"/>
                                                                 <constraint firstAttribute="trailingMargin" secondItem="1AS-Xo-HJp" secondAttribute="trailing" constant="-3" id="s1p-Yf-VYD"/>
                                                             </constraints>
+                                                            <userDefinedRuntimeAttributes>
+                                                                <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                                    <integer key="value" value="5"/>
+                                                                </userDefinedRuntimeAttribute>
+                                                                <userDefinedRuntimeAttribute type="string" keyPath="layer.borderWidth" value="0.1"/>
+                                                            </userDefinedRuntimeAttributes>
                                                             <connections>
                                                                 <outlet property="Logo" destination="7gN-o1-2ZU" id="P3z-xa-iej"/>
                                                                 <outlet property="NameLabel" destination="TrZ-9t-Zff" id="rHT-Bs-lgt"/>
@@ -399,7 +413,6 @@
                                                 </button>
                                             </subviews>
                                         </view>
-                                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <constraints>
                                             <constraint firstItem="c2N-Ft-Gdn" firstAttribute="leading" secondItem="5Ln-Y8-8B7" secondAttribute="leading" id="8jt-sG-A3Q"/>
                                             <constraint firstItem="c2N-Ft-Gdn" firstAttribute="top" secondItem="OOP-oR-jwc" secondAttribute="bottom" constant="-2" id="Bqz-cb-Cto"/>
@@ -507,7 +520,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="5C583677-E608-405A-B379-F73735449B5E" width="16" height="16">
+        <image name="C6DFC925-1E74-4842-A681-7E940C7AB593" width="16" height="16">
             <mutableData key="keyedArchiveRepresentation">
 YnBsaXN0MDDUAQIDBAUGODlYJHZlcnNpb25YJG9iamVjdHNZJGFyY2hpdmVyVCR0b3ASAAGGoKwHCBEW
 GxwiIyksMjVVJG51bGzUCQoLDA0ODxBWJGNsYXNzXE5TSW1hZ2VGbGFnc1ZOU1JlcHNXTlNDb2xvcoAL

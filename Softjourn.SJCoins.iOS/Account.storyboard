@@ -367,7 +367,7 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <imageView contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="ie1-Tg-rGi">
+                            <imageView clipsSubviews="YES" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="ie1-Tg-rGi">
                                 <rect key="frame" x="38" y="294" width="300" height="300"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="300" id="H6U-5T-hq0"/>
@@ -523,7 +523,7 @@
         <!--Navigation Controller-->
         <scene sceneID="jy5-nC-9mK">
             <objects>
-                <navigationController storyboardIdentifier="SelectMachineNavigationController" automaticallyAdjustsScrollViewInsets="NO" id="0Yz-bh-bSW" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="NavigationSelectMachineViewController" automaticallyAdjustsScrollViewInsets="NO" id="0Yz-bh-bSW" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="AnE-7U-SXE">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>

@@ -48,6 +48,7 @@ namespace Softjourn.SJCoins.iOS.Services
 					
 				// Present without initial parameter	
 				case NavigationPage.Profile:
+				case NavigationPage.SelectMachineFirstTime:
 					ShowControllerWith(page, NavigationType.Present);
 					break;
 
@@ -145,6 +146,8 @@ namespace Softjourn.SJCoins.iOS.Services
 					return qrcodeViewController;
 				case NavigationPage.SelectMachine:
 					return Instantiate(StoryboardConstants.StoryboardAccount, StoryboardConstants.SelectMachineViewController);
+				case NavigationPage.SelectMachineFirstTime:
+					return Instantiate(StoryboardConstants.StoryboardAccount, StoryboardConstants.NavigationSelectMachineViewController);
 
 				default:
 					throw new ArgumentException("Not valid page");
