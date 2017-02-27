@@ -15,6 +15,7 @@ using Softjourn.SJCoins.Core.API.Model.AccountInfo;
 using Softjourn.SJCoins.Core.UI.Presenters;
 using Softjourn.SJCoins.Core.UI.ViewInterfaces;
 using Softjourn.SJCoins.Droid.ui.baseUI;
+using Softjourn.SJCoins.Droid.Utils;
 
 namespace Softjourn.SJCoins.Droid.UI.Activities
 {
@@ -26,6 +27,7 @@ namespace Softjourn.SJCoins.Droid.UI.Activities
         private TextView _balance;
         private ListView _options;
         private ImageView _avatar;
+        private Bitmap _bmp;
 
         protected override void OnCreate(Bundle savedInstanceState)
         {
@@ -93,14 +95,16 @@ namespace Softjourn.SJCoins.Droid.UI.Activities
         #region Private Methods
         private void SetAvatarImage(byte[] data)
         {
-            var byteArrayOutputStream = new MemoryStream();
-            var bmp = BitmapFactory.DecodeByteArray(data, 0, data.Length);
-            bmp.Compress(Bitmap.CompressFormat.Jpeg, 40, byteArrayOutputStream);
-
-            var byteArray = byteArrayOutputStream.ToArray();
-
-            var compressedBitmap = BitmapFactory.DecodeByteArray(byteArray, 0, byteArray.Length);
-            _avatar.SetImageBitmap(compressedBitmap);
+            var imageSize = 360;
+            _bmp?.Recycle();
+            var options = new BitmapFactory.Options();
+            options.InJustDecodeBounds = true;
+            _bmp = BitmapFactory.DecodeByteArray(data, 0, data.Length, options);
+            options.InSampleSize = BitmapUtils.CalculateInSampleSize(options, imageSize, imageSize);
+            options.InJustDecodeBounds = false;
+            options.InPreferredConfig = Bitmap.Config.Rgb565;
+            _bmp = BitmapFactory.DecodeByteArray(data, 0, data.Length, options);
+            _avatar.SetImageBitmap(_bmp);
         }
 
         private async void ChangePhoto(object sender, EventArgs e)
