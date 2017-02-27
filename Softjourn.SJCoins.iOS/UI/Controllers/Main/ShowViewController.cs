@@ -14,7 +14,7 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.Main
 	public partial class ShowViewController : BaseViewController<ShowAllPresenter>, IShowAllView
 	{
 		#region Properties
-		private ShowAllSource _tableSource = new ShowAllSource();
+		private ShowAllSource _tableSource; 
 		private NSIndexPath _favoriteCellIndex;
 		private string categoryName { get; set; }
 
@@ -56,10 +56,6 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.Main
 			SegmentControl.ValueChanged += AnotherButtonClickHandler;
 			_tableSource.ItemSelected += TableSource_ItemSelected;
 			_tableSource.FavoriteClicked += TableSource_FavoriteClicked;
-			//------------------- TODO not reload all table
-			_tableSource.SetItems(Presenter.GetProductList(categoryName));
-			TableView.ReloadData();
-			//-------------------
 		}
 
 		public override void ViewDidAppear(bool animated)
@@ -84,6 +80,8 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.Main
 		#region Private methods
 		private void ConfigureTableView()
 		{
+			_tableSource = new ShowAllSource(filteredItems);
+
 			TableView.Source = _tableSource;
 			TableView.RegisterNibForCellReuse(ProductCell.Nib, ProductCell.Key);
 		}
@@ -132,7 +130,7 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.Main
 		// -------------------------------------------------------- 
 		#endregion
 
-		#region IAccountView implementation
+		#region IShowAllView implementation
 		public void FavoriteChanged(bool isFavorite)
 		{
 			// table reload row at index
@@ -173,10 +171,15 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.Main
 	#region UITableViewSource implementation
 	public class ShowAllSource : UITableViewSource
 	{
-		private List<Product> items = new List<Product>();
+		private List<Product> items;
 
 		public event EventHandler<Product> ItemSelected;
 		public event EventHandler<ProductCell> FavoriteClicked;
+
+		public ShowAllSource(List<Product> items)
+		{
+			this.items = items;
+		}
 
 		public void SetItems(List<Product> items)
 		{
@@ -202,10 +205,7 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.Main
 		{
 			tableView.DeselectRow(indexPath, true);
 			var item = items[indexPath.Row];
-			if (ItemSelected != null)
-			{
-				ItemSelected(this, item);
-			}
+			ItemSelected?.Invoke(this, item);
 		}
 	}
 	#endregion

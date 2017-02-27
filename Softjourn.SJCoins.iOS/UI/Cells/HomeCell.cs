@@ -66,8 +66,10 @@ namespace Softjourn.SJCoins.iOS
 			_delegate?.Dispose();
 			// Dettach
 			if (previewController != null)
+			{
 				previewController.BuyActionExecuted -= OnBuyActionClicked;
 				previewController.FavoriteActionExecuted -= OnFavoriteActionClicked;
+			}
 			base.PrepareForReuse();
 		}
 
