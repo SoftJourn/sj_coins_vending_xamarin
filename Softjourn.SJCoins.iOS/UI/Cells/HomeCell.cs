@@ -26,6 +26,7 @@ namespace Softjourn.SJCoins.iOS
 		public event EventHandler<string> SeeAllClickedEvent;
 
 		public HomeCellDelegate _delegate;
+		private HomeCellDataSource _dataSource;
 		private PreViewController previewController;
 
 		static HomeCell()
@@ -37,7 +38,7 @@ namespace Softjourn.SJCoins.iOS
 		{
 		}
 
-		public void ConfigureWith(Categories category)
+		public void  ConfigureWith(Categories category)
 		{
 			// Save and set category name
 			categoryName = category.Name;
@@ -45,25 +46,28 @@ namespace Softjourn.SJCoins.iOS
 			categoryProducts = category.Products;
 
 			_delegate = new HomeCellDelegate(category.Products);
+			_dataSource = new HomeCellDataSource(category.Products);
 
-			InternalCollectionView.DataSource = new HomeCellDataSource(category.Products);
+			InternalCollectionView.DataSource = _dataSource;
 			InternalCollectionView.Delegate = _delegate;
 			InternalCollectionView.ReloadData();
 			//Attach
+			ShowAllButton.TouchUpInside -= OnSeeAllClicked;
 			ShowAllButton.TouchUpInside += OnSeeAllClicked;
 		}
 
 		public override void PrepareForReuse()
 		{
+			// Reset category name and products
+			categoryName = null;
+			CategoryNameLabel.Text = "";
+			categoryProducts = null;
+			_dataSource?.Dispose();
+			_delegate?.Dispose();
 			// Dettach
-			ShowAllButton.TouchUpInside -= OnSeeAllClicked;
-
 			if (previewController != null)
-			{
 				previewController.BuyActionExecuted -= OnBuyActionClicked;
 				previewController.FavoriteActionExecuted -= OnFavoriteActionClicked;
-			}
-
 			base.PrepareForReuse();
 		}
 
@@ -154,7 +158,6 @@ namespace Softjourn.SJCoins.iOS
 
 		public override UICollectionViewCell GetCell(UICollectionView collectionView, NSIndexPath indexPath) => (UICollectionViewCell)collectionView.DequeueReusableCell(HomeInternalCell.Key, indexPath);
 	}
-
 	#endregion
 
 	#region UICollectionViewDelegate implementation

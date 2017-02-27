@@ -17,7 +17,7 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.Main
 	public partial class HomeViewController : BaseViewController<HomePresenter>, IHomeView
 	{
 		#region Properties
-		public List<Categories> Categories { get; private set; } = new List<Categories>();
+		public List<Categories> Categories { get; private set; }
 
 		private HomeViewControllerDataSource _dataSource;
 		private HomeViewControllerDelegateFlowLayout _delegate;
@@ -33,7 +33,6 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.Main
 		public override void ViewDidLoad()
 		{
 			base.ViewDidLoad();
-
 			ConfigurePage();
 			ConfigureCollectionView();
 			Presenter.OnStartLoadingPage();
@@ -63,7 +62,7 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.Main
 		#region IHomeView implementation
 		public void SetAccountInfo(Account account)
 		{
-			// Show user balance
+			// Show user balance on start
 			string balance = account.Amount.ToString();
 			SetBalance(balance);
 			BalanceLabel.Hidden = false;
@@ -71,7 +70,7 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.Main
 
 		public void SetUserBalance(string balance)
 		{
-			// Show user balance
+			// Show user balance after buying
 			SetBalance(balance);
 		}
 
@@ -121,7 +120,7 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.Main
 		private void ConfigureCollectionView()
 		{
 			// Configure datasource and delegate
-			_dataSource = new HomeViewControllerDataSource(Categories);
+			_dataSource = new HomeViewControllerDataSource();
 			_delegate = new HomeViewControllerDelegateFlowLayout(this); //TODO retain circle
 
 			CollectionView.DataSource = _dataSource;
@@ -134,7 +133,8 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.Main
 
 		private void RefreshFavoritesCell()
 		{
-			if (Categories.Count != 0)
+			// TODO refactoring
+			if (Categories != null)
 			{
 				var newList = Presenter.GetCategoriesList();
 				_dataSource.SetCategories(newList);
@@ -151,6 +151,7 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.Main
 
 		public void FavoriteChanged(bool isFavorite)
 		{
+			
 		}
 
 		// -------------------- Event handlers --------------------
@@ -199,12 +200,7 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.Main
 	#region UICollectionViewSource implementation
 	public class HomeViewControllerDataSource : UICollectionViewDataSource
 	{
-		private List<Categories> categories;
-
-		public HomeViewControllerDataSource(List<Categories> categories)
-		{
-			this.categories = new List<Categories>(categories.ToList());
-		}
+		private List<Categories> categories = new List<Categories>();
 
 		public void SetCategories(List<Categories> categories)
 		{
@@ -241,7 +237,7 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.Main
 			_cell._delegate.ItemSelectedEvent -= parent.OnItemSelected;
 			_cell._delegate.ItemSelectedEvent += parent.OnItemSelected;
 
-			_cell.SeeAllClickedEvent -= parent.OnSeeAllClicked;
+			_cell.SeeAllClickedEvent -= parent.OnSeeAllClicked; //!
 			_cell.SeeAllClickedEvent += parent.OnSeeAllClicked;
 
 			_cell.BuyActionExecuted -= parent.OnBuyActionClicked;
