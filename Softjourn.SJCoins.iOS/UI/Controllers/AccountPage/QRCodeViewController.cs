@@ -97,9 +97,8 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.AccountPage
 		{
 			// Show QRCode after success generating
 			qrcode = new QRCodeHelper().GenerateQRImage(image, 800, 800);
-			//QRCodeImage.Layer.CornerRadius = 5;
-			//QRCodeImage.Layer.BorderWidth = 0.1f;
 			QRCodeImage.Image = qrcode;
+			QRCodeImage.Hidden = false;
 			// Clear texfield
 			AmountTexfield.Text = "";
 		}
@@ -108,6 +107,9 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.AccountPage
 		#region Private methods
 		private void ConfigurePageWith(string parameter)
 		{
+			ErrorLabel.Hidden = true;
+			QRCodeImage.Hidden = true;
+
 			switch (parameter)
 			{
 				case Scan:
@@ -122,10 +124,8 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.AccountPage
 		private void ConfigureScanMode()
 		{
 			BalanceLabel.Hidden = true;
-			ErrorLabel.Hidden = true;
 			AmountTexfield.Hidden = true;
 			GenerateButton.Hidden = true;
-			QRCodeImage.Hidden = true;
 			//Execute scaning
 			ScanQRCode();
 		}
@@ -133,11 +133,9 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.AccountPage
 		private void ConfigureGenerateMode()
 		{
 			BalanceLabel.Text = "Your balance is " + Presenter.GetBalance().ToString() + " coins"; 
-			ErrorLabel.Hidden = true;
 			AmountTexfield.Hidden = false;
 			AmountTexfield.ShouldReturn = TextFieldShouldReturn;
 			GenerateButton.Hidden = false;
-			QRCodeImage.Hidden = false;
 		}
 
 		private async void ScanQRCode()

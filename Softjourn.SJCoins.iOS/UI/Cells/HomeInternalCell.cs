@@ -34,7 +34,10 @@ namespace Softjourn.SJCoins.iOS
 
 		public override void PrepareForReuse()
 		{
-			//.ItemSelectedEvent -=
+			// Reset outlets
+			NameLabel.Text = "";
+			PriceLabel.Text = "";
+			Logo.Image = null;
 			base.PrepareForReuse();
 		}
 	}

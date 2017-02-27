@@ -158,10 +158,7 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.AccountPage
 		{
 			tableView.DeselectRow(indexPath, true);
 			var item = optionsList[indexPath.Row];
-			if (ItemSelected != null)
-			{
-				ItemSelected(this, item);
-			}
+			ItemSelected?.Invoke(this, item);
 		}
 	}
 	#endregion

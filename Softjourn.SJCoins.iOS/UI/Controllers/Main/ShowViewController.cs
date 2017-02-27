@@ -5,7 +5,6 @@ using Softjourn.SJCoins.Core.API.Model.Products;
 using Softjourn.SJCoins.Core.UI.Presenters;
 using Softjourn.SJCoins.Core.UI.ViewInterfaces;
 using Softjourn.SJCoins.iOS.General.Constants;
-using Softjourn.SJCoins.iOS.UI.Controllers;
 using UIKit;
 
 namespace Softjourn.SJCoins.iOS.UI.Controllers.Main
@@ -14,9 +13,10 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.Main
 	public partial class ShowViewController : BaseViewController<ShowAllPresenter>, IShowAllView
 	{
 		#region Properties
-		private ShowAllSource _tableSource = new ShowAllSource();
+		private ShowAllSource _tableSource; 
 		private NSIndexPath _favoriteCellIndex;
 		private string categoryName { get; set; }
+		private UISearchController searchController;
 
 		public List<Product> filteredItems;
 		#endregion
@@ -44,6 +44,7 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.Main
 			filteredItems = Presenter.GetProductList(categoryName);
 			// Configure table view with source and events.
 			ConfigureTableView();
+			ConfigureSearchController();
 		}
 
 		public override void ViewWillAppear(bool animated)
@@ -56,10 +57,7 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.Main
 			SegmentControl.ValueChanged += AnotherButtonClickHandler;
 			_tableSource.ItemSelected += TableSource_ItemSelected;
 			_tableSource.FavoriteClicked += TableSource_FavoriteClicked;
-			//------------------- TODO not reload all table
-			_tableSource.SetItems(Presenter.GetProductList(categoryName));
-			TableView.ReloadData();
-			//-------------------
+			SearchButton.Clicked += SearchButtonClickHandler;
 		}
 
 		public override void ViewDidAppear(bool animated)
@@ -74,6 +72,7 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.Main
 			SegmentControl.ValueChanged -= AnotherButtonClickHandler;
 			_tableSource.ItemSelected -= TableSource_ItemSelected;
 			_tableSource.FavoriteClicked -= TableSource_FavoriteClicked;
+			SearchButton.Clicked -= SearchButtonClickHandler;
 			base.ViewWillDisappear(animated);
 		}
 		#endregion
@@ -84,8 +83,20 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.Main
 		#region Private methods
 		private void ConfigureTableView()
 		{
+			_tableSource = new ShowAllSource(filteredItems);
+
 			TableView.Source = _tableSource;
 			TableView.RegisterNibForCellReuse(ProductCell.Nib, ProductCell.Key);
+		}
+
+		private void ConfigureSearchController()
+		{
+			searchController = new UISearchController(searchResultsController: null)
+			{
+				WeakDelegate = this,
+				DimsBackgroundDuringPresentation = false,
+				WeakSearchResultsUpdater = new SearchResultsUpdator(),					
+			};
 		}
 
 		// -------------------- Event handlers --------------------
@@ -100,6 +111,12 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.Main
 			// Trigg presenter that user click on some product for adding it to favorite
 			_favoriteCellIndex = TableView.IndexPathForCell(cell);
 			Presenter.OnFavoriteClick(cell.Product);
+		}
+
+		private void SearchButtonClickHandler(object sender, EventArgs e)
+		{
+			// Handle clicking on the Search button
+			PresentViewController(searchController, true, completionHandler: null);
 		}
 
 		// SegmentControl methods 
@@ -132,7 +149,7 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.Main
 		// -------------------------------------------------------- 
 		#endregion
 
-		#region IAccountView implementation
+		#region IShowAllView implementation
 		public void FavoriteChanged(bool isFavorite)
 		{
 			// table reload row at index
@@ -173,10 +190,15 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.Main
 	#region UITableViewSource implementation
 	public class ShowAllSource : UITableViewSource
 	{
-		private List<Product> items = new List<Product>();
+		private List<Product> items;
 
 		public event EventHandler<Product> ItemSelected;
 		public event EventHandler<ProductCell> FavoriteClicked;
+
+		public ShowAllSource(List<Product> items)
+		{
+			this.items = items;
+		}
 
 		public void SetItems(List<Product> items)
 		{
@@ -202,10 +224,21 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.Main
 		{
 			tableView.DeselectRow(indexPath, true);
 			var item = items[indexPath.Row];
-			if (ItemSelected != null)
-			{
-				ItemSelected(this, item);
-			}
+			ItemSelected?.Invoke(this, item);
+		}
+	}
+	#endregion
+
+	#region UISearchResultsUpdating implementation
+	public class SearchResultsUpdator : UISearchResultsUpdating
+	{
+		//private WeakReference _weak;
+
+		//public event Action<string> UpdateSearchResults = delegate { };
+
+		public override void UpdateSearchResultsForSearchController(UISearchController searchController)
+		{
+			
 		}
 	}
 	#endregion

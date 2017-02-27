@@ -76,6 +76,7 @@
                         <barButtonItem key="rightBarButtonItem" systemItem="search" id="wEY-b6-570"/>
                     </navigationItem>
                     <connections>
+                        <outlet property="SearchButton" destination="wEY-b6-570" id="SMq-We-D6W"/>
                         <outlet property="SegmentControl" destination="buZ-Oi-KDG" id="Cnw-hc-NFX"/>
                         <outlet property="TableView" destination="hzM-ok-9xB" id="QUT-1t-iTC"/>
                     </connections>
@@ -187,7 +188,7 @@
         <scene sceneID="vus-eu-tpe">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="UxB-iK-pO6" userLabel="NavigationShowAll" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="All Items" image="C6DFC925-1E74-4842-A681-7E940C7AB593" id="eof-dA-PO7"/>
+                    <tabBarItem key="tabBarItem" title="All Items" image="FF20AF2C-5CBC-44E0-8109-D0381C670A66" id="eof-dA-PO7"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="iHX-3p-5pT">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
@@ -520,7 +521,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="C6DFC925-1E74-4842-A681-7E940C7AB593" width="16" height="16">
+        <image name="FF20AF2C-5CBC-44E0-8109-D0381C670A66" width="16" height="16">
             <mutableData key="keyedArchiveRepresentation">
 YnBsaXN0MDDUAQIDBAUGODlYJHZlcnNpb25YJG9iamVjdHNZJGFyY2hpdmVyVCR0b3ASAAGGoKwHCBEW
 GxwiIyksMjVVJG51bGzUCQoLDA0ODxBWJGNsYXNzXE5TSW1hZ2VGbGFnc1ZOU1JlcHNXTlNDb2xvcoAL

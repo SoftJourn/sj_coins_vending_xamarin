@@ -146,10 +146,7 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers
 
 			// sent to presenter selected machine
 			tableView.DeselectRow(indexPath, true);
-			if (ItemSelected != null)
-			{
-				ItemSelected?.Invoke(this, selectedMachine);
-			}
+			ItemSelected?.Invoke(this, selectedMachine);
 		}
 	}
 	#endregion

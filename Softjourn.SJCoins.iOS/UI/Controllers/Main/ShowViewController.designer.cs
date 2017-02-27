@@ -12,6 +12,9 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.Main
 	partial class ShowViewController
 	{
 		[Outlet]
+		UIKit.UIBarButtonItem SearchButton { get; set; }
+
+		[Outlet]
 		UIKit.UISegmentedControl SegmentControl { get; set; }
 
 		[Outlet]
@@ -27,6 +30,11 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.Main
 			if (TableView != null) {
 				TableView.Dispose ();
 				TableView = null;
+			}
+
+			if (SearchButton != null) {
+				SearchButton.Dispose ();
+				SearchButton = null;
 			}
 		}
 	}
