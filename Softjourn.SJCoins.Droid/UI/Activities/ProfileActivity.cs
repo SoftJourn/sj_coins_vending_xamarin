@@ -84,6 +84,11 @@ namespace Softjourn.SJCoins.Droid.UI.Activities
 
         public void ImageAcquired(byte[] data)
         {
+            
+        }
+
+        public void ImageAcquired(string data)
+        {
             SetAvatarImage(data);
         }
 
@@ -93,17 +98,18 @@ namespace Softjourn.SJCoins.Droid.UI.Activities
         }
 
         #region Private Methods
-        private void SetAvatarImage(byte[] data)
+        private void SetAvatarImage(string data)
         {
             var imageSize = 360;
             _bmp?.Recycle();
             var options = new BitmapFactory.Options();
             options.InJustDecodeBounds = true;
-            _bmp = BitmapFactory.DecodeByteArray(data, 0, data.Length, options);
+            _bmp = BitmapFactory.DecodeFile(data, options);
             options.InSampleSize = BitmapUtils.CalculateInSampleSize(options, imageSize, imageSize);
             options.InJustDecodeBounds = false;
             options.InPreferredConfig = Bitmap.Config.Rgb565;
-            _bmp = BitmapFactory.DecodeByteArray(data, 0, data.Length, options);
+            _bmp = BitmapFactory.DecodeFile(data, options);
+            _bmp = BitmapUtils.RotateIfNeeded(_bmp, data);
             _avatar.SetImageBitmap(_bmp);
         }
 

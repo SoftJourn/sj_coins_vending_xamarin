@@ -8,5 +8,7 @@ namespace Softjourn.SJCoins.Core.UI.ViewInterfaces
 		void SetAccountInfo(Account account);
 
         void ImageAcquired(byte[] receipt);
+
+        void ImageAcquired(string receipt);
     }
 }

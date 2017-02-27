@@ -1,8 +1,12 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-
+using Android.Content;
+using Android.Database;
 using Android.Graphics;
+using Android.Media;
+using Android.Provider;
+using Java.IO;
 
 namespace Softjourn.SJCoins.Droid.Utils
 {
@@ -25,6 +29,32 @@ namespace Softjourn.SJCoins.Droid.Utils
                 inSampleSize *= 2;
             }
             return inSampleSize;
+        }
+
+        public static Bitmap RotateIfNeeded(Bitmap bmp, string path)
+        {
+            var ei = new ExifInterface(path);
+            var orientation = ei.GetAttributeInt(ExifInterface.TagOrientation, -1);
+
+            switch (orientation)
+            {
+                case 6: //portrait
+                    return RotateImage(bmp, 90);
+                case 3: //Landscape
+                    return RotateImage(bmp, 180);
+                case 8: //Selfie ORIENTATION_ROTATE_270 - might need to flip horizontally too...
+                    return RotateImage(bmp, 270);
+                default:
+                    return bmp;
+            }
+        }
+
+        private static Bitmap RotateImage(Bitmap img, int degree)
+        {
+            var matrix = new Matrix();
+            matrix.PostRotate(degree);
+            var rotatedImg = Bitmap.CreateBitmap(img, 0, 0, img.Width, img.Height, matrix, true);
+            return rotatedImg;
         }
     }
 }

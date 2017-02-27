@@ -57,7 +57,17 @@ namespace Softjourn.SJCoins.Core.UI.Presenters
             var getPhotoFromCameraAction = new Action(GetPhotoFromCamera);
             var getPhotoFromGalleryAction = new Action(GetPhotoFromGallery);
 
-            AlertService.ShowPhotoSelectorDialog(items, getPhotoFromCameraAction, getPhotoFromGalleryAction);
+            var getPhotoPathFromCameraAction = new Action(GetPhotoPathFromCamera);
+            var getPhotoPathFromGalleryAction = new Action(GetPhotoPathFromGallery);
+
+            if (CrossDeviceInfo.Current.Platform == Platform.Android)
+            {
+                AlertService.ShowPhotoSelectorDialog(items, getPhotoPathFromCameraAction, getPhotoPathFromGalleryAction);
+            }
+            else
+            {
+                AlertService.ShowPhotoSelectorDialog(items, getPhotoFromCameraAction, getPhotoFromGalleryAction);
+            }
         }
 
         //Navigate to given page from OptionsList
@@ -168,6 +178,40 @@ namespace Softjourn.SJCoins.Core.UI.Presenters
             try
             {
                 var photo = await PhotoManager.GetImageFromGalleryAsync();
+
+                if (photo != null)
+                    View.ImageAcquired(photo);
+            }
+            catch (CameraException e)
+            {
+                AlertService.ShowToastMessage(e.ToString());
+            }
+        }
+
+        //Gets photo path from Camera
+        //For Android use
+        private async void GetPhotoPathFromCamera()
+        {
+            try
+            {
+                var photo = await PhotoManager.GetImagePathFromCameraAsync();
+
+                if (photo != null)
+                    View.ImageAcquired(photo);
+            }
+            catch (CameraException e)
+            {
+                AlertService.ShowToastMessage(e.ToString());
+            }
+        }
+
+        //Gets photo from Gallery
+        //For Android use
+        private async void GetPhotoPathFromGallery()
+        {
+            try
+            {
+                var photo = await PhotoManager.GetImagePathFromGalleryAsync();
 
                 if (photo != null)
                     View.ImageAcquired(photo);
