@@ -62,8 +62,13 @@ namespace Softjourn.SJCoins.iOS
 			categoryName = null;
 			CategoryNameLabel.Text = "";
 			categoryProducts = null;
+
 			_dataSource?.Dispose();
+			_dataSource = null;
+
 			_delegate?.Dispose();
+			_delegate = null;
+
 			// Dettach
 			if (previewController != null)
 			{
@@ -103,11 +108,11 @@ namespace Softjourn.SJCoins.iOS
 			{
 				_currentApplication.VisibleViewController.RegisterForPreviewingWithDelegate(this, InternalCollectionView);
 			}
-			else {
-				// TODO Need move fom here !!!
-				UIAlertController alertController = UIAlertController.Create("3D Touch Not Available", "Unsupported device.", UIAlertControllerStyle.Alert);
-				_currentApplication.VisibleViewController.PresentViewController(alertController, true, null);
-			}
+			//else {
+			//	// TODO Need move fom here !!!
+			//	UIAlertController alertController = UIAlertController.Create("3D Touch Not Available", "Unsupported device.", UIAlertControllerStyle.Alert);
+			//	_currentApplication.VisibleViewController.PresentViewController(alertController, true, null);
+			//}
 		}
 
 		public UIViewController GetViewControllerForPreview(IUIViewControllerPreviewing previewingContext, CGPoint location)

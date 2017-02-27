@@ -5,7 +5,6 @@ using Softjourn.SJCoins.Core.API.Model.Products;
 using Softjourn.SJCoins.Core.UI.Presenters;
 using Softjourn.SJCoins.Core.UI.ViewInterfaces;
 using Softjourn.SJCoins.iOS.General.Constants;
-using Softjourn.SJCoins.iOS.UI.Controllers;
 using UIKit;
 
 namespace Softjourn.SJCoins.iOS.UI.Controllers.Main
@@ -17,6 +16,7 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.Main
 		private ShowAllSource _tableSource; 
 		private NSIndexPath _favoriteCellIndex;
 		private string categoryName { get; set; }
+		private UISearchController searchController;
 
 		public List<Product> filteredItems;
 		#endregion
@@ -44,6 +44,7 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.Main
 			filteredItems = Presenter.GetProductList(categoryName);
 			// Configure table view with source and events.
 			ConfigureTableView();
+			ConfigureSearchController();
 		}
 
 		public override void ViewWillAppear(bool animated)
@@ -56,6 +57,7 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.Main
 			SegmentControl.ValueChanged += AnotherButtonClickHandler;
 			_tableSource.ItemSelected += TableSource_ItemSelected;
 			_tableSource.FavoriteClicked += TableSource_FavoriteClicked;
+			SearchButton.Clicked += SearchButtonClickHandler;
 		}
 
 		public override void ViewDidAppear(bool animated)
@@ -70,6 +72,7 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.Main
 			SegmentControl.ValueChanged -= AnotherButtonClickHandler;
 			_tableSource.ItemSelected -= TableSource_ItemSelected;
 			_tableSource.FavoriteClicked -= TableSource_FavoriteClicked;
+			SearchButton.Clicked -= SearchButtonClickHandler;
 			base.ViewWillDisappear(animated);
 		}
 		#endregion
@@ -86,6 +89,16 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.Main
 			TableView.RegisterNibForCellReuse(ProductCell.Nib, ProductCell.Key);
 		}
 
+		private void ConfigureSearchController()
+		{
+			searchController = new UISearchController(searchResultsController: null)
+			{
+				WeakDelegate = this,
+				DimsBackgroundDuringPresentation = false,
+				WeakSearchResultsUpdater = new SearchResultsUpdator(),					
+			};
+		}
+
 		// -------------------- Event handlers --------------------
 		private void TableSource_ItemSelected(object sender, Product product)
 		{
@@ -98,6 +111,12 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.Main
 			// Trigg presenter that user click on some product for adding it to favorite
 			_favoriteCellIndex = TableView.IndexPathForCell(cell);
 			Presenter.OnFavoriteClick(cell.Product);
+		}
+
+		private void SearchButtonClickHandler(object sender, EventArgs e)
+		{
+			// Handle clicking on the Search button
+			PresentViewController(searchController, true, completionHandler: null);
 		}
 
 		// SegmentControl methods 
@@ -206,6 +225,20 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.Main
 			tableView.DeselectRow(indexPath, true);
 			var item = items[indexPath.Row];
 			ItemSelected?.Invoke(this, item);
+		}
+	}
+	#endregion
+
+	#region UISearchResultsUpdating implementation
+	public class SearchResultsUpdator : UISearchResultsUpdating
+	{
+		//private WeakReference _weak;
+
+		//public event Action<string> UpdateSearchResults = delegate { };
+
+		public override void UpdateSearchResultsForSearchController(UISearchController searchController)
+		{
+			
 		}
 	}
 	#endregion
