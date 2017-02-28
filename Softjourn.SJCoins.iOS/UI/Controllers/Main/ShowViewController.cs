@@ -13,10 +13,13 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.Main
 	public partial class ShowViewController : BaseViewController<ShowAllPresenter>, IShowAllView
 	{
 		#region Properties
+		private string categoryName { get; set; }
+
 		private ShowAllSource _tableSource; 
 		private NSIndexPath _favoriteCellIndex;
-		private string categoryName { get; set; }
 		private UISearchController searchController;
+		private SearchResultsUpdator searchResultsUpdator;
+		private List<Product> searchData;
 
 		public List<Product> filteredItems;
 		#endregion
@@ -39,45 +42,48 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.Main
 		public override void ViewDidLoad()
 		{
 			base.ViewDidLoad();
-
 			// Throw to presenter category name what needs to be displayed and take products.
 			filteredItems = Presenter.GetProductList(categoryName);
 			// Configure table view with source and events.
+			ConfigureSearch();
 			ConfigureTableView();
-			ConfigureSearchController();
 		}
 
 		public override void ViewWillAppear(bool animated)
 		{
 			base.ViewWillAppear(animated);
-
 			Title = categoryName;
-			// Attach 
+		}
+
+		public override void ViewDidDisappear(bool animated)
+		{
+			base.ViewDidDisappear(animated);
+			Presenter = null;
+		}
+		#endregion
+
+		#region BaseViewController
+		public override void AttachEvents()
+		{
+			base.AttachEvents();
 			SegmentControl.TouchUpInside += SameButtonClickHandler;
 			SegmentControl.ValueChanged += AnotherButtonClickHandler;
 			_tableSource.ItemSelected += TableSource_ItemSelected;
 			_tableSource.FavoriteClicked += TableSource_FavoriteClicked;
 			SearchButton.Clicked += SearchButtonClickHandler;
+			searchResultsUpdator.UpdateSearchResults += Search;
 		}
 
-		public override void ViewDidAppear(bool animated)
+		public override void DetachEvents()
 		{
-			base.ViewDidAppear(animated);
-		}
-
-		public override void ViewWillDisappear(bool animated)
-		{
-			// Dettach 
 			SegmentControl.TouchUpInside -= SameButtonClickHandler;
 			SegmentControl.ValueChanged -= AnotherButtonClickHandler;
 			_tableSource.ItemSelected -= TableSource_ItemSelected;
 			_tableSource.FavoriteClicked -= TableSource_FavoriteClicked;
 			SearchButton.Clicked -= SearchButtonClickHandler;
-			base.ViewWillDisappear(animated);
+			searchResultsUpdator.UpdateSearchResults -= Search;
+			base.DetachEvents();
 		}
-		#endregion
-
-		#region BaseViewController -> IBaseView implementation
 		#endregion
 
 		#region Private methods
@@ -89,14 +95,32 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.Main
 			TableView.RegisterNibForCellReuse(ProductCell.Nib, ProductCell.Key);
 		}
 
-		private void ConfigureSearchController()
+		private void ConfigureSearch()
 		{
+			searchData = new List<Product>();
+			searchResultsUpdator = new SearchResultsUpdator();
 			searchController = new UISearchController(searchResultsController: null)
 			{
 				WeakDelegate = this,
 				DimsBackgroundDuringPresentation = false,
-				WeakSearchResultsUpdater = new SearchResultsUpdator(),					
+				WeakSearchResultsUpdater = searchResultsUpdator					
 			};
+		}
+
+		public void Search(string searchString)
+		{
+			var search = searchString.Trim();
+			searchData.Clear();
+
+			if (searchController.SearchBar.Text != "")
+				searchData = filteredItems.FindAll(item => item.Name.Contains(search));
+				
+			if (searchData.Count > 0)
+				_tableSource.SetItems(searchData);
+			else
+				_tableSource.SetItems(filteredItems);
+			
+			TableView.ReloadData();
 		}
 
 		// -------------------- Event handlers --------------------
@@ -232,13 +256,11 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.Main
 	#region UISearchResultsUpdating implementation
 	public class SearchResultsUpdator : UISearchResultsUpdating
 	{
-		//private WeakReference _weak;
-
-		//public event Action<string> UpdateSearchResults = delegate { };
+		public event Action<string> UpdateSearchResults = delegate { };
 
 		public override void UpdateSearchResultsForSearchController(UISearchController searchController)
 		{
-			
+			UpdateSearchResults?.Invoke(searchController.SearchBar.Text);
 		}
 	}
 	#endregion

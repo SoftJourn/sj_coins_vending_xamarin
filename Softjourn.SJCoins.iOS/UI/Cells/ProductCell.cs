@@ -49,6 +49,16 @@ namespace Softjourn.SJCoins.iOS
 			FavoriteButton.TouchUpInside += FavoriteButtonClicked;
 		}
 
+		public override void PrepareForReuse()
+		{
+			Product = null;
+			NameLabel.Text = "";
+			PriceLabel.Text = "";
+			Favorite = false;
+			ImageLogo.Image = null; 
+			base.PrepareForReuse();
+		}
+
 		private void FavoriteButtonClicked(object sender, EventArgs e)
 		{
 			var handler = FavoriteClicked;
