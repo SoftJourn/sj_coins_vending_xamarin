@@ -6,6 +6,7 @@ using Softjourn.SJCoins.Core.Helpers;
 using Softjourn.SJCoins.Core.API.Model.Machines;
 using Softjourn.SJCoins.Core.API.Model.Products;
 using Softjourn.SJCoins.Core.API.Model.AccountInfo;
+using Softjourn.SJCoins.Core.API.Model.TransactionReports;
 
 namespace Softjourn.SJCoins.Core.API
 {
@@ -99,6 +100,11 @@ namespace Softjourn.SJCoins.Core.API
         public async Task<Cash> WithdrawMoney(Amount amount)
         {
             return await ApiClient.WithdrawMoney(amount);
+        }
+
+        public async Task<Report> GetTransactoionReport(TransactionRequest transactionrequest)
+        {
+            return await ApiClient.GetTransactionReport(transactionrequest);
         }
     }
 }

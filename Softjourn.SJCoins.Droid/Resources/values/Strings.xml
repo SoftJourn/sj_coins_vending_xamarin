@@ -50,6 +50,11 @@
   <string name="name_purchase_history_name">Name</string>
   <string name="purchase_history_date">11/11/2011</string>
   <string name="purchase_history">Purchase History</string>
+  
+  <!--Transaction History-->
+  <string name ="no_transactions_yet">Sorry… There is no transactions yet.</string>
+  <string name ="button_output">Output</string>
+  <string name ="button_input">Input</string>
 
   <!--Progress Messages-->
   <string name="progress_loading">Loading</string>

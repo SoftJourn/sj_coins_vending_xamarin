@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Softjourn.SJCoins.Core.API.Model.TransactionReports;
 
 namespace Softjourn.SJCoins.Core.API
 {
@@ -33,6 +34,9 @@ namespace Softjourn.SJCoins.Core.API
         Task<Account> GetUserAccountAsync();
         Task<Balance> GetBalanceAsync();
         Task<DepositeTransaction> GetOfflineCash(Cash scannedCode);
+        Task<Report> GetTransactoionReport(TransactionRequest transactionrequest);
+        Task<Cash> WithdrawMoney(Amount amount);
+
         #endregion
     }
 }
