@@ -16,7 +16,7 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.AccountPage
 		#endregion
 
 		#region Properties
-		private PurchaseSource _tableSource = new PurchaseSource();
+		private PurchaseSource _tableSource;
 		#endregion
 
 		#region Constructor
@@ -73,6 +73,7 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.AccountPage
 		#region Private methods
 		private void ConfigureTableView()
 		{
+			_tableSource = new PurchaseSource(); 
 			TableView.Source = _tableSource;
 		}
 		#endregion

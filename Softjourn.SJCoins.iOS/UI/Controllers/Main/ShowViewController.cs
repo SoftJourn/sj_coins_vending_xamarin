@@ -5,6 +5,7 @@ using Softjourn.SJCoins.Core.API.Model.Products;
 using Softjourn.SJCoins.Core.UI.Presenters;
 using Softjourn.SJCoins.Core.UI.ViewInterfaces;
 using Softjourn.SJCoins.iOS.General.Constants;
+using Softjourn.SJCoins.iOS.UI.Cells;
 using UIKit;
 
 namespace Softjourn.SJCoins.iOS.UI.Controllers.Main
