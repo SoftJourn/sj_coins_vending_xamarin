@@ -42,7 +42,7 @@ namespace Softjourn.SJCoins.Core.UI.Presenters
             return transactionRequest;
         }
 
-        public async void GetReportTransactions(int pageNumber, string direction, string property)
+        private async void GetReportTransactions(int pageNumber, string direction, string property)
         {
             if (NetworkUtils.IsConnected)
             {
