@@ -104,7 +104,10 @@ namespace Softjourn.SJCoins.Core.UI.Presenters
         //Is called when user click on Profile button (is using only for droid)
         public void OnProfileButtonClicked()
         {
-            NavigationService.NavigateTo(NavigationPage.Profile);
+            if (DataManager.Profile != null)
+            {
+                NavigationService.NavigateTo(NavigationPage.Profile);
+            }
         }
 
         //Adding Favorite flag to product before returning to View
