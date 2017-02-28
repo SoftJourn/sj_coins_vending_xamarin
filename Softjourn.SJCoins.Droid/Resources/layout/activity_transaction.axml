@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+  <TextView
+      android:id="@+id/textViewLoading"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:textAlignment="center"
+      android:gravity="center"
+      android:text="@string/progress_loading"
+      android:layout_gravity="center_horizontal"
+      android:layout_marginTop="@dimen/purchase_header_bottom_margin"
+      android:textSize="18sp" />
+  <LinearLayout
+  android:id="@+id/button_bar"
+  style="?android:buttonBarStyle"
+  android:layout_width="match_parent"
+  android:layout_height="wrap_content"
+  android:orientation="horizontal">
+    <Button
+        android:id="@+id/button_output"
+        style="@style/SortButtonBar"
+        android:text="@string/button_output" />
+    <Button
+        android:id="@+id/button_input"
+        style="@style/SortButtonBar"
+        android:text="@string/button_input" />
+  </LinearLayout>
+  <View
+      style="@style/VendingActivitySplitter" />
+  <TextView
+      android:id="@+id/textViewNoTransactions"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:text="@string/no_transactions_yet"
+      android:textAlignment="center"
+      android:gravity="center"
+      android:layout_gravity="center_horizontal"
+      android:layout_marginTop="@dimen/purchase_header_bottom_margin"
+      android:textSize="18sp"
+      android:visibility="gone" />
+  <android.support.v7.widget.RecyclerView
+      android:id="@+id/list_items_recycler_view"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:scrollbars="vertical"
+      android:visibility="gone" />
+</LinearLayout>
