@@ -15,6 +15,7 @@ using System.Linq;
 using System.Net;
 using System.Text;
 using System.Threading.Tasks;
+using Softjourn.SJCoins.Core.API.Model.TransactionReports;
 
 namespace Softjourn.SJCoins.Core.API
 {
@@ -227,6 +228,13 @@ namespace Softjourn.SJCoins.Core.API
             var url = UrlCoinService + "withdraw";
             var cash = await MakeRequestWithBodyAsync<Cash>(url, Method.POST, amount);
             return cash;
+        }
+
+        public async Task<Report> GetTransactionReport(TransactionRequest transactionRequest)
+        {
+            var url = UrlCoinService + "withdraw";
+            var transactionReport = await MakeRequestWithBodyAsync<Report>(url, Method.GET, transactionRequest);
+            return transactionReport;
         }
 
         #endregion
