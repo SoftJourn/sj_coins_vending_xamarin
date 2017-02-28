@@ -299,6 +299,45 @@
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Yds-ky-5aJ" id="OLg-gt-DVM">
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="61"/>
                                             <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="17.02.2017" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Hhz-v7-tcn">
+                                                    <rect key="frame" x="13" y="15.5" width="80" height="30"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="80" id="9Cr-RH-jtb"/>
+                                                        <constraint firstAttribute="height" constant="30" id="Xhj-Cc-nDJ"/>
+                                                    </constraints>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Cookies Roshen lalalalala" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="l7V-4d-S7T">
+                                                    <rect key="frame" x="103" y="15.5" width="165" height="30"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="30" id="Bly-Mx-RJO"/>
+                                                        <constraint firstAttribute="width" constant="165" id="N99-qq-rB6"/>
+                                                    </constraints>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1700 coins" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oPr-IH-D8v">
+                                                    <rect key="frame" x="288" y="15.5" width="74" height="30"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="30" id="xfh-eC-7io"/>
+                                                    </constraints>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="Hhz-v7-tcn" firstAttribute="leading" secondItem="OLg-gt-DVM" secondAttribute="leadingMargin" constant="5" id="3fm-zA-PJe"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="oPr-IH-D8v" secondAttribute="trailing" constant="5" id="GsC-Oo-Ivd"/>
+                                                <constraint firstItem="l7V-4d-S7T" firstAttribute="centerY" secondItem="OLg-gt-DVM" secondAttribute="centerY" id="QpU-mK-o1H"/>
+                                                <constraint firstItem="oPr-IH-D8v" firstAttribute="centerY" secondItem="OLg-gt-DVM" secondAttribute="centerY" id="S1K-s3-Cns"/>
+                                                <constraint firstItem="l7V-4d-S7T" firstAttribute="leading" secondItem="Hhz-v7-tcn" secondAttribute="trailing" constant="10" id="sFf-oO-UKd"/>
+                                                <constraint firstItem="Hhz-v7-tcn" firstAttribute="centerY" secondItem="OLg-gt-DVM" secondAttribute="centerY" id="tpg-d0-Wbr"/>
+                                            </constraints>
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                 </prototypes>
