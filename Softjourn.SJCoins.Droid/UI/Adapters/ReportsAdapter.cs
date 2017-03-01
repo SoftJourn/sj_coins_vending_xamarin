@@ -11,6 +11,7 @@ using Android.Support.V7.Widget;
 using Android.Views;
 using Android.Widget;
 using Softjourn.SJCoins.Core.API.Model;
+using Softjourn.SJCoins.Core.API.Model.TransactionReports;
 
 namespace Softjourn.SJCoins.Droid.UI.Adapters
 {
@@ -29,8 +30,8 @@ namespace Softjourn.SJCoins.Droid.UI.Adapters
             var holder = viewHolder as TransactionViewHolder;
             var transactionItem = _transactionsList[position];
 
-            holder._sender.Text = transactionItem.Sender;
-            holder._receiver.Text = transactionItem.Receiver;
+            holder._sender.Text = transactionItem.Account;
+            holder._receiver.Text = transactionItem.Destination;
             holder._amount.Text = transactionItem.Amount + " coins";
             holder._date.Text = transactionItem.PrettyTime;
         }
@@ -39,7 +40,7 @@ namespace Softjourn.SJCoins.Droid.UI.Adapters
         {
             var v = LayoutInflater.From(parent.Context)
                 .Inflate(Resource.Layout.recycler_report_transactions_item, parent, false);
-            return new HistoryViewHolder(v);
+            return new TransactionViewHolder(v);
         }
 
         public override int ItemCount => _transactionsList?.Count ?? 0;

@@ -17,6 +17,7 @@ namespace Softjourn.SJCoins.Core.UI.Bootstrapper.Modules
             builder.RegisterType<ShowAllPresenter>().AsSelf().PropertiesAutowired();
             builder.RegisterType<PurchasePresenter>().AsSelf().PropertiesAutowired();
             builder.RegisterType<QrPresenter>().AsSelf().PropertiesAutowired();
+            builder.RegisterType<TransactionReportPresenter>().AsSelf().PropertiesAutowired();
         }
     }
 }

@@ -42,8 +42,12 @@
     <Compile Include="API\Model\Products\Category.cs" />
     <Compile Include="API\Model\Products\Featured.cs" />
     <Compile Include="API\Model\Products\Product.cs" />
+    <Compile Include="API\Model\TransactionReports\Report.cs" />
     <Compile Include="API\Model\Session.cs" />
     <Compile Include="API\Model\EmptyResponse.cs" />
+    <Compile Include="API\Model\TransactionReports\Sort.cs" />
+    <Compile Include="API\Model\TransactionReports\Transaction.cs" />
+    <Compile Include="API\Model\TransactionReports\TransactionRequest.cs" />
     <Compile Include="Exceptions\ApiBadRequestException.cs" />
     <Compile Include="Exceptions\ApiException.cs" />
     <Compile Include="Exceptions\ApiNotAuthorizedException.cs" />

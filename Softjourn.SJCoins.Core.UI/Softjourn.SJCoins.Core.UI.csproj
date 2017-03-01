@@ -37,6 +37,7 @@
     <Compile Include="Presenters\PurchasePresenter.cs" />
     <Compile Include="Presenters\QRPresenter.cs" />
     <Compile Include="Presenters\SelectMachinePresenter.cs" />
+    <Compile Include="Presenters\TransactionReportPresenter.cs" />
     <Compile Include="Services\Alert\IAlertService.cs" />
     <Compile Include="Presenters\BasePresenter.cs" />
     <Compile Include="Presenters\IPresenters\IBasePresenter.cs" />
@@ -62,6 +63,7 @@
     <Compile Include="ViewInterfaces\IPurchaseView.cs" />
     <Compile Include="ViewInterfaces\IQrView.cs" />
     <Compile Include="ViewInterfaces\ISelectMachineView.cs" />
+    <Compile Include="ViewInterfaces\ITransactionReportView.cs" />
     <Compile Include="ViewInterfaces\IWelcomeView.cs" />
     <Compile Include="Presenters\AccountPresenter.cs" />
     <Compile Include="ViewInterfaces\IAccountView.cs" />

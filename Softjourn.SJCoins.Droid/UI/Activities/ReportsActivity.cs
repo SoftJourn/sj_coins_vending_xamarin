@@ -1,22 +1,22 @@
-using System;
+
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 using Android.App;
-using Android.Content;
+using Android.Content.PM;
 using Android.OS;
-using Android.Runtime;
 using Android.Support.V7.Widget;
 using Android.Views;
 using Android.Widget;
-using Softjourn.SJCoins.Core.API.Model;
+using Softjourn.SJCoins.Core.API.Model.TransactionReports;
+using Softjourn.SJCoins.Core.UI.Presenters;
+using Softjourn.SJCoins.Core.UI.ViewInterfaces;
 using Softjourn.SJCoins.Droid.ui.baseUI;
 using Softjourn.SJCoins.Droid.UI.Adapters;
 
 namespace Softjourn.SJCoins.Droid.UI.Activities
 {
-    public class ReportsActivity : BaseActivity<ReportsTransaction>, IReportsView
+    [Activity(Label = "Transaction Reports", Theme = "@style/AppTheme", ScreenOrientation = ScreenOrientation.Portrait)]
+    public class ReportsActivity : BaseActivity<TransactionReportPresenter>, ITransactionReportView
     {
         private RecyclerView _purchaseRecyclerView;
         private TextView _noPurchasesTextView;
@@ -67,11 +67,11 @@ namespace Softjourn.SJCoins.Droid.UI.Activities
         }
 
         //Setting data to adapter in case purchase list is not empty
-        public void SetData(List<Transaction> listPurchases)
+        public void SetData(List<Transaction> transactionsList)
         {
             _loadingTextView.Visibility = ViewStates.Gone;
             _purchaseRecyclerView.Visibility = ViewStates.Visible;
-            _adapter.SetData(listPurchases);
+            _adapter.SetData(transactionsList);
         }
 
         //Showing emptyView in case purchase list is empty
@@ -80,6 +80,7 @@ namespace Softjourn.SJCoins.Droid.UI.Activities
             _loadingTextView.Visibility = ViewStates.Gone;
             _noPurchasesTextView.Visibility = ViewStates.Visible;
         }
+
         #endregion
     }
 }

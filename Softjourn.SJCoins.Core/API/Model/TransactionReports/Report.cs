@@ -28,7 +28,7 @@ namespace Softjourn.SJCoins.Core.API.Model.TransactionReports
         public int Number { get; set; }
 
         [JsonProperty("sort")]
-        public Sort Sort { get; set; }
+        public List<Sort> Sort { get; set; }
 
         [JsonProperty("content")]
         public List<Transaction> Content { get; set; }
