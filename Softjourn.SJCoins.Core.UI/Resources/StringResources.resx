@@ -178,10 +178,10 @@
     <value>Not enough money!</value>
   </data>
   <data name="select_source_photo_camera" xml:space="preserve">
-    <value>From Camera</value>
+    <value>Take Photo</value>
   </data>
   <data name="select_source_photo_gallery" xml:space="preserve">
-    <value>From Gallery</value>
+    <value>Choose Photo</value>
   </data>
   <data name="select_strategy_scanning_qr" xml:space="preserve">
     <value>Scan Code</value>

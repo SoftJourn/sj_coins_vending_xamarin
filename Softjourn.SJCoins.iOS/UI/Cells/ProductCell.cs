@@ -7,7 +7,7 @@ using Softjourn.SJCoins.Core.Utils;
 using Softjourn.SJCoins.iOS.General.Constants;
 using UIKit;
 
-namespace Softjourn.SJCoins.iOS
+namespace Softjourn.SJCoins.iOS.UI.Cells
 {
 	public partial class ProductCell : UITableViewCell
 	{
@@ -47,6 +47,16 @@ namespace Softjourn.SJCoins.iOS
 
 			FavoriteButton.TouchUpInside -= FavoriteButtonClicked;
 			FavoriteButton.TouchUpInside += FavoriteButtonClicked;
+		}
+
+		public override void PrepareForReuse()
+		{
+			Product = null;
+			NameLabel.Text = "";
+			PriceLabel.Text = "";
+			Favorite = false;
+			ImageLogo.Image = null; 
+			base.PrepareForReuse();
 		}
 
 		private void FavoriteButtonClicked(object sender, EventArgs e)

@@ -71,6 +71,10 @@
     <Compile Include="Utils\PermissionsUtils.cs" />
     <Compile Include="Utils\TimeUtils.cs" />
     <Compile Include="API\Model\Cash.cs" />
+    <Compile Include="API\Model\TransactionReports\Report.cs" />
+    <Compile Include="API\Model\TransactionReports\Sort.cs" />
+    <Compile Include="API\Model\TransactionReports\Transaction.cs" />
+    <Compile Include="API\Model\TransactionReports\TransactionRequest.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Services\" />

@@ -7,6 +7,7 @@ using Softjourn.SJCoins.Core.API.Model.AccountInfo;
 using Softjourn.SJCoins.Core.UI.Presenters;
 using Softjourn.SJCoins.Core.UI.ViewInterfaces;
 using Softjourn.SJCoins.iOS.General.Constants;
+using Softjourn.SJCoins.iOS.UI.Cells;
 using UIKit;
 
 namespace Softjourn.SJCoins.iOS.UI.Controllers.AccountPage
@@ -79,6 +80,10 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.AccountPage
 		{
 			// Set image to imageView
 			AvatarImage.Image = UIImage.LoadFromData(NSData.FromArray(receipt));
+		}
+
+		public void ImageAcquired(string receipt)
+		{
 		}
 		#endregion
 
