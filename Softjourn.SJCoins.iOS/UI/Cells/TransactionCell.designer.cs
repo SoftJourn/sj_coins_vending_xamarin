@@ -17,17 +17,33 @@ namespace Softjourn.SJCoins.iOS.UI.Cells
 
 		[Outlet]
 		UIKit.UILabel DateLabel { get; set; }
+
+		[Outlet]
+		UIKit.UILabel ReceiverLabel { get; set; }
+
+		[Outlet]
+		UIKit.UILabel SenderLabel { get; set; }
 		
 		void ReleaseDesignerOutlets ()
 		{
-			if (DateLabel != null) {
-				DateLabel.Dispose ();
-				DateLabel = null;
-			}
-
 			if (AmountLabel != null) {
 				AmountLabel.Dispose ();
 				AmountLabel = null;
+			}
+
+			if (SenderLabel != null) {
+				SenderLabel.Dispose ();
+				SenderLabel = null;
+			}
+
+			if (ReceiverLabel != null) {
+				ReceiverLabel.Dispose ();
+				ReceiverLabel = null;
+			}
+
+			if (DateLabel != null) {
+				DateLabel.Dispose ();
+				DateLabel = null;
 			}
 		}
 	}

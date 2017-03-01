@@ -1,6 +1,6 @@
 ﻿using System;
-
 using Foundation;
+using Softjourn.SJCoins.Core.API.Model.TransactionReports;
 using UIKit;
 
 namespace Softjourn.SJCoins.iOS.UI.Cells
@@ -24,14 +24,20 @@ namespace Softjourn.SJCoins.iOS.UI.Cells
 		}
 		#endregion
 
-		public void ConfigureWith() //Product item)
+		public void ConfigureWith(Transaction item)
 		{
-			
+			DateLabel.Text = item.PrettyTime;
+			SenderLabel.Text = item.Account;
+			ReceiverLabel.Text = item.Destination;
+			AmountLabel.Text = item.Amount.ToString() + " Coins";
 		}
 
 		public override void PrepareForReuse()
 		{
-			
+			DateLabel.Text = "";
+			SenderLabel.Text = "";
+			ReceiverLabel.Text = "";
+			AmountLabel.Text = "";
 		}
 	}
 }

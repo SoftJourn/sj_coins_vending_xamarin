@@ -1,13 +1,16 @@
 using System;
+using System.Collections.Generic;
 using Foundation;
+using Softjourn.SJCoins.Core.API.Model.TransactionReports;
 using Softjourn.SJCoins.Core.UI.Presenters;
+using Softjourn.SJCoins.Core.UI.ViewInterfaces;
 using Softjourn.SJCoins.iOS.UI.Cells;
 using UIKit;
 
 namespace Softjourn.SJCoins.iOS.UI.Controllers.AccountPage
 {
 	[Register("ReportsViewController")]
-	public partial class ReportsViewController : BaseViewController<TransactionReportPresenter>
+	public partial class ReportsViewController : BaseViewController<TransactionReportPresenter>, ITransactionReportView
 	{
 		#region Constants
 		//public const string Purchases = "Purchases";
@@ -29,11 +32,21 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.AccountPage
 			base.ViewDidLoad();
 			ConfigurePage();
 			ConfigureTableView();
-			//Presenter.OnStartLoadingPage();
+			Presenter.OnStartLoadingPage();
 		}
 		#endregion
 
 		#region IReportsView implementation
+		public void ShowEmptyView()
+		{
+			NoItemsLabel.Hidden = false;
+		}
+
+		public void SetData(List<Transaction> transactionsList)
+		{
+			_tableSource.SetItems(transactionsList);
+			TableView.ReloadData();
+		}
 		#endregion
 
 		#region BaseViewController
@@ -90,22 +103,22 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.AccountPage
 	#region UITableViewSource implementation
 	public class ReportsSource : UITableViewSource
 	{
-		//private List<History> items = new List<History>();
+		private List<Transaction> items = new List<Transaction>();
 
-		public void SetItems() //List<History> items)
+		public void SetItems(List<Transaction> items)
 		{
-			//this.items = items;
+			this.items = items;
 		}
 
-		public override nint RowsInSection(UITableView tableview, nint section) => 15;
+		public override nint RowsInSection(UITableView tableview, nint section) => items.Count;
 
 		public override UITableViewCell GetCell(UITableView tableView, NSIndexPath indexPath) => tableView.DequeueReusableCell(TransactionCell.Key, indexPath);
 
 		public override void WillDisplay(UITableView tableView, UITableViewCell cell, NSIndexPath indexPath)
 		{
 			var _cell = (TransactionCell)cell;
-			//var item = items[indexPath.Row];
-			//_cell.ConfigureWith(item);
+			var item = items[indexPath.Row];
+			_cell.ConfigureWith(item);
 		}
 
 		public override void RowSelected(UITableView tableView, NSIndexPath indexPath)
