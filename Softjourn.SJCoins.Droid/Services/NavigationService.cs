@@ -75,7 +75,7 @@ namespace Softjourn.SJCoins.Droid.Services
                     view = new Intent(CrossCurrentActivity.Current.Activity, typeof(PurchaseActivity));
                     break;
                 case NavigationPage.Reports:
-                    //view = new Intent(CrossCurrentActivity.Current.Activity, typeof(ReportsActivity));
+                    view = new Intent(CrossCurrentActivity.Current.Activity, typeof(ReportsActivity));
                     break;
                 case NavigationPage.PrivacyTerms:
                     //view = new Intent(CrossCurrentActivity.Current.Activity, typeof(PrivaceTermsActivity));

@@ -232,8 +232,8 @@ namespace Softjourn.SJCoins.Core.API
 
         public async Task<Report> GetTransactionReport(TransactionRequest transactionRequest)
         {
-            var url = UrlCoinService + "withdraw";
-            var transactionReport = await MakeRequestWithBodyAsync<Report>(url, Method.GET, transactionRequest);
+            var url = UrlCoinService + "transactions/my/";
+            var transactionReport = await MakeRequestWithQueryParametersAsync<Report>(url, Method.GET, transactionRequest);
             return transactionReport;
         }
 
@@ -254,6 +254,45 @@ namespace Softjourn.SJCoins.Core.API
                 if (response.IsSuccess)
                 {
                     TResult data = deserial.Deserialize<TResult>(response);
+                    return data;
+                }
+                else
+                {
+                    ApiErrorHandler(response);
+                }
+            }
+            catch (ApiNotAuthorizedException)
+            {
+                await RefreshTokenAsync();
+                return await MakeRequestAsync<TResult>(url, httpMethod);
+            }
+            // all another exceptions should be caught on Presenter side
+            finally
+            {
+                apiClient.Dispose();
+            }
+
+            return default(TResult);
+        }
+
+        private async Task<TResult> MakeRequestWithQueryParametersAsync<TResult>(string url, Method httpMethod, TransactionRequest transactionRequest)
+        {
+            var apiClient = GetApiClient();
+            var request = new RestRequest(url, httpMethod);
+            request.AddHeader("Content-Type", "application/json");
+            request.AddHeader("Authorization", GetOAuthAuthorizationHeader());
+            request.AddQueryParameter("size", transactionRequest.Size);
+            request.AddQueryParameter("page", transactionRequest.Page);
+            request.AddQueryParameter("sort", transactionRequest.Sort[0].Property+","+transactionRequest.Sort[0].Direction);
+            JsonDeserializer deserial = new JsonDeserializer();
+
+            try
+            {
+                IRestResponse response = await apiClient.Execute(request);
+
+                if (response.IsSuccess)
+                {
+                    var data = deserial.Deserialize<TResult>(response);
                     return data;
                 }
                 else

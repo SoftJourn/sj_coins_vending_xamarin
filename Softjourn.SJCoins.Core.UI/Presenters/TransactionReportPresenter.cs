@@ -15,7 +15,7 @@ namespace Softjourn.SJCoins.Core.UI.Presenters
     {
 
         private const int DefaultPageNumber = 0;
-        private const string DefaultDirection = "ASC";
+        private const string DefaultDirection = "desc";
         private const string DefaultProperty = "created";
 
         public void OnStartLoadingPage()
