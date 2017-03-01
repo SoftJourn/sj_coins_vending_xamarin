@@ -71,6 +71,8 @@
     <Compile Include="Presenters\DetailPresenter.cs" />
     <Compile Include="ViewInterfaces\IShowAllView.cs" />
     <Compile Include="ViewInterfaces\IDetailView.cs" />
+    <Compile Include="ViewInterfaces\ITransactionreportView.cs" />
+    <Compile Include="Presenters\TransactionReportPresenter.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Softjourn.SJCoins.Core\Softjourn.SJCoins.Core.csproj">

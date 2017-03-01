@@ -339,6 +339,10 @@
                                                 <constraint firstItem="Hhz-v7-tcn" firstAttribute="centerY" secondItem="OLg-gt-DVM" secondAttribute="centerY" id="tpg-d0-Wbr"/>
                                             </constraints>
                                         </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="AmountLabel" destination="oPr-IH-D8v" id="qhr-gm-Yvs"/>
+                                            <outlet property="DateLabel" destination="Hhz-v7-tcn" id="FHw-0H-sz4"/>
+                                        </connections>
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>

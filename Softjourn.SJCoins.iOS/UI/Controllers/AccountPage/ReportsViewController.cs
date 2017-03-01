@@ -1,12 +1,13 @@
 using System;
 using Foundation;
+using Softjourn.SJCoins.Core.UI.Presenters;
 using Softjourn.SJCoins.iOS.UI.Cells;
 using UIKit;
 
 namespace Softjourn.SJCoins.iOS.UI.Controllers.AccountPage
 {
 	[Register("ReportsViewController")]
-	public partial class ReportsViewController : UIViewController
+	public partial class ReportsViewController : BaseViewController<TransactionReportPresenter>
 	{
 		#region Constants
 		//public const string Purchases = "Purchases";
@@ -64,11 +65,6 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.AccountPage
 		}
 
 		// -------------------- Event handlers --------------------
-		public void OnAccountClicked(object sender, EventArgs e)
-		{
-			// Trigg presenter that user click on input
-		}
-
 		// SegmentControl methods 
 		public void SegmentControl_SameButtonClicked(object sender, EventArgs e)
 		{
@@ -79,22 +75,16 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.AccountPage
 		{
 			
 		}
-
-		private void SameButtonClickHandler(object sender, EventArgs e)
-		{
-			// Handle clicking on the same button of segment control
-			SortItems(categoryName);
-		}
 		#endregion
 
 		// Throw TableView to parent
-		//protected override UIScrollView GetRefreshableScrollView() => TableView;
+		protected override UIScrollView GetRefreshableScrollView() => TableView;
 
-		//protected override void PullToRefreshTriggered(object sender, System.EventArgs e)
-		//{
-		//	StopRefreshing();
-		//	Presenter.OnStartLoadingPage();
-		//}
+		protected override void PullToRefreshTriggered(object sender, System.EventArgs e)
+		{
+			StopRefreshing();
+			Presenter.OnStartLoadingPage();
+		}
 	}
 
 	#region UITableViewSource implementation
@@ -107,13 +97,13 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.AccountPage
 			//this.items = items;
 		}
 
-		public override nint RowsInSection(UITableView tableview, nint section) => 3;
+		public override nint RowsInSection(UITableView tableview, nint section) => 15;
 
 		public override UITableViewCell GetCell(UITableView tableView, NSIndexPath indexPath) => tableView.DequeueReusableCell(TransactionCell.Key, indexPath);
 
 		public override void WillDisplay(UITableView tableView, UITableViewCell cell, NSIndexPath indexPath)
 		{
-			//var _cell = (PurchaseCell)cell;
+			var _cell = (TransactionCell)cell;
 			//var item = items[indexPath.Row];
 			//_cell.ConfigureWith(item);
 		}
