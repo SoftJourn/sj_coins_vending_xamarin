@@ -1,18 +1,18 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-  <TextView
+    <TextView
         android:id="@+id/textViewLoading"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAlignment="center"
         android:gravity="center"
-        android:text ="@string/progress_loading"
+        android:text="@string/progress_loading"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="@dimen/purchase_header_bottom_margin"
-        android:textSize="18sp"/>
+        android:textSize="18sp" />
     <TextView
         android:id="@+id/textViewNoPurchases"
         android:layout_width="wrap_content"
@@ -23,7 +23,7 @@
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="@dimen/purchase_header_bottom_margin"
         android:textSize="18sp"
-        android:visibility="gone"/>
+        android:visibility="gone" />
     <android.support.v7.widget.RecyclerView
         android:id="@+id/list_items_recycler_view"
         android:layout_width="match_parent"

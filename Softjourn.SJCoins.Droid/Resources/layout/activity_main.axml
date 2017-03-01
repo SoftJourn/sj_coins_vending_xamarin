@@ -44,7 +44,7 @@
                         style="@style/VendingActivityCategoryText"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/favorites"/>
+                        android:text="@string/favorites" />
                     <TextView
                         android:id="@+id/favoriteSeeAllID"
                         style="@style/SeeAllTextView"
@@ -55,7 +55,7 @@
                 <LinearLayout
                     android:id="@+id/favorites_container_ID"
                     style="@style/VendingActivityCategoryContainer"
-                    android:visibility="gone"/>
+                    android:visibility="gone" />
             </LinearLayout>
         </android.support.v4.widget.NestedScrollView>
     </android.support.v4.widget.SwipeRefreshLayout>

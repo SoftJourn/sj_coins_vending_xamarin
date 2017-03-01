@@ -50,4 +50,7 @@
   <dimen name="see_all_item_left_margin">10dp</dimen>
   <dimen name="see_all_item_product_image_width">100dp</dimen>
   <dimen name="see_all_item_bottom_top_margin">5dp</dimen>
+  
+  <!--Transaction reports -->
+  <dimen name="sender_receiver_label_width">100dp</dimen>
 </resources>

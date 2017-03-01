@@ -46,6 +46,12 @@
     <item name="android:background">@color/colorSplitter</item>
   </style>
 
+  <style name="SortButtonUnderline">
+    <item name="android:layout_width">match_parent</item>
+    <item name="android:layout_height">1dp</item>
+    <item name="android:background">@color/colorPrimary</item>
+  </style>
+
   <style name="VendingActivityCategoryContainer">
     <item name="android:layout_width">match_parent</item>
     <item name="android:layout_marginLeft">10dp</item>
@@ -59,14 +65,9 @@
     <item name="android:layout_width">match_parent</item>
     <item name="android:layout_height">wrap_content</item>
     <item name="android:layout_marginBottom">@dimen/category_header_bottom_margin</item>
-    <item name="android:layout_marginLeft">
-      @dimen/recycler_view_machine_layout_left_margin
-    </item>
-    <item name="android:layout_marginRight">
-      @dimen/recycler_view_machine_layout_right_margin
-    </item>
+    <item name="android:layout_marginLeft">@dimen/recycler_view_machine_layout_left_margin</item>
+    <item name="android:layout_marginRight">@dimen/recycler_view_machine_layout_right_margin</item>
     <item name="android:layout_marginTop">@dimen/recycler_view_machine_layout_top_margin</item>
-
     <item name="android:orientation">horizontal</item>
   </style>
 

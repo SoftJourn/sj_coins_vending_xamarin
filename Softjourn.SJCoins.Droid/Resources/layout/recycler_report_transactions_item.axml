@@ -28,7 +28,7 @@
         android:textSize="14sp" />
     <TextView
         android:id="@+id/layout_item_sender"
-        android:layout_width="wrap_content"
+        android:layout_width="@dimen/sender_receiver_label_width"
         android:layout_height="wrap_content"
         android:layout_gravity="center_vertical"
         android:layout_alignParentTop="true"
@@ -37,13 +37,13 @@
         android:layout_marginEnd="@dimen/recycler_view_layout_left_margin"
         android:layout_marginRight="@dimen/recycler_view_layout_left_margin"
         android:ellipsize="end"
-        android:maxLines="2"
+        android:maxLines="3"
         android:textSize="14sp"
         android:text="omartynets"
         android:textStyle="bold" />
     <TextView
         android:id="@+id/layout_item_receiver"
-        android:layout_width="140dp"
+        android:layout_width="@dimen/sender_receiver_label_width"
         android:layout_height="wrap_content"
         android:layout_gravity="center_vertical"
         android:layout_below="@+id/layout_item_sender"
@@ -52,7 +52,7 @@
         android:layout_marginEnd="@dimen/recycler_view_layout_left_margin"
         android:layout_marginRight="@dimen/recycler_view_layout_left_margin"
         android:ellipsize="end"
-        android:maxLines="2"
+        android:maxLines="3"
         android:textSize="14sp"
         android:text="ogorodivskiy"
         android:textStyle="bold" />
