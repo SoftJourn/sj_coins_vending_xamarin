@@ -19,7 +19,7 @@ namespace Softjourn.SJCoins.Core.API.Model.TransactionReports
         public string Destination { get; set; }
 
         [JsonProperty("amount")]
-        public int Amount { get; set; }
+        public int? Amount { get; set ; }
 
         [JsonProperty("comment")]
         public string Comment { get; set; }
@@ -33,7 +33,7 @@ namespace Softjourn.SJCoins.Core.API.Model.TransactionReports
         [JsonProperty("error")]
         public object Error { get; set; }
 
-        public int IntAmount { get { return int.Parse(Amount.ToString()); } }
+        public int IntAmount { get { return Amount != null ? int.Parse(Amount.ToString()) : 0; } }
 
         public string PrettyTime { get; set; }
     }
