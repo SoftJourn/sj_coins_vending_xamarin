@@ -83,7 +83,7 @@ namespace Softjourn.SJCoins.Droid.Services
 
                 sourceList.ItemClick += (sender, e) =>
                 {
-                    if (Regex.IsMatch(adapter.GetItem(e.Position).ToString(), ".*Camera.*"))
+                    if (Regex.IsMatch(adapter.GetItem(e.Position).ToString(), ".*Take.*"))
                     {
                         fromCamera?.Invoke();
                         dialog.Dismiss();
