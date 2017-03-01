@@ -87,6 +87,35 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.Main
 		}
 		#endregion
 
+		#region IShowAllView implementation
+		public void FavoriteChanged(bool isFavorite)
+		{
+			// table reload row at index
+			if (_favoriteCellIndex != null)
+			{
+				var index = new NSIndexPath[] { _favoriteCellIndex };
+				if (categoryName == Const.FavoritesCategory)
+				{
+					// Set new items to table source
+					var newItems = Presenter.GetProductList(categoryName);
+					_tableSource.SetItems(newItems);
+					// Delete row
+					TableView.DeleteRows(atIndexPaths: index, withRowAnimation: UITableViewRowAnimation.Fade);
+				}
+				else
+				{
+					TableView.ReloadRows(atIndexPaths: index, withRowAnimation: UITableViewRowAnimation.Fade);
+				}
+			}
+		}
+
+		public void ShowSortedList(List<Product> products)
+		{
+			_tableSource.SetItems(products);
+			TableView.ReloadData();
+		}
+		#endregion
+
 		#region Private methods
 		private void ConfigureTableView()
 		{
@@ -172,34 +201,6 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.Main
 			}
 		}
 		// -------------------------------------------------------- 
-		#endregion
-
-		#region IShowAllView implementation
-		public void FavoriteChanged(bool isFavorite)
-		{
-			// table reload row at index
-			if (_favoriteCellIndex != null)
-			{
-				var index = new NSIndexPath[] { _favoriteCellIndex };
-				if (categoryName == Const.FavoritesCategory)
-				{
-					// Set new items to table source
-					var newItems = Presenter.GetProductList(categoryName);
-					_tableSource.SetItems(newItems);
-					// Delete row
-					TableView.DeleteRows(atIndexPaths: index, withRowAnimation: UITableViewRowAnimation.Fade);
-				}
-				else {
-					TableView.ReloadRows(atIndexPaths: index, withRowAnimation: UITableViewRowAnimation.Fade);
-				}
-			}
-		}
-
-		public void ShowSortedList(List<Product> products)
-		{
-			_tableSource.SetItems(products);
-			TableView.ReloadData();
-		}
 		#endregion
 
 		// Throw TableView to parent
