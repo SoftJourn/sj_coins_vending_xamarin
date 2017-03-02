@@ -51,8 +51,7 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.AccountPage
 
 		public void AddItemsToExistedList(List<Transaction> transactionsList)
 		{
-			_tableSource.AddItems(transactionsList);
-			// Insert rows
+			//_tableSource.AddItems(transactionsList, TableView);
 		}
 		#endregion
 
@@ -118,7 +117,6 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.AccountPage
 	#region UITableViewSource implementation
 	public class ReportsSource : UITableViewSource
 	{
-		//private bool loadMoreStatus = false;
 		private List<Transaction> _items = new List<Transaction>();
 
 		public event EventHandler GetNexPage;
@@ -128,9 +126,16 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.AccountPage
 			_items = items;
 		}
 
-		public void AddItems(List<Transaction> items)
+		public void AddItems(List<Transaction> items, UITableView tableView)
 		{
 			_items.AddRange(items);
+
+			foreach (Transaction item in items)
+			{
+				var index = items.IndexOf(item);
+				var indexPaths = new NSIndexPath[] { NSIndexPath.FromIndex((uint)index) };
+				tableView.InsertRows(atIndexPaths: indexPaths, withRowAnimation: UITableViewRowAnimation.Fade);
+			}
 		}
 
 		public override nint RowsInSection(UITableView tableview, nint section) => _items.Count;
@@ -145,7 +150,7 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.AccountPage
 			if (indexPath.Row == _items.Count - 6 && _items.Count > 11)
 			{
 				// trigg presenter give next page.
-				//GetNexPage?.Invoke(this, null);
+				GetNexPage?.Invoke(this, null);
 			}
 		}
 	}
