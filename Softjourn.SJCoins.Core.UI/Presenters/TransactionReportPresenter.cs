@@ -32,6 +32,7 @@ namespace Softjourn.SJCoins.Core.UI.Presenters
             TransactionsManager = _scope.Resolve<TransactionsManager>();
             _sortProperty = DefaultProperty;
             _sortDirection = DefaultDirection;
+            TransactionsManager.IsInput = true;
         }
 
         #region Public Methods
