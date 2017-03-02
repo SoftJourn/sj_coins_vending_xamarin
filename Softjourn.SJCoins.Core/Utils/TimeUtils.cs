@@ -11,7 +11,7 @@ namespace Softjourn.SJCoins.Core.Utils
 
         public static string GetPrettyTime(string dateString)
         {
-            return $"{GetDateFromString(dateString):MM/dd/yyyy}";
+            return $"{GetDateFromString(dateString):dd/MM/yyyy}";
         }
     }
 }

@@ -22,7 +22,8 @@ namespace Softjourn.SJCoins.Core.UI.Presenters
 		protected DataManager DataManager;
         protected PhotoManager PhotoManager;
 
-		public INavigationService NavigationService
+
+        public INavigationService NavigationService
         {
             get; set;
         }

@@ -12,5 +12,7 @@ namespace Softjourn.SJCoins.Core.UI.ViewInterfaces
         void ShowEmptyView();
 
         void SetData(List<Transaction> transactionsList);
+
+        void AddItemsToExistedList(List<Transaction> transactionsList);
     }
 }
