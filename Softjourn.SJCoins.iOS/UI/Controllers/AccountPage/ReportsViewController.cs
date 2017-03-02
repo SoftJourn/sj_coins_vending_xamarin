@@ -84,8 +84,8 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.AccountPage
 			_tableSource = new ReportsSource();
 			TableView.Source = _tableSource;
 
-			Spinner.StartAnimating();
-			Spinner.Transform = CGAffineTransform.MakeScale(1.5f, 1.5f);
+			//Spinner.StartAnimating();
+			//Spinner.Transform = CGAffineTransform.MakeScale(1.2f, 1.2f);
 
 			//_refreshControl.Transform = CGAffineTransform.MakeScale(0.75f, 0.75f);
 		}
