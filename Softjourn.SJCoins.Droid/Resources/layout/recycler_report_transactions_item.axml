@@ -5,69 +5,69 @@
     android:layout_height="wrap_content"
     android:background="@color/white"
     android:orientation="vertical">
-  <RelativeLayout
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      android:layout_marginBottom="@dimen/activity_vertical_margin"
-      android:layout_marginLeft="10dp"
-      android:layout_marginRight="10dp"
-      android:layout_marginTop="@dimen/activity_vertical_margin"
-      android:gravity="start"
-      android:layout_gravity="center_vertical"
-      android:orientation="horizontal">
-    <TextView
-        android:id="@+id/layout_item_date"
-        android:layout_width="wrap_content"
+    <RelativeLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_centerVertical="true"
-        android:layout_marginEnd="@dimen/activity_horizontal_margin"
-        android:layout_marginRight="@dimen/activity_horizontal_margin"
-        android:textColor="@color/colorBlue"
-        android:text="2/2/2017"
-        android:textSize="14sp" />
-    <TextView
-        android:id="@+id/layout_item_sender"
-        android:layout_width="@dimen/sender_receiver_label_width"
-        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/activity_vertical_margin"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="@dimen/activity_vertical_margin"
+        android:gravity="start"
         android:layout_gravity="center_vertical"
-        android:layout_alignParentTop="true"
-        android:layout_toRightOf="@+id/layout_item_date"
-        android:layout_toEndOf="@+id/layout_item_date"
-        android:layout_marginEnd="@dimen/recycler_view_layout_left_margin"
-        android:layout_marginRight="@dimen/recycler_view_layout_left_margin"
-        android:ellipsize="end"
-        android:maxLines="3"
-        android:textSize="14sp"
-        android:text="omartynets"
-        android:textStyle="bold" />
-    <TextView
-        android:id="@+id/layout_item_receiver"
-        android:layout_width="@dimen/sender_receiver_label_width"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_vertical"
-        android:layout_below="@+id/layout_item_sender"
-        android:layout_toRightOf="@+id/layout_item_date"
-        android:layout_toEndOf="@+id/layout_item_date"
-        android:layout_marginEnd="@dimen/recycler_view_layout_left_margin"
-        android:layout_marginRight="@dimen/recycler_view_layout_left_margin"
-        android:ellipsize="end"
-        android:maxLines="3"
-        android:textSize="14sp"
-        android:text="ogorodivskiy"
-        android:textStyle="bold" />
-    <TextView
-        android:id="@+id/layout_item_amount"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:layout_marginEnd="@dimen/activity_horizontal_margin"
-        android:layout_marginRight="@dimen/activity_horizontal_margin"
-        android:layout_centerVertical="true"
-        android:textColor="@color/colorBlue"
-        android:text="500"
-        android:textSize="14sp" />
-  </RelativeLayout>
-  <View
-      style="@style/VendingActivitySplitter" />
+        android:orientation="horizontal">
+        <TextView
+            android:id="@+id/layout_item_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:layout_marginEnd="@dimen/activity_horizontal_margin"
+            android:layout_marginRight="@dimen/activity_horizontal_margin"
+            android:textColor="@color/colorBlue"
+            android:text="2/2/2017"
+            android:textSize="14sp" />
+        <TextView
+            android:id="@+id/layout_item_sender"
+            android:layout_width="@dimen/sender_receiver_label_width"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_alignParentTop="true"
+            android:layout_toRightOf="@+id/layout_item_date"
+            android:layout_toEndOf="@+id/layout_item_date"
+            android:layout_marginEnd="@dimen/recycler_view_layout_left_margin"
+            android:layout_marginRight="@dimen/recycler_view_layout_left_margin"
+            android:ellipsize="end"
+            android:maxLines="3"
+            android:textSize="14sp"
+            android:text="omartynets"
+            android:textStyle="bold" />
+        <TextView
+            android:id="@+id/layout_item_receiver"
+            android:layout_width="@dimen/sender_receiver_label_width"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_below="@+id/layout_item_sender"
+            android:layout_toRightOf="@+id/layout_item_date"
+            android:layout_toEndOf="@+id/layout_item_date"
+            android:layout_marginEnd="@dimen/recycler_view_layout_left_margin"
+            android:layout_marginRight="@dimen/recycler_view_layout_left_margin"
+            android:ellipsize="end"
+            android:maxLines="3"
+            android:textSize="14sp"
+            android:text="ogorodivskiy"
+            android:textStyle="bold" />
+        <TextView
+            android:id="@+id/layout_item_amount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_marginEnd="@dimen/activity_horizontal_margin"
+            android:layout_marginRight="@dimen/activity_horizontal_margin"
+            android:layout_centerVertical="true"
+            android:textColor="@color/colorBlue"
+            android:text="500"
+            android:textSize="14sp" />
+    </RelativeLayout>
+    <View
+        style="@style/VendingActivitySplitter" />
 </LinearLayout>

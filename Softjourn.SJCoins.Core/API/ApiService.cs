@@ -102,7 +102,7 @@ namespace Softjourn.SJCoins.Core.API
             return await ApiClient.WithdrawMoney(amount);
         }
 
-        public async Task<Report> GetTransactoionReport(TransactionRequest transactionrequest)
+        public async Task<Report> GetTransactionReport(TransactionRequest transactionrequest)
         {
             return await ApiClient.GetTransactionReport(transactionrequest);
         }
