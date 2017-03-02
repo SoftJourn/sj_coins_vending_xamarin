@@ -98,10 +98,10 @@ namespace Softjourn.SJCoins.Droid.UI.Activities
                 switch (item.ItemId)
                 {
                     case Resource.Id.transactions_menu_date:
-                        //ViewPresenter.OnSortDateClicked();
+                        ViewPresenter.OnOrderByDateClick();
                         return true;
                     case Resource.Id.transactions_menu_amount:
-                        //ViewPresenter.OnSortAmountClicked();
+                        ViewPresenter.OnOrderByAmountClick();
                         return true;
                 }
             }
