@@ -13,7 +13,6 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.AccountPage
 	public partial class ReportsViewController : BaseViewController<TransactionReportPresenter>, ITransactionReportView
 	{
 		#region Constants
-		//public const string Purchases = "Purchases";
 		#endregion
 
 		#region Properties
@@ -105,6 +104,8 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.AccountPage
 	{
 		private List<Transaction> items = new List<Transaction>();
 
+		public event EventHandler TakeNexPage;
+
 		public void SetItems(List<Transaction> items)
 		{
 			this.items = items;
@@ -117,10 +118,15 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.AccountPage
 		public override void WillDisplay(UITableView tableView, UITableViewCell cell, NSIndexPath indexPath)
 		{
 			var _cell = (TransactionCell)cell;
-			var item = items[indexPath.Row];
-			_cell.ConfigureWith(item);
-
-			//need to handle last row drawing and trig presenter give next page.  
+			if (indexPath.Row > items.Count)
+			{
+				// trigg presenter give next page.
+				TakeNexPage?.Invoke(this, null);
+			}
+			else
+			{
+				_cell.ConfigureWith(items[indexPath.Row]);
+			}
 		}
 	}
 	#endregion
