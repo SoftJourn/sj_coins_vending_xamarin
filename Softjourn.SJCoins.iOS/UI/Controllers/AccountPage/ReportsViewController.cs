@@ -46,12 +46,13 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.AccountPage
 		{
 			_tableSource.SetItems(transactionsList);
 			TableView.ReloadData();
+			TableView.TableFooterView.Hidden = false;
 		}
 
 		public void AddItemsToExistedList(List<Transaction> transactionsList)
 		{
-			_tableSource.SetItems(transactionsList);
-			//TableView.ReloadData();
+			_tableSource.AddItems(transactionsList);
+			// Insert rows
 		}
 		#endregion
 
@@ -83,11 +84,6 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.AccountPage
 		{
 			_tableSource = new ReportsSource();
 			TableView.Source = _tableSource;
-
-			//Spinner.StartAnimating();
-			//Spinner.Transform = CGAffineTransform.MakeScale(1.2f, 1.2f);
-
-			//_refreshControl.Transform = CGAffineTransform.MakeScale(0.75f, 0.75f);
 		}
 
 		// -------------------- Event handlers --------------------
@@ -122,32 +118,34 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.AccountPage
 	#region UITableViewSource implementation
 	public class ReportsSource : UITableViewSource
 	{
-		private bool loadMoreStatus = false;
-		private List<Transaction> items = new List<Transaction>();
+		//private bool loadMoreStatus = false;
+		private List<Transaction> _items = new List<Transaction>();
 
 		public event EventHandler GetNexPage;
 
 		public void SetItems(List<Transaction> items)
 		{
-			this.items = items;
+			_items = items;
 		}
 
-		public override nint RowsInSection(UITableView tableview, nint section) => items.Count;
+		public void AddItems(List<Transaction> items)
+		{
+			_items.AddRange(items);
+		}
+
+		public override nint RowsInSection(UITableView tableview, nint section) => _items.Count;
 
 		public override UITableViewCell GetCell(UITableView tableView, NSIndexPath indexPath) => tableView.DequeueReusableCell(TransactionCell.Key, indexPath);
 
 		public override void WillDisplay(UITableView tableView, UITableViewCell cell, NSIndexPath indexPath)
 		{
 			var _cell = (TransactionCell)cell;
-			if (indexPath.Row == items.Count - 1)
+			_cell.ConfigureWith(_items[indexPath.Row]);
+
+			if (indexPath.Row == _items.Count - 6 && _items.Count > 11)
 			{
 				// trigg presenter give next page.
 				//GetNexPage?.Invoke(this, null);
-				_cell.ConfigureWith(items[indexPath.Row]);
-			}
-			else
-			{
-				_cell.ConfigureWith(items[indexPath.Row]);
 			}
 		}
 	}

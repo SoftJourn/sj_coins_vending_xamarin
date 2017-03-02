@@ -21,9 +21,6 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.AccountPage
 		UIKit.UISegmentedControl SegmentControl { get; set; }
 
 		[Outlet]
-		UIKit.UIActivityIndicatorView Spinner { get; set; }
-
-		[Outlet]
 		UIKit.UITableView TableView { get; set; }
 		
 		void ReleaseDesignerOutlets ()
@@ -46,11 +43,6 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.AccountPage
 			if (TableView != null) {
 				TableView.Dispose ();
 				TableView = null;
-			}
-
-			if (Spinner != null) {
-				Spinner.Dispose ();
-				Spinner = null;
 			}
 		}
 	}
