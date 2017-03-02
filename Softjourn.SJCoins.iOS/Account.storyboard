@@ -285,10 +285,23 @@
                                         <constraint firstItem="AsE-nY-kdV" firstAttribute="centerX" secondItem="tHQ-xN-Jd2" secondAttribute="centerX" id="sbQ-ge-nfl"/>
                                     </constraints>
                                 </view>
-                                <view key="tableFooterView" contentMode="scaleToFill" id="KuT-mh-pQD">
-                                    <rect key="frame" x="0.0" y="128" width="375" height="0.0"/>
+                                <view key="tableFooterView" contentMode="scaleToFill" id="seh-5S-p8O">
+                                    <rect key="frame" x="0.0" y="128" width="375" height="44"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    <subviews>
+                                        <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="Ui2-qD-z9v">
+                                            <rect key="frame" x="177.5" y="12.5" width="20" height="20"/>
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="20" id="T3f-wU-d48"/>
+                                                <constraint firstAttribute="width" constant="20" id="hEO-87-OCh"/>
+                                            </constraints>
+                                            <color key="color" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                        </activityIndicatorView>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstItem="Ui2-qD-z9v" firstAttribute="centerY" secondItem="seh-5S-p8O" secondAttribute="centerY" id="OG3-Bi-LZZ"/>
+                                        <constraint firstItem="Ui2-qD-z9v" firstAttribute="centerX" secondItem="seh-5S-p8O" secondAttribute="centerX" id="d8H-0Y-Pil"/>
+                                    </constraints>
                                 </view>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="TransactionCell" rowHeight="60" id="Yds-ky-5aJ" customClass="TransactionCell">
@@ -391,6 +404,7 @@
                         <outlet property="FilterButton" destination="AjP-Q4-0rL" id="plF-wt-wJ4"/>
                         <outlet property="NoItemsLabel" destination="WNm-fx-c8b" id="ref-1U-Wpc"/>
                         <outlet property="SegmentControl" destination="AsE-nY-kdV" id="2ZL-DM-Gw4"/>
+                        <outlet property="Spinner" destination="Ui2-qD-z9v" id="jok-fL-pcB"/>
                         <outlet property="TableView" destination="4dh-4y-bbU" id="WM9-zv-qwF"/>
                     </connections>
                 </viewController>

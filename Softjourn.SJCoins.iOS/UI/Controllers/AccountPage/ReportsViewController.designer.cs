@@ -21,13 +21,26 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.AccountPage
 		UIKit.UISegmentedControl SegmentControl { get; set; }
 
 		[Outlet]
+		UIKit.UIActivityIndicatorView Spinner { get; set; }
+
+		[Outlet]
 		UIKit.UITableView TableView { get; set; }
 		
 		void ReleaseDesignerOutlets ()
 		{
+			if (FilterButton != null) {
+				FilterButton.Dispose ();
+				FilterButton = null;
+			}
+
 			if (NoItemsLabel != null) {
 				NoItemsLabel.Dispose ();
 				NoItemsLabel = null;
+			}
+
+			if (SegmentControl != null) {
+				SegmentControl.Dispose ();
+				SegmentControl = null;
 			}
 
 			if (TableView != null) {
@@ -35,14 +48,9 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.AccountPage
 				TableView = null;
 			}
 
-			if (FilterButton != null) {
-				FilterButton.Dispose ();
-				FilterButton = null;
-			}
-
-			if (SegmentControl != null) {
-				SegmentControl.Dispose ();
-				SegmentControl = null;
+			if (Spinner != null) {
+				Spinner.Dispose ();
+				Spinner = null;
 			}
 		}
 	}

@@ -6,6 +6,7 @@ using Softjourn.SJCoins.Core.UI.Presenters;
 using Softjourn.SJCoins.Core.UI.ViewInterfaces;
 using Softjourn.SJCoins.iOS.UI.Cells;
 using UIKit;
+using CoreGraphics;
 
 namespace Softjourn.SJCoins.iOS.UI.Controllers.AccountPage
 {
@@ -49,7 +50,8 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.AccountPage
 
 		public void AddItemsToExistedList(List<Transaction> transactionsList)
 		{
-			throw new NotImplementedException();
+			_tableSource.SetItems(transactionsList);
+			//TableView.ReloadData();
 		}
 		#endregion
 
@@ -81,6 +83,11 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.AccountPage
 		{
 			_tableSource = new ReportsSource();
 			TableView.Source = _tableSource;
+
+			Spinner.StartAnimating();
+			Spinner.Transform = CGAffineTransform.MakeScale(1.5f, 1.5f);
+
+			//_refreshControl.Transform = CGAffineTransform.MakeScale(0.75f, 0.75f);
 		}
 
 		// -------------------- Event handlers --------------------
@@ -115,6 +122,7 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.AccountPage
 	#region UITableViewSource implementation
 	public class ReportsSource : UITableViewSource
 	{
+		private bool loadMoreStatus = false;
 		private List<Transaction> items = new List<Transaction>();
 
 		public event EventHandler GetNexPage;
@@ -131,10 +139,11 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.AccountPage
 		public override void WillDisplay(UITableView tableView, UITableViewCell cell, NSIndexPath indexPath)
 		{
 			var _cell = (TransactionCell)cell;
-			if (indexPath.Row > items.Count)
+			if (indexPath.Row == items.Count - 1)
 			{
 				// trigg presenter give next page.
-				GetNexPage?.Invoke(this, null);
+				//GetNexPage?.Invoke(this, null);
+				_cell.ConfigureWith(items[indexPath.Row]);
 			}
 			else
 			{
