@@ -140,12 +140,14 @@ namespace Softjourn.SJCoins.Droid.UI.Activities
         {
             _buttonInputUnderline.Visibility = ViewStates.Invisible;
             _buttonOutputUnderline.Visibility = ViewStates.Visible;
+            ViewPresenter.OnOutputClicked();
         }
 
         private void ButtonInputOnClick(object sender, EventArgs eventArgs)
         {
             _buttonInputUnderline.Visibility = ViewStates.Visible;
             _buttonOutputUnderline.Visibility = ViewStates.Invisible;
+            ViewPresenter.OnInputClicked();
         }
 
         #endregion
