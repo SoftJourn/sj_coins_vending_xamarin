@@ -46,6 +46,11 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.AccountPage
 			_tableSource.SetItems(transactionsList);
 			TableView.ReloadData();
 		}
+
+		public void AddItemsToExistedList(List<Transaction> transactionsList)
+		{
+			throw new NotImplementedException();
+		}
 		#endregion
 
 		#region BaseViewController
@@ -54,12 +59,14 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.AccountPage
 			base.AttachEvents();
 			//SegmentControl.TouchUpInside += SegmentControl_SameButtonClicked;
 			SegmentControl.ValueChanged += SegmentControl_AnotherButtonClicked;
+			_tableSource.GetNexPage += TableSource_GetNextPageExecuted;
 		}
 
 		public override void DetachEvents()
 		{
 			//SegmentControl.TouchUpInside -= SegmentControl_SameButtonClicked;
 			SegmentControl.ValueChanged -= SegmentControl_AnotherButtonClicked;
+			_tableSource.GetNexPage -= TableSource_GetNextPageExecuted;
 			base.DetachEvents();
 		}
 		#endregion
@@ -87,6 +94,12 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.AccountPage
 		{
 			
 		}
+
+		// TableSource methods 
+		public void TableSource_GetNextPageExecuted(object sender, EventArgs e)
+		{
+			Presenter.GetNextPage();
+		}
 		#endregion
 
 		// Throw TableView to parent
@@ -104,7 +117,7 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.AccountPage
 	{
 		private List<Transaction> items = new List<Transaction>();
 
-		public event EventHandler TakeNexPage;
+		public event EventHandler GetNexPage;
 
 		public void SetItems(List<Transaction> items)
 		{
@@ -121,7 +134,7 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.AccountPage
 			if (indexPath.Row > items.Count)
 			{
 				// trigg presenter give next page.
-				TakeNexPage?.Invoke(this, null);
+				GetNexPage?.Invoke(this, null);
 			}
 			else
 			{

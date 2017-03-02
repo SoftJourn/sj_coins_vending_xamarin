@@ -14,6 +14,7 @@ using Softjourn.SJCoins.Core.UI.Presenters;
 using Softjourn.SJCoins.Core.UI.ViewInterfaces;
 using Softjourn.SJCoins.Droid.ui.baseUI;
 using Softjourn.SJCoins.Droid.UI.Adapters;
+using Softjourn.SJCoins.Droid.UI.Listeners;
 
 namespace Softjourn.SJCoins.Droid.UI.Activities
 {
@@ -53,12 +54,24 @@ namespace Softjourn.SJCoins.Droid.UI.Activities
             _buttonOutputUnderline = FindViewById<View>(Resource.Id.button_output_underline);
 
             _refreshLayout = FindViewById<SwipeRefreshLayout>(Resource.Id.swipe_container);
+            _refreshLayout.SetColorSchemeResources(Resource.Color.colorAccent);
 
             SupportActionBar.SetDisplayHomeAsUpEnabled(true);
             SupportActionBar.SetHomeButtonEnabled(true);
 
             //Setting adapter for recycler view
-            RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this, LinearLayoutManager.Vertical, false);
+            var layoutManager = new LinearLayoutManager(this, LinearLayoutManager.Vertical, false);
+
+            //Creating OnScrollListener to handle if the end of list reached 
+            //so we can load next page of data
+            var onScrollListener = new XamarinRecyclerViewOnScrollListener(layoutManager);
+            onScrollListener.LoadMoreEvent += (sender, e) =>
+            {
+                ViewPresenter.GetNextPage();
+            };
+
+            _transactionsRecyclerView.AddOnScrollListener(onScrollListener);
+
             _adapter = new ReportsAdapter();
             _transactionsRecyclerView.SetLayoutManager(layoutManager);
             _transactionsRecyclerView.SetAdapter(_adapter);
@@ -112,6 +125,11 @@ namespace Softjourn.SJCoins.Droid.UI.Activities
         public void ShowEmptyView()
         {
             _noTransactionsTextView.Visibility = ViewStates.Visible;
+        }
+
+        public void AddItemsToExistedList(List<Transaction> transactionsList)
+        {
+            _adapter.AddData(transactionsList);
         }
 
         #endregion
