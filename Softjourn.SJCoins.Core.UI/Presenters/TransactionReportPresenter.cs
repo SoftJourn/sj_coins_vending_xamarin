@@ -23,10 +23,15 @@ namespace Softjourn.SJCoins.Core.UI.Presenters
         private TransactionsManager TransactionsManager;
         private bool _isLoading = false;
 
+        private string _sortProperty;
+        private string _sortDirection;
+
         public TransactionReportPresenter()
         {
             _scope = BaseBootstrapper.Container.BeginLifetimeScope();
             TransactionsManager = _scope.Resolve<TransactionsManager>();
+            _sortProperty = DefaultProperty;
+            _sortDirection = DefaultDirection;
         }
 
         #region Public Methods
@@ -48,7 +53,7 @@ namespace Softjourn.SJCoins.Core.UI.Presenters
             _isLoading = true;
             //Get Transaction for next page 
             //where next page is Curent page + 1
-            GetReportTransactions(TransactionsManager.CurrentPage + 1, DefaultDirection, DefaultProperty);
+            GetReportTransactions(TransactionsManager.CurrentPage + 1, _sortDirection, _sortProperty);
         }
 
         //Handle Click on Input button
@@ -97,6 +102,27 @@ namespace Softjourn.SJCoins.Core.UI.Presenters
                 View.SetData(TransactionsManager.GetTransactions());
                 return;
             }
+        }
+
+        public void OnOrderByAmountClick()
+        {
+            if (_sortProperty != DefaultProperty) return;
+
+            _sortProperty = "amount";
+            _sortDirection = "asc";
+
+            TransactionsManager.SetDefaults(DataManager.Profile.Name + " " + DataManager.Profile.Surname);
+            GetReportTransactions(DefaultPageNumber, _sortDirection, _sortProperty);
+        }
+
+        public void OnOrderByDateClick()
+        {
+            if (_sortProperty == DefaultProperty) return;
+
+            _sortProperty = DefaultProperty;
+            _sortDirection = DefaultDirection;
+
+            OnStartLoadingPage();
         }
         #endregion
 

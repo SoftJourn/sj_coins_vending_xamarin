@@ -57,6 +57,16 @@ namespace Softjourn.SJCoins.Droid.UI.Activities
             ViewPresenter.OnStartLoadingPage();
         }
 
+        protected override void OnRestoreInstanceState(Bundle savedInstanceState)
+        {
+            base.OnRestoreInstanceState(savedInstanceState);
+        }
+
+        protected override void OnSaveInstanceState(Bundle outState)
+        {
+            base.OnSaveInstanceState(outState);
+        }
+
         public override bool OnCreateOptionsMenu(IMenu menu)
         {
             return false;

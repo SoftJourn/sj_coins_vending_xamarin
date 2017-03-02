@@ -22,9 +22,8 @@ namespace Softjourn.SJCoins.Core.Managers
             TransactionsList = new List<Transaction>();
             PagesCount = 0;
             CurrentPage = 0;
-            IsInput = true;
             IsListAscending = true;
-
+            IsInput = true;
             _dataManager = new DataManager();
         }
 
@@ -35,7 +34,7 @@ namespace Softjourn.SJCoins.Core.Managers
             TransactionsList = new List<Transaction>();
             PagesCount = 0;
             CurrentPage = 0;
-            IsInput = true;
+
             IsListAscending = true;
             _currentUser = currentUser;
         }
