@@ -108,11 +108,6 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.AccountPage
 			var item = items[indexPath.Row];
 			_cell.ConfigureWith(item);
 		}
-
-		public override void RowSelected(UITableView tableView, NSIndexPath indexPath)
-		{
-			tableView.DeselectRow(indexPath, true);
-		}
 	}
 	#endregion
 }

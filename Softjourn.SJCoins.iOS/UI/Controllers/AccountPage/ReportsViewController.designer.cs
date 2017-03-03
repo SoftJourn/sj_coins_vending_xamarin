@@ -25,24 +25,24 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.AccountPage
 		
 		void ReleaseDesignerOutlets ()
 		{
-			if (NoItemsLabel != null) {
-				NoItemsLabel.Dispose ();
-				NoItemsLabel = null;
-			}
-
-			if (TableView != null) {
-				TableView.Dispose ();
-				TableView = null;
-			}
-
 			if (FilterButton != null) {
 				FilterButton.Dispose ();
 				FilterButton = null;
 			}
 
+			if (NoItemsLabel != null) {
+				NoItemsLabel.Dispose ();
+				NoItemsLabel = null;
+			}
+
 			if (SegmentControl != null) {
 				SegmentControl.Dispose ();
 				SegmentControl = null;
+			}
+
+			if (TableView != null) {
+				TableView.Dispose ();
+				TableView = null;
 			}
 		}
 	}

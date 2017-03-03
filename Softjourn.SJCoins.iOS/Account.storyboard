@@ -22,9 +22,9 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="55" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Cqe-1X-AIA">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="45" sectionHeaderHeight="10" sectionFooterHeight="10" translatesAutoresizingMaskIntoConstraints="NO" id="Cqe-1X-AIA">
                                 <rect key="frame" x="-0.5" y="-0.5" width="375" height="667"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                                 <view key="tableHeaderView" contentMode="scaleToFill" id="0Ku-gc-3BA" userLabel="HeaderView">
                                     <rect key="frame" x="0.0" y="0.0" width="375" height="210"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -68,34 +68,32 @@
                                     </constraints>
                                 </view>
                                 <view key="tableFooterView" contentMode="scaleToFill" id="jnZ-5V-e5b">
-                                    <rect key="frame" x="0.0" y="293" width="375" height="0.0"/>
+                                    <rect key="frame" x="0.0" y="341" width="375" height="0.0"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </view>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="AccountCell" rowHeight="55" id="i14-iv-R0u" customClass="AccountCell">
-                                        <rect key="frame" x="0.0" y="238" width="375" height="55"/>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="0.0" reuseIdentifier="AccountCell" rowHeight="45" id="i14-iv-R0u" customClass="AccountCell">
+                                        <rect key="frame" x="0.0" y="266" width="375" height="45"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="i14-iv-R0u" id="K6B-mK-ECw">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="54"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="342" height="44"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="TitleLabel" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oL0-YU-9VX">
-                                                    <rect key="frame" x="37.5" y="7.5" width="300" height="40"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="height" constant="40" id="Yeq-DF-2NB"/>
-                                                        <constraint firstAttribute="width" constant="300" id="ruH-sY-AvN"/>
-                                                    </constraints>
+                                                    <rect key="frame" x="68" y="12.5" width="256" height="19.5"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstItem="oL0-YU-9VX" firstAttribute="centerX" secondItem="K6B-mK-ECw" secondAttribute="centerX" id="Ow8-RL-B7e"/>
-                                                <constraint firstItem="oL0-YU-9VX" firstAttribute="centerY" secondItem="K6B-mK-ECw" secondAttribute="centerY" id="ksv-3h-y9n"/>
+                                                <constraint firstItem="oL0-YU-9VX" firstAttribute="centerY" secondItem="K6B-mK-ECw" secondAttribute="centerY" id="KHb-1c-4sG"/>
+                                                <constraint firstItem="oL0-YU-9VX" firstAttribute="leading" secondItem="K6B-mK-ECw" secondAttribute="leadingMargin" constant="60" id="UOa-9s-SsL"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="oL0-YU-9VX" secondAttribute="trailing" constant="10" id="jN8-iH-TsY"/>
                                             </constraints>
                                         </tableViewCellContentView>
+                                        <inset key="separatorInset" minX="60" minY="0.0" maxX="0.0" maxY="0.0"/>
                                         <connections>
                                             <outlet property="TitleLabel" destination="oL0-YU-9VX" id="0TX-Ns-1Aj"/>
                                         </connections>
@@ -139,7 +137,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="60" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="hSc-l0-Cdo">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" allowsSelection="NO" rowHeight="60" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="hSc-l0-Cdo">
                                 <rect key="frame" x="-0.5" y="-0.5" width="375" height="667"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <view key="tableFooterView" contentMode="scaleToFill" id="b9s-Nj-oI8">
@@ -262,7 +260,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="60" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="4dh-4y-bbU">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" allowsSelection="NO" rowHeight="60" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="4dh-4y-bbU">
                                 <rect key="frame" x="-0.5" y="-0.5" width="375" height="667"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <view key="tableHeaderView" contentMode="scaleToFill" id="tHQ-xN-Jd2" userLabel="HeaderView">
@@ -287,10 +285,9 @@
                                         <constraint firstItem="AsE-nY-kdV" firstAttribute="centerX" secondItem="tHQ-xN-Jd2" secondAttribute="centerX" id="sbQ-ge-nfl"/>
                                     </constraints>
                                 </view>
-                                <view key="tableFooterView" contentMode="scaleToFill" id="KuT-mh-pQD">
+                                <view key="tableFooterView" contentMode="scaleToFill" id="seh-5S-p8O">
                                     <rect key="frame" x="0.0" y="128" width="375" height="0.0"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </view>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="TransactionCell" rowHeight="60" id="Yds-ky-5aJ" customClass="TransactionCell">

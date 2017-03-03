@@ -35,11 +35,12 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.AccountPage
 			ConfigureAvatarImage(AvatarImage);
 			Presenter.OnStartLoadingPage();
 		}
+		#endregion
 
-		public override void ViewWillAppear(bool animated)
+		#region BaseViewController
+		public override void AttachEvents()
 		{
-			base.ViewWillAppear(animated);
-			// Attach 
+			base.AttachEvents();
 			DoneButton.Clicked += DoneButtonClickHandler;
 			_tableSource.ItemSelected += TableSource_ItemClicked;
 			// Add tap gesture to avatar image
@@ -47,20 +48,13 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.AccountPage
 			AvatarImage.AddGestureRecognizer(avatarImageTap);
 		}
 
-		public override void ViewDidAppear(bool animated)
+		public override void DetachEvents()
 		{
-			base.ViewDidAppear(animated);
-
-		}
-
-		public override void ViewWillDisappear(bool animated)
-		{
-			// Detach 
 			DoneButton.Clicked -= DoneButtonClickHandler;
 			_tableSource.ItemSelected -= TableSource_ItemClicked;
 			// Remove tap gesture from avatar image
 			AvatarImage.RemoveGestureRecognizer(avatarImageTap);
-			base.ViewWillDisappear(animated);
+			base.DetachEvents();
 		}
 		#endregion
 
@@ -90,7 +84,15 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.AccountPage
 		#region Private methods
 		private void ConfigureTableView()
 		{
-			_tableSource = new AccountSource(Presenter.GetOptionsList());
+			var options = Presenter.GetOptionsList();
+
+			List<string> optionsFirstSection = new List<string>(options);
+			optionsFirstSection.RemoveAt(optionsFirstSection.Count - 1);
+
+			List<string> optionsSecondSection = new List<string>(options);
+			optionsSecondSection.RemoveRange(0, optionsSecondSection.Count - 1);
+
+			_tableSource = new AccountSource(optionsFirstSection, optionsSecondSection);
 			TableView.Source = _tableSource;
 
 			TableView.RegisterNibForCellReuse(ProductCell.Nib, ProductCell.Key);
@@ -131,39 +133,68 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.AccountPage
 			StopRefreshing();
 			Presenter.OnStartLoadingPage();
 		}
-
-		#region BaseViewController -> IBaseView implementation
-		#endregion
 	}
 
 	#region UITableViewSource implementation
 	public class AccountSource : UITableViewSource
 	{
-		private List<string> optionsList = new List<string>();
+		private List<string> optionsFirstSection = new List<string>();
+		private List<string> optionsSecondSection = new List<string>();
+
 		public event EventHandler<string> ItemSelected;
 
-		public AccountSource(List<string> optionsList)
+		public AccountSource(List<string> first, List<string> second)
 		{
-			this.optionsList = optionsList;
+			optionsFirstSection = first;
+			optionsSecondSection = second;
 		}
 
-		public override nint RowsInSection(UITableView tableview, nint section) => optionsList.Count;
+		public override nint NumberOfSections(UITableView tableView) => 2;
 
+		public override nint RowsInSection(UITableView tableview, nint section) // => optionsFirstSection.Count;
+		{
+			switch (section)
+			{
+				case 0:
+					return optionsFirstSection.Count;
+				case 1:
+					return optionsSecondSection.Count;
+				default:
+					return 0;
+			}
+		}
 		public override UITableViewCell GetCell(UITableView tableView, NSIndexPath indexPath) => (AccountCell)tableView.DequeueReusableCell(AccountCell.Key, indexPath);
 
 		public override void WillDisplay(UITableView tableView, UITableViewCell cell, NSIndexPath indexPath)
 		{
 			var _cell = (AccountCell)cell;
-			var item = optionsList[indexPath.Row];
-
-			_cell.ConfigureWith(item);
+            switch (indexPath.Section)
+			{
+				case 0:
+					_cell.ConfigureWith(optionsFirstSection[indexPath.Row]);
+					break;
+				case 1:
+					_cell.ConfigureWith(optionsSecondSection[indexPath.Row]);
+					break;
+				default:
+					break;
+			}
 		}
 
 		public override void RowSelected(UITableView tableView, NSIndexPath indexPath)
 		{
 			tableView.DeselectRow(indexPath, true);
-			var item = optionsList[indexPath.Row];
-			ItemSelected?.Invoke(this, item);
+			switch (indexPath.Section)
+			{
+				case 0:
+					ItemSelected?.Invoke(this, optionsFirstSection[indexPath.Row]);
+					break;
+				case 1:
+					ItemSelected?.Invoke(this, optionsSecondSection[indexPath.Row]);
+					break;
+				default:
+					break;
+			}
 		}
 	}
 	#endregion
