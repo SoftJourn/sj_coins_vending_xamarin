@@ -32,6 +32,8 @@ namespace Softjourn.SJCoins.Droid.UI.Activities
 
         private Button _sortNameButton;
         private Button _sortPriceButton;
+        private View _buttonNameUnderline;
+        private View _buttonPriceUnderline;
         private TextView _textViewNoProductsInCategory;
 
         private const string ProductsCategory = Const.NavigationKey;
@@ -56,9 +58,12 @@ namespace Softjourn.SJCoins.Droid.UI.Activities
 
             _sortNameButton = FindViewById<Button>(Resource.Id.button_sort_name);
             _sortNameButton.Click += OnSortByNameClick;
+            _buttonNameUnderline = FindViewById<View>(Resource.Id.button_name_underline);
 
             _sortPriceButton = FindViewById<Button>(Resource.Id.button_sort_price);
             _sortPriceButton.Click += OnSortByPriceClick;
+            _sortPriceButton.SetCompoundDrawables(null, null, null, null);
+            _buttonPriceUnderline = FindViewById<View>(Resource.Id.button_price_underline);
 
             _machineItems = FindViewById<RecyclerView>(Resource.Id.list_items_recycler_view);
             _textViewNoProductsInCategory = FindViewById<TextView>(Resource.Id.textViewNoProductsInCategory);
@@ -91,8 +96,10 @@ namespace Softjourn.SJCoins.Droid.UI.Activities
         private void OnSortByPriceClick(object sender, EventArgs e)
         {
             ViewPresenter.OnSortByPriceClicked(_category);
-            _sortPriceButton.SetBackgroundColor(new Color(ContextCompat.GetColor(this, Resource.Color.colorScreenBackground)));
-            _sortNameButton.SetBackgroundColor(new Color(ContextCompat.GetColor(this, Resource.Color.transparent)));
+            _buttonNameUnderline.Visibility = ViewStates.Invisible;
+            _buttonPriceUnderline.Visibility = ViewStates.Visible;
+            //_sortPriceButton.SetBackgroundColor(new Color(ContextCompat.GetColor(this, Resource.Color.colorScreenBackground)));
+            //_sortNameButton.SetBackgroundColor(new Color(ContextCompat.GetColor(this, Resource.Color.transparent)));
         }
 
         /**
@@ -103,8 +110,10 @@ namespace Softjourn.SJCoins.Droid.UI.Activities
         private void OnSortByNameClick(object sender, EventArgs e)
         {
             ViewPresenter.OnSortByNameClicked(_category);
-            _sortNameButton.SetBackgroundColor(new Color(ContextCompat.GetColor(this, Resource.Color.colorScreenBackground)));
-            _sortPriceButton.SetBackgroundColor(new Color(ContextCompat.GetColor(this, Resource.Color.transparent)));
+            _buttonNameUnderline.Visibility = ViewStates.Visible;
+            _buttonPriceUnderline.Visibility = ViewStates.Invisible;
+            //_sortNameButton.SetBackgroundColor(new Color(ContextCompat.GetColor(this, Resource.Color.colorScreenBackground)));
+            //_sortPriceButton.SetBackgroundColor(new Color(ContextCompat.GetColor(this, Resource.Color.transparent)));
         }
 
         public override bool OnCreateOptionsMenu(IMenu menu)
@@ -208,6 +217,44 @@ namespace Softjourn.SJCoins.Droid.UI.Activities
         public void ShowSortedList(List<Product> products)
         {
             _adapter.SetData(products);
+        }
+
+        public void SetCompoundDrawableName(bool? isAsc)
+        {
+            if (isAsc == null)
+            {
+                _sortNameButton.SetCompoundDrawablesWithIntrinsicBounds(null, null, null, null);
+                return;
+            }
+            if ((bool)isAsc)
+            {
+                _sortNameButton.SetCompoundDrawablesWithIntrinsicBounds(ContextCompat.GetDrawable(this, Resource.Drawable.ic_arrow_up), null,
+                    null, null);
+            }
+            else
+            {
+                _sortNameButton.SetCompoundDrawablesWithIntrinsicBounds(ContextCompat.GetDrawable(this, Resource.Drawable.ic_arrow_down), null, 
+                    null, null);
+            }
+        }
+
+        public void SetCompoundDrawablePrice(bool? isAsc)
+        {
+            if (isAsc == null)
+            {
+                _sortPriceButton.SetCompoundDrawablesWithIntrinsicBounds(null, null, null, null);
+                return;
+            }
+            if ((bool)isAsc)
+            {
+                _sortPriceButton.SetCompoundDrawablesWithIntrinsicBounds(null, null,
+                    ContextCompat.GetDrawable(this, Resource.Drawable.ic_arrow_up), null);
+            }
+            else
+            {
+                _sortPriceButton.SetCompoundDrawablesWithIntrinsicBounds(null, null,
+                    ContextCompat.GetDrawable(this, Resource.Drawable.ic_arrow_down), null);
+            }
         }
 
         /**

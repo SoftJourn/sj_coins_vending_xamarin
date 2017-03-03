@@ -12,10 +12,7 @@ namespace Softjourn.SJCoins.Core.Managers
         public bool IsInput { get; set; }
         public bool IsListAscending { get; set; }
 
-        private readonly DataManager _dataManager;
-
         private List<Transaction> TransactionsList { get; set; }
-        private string _currentUser;
 
         public TransactionsManager()
         {
@@ -24,19 +21,17 @@ namespace Softjourn.SJCoins.Core.Managers
             CurrentPage = 0;
             IsListAscending = true;
             IsInput = true;
-            _dataManager = new DataManager();
         }
 
         #region Public Methods
         //Setting all properties to defaults
         public void SetDefaults(string currentUser)
         {
-            TransactionsList = new List<Transaction>();
+            TransactionsList.Clear();
             PagesCount = 0;
             CurrentPage = 0;
 
             IsListAscending = true;
-            _currentUser = currentUser;
         }
 
         //Adding new Items to existe list of transactions
@@ -48,66 +43,33 @@ namespace Softjourn.SJCoins.Core.Managers
         //Get All Transactions
         public List<Transaction> GetTransactions()
         {
-            return IsInput ? GetOnlyInput(null) : GetOnlyOutput(null);
+            return IsListAscending ? GetAscendingList(null) : GetDescendingList();
         }
 
         //Get new portion of Transactions only
         public List<Transaction> GetTransactions(List<Transaction> transactions)
         {
-            return IsInput ? GetOnlyInput(transactions) : GetOnlyOutput(transactions);
+            return IsListAscending ? GetAscendingList(transactions) : GetDescendingList();
         }
         #endregion
 
         #region Private Methods
-        //Return Input Transactions depends on IsListDescending
-        private List<Transaction> GetOnlyInput(List<Transaction> transactions)
-        {
-            return IsListAscending ? GetAscendingInput(transactions) : GetDescendingInput(transactions);
-        }
 
-        //Return Output Transactions depends on IsListDescending
-        private List<Transaction> GetOnlyOutput(List<Transaction> transactions)
-        {
-            return IsListAscending ? GetAscendingOutput(transactions) : GetDescendingOutput(transactions);
-        }
-
-        //Get Only Input ASCENDING Transactions (where Destination is current user)
+        //Get Only ASCENDING Transactions
         //Depands on argument return transactions from whole list if argument is null
         //or return transaction filtered only from argument list if argument is not null
-        private List<Transaction> GetAscendingInput(List<Transaction> transactions)
+        private List<Transaction> GetAscendingList(List<Transaction> transactions)
         {
-            return transactions == null ? TransactionsList.Where(transaction => transaction.Destination == _currentUser).ToList() :
-                                          transactions.Where(transaction => transaction.Destination == _currentUser).ToList();
+            return transactions == null ? TransactionsList : transactions;
         }
 
-        //Get Only Output ASCENDING Transactions (where Account is current user)
-        //Depands on argument return transactions from whole list if argument is null
-        //or return transaction filtered only from argument list if argument is not null
-        private List<Transaction> GetAscendingOutput(List<Transaction> transactions)
+        //Get Only DESCENDING Transactions
+        private List<Transaction> GetDescendingList()
         {
-            return transactions == null ? TransactionsList.Where(transaction => transaction.Account ==_currentUser).ToList() :
-                                          transactions.Where(transaction => transaction.Account == _currentUser).ToList();
-        }
-
-        //Get Only Input DESCENDING Transactions (where Destination is current user)
-        //Depands on argument return transactions from whole list if argument is null
-        //or return transaction filtered only from argument list if argument is not null
-        private List<Transaction> GetDescendingInput(List<Transaction> transactions)
-        {
-            var transactionsList = GetAscendingInput(null);
+            var transactionsList = new List<Transaction>(GetAscendingList(null));
             transactionsList.Reverse();
             return transactionsList;
 
-        }
-
-        //Get Only Output DESCENDING Transactions (where Account is current user)
-        //Depands on argument return transactions from whole list if argument is null
-        //or return transaction filtered only from argument list if argument is not null
-        private List<Transaction> GetDescendingOutput(List<Transaction> transactions)
-        {
-            var transactionsList = GetAscendingOutput(null);
-            transactionsList.Reverse();
-            return transactionsList;
         }
         #endregion
     }

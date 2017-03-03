@@ -2,11 +2,50 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorBackgroundNoInternet"
+    android:background="@color/white"
     android:orientation="vertical"
     android:id="@+id/layout_root"
     android:animateLayoutChanges="true">
     <LinearLayout
+        android:id="@+id/reports_button_bar"
+        style="?android:buttonBarStyle"
+        android:layout_gravity="center"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <Button
+                android:id="@+id/button_sort_name"
+                style="@style/SortButtonBar"
+                android:textAllCaps="true"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:text="@string/button_sort_name"
+                android:drawableLeft="@drawable/ic_arrow_down" />
+            <View
+                android:id="@+id/button_name_underline"
+                style="@style/SortButtonUnderline" />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <Button
+                android:id="@+id/button_sort_price"
+                style="@style/SortButtonBar"
+                android:textAllCaps="true"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:text="@string/button_sort_price"
+                android:drawableRight="@drawable/ic_arrow_down" />
+            <View
+                android:id="@+id/button_price_underline"
+                android:visibility="invisible"
+                style="@style/SortButtonUnderline" />
+        </LinearLayout>
+    </LinearLayout>
+<!--<LinearLayout
         android:id="@+id/button_bar"
         style="?android:buttonBarStyle"
         android:layout_width="match_parent"
@@ -22,7 +61,7 @@
             android:text="@string/button_sort_price" />
     </LinearLayout>
     <View
-        style="@style/VendingActivitySplitter" />
+        style="@style/VendingActivitySplitter" />-->
     <TextView
         android:id="@+id/textViewNoProductsInCategory"
         android:layout_width="wrap_content"

@@ -5,13 +5,13 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
   <android.support.v4.widget.SwipeRefreshLayout
-        android:id="@+id/swipe_container"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
+      android:id="@+id/swipe_container"
+      android:layout_width="match_parent"
+      android:layout_height="match_parent">
     <LinearLayout
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:orientation="vertical">
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
       <LinearLayout
           android:id="@+id/reports_button_bar"
           style="?android:buttonBarStyle"
@@ -28,7 +28,9 @@
               android:id="@+id/button_input"
               style="@style/SortButtonBar"
               android:textAllCaps="true"
-              android:text="@string/button_input" />
+              android:background="?attr/selectableItemBackgroundBorderless"
+              android:text="@string/button_input"
+              android:drawableLeft="@drawable/ic_arrow_up"/>
           <View
               android:id="@+id/button_input_underline"
               style="@style/SortButtonUnderline"/>
@@ -41,7 +43,9 @@
               android:id="@+id/button_output"
               style="@style/SortButtonBar"
               android:textAllCaps="true"
-              android:text="@string/button_output" />
+              android:background="?attr/selectableItemBackgroundBorderless"
+              android:text="@string/button_output"
+              android:drawableRight="@drawable/ic_arrow_down"/>
           <View
               android:id="@+id/button_output_underline"
               android:visibility="invisible"
@@ -67,5 +71,5 @@
           android:scrollbars="vertical"
           android:visibility="gone" />
     </LinearLayout>
-    </android.support.v4.widget.SwipeRefreshLayout>
+  </android.support.v4.widget.SwipeRefreshLayout>
 </LinearLayout>

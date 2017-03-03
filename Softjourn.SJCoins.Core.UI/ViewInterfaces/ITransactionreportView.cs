@@ -14,5 +14,9 @@ namespace Softjourn.SJCoins.Core.UI.ViewInterfaces
         void SetData(List<Transaction> transactionsList);
 
         void AddItemsToExistedList(List<Transaction> transactionsList);
+
+        void SetCompoundDrawableInput(bool? isAsc);
+
+        void SetCompoundDrawableOutput(bool? isAsc);
     }
 }

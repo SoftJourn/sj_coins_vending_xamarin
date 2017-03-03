@@ -30,6 +30,8 @@ namespace Softjourn.SJCoins.Core.UI.Presenters
             View.ShowSortedList(DataManager.GetSortedByNameProductsList(category, IsSortingNameForward));
             IsSortingPriceForward = true;
             IsSortingNameForward = !IsSortingNameForward;
+            View.SetCompoundDrawableName(IsSortingNameForward);
+            View.SetCompoundDrawablePrice(null);
 	    }
 
         public void OnSortByPriceClicked(string category)
@@ -37,6 +39,8 @@ namespace Softjourn.SJCoins.Core.UI.Presenters
             View.ShowSortedList(DataManager.GetSortedByPriceProductsList(category, IsSortingPriceForward));
             IsSortingNameForward = true;
             IsSortingPriceForward = !IsSortingPriceForward;
+            View.SetCompoundDrawablePrice(IsSortingPriceForward);
+            View.SetCompoundDrawableName(null);
         }
     }
 }

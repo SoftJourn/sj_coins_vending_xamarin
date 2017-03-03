@@ -61,6 +61,9 @@ namespace Softjourn.SJCoins.Droid.Services
                 case NavigationPage.SelectMachine:
                     view = new Intent(CrossCurrentActivity.Current.Activity, typeof(SelectMachineActivity));
                     break;
+                case NavigationPage.SelectMachineFirstTime:
+                    view = new Intent(CrossCurrentActivity.Current.Activity, typeof(SelectMachineActivity));
+                    break;
                 case NavigationPage.Profile:
                     view = new Intent(CrossCurrentActivity.Current.Activity, typeof(ProfileActivity));
                     view.AddFlags(ActivityFlags.ForwardResult);

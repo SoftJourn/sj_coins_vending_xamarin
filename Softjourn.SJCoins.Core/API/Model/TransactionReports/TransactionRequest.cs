@@ -12,6 +12,9 @@ namespace Softjourn.SJCoins.Core.API.Model.TransactionReports
         [JsonProperty("page")]
         public int Page { get; set; }
 
+        [JsonProperty("direction")]
+        public string Direction { get; set; }
+
         [JsonProperty("sort")]
         public List<Sort> Sort { get; set; }
     }

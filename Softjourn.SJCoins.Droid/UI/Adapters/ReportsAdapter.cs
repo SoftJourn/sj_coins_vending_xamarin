@@ -21,13 +21,18 @@ namespace Softjourn.SJCoins.Droid.UI.Adapters
 
         public void SetData(List<Transaction> transactions)
         {
-            _transactionsList = transactions;
+            var transactionList = new List<Transaction>(transactions);
+
+            _transactionsList.Clear();
+            _transactionsList = transactionList;
             NotifyDataSetChanged();
         }
 
-        public void AddData(List<Transaction> transactions)
+        public void AddData(List<Transaction> transaction)
         {
-            _transactionsList.AddRange(transactions);
+            var transactionList = new List<Transaction>(transaction);
+
+            _transactionsList.AddRange(transactionList);
             NotifyDataSetChanged();
         }
 

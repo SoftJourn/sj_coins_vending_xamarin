@@ -89,6 +89,10 @@ namespace Softjourn.SJCoins.Droid.UI.Adapters
         {
             var holder = viewHolder as FeatureViewHolder;
             var product = ListProducts[holder.AdapterPosition];
+            if (holder.Progress != null)
+            {
+                holder.Progress.Visibility = ViewStates.Gone;
+            }
 
             var isCurrentProductInMachine = true;
 
@@ -134,10 +138,12 @@ namespace Softjourn.SJCoins.Droid.UI.Adapters
                 if (product.IsProductFavorite)
                 {
                     Picasso.With(_context).Load(Resource.Drawable.ic_favorite_pink).Into(holder.AddFavorite);
+                    holder.AddFavorite.Visibility = ViewStates.Visible;
                 }
                 else
                 {
                     Picasso.With(_context).Load(Resource.Drawable.ic_favorite_border).Into(holder.AddFavorite);
+                    holder.AddFavorite.Visibility = ViewStates.Visible;
                 }
 
                 holder.AddFavoriteClick -= AddFavoriteClick;
@@ -229,6 +235,8 @@ namespace Softjourn.SJCoins.Droid.UI.Adapters
             var product = ListProducts[holder.AdapterPosition];
             if (!product.IsProductFavorite)
             {
+                holder.AddFavorite.Visibility = ViewStates.Gone;
+                holder.Progress.Visibility = ViewStates.Visible;
                 AddToFavorites?.Invoke(this, product);
             }
             else
@@ -249,6 +257,8 @@ namespace Softjourn.SJCoins.Droid.UI.Adapters
                 }
                 else
                 {
+                    holder.AddFavorite.Visibility = ViewStates.Gone;
+                    holder.Progress.Visibility = ViewStates.Visible;
                     RemoveFromFavorites?.Invoke(this, product);
                 }
             }

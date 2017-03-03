@@ -284,6 +284,7 @@ namespace Softjourn.SJCoins.Core.API
             request.AddQueryParameter("size", transactionRequest.Size);
             request.AddQueryParameter("page", transactionRequest.Page);
             request.AddQueryParameter("sort", transactionRequest.Sort[0].Property+","+transactionRequest.Sort[0].Direction);
+            request.AddQueryParameter("direction", transactionRequest.Direction);
             JsonDeserializer deserial = new JsonDeserializer();
 
             try
@@ -366,11 +367,19 @@ namespace Softjourn.SJCoins.Core.API
 
                 case HttpStatusCode.NotFound: // code 404
                     JsonDeserializer deserial = new JsonDeserializer();
-                    BadResponse badResponse = deserial.Deserialize<BadResponse>(response);
-                    if (badResponse != null)
+                    try
                     {
-                        throw new ApiNotFoundException(NetworkErrorUtils.GetErrorMessage(badResponse.Code));
-                    } else
+                        BadResponse badResponse = deserial.Deserialize<BadResponse>(response);
+                        if (badResponse != null)
+                        {
+                            throw new ApiNotFoundException(NetworkErrorUtils.GetErrorMessage(badResponse.Code));
+                        }
+                        else
+                        {
+                            throw new ApiNotFoundException(NetworkErrorUtils.GetErrorMessage(404));
+                        }
+                    }
+                    catch (Exception e)
                     {
                         throw new ApiNotFoundException(NetworkErrorUtils.GetErrorMessage(404));
                     }

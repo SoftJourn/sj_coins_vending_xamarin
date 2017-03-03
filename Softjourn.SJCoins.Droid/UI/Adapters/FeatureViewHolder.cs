@@ -20,6 +20,8 @@ namespace Softjourn.SJCoins.Droid.UI.Adapters
         public ImageView ProductImage { get; set; }
         public ImageView AddFavorite { get; set; }
 
+        public ProgressBar Progress { get; set; }
+
         public FeatureViewHolder(View v) : base(v)
             {
             ParentViewSeeAll = v.FindViewById<View>(Resource.Id.layout_item_parent_view);
@@ -29,6 +31,7 @@ namespace Softjourn.SJCoins.Droid.UI.Adapters
             ProductName = v.FindViewById<TextView>(Resource.Id.layout_item_product_name);
             ProductDescription = v.FindViewById<TextView>(Resource.Id.layout_item_product_description);
             AddFavorite = v.FindViewById<ImageView>(Resource.Id.imageViewFavorite);
+            Progress = v.FindViewById<ProgressBar>(Resource.Id.progressBar);
 
             v.SetOnClickListener(this);
             v.SetOnLongClickListener(this);

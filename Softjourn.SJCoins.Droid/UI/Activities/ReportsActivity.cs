@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using Android.App;
 using Android.Content.PM;
 using Android.OS;
+using Android.Support.V4.Content;
 using Android.Support.V4.Widget;
 using Android.Support.V7.Widget;
 using Android.Views;
@@ -49,6 +50,7 @@ namespace Softjourn.SJCoins.Droid.UI.Activities
             _buttonInputUnderline = FindViewById<View>(Resource.Id.button_input_underline);
 
             _buttonOutput = FindViewById<Button>(Resource.Id.button_output);
+            _buttonOutput.SetCompoundDrawables(null, null, null, null);
             _buttonOutput.Click += ButtonOutputOnClick;
 
             _buttonOutputUnderline = FindViewById<View>(Resource.Id.button_output_underline);
@@ -114,11 +116,11 @@ namespace Softjourn.SJCoins.Droid.UI.Activities
 
 
         //Setting data to adapter in case purchase list is not empty
-        public void SetData(List<Transaction> transactionsList)
+        public void SetData(List<Transaction> transactionList)
         {
             _transactionsRecyclerView.Visibility = ViewStates.Visible;
             _buttonBar.Visibility = ViewStates.Visible;
-            _adapter.SetData(transactionsList);
+            _adapter.SetData(transactionList);
         }
 
         //Showing emptyView in case purchase list is empty
@@ -132,6 +134,43 @@ namespace Softjourn.SJCoins.Droid.UI.Activities
             _adapter.AddData(transactionsList);
         }
 
+        public void SetCompoundDrawableOutput(bool? isAsc)
+        {
+            if (isAsc == null)
+            {
+                _buttonOutput.SetCompoundDrawablesWithIntrinsicBounds(null, null, null, null);
+                return;
+            }
+            if ((bool) isAsc)
+            {
+                _buttonOutput.SetCompoundDrawablesWithIntrinsicBounds(null, null,
+                    ContextCompat.GetDrawable(this, Resource.Drawable.ic_arrow_down), null);
+            }
+            else
+            {
+                _buttonOutput.SetCompoundDrawablesWithIntrinsicBounds(null, null,
+                    ContextCompat.GetDrawable(this, Resource.Drawable.ic_arrow_up), null);
+            }
+        }
+
+        public void SetCompoundDrawableInput(bool? isAsc)
+        {
+            if (isAsc == null)
+            {
+                _buttonInput.SetCompoundDrawablesWithIntrinsicBounds(null, null, null, null);
+                return;
+            }
+            if ((bool)isAsc)
+            {
+                _buttonInput.SetCompoundDrawablesWithIntrinsicBounds(ContextCompat.GetDrawable(this, Resource.Drawable.ic_arrow_down), null, 
+                    null, null);
+            }
+            else
+            {
+                _buttonInput.SetCompoundDrawablesWithIntrinsicBounds(ContextCompat.GetDrawable(this, Resource.Drawable.ic_arrow_up), null,
+                    null, null);
+            }
+        }
         #endregion
 
         #region Private Methods
