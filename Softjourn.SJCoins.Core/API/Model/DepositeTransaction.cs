@@ -9,17 +9,18 @@ namespace Softjourn.SJCoins.Core.API.Model
 {
     public class DepositeTransaction
     {
+
         [JsonProperty("id")]
         public int Id { get; set; }
 
-        [JsonProperty("account")]
+        [JsonProperty("account", NullValueHandling = NullValueHandling.Ignore)]
         public string Account { get; set; }
 
         [JsonProperty("destination")]
-        public Object Destination { get; set; }
+        public string Destination { get; set; }
 
-        [JsonProperty("amount")]
-        public Object Amount { get; set; }
+        [JsonProperty("amount", NullValueHandling = NullValueHandling.Ignore)]
+        public object Amount { get; set; }
 
         [JsonProperty("comment")]
         public string Comment { get; set; }
@@ -30,10 +31,13 @@ namespace Softjourn.SJCoins.Core.API.Model
         [JsonProperty("status")]
         public string Status { get; set; }
 
-        [JsonProperty("remain")]
+        [JsonProperty("remain", NullValueHandling = NullValueHandling.Ignore)]
         public int Remain { get; set; }
 
-        [JsonProperty("error")]
-        public Object Error { get; set; }
+        [JsonProperty("error", NullValueHandling = NullValueHandling.Ignore)]
+        public object Error { get; set; }
+
+        [JsonProperty("transactionStoring", NullValueHandling = NullValueHandling.Ignore)]
+        public object TransactionStoring { get; set; }
     }
 }

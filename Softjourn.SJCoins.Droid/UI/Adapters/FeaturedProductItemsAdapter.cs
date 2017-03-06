@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Android.Animation;
 using Android.App;
 using Android.Content;
 using Android.Content.Res;
@@ -9,13 +10,14 @@ using Android.Support.V4.Content;
 using Android.Support.V7.Widget;
 using Android.Text;
 using Android.Views;
+using Android.Views.Animations;
 using Android.Widget;
 using Java.Lang;
 using Softjourn.SJCoins.Core.API.Model.Products;
 using Softjourn.SJCoins.Droid.utils;
 using Softjourn.SJCoins.Droid.Utils;
 using Square.Picasso;
-using Exception = System.Exception;
+using Exception = Java.Lang.Exception;
 using Object = Java.Lang.Object;
 
 namespace Softjourn.SJCoins.Droid.UI.Adapters
@@ -25,6 +27,8 @@ namespace Softjourn.SJCoins.Droid.UI.Adapters
         private string _recyclerViewType;
         private string _category;
         private string _coins;
+        private List<int> _animatedPosition;
+        private Dictionary<int, AnimatorSet> _runningAnimations;
 
         public event EventHandler<Product> AddToFavorites;
         public event EventHandler<Product> RemoveFromFavorites;
@@ -89,10 +93,6 @@ namespace Softjourn.SJCoins.Droid.UI.Adapters
         {
             var holder = viewHolder as FeatureViewHolder;
             var product = ListProducts[holder.AdapterPosition];
-            if (holder.Progress != null)
-            {
-                holder.Progress.Visibility = ViewStates.Gone;
-            }
 
             var isCurrentProductInMachine = true;
 
@@ -135,15 +135,24 @@ namespace Softjourn.SJCoins.Droid.UI.Adapters
              */
             if (holder.AddFavorite != null)
             {
-                if (product.IsProductFavorite)
+                if (_animatedPosition != null)
                 {
-                    Picasso.With(_context).Load(Resource.Drawable.ic_favorite_pink).Into(holder.AddFavorite);
-                    holder.AddFavorite.Visibility = ViewStates.Visible;
+                    if (_animatedPosition.Contains(holder.AdapterPosition))
+                    {
+                        FinishAnimation(holder);
+                        _animatedPosition.Remove(holder.AdapterPosition);
+                    }
                 }
                 else
                 {
-                    Picasso.With(_context).Load(Resource.Drawable.ic_favorite_border).Into(holder.AddFavorite);
-                    holder.AddFavorite.Visibility = ViewStates.Visible;
+                    if (product.IsProductFavorite)
+                    {
+                        Picasso.With(_context).Load(Resource.Drawable.ic_favorite_pink).Into(holder.AddFavorite);
+                    }
+                    else
+                    {
+                        Picasso.With(_context).Load(Resource.Drawable.ic_favorite_border).Into(holder.AddFavorite);
+                    }
                 }
 
                 holder.AddFavoriteClick -= AddFavoriteClick;
@@ -235,8 +244,8 @@ namespace Softjourn.SJCoins.Droid.UI.Adapters
             var product = ListProducts[holder.AdapterPosition];
             if (!product.IsProductFavorite)
             {
-                holder.AddFavorite.Visibility = ViewStates.Gone;
-                holder.Progress.Visibility = ViewStates.Visible;
+                AnimateHeartButton(holder);
+                holder.AddFavorite.Tag = true;
                 AddToFavorites?.Invoke(this, product);
             }
             else
@@ -257,12 +266,73 @@ namespace Softjourn.SJCoins.Droid.UI.Adapters
                 }
                 else
                 {
-                    holder.AddFavorite.Visibility = ViewStates.Gone;
-                    holder.Progress.Visibility = ViewStates.Visible;
+                    AnimateHeartButton(holder);
+                    holder.AddFavorite.Tag = false;
                     RemoveFromFavorites?.Invoke(this, product);
                 }
             }
         }
+
+        private void AnimateHeartButton(FeatureViewHolder holder)
+        {
+            var animatorSet = new AnimatorSet();
+
+            var rotationAnim = ObjectAnimator.OfFloat(holder.AddFavorite, "rotation", 0f, 360f);
+            rotationAnim.SetDuration(600);
+            rotationAnim.SetInterpolator(new AccelerateInterpolator());
+            rotationAnim.RepeatCount = Animation.Infinite;
+
+            animatorSet.Play(rotationAnim);
+            animatorSet.Start();
+
+            if (_animatedPosition == null)
+            {
+                _animatedPosition = new List<int>();
+            }
+            _animatedPosition.Add(holder.AdapterPosition);
+
+            if (_runningAnimations == null)
+            {
+                _runningAnimations = new Dictionary<int, AnimatorSet>();
+            }
+            _runningAnimations.Add(holder.AdapterPosition, animatorSet);
+        }
+
+        private void FinishAnimation(FeatureViewHolder holder)
+        {
+            if (_runningAnimations.ContainsKey(holder.AdapterPosition))
+            {
+                _runningAnimations[holder.AdapterPosition].End();
+                _runningAnimations.Remove(holder.AdapterPosition);
+            }
+
+            var animatorSet = new AnimatorSet();
+
+            var bounceAnimX = ObjectAnimator.OfFloat(holder.AddFavorite, "scaleX", 0.2f, 1f);
+            bounceAnimX.SetDuration(400);
+            bounceAnimX.SetInterpolator(new OvershootInterpolator());
+
+            var bounceAnimY = ObjectAnimator.OfFloat(holder.AddFavorite, "scaleY", 0.2f, 1f);
+            bounceAnimY.SetDuration(400);
+            bounceAnimY.SetInterpolator(new OvershootInterpolator());
+            bounceAnimY.AnimationStart += (sender, e) =>
+            {
+                if ((bool)holder.AddFavorite.Tag)
+                {
+                    holder.AddFavorite.SetImageResource(
+                        Resource.Drawable.ic_favorite_pink);
+                }
+                else
+                {
+                    holder.AddFavorite.SetImageResource(
+                        Resource.Drawable.ic_favorite_border);
+                }
+            };
+
+            animatorSet.Play(bounceAnimX).With(bounceAnimY);
+            animatorSet.Start();
+        }
+
         #endregion
 
         #region Filter for SearchView

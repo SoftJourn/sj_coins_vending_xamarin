@@ -219,6 +219,13 @@ namespace Softjourn.SJCoins.Droid.UI.Activities
                 ShowContainer(favoritesContainerId, _containerIds.ElementAt(0).Value);
                 AttachFragment(Const.Favorites, _containerIds.ElementAt(0).Value, favoritesContainerId, refreshedFavorites);
             }
+            var bottomFragment = SupportFragmentManager.FindFragmentByTag(Const.BottomSheetFragmentTag) as ProductDetailsFragment;
+
+            //if fragment exists
+            if (bottomFragment != null)
+            {
+                bottomFragment.ChangeFavoriteIcon();
+            }
         }
 
         /**
@@ -290,7 +297,7 @@ namespace Softjourn.SJCoins.Droid.UI.Activities
         public void ShowPreview(Product product)
         {
             BottomSheetDialogFragment bottomSheetDialogFragment = new ProductDetailsFragment(product);
-            bottomSheetDialogFragment.Show(SupportFragmentManager, bottomSheetDialogFragment.Tag);
+            bottomSheetDialogFragment.Show(SupportFragmentManager, Const.BottomSheetFragmentTag);
         }
 
         /**

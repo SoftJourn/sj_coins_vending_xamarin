@@ -14,7 +14,7 @@ namespace Softjourn.SJCoins.Droid.ui.baseUI
     public abstract class BaseActivity<TPresenter> : AppCompatActivity, IBaseView
         where TPresenter : class, IBasePresenter
     {
-        private ProgressDialog _progressDialog;
+        protected ProgressDialog ProgressDialog;
         private ILifetimeScope _scope;
 
         public Dialog ConfirmDialog;
@@ -25,8 +25,8 @@ namespace Softjourn.SJCoins.Droid.ui.baseUI
         {
             base.OnCreate(savedInstanceState);
 
-            _progressDialog = new ProgressDialog(this);
-            _progressDialog.SetProgressStyle(ProgressDialogStyle.Spinner);
+            ProgressDialog = new ProgressDialog(this);
+            ProgressDialog.SetProgressStyle(ProgressDialogStyle.Spinner);
 
             _scope = BaseBootstrapper.Container.BeginLifetimeScope();
 
@@ -69,14 +69,14 @@ namespace Softjourn.SJCoins.Droid.ui.baseUI
 
         public virtual void HideProgress()
         {
-            _progressDialog?.Dismiss();
+            ProgressDialog?.Dismiss();
         }
 
         public virtual void ShowProgress(string message)
         {
-            _progressDialog.SetMessage(message);
-            _progressDialog.SetCancelable(false);
-            _progressDialog.Show();
+            ProgressDialog.SetMessage(message);
+            ProgressDialog.SetCancelable(false);
+            ProgressDialog.Show();
         }
 
         protected void OnNoInternetAvailable(string message)

@@ -202,11 +202,20 @@ namespace Softjourn.SJCoins.Droid.UI.Activities
          * Is called by Presenter when added or removed favorite
          * to make adapter redraw recyclerview
          */
+
         public void FavoriteChanged(bool isFavorite)
         {
             if (!_category.Equals(Const.Favorites))
             {
                 _adapter.NotifyDataChanges();
+                //_adapter.ChangeFavoriteIcons();
+            }
+            var fragment = SupportFragmentManager.FindFragmentByTag(Const.BottomSheetFragmentTag) as ProductDetailsFragment;
+
+            //if fragment exists
+            if (fragment != null)
+            {
+                fragment.ChangeFavoriteIcon();
             }
         }
 
@@ -257,6 +266,14 @@ namespace Softjourn.SJCoins.Droid.UI.Activities
             }
         }
 
+        public new void ShowProgress(string message)
+        {
+            ProgressDialog.SetIndeterminateDrawable(ContextCompat.GetDrawable(this,Resource.Drawable.basket_animation));
+            ProgressDialog.SetMessage(message);
+            ProgressDialog.SetCancelable(false);
+            ProgressDialog.Show();
+        }
+
         /**
          * Calls Purchase functionality on Presenters side
          */
@@ -282,7 +299,7 @@ namespace Softjourn.SJCoins.Droid.UI.Activities
         private void ProductDetailsSelected(object sender, Product product)
         {
             BottomSheetDialogFragment bottomSheetDialogFragment = new ProductDetailsFragment(product);
-            bottomSheetDialogFragment.Show(SupportFragmentManager, bottomSheetDialogFragment.Tag);
+            bottomSheetDialogFragment.Show(SupportFragmentManager, Const.BottomSheetFragmentTag);
         }
 
         /**

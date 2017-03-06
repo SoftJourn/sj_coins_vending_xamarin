@@ -69,5 +69,7 @@ namespace Softjourn.SJCoins.Droid.Utils
 
         public const string QrScreenScanningTag = "Scan";
         public const string QrScreenGeneratingTag = "Generate";
+
+        public const string BottomSheetFragmentTag = "PREVIEW_TAG";
     }
 }

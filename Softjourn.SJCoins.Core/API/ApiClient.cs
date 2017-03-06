@@ -322,15 +322,15 @@ namespace Softjourn.SJCoins.Core.API
             request.AddHeader("Content-Type", "application/json");
             request.AddHeader("Authorization", GetOAuthAuthorizationHeader());
             request.AddBody(body);
-            JsonDeserializer deserial = new JsonDeserializer();
+            var deserial = new JsonDeserializer();
 
             try
             {
-                IRestResponse response = await apiClient.Execute(request);
+                var response = await apiClient.Execute(request);
 
                 if (response.IsSuccess)
                 {
-                    TResult data = deserial.Deserialize<TResult>(response);
+                    var data = deserial.Deserialize<TResult>(response);
                     return data;
                 }
                 else
