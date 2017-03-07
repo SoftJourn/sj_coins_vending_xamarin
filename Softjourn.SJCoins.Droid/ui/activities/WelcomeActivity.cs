@@ -46,7 +46,7 @@ namespace Softjourn.SJCoins.Droid.UI.Activities
 
             // _layouts of all welcome sliders
             // add few more _layouts if you want
-            _layouts = new int[]
+            _layouts = new[]
             {
                 Resource.Layout.welcome_slide1,
                 Resource.Layout.welcome_slide2,
@@ -73,11 +73,9 @@ namespace Softjourn.SJCoins.Droid.UI.Activities
                 // checking for last page
                 // if last page home screen will be launched
                 var current = GetItem(+1);
-                if (current >= _layouts.Length)
-                {
-                    ViewPresenter.DisableWelcomePageOnLaunch();
-                    ViewPresenter.ToLoginScreen();
-                }
+                if (current < _layouts.Length) return;
+                ViewPresenter.DisableWelcomePageOnLaunch();
+                ViewPresenter.ToLoginScreen();
             };
         }
 

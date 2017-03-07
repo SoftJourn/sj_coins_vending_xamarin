@@ -53,7 +53,7 @@ namespace Softjourn.SJCoins.Droid.UI.Activities
         public override bool OnOptionsItemSelected(IMenuItem item)
         {
             if (item.ItemId == Android.Resource.Id.Home)
-                this.OnBackPressed();
+                OnBackPressed();
 
             return base.OnOptionsItemSelected(item);
         }

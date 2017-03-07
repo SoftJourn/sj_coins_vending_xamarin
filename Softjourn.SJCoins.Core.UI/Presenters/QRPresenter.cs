@@ -26,8 +26,8 @@ namespace Softjourn.SJCoins.Core.UI.Presenters
         #region Constructor
         public QrPresenter()
         {
-            _scope = BaseBootstrapper.Container.BeginLifetimeScope();
-            QrManager = _scope.Resolve<QrManager>();
+            Scope = BaseBootstrapper.Container.BeginLifetimeScope();
+            QrManager = Scope.Resolve<QrManager>();
         }
         #endregion
 
@@ -95,12 +95,9 @@ namespace Softjourn.SJCoins.Core.UI.Presenters
 				return false;
 			}
 
-			if (Convert.ToInt32(amount) > MyBalance)
-			{
-				View.SetEditFieldError(Resources.StringResources.error_field_not_enough_money);
-				return false;
-			}
-			return true;
+		    if (Convert.ToInt32(amount) <= MyBalance) return true;
+		    View.SetEditFieldError(Resources.StringResources.error_field_not_enough_money);
+		    return false;
 		}
 		#endregion
 

@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Autofac;
 using Softjourn.SJCoins.Core.API.Model.TransactionReports;
 using Softjourn.SJCoins.Core.Exceptions;
@@ -30,8 +27,8 @@ namespace Softjourn.SJCoins.Core.UI.Presenters
 
         public TransactionReportPresenter()
         {
-            _scope = BaseBootstrapper.Container.BeginLifetimeScope();
-            TransactionsManager = _scope.Resolve<TransactionsManager>();
+            Scope = BaseBootstrapper.Container.BeginLifetimeScope();
+            TransactionsManager = Scope.Resolve<TransactionsManager>();
             _sortProperty = DefaultProperty;
             _sortDirection = DefaultSortDirection;
             _direction = DefaultDirection;
@@ -84,14 +81,11 @@ namespace Softjourn.SJCoins.Core.UI.Presenters
 
                 return;
             }
-            if (_direction != "IN")
-            {
-                _direction = "IN";
-                OnStartLoadingPage();
-                View.SetCompoundDrawableOutput(null);
-                View.SetCompoundDrawableInput(_sortProperty != DefaultProperty);
-                return;
-            }
+            if (_direction == "IN") return;
+            _direction = "IN";
+            OnStartLoadingPage();
+            View.SetCompoundDrawableOutput(null);
+            View.SetCompoundDrawableInput(_sortProperty != DefaultProperty);
         }
 
         //Handle Click on Output button
@@ -119,15 +113,12 @@ namespace Softjourn.SJCoins.Core.UI.Presenters
 
                 return;
             }
-            if (_direction == "IN")
-            {
-                _direction = "OUT";
-                OnStartLoadingPage();
-                //Handling buttons arrows
-                View.SetCompoundDrawableOutput(_sortProperty != DefaultProperty);
-                View.SetCompoundDrawableInput(null);
-                return;
-            }
+            if (_direction != "IN") return;
+            _direction = "OUT";
+            OnStartLoadingPage();
+            //Handling buttons arrows
+            View.SetCompoundDrawableOutput(_sortProperty != DefaultProperty);
+            View.SetCompoundDrawableInput(null);
         }
 
         public void OnOrderByAmountClick()

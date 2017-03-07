@@ -3,7 +3,6 @@ using Softjourn.SJCoins.Core.API.Model.Products;
 using Softjourn.SJCoins.Core.Exceptions;
 using Softjourn.SJCoins.Core.UI.Interfaces;
 using Softjourn.SJCoins.Core.UI.Services.Navigation;
-using Softjourn.SJCoins.Core.UI.ViewInterfaces;
 using Softjourn.SJCoins.Core.Utils;
 
 namespace Softjourn.SJCoins.Core.UI.Presenters
@@ -66,9 +65,9 @@ namespace Softjourn.SJCoins.Core.UI.Presenters
 		public void OnBuyProductClick(Product product)
 		{
 			// Create action with trigg OnPurchased method after it execution
-			Action<Product> OnPurchaseAction = new Action<Product>(OnProductPurchased);
+			var onPurchaseAction = new Action<Product>(OnProductPurchased);
 			// Show confirmation dialog on view
-			AlertService.ShowPurchaseConfirmationDialod(product, OnPurchaseAction);
+			AlertService.ShowPurchaseConfirmationDialod(product, onPurchaseAction);
 		}
 
 		public abstract void ChangeUserBalance(string balance);
@@ -96,7 +95,7 @@ namespace Softjourn.SJCoins.Core.UI.Presenters
 					View.ShowProgress(Resources.StringResources.progress_buying);
 					try
 					{
-						Amount leftAmount = await RestApiServise.BuyProductById(product.Id.ToString());
+						var leftAmount = await RestApiServise.BuyProductById(product.Id.ToString());
 						if (leftAmount != null) // them set new balance amount
 						{
 							MyBalance = int.Parse(leftAmount.Balance);

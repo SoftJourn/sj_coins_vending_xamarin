@@ -1,10 +1,6 @@
 ﻿
 using Softjourn.SJCoins.Core.UI.Presenters.IPresenters;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Softjourn.SJCoins.Core.UI.ViewInterfaces;
 using Softjourn.SJCoins.Core.UI.Services.Navigation;
 using Softjourn.SJCoins.Core.UI.Services.Alert;
@@ -18,7 +14,7 @@ namespace Softjourn.SJCoins.Core.UI.Presenters
     public class BasePresenter<TView> : IBasePresenter where TView : class, IBaseView
     {
 		#region Properties
-		protected ILifetimeScope _scope;
+		protected ILifetimeScope Scope;
 		protected DataManager DataManager;
         protected PhotoManager PhotoManager;
 
@@ -43,9 +39,9 @@ namespace Softjourn.SJCoins.Core.UI.Presenters
 		public BasePresenter()
         {
 			// Take container and resolve DataManager 
-			_scope = BaseBootstrapper.Container.BeginLifetimeScope();
-			DataManager = _scope.Resolve<DataManager>();
-		    PhotoManager = _scope.Resolve<PhotoManager>();
+			Scope = BaseBootstrapper.Container.BeginLifetimeScope();
+			DataManager = Scope.Resolve<DataManager>();
+		    PhotoManager = Scope.Resolve<PhotoManager>();
         }
 		#endregion
 

@@ -2,11 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Android.Animation;
-using Android.App;
 using Android.Content;
-using Android.Content.Res;
-using Android.Graphics;
-using Android.Support.V4.Content;
 using Android.Support.V7.Widget;
 using Android.Text;
 using Android.Views;
@@ -46,23 +42,9 @@ namespace Softjourn.SJCoins.Droid.UI.Adapters
             _context = context;
             Filter = new SearchFilter(this);
 
-            if (featureCategory != null)
-            {
-                _category = featureCategory;
-            }
-            else
-            {
-                _category = "";
-            }
+            _category = featureCategory ?? "";
 
-            if (recyclerViewType != null)
-            {
-                _recyclerViewType = recyclerViewType;
-            }
-            else
-            {
-                _recyclerViewType = Const.DefaultRecyclerView;
-            }
+            _recyclerViewType = recyclerViewType ?? Const.DefaultRecyclerView;
             _coins = " " + _context.GetString(Resource.String.item_coins);
         }
 
@@ -93,8 +75,6 @@ namespace Softjourn.SJCoins.Droid.UI.Adapters
         {
             var holder = viewHolder as FeatureViewHolder;
             var product = ListProducts[holder.AdapterPosition];
-
-            var isCurrentProductInMachine = true;
 
             //Setting Name and Price of product
             holder.ProductName.Text = ListProducts[holder.AdapterPosition].Name;
@@ -248,7 +228,6 @@ namespace Softjourn.SJCoins.Droid.UI.Adapters
             if (!product.IsProductFavorite)
             {
                 AnimateHeartButton(holder);
-                holder.AddFavorite.Tag = true;
                 AddToFavorites?.Invoke(this, product);
             }
             else
@@ -269,7 +248,6 @@ namespace Softjourn.SJCoins.Droid.UI.Adapters
                 else
                 {
                     AnimateHeartButton(holder);
-                    holder.AddFavorite.Tag = false;
                     RemoveFromFavorites?.Invoke(this, product);
                 }
             }
@@ -321,16 +299,7 @@ namespace Softjourn.SJCoins.Droid.UI.Adapters
             bounceAnimY.SetInterpolator(new OvershootInterpolator());
             bounceAnimY.AnimationStart += (sender, e) =>
             {
-                if (ListProducts[holder.AdapterPosition].IsProductFavorite)
-                {
-                    holder.AddFavorite.SetImageResource(
-                        Resource.Drawable.ic_favorite_pink);
-                }
-                else
-                {
-                    holder.AddFavorite.SetImageResource(
-                        Resource.Drawable.ic_favorite_border);
-                }
+                holder.AddFavorite.SetImageResource(ListProducts[holder.AdapterPosition].IsProductFavorite ? Resource.Drawable.ic_favorite_pink : Resource.Drawable.ic_favorite_border);
             };
 
             animatorSet.Play(bounceAnimX).With(bounceAnimY);
@@ -358,22 +327,14 @@ namespace Softjourn.SJCoins.Droid.UI.Adapters
                 var results = new List<Product>();
                 if (_adapter.Original == null || _adapter.Original.Count <= 0)
                     _adapter.Original = _adapter.ListProducts;
-                if (constraint != null)
+                if (constraint == null) return oReturn;
+                if (_adapter.Original != null && _adapter.Original.Count > 0)
                 {
-                    if (_adapter.Original != null && _adapter.Original.Count > 0)
-                    {
-                        foreach (var g in _adapter.Original)
-                        {
-                            if (g.Name.ToLower().Contains(constraint.ToString()))
-                            {
-                                results.Add(g);
-                            }
-                        }
-                        oReturn.Values = FromArray(results.Select(r => r.ToJavaObject()).ToArray());
-                        oReturn.Count = results.Count;
-                    }
-                    constraint.Dispose();
+                    results.AddRange(_adapter.Original.Where(g => g.Name.ToLower().Contains(constraint.ToString())));
+                    oReturn.Values = FromArray(results.Select(r => r.ToJavaObject()).ToArray());
+                    oReturn.Count = results.Count;
                 }
+                constraint.Dispose();
                 return oReturn;
             }
 

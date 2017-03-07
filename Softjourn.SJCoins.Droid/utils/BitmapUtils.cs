@@ -1,12 +1,6 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using Android.Content;
-using Android.Database;
+
 using Android.Graphics;
 using Android.Media;
-using Android.Provider;
-using Java.IO;
 
 namespace Softjourn.SJCoins.Droid.Utils
 {

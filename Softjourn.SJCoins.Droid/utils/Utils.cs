@@ -13,7 +13,7 @@ namespace Softjourn.SJCoins.Droid.utils
 
         public static void ShowErrorToast(Context context, String text)
         {
-            Toast toast = Toast.MakeText(context, text, ToastLength.Short);
+            var toast = Toast.MakeText(context, text, ToastLength.Short);
             toast.SetGravity(GravityFlags.Center, 0, 0);
             if (toast.View.WindowVisibility != ViewStates.Visible)
             {
@@ -23,19 +23,9 @@ namespace Softjourn.SJCoins.Droid.utils
 
         public static void ShowSnackBar(View view, String message)
         {
-            Snackbar snackbar = Snackbar
+            var snackbar = Snackbar
                     .Make(view, message, Snackbar.LengthLong);
             snackbar.Show();
-        }
-
-        public static void ClearUsersData()
-        {
-            Preferences.ClearStringObject(Const.AccessToken);
-            Preferences.ClearStringObject(Const.RefreshToken);
-            Preferences.ClearStringObject(Const.SelectedMachineName);
-            Preferences.ClearStringObject(Const.SelectedMachineId);
-            Preferences.ClearStringObject(Const.UserBalancePreferencesKey);
-            Preferences.ClearStringObject(Const.UserNamePreferencesKey);
         }
     }
 }

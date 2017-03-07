@@ -93,17 +93,7 @@ namespace Softjourn.SJCoins.Core.Managers
         {
             var categoriesList = ProductList;
 
-            foreach (var category in categoriesList)
-            {
-                foreach (var product in category.Products)
-                {
-                    if (product.Id == productId)
-                    {
-                        return product;
-                    }
-                }
-            }
-            return null;
+            return categoriesList.SelectMany(category => category.Products).FirstOrDefault(product => product.Id == productId);
         }
 
         public List<Product> GetProductListByGivenCategory(string categoryInput)

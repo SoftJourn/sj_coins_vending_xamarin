@@ -1,8 +1,4 @@
 using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Text;
 
 using Android.App;
 using Android.Content.PM;
@@ -57,16 +53,6 @@ namespace Softjourn.SJCoins.Droid.UI.Activities
             ViewPresenter.OnStartLoadingPage();
         }
 
-        protected override void OnRestoreInstanceState(Bundle savedInstanceState)
-        {
-            base.OnRestoreInstanceState(savedInstanceState);
-        }
-
-        protected override void OnSaveInstanceState(Bundle outState)
-        {
-            base.OnSaveInstanceState(outState);
-        }
-
         public override bool OnCreateOptionsMenu(IMenu menu)
         {
             return false;
@@ -110,7 +96,7 @@ namespace Softjourn.SJCoins.Droid.UI.Activities
         #region Private Methods
         private void SetAvatarImage(string data)
         {
-            var imageSize = 360;
+            const int imageSize = 360;
             _bmp?.Recycle();
             var options = new BitmapFactory.Options();
             options.InJustDecodeBounds = true;
@@ -134,11 +120,11 @@ namespace Softjourn.SJCoins.Droid.UI.Activities
             if (listAdapter == null)
                 return;
 
-            int desiredWidth = View.MeasureSpec.MakeMeasureSpec(listView.Width, MeasureSpecMode.Unspecified);
-            int totalHeight = 0;
+            var desiredWidth = View.MeasureSpec.MakeMeasureSpec(listView.Width, MeasureSpecMode.Unspecified);
+            var totalHeight = 0;
             View view = null;
 
-            for (int i = 0; i < listAdapter.Count; i++)
+            for (var i = 0; i < listAdapter.Count; i++)
             {
                 view = listAdapter.GetView(i, view, listView);
 

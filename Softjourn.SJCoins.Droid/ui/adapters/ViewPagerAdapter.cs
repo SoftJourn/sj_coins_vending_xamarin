@@ -29,7 +29,7 @@ namespace Softjourn.SJCoins.Droid.ui.adapters
 
         public override int Count => _layouts.Length;
 
-        public override bool IsViewFromObject (Android.Views.View view, Java.Lang.Object obj)
+        public override bool IsViewFromObject (View view, Java.Lang.Object obj)
         {
             return view == obj;
         }

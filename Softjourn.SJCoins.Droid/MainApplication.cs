@@ -21,7 +21,7 @@ namespace Softjourn.SJCoins.Droid
         {
             base.OnCreate();
             RegisterActivityLifecycleCallbacks(this);
-            //A great place to initialize Xamarin.Insights and Dependency Services!
+
             InitializeIoC();
         }
 

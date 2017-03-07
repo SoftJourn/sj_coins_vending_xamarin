@@ -156,14 +156,7 @@ namespace Softjourn.SJCoins.Droid.UI.Activities
             };
             searchView.QueryTextChange += (s, e) =>
             {
-                if (TextUtils.IsEmpty(e.NewText))
-                {
-                    _adapter.Filter.InvokeFilter("");
-                }
-                else
-                {
-                    _adapter.Filter.InvokeFilter(e.NewText);
-                }
+                _adapter.Filter.InvokeFilter(TextUtils.IsEmpty(e.NewText) ? "" : e.NewText);
 
                 //Disable sorting buttons when search is active
                 _sortNameButton.Enabled = false;
@@ -214,10 +207,7 @@ namespace Softjourn.SJCoins.Droid.UI.Activities
 
             var fragment = SupportFragmentManager.FindFragmentByTag(Const.BottomSheetFragmentTag) as ProductDetailsFragment;
             //if fragment exists
-            if (fragment != null)
-            {
-                fragment.ChangeFavoriteIcon();
-            }
+            fragment?.ChangeFavoriteIcon();
         }
 
         /**

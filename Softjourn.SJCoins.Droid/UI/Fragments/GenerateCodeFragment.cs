@@ -14,6 +14,8 @@ namespace Softjourn.SJCoins.Droid.UI.Fragments
         private ImageView _imageForQrCode;
         private EditText _inputAmount;
         private Button _buttonGenerate;
+        private const string ShareType = "image/jpeg";
+        private const string ShareFragmentTitle = "Share Image";
 
         private Bitmap _bitmap;
 
@@ -92,9 +94,9 @@ namespace Softjourn.SJCoins.Droid.UI.Fragments
             var path = MediaStore.Images.Media.InsertImage(Activity.ContentResolver, _bitmap, "MoneyCode", null);
             var uri = Android.Net.Uri.Parse(path);
             var share = new Intent(Intent.ActionSend);
-            share.SetType("image/jpeg");
+            share.SetType(ShareType);
             share.PutExtra(Intent.ExtraStream, uri);
-            Activity.StartActivity(Intent.CreateChooser(share, "Share Image"));
+            Activity.StartActivity(Intent.CreateChooser(share, ShareFragmentTitle));
         }
         #endregion
     }

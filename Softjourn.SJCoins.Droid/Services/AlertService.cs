@@ -11,7 +11,6 @@ using Android.Widget;
 using Plugin.CurrentActivity;
 using Softjourn.SJCoins.Core.UI.Services.Alert;
 using Softjourn.SJCoins.Core.API.Model.Products;
-using Softjourn.SJCoins.Core.Helpers;
 using Softjourn.SJCoins.Droid.Utils;
 using Square.Picasso;
 
@@ -219,12 +218,12 @@ namespace Softjourn.SJCoins.Droid.Services
 
             public OnDismissListener(Action action)
             {
-                this._action = action;
+                _action = action;
             }
 
             public void OnDismiss(IDialogInterface dialog)
             {
-                this._action();
+                _action();
             }
         }
 

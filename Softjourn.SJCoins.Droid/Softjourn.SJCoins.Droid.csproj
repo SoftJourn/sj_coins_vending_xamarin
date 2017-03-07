@@ -243,11 +243,7 @@
     <Compile Include="Utils\Const.cs" />
     <Compile Include="Utils\JavaHolder.cs" />
     <Compile Include="Utils\LeftSideMenuController.cs" />
-    <Compile Include="Utils\NavigationUtils.cs" />
-    <Compile Include="Utils\NetworkUtils.cs" />
     <Compile Include="Utils\ObjectExtensions.cs" />
-    <Compile Include="Utils\Preferences.cs" />
-    <Compile Include="Utils\TimeUtils.cs" />
     <Compile Include="Utils\Utils.cs" />
   </ItemGroup>
   <ItemGroup>

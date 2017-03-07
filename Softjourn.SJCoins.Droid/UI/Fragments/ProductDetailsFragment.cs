@@ -1,5 +1,4 @@
 
-using System.Collections.Generic;
 using Android.Animation;
 using Android.App;
 using Android.OS;
@@ -8,9 +7,7 @@ using Android.Views;
 using Android.Views.Animations;
 using Android.Widget;
 using Softjourn.SJCoins.Core.API.Model.Products;
-using Softjourn.SJCoins.Core.Utils;
 using Softjourn.SJCoins.Droid.UI.Activities;
-using Softjourn.SJCoins.Droid.UI.Adapters;
 using Square.Picasso;
 
 namespace Softjourn.SJCoins.Droid.UI.Fragments
@@ -126,7 +123,6 @@ namespace Softjourn.SJCoins.Droid.UI.Fragments
                     ((MainActivity)Activity).TrigFavorite(_product);
                 }
                 else ((ShowAllActivity)Activity).TrigFavorite(_product);
-                //Picasso.With(Activity).Load(Resource.Drawable.ic_favorite_pink).Into(_favorites);
                 AnimateHeartButton();
                 _favorites.Tag = true;
             }
@@ -137,7 +133,6 @@ namespace Softjourn.SJCoins.Droid.UI.Fragments
                     ((MainActivity)Activity).TrigFavorite(_product);
                 }
                 else ((ShowAllActivity)Activity).TrigFavorite(_product);
-                //Picasso.With(Activity).Load(Resource.Drawable.ic_favorite_border_white).Into(_favorites);
                 AnimateHeartButton();
                 _favorites.Tag = false;
             }
