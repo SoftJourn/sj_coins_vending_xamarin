@@ -4,7 +4,7 @@ using Softjourn.SJCoins.Core.Utils;
 
 namespace Softjourn.SJCoins.Core.API.Model.Products
 {
-    public class Product
+    public class Product : IEquatable<Product>
     {
         [JsonProperty("id")]
         public int Id { get; set; }
@@ -17,6 +17,8 @@ namespace Softjourn.SJCoins.Core.API.Model.Products
         public string ImageFullUrl => Const.BaseUrl + Const.UrlVendingService + ImageUrl;
 
         public bool IsProductFavorite { get; set; }
+
+        public bool IsProductInCurrentMachine { get; set; }
 
         public bool IsHeartAnimationRunning { get; set; }
 
@@ -31,5 +33,10 @@ namespace Softjourn.SJCoins.Core.API.Model.Products
 
         [JsonProperty("category")]
         public Category Category { get; set; }
+
+        public bool Equals(Product other)
+        {
+            return this.Id.Equals(other.Id);
+        }
     }
 }

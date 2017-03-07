@@ -5,12 +5,13 @@ using Softjourn.SJCoins.Core.UI.Services.Navigation;
 using Softjourn.SJCoins.Core.UI.ViewInterfaces;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Softjourn.SJCoins.Core.Utils;
 
 namespace Softjourn.SJCoins.Core.UI.Presenters
 {
-	public class HomePresenter : BaseProductPresenter<IHomeView>
-	{
+    public class HomePresenter : BaseProductPresenter<IHomeView>
+    {
         public void OnRefresh()
         {
             OnStartLoadingPage();
@@ -24,7 +25,7 @@ namespace Softjourn.SJCoins.Core.UI.Presenters
                 {
                     View.ShowProgress(Resources.StringResources.progress_loading);
                     DataManager.Profile = await RestApiServise.GetUserAccountAsync();
-					MyBalance = DataManager.Profile.Amount;
+                    MyBalance = DataManager.Profile.Amount;
                     View.SetAccountInfo(DataManager.Profile);
                     View.SetMachineName(Settings.SelectedMachineName);
                     var favoritesList = await RestApiServise.GetFavoritesList();
@@ -54,7 +55,7 @@ namespace Softjourn.SJCoins.Core.UI.Presenters
                             }
                         }
                     }
-                    DataManager.ProductList = AddFavoriteFlagToProducts(productCategoriesList);
+                    DataManager.ProductList = AddIsProductInCurrentMachineFlagToProducts(AddFavoriteFlagToProducts(productCategoriesList));
                     View.ShowProducts(DataManager.ProductList);
                     View.HideProgress();
                 }
@@ -76,18 +77,18 @@ namespace Softjourn.SJCoins.Core.UI.Presenters
             }
         }
 
-	    public List<Product> GetProductListForGivenCategory(string category)
-	    {
-	        return DataManager.GetProductListByGivenCategory(category);
-	    }
+        public List<Product> GetProductListForGivenCategory(string category)
+        {
+            return DataManager.GetProductListByGivenCategory(category);
+        }
 
-	    public void UpdateBalanceView()
-	    {
-	        if (DataManager.Profile != null)
-	        {
-	            View.SetUserBalance(DataManager.Profile.Amount.ToString());
-	        }
-	    }
+        public void UpdateBalanceView()
+        {
+            if (DataManager.Profile != null)
+            {
+                View.SetUserBalance(DataManager.Profile.Amount.ToString());
+            }
+        }
 
         //Setting user's balance after buying ar grabbing new data
         public override void ChangeUserBalance(string balance)
@@ -146,6 +147,27 @@ namespace Softjourn.SJCoins.Core.UI.Presenters
             return categoriesList;
         }
 
+        //Adding Flag IsProductInCurrentMachine to product
+        private List<Categories> AddIsProductInCurrentMachineFlagToProducts(List<Categories> categoriesList)
+        {
+            foreach (var category in categoriesList)
+            {
+                if (category.Name != Const.Favorites) continue;
+                foreach (var favorite in category.Products)
+                {
+                    foreach (var ctgr in categoriesList.Where(ctgr => ctgr.Name != Const.Favorites))
+                    {
+                        foreach (var product in ctgr.Products.Where(product => favorite.Id == product.Id))
+                        {
+                            favorite.IsProductInCurrentMachine = true;
+                            break;
+                        }
+                    }
+                }
+            }
+            return categoriesList;
+        }
+
         // get list with all categories from featured product. 
         private List<Categories> GetCategoriesListFromFeaturedProduct(Featured featuredProducts)
         {
@@ -183,15 +205,15 @@ namespace Softjourn.SJCoins.Core.UI.Presenters
                 }
                 else
                 {
-                    return null; 
-                }                
+                    return null;
+                }
             }
             else
             {
                 return null;
             }
         }
-        
+
         //return list with products if we just have list with int id. Is looking for products using list of categories
         private List<Product> GetProductList(List<int> idList, List<Categories> categoriesList)
         {
@@ -226,6 +248,6 @@ namespace Softjourn.SJCoins.Core.UI.Presenters
             return null;
         }
 
-		public List<Categories> GetCategoriesList() => DataManager.ProductList;
+        public List<Categories> GetCategoriesList() => DataManager.ProductList;
     }
 }

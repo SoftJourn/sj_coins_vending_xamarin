@@ -52,7 +52,7 @@ namespace Softjourn.SJCoins.Core.UI.Presenters
         public void GetNextPage()
         {
             if (_isLoading) return;
-            if (TransactionsManager.PagesCount <= 1 || TransactionsManager.CurrentPage > TransactionsManager.PagesCount)
+            if (TransactionsManager.PagesCount <= 1 || TransactionsManager.CurrentPage >= TransactionsManager.PagesCount-1)
                 return;
             _isLoading = true;
             //Get Transaction for next page 

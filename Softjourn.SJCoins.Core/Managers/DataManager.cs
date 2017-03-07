@@ -37,12 +37,13 @@ namespace Softjourn.SJCoins.Core.Managers
 					continue;
 				}
 				else {
-					// Change IsProductFavorite flag in this products if they exist in anothere categories
+					// Change IsProductFavorite flag in this products if they exist in another categories
 					foreach (var currentProduct in category.Products)
 					{
 						if (currentProduct.Id == product.Id)
 						{
 							currentProduct.IsProductFavorite = true;
+						    currentProduct.IsProductInCurrentMachine = true;
 							break;
 						}
 					}

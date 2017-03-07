@@ -171,7 +171,8 @@ namespace Softjourn.SJCoins.Droid.UI.Adapters
             else
             {
                 Picasso.With(_context).Load(Core.Utils.Const.BaseUrl + Core.Utils.Const.UrlVendingService + ListProducts[holder.AdapterPosition].ImageUrl).Into(holder.ProductImage);
-                holder.ProductImage.Alpha = !isCurrentProductInMachine ? 0.3f : 1.0f;
+                if (_category == Const.Favorites)
+                holder.ProductImage.Alpha = !product.IsProductInCurrentMachine ? 0.3f : 1.0f;
             }
         }
 

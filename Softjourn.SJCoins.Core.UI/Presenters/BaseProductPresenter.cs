@@ -53,7 +53,7 @@ namespace Softjourn.SJCoins.Core.UI.Presenters
 				}
 				catch (Exception ex)
 				{
-					AlertService.ShowToastMessage(ex.Message);
+					//AlertService.ShowToastMessage(ex.Message);
 				}
 			}
 			else
