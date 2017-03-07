@@ -26,7 +26,7 @@ namespace Softjourn.SJCoins.Droid.UI.Adapters
     {
         private string _recyclerViewType;
         private string _category;
-        private string _coins;
+        private readonly string _coins;
         private List<int> _animatedPosition;
         private Dictionary<int, AnimatorSet> _runningAnimations;
 
@@ -135,23 +135,24 @@ namespace Softjourn.SJCoins.Droid.UI.Adapters
              */
             if (holder.AddFavorite != null)
             {
-                if (_animatedPosition != null)
-                {
-                    if (_animatedPosition.Contains(holder.AdapterPosition))
-                    {
-                        FinishAnimation(holder);
-                        _animatedPosition.Remove(holder.AdapterPosition);
-                    }
-                }
-                else
                 {
                     if (product.IsProductFavorite)
                     {
                         Picasso.With(_context).Load(Resource.Drawable.ic_favorite_pink).Into(holder.AddFavorite);
+                        if (product.IsHeartAnimationRunning)
+                        {
+                            FinishAnimation(holder);
+                            _animatedPosition.Remove(holder.AdapterPosition);
+                        }
                     }
                     else
                     {
                         Picasso.With(_context).Load(Resource.Drawable.ic_favorite_border).Into(holder.AddFavorite);
+                        if (product.IsHeartAnimationRunning)
+                        {
+                            FinishAnimation(holder);
+                            _animatedPosition.Remove(holder.AdapterPosition);
+                        }
                     }
                 }
 
@@ -179,10 +180,6 @@ namespace Softjourn.SJCoins.Droid.UI.Adapters
         #endregion
 
         #region Public Methods
-        public void NotifyDataChanges()
-        {
-            NotifyDataSetChanged();
-        }
 
         /**
          * Sets new List of Data and resetting recyclerView
@@ -191,6 +188,11 @@ namespace Softjourn.SJCoins.Droid.UI.Adapters
         {
             ListProducts = new List<Product>(data);
             Original = new List<Product>(data);
+            NotifyDataSetChanged();
+        }
+
+        public void ChangeFavoriteIcon()
+        {
             NotifyDataSetChanged();
         }
 
@@ -262,7 +264,6 @@ namespace Softjourn.SJCoins.Droid.UI.Adapters
                     {
                         LastFavoriteRemoved?.Invoke(this, EventArgs.Empty);
                     }
-
                 }
                 else
                 {
@@ -296,6 +297,7 @@ namespace Softjourn.SJCoins.Droid.UI.Adapters
                 _runningAnimations = new Dictionary<int, AnimatorSet>();
             }
             _runningAnimations.Add(holder.AdapterPosition, animatorSet);
+            ListProducts[holder.AdapterPosition].IsHeartAnimationRunning = true;
         }
 
         private void FinishAnimation(FeatureViewHolder holder)
@@ -304,6 +306,7 @@ namespace Softjourn.SJCoins.Droid.UI.Adapters
             {
                 _runningAnimations[holder.AdapterPosition].End();
                 _runningAnimations.Remove(holder.AdapterPosition);
+                ListProducts[holder.AdapterPosition].IsHeartAnimationRunning = false;
             }
 
             var animatorSet = new AnimatorSet();
@@ -317,7 +320,7 @@ namespace Softjourn.SJCoins.Droid.UI.Adapters
             bounceAnimY.SetInterpolator(new OvershootInterpolator());
             bounceAnimY.AnimationStart += (sender, e) =>
             {
-                if ((bool)holder.AddFavorite.Tag)
+                if (ListProducts[holder.AdapterPosition].IsProductFavorite)
                 {
                     holder.AddFavorite.SetImageResource(
                         Resource.Drawable.ic_favorite_pink);

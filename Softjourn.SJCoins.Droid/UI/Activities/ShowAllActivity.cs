@@ -88,6 +88,12 @@ namespace Softjourn.SJCoins.Droid.UI.Activities
             _adapter.SetData(ViewPresenter.GetProductList(_category));
         }
 
+        public override void OnBackPressed()
+        {
+            base.OnBackPressed();
+            _adapter = null;
+        }
+
         /**
          * Calls when Sort By Price button clicked
          * Sets colors of button to highlight chosen 
@@ -98,8 +104,6 @@ namespace Softjourn.SJCoins.Droid.UI.Activities
             ViewPresenter.OnSortByPriceClicked(_category);
             _buttonNameUnderline.Visibility = ViewStates.Invisible;
             _buttonPriceUnderline.Visibility = ViewStates.Visible;
-            //_sortPriceButton.SetBackgroundColor(new Color(ContextCompat.GetColor(this, Resource.Color.colorScreenBackground)));
-            //_sortNameButton.SetBackgroundColor(new Color(ContextCompat.GetColor(this, Resource.Color.transparent)));
         }
 
         /**
@@ -112,8 +116,6 @@ namespace Softjourn.SJCoins.Droid.UI.Activities
             ViewPresenter.OnSortByNameClicked(_category);
             _buttonNameUnderline.Visibility = ViewStates.Visible;
             _buttonPriceUnderline.Visibility = ViewStates.Invisible;
-            //_sortNameButton.SetBackgroundColor(new Color(ContextCompat.GetColor(this, Resource.Color.colorScreenBackground)));
-            //_sortPriceButton.SetBackgroundColor(new Color(ContextCompat.GetColor(this, Resource.Color.transparent)));
         }
 
         public override bool OnCreateOptionsMenu(IMenu menu)
@@ -207,11 +209,10 @@ namespace Softjourn.SJCoins.Droid.UI.Activities
         {
             if (!_category.Equals(Const.Favorites))
             {
-                _adapter.NotifyDataChanges();
-                //_adapter.ChangeFavoriteIcons();
+                _adapter.ChangeFavoriteIcon();
             }
-            var fragment = SupportFragmentManager.FindFragmentByTag(Const.BottomSheetFragmentTag) as ProductDetailsFragment;
 
+            var fragment = SupportFragmentManager.FindFragmentByTag(Const.BottomSheetFragmentTag) as ProductDetailsFragment;
             //if fragment exists
             if (fragment != null)
             {

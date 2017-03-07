@@ -18,6 +18,8 @@ namespace Softjourn.SJCoins.Core.API.Model.Products
 
         public bool IsProductFavorite { get; set; }
 
+        public bool IsHeartAnimationRunning { get; set; }
+
         [JsonProperty("name")]
         public string Name { get; set; }
 

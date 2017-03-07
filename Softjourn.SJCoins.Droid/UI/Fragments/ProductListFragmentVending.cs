@@ -78,7 +78,7 @@ namespace Softjourn.SJCoins.Droid.UI.Fragments
         public void ChangeFavorite(List<Product> list)
         {
             _productAdapter.SetData(list);
-            _productAdapter.NotifyDataChanges();
+            _productAdapter.ChangeFavoriteIcon();
         }
 
         #region PrivateMethods
