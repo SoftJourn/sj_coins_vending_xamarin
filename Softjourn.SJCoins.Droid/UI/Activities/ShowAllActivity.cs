@@ -173,7 +173,7 @@ namespace Softjourn.SJCoins.Droid.UI.Activities
 
                 //Clear search string
                 searchView.ClearFocus();
-                searchView.SetQuery("", false);
+                searchView.SetQuery("", true);
 
                 //Close keyboard
                 searchView.OnActionViewCollapsed();

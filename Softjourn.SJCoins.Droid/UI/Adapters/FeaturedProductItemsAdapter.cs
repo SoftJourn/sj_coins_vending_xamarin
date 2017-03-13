@@ -256,6 +256,7 @@ namespace Softjourn.SJCoins.Droid.UI.Adapters
         private void AnimateHeartButton(FeatureViewHolder holder)
         {
             var animatorSet = new AnimatorSet();
+            holder.AddFavorite.Enabled = false;
 
             var rotationAnim = ObjectAnimator.OfFloat(holder.AddFavorite, "rotation", 0f, 360f);
             rotationAnim.SetDuration(600);
@@ -304,50 +305,51 @@ namespace Softjourn.SJCoins.Droid.UI.Adapters
 
             animatorSet.Play(bounceAnimX).With(bounceAnimY);
             animatorSet.Start();
+            holder.AddFavorite.Enabled = true;
         }
 
         #endregion
 
         #region Filter for SearchView
 
-        public Filter Filter { get; private set; }
-
-        private class SearchFilter : Filter
-        {
-            private readonly FeaturedProductItemsAdapter _adapter;
-
-            public SearchFilter(FeaturedProductItemsAdapter adapter)
-            {
-                _adapter = adapter;
-            }
-
-            protected override FilterResults PerformFiltering(ICharSequence constraint)
-            {
-                var oReturn = new FilterResults();
-                var results = new List<Product>();
-                if (_adapter.Original == null || _adapter.Original.Count <= 0)
-                    _adapter.Original = _adapter.ListProducts;
-                if (constraint == null) return oReturn;
-                if (_adapter.Original != null && _adapter.Original.Count > 0)
-                {
-                    results.AddRange(_adapter.Original.Where(g => g.Name.ToLower().Contains(constraint.ToString())));
-                    oReturn.Values = FromArray(results.Select(r => r.ToJavaObject()).ToArray());
-                    oReturn.Count = results.Count;
-                }
-                constraint.Dispose();
-                return oReturn;
-            }
-
-            protected override void PublishResults(ICharSequence constraint, FilterResults results)
-            {
-                if (_adapter.ListProducts == null || _adapter.ListProducts.Count <= 0) return;
-                using (var values = results.Values)
-                    _adapter.ListProducts = values.ToArray<Object>()
-                        .Select(r => r.ToNetObject<Product>()).ToList();
-
-                _adapter.NotifyDataSetChanged();
-            }
-        }
-        #endregion
+        public Filter Filter { get; set; }       
     }
+
+    class SearchFilter : Filter
+    {
+        private readonly FeaturedProductItemsAdapter _adapter;
+
+        public SearchFilter(FeaturedProductItemsAdapter adapter)
+        {
+            _adapter = adapter;
+        }
+
+        protected override FilterResults PerformFiltering(ICharSequence constraint)
+        {
+            var oReturn = new FilterResults();
+            var results = new List<Product>();
+            if (_adapter.Original == null || _adapter.Original.Count <= 0)
+                _adapter.Original = _adapter.ListProducts;
+            if (constraint == null) return oReturn;
+            if (_adapter.Original != null && _adapter.Original.Count > 0)
+            {
+                results.AddRange(_adapter.Original.Where(g => g.Name.ToLower().Contains(constraint.ToString())));
+                oReturn.Values = FromArray(results.Select(r => r.ToJavaObject()).ToArray());
+                oReturn.Count = results.Count;
+            }
+            constraint.Dispose();
+            return oReturn;
+        }
+
+        protected override void PublishResults(ICharSequence constraint, FilterResults results)
+        {
+            if (_adapter.ListProducts == null) return;
+            using (var values = results.Values)
+                _adapter.ListProducts = values.ToArray<Object>()
+                    .Select(r => r.ToNetObject<Product>()).ToList();
+
+            _adapter.NotifyDataSetChanged();
+        }
+    }
+    #endregion
 }
