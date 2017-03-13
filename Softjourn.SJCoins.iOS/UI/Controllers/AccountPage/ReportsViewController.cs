@@ -51,7 +51,17 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.AccountPage
 
 		public void AddItemsToExistedList(List<Transaction> transactionsList)
 		{
-			//_tableSource.AddItems(transactionsList, TableView);
+			_tableSource.AddItems(transactionsList, TableView);
+		}
+
+		public void SetCompoundDrawableInput(bool? isAsc)
+		{
+			//throw new NotImplementedException();
+		}
+
+		public void SetCompoundDrawableOutput(bool? isAsc)
+		{
+			//throw new NotImplementedException();
 		}
 		#endregion
 
@@ -59,14 +69,14 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.AccountPage
 		public override void AttachEvents()
 		{
 			base.AttachEvents();
-			//SegmentControl.TouchUpInside += SegmentControl_SameButtonClicked;
+			SegmentControl.TouchUpInside += SegmentControl_SameButtonClicked;
 			SegmentControl.ValueChanged += SegmentControl_AnotherButtonClicked;
 			_tableSource.GetNexPage += TableSource_GetNextPageExecuted;
 		}
 
 		public override void DetachEvents()
 		{
-			//SegmentControl.TouchUpInside -= SegmentControl_SameButtonClicked;
+			SegmentControl.TouchUpInside -= SegmentControl_SameButtonClicked;
 			SegmentControl.ValueChanged -= SegmentControl_AnotherButtonClicked;
 			_tableSource.GetNexPage -= TableSource_GetNextPageExecuted;
 			base.DetachEvents();
@@ -85,16 +95,31 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.AccountPage
 			TableView.Source = _tableSource;
 		}
 
+		private void SortItems()
+		{
+			switch (SegmentControl.SelectedSegment)
+			{
+				case 0:
+					Presenter.OnInputClicked();
+					break;
+				case 1:
+					Presenter.OnOutputClicked();
+					break;
+				default:
+					break;
+			}
+		}
+
 		// -------------------- Event handlers --------------------
 		// SegmentControl methods 
 		public void SegmentControl_SameButtonClicked(object sender, EventArgs e)
 		{
-
+			SortItems();
 		}
 
 		public void SegmentControl_AnotherButtonClicked(object sender, EventArgs e)
 		{
-			
+			SortItems();
 		}
 
 		// TableSource methods 
@@ -149,7 +174,7 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.AccountPage
 
 			if (indexPath.Row == _items.Count - 6 && _items.Count > 11)
 			{
-				// trigg presenter give next page.
+				// trigg presenter to give the next page.
 				GetNexPage?.Invoke(this, null);
 			}
 		}
