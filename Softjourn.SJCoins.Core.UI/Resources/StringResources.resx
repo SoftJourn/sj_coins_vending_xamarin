@@ -117,9 +117,6 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="activity_login_invalid_username" xml:space="preserve">
-    <value>Symbol is not allowed</value>
-  </data>
   <data name="activity_login_empty_username" xml:space="preserve">
     <value>Login should not be empty</value>
   </data>

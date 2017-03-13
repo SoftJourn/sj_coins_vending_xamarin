@@ -1,12 +1,8 @@
-﻿using Softjourn.SJCoins.Core.API;
-using Softjourn.SJCoins.Core.API.Model;
-using Softjourn.SJCoins.Core.API.Model.Machines;
-using Softjourn.SJCoins.Core.UI.Presenters.IPresenters;
+﻿
 using Softjourn.SJCoins.Core.UI.Services.Navigation;
 using Softjourn.SJCoins.Core.UI.ViewInterfaces;
 using Softjourn.SJCoins.Core.Utils;
 using System;
-using System.Collections.Generic;
 using Softjourn.SJCoins.Core.Exceptions;
 using Softjourn.SJCoins.Core.UI.Utils;
 
@@ -14,11 +10,6 @@ namespace Softjourn.SJCoins.Core.UI.Presenters
 {
     public class LoginPresenter : BasePresenter<ILoginView>
     {
-
-        public LoginPresenter()
-        {
-
-        }
 
         public async void Login(string userName, string password)
         {
@@ -29,9 +20,9 @@ namespace Softjourn.SJCoins.Core.UI.Presenters
                 return;
             }
 
-            if (!Validators.IsUserNameValid(userName))
+            if (!Validators.IsUserNameEmpty(userName))
             {
-                View.SetUsernameError(Resources.StringResources.activity_login_invalid_username);
+                View.SetPasswordError(Resources.StringResources.activity_login_empty_username);
                 return;
             }
 
@@ -41,16 +32,16 @@ namespace Softjourn.SJCoins.Core.UI.Presenters
                 return;
             }
 
-            if (Validators.IsPasswordValid(password) && Validators.IsUserNameValid(userName) && Validators.IsUserNameEmpty(userName))
+            if (Validators.IsPasswordValid(password) && Validators.IsUserNameEmpty(userName))
             {
                 if (NetworkUtils.IsConnected)
                 {
                     View.ShowProgress(Resources.StringResources.progress_authenticating);
-                    
+
                     try
                     {
                         await RestApiServise.MakeLoginRequestAsync(userName, password);
-						NavigationService.NavigateToAsRoot(NavigationPage.SelectMachineFirstTime);
+                        NavigationService.NavigateToAsRoot(NavigationPage.SelectMachineFirstTime);
                         View.HideProgress();
                     }
                     catch (ApiBadRequestException ex)
@@ -68,28 +59,6 @@ namespace Softjourn.SJCoins.Core.UI.Presenters
                 {
                     AlertService.ShowToastMessage(Resources.StringResources.internet_turned_off);
                 }
-            }           
-        }
-         
-        public void IsPasswordValid(string password)
-        {
-            if (!Validators.IsPasswordValid(password))
-            {
-                View.SetPasswordError(Resources.StringResources.activity_login_invalid_password);
-            }
-        }
-
-        public void IsUserNameValid(string userName)
-        {
-            if (!Validators.IsUserNameEmpty(userName))
-            {
-                View.SetUsernameError(Resources.StringResources.activity_login_empty_username);
-                return;
-            }
-            if (!Validators.IsUserNameValid(userName))
-            {
-                View.SetUsernameError(Resources.StringResources.activity_login_invalid_username);
-                return;
             }
         }
 

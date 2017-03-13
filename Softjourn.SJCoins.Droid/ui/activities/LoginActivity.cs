@@ -34,15 +34,6 @@ namespace Softjourn.SJCoins.Droid.UI.Activities
             _loginButton = FindViewById<Button>(Resource.Id.btn_login);
             _arrowToWelcome = FindViewById<ImageView>(Resource.Id.link_to_welcome_activity);
 
-            //Calling Checking Login each time user enter new character
-            _userName.TextChanged += (s, e) =>
-            {
-                if (!_userName.Text.EndsWith("-") || _userName.Text.EndsWith("_"))
-                {
-                    ViewPresenter.IsUserNameValid(_userName.Text);
-                }
-            };
-
             _loginButton.Click += LoginButtonOnClick;
             _arrowToWelcome.Click += LinkToWelcomeClick;
         }
