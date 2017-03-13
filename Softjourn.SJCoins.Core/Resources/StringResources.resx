@@ -168,6 +168,9 @@
   <data name="server_error_40903" xml:space="preserve">
     <value>Product is not in favorites</value>
   </data>
+  <data name="server_error_40906" xml:space="preserve">
+    <value>Such cheque was not issued or already cashed out.</value>
+   </data>
   <data name="server_error_509" xml:space="preserve">
     <value>Machine is locked by queue. Try again later</value>
   </data>

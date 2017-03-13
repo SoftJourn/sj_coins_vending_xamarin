@@ -80,15 +80,6 @@ namespace Softjourn.SJCoins.Core.UI.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Symbol is not allowed.
-        /// </summary>
-        internal static string activity_login_invalid_username {
-            get {
-                return ResourceManager.GetString("activity_login_invalid_username", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Login failed.
         /// </summary>
         internal static string activity_login_login_failed {
@@ -305,7 +296,7 @@ namespace Softjourn.SJCoins.Core.UI.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Your wallet was funded.
+        ///   Looks up a localized string similar to Your wallet was replenished by .
         /// </summary>
         internal static string wallet_was_funded {
             get {

@@ -15,6 +15,7 @@ using System.Linq;
 using System.Net;
 using System.Text;
 using System.Threading.Tasks;
+using Newtonsoft.Json;
 using Softjourn.SJCoins.Core.API.Model.TransactionReports;
 
 namespace Softjourn.SJCoins.Core.API
@@ -366,10 +367,10 @@ namespace Softjourn.SJCoins.Core.API
                     throw new ApiNotAuthorizedException(Resources.StringResources.server_error_401);
 
                 case HttpStatusCode.NotFound: // code 404
-                    JsonDeserializer deserial = new JsonDeserializer();
+                    var deserial = new JsonDeserializer();
                     try
                     {
-                        BadResponse badResponse = deserial.Deserialize<BadResponse>(response);
+                        var badResponse = deserial.Deserialize<BadResponse>(response);
                         if (badResponse != null)
                         {
                             throw new ApiNotFoundException(NetworkErrorUtils.GetErrorMessage(badResponse.Code));
@@ -382,6 +383,24 @@ namespace Softjourn.SJCoins.Core.API
                     catch (Exception e)
                     {
                         throw new ApiNotFoundException(NetworkErrorUtils.GetErrorMessage(404));
+                    }
+                case HttpStatusCode.Conflict: // code 409
+                    var deser = new JsonDeserializer();
+                    try
+                    {
+                        var badResponse = deser.Deserialize<BadResponse>(response);
+                        if (badResponse != null)
+                        {
+                            throw new ApiNotFoundException(NetworkErrorUtils.GetErrorMessage(badResponse.Code));
+                        }
+                        else
+                        {
+                            throw new ApiNotFoundException(NetworkErrorUtils.GetErrorMessage(409));
+                        }
+                    }
+                    catch (JsonSerializationException e)
+                    {
+                        throw new ApiNotFoundException(NetworkErrorUtils.GetErrorMessage(409));
                     }
                 default: // for all rest codes
                     throw new ApiException(errorDescription);

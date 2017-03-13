@@ -51,14 +51,14 @@ namespace Softjourn.SJCoins.Core.UI.Presenters
 		// Using only on IOS platform
 		public async void ScanCodeIOS(Cash cashObject)
 		{
-			try 
-			{
-				UpdateBalance(await GetMoney(cashObject)); 
-			}
-			catch (CameraException e) 
-			{ 
-				AlertService.ShowToastMessage(e.ToString()); 
-			}
+		    try
+		    {
+		        UpdateBalance(await GetMoney(cashObject));
+		    }
+		    catch (CameraException e)
+		    {
+		        AlertService.ShowToastMessage(e.ToString());
+		    }
 		}
 
         //If amount is valid call API method for creating transaction
@@ -104,13 +104,14 @@ namespace Softjourn.SJCoins.Core.UI.Presenters
 		#region Private Methods
 		private void UpdateBalance(DepositeTransaction result)
 		{
-			//Updating Balance in DataMager
-			DataManager.Profile.Amount = result.Remain;
-			View.HideProgress();
-			AlertService.ShowToastMessage(Resources.StringResources.wallet_was_funded);
+		    if (result == null) return;
+		    //Updating Balance in DataManager
+		    DataManager.Profile.Amount = DataManager.Profile.Amount + result.Amount;
+		    View.HideProgress();
+		    AlertService.ShowToastMessage(Resources.StringResources.wallet_was_funded + result.Amount + " coins");
 
-			//Updating balance on View
-			View.UpdateBalance(result.Remain.ToString());
+		    //Updating balance on View
+		    View.UpdateBalance(DataManager.Profile.Amount.ToString());
 		}
 
         //API call to get DepositeTransaction Object

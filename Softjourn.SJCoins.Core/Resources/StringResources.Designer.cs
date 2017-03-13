@@ -215,6 +215,15 @@ namespace Softjourn.SJCoins.Core.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Such cheque was not issued or already cashed out..
+        /// </summary>
+        internal static string server_error_40906 {
+            get {
+                return ResourceManager.GetString("server_error_40906", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Machine is locked by queue. Try again later.
         /// </summary>
         internal static string server_error_509 {

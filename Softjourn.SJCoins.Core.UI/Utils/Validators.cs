@@ -1,6 +1,5 @@
 ﻿
 using System.Text.RegularExpressions;
-using Softjourn.SJCoins.Core.UI.Presenters;
 
 
 namespace Softjourn.SJCoins.Core.UI.Utils
@@ -10,11 +9,6 @@ namespace Softjourn.SJCoins.Core.UI.Utils
         public static bool IsPasswordValid(string password)
         {
             return !string.IsNullOrEmpty(password);
-        }
-
-        public static bool IsUserNameValid(string userName)
-        {
-            return Regex.IsMatch(userName, "^[a-z]+(?:[ _-][a-z]+)*$");
         }
 
         public static bool IsUserNameEmpty(string userName)

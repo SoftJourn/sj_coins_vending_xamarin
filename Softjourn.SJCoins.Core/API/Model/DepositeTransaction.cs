@@ -19,8 +19,8 @@ namespace Softjourn.SJCoins.Core.API.Model
         [JsonProperty("destination")]
         public string Destination { get; set; }
 
-        [JsonProperty("amount", NullValueHandling = NullValueHandling.Ignore)]
-        public object Amount { get; set; }
+        [JsonProperty("amount")]
+        public int Amount { get; set; }
 
         [JsonProperty("comment")]
         public string Comment { get; set; }
