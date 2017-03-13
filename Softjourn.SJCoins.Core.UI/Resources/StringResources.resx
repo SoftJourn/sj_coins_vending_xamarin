@@ -202,6 +202,6 @@
     <value>Sorry, this code is unknown</value>
   </data>
   <data name="wallet_was_funded" xml:space="preserve">
-    <value>Your wallet was funded</value>
+    <value>Your wallet was replenished by </value>
   </data>
 </root>

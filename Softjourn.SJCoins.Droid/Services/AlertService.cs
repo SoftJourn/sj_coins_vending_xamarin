@@ -33,7 +33,7 @@ namespace Softjourn.SJCoins.Droid.Services
             var activity = CrossCurrentActivity.Current.Activity;
             activity.RunOnUiThread(() =>
             {
-                var toast = Toast.MakeText(activity, msg, ToastLength.Short);
+                var toast = Toast.MakeText(activity.ApplicationContext, msg, ToastLength.Short);
                 toast.SetGravity(GravityFlags.Center, 0, 0);
                 if (toast.View.WindowVisibility != ViewStates.Visible)
                 {

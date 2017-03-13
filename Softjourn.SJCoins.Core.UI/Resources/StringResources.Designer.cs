@@ -305,7 +305,7 @@ namespace Softjourn.SJCoins.Core.UI.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Your wallet was funded.
+        ///   Looks up a localized string similar to Your wallet was replenished by .
         /// </summary>
         internal static string wallet_was_funded {
             get {

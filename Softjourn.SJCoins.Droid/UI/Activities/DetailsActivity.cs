@@ -39,8 +39,15 @@ namespace Softjourn.SJCoins.Droid.UI.Activities
 
             _images = new List<string>();
 
-            //TODO: Need to make loop for adding list of photos when it will be ready on backend 
-            _images.Add(_product.ImageFullUrl);
+            //TODO: Need to make loop for adding list of photos when it will be ready on backend
+            if (_product.ImageUrls != null)
+            {
+                _images.AddRange(_product.ImagesFullUrls);
+            }
+            else
+            {
+                _images.Add(_product.ImageFullUrl);
+            }
 
             _adapter = new DetailsPagerAdapter(this, _images);
 

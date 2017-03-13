@@ -45,6 +45,8 @@ namespace Softjourn.SJCoins.Core.Utils
                     return Resources.StringResources.server_error_40902;
                 case 40903:
                     return Resources.StringResources.server_error_40903;
+                case 40906:
+                    return Resources.StringResources.server_error_40906;
                 case 509:
                     return Resources.StringResources.server_error_509;
                 case 50901:

@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using Newtonsoft.Json;
 using Softjourn.SJCoins.Core.Utils;
 
@@ -16,6 +18,8 @@ namespace Softjourn.SJCoins.Core.API.Model.Products
 
         public string ImageFullUrl => Const.BaseUrl + Const.UrlVendingService + ImageUrl;
 
+        public List<string> ImagesFullUrls => ImageUrls.Select(url => Const.BaseUrl + Const.UrlVendingService + url).ToList();
+
         public bool IsProductFavorite { get; set; }
 
         public bool IsProductInCurrentMachine { get; set; }
@@ -27,6 +31,9 @@ namespace Softjourn.SJCoins.Core.API.Model.Products
 
         [JsonProperty("imageUrl")]
         public string ImageUrl { get; set; }
+
+        [JsonProperty("imageUrls")]
+        public List<string> ImageUrls { get; set;}
 
         [JsonProperty("description")]
         public string Description { get; set; }
