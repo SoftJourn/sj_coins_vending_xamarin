@@ -141,6 +141,7 @@ namespace Softjourn.SJCoins.Droid.UI.Fragments
         private void AnimateHeartButton()
         {
             var animatorSet = new AnimatorSet();
+            _favorites.Enabled = false;
 
             var rotationAnim = ObjectAnimator.OfFloat(_favorites, "rotation", 0f, 360f);
             rotationAnim.SetDuration(600);
@@ -188,6 +189,7 @@ namespace Softjourn.SJCoins.Droid.UI.Fragments
 
             animatorSet.Play(bounceAnimX).With(bounceAnimY);
             animatorSet.Start();
+            _favorites.Enabled = true;
         }
         #endregion
     }
