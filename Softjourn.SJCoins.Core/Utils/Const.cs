@@ -79,5 +79,12 @@ namespace Softjourn.SJCoins.Core.Utils
 
         public const string QrScreenScanningTag = "Scan";
         public const string QrScreenGeneratingTag = "Generate";
+        public const string ProfileOptionsPurchaseIconName = "ic_purchase";
+        public const string ProfileOptionsReportsIconName = "ic_reports";
+        public const string ProfileOptionsPrivacyTermsIconName = "ic_privacy_and_terms";
+        public const string ProfileOptionsHelpIconName = "ic_help";
+        public const string ProfileOptionsShareFunsIconName = "ic_share_funs";
+        public const string ProfileOptionsSelectMachineIconName = "ic_select_machine";
+        public const string ProfileOptionsLogoutIconName = "ic_logout";
     }
 }

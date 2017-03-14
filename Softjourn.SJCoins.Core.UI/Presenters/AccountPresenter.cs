@@ -1,13 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.InteropServices.ComTypes;
 using System.Threading.Tasks;
 using Plugin.DeviceInfo;
 using Plugin.DeviceInfo.Abstractions;
+using Softjourn.SJCoins.Core.API.Model;
 using Softjourn.SJCoins.Core.Exceptions;
 using Softjourn.SJCoins.Core.Helpers;
-using Softjourn.SJCoins.Core.Managers;
 using Softjourn.SJCoins.Core.UI.Services.Navigation;
 using Softjourn.SJCoins.Core.UI.ViewInterfaces;
 using Softjourn.SJCoins.Core.Utils;
@@ -16,20 +14,18 @@ namespace Softjourn.SJCoins.Core.UI.Presenters
 {
     public class AccountPresenter : BasePresenter<IAccountView>
     {
-        private List<string> OptionsList { get; set; }
+        private List<AccountOption> OptionsList { get; set; }
 
         public AccountPresenter()
         {
-            OptionsList = new List<string>
-            {
-                Const.ProfileOptionsPurchase,
-                Const.ProfileOptionsReports,
-                Const.ProfileOptionsPrivacyTerms,
-                Const.ProfileOptionsHelp,
-                Const.ProfileOptionsShareFuns,
-                Const.ProfileOptionsSelectMachine,
-                Const.ProfileOptionsLogout
-            };
+            OptionsList = new List<AccountOption>();
+            OptionsList.Add(new AccountOption(Const.ProfileOptionsPurchase, Const.ProfileOptionsPurchaseIconName));
+            OptionsList.Add(new AccountOption(Const.ProfileOptionsReports, Const.ProfileOptionsReportsIconName));
+            OptionsList.Add(new AccountOption(Const.ProfileOptionsPrivacyTerms, Const.ProfileOptionsPrivacyTermsIconName));
+            OptionsList.Add(new AccountOption(Const.ProfileOptionsHelp, Const.ProfileOptionsHelpIconName));
+            OptionsList.Add(new AccountOption(Const.ProfileOptionsShareFuns, Const.ProfileOptionsShareFunsIconName));
+            OptionsList.Add(new AccountOption(Const.ProfileOptionsSelectMachine,Const.ProfileOptionsSelectMachineIconName));
+            OptionsList.Add(new AccountOption(Const.ProfileOptionsLogout, Const.ProfileOptionsLogoutIconName));
         }
 
         #region Public Methods
@@ -40,7 +36,7 @@ namespace Softjourn.SJCoins.Core.UI.Presenters
         }
 
         //Returns List of Options taken from string resources
-        public List<string> GetOptionsList()
+        public List<AccountOption> GetOptionsList()
         {
             return OptionsList;
         }
@@ -94,6 +90,35 @@ namespace Softjourn.SJCoins.Core.UI.Presenters
                     NavigationService.NavigateTo(NavigationPage.SelectMachine);
                     return;
                 case Const.ProfileOptionsLogout:
+                    LogOut();
+                    return;
+            }
+        }
+
+        //Navigate to given page from OptionsList
+        public void OnItemClick(int itemPosition)
+        {
+            switch (itemPosition)
+            {
+                case 0:
+                    NavigationService.NavigateTo(NavigationPage.Purchase);
+                    return;
+                case 1:
+                    NavigationService.NavigateTo(NavigationPage.Reports);
+                    return;
+                case 2:
+                    NavigationService.NavigateTo(NavigationPage.PrivacyTerms);
+                    return;
+                case 3:
+                    NavigationService.NavigateTo(NavigationPage.Help);
+                    return;
+                case 4:
+                    ShowDialogForChoosingQrStrategy();
+                    return;
+                case 5:
+                    NavigationService.NavigateTo(NavigationPage.SelectMachine);
+                    return;
+                case 6:
                     LogOut();
                     return;
             }

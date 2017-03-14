@@ -5,5 +5,5 @@
 	<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 	<uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 	<uses-permission android:name="android.permission.CAMERA" />
-	<application android:label="SJCoinsX" android:icon="@drawable/ic_launcher" android:allowBackup="false" android:fullBackupContent="false"></application>
+	<application android:label="SJCoinsX" android:icon="@drawable/ic_launcher" android:allowBackup="false" android:fullBackupContent="false" android:configChanges="keyboardHidden|orientation|screenSize"></application>
 </manifest>

@@ -180,6 +180,7 @@
   <string name="welcome_page_image">Welcome Page Image</string>
   <string name="favorites_image">Favorites Image</string>
   <string name="no_available_machines_message">Currently there is no available machines</string>
+  <string name="option_icon_content_description">Option Icon</string>
 
   <!--Details Activity-->
   <string name="details_info_label">Information</string>
