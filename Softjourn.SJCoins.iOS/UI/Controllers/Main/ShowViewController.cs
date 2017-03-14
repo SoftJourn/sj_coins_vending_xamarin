@@ -124,6 +124,11 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.Main
 		{
 			//throw new NotImplementedException();
 		}
+
+		public void LastUnavailableFavoriteRemoved()
+		{
+			
+		}
 		#endregion
 
 		#region Private methods

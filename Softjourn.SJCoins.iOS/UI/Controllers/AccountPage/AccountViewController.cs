@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using CoreAnimation;
 using Foundation;
 using SDWebImage;
+using Softjourn.SJCoins.Core.API.Model;
 using Softjourn.SJCoins.Core.API.Model.AccountInfo;
 using Softjourn.SJCoins.Core.UI.Presenters;
 using Softjourn.SJCoins.Core.UI.ViewInterfaces;
@@ -87,10 +88,10 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.AccountPage
 		{
 			var options = Presenter.GetOptionsList();
 
-			List<string> optionsFirstSection = new List<string>(options);
+			var optionsFirstSection = new List<AccountOption>(options);
 			optionsFirstSection.RemoveAt(optionsFirstSection.Count - 1);
 
-			List<string> optionsSecondSection = new List<string>(options);
+			var optionsSecondSection = new List<AccountOption>(options);
 			optionsSecondSection.RemoveRange(0, optionsSecondSection.Count - 1);
 
 			_tableSource = new AccountSource(optionsFirstSection, optionsSecondSection);
@@ -109,9 +110,9 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.AccountPage
 		}
 
 		// -------------------- Event handlers --------------------
-		private void TableSource_ItemClicked(object sender, string item)
+		private void TableSource_ItemClicked(object sender, AccountOption item)
 		{
-			Presenter.OnItemClick(item);
+			Presenter.OnItemClick(item.OptionName);
 		}
 
 		private void DoneButtonClickHandler(object sender, EventArgs e)
@@ -125,26 +126,17 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.AccountPage
 		}
 		// -------------------------------------------------------- 
 		#endregion
-
-		// Throw TableView to parent
-		//protected override UIScrollView GetRefreshableScrollView() => TableView;
-
-		protected override void PullToRefreshTriggered(object sender, System.EventArgs e)
-		{
-			StopRefreshing();
-			Presenter.OnStartLoadingPage();
-		}
 	}
 
 	#region UITableViewSource implementation
 	public class AccountSource : UITableViewSource
 	{
-		private List<string> optionsFirstSection = new List<string>();
-		private List<string> optionsSecondSection = new List<string>();
+		private List<AccountOption> optionsFirstSection = new List<AccountOption>();
+		private List<AccountOption> optionsSecondSection = new List<AccountOption>();
 
-		public event EventHandler<string> ItemSelected;
+		public event EventHandler<AccountOption> ItemSelected;
 
-		public AccountSource(List<string> first, List<string> second)
+		public AccountSource(List<AccountOption> first, List<AccountOption> second)
 		{
 			optionsFirstSection = first;
 			optionsSecondSection = second;
@@ -152,7 +144,7 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.AccountPage
 
 		public override nint NumberOfSections(UITableView tableView) => 2;
 
-		public override nint RowsInSection(UITableView tableview, nint section) // => optionsFirstSection.Count;
+		public override nint RowsInSection(UITableView tableview, nint section) 
 		{
 			switch (section)
 			{
@@ -177,8 +169,6 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.AccountPage
 				case 1:
 					_cell.ConfigureWith(optionsSecondSection[indexPath.Row]);
 					break;
-				default:
-					break;
 			}
 		}
 
@@ -192,8 +182,6 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.AccountPage
 					break;
 				case 1:
 					ItemSelected?.Invoke(this, optionsSecondSection[indexPath.Row]);
-					break;
-				default:
 					break;
 			}
 		}

@@ -70,6 +70,11 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers
 			ConfigureFavoriteImage(isFavorite);
 			// TODO let know another controllers in this product is favorite
 		}
+
+		public void LastUnavailableFavoriteRemoved()
+		{
+			
+		}
 		#endregion
 
 		#region Private methods

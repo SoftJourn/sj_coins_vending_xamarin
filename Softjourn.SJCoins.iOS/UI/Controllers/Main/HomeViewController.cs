@@ -87,6 +87,11 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.Main
 			_dataSource.SetCategories(listCategories);
 			CollectionView.ReloadData();
 		}
+
+		public void LastUnavailableFavoriteRemoved()
+		{
+			
+		}
 		#endregion
 
 		#region BaseViewController -> IBaseView implementation
