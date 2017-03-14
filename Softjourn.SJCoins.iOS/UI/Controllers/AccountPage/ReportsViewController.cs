@@ -142,6 +142,10 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.AccountPage
 	#region UITableViewSource implementation
 	public class ReportsSource : UITableViewSource
 	{
+		private const int tableSection = 0;
+		private const int rowBeforeEnd = 5;
+		private const int numberOfItemsOnOnePage = 50;
+
 		private List<Transaction> _items = new List<Transaction>();
 
 		public event EventHandler GetNexPage;
@@ -153,14 +157,25 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.AccountPage
 
 		public void AddItems(List<Transaction> items, UITableView tableView)
 		{
+			// Add new items to existing list
 			_items.AddRange(items);
 
+			// Create empty array
+			var indexPaths = new List<NSIndexPath>();
+
+			// Add elements to array
 			foreach (Transaction item in items)
 			{
-				var index = items.IndexOf(item);
-				var indexPaths = new NSIndexPath[] { NSIndexPath.FromIndex((uint)index) };
-				tableView.InsertRows(atIndexPaths: indexPaths, withRowAnimation: UITableViewRowAnimation.Fade);
+				if (_items.Contains(item))
+				{
+					var index = _items.IndexOf(item);
+					var indexPath = NSIndexPath.FromRowSection(index, tableSection);
+					indexPaths.Add(indexPath);
+				}
 			}
+
+			// Insert into table
+			tableView.InsertRows(atIndexPaths: indexPaths.ToArray(), withRowAnimation: UITableViewRowAnimation.Fade);
 		}
 
 		public override nint RowsInSection(UITableView tableview, nint section) => _items.Count;
@@ -172,7 +187,7 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.AccountPage
 			var _cell = (TransactionCell)cell;
 			_cell.ConfigureWith(_items[indexPath.Row]);
 
-			if (indexPath.Row == _items.Count - 6 && _items.Count > 11)
+			if (indexPath.Row == _items.Count - rowBeforeEnd && _items.Count >= numberOfItemsOnOnePage)
 			{
 				// trigg presenter to give the next page.
 				GetNexPage?.Invoke(this, null);
