@@ -6,5 +6,6 @@ namespace Softjourn.SJCoins.Core.UI.Interfaces
 	public interface IBaseProductView : IBaseView
 	{
 	    void FavoriteChanged(bool isFavorite);
+	    void LastUnavailableFavoriteRemoved();
 	}
 }

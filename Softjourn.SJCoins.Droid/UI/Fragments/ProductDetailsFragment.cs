@@ -179,11 +179,13 @@ namespace Softjourn.SJCoins.Droid.UI.Fragments
                 {
                     _favorites.SetImageResource(
                         Resource.Drawable.ic_favorite_pink);
+                    _product.IsProductFavorite = true;
                 }
                 else
                 {
                     _favorites.SetImageResource(
                         Resource.Drawable.ic_favorite_border_white);
+                    _product.IsProductFavorite = false;
                 }
             };
 
