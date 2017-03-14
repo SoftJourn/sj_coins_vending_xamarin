@@ -100,6 +100,11 @@ namespace Softjourn.SJCoins.Droid.UI.Activities
             ChangeIcon(_menu.FindItem(Resource.Id.menu_add_favorite), isFavorite);
         }
 
+        public void LastUnavailableFavoriteRemoved()
+        {
+            Finish();
+        }
+
         #endregion
 
         #region Private Methods

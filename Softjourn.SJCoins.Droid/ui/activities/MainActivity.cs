@@ -190,41 +190,25 @@ namespace Softjourn.SJCoins.Droid.UI.Activities
          */
         public void FavoriteChanged(bool isFavorite)
         {
-            //Take Favorites from ProductList
-            var refreshedFavorites = ViewPresenter.GetProductListForGivenCategory(Const.Favorites);
-
-            // Taking containerId and HeaderId of favorite from Dicitionary
-            var favoritesContainerId = _containerIds.ElementAt(0).Key;
-            var favoriteHeaderID = _containerIds.ElementAt(0).Value;
-
-            //Try to find fragment corresponding with containerID
-            var fragment = FragmentManager.FindFragmentById(favoritesContainerId) as ProductListFragmentVending;
-            
-            //if fragment exists
-            if (fragment != null)
-            {
-                //if Count of favorites is 0 then hide container
-                if (refreshedFavorites.Count == 0)
-                {
-                    HideContainer(favoritesContainerId, favoriteHeaderID);
-                }
-                //if count of favorite > 0 then show container and trig method ChangeFavorite in corresponding fragment
-                else ShowContainer(favoritesContainerId, favoriteHeaderID);
-                fragment.ChangeFavorite(refreshedFavorites);
-            }
-            // if there is no fragment for such container then
-            //show container and attach fragment to it.
-            else
-            {
-                ShowContainer(favoritesContainerId, _containerIds.ElementAt(0).Value);
-                AttachFragment(Const.Favorites, _containerIds.ElementAt(0).Value, favoritesContainerId, refreshedFavorites);
-            }
+            ChangeFavoriteIcon(isFavorite);
             var bottomFragment = SupportFragmentManager.FindFragmentByTag(Const.BottomSheetFragmentTag) as ProductDetailsFragment;
 
             //if fragment exists
             if (bottomFragment != null)
             {
                 bottomFragment.ChangeFavoriteIcon();
+            }
+        }
+
+        public void LastUnavailableFavoriteRemoved()
+        {
+            ChangeFavoriteIcon(false);
+            var bottomFragment = SupportFragmentManager.FindFragmentByTag(Const.BottomSheetFragmentTag) as ProductDetailsFragment;
+
+            //if fragment exists
+            if (bottomFragment != null)
+            {
+                bottomFragment.Dismiss();
             }
         }
 
@@ -452,6 +436,40 @@ namespace Softjourn.SJCoins.Droid.UI.Activities
                 .Replace(containerId, ProductListFragmentVending.NewInstance(categoryName, headerId, containerId, listProducts),
                  categoryName)
                 .Commit();
+        }
+
+        private void ChangeFavoriteIcon(bool isFavorite)
+        {
+            //Take Favorites from ProductList
+            var refreshedFavorites = ViewPresenter.GetProductListForGivenCategory(Const.Favorites);
+
+            // Taking containerId and HeaderId of favorite from Dicitionary
+            var favoritesContainerId = _containerIds.ElementAt(0).Key;
+            var favoriteHeaderID = _containerIds.ElementAt(0).Value;
+
+            //Try to find fragment corresponding with containerID
+            var fragment = FragmentManager.FindFragmentById(favoritesContainerId) as ProductListFragmentVending;
+
+            //if fragment exists
+            if (fragment != null)
+            {
+                //if Count of favorites is 0 then hide container
+                if (refreshedFavorites.Count == 0)
+                {
+                    HideContainer(favoritesContainerId, favoriteHeaderID);
+                }
+                //if count of favorite > 0 then show container and trig method ChangeFavorite in corresponding fragment
+                else ShowContainer(favoritesContainerId, favoriteHeaderID);
+                fragment.ChangeFavorite(refreshedFavorites);
+            }
+            // if there is no fragment for such container then
+            //show container and attach fragment to it.
+            else
+            {
+                ShowContainer(favoritesContainerId, _containerIds.ElementAt(0).Value);
+                AttachFragment(Const.Favorites, _containerIds.ElementAt(0).Value, favoritesContainerId, refreshedFavorites);
+            }
+            
         }
         #endregion
     }

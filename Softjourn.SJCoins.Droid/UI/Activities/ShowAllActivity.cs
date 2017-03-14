@@ -210,6 +210,11 @@ namespace Softjourn.SJCoins.Droid.UI.Activities
             fragment?.ChangeFavoriteIcon();
         }
 
+        public void LastUnavailableFavoriteRemoved()
+        {
+            throw new NotImplementedException();
+        }
+
         /**
          * Is called by Presenter when List is sorted
          * to make adapter redraw recyclerview
