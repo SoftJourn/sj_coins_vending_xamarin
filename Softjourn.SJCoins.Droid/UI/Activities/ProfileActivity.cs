@@ -7,10 +7,12 @@ using Android.OS;
 using Android.Views;
 using Android.Widget;
 using Plugin.Permissions;
+using Softjourn.SJCoins.Core.API.Model;
 using Softjourn.SJCoins.Core.API.Model.AccountInfo;
 using Softjourn.SJCoins.Core.UI.Presenters;
 using Softjourn.SJCoins.Core.UI.ViewInterfaces;
 using Softjourn.SJCoins.Droid.ui.baseUI;
+using Softjourn.SJCoins.Droid.UI.Adapters;
 using Softjourn.SJCoins.Droid.Utils;
 
 namespace Softjourn.SJCoins.Droid.UI.Activities
@@ -39,14 +41,14 @@ namespace Softjourn.SJCoins.Droid.UI.Activities
             _avatar.Click += ChangePhoto;
 
             _options = FindViewById<ListView>(Resource.Id.profile_more_options);
-            var adapter = new ArrayAdapter<string>(this, Android.Resource.Layout.SimpleListItem1, ViewPresenter.GetOptionsList());
+            var adapter = new OptionsListAdapter(this, ViewPresenter.GetOptionsList());
             _options.Adapter = adapter;
             _options.Visibility = ViewStates.Visible;
             _options.VerticalScrollBarEnabled = false;
             SetListViewHeightBasedOnChildren(_options);
             _options.ItemClick += (sender, e) =>
             {
-                ViewPresenter.OnItemClick(_options.GetItemAtPosition(e.Position).ToString());
+                ViewPresenter.OnItemClick(e.Position);
             };
             //To make Actvity Opened
             _avatar.RequestFocus();
