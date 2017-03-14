@@ -14,6 +14,7 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.AccountPage
 	public partial class ReportsViewController : BaseViewController<TransactionReportPresenter>, ITransactionReportView
 	{
 		#region Constants
+		enum segmentControls { DateAmount, InputOutput };
 		#endregion
 
 		#region Properties
@@ -69,15 +70,17 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.AccountPage
 		public override void AttachEvents()
 		{
 			base.AttachEvents();
-			SegmentControl.TouchUpInside += SegmentControl_SameButtonClicked;
-			SegmentControl.ValueChanged += SegmentControl_AnotherButtonClicked;
+			InputOutputSegmentControl.TouchUpInside += InputOutputSegmentControl_SameButtonClicked;
+			InputOutputSegmentControl.ValueChanged += InputOutputSegmentControl_AnotherButtonClicked;
+			DateAmountSegmentControl.ValueChanged += DateAmountSegmentControl_AnotherButtonClicked;
 			_tableSource.GetNexPage += TableSource_GetNextPageExecuted;
 		}
 
 		public override void DetachEvents()
 		{
-			SegmentControl.TouchUpInside -= SegmentControl_SameButtonClicked;
-			SegmentControl.ValueChanged -= SegmentControl_AnotherButtonClicked;
+			InputOutputSegmentControl.TouchUpInside -= InputOutputSegmentControl_SameButtonClicked;
+			InputOutputSegmentControl.ValueChanged -= InputOutputSegmentControl_AnotherButtonClicked;
+			DateAmountSegmentControl.ValueChanged -= DateAmountSegmentControl_AnotherButtonClicked;
 			_tableSource.GetNexPage -= TableSource_GetNextPageExecuted;
 			base.DetachEvents();
 		}
@@ -95,9 +98,35 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.AccountPage
 			TableView.Source = _tableSource;
 		}
 
-		private void SortItems()
+		private void SortBy(segmentControls control)
 		{
-			switch (SegmentControl.SelectedSegment)
+			switch (control)
+			{
+				case segmentControls.DateAmount:
+					SortByDateAmount();
+					break;
+				case segmentControls.InputOutput:
+					SortByInputOutput();
+					break;
+			}
+		}
+
+		private void SortByDateAmount()
+		{
+			switch (DateAmountSegmentControl.SelectedSegment)
+			{
+				case 0:
+					Presenter.OnOrderByDateClick();
+					break;
+				case 1:
+					Presenter.OnOrderByAmountClick();
+					break;
+			}
+		}
+
+		private void SortByInputOutput()
+		{
+			switch (InputOutputSegmentControl.SelectedSegment)
 			{
 				case 0:
 					Presenter.OnInputClicked();
@@ -105,21 +134,25 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.AccountPage
 				case 1:
 					Presenter.OnOutputClicked();
 					break;
-				default:
-					break;
 			}
 		}
 
 		// -------------------- Event handlers --------------------
-		// SegmentControl methods 
-		public void SegmentControl_SameButtonClicked(object sender, EventArgs e)
+		// DateAmountSegmentControl methods 
+		public void DateAmountSegmentControl_AnotherButtonClicked(object sender, EventArgs e)
 		{
-			SortItems();
+			SortBy(segmentControls.DateAmount);
 		}
 
-		public void SegmentControl_AnotherButtonClicked(object sender, EventArgs e)
+		// InputOutputSegmentControl methods 
+		public void InputOutputSegmentControl_SameButtonClicked(object sender, EventArgs e)
 		{
-			SortItems();
+			SortBy(segmentControls.InputOutput);
+		}
+
+		public void InputOutputSegmentControl_AnotherButtonClicked(object sender, EventArgs e)
+		{
+			SortBy(segmentControls.InputOutput);
 		}
 
 		// TableSource methods 
@@ -160,10 +193,10 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.AccountPage
 			// Add new items to existing list
 			_items.AddRange(items);
 
-			// Create empty array
+			// Create empty list
 			var indexPaths = new List<NSIndexPath>();
 
-			// Add elements to array
+			// Add elements to list
 			foreach (Transaction item in items)
 			{
 				if (_items.Contains(item))

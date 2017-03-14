@@ -12,32 +12,32 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.AccountPage
 	partial class ReportsViewController
 	{
 		[Outlet]
-		UIKit.UIButton FilterButton { get; set; }
+		Softjourn.SJCoins.iOS.CustomSegmentControl DateAmountSegmentControl { get; set; }
+
+		[Outlet]
+		Softjourn.SJCoins.iOS.CustomSegmentControl InputOutputSegmentControl { get; set; }
 
 		[Outlet]
 		UIKit.UILabel NoItemsLabel { get; set; }
-
-		[Outlet]
-		UIKit.UISegmentedControl SegmentControl { get; set; }
 
 		[Outlet]
 		UIKit.UITableView TableView { get; set; }
 		
 		void ReleaseDesignerOutlets ()
 		{
-			if (FilterButton != null) {
-				FilterButton.Dispose ();
-				FilterButton = null;
-			}
-
 			if (NoItemsLabel != null) {
 				NoItemsLabel.Dispose ();
 				NoItemsLabel = null;
 			}
 
-			if (SegmentControl != null) {
-				SegmentControl.Dispose ();
-				SegmentControl = null;
+			if (InputOutputSegmentControl != null) {
+				InputOutputSegmentControl.Dispose ();
+				InputOutputSegmentControl = null;
+			}
+
+			if (DateAmountSegmentControl != null) {
+				DateAmountSegmentControl.Dispose ();
+				DateAmountSegmentControl = null;
 			}
 
 			if (TableView != null) {
