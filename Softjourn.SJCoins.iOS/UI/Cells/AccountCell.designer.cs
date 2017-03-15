@@ -13,6 +13,9 @@ namespace Softjourn.SJCoins.iOS
 	partial class AccountCell
 	{
 		[Outlet]
+		UIKit.UIImageView ImageLogo { get; set; }
+
+		[Outlet]
 		UIKit.UILabel TitleLabel { get; set; }
 		
 		void ReleaseDesignerOutlets ()
@@ -20,6 +23,11 @@ namespace Softjourn.SJCoins.iOS
 			if (TitleLabel != null) {
 				TitleLabel.Dispose ();
 				TitleLabel = null;
+			}
+
+			if (ImageLogo != null) {
+				ImageLogo.Dispose ();
+				ImageLogo = null;
 			}
 		}
 	}

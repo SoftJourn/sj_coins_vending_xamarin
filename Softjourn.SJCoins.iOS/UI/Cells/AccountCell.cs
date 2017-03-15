@@ -24,6 +24,7 @@ namespace Softjourn.SJCoins.iOS
 		public void ConfigureWith(AccountOption item)
 		{
 			TitleLabel.Text = item.OptionName;
+			ImageLogo.Image = UIImage.FromBundle(item.OptionIconName);
 		}
 	}
 }
