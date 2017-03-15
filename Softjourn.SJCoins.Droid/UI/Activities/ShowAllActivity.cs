@@ -20,6 +20,7 @@ using Softjourn.SJCoins.Droid.ui.baseUI;
 using Softjourn.SJCoins.Droid.UI.Adapters;
 using Softjourn.SJCoins.Droid.UI.Fragments;
 using Softjourn.SJCoins.Droid.Utils;
+using SearchView = Android.Support.V7.Widget.SearchView;
 
 namespace Softjourn.SJCoins.Droid.UI.Activities
 {
@@ -35,6 +36,7 @@ namespace Softjourn.SJCoins.Droid.UI.Activities
         private View _buttonNameUnderline;
         private View _buttonPriceUnderline;
         private TextView _textViewNoProductsInCategory;
+        private SearchView searchView;
 
         private const string ProductsCategory = Const.NavigationKey;
         private const string RecyclerType = "SEE_ALL_SNACKS_DRINKS";
@@ -44,6 +46,7 @@ namespace Softjourn.SJCoins.Droid.UI.Activities
 
         RecyclerView _machineItems;
 
+        #region Activity Standard Methods
         protected override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
@@ -90,10 +93,87 @@ namespace Softjourn.SJCoins.Droid.UI.Activities
 
         public override void OnBackPressed()
         {
-            base.OnBackPressed();
-            _adapter = null;
+            if (searchView != null && !searchView.Iconified)
+            {
+                CloseSearchView();
+            }
+            else
+            {
+                base.OnBackPressed();
+                _adapter = null;
+            }
         }
 
+        public override bool OnCreateOptionsMenu(IMenu menu)
+        {
+            base.OnCreateOptionsMenu(menu);
+
+            //Don't show search on Favorites Category
+            if (_category != Const.Favorites)
+            {
+                menu.FindItem(Resource.Id.action_search).SetVisible(true);
+            }
+            menu.FindItem(Resource.Id.profile).SetVisible(false);
+            menu.FindItem(Resource.Id.menu_add_favorite).SetVisible(false);
+            menu.FindItem(Resource.Id.menu_buy).SetVisible(false);
+
+            #region SearchView
+            var manager = (SearchManager)GetSystemService(SearchService);
+
+            var search = menu.FindItem(Resource.Id.action_search).ActionView;
+            searchView = search.JavaCast<Android.Support.V7.Widget.SearchView>();
+
+            searchView.SetSearchableInfo(manager.GetSearchableInfo(ComponentName));
+
+            searchView.QueryHint = GetString(Resource.String.search_hint);
+
+            var searchEditText = searchView.FindViewById<EditText>(Resource.Id.search_src_text);
+
+            searchEditText.SetTextColor(new Color(ContextCompat.GetColor(this, Resource.Color.white)));
+
+            searchEditText.SetHintTextColor(new Color(ContextCompat.GetColor(this, Resource.Color.white)));
+
+            searchView.QueryTextSubmit += (s, e) =>
+            {
+                var imm = (InputMethodManager)GetSystemService(InputMethodService);
+                imm.HideSoftInputFromWindow(CurrentFocus.WindowToken, 0);
+                searchView.ClearFocus();
+                e.Handled = true;
+            };
+            searchView.QueryTextChange += (s, e) =>
+            {
+                _adapter.Filter.InvokeFilter(TextUtils.IsEmpty(e.NewText) ? "" : e.NewText);
+
+                //Disable sorting buttons when search is active
+                //_sortNameButton.Enabled = false;
+                //_sortPriceButton.Enabled = false;
+                _sortNameButton.Visibility = ViewStates.Gone;
+                _sortPriceButton.Visibility = ViewStates.Gone;
+            };
+
+
+            searchView.Close += (s, e) =>
+
+            {
+                CloseSearchView();
+            };
+            #endregion
+            return true;
+        }
+
+        public override bool OnOptionsItemSelected(IMenuItem item)
+        {
+            switch (item.ItemId)
+            {
+                case Android.Resource.Id.Home:
+                    OnBackPressed();
+                    return true;
+            }
+            return base.OnOptionsItemSelected(item);
+        }
+        #endregion
+
+        #region Private Methods
         /**
          * Calls when Sort By Price button clicked
          * Sets colors of button to highlight chosen 
@@ -118,81 +198,52 @@ namespace Softjourn.SJCoins.Droid.UI.Activities
             _buttonPriceUnderline.Visibility = ViewStates.Invisible;
         }
 
-        public override bool OnCreateOptionsMenu(IMenu menu)
+        /**
+         * Calls navigation to Details screen on Presenter's side
+         * with the given product
+         * Is called by OnClick on product item
+         */
+        private void ProductSelected(object sender, Product product)
         {
-            base.OnCreateOptionsMenu(menu);
-
-            //Don't show search on Favorites Category
-            if (_category != Const.Favorites)
-            {
-                menu.FindItem(Resource.Id.action_search).SetVisible(true);
-            }
-            menu.FindItem(Resource.Id.profile).SetVisible(false);
-            menu.FindItem(Resource.Id.menu_add_favorite).SetVisible(false);
-            menu.FindItem(Resource.Id.menu_buy).SetVisible(false);
-
-            #region SearchView
-            var manager = (SearchManager)GetSystemService(SearchService);
-
-            var search = menu.FindItem(Resource.Id.action_search).ActionView;
-            var searchView = search.JavaCast<Android.Support.V7.Widget.SearchView>();
-
-            searchView.SetSearchableInfo(manager.GetSearchableInfo(ComponentName));
-
-            searchView.QueryHint = GetString(Resource.String.search_hint);
-
-            var searchEditText = searchView.FindViewById<EditText>(Resource.Id.search_src_text);
-
-            searchEditText.SetTextColor(new Color(ContextCompat.GetColor(this, Resource.Color.white)));
-
-            searchEditText.SetHintTextColor(new Color(ContextCompat.GetColor(this, Resource.Color.white)));
-
-            searchView.QueryTextSubmit += (s, e) =>
-            {
-                var imm = (InputMethodManager)GetSystemService(InputMethodService);
-                imm.HideSoftInputFromWindow(CurrentFocus.WindowToken, 0);
-                searchView.ClearFocus();
-                e.Handled = true;
-            };
-            searchView.QueryTextChange += (s, e) =>
-            {
-                _adapter.Filter.InvokeFilter(TextUtils.IsEmpty(e.NewText) ? "" : e.NewText);
-
-                //Disable sorting buttons when search is active
-                _sortNameButton.Enabled = false;
-                _sortPriceButton.Enabled = false;
-            };
-
-
-            searchView.Close += (s, e) =>
-
-            {
-                //Enabling Sort buttons
-                _sortNameButton.Enabled = true;
-                _sortPriceButton.Enabled = true;
-
-                //Clear search string
-                searchView.ClearFocus();
-                searchView.SetQuery("", true);
-
-                //Close keyboard
-                searchView.OnActionViewCollapsed();
-            };
-            #endregion
-            return true;
+            ViewPresenter.OnProductDetailsClick(product.Id);
         }
 
-        public override bool OnOptionsItemSelected(IMenuItem item)
+        /**
+         * Attaches BottomSheetFragment with the given product (Preview functionality)
+         * Is called by OnLongClick on product item
+         */
+        private void ProductDetailsSelected(object sender, Product product)
         {
-            switch (item.ItemId)
-            {
-                case Android.Resource.Id.Home:
-                    Finish();
-                    return true;
-            }
-            return base.OnOptionsItemSelected(item);
+            BottomSheetDialogFragment bottomSheetDialogFragment = new ProductDetailsFragment(product);
+            bottomSheetDialogFragment.Show(SupportFragmentManager, Const.BottomSheetFragmentTag);
         }
 
+        private void CloseSearchView()
+        {
+            //Clear search string
+            searchView.ClearFocus();
+            searchView.SetQuery("", true);
+
+            //Close keyboard
+            searchView.OnActionViewCollapsed();
+            _sortNameButton.Visibility = ViewStates.Visible;
+            _sortPriceButton.Visibility = ViewStates.Visible;
+        }
+
+        /**
+         * Hides recyclerView and Shows TextView
+         * when there is no products 
+         * e.g. Last Favorite was removed
+         */
+        private void ShowEmptyView(object sender, EventArgs e)
+        {
+            _machineItems.Visibility = ViewStates.Gone;
+            _textViewNoProductsInCategory.Visibility = ViewStates.Visible;
+        }
+
+        #endregion
+
+        #region IShowAllView Implementation
         /**
          * Is called by Presenter when added or removed favorite
          * to make adapter redraw recyclerview
@@ -238,7 +289,7 @@ namespace Softjourn.SJCoins.Droid.UI.Activities
             }
             else
             {
-                _sortNameButton.SetCompoundDrawablesWithIntrinsicBounds(ContextCompat.GetDrawable(this, Resource.Drawable.ic_arrow_down), null, 
+                _sortNameButton.SetCompoundDrawablesWithIntrinsicBounds(ContextCompat.GetDrawable(this, Resource.Drawable.ic_arrow_down), null,
                     null, null);
             }
         }
@@ -264,38 +315,20 @@ namespace Softjourn.SJCoins.Droid.UI.Activities
 
         public new void ShowProgress(string message)
         {
-            ProgressDialog.SetIndeterminateDrawable(ContextCompat.GetDrawable(this,Resource.Drawable.basket_animation));
+            ProgressDialog.SetIndeterminateDrawable(ContextCompat.GetDrawable(this, Resource.Drawable.basket_animation));
             ProgressDialog.SetMessage(message);
             ProgressDialog.SetCancelable(false);
             ProgressDialog.Show();
         }
+        #endregion
 
+        #region Public Methods
         /**
          * Calls Purchase functionality on Presenters side
          */
         public void Purchase(Product product)
         {
             ViewPresenter.OnBuyProductClick(product);
-        }
-
-        /**
-         * Calls navigation to Details screen on Presenter's side
-         * with the given product
-         * Is called by OnClick on product item
-         */
-        private void ProductSelected(object sender, Product product)
-        {
-            ViewPresenter.OnProductDetailsClick(product.Id);
-        }
-
-        /**
-         * Attaches BottomSheetFragment with the given product (Preview functionality)
-         * Is called by OnLongClick on product item
-         */
-        private void ProductDetailsSelected(object sender, Product product)
-        {
-            BottomSheetDialogFragment bottomSheetDialogFragment = new ProductDetailsFragment(product);
-            bottomSheetDialogFragment.Show(SupportFragmentManager, Const.BottomSheetFragmentTag);
         }
 
         /**
@@ -317,16 +350,6 @@ namespace Softjourn.SJCoins.Droid.UI.Activities
             ViewPresenter.OnFavoriteClick(product);
         }
 
-        /**
-         * Hides recyclerView and Shows TextView
-         * when there is no products 
-         * e.g. Last Favorite was removed
-         */ 
-        private void ShowEmptyView(object sender, EventArgs e)
-        {
-            _machineItems.Visibility = ViewStates.Gone;
-            _textViewNoProductsInCategory.Visibility = ViewStates.Visible;
-        }
 
         public override void AttachEvents()
         {
@@ -345,5 +368,6 @@ namespace Softjourn.SJCoins.Droid.UI.Activities
             _adapter.RemoveFromFavorites -= TrigFavorite;
             _adapter.LastFavoriteRemoved -= ShowEmptyView;
         }
+        #endregion
     }
 }

@@ -319,14 +319,30 @@
     <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\Icon-57%402x.png">
       <InProject>false</InProject>
     </ImageAsset>
-    <ImageAsset Include="Assets.xcassets\ArrowDownward.imageset\Contents.json" />
-    <ImageAsset Include="Assets.xcassets\ArrowUpward.imageset\Contents.json" />
-    <ImageAsset Include="Assets.xcassets\ArrowDownward.imageset\ic_arrow_downward.png" />
-    <ImageAsset Include="Assets.xcassets\ArrowDownward.imageset\ic_arrow_downward_2x.png" />
-    <ImageAsset Include="Assets.xcassets\ArrowDownward.imageset\ic_arrow_downward_3x.png" />
-    <ImageAsset Include="Assets.xcassets\ArrowUpward.imageset\ic_arrow_upward.png" />
-    <ImageAsset Include="Assets.xcassets\ArrowUpward.imageset\ic_arrow_upward_2x.png" />
-    <ImageAsset Include="Assets.xcassets\ArrowUpward.imageset\ic_arrow_upward_3x.png" />
+    <ImageAsset Include="Assets.xcassets\ArrowDownward.imageset\Contents.json">
+      <InProject>false</InProject>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\ArrowUpward.imageset\Contents.json">
+      <InProject>false</InProject>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\ArrowDownward.imageset\ic_arrow_downward.png">
+      <InProject>false</InProject>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\ArrowDownward.imageset\ic_arrow_downward_2x.png">
+      <InProject>false</InProject>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\ArrowDownward.imageset\ic_arrow_downward_3x.png">
+      <InProject>false</InProject>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\ArrowUpward.imageset\ic_arrow_upward.png">
+      <InProject>false</InProject>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\ArrowUpward.imageset\ic_arrow_upward_2x.png">
+      <InProject>false</InProject>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\ArrowUpward.imageset\ic_arrow_upward_3x.png">
+      <InProject>false</InProject>
+    </ImageAsset>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Assets.xcassets\AccountTabIcon.imageset\" />
