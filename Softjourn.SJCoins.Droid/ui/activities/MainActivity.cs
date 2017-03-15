@@ -44,9 +44,6 @@ namespace Softjourn.SJCoins.Droid.UI.Activities
             _containerIds = new Dictionary<int, int>();
             _containerIds.Add(Resource.Id.favorites_container_ID, Resource.Id.favoriteIdLayout);
 
-            //_menuLayout = FindViewById<DrawerLayout>(Resource.Id.drawer_layout);
-            //_menuView = FindViewById<NavigationView>(Resource.Id.left_side_menu);
-
             _favoritesShowAll = FindViewById<TextView>(Resource.Id.favoriteSeeAllID);
             _favoritesShowAll.Click += (sender, e) =>
             {
@@ -57,13 +54,7 @@ namespace Softjourn.SJCoins.Droid.UI.Activities
             _swipeLayout.SetColorSchemeResources(Resource.Color.colorAccent);
             _swipeLayout.Refresh += OnRefresh;
 
-            //var toolbar = FindViewById<Android.Support.V7.Widget.Toolbar>(Resource.Id.toolbar_base);
-            //SetSupportActionBar(toolbar);
-
             _balance = FindViewById<TextView>(Resource.Id.balance);
-
-            //_bottomBar = BottomBar.AttachShy(FindViewById<CoordinatorLayout>(Resource.Id.coordinator_root_layout),
-            //   FindViewById(Resource.Id.scroll_layout), savedInstanceState);
 
             _swipeLayout.Refreshing = true;
             ViewPresenter.OnStartLoadingPage();
@@ -82,7 +73,6 @@ namespace Softjourn.SJCoins.Droid.UI.Activities
             switch (item.ItemId)
             {
                 case Android.Resource.Id.Home:
-                    //_menuLayout.OpenDrawer(Android.Support.V4.View.GravityCompat.Start);
                     return true;
                 case Resource.Id.profile:
                     ViewPresenter.OnProfileButtonClicked();
@@ -102,73 +92,6 @@ namespace Softjourn.SJCoins.Droid.UI.Activities
             FavoriteChanged(true);
         }
         #endregion
-
-        //public override void SetBalance(View headerView)
-        //{
-        //    var userBalanceView = headerView.FindViewById<TextView>(Resource.Id.user_balance);
-        //    userBalanceView.Text = _account != null ? _account.Amount.ToString() : "";
-        //}
-
-        //public override void SetUserName(View headerView)
-        //{
-        //    var userNameView = headerView.FindViewById<TextView>(Resource.Id.menu_user_name);
-        //    userNameView.Text = _account != null ? _account.Name + " " + _account.Surname : "";
-        //}
-
-        //public override bool HandleNavigation(IMenuItem item)
-        //{
-        //    var id = item.ItemId;
-        //    switch (id)
-        //    {
-        //        case Resource.Id.menu_all_products:
-        //            //mMenuLayout.closeDrawer(GravityCompat.START);
-        //            //NavigationUtils.GoToSeeAllActivity(this, Const.AllItems);
-        //            break;
-        //        case Resource.Id.menu_favorites:
-        //            //mMenuLayout.closeDrawer(GravityCompat.START);
-        //            //NavigationUtils.GoToSeeAllActivity(this, Const.Favorites);
-        //            break;
-        //        case Resource.Id.menu_last_added:
-        //            //mMenuLayout.closeDrawer(GravityCompat.START);
-        //            //NavigationUtils.GoToSeeAllActivity(this, Const.LastAdded);
-        //            break;
-        //        case Resource.Id.menu_best_sellers:
-        //            //mMenuLayout.closeDrawer(GravityCompat.START);
-        //            item.SetChecked(false);
-        //            //NavigationUtils.GoToSeeAllActivity(this, Const.BestSellers);
-        //            break;
-        //        case Resource.Id.menu_logout_item:
-        //            LogOut();
-        //            //mMenuLayout.closeDrawer(GravityCompat.START);
-        //            break;
-        //        default:
-        //            //_headerView.SetItem(item.ItemId());
-        //            OnCategorySelected(item);
-        //            //mMenuLayout.closeDrawer(mMenuView, true);
-        //            break;
-        //    }
-        //    return true;
-        //}
-
-        //public override void LogOut()
-        //{
-        //    //ViewPresenter.LogOut();
-        //}
-
-        //public override void OnCategorySelected(IMenuItem item)
-        //{
-        //    //NavigationUtils.GoToSeeAllActivity(this, item.TitleFormatted.ToString());
-        //}
-
-        //public override void SetUpNavigationViewContent(NavigationView menuView)
-        //{
-        //    var leftSideMenuController = new LeftSideMenuController(menuView);
-        //    leftSideMenuController.UnCheckAllMenuItems(menuView);
-        //    if (_listCategories != null)
-        //    {
-        //        leftSideMenuController.AddCategoriesToMenu(GetMenu(), _listCategories);
-        //    }
-        //}
 
         #region Methods from IHomeView Interface
 
@@ -263,6 +186,7 @@ namespace Softjourn.SJCoins.Droid.UI.Activities
         {
             HideContainer(Resource.Id.favoriteIdLayout, Resource.Id.favorites_container_ID);
             RemoveContainers();
+            _balance.Visibility = ViewStates.Gone;
             ViewPresenter.OnRefresh();
         }
 
@@ -308,19 +232,6 @@ namespace Softjourn.SJCoins.Droid.UI.Activities
         {
             ShowToast(message);
         }
-
-        //public override void HandleMenuNavigation(int menuItemId)
-        //{
-        //    switch (menuItemId)
-        //    {
-        //        case Resource.Id.home:
-        //            Toast.MakeText(this, "Home", ToastLength.Long).Show();
-        //            break;
-        //        case Resource.Id.profile:
-        //            Toast.MakeText(this, "Profile", ToastLength.Long).Show();
-        //            break;
-        //    }
-        //}
 
         #endregion
 
@@ -464,10 +375,12 @@ namespace Softjourn.SJCoins.Droid.UI.Activities
             }
             // if there is no fragment for such container then
             //show container and attach fragment to it.
-            else
+            else 
             {
+                if (refreshedFavorites.Count <= 0) return;
                 ShowContainer(favoritesContainerId, _containerIds.ElementAt(0).Value);
-                AttachFragment(Const.Favorites, _containerIds.ElementAt(0).Value, favoritesContainerId, refreshedFavorites);
+                AttachFragment(Const.Favorites, _containerIds.ElementAt(0).Value, favoritesContainerId,
+                    refreshedFavorites);
             }
             
         }

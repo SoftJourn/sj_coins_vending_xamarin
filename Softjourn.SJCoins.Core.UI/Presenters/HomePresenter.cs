@@ -73,6 +73,7 @@ namespace Softjourn.SJCoins.Core.UI.Presenters
             }
             else
             {
+                View.HideProgress();
                 AlertService.ShowToastMessage(Resources.StringResources.internet_turned_off);
             }
         }
@@ -105,7 +106,7 @@ namespace Softjourn.SJCoins.Core.UI.Presenters
         //Is called when user click on Profile button (is using only for droid)
         public void OnProfileButtonClicked()
         {
-            if (DataManager.Profile != null)
+            if (DataManager.Profile != null && NetworkUtils.IsConnected)
             {
                 NavigationService.NavigateTo(NavigationPage.Profile);
             }
