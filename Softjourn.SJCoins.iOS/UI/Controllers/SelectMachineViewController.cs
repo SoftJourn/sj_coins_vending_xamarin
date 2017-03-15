@@ -18,7 +18,7 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers
 		#endregion
 
 		#region Constructor
-		public SelectMachineViewController(IntPtr handle) : base(handle)
+		public SelectMachineViewController(IntPtr handle) : base(handle) 
 		{
 		}
 		#endregion

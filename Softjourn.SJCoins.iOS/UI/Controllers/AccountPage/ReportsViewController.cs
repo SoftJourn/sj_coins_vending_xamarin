@@ -14,6 +14,7 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.AccountPage
 	public partial class ReportsViewController : BaseViewController<TransactionReportPresenter>, ITransactionReportView
 	{
 		#region Constants
+		enum segmentControls { DateAmount, InputOutput };
 		#endregion
 
 		#region Properties
@@ -51,7 +52,17 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.AccountPage
 
 		public void AddItemsToExistedList(List<Transaction> transactionsList)
 		{
-			//_tableSource.AddItems(transactionsList, TableView);
+			_tableSource.AddItems(transactionsList, TableView);
+		}
+
+		public void SetCompoundDrawableInput(bool? isAsc)
+		{
+			//throw new NotImplementedException();
+		}
+
+		public void SetCompoundDrawableOutput(bool? isAsc)
+		{
+			//throw new NotImplementedException();
 		}
 		#endregion
 
@@ -59,15 +70,17 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.AccountPage
 		public override void AttachEvents()
 		{
 			base.AttachEvents();
-			//SegmentControl.TouchUpInside += SegmentControl_SameButtonClicked;
-			SegmentControl.ValueChanged += SegmentControl_AnotherButtonClicked;
+			InputOutputSegmentControl.TouchUpInside += InputOutputSegmentControl_SameButtonClicked;
+			InputOutputSegmentControl.ValueChanged += InputOutputSegmentControl_AnotherButtonClicked;
+			DateAmountSegmentControl.ValueChanged += DateAmountSegmentControl_AnotherButtonClicked;
 			_tableSource.GetNexPage += TableSource_GetNextPageExecuted;
 		}
 
 		public override void DetachEvents()
 		{
-			//SegmentControl.TouchUpInside -= SegmentControl_SameButtonClicked;
-			SegmentControl.ValueChanged -= SegmentControl_AnotherButtonClicked;
+			InputOutputSegmentControl.TouchUpInside -= InputOutputSegmentControl_SameButtonClicked;
+			InputOutputSegmentControl.ValueChanged -= InputOutputSegmentControl_AnotherButtonClicked;
+			DateAmountSegmentControl.ValueChanged -= DateAmountSegmentControl_AnotherButtonClicked;
 			_tableSource.GetNexPage -= TableSource_GetNextPageExecuted;
 			base.DetachEvents();
 		}
@@ -85,16 +98,61 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.AccountPage
 			TableView.Source = _tableSource;
 		}
 
-		// -------------------- Event handlers --------------------
-		// SegmentControl methods 
-		public void SegmentControl_SameButtonClicked(object sender, EventArgs e)
+		private void SortBy(segmentControls control)
 		{
-
+			switch (control)
+			{
+				case segmentControls.DateAmount:
+					SortByDateAmount();
+					break;
+				case segmentControls.InputOutput:
+					SortByInputOutput();
+					break;
+			}
 		}
 
-		public void SegmentControl_AnotherButtonClicked(object sender, EventArgs e)
+		private void SortByDateAmount()
 		{
-			
+			switch (DateAmountSegmentControl.SelectedSegment)
+			{
+				case 0:
+					Presenter.OnOrderByDateClick();
+					break;
+				case 1:
+					Presenter.OnOrderByAmountClick();
+					break;
+			}
+		}
+
+		private void SortByInputOutput()
+		{
+			switch (InputOutputSegmentControl.SelectedSegment)
+			{
+				case 0:
+					Presenter.OnInputClicked();
+					break;
+				case 1:
+					Presenter.OnOutputClicked();
+					break;
+			}
+		}
+
+		// -------------------- Event handlers --------------------
+		// DateAmountSegmentControl methods 
+		public void DateAmountSegmentControl_AnotherButtonClicked(object sender, EventArgs e)
+		{
+			SortBy(segmentControls.DateAmount);
+		}
+
+		// InputOutputSegmentControl methods 
+		public void InputOutputSegmentControl_SameButtonClicked(object sender, EventArgs e)
+		{
+			SortBy(segmentControls.InputOutput);
+		}
+
+		public void InputOutputSegmentControl_AnotherButtonClicked(object sender, EventArgs e)
+		{
+			SortBy(segmentControls.InputOutput);
 		}
 
 		// TableSource methods 
@@ -117,6 +175,10 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.AccountPage
 	#region UITableViewSource implementation
 	public class ReportsSource : UITableViewSource
 	{
+		private const int tableSection = 0;
+		private const int rowBeforeEnd = 5;
+		private const int numberOfItemsOnOnePage = 50;
+
 		private List<Transaction> _items = new List<Transaction>();
 
 		public event EventHandler GetNexPage;
@@ -128,14 +190,25 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.AccountPage
 
 		public void AddItems(List<Transaction> items, UITableView tableView)
 		{
+			// Add new items to existing list
 			_items.AddRange(items);
 
+			// Create empty list
+			var indexPaths = new List<NSIndexPath>();
+
+			// Add elements to list
 			foreach (Transaction item in items)
 			{
-				var index = items.IndexOf(item);
-				var indexPaths = new NSIndexPath[] { NSIndexPath.FromIndex((uint)index) };
-				tableView.InsertRows(atIndexPaths: indexPaths, withRowAnimation: UITableViewRowAnimation.Fade);
+				if (_items.Contains(item))
+				{
+					var index = _items.IndexOf(item);
+					var indexPath = NSIndexPath.FromRowSection(index, tableSection);
+					indexPaths.Add(indexPath);
+				}
 			}
+
+			// Insert into table
+			tableView.InsertRows(atIndexPaths: indexPaths.ToArray(), withRowAnimation: UITableViewRowAnimation.Fade);
 		}
 
 		public override nint RowsInSection(UITableView tableview, nint section) => _items.Count;
@@ -147,9 +220,9 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.AccountPage
 			var _cell = (TransactionCell)cell;
 			_cell.ConfigureWith(_items[indexPath.Row]);
 
-			if (indexPath.Row == _items.Count - 6 && _items.Count > 11)
+			if (indexPath.Row == _items.Count - rowBeforeEnd && _items.Count >= numberOfItemsOnOnePage)
 			{
-				// trigg presenter give next page.
+				// trigg presenter to give the next page.
 				GetNexPage?.Invoke(this, null);
 			}
 		}

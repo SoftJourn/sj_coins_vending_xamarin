@@ -319,6 +319,14 @@
     <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\Icon-57%402x.png">
       <InProject>false</InProject>
     </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\ArrowDownward.imageset\Contents.json" />
+    <ImageAsset Include="Assets.xcassets\ArrowUpward.imageset\Contents.json" />
+    <ImageAsset Include="Assets.xcassets\ArrowDownward.imageset\ic_arrow_downward.png" />
+    <ImageAsset Include="Assets.xcassets\ArrowDownward.imageset\ic_arrow_downward_2x.png" />
+    <ImageAsset Include="Assets.xcassets\ArrowDownward.imageset\ic_arrow_downward_3x.png" />
+    <ImageAsset Include="Assets.xcassets\ArrowUpward.imageset\ic_arrow_upward.png" />
+    <ImageAsset Include="Assets.xcassets\ArrowUpward.imageset\ic_arrow_upward_2x.png" />
+    <ImageAsset Include="Assets.xcassets\ArrowUpward.imageset\ic_arrow_upward_3x.png" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Assets.xcassets\AccountTabIcon.imageset\" />
@@ -334,6 +342,8 @@
     <Folder Include="Assets.xcassets\vending_logo.imageset\" />
     <Folder Include="Resources\" />
     <Folder Include="General\Helper\" />
+    <Folder Include="Assets.xcassets\ArrowDownward.imageset\" />
+    <Folder Include="Assets.xcassets\ArrowUpward.imageset\" />
   </ItemGroup>
   <ItemGroup>
     <InterfaceDefinition Include="LaunchScreen.storyboard" />
@@ -435,6 +445,7 @@
     <Compile Include="UI\Cells\TransactionCell.designer.cs">
       <DependentUpon>TransactionCell.cs</DependentUpon>
     </Compile>
+    <Compile Include="General\Helper\SegmentControlHelper.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
 </Project>

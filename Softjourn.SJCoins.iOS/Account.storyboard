@@ -22,7 +22,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="45" sectionHeaderHeight="10" sectionFooterHeight="10" translatesAutoresizingMaskIntoConstraints="NO" id="Cqe-1X-AIA">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="45" sectionHeaderHeight="10" sectionFooterHeight="10" translatesAutoresizingMaskIntoConstraints="NO" id="Cqe-1X-AIA">
                                 <rect key="frame" x="-0.5" y="-0.5" width="375" height="667"/>
                                 <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                                 <view key="tableHeaderView" contentMode="scaleToFill" id="0Ku-gc-3BA" userLabel="HeaderView">
@@ -264,13 +264,14 @@
                                 <rect key="frame" x="-0.5" y="-0.5" width="375" height="667"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <view key="tableHeaderView" contentMode="scaleToFill" id="tHQ-xN-Jd2" userLabel="HeaderView">
-                                    <rect key="frame" x="0.0" y="0.0" width="375" height="40"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <subviews>
-                                        <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="AsE-nY-kdV">
-                                            <rect key="frame" x="18" y="7.5" width="339" height="26"/>
+                                        <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="AsE-nY-kdV" customClass="CustomSegmentControl">
+                                            <rect key="frame" x="18" y="8.5" width="339" height="27"/>
                                             <constraints>
-                                                <constraint firstAttribute="height" constant="25" id="Cup-42-A09"/>
+                                                <constraint firstAttribute="height" constant="26" id="Cup-42-A09"/>
+                                                <constraint firstAttribute="width" relation="lessThanOrEqual" priority="999" constant="300" id="jxB-4q-YYm"/>
                                             </constraints>
                                             <segments>
                                                 <segment title="Input"/>
@@ -286,12 +287,12 @@
                                     </constraints>
                                 </view>
                                 <view key="tableFooterView" contentMode="scaleToFill" id="seh-5S-p8O">
-                                    <rect key="frame" x="0.0" y="128" width="375" height="0.0"/>
+                                    <rect key="frame" x="0.0" y="132" width="375" height="0.0"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 </view>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="TransactionCell" rowHeight="60" id="Yds-ky-5aJ" customClass="TransactionCell">
-                                        <rect key="frame" x="0.0" y="68" width="375" height="60"/>
+                                        <rect key="frame" x="0.0" y="72" width="375" height="60"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Yds-ky-5aJ" id="OLg-gt-DVM">
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="59"/>
@@ -380,16 +381,23 @@
                     </view>
                     <navigationItem key="navigationItem" id="QD9-C2-W7s">
                         <nil key="title"/>
-                        <button key="titleView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="AjP-Q4-0rL">
-                            <rect key="frame" x="113" y="7" width="150" height="30"/>
+                        <segmentedControl key="titleView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="bar" selectedSegmentIndex="0" id="pIY-6n-CYU" customClass="CustomSegmentControl">
+                            <rect key="frame" x="98" y="9" width="180" height="27"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <state key="normal" title="Filter"/>
-                        </button>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="26" id="eQa-lu-6ss"/>
+                                <constraint firstAttribute="width" constant="180" id="yoK-fa-XWS"/>
+                            </constraints>
+                            <segments>
+                                <segment title="Date"/>
+                                <segment title="Amount"/>
+                            </segments>
+                        </segmentedControl>
                     </navigationItem>
                     <connections>
-                        <outlet property="FilterButton" destination="AjP-Q4-0rL" id="plF-wt-wJ4"/>
+                        <outlet property="DateAmountSegmentControl" destination="pIY-6n-CYU" id="Xim-z8-QFt"/>
+                        <outlet property="InputOutputSegmentControl" destination="AsE-nY-kdV" id="TgV-bh-4gW"/>
                         <outlet property="NoItemsLabel" destination="WNm-fx-c8b" id="ref-1U-Wpc"/>
-                        <outlet property="SegmentControl" destination="AsE-nY-kdV" id="2ZL-DM-Gw4"/>
                         <outlet property="TableView" destination="4dh-4y-bbU" id="WM9-zv-qwF"/>
                     </connections>
                 </viewController>

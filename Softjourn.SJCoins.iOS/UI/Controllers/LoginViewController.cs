@@ -18,7 +18,7 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers
 		#endregion
 
 		#region Constructor
-		public LoginViewController(IntPtr handle) : base(handle)
+		public LoginViewController(IntPtr handle) : base(handle) 
 		{
 		}
 		#endregion
@@ -30,13 +30,6 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers
 
 			LoginTextField.Delegate = new TextDieldDelegate(this);
 			PasswordTextField.Delegate = new TextDieldDelegate(this);
-
-			// Add events
-			BackButton.TouchUpInside += (sender, e) => { Presenter.ToWelcomePage(); };
-			LoginButton.TouchUpInside += (sender, e) => { Presenter.Login(LoginTextField.Text, PasswordTextField.Text); };
-
-			//LoginTextField.ShouldReturn += (sender, e) => { Presenter.ToWelcomePage(); };
-
 		}
 
 		public override void ViewWillAppear(bool animated)
@@ -56,13 +49,11 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers
 		partial void LoginTextFieldDidChange(UITextField sender)
 		{
 			LoginErrorLabel.Hidden = true;
-			Presenter.IsUserNameValid(LoginTextField.Text);
 		}
 
 		partial void PasswordTextFieldDidChange(UITextField sender)
 		{
 			PasswordErrorLabel.Hidden = true;
-			Presenter.IsPasswordValid(PasswordTextField.Text);
 		}
 		#endregion
 
@@ -88,23 +79,38 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers
 		#endregion
 
 		#region BaseViewController -> IBaseView implementation
-		//public override void SetUIAppearance()
-		//{
-		//}
-
 		public override void AttachEvents()
 		{
+			base.AttachEvents();
+			BackButton.TouchUpInside += BackButtonClicked;
+			LoginButton.TouchUpInside += LoginButtonClicked;
 		}
 
 		public override void DetachEvents()
 		{
+			BackButton.TouchUpInside -= BackButtonClicked;
+			LoginButton.TouchUpInside -= LoginButtonClicked;
+			base.DetachEvents();
+		}
+		#endregion
+
+		#region Private methods
+		// -------------------- Event handlers --------------------
+		private void BackButtonClicked(object sender, EventArgs e)
+		{
+			Presenter.ToWelcomePage();
+		}
+
+		private void LoginButtonClicked(object sender, EventArgs e)
+		{
+			Presenter.Login(LoginTextField.Text, PasswordTextField.Text);
 		}
 		#endregion
 
 		#region UITextFieldDelegate implementation
 		private class TextDieldDelegate : UITextFieldDelegate
 		{
-			private LoginViewController parent;
+			private LoginViewController parent; // TODO need to be weak
 
 			public TextDieldDelegate(LoginViewController parent)
 			{

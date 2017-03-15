@@ -1,6 +1,7 @@
 ﻿using System;
 
 using Foundation;
+using Softjourn.SJCoins.Core.API.Model;
 using UIKit;
 
 namespace Softjourn.SJCoins.iOS
@@ -20,9 +21,9 @@ namespace Softjourn.SJCoins.iOS
 			// Note: this .ctor should not contain any initialization logic.
 		}
 
-		public void ConfigureWith(string item)
+		public void ConfigureWith(AccountOption item)
 		{
-			TitleLabel.Text = item;
+			TitleLabel.Text = item.OptionName;
 		}
 	}
 }

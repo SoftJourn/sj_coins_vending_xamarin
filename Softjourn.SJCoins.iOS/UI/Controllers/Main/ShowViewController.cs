@@ -114,6 +114,21 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.Main
 			_tableSource.SetItems(products);
 			TableView.ReloadData();
 		}
+
+		public void SetCompoundDrawableName(bool? isAsc)
+		{
+			//throw new NotImplementedException();
+		}
+
+		public void SetCompoundDrawablePrice(bool? isAsc)
+		{
+			//throw new NotImplementedException();
+		}
+
+		public void LastUnavailableFavoriteRemoved()
+		{
+			
+		}
 		#endregion
 
 		#region Private methods
