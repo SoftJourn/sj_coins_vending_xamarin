@@ -7,6 +7,8 @@ using Softjourn.SJCoins.Core.UI.ViewInterfaces;
 using Softjourn.SJCoins.iOS.UI.Cells;
 using UIKit;
 using CoreGraphics;
+using Softjourn.SJCoins.iOS.General.Helper;
+using Softjourn.SJCoins.iOS.General.Constants;
 
 namespace Softjourn.SJCoins.iOS.UI.Controllers.AccountPage
 {
@@ -14,11 +16,17 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.AccountPage
 	public partial class ReportsViewController : BaseViewController<TransactionReportPresenter>, ITransactionReportView
 	{
 		#region Constants
+		private const string InputTitle = "Input";
+		private const string OutputTitle = "Output";
+		private const int InputSegment = 0;
+		private const int OutputSegment = 1;
+
 		enum segmentControls { DateAmount, InputOutput };
 		#endregion
 
 		#region Properties
 		private ReportsSource _tableSource;
+		private SegmentControlHelper _segmentControlHelper;
 		#endregion
 
 		#region Constructor
@@ -33,6 +41,7 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.AccountPage
 			base.ViewDidLoad();
 			ConfigurePage();
 			ConfigureTableView();
+			ConfigureSegmentControl();
 			Presenter.OnStartLoadingPage();
 		}
 		#endregion
@@ -57,12 +66,22 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.AccountPage
 
 		public void SetCompoundDrawableInput(bool? isAsc)
 		{
-			//throw new NotImplementedException();
+			if (isAsc == true)
+				ConfigureSegment(InputSegment, InputTitle, ImageConstants.ArrowDownward);
+			else if (isAsc == false)
+				ConfigureSegment(InputSegment, InputTitle, ImageConstants.ArrowUpward);
+			else 
+				ConfigureSegment(InputSegment, InputTitle, null);
 		}
 
 		public void SetCompoundDrawableOutput(bool? isAsc)
 		{
-			//throw new NotImplementedException();
+			if (isAsc == true)
+				ConfigureSegment(OutputSegment, OutputTitle, ImageConstants.ArrowDownward);
+			else if (isAsc == false)
+				ConfigureSegment(OutputSegment, OutputTitle, ImageConstants.ArrowUpward);
+			else
+				ConfigureSegment(OutputSegment, OutputTitle, null);
 		}
 		#endregion
 
@@ -96,6 +115,28 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.AccountPage
 		{
 			_tableSource = new ReportsSource();
 			TableView.Source = _tableSource;
+		}
+
+		private void ConfigureSegmentControl()
+		{
+			_segmentControlHelper = new SegmentControlHelper();
+			// Configure 0 segment
+			ConfigureSegment(InputSegment, InputTitle, ImageConstants.ArrowUpward);
+		}
+
+		private void ConfigureSegment(int segment, string title, string imageName = null)
+		{
+			// Configure segment depending on whether the picture is present or not 
+			if (imageName == null)
+			{
+				InputOutputSegmentControl.SetTitle(title, segment);
+			}
+			else
+			{
+				var inputImage = UIImage.FromBundle(imageName);
+				var mergedImage = _segmentControlHelper.ImageFromImageAndText(inputImage, title, UIColor.Black);
+				InputOutputSegmentControl.SetImage(mergedImage, segment);
+			}
 		}
 
 		private void SortBy(segmentControls control)

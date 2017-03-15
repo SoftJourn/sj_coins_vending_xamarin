@@ -7,6 +7,8 @@ namespace Softjourn.SJCoins.iOS.General.Constants
 		public const string Placeholder = "Placeholder.png";
 		public const string FavoriteChecked = "FavoriteChecked.png";
 		public const string FavoriteUnchecked = "FavoriteUnchecked.png";
+		public const string ArrowDownward = "ArrowDownward.png";
+		public const string ArrowUpward = "ArrowUpward.png";
 		#endregion
 	}
 }
