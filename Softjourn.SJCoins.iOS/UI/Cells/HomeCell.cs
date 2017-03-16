@@ -75,12 +75,11 @@ namespace Softjourn.SJCoins.iOS
 				previewController.BuyActionExecuted -= OnBuyActionClicked;
 				previewController.FavoriteActionExecuted -= OnFavoriteActionClicked;
 			}
-			base.PrepareForReuse();
-		}
 
-		public override UICollectionViewLayoutAttributes PreferredLayoutAttributesFittingAttributes(UICollectionViewLayoutAttributes layoutAttributes)
-		{
-			return layoutAttributes;
+			Layer.ShouldRasterize = true;
+			Layer.RasterizationScale = UIScreen.MainScreen.Scale;
+
+			base.PrepareForReuse();
 		}
 
 		// -------------------- Event handlers --------------------

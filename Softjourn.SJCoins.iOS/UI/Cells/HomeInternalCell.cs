@@ -40,12 +40,11 @@ namespace Softjourn.SJCoins.iOS
 			NameLabel.Text = "";
 			PriceLabel.Text = "";
 			Logo.Image = null;
-			base.PrepareForReuse();
-		}
 
-		public override UICollectionViewLayoutAttributes PreferredLayoutAttributesFittingAttributes(UICollectionViewLayoutAttributes layoutAttributes)
-		{
-			return layoutAttributes;
+			Layer.ShouldRasterize = true;
+			Layer.RasterizationScale = UIScreen.MainScreen.Scale;
+
+			base.PrepareForReuse();
 		}
 	}
 }
