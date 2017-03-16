@@ -76,6 +76,8 @@ namespace Softjourn.SJCoins.iOS
 				previewController.FavoriteActionExecuted -= OnFavoriteActionClicked;
 			}
 
+			ShowAllButton.TouchUpInside -= OnSeeAllClicked;
+
 			Layer.ShouldRasterize = true;
 			Layer.RasterizationScale = UIScreen.MainScreen.Scale;
 

@@ -44,22 +44,24 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers
 		{
 			base.ViewWillAppear(animated);
 			ConfigurePageWith(currentProduct);
+		}
+		#endregion
+
+		#region BaseViewController 
+		public override void AttachEvents()
+		{
+			base.AttachEvents();
 			// Attach 
 			FavoriteButton.TouchUpInside += FavoriteButtonClickHandler;
 			BuyButton.TouchUpInside += BuyButtonClickHandler;
 		}
 
-		public override void ViewDidAppear(bool animated)
-		{
-			base.ViewDidAppear(animated);
-		}
-
-		public override void ViewWillDisappear(bool animated)
+		public override void DetachEvents()
 		{
 			// Detach
 			FavoriteButton.TouchUpInside -= FavoriteButtonClickHandler;
 			BuyButton.TouchUpInside -= BuyButtonClickHandler;
-			base.ViewWillDisappear(animated);
+			base.DetachEvents();
 		}
 		#endregion
 
@@ -108,9 +110,6 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers
 			Presenter.OnBuyProductClick(currentProduct);
 		}
 		// -------------------------------------------------------- 
-		#endregion
-
-		#region BaseViewController -> IBaseView implementation
 		#endregion
 	}
 }

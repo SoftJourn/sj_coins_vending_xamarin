@@ -43,7 +43,6 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.Main
 		public override void ViewDidLoad()
 		{
 			base.ViewDidLoad();
-			// Configure table view with source and events.
 			ConfigureSearch();
 			ConfigureTableView();
 		}
@@ -58,12 +57,6 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.Main
 			_tableSource.SetItems(filteredItems);
 			TableView.ReloadData();
 		}
-
-		public override void ViewDidDisappear(bool animated)
-		{
-			base.ViewDidDisappear(animated);
-			Presenter = null;
-		}
 		#endregion
 
 		#region BaseViewController
@@ -75,7 +68,7 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.Main
 			_tableSource.ItemSelected += TableSource_ItemSelected;
 			_tableSource.FavoriteClicked += TableSource_FavoriteClicked;
 			SearchButton.Clicked += SearchButtonClickHandler;
-			searchResultsUpdator.UpdateSearchResults += Search;
+			searchResultsUpdator.UpdateSearchResults += SearchResultsUpdator_Search;
 		}
 
 		public override void DetachEvents()
@@ -85,7 +78,7 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.Main
 			_tableSource.ItemSelected -= TableSource_ItemSelected;
 			_tableSource.FavoriteClicked -= TableSource_FavoriteClicked;
 			SearchButton.Clicked -= SearchButtonClickHandler;
-			searchResultsUpdator.UpdateSearchResults -= Search;
+			searchResultsUpdator.UpdateSearchResults -= SearchResultsUpdator_Search;
 			base.DetachEvents();
 		}
 		#endregion
@@ -218,6 +211,11 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.Main
 					break;
 			}
 		}
+
+		private void SearchResultsUpdator_Search(object sender, string searchString)
+		{
+			Search(searchString);
+		}
 		// -------------------------------------------------------- 
 		#endregion
 
@@ -271,11 +269,11 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.Main
 	#region UISearchResultsUpdating implementation
 	public class SearchResultsUpdator : UISearchResultsUpdating
 	{
-		public event Action<string> UpdateSearchResults = delegate { };
+		public event EventHandler<string> UpdateSearchResults;
 
 		public override void UpdateSearchResultsForSearchController(UISearchController searchController)
 		{
-			UpdateSearchResults?.Invoke(searchController.SearchBar.Text);
+			UpdateSearchResults?.Invoke(this, searchController.SearchBar.Text);
 		}
 	}
 	#endregion

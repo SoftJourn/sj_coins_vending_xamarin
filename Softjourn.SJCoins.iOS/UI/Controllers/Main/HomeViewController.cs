@@ -41,21 +41,22 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.Main
 		public override void ViewWillAppear(bool animated)
 		{
 			base.ViewWillAppear(animated);
-			// Attach
-			AccountButton.Clicked += OnAccountClicked;
+
 			RefreshFavoritesCell();
 		}
+		#endregion
 
-		public override void ViewDidAppear(bool animated)
+		#region BaseViewController
+		public override void AttachEvents()
 		{
-			base.ViewDidAppear(animated);
+			base.AttachEvents();
+			AccountButton.Clicked += OnAccountClicked;
 		}
 
-		public override void ViewWillDisappear(bool animated)
+		public override void DetachEvents()
 		{
-			// Detach
 			AccountButton.Clicked -= OnAccountClicked;
-			base.ViewWillDisappear(animated);
+			base.DetachEvents();
 		}
 		#endregion
 
@@ -92,9 +93,6 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.Main
 		{
 			
 		}
-		#endregion
-
-		#region BaseViewController -> IBaseView implementation
 		#endregion
 
 		#region Private methods
