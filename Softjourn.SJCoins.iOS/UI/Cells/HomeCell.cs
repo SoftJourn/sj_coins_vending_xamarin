@@ -78,6 +78,11 @@ namespace Softjourn.SJCoins.iOS
 			base.PrepareForReuse();
 		}
 
+		public override UICollectionViewLayoutAttributes PreferredLayoutAttributesFittingAttributes(UICollectionViewLayoutAttributes layoutAttributes)
+		{
+			return layoutAttributes;
+		}
+
 		// -------------------- Event handlers --------------------
 		public void OnSeeAllClicked(object sender, EventArgs e)
 		{

@@ -43,8 +43,6 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.Main
 		public override void ViewDidLoad()
 		{
 			base.ViewDidLoad();
-			// Throw to presenter category name what needs to be displayed and take products.
-			filteredItems = Presenter.GetProductList(categoryName);
 			// Configure table view with source and events.
 			ConfigureSearch();
 			ConfigureTableView();
@@ -54,6 +52,11 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.Main
 		{
 			base.ViewWillAppear(animated);
 			Title = categoryName;
+
+			// Throw to presenter category name what needs to be displayed and take products.
+			filteredItems = Presenter.GetProductList(categoryName);
+			_tableSource.SetItems(filteredItems);
+			TableView.ReloadData();
 		}
 
 		public override void ViewDidDisappear(bool animated)
@@ -134,7 +137,7 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.Main
 		#region Private methods
 		private void ConfigureTableView()
 		{
-			_tableSource = new ShowAllSource(filteredItems);
+			_tableSource = new ShowAllSource();
 
 			TableView.Source = _tableSource;
 			TableView.RegisterNibForCellReuse(ProductCell.Nib, ProductCell.Key);
@@ -231,15 +234,10 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.Main
 	#region UITableViewSource implementation
 	public class ShowAllSource : UITableViewSource
 	{
-		private List<Product> items;
+		private List<Product> items = new List<Product>();
 
 		public event EventHandler<Product> ItemSelected;
 		public event EventHandler<ProductCell> FavoriteClicked;
-
-		public ShowAllSource(List<Product> items)
-		{
-			this.items = items;
-		}
 
 		public void SetItems(List<Product> items)
 		{

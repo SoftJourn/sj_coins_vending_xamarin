@@ -40,6 +40,7 @@
                                             </segments>
                                         </segmentedControl>
                                     </subviews>
+                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     <constraints>
                                         <constraint firstAttribute="trailingMargin" secondItem="buZ-Oi-KDG" secondAttribute="trailing" constant="10" id="EpV-Xo-eCZ"/>
                                         <constraint firstItem="buZ-Oi-KDG" firstAttribute="centerY" secondItem="v8N-04-Eeh" secondAttribute="centerY" id="XQ3-px-FkV"/>
@@ -59,7 +60,9 @@
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="bMg-6R-VDt" id="rag-c4-p6H">
                                             <rect key="frame" x="0.0" y="0.0" width="376" height="61"/>
                                             <autoresizingMask key="autoresizingMask"/>
+                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         </tableViewCellContentView>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
@@ -188,7 +191,7 @@
         <scene sceneID="vus-eu-tpe">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="UxB-iK-pO6" userLabel="NavigationShowAll" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="All Items" image="E8CAA67B-2957-4361-999D-1D6F16945602" id="eof-dA-PO7"/>
+                    <tabBarItem key="tabBarItem" title="All Items" image="1C0E1E30-20F7-42C1-BA42-A06B23068FF8" id="eof-dA-PO7"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="iHX-3p-5pT">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
@@ -305,7 +308,7 @@
                         <subviews>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="Qzc-Wj-K1C">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="0.0" minimumInteritemSpacing="0.0" id="jMC-AH-MCp">
                                     <size key="itemSize" width="361" height="180"/>
                                     <size key="headerReferenceSize" width="0.0" height="0.0"/>
@@ -356,10 +359,6 @@
                                                                             <constraint firstAttribute="width" constant="80" id="8Qc-Dv-WWd"/>
                                                                             <constraint firstAttribute="height" constant="80" id="wx1-hM-IU4"/>
                                                                         </constraints>
-                                                                        <userDefinedRuntimeAttributes>
-                                                                            <userDefinedRuntimeAttribute type="string" keyPath="layer.cornerRadius" value="16"/>
-                                                                            <userDefinedRuntimeAttribute type="string" keyPath="layer.borderWidth" value="0.1"/>
-                                                                        </userDefinedRuntimeAttributes>
                                                                     </imageView>
                                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1000 Coins" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1AS-Xo-HJp">
                                                                         <rect key="frame" x="5" y="107.5" width="80" height="13.5"/>
@@ -378,7 +377,7 @@
                                                                     </label>
                                                                 </subviews>
                                                             </view>
-                                                            <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                             <constraints>
                                                                 <constraint firstItem="7gN-o1-2ZU" firstAttribute="centerX" secondItem="uQ8-pG-WTx" secondAttribute="centerX" id="05a-FU-ujd"/>
                                                                 <constraint firstItem="1AS-Xo-HJp" firstAttribute="top" secondItem="TrZ-9t-Zff" secondAttribute="bottom" constant="3" id="Cej-yO-kde"/>
@@ -389,12 +388,6 @@
                                                                 <constraint firstItem="1AS-Xo-HJp" firstAttribute="leading" secondItem="uQ8-pG-WTx" secondAttribute="leadingMargin" constant="-3" id="mbC-CM-PPo"/>
                                                                 <constraint firstAttribute="trailingMargin" secondItem="1AS-Xo-HJp" secondAttribute="trailing" constant="-3" id="s1p-Yf-VYD"/>
                                                             </constraints>
-                                                            <userDefinedRuntimeAttributes>
-                                                                <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                                                                    <integer key="value" value="5"/>
-                                                                </userDefinedRuntimeAttribute>
-                                                                <userDefinedRuntimeAttribute type="string" keyPath="layer.borderWidth" value="0.1"/>
-                                                            </userDefinedRuntimeAttributes>
                                                             <connections>
                                                                 <outlet property="Logo" destination="7gN-o1-2ZU" id="P3z-xa-iej"/>
                                                                 <outlet property="NameLabel" destination="TrZ-9t-Zff" id="rHT-Bs-lgt"/>
@@ -414,6 +407,7 @@
                                                 </button>
                                             </subviews>
                                         </view>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <constraints>
                                             <constraint firstItem="c2N-Ft-Gdn" firstAttribute="leading" secondItem="5Ln-Y8-8B7" secondAttribute="leading" id="8jt-sG-A3Q"/>
                                             <constraint firstItem="c2N-Ft-Gdn" firstAttribute="top" secondItem="OOP-oR-jwc" secondAttribute="bottom" constant="-2" id="Bqz-cb-Cto"/>
@@ -470,7 +464,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                         </subviews>
-                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="Qzc-Wj-K1C" firstAttribute="width" secondItem="3pT-Ss-wWX" secondAttribute="width" id="9Xc-DD-70t"/>
                             <constraint firstItem="Qzc-Wj-K1C" firstAttribute="centerX" secondItem="3pT-Ss-wWX" secondAttribute="centerX" id="B3M-wk-6Lp"/>
@@ -521,7 +515,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="E8CAA67B-2957-4361-999D-1D6F16945602" width="16" height="16">
+        <image name="1C0E1E30-20F7-42C1-BA42-A06B23068FF8" width="16" height="16">
             <mutableData key="keyedArchiveRepresentation">
 YnBsaXN0MDDUAQIDBAUGODlYJHZlcnNpb25YJG9iamVjdHNZJGFyY2hpdmVyVCR0b3ASAAGGoKwHCBEW
 GxwiIyksMjVVJG51bGzUCQoLDA0ODxBWJGNsYXNzXE5TSW1hZ2VGbGFnc1ZOU1JlcHNXTlNDb2xvcoAL
