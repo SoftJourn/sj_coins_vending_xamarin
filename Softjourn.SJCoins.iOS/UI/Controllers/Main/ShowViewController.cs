@@ -7,11 +7,11 @@ using Softjourn.SJCoins.Core.UI.ViewInterfaces;
 using Softjourn.SJCoins.iOS.General.Constants;
 using Softjourn.SJCoins.iOS.UI.Cells;
 using UIKit;
-
+     
 namespace Softjourn.SJCoins.iOS.UI.Controllers.Main
 {
 	[Register("ShowViewController")]
-	public partial class ShowViewController : BaseViewController<ShowAllPresenter>, IShowAllView
+	public partial class ShowViewController : BaseViewController<ShowAllPresenter>, IShowAllView, IUISearchControllerDelegate
 	{
 		#region Properties
 		private string categoryName { get; set; }
@@ -54,6 +54,15 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.Main
 
 			// Throw to presenter category name what needs to be displayed and take products.
 			filteredItems = Presenter.GetProductList(categoryName);
+			_tableSource.SetItems(filteredItems);
+			TableView.ReloadData();
+
+			SegmentControl.Alpha = 1.0f;
+		}
+
+		[Export("willDismissSearchController:")]
+		public void WillDismissSearchController(UISearchController searchController)
+		{
 			_tableSource.SetItems(filteredItems);
 			TableView.ReloadData();
 		}
@@ -128,14 +137,6 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.Main
 		#endregion
 
 		#region Private methods
-		private void ConfigureTableView()
-		{
-			_tableSource = new ShowAllSource();
-
-			TableView.Source = _tableSource;
-			TableView.RegisterNibForCellReuse(ProductCell.Nib, ProductCell.Key);
-		}
-
 		private void ConfigureSearch()
 		{
 			searchData = new List<Product>();
@@ -148,19 +149,34 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.Main
 			};
 		}
 
-		public void Search(string searchString)
+		private void ConfigureTableView()
+		{
+			_tableSource = new ShowAllSource();
+
+			TableView.Source = _tableSource;
+			TableView.RegisterNibForCellReuse(ProductCell.Nib, ProductCell.Key);
+		}
+
+		private void Search(string searchString)
 		{
 			var search = searchString.Trim();
 			searchData.Clear();
 
 			if (searchController.SearchBar.Text != "")
-				searchData = filteredItems.FindAll(item => item.Name.Contains(search));
-				
-			if (searchData.Count > 0)
+			{
+				searchData = filteredItems.FindAll(item => item.Name.ToLower().Contains(search.ToLower()));
 				_tableSource.SetItems(searchData);
+			}
 			else
+			{
 				_tableSource.SetItems(filteredItems);
-			
+			}
+
+			if (searchController.Active)
+				UIView.Animate(0.5, 0, UIViewAnimationOptions.CurveLinear, () => { SegmentControl.Alpha = 0.0f; }, null);
+			else
+				UIView.Animate(0.5, 0, UIViewAnimationOptions.CurveLinear, () => { SegmentControl.Alpha = 1.0f; }, null);
+
 			TableView.ReloadData();
 		}
 
@@ -169,6 +185,8 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.Main
 		{
 			// Trigg presenter that user click on some product to see details
 			Presenter.OnProductDetailsClick(product.Id);
+			if (searchController.Active)
+				searchController.DismissViewController(true, null);
 		}
 
 		public void TableSource_FavoriteClicked(object sender, ProductCell cell)
