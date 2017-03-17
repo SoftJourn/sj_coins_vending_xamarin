@@ -319,42 +319,114 @@
     <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\Icon-57%402x.png">
       <InProject>false</InProject>
     </ImageAsset>
-    <ImageAsset Include="Assets.xcassets\ArrowDownward.imageset\Contents.json" />
-    <ImageAsset Include="Assets.xcassets\ArrowUpward.imageset\Contents.json" />
-    <ImageAsset Include="Assets.xcassets\ArrowDownward.imageset\ic_arrow_downward.png" />
-    <ImageAsset Include="Assets.xcassets\ArrowDownward.imageset\ic_arrow_downward_2x.png" />
-    <ImageAsset Include="Assets.xcassets\ArrowDownward.imageset\ic_arrow_downward_3x.png" />
-    <ImageAsset Include="Assets.xcassets\ArrowUpward.imageset\ic_arrow_upward.png" />
-    <ImageAsset Include="Assets.xcassets\ArrowUpward.imageset\ic_arrow_upward_2x.png" />
-    <ImageAsset Include="Assets.xcassets\ArrowUpward.imageset\ic_arrow_upward_3x.png" />
-    <ImageAsset Include="Assets.xcassets\ic_purchase.imageset\Contents.json" />
-    <ImageAsset Include="Assets.xcassets\ic_reports.imageset\Contents.json" />
-    <ImageAsset Include="Assets.xcassets\ic_privacy_and_terms.imageset\Contents.json" />
-    <ImageAsset Include="Assets.xcassets\ic_help.imageset\Contents.json" />
-    <ImageAsset Include="Assets.xcassets\ic_share_funs.imageset\Contents.json" />
-    <ImageAsset Include="Assets.xcassets\ic_select_machine.imageset\Contents.json" />
-    <ImageAsset Include="Assets.xcassets\ic_logout.imageset\Contents.json" />
-    <ImageAsset Include="Assets.xcassets\ic_help.imageset\ic_help.png" />
-    <ImageAsset Include="Assets.xcassets\ic_help.imageset\ic_help%402x.png" />
-    <ImageAsset Include="Assets.xcassets\ic_logout.imageset\ic_logout.png" />
-    <ImageAsset Include="Assets.xcassets\ic_logout.imageset\ic_logout%402x.png" />
-    <ImageAsset Include="Assets.xcassets\ic_logout.imageset\ic_logout%403x.png" />
-    <ImageAsset Include="Assets.xcassets\ic_select_machine.imageset\ic_select_machine.png" />
-    <ImageAsset Include="Assets.xcassets\ic_select_machine.imageset\ic_select_machine%402x.png" />
-    <ImageAsset Include="Assets.xcassets\ic_select_machine.imageset\ic_select_machine%403x.png" />
-    <ImageAsset Include="Assets.xcassets\ic_share_funs.imageset\ic_share_funs.png" />
-    <ImageAsset Include="Assets.xcassets\ic_share_funs.imageset\ic_share_funs%402x.png" />
-    <ImageAsset Include="Assets.xcassets\ic_share_funs.imageset\ic_share_funs%403x.png" />
-    <ImageAsset Include="Assets.xcassets\ic_help.imageset\ic_help%403x.png" />
-    <ImageAsset Include="Assets.xcassets\ic_privacy_and_terms.imageset\ic_privacy_and_terms.png" />
-    <ImageAsset Include="Assets.xcassets\ic_privacy_and_terms.imageset\ic_privacy_and_terms%402x.png" />
-    <ImageAsset Include="Assets.xcassets\ic_privacy_and_terms.imageset\ic_privacy_and_terms%403x.png" />
-    <ImageAsset Include="Assets.xcassets\ic_reports.imageset\ic_reports.png" />
-    <ImageAsset Include="Assets.xcassets\ic_reports.imageset\ic_reports%402x.png" />
-    <ImageAsset Include="Assets.xcassets\ic_reports.imageset\ic_reports%403x.png" />
-    <ImageAsset Include="Assets.xcassets\ic_purchase.imageset\ic_purchase.png" />
-    <ImageAsset Include="Assets.xcassets\ic_purchase.imageset\ic_purchase%402x.png" />
-    <ImageAsset Include="Assets.xcassets\ic_purchase.imageset\ic_purchase%403x.png" />
+    <ImageAsset Include="Assets.xcassets\ArrowDownward.imageset\Contents.json">
+      <InProject>false</InProject>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\ArrowUpward.imageset\Contents.json">
+      <InProject>false</InProject>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\ArrowDownward.imageset\ic_arrow_downward.png">
+      <InProject>false</InProject>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\ArrowDownward.imageset\ic_arrow_downward_2x.png">
+      <InProject>false</InProject>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\ArrowDownward.imageset\ic_arrow_downward_3x.png">
+      <InProject>false</InProject>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\ArrowUpward.imageset\ic_arrow_upward.png">
+      <InProject>false</InProject>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\ArrowUpward.imageset\ic_arrow_upward_2x.png">
+      <InProject>false</InProject>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\ArrowUpward.imageset\ic_arrow_upward_3x.png">
+      <InProject>false</InProject>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\ic_purchase.imageset\Contents.json">
+      <InProject>false</InProject>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\ic_reports.imageset\Contents.json">
+      <InProject>false</InProject>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\ic_privacy_and_terms.imageset\Contents.json">
+      <InProject>false</InProject>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\ic_help.imageset\Contents.json">
+      <InProject>false</InProject>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\ic_share_funs.imageset\Contents.json">
+      <InProject>false</InProject>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\ic_select_machine.imageset\Contents.json">
+      <InProject>false</InProject>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\ic_logout.imageset\Contents.json">
+      <InProject>false</InProject>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\ic_help.imageset\ic_help.png">
+      <InProject>false</InProject>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\ic_help.imageset\ic_help%402x.png">
+      <InProject>false</InProject>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\ic_logout.imageset\ic_logout.png">
+      <InProject>false</InProject>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\ic_logout.imageset\ic_logout%402x.png">
+      <InProject>false</InProject>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\ic_logout.imageset\ic_logout%403x.png">
+      <InProject>false</InProject>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\ic_select_machine.imageset\ic_select_machine.png">
+      <InProject>false</InProject>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\ic_select_machine.imageset\ic_select_machine%402x.png">
+      <InProject>false</InProject>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\ic_select_machine.imageset\ic_select_machine%403x.png">
+      <InProject>false</InProject>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\ic_share_funs.imageset\ic_share_funs.png">
+      <InProject>false</InProject>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\ic_share_funs.imageset\ic_share_funs%402x.png">
+      <InProject>false</InProject>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\ic_share_funs.imageset\ic_share_funs%403x.png">
+      <InProject>false</InProject>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\ic_help.imageset\ic_help%403x.png">
+      <InProject>false</InProject>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\ic_privacy_and_terms.imageset\ic_privacy_and_terms.png">
+      <InProject>false</InProject>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\ic_privacy_and_terms.imageset\ic_privacy_and_terms%402x.png">
+      <InProject>false</InProject>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\ic_privacy_and_terms.imageset\ic_privacy_and_terms%403x.png">
+      <InProject>false</InProject>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\ic_reports.imageset\ic_reports.png">
+      <InProject>false</InProject>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\ic_reports.imageset\ic_reports%402x.png">
+      <InProject>false</InProject>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\ic_reports.imageset\ic_reports%403x.png">
+      <InProject>false</InProject>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\ic_purchase.imageset\ic_purchase.png">
+      <InProject>false</InProject>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\ic_purchase.imageset\ic_purchase%402x.png">
+      <InProject>false</InProject>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\ic_purchase.imageset\ic_purchase%403x.png">
+      <InProject>false</InProject>
+    </ImageAsset>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Assets.xcassets\AccountTabIcon.imageset\" />
