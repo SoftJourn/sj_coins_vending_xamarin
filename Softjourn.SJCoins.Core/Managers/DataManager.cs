@@ -89,6 +89,19 @@ namespace Softjourn.SJCoins.Core.Managers
 			}
         }
 
+        public Product ChangeProductsFavoriteStatus(Product product)
+        {
+            if (product.IsProductFavorite)
+            {
+                RemoveProductFromFavorite(product);
+            }
+            else
+            {
+                AddProductToFavorite(product);
+            }
+            return GetProductFromListById(product.Id);
+        }
+
         public Product GetProductFromListById(int productId)
         {
             var categoriesList = ProductList;

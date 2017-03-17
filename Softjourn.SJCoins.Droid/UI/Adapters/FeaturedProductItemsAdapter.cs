@@ -208,6 +208,7 @@ namespace Softjourn.SJCoins.Droid.UI.Adapters
                 throw new Exception("Holder is null");
             }
             var selectedIndex = holder.AdapterPosition;
+            if (holder.AdapterPosition < 0) return;
             var handler = ProductSelected;
             if (handler == null) return;
             var selectedProduct = ListProducts[selectedIndex];
@@ -240,6 +241,7 @@ namespace Softjourn.SJCoins.Droid.UI.Adapters
                     ListProducts.RemoveAt(holder.AdapterPosition);
                     NotifyItemRemoved(holder.AdapterPosition);
                     NotifyItemRangeChanged(holder.AdapterPosition, ItemCount + 1);
+                    holder.AddFavorite.Enabled = false;
                     if (ItemCount < 1)
                     {
                         LastFavoriteRemoved?.Invoke(this, EventArgs.Empty);

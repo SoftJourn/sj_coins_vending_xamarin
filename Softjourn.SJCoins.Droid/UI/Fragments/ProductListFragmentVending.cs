@@ -13,6 +13,7 @@ namespace Softjourn.SJCoins.Droid.UI.Fragments
     public class ProductListFragmentVending : Fragment
     {
         public string ProductsCategory;
+
         private const string TagProductsCategory = "PRODUCTS CATEGORY";
 
         private FeaturedProductItemsAdapter _productAdapter;

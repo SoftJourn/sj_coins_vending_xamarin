@@ -24,43 +24,48 @@ namespace Softjourn.SJCoins.Core.UI.Presenters
 		{
 			if (NetworkUtils.IsConnected)
 			{
-				try
-				{
-					if (product.IsProductFavorite)
-					{
-						// Execute remove favorite call
-						await RestApiServise.RemoveProductFromFavorites(product.Id.ToString());
-						// Remove favorite locally
-						DataManager.RemoveProductFromFavorite(product);
-                        // Trigg view that process success 
-					    if (DataManager.GetProductFromListById(product.Id) != null)
-					    {
-					        View.FavoriteChanged(DataManager.GetProductFromListById(product.Id).IsProductFavorite);
-					    }
-					    else
-					    {
-					        View.LastUnavailableFavoriteRemoved();
+			    try
+			    {
+			        if (product.IsProductFavorite)
+			        {
+			            // Execute remove favorite call
+			            await RestApiServise.RemoveProductFromFavorites(product.Id.ToString());
+			            // Remove favorite locally
+			            DataManager.RemoveProductFromFavorite(product);
+			            // Trigg view that process success 
+			            if (DataManager.GetProductFromListById(product.Id) != null)
+			            {
+			                View.FavoriteChanged(DataManager.GetProductFromListById(product.Id).IsProductFavorite);
+			            }
+			            else
+			            {
+			                View.LastUnavailableFavoriteRemoved();
 
-					    }
-					}
-					else
-					{
-						// Execute add favorite call
-						await RestApiServise.AddProductToFavorites(product.Id.ToString());
-						// Add favorite locally
-						DataManager.AddProductToFavorite(product);
-                        // Trigg view that process success 
-                        View.FavoriteChanged(DataManager.GetProductFromListById(product.Id).IsProductFavorite);
-                    }
-				}
-				catch (ApiNotAuthorizedException ex)
-				{
-					AlertService.ShowToastMessage(ex.Message);
-					NavigationService.NavigateToAsRoot(NavigationPage.Login);
-				}
+			            }
+			        }
+			        else
+			        {
+			            // Execute add favorite call
+			            await RestApiServise.AddProductToFavorites(product.Id.ToString());
+			            // Add favorite locally
+			            DataManager.AddProductToFavorite(product);
+			            // Trigg view that process success 
+			            View.FavoriteChanged(DataManager.GetProductFromListById(product.Id).IsProductFavorite);
+			        }
+			    }
+			    catch (ApiNotAuthorizedException ex)
+			    {
+			        AlertService.ShowToastMessage(ex.Message);
+			        NavigationService.NavigateToAsRoot(NavigationPage.Login);
+			    }
+			    catch (ApiNotFoundException ex)
+			    {
+                    AlertService.ShowToastMessage(ex.Message);
+                    View.FavoriteChanged(DataManager.ChangeProductsFavoriteStatus(product).IsProductFavorite);
+                }
 				catch (Exception ex)
 				{
-					//AlertService.ShowToastMessage(ex.Message);
+					AlertService.ShowToastMessage(ex.Message);
 				}
 			}
 			else
