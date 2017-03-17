@@ -90,6 +90,7 @@ namespace Softjourn.SJCoins.Droid.UI.Activities
                     break;
                 case Resource.Id.menu_add_favorite:
                     ViewPresenter.OnFavoriteClick(_product);
+                    item.SetEnabled(false);
                     break;
             }
             return base.OnOptionsItemSelected(item);
@@ -98,6 +99,7 @@ namespace Softjourn.SJCoins.Droid.UI.Activities
         public void FavoriteChanged(bool isFavorite)
         {
             ChangeIcon(_menu.FindItem(Resource.Id.menu_add_favorite), isFavorite);
+            _product.IsProductFavorite = isFavorite;
         }
 
         public void LastUnavailableFavoriteRemoved()
@@ -114,6 +116,7 @@ namespace Softjourn.SJCoins.Droid.UI.Activities
         private void ChangeIcon(IMenuItem item, bool isFavorite)
         {
             item.SetIcon(isFavorite ? Resource.Drawable.ic_favorite_white_24dp : Resource.Drawable.ic_favorite_border_white);
+            item.SetEnabled(true);
         }
         #endregion
     }

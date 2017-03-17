@@ -50,7 +50,9 @@ namespace Softjourn.SJCoins.Core.UI.Presenters
 			            // Add favorite locally
 			            DataManager.AddProductToFavorite(product);
 			            // Trigg view that process success 
-			            View.FavoriteChanged(DataManager.GetProductFromListById(product.Id).IsProductFavorite);
+			            var prod = DataManager.GetProductFromListById(product.Id);
+
+                        View.FavoriteChanged(prod.IsProductFavorite);
 			        }
 			    }
 			    catch (ApiNotAuthorizedException ex)
