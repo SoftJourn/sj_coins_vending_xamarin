@@ -51,7 +51,6 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.Main
 		{
 			base.ViewWillAppear(animated);
 			Title = categoryName;
-
 			// Throw to presenter category name what needs to be displayed and take products.
 			filteredItems = Presenter.GetProductList(categoryName);
 			_tableSource.SetItems(filteredItems);
@@ -65,6 +64,7 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.Main
 		{
 			_tableSource.SetItems(filteredItems);
 			TableView.ReloadData();
+			_refreshControl.Enabled = true;
 		}
 		#endregion
 
@@ -199,6 +199,7 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.Main
 		private void SearchButtonClickHandler(object sender, EventArgs e)
 		{
 			// Handle clicking on the Search button
+			searchController.SearchBar.Text = "";
 			PresentViewController(searchController, true, completionHandler: null);
 		}
 

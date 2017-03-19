@@ -1,10 +1,13 @@
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using Foundation;
-using SDWebImage;
 using Softjourn.SJCoins.Core.API.Model.Products;
 using Softjourn.SJCoins.Core.UI.Presenters;
 using Softjourn.SJCoins.Core.UI.ViewInterfaces;
 using Softjourn.SJCoins.iOS.General.Constants;
+using Softjourn.SJCoins.iOS.UI.Controllers.Main;
+using Softjourn.SJCoins.iOS.UI.DataSources;
 using UIKit;
 
 namespace Softjourn.SJCoins.iOS.UI.Controllers
@@ -16,6 +19,7 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers
 		private int productId { get; set; }
 
 		private Product currentProduct;
+		private UIPageViewController pageViewController;
 		#endregion
 
 		#region Constructor
@@ -36,7 +40,6 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers
 		public override void ViewDidLoad()
 		{
 			base.ViewDidLoad();
-
 			currentProduct = Presenter.GetProduct(productId);
 		}
 
@@ -84,9 +87,8 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers
 		{
 			NameLabel.Text = product.Name;
 			PriceLabel.Text = product.Price.ToString();
-			Logo.SetImage(url: new NSUrl(product.ImageFullUrl), placeholder: UIImage.FromBundle(ImageConstants.Placeholder));
-
 			ConfigureFavoriteImage(product.IsProductFavorite);
+			ConfigurePageViewController();
 		}
 
 		private void ConfigureFavoriteImage(bool isFavorite)
@@ -96,6 +98,40 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers
 			else
 				FavoriteButton.SetImage(UIImage.FromBundle(ImageConstants.FavoriteUnchecked), forState: UIControlState.Normal);
 		}
+
+		private List<UIViewController> CreatePages()
+		{
+			var pages = new List<UIViewController>();
+			foreach (var item in currentProduct.ImagesFullUrls)
+			{
+				var controller = Instantiate(StoryboardConstants.StoryboardMain, StoryboardConstants.ImageContentViewController) as ImageContentViewController;
+				controller.SetImage(item);
+				pages.Add(controller);
+			}
+			return pages;
+		}
+
+		private UIViewController Instantiate(string storyboard, string viewcontroller) => UIStoryboard.FromName(storyboard, null).InstantiateViewController(viewcontroller);
+
+		private void ConfigurePageViewController()
+		{
+			// Create UIPageViewController and configure it
+			pageViewController = Instantiate(StoryboardConstants.StoryboardLogin, StoryboardConstants.PageViewController) as UIPageViewController;
+			var pages = CreatePages();
+			pageViewController.DataSource = new PageViewDataSource(pages);
+			//pageViewController.Delegate = new PageViewControllerDelegate(this);
+			var defaultViewController = new UIViewController[] { pages.ElementAt(0) };
+			pageViewController.SetViewControllers(defaultViewController, UIPageViewControllerNavigationDirection.Forward, false, null);
+			pageViewController.View.Frame = LogoView.Frame; //new CGRect(0, 0, this.View.Frame.Width, this.View.Frame.Size.Height);
+			LogoView.AddSubview(this.pageViewController.View);
+		}
+
+		//private void ConfigurePageControl()
+		//{
+		//	View.BringSubviewToFront(PageControl);
+		//	PageControl.Pages = _pages.Count;
+		//	PageControl.CurrentPage = 0;
+		//}
 
 		// -------------------- Event handlers --------------------
 		private void FavoriteButtonClickHandler(object sender, EventArgs e)
