@@ -561,6 +561,7 @@
       <DependentUpon>ImageContentViewController.cs</DependentUpon>
     </Compile>
     <Compile Include="UI\Delegates\PageViewDelegate.cs" />
+    <Compile Include="UI\Delegates\AmountTextFieldDelegate.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
 </Project>

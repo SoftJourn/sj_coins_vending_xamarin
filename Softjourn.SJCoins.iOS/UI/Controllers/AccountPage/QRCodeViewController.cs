@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using Foundation;
 using Softjourn.SJCoins.Core.UI.Presenters;
 using Softjourn.SJCoins.Core.UI.ViewInterfaces;
@@ -26,6 +27,7 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.AccountPage
 
 		MobileBarcodeScanner scanner; 
 		UITapGestureRecognizer qrcodeImageTap;
+		private AmountTextFieldDelegate textFieldDelegate;
 		#endregion
 
 		#region Constructor
@@ -93,6 +95,8 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.AccountPage
 			qrcode = new QRCodeHelper().GenerateQRImage(image, 800, 800);
 			QRCodeImage.Image = qrcode;
 			QRCodeImage.Hidden = false;
+			// Save qrcode
+			SaveImageToPhotoAlbum(qrcode);
 			// Clear texfield
 			AmountTexfield.Text = "";
 		}
@@ -127,9 +131,10 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.AccountPage
 		private void ConfigureGenerateMode()
 		{
 			BalanceLabel.Text = "Your balance is " + Presenter.GetBalance().ToString() + " coins"; 
+			textFieldDelegate = new AmountTextFieldDelegate();
 			AmountTexfield.Hidden = false;
-			AmountTexfield.ShouldReturn = TextFieldShouldReturn;
 			AmountTexfield.KeyboardType = UIKeyboardType.NumberPad;
+			AmountTexfield.Delegate = textFieldDelegate;
 			GenerateButton.Hidden = false;
 		}
 
@@ -147,10 +152,17 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.AccountPage
 			}
 		}
 
-		private bool TextFieldShouldReturn(UITextField textField)
+		private void SaveImageToPhotoAlbum(UIImage image)
 		{
-			textField.ResignFirstResponder();
-			return true;
+			image.SaveToPhotosAlbum((img, error) =>
+			{
+				if (error != null)
+					Console.WriteLine("error saving image: {0}", error);
+				// TODO show success message on view 
+				else
+					Console.WriteLine("image saved to photo album");
+				// TODO show success message on view 
+			});
 		}
 
 		private void PresentSharedSheet()
