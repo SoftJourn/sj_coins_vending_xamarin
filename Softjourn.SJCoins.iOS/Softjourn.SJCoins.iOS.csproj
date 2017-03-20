@@ -452,6 +452,7 @@
     <Folder Include="Assets.xcassets\ic_select_machine.imageset\" />
     <Folder Include="Assets.xcassets\ic_logout.imageset\" />
     <Folder Include="UI\DataSources\" />
+    <Folder Include="UI\Delegates\" />
   </ItemGroup>
   <ItemGroup>
     <InterfaceDefinition Include="LaunchScreen.storyboard" />
@@ -559,6 +560,7 @@
     <Compile Include="UI\Controllers\Main\ImageContentViewController.designer.cs">
       <DependentUpon>ImageContentViewController.cs</DependentUpon>
     </Compile>
+    <Compile Include="UI\Delegates\PageViewDelegate.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
 </Project>

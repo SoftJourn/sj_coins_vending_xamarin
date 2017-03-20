@@ -22,6 +22,7 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers
 		private Product currentProduct;
 		private List<UIViewController> pages;
 		private UIPageViewController pageViewController;
+		private PageViewDataSource pageDataSource;
 		#endregion
 
 		#region Constructor
@@ -58,14 +59,16 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers
 		public override void AttachEvents()
 		{
 			base.AttachEvents();
-			FavoriteButton.TouchUpInside += FavoriteButtonClickHandler;
-			BuyButton.TouchUpInside += BuyButtonClickHandler;
+			FavoriteButton.TouchUpInside += FavoriteButtonClicked;
+			BuyButton.TouchUpInside += BuyButtonClicked;
+			pageDataSource.CurrentIndexChanged += ImageIndexChanged;
 		}
 
 		public override void DetachEvents()
 		{
-			FavoriteButton.TouchUpInside -= FavoriteButtonClickHandler;
-			BuyButton.TouchUpInside -= BuyButtonClickHandler;
+			FavoriteButton.TouchUpInside -= FavoriteButtonClicked;
+			BuyButton.TouchUpInside -= BuyButtonClicked;
+			pageDataSource.CurrentIndexChanged -= ImageIndexChanged;
 			base.DetachEvents();
 		}
 		#endregion
@@ -131,7 +134,8 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers
 			// Create UIPageViewController and configure it
 			pageViewController = Instantiate(StoryboardConstants.StoryboardLogin, StoryboardConstants.PageViewController) as UIPageViewController;
 			pages = CreatePages();
-			pageViewController.DataSource = new PageViewDataSource(pages);
+			pageDataSource = new PageViewDataSource(pages);
+			pageViewController.DataSource = pageDataSource;
 			//pageViewController.Delegate = new PageViewControllerDelegate(this);
 			var defaultViewController = new UIViewController[] { pages.ElementAt(0) };
 			pageViewController.SetViewControllers(defaultViewController, UIPageViewControllerNavigationDirection.Forward, false, null);
@@ -157,16 +161,22 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers
 		}
 
 		// -------------------- Event handlers --------------------
-		private void FavoriteButtonClickHandler(object sender, EventArgs e)
+		private void FavoriteButtonClicked(object sender, EventArgs e)
 		{
 			// Handle clicking on the Favorite button
 			Presenter.OnFavoriteClick(currentProduct);
 		}
 
-		private void BuyButtonClickHandler(object sender, EventArgs e)
+		private void BuyButtonClicked(object sender, EventArgs e)
 		{
 			// Handle clicking on the Buy button
 			Presenter.OnBuyProductClick(currentProduct);
+		}
+
+		private void ImageIndexChanged(object sender, int currentIndex)
+		{
+			// Change dot on Page Control
+			PageControl.CurrentPage = currentIndex;
 		}
 		// -------------------------------------------------------- 
 		#endregion
