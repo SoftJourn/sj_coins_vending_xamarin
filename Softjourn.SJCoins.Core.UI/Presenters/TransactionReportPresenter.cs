@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Autofac;
 using Softjourn.SJCoins.Core.API.Model.TransactionReports;
 using Softjourn.SJCoins.Core.Exceptions;
+using Softjourn.SJCoins.Core.Helpers;
 using Softjourn.SJCoins.Core.Managers;
 using Softjourn.SJCoins.Core.UI.Bootstrapper;
 using Softjourn.SJCoins.Core.UI.Services.Navigation;
@@ -250,6 +251,8 @@ namespace Softjourn.SJCoins.Core.UI.Presenters
                 {
                     View.HideProgress();
                     AlertService.ShowToastMessage(ex.Message);
+                    DataManager.Profile = null;
+                    Settings.ClearUserData();
                     NavigationService.NavigateToAsRoot(NavigationPage.Login);
                 }
                 catch (Exception ex)

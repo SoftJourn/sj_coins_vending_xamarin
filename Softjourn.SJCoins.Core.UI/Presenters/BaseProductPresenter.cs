@@ -1,6 +1,7 @@
 ﻿using System;
 using Softjourn.SJCoins.Core.API.Model.Products;
 using Softjourn.SJCoins.Core.Exceptions;
+using Softjourn.SJCoins.Core.Helpers;
 using Softjourn.SJCoins.Core.UI.Interfaces;
 using Softjourn.SJCoins.Core.UI.Services.Navigation;
 using Softjourn.SJCoins.Core.Utils;
@@ -58,7 +59,9 @@ namespace Softjourn.SJCoins.Core.UI.Presenters
 			    catch (ApiNotAuthorizedException ex)
 			    {
 			        AlertService.ShowToastMessage(ex.Message);
-			        NavigationService.NavigateToAsRoot(NavigationPage.Login);
+                    DataManager.Profile = null;
+                    Settings.ClearUserData();
+                    NavigationService.NavigateToAsRoot(NavigationPage.Login);
 			    }
 			    catch (ApiNotFoundException ex)
 			    {
@@ -126,7 +129,9 @@ namespace Softjourn.SJCoins.Core.UI.Presenters
 					{
 						View.HideProgress();
 						AlertService.ShowToastMessage(ex.Message);
-						NavigationService.NavigateToAsRoot(NavigationPage.Login);
+                        DataManager.Profile = null;
+                        Settings.ClearUserData();
+                        NavigationService.NavigateToAsRoot(NavigationPage.Login);
 					}
 					catch (ApiNotFoundException ex)
 					{

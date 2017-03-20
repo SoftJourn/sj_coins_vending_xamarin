@@ -19,6 +19,6 @@ namespace Softjourn.SJCoins.Core.API.Model
         public string ChequeHash { get; set; }
 
         [JsonProperty("amount")]
-        public int Amount { get; set; }
+        public long Amount { get; set; }
     }
 }

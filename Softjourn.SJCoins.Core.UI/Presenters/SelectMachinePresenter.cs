@@ -45,6 +45,8 @@ namespace Softjourn.SJCoins.Core.UI.Presenters
             {
                 View.HideProgress();
                 AlertService.ShowToastMessage(ex.Message);
+                DataManager.Profile = null;
+                Settings.ClearUserData();
                 NavigationService.NavigateToAsRoot(NavigationPage.Login);
             }
             catch (Exception ex)

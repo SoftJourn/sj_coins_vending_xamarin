@@ -4,6 +4,7 @@ using Autofac;
 using Softjourn.SJCoins.Core.API.Model;
 using Softjourn.SJCoins.Core.API.Model.Products;
 using Softjourn.SJCoins.Core.Exceptions;
+using Softjourn.SJCoins.Core.Helpers;
 using Softjourn.SJCoins.Core.Managers;
 using Softjourn.SJCoins.Core.UI.Bootstrapper;
 using Softjourn.SJCoins.Core.UI.Services.Navigation;
@@ -40,7 +41,11 @@ namespace Softjourn.SJCoins.Core.UI.Presenters
             {
                 var code = await QrManager.GetCodeFromQr();
                 if (code != null)
-                	UpdateBalance(await GetMoney(code));
+                    UpdateBalance(await GetMoney(code));
+            }
+            catch (JsonReaderExceptionCustom e)
+            {
+                AlertService.ShowToastMessage(Resources.StringResources.error_not_valid_qr_code);
             }
             catch (CameraException e)
             {
@@ -95,9 +100,19 @@ namespace Softjourn.SJCoins.Core.UI.Presenters
 				return false;
 			}
 
-		    if (Convert.ToInt32(amount) <= MyBalance) return true;
-		    View.SetEditFieldError(Resources.StringResources.error_field_not_enough_money);
-		    return false;
+            if (amount.Length > 10)
+            {
+                View.SetEditFieldError(Resources.StringResources.error_field_too_many_characters);
+                return false;
+            }
+
+            if (Convert.ToInt64(amount) > MyBalance)
+		    {
+		        View.SetEditFieldError(Resources.StringResources.error_field_not_enough_money);
+		        return false;
+		    }
+            
+            return true;
 		}
 		#endregion
 
@@ -128,6 +143,8 @@ namespace Softjourn.SJCoins.Core.UI.Presenters
                 {
                     View.HideProgress();
                     AlertService.ShowToastMessage(ex.Message);
+                    DataManager.Profile = null;
+                    Settings.ClearUserData();
                     NavigationService.NavigateToAsRoot(NavigationPage.Login);
                 }
                 catch (Exception ex)
@@ -174,6 +191,8 @@ namespace Softjourn.SJCoins.Core.UI.Presenters
                 {
                     View.HideProgress();
                     AlertService.ShowToastMessage(ex.Message);
+                    DataManager.Profile = null;
+                    Settings.ClearUserData();
                     NavigationService.NavigateToAsRoot(NavigationPage.Login);
                 }
                 catch (Exception ex)

@@ -1,5 +1,6 @@
 ﻿using System;
 using Softjourn.SJCoins.Core.Exceptions;
+using Softjourn.SJCoins.Core.Helpers;
 using Softjourn.SJCoins.Core.UI.Services.Navigation;
 using Softjourn.SJCoins.Core.UI.ViewInterfaces;
 using Softjourn.SJCoins.Core.Utils;
@@ -40,6 +41,8 @@ namespace Softjourn.SJCoins.Core.UI.Presenters
                 {
                     View.HideProgress();
                     AlertService.ShowToastMessage(ex.Message);
+                    DataManager.Profile = null;
+                    Settings.ClearUserData();
                     NavigationService.NavigateToAsRoot(NavigationPage.Login);
                 }
                 catch (Exception ex)

@@ -168,6 +168,8 @@ namespace Softjourn.SJCoins.Core.UI.Presenters
                 catch (ApiNotAuthorizedException ex)
                 {
                     AlertService.ShowToastMessage(ex.Message);
+                    DataManager.Profile = null;
+                    Settings.ClearUserData();
                     NavigationService.NavigateToAsRoot(NavigationPage.Login);
                 }
                 catch (Exception ex)

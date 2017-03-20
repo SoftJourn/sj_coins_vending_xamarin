@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Threading.Tasks;
+using Newtonsoft.Json;
 using Softjourn.SJCoins.Core.API.Model;
+using Softjourn.SJCoins.Core.Exceptions;
 using Softjourn.SJCoins.Core.Utils;
 
 namespace Softjourn.SJCoins.Core.Managers
@@ -15,6 +17,10 @@ namespace Softjourn.SJCoins.Core.Managers
             try
             {
                 return Newtonsoft.Json.JsonConvert.DeserializeObject<Cash>(result.Text);
+            }
+            catch (JsonReaderException e)
+            {
+                throw new JsonReaderExceptionCustom(e.Message);
             }
             catch (NullReferenceException e)
             {
