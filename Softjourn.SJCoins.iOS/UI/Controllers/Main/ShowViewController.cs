@@ -5,14 +5,22 @@ using Softjourn.SJCoins.Core.API.Model.Products;
 using Softjourn.SJCoins.Core.UI.Presenters;
 using Softjourn.SJCoins.Core.UI.ViewInterfaces;
 using Softjourn.SJCoins.iOS.General.Constants;
+using Softjourn.SJCoins.iOS.General.Helper;
 using Softjourn.SJCoins.iOS.UI.Cells;
 using UIKit;
-     
+
 namespace Softjourn.SJCoins.iOS.UI.Controllers.Main
 {
 	[Register("ShowViewController")]
 	public partial class ShowViewController : BaseViewController<ShowAllPresenter>, IShowAllView, IUISearchControllerDelegate
 	{
+		#region Constants
+		private const string NameTitle = "Name";
+		private const string PriceTitle = "Price";
+		private const int NameSegment = 0;
+		private const int PriceSegment = 1;
+		#endregion
+
 		#region Properties
 		private string categoryName { get; set; }
 
@@ -20,6 +28,7 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.Main
 		private NSIndexPath _favoriteCellIndex;
 		private UISearchController searchController;
 		private SearchResultsUpdator searchResultsUpdator;
+		private SegmentControlHelper _segmentControlHelper;
 		private List<Product> searchData;
 
 		public List<Product> filteredItems;
@@ -45,6 +54,7 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.Main
 			base.ViewDidLoad();
 			ConfigureSearch();
 			ConfigureTableView();
+			ConfigureSegmentControl();
 		}
 
 		public override void ViewWillAppear(bool animated)
@@ -56,7 +66,7 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.Main
 			_tableSource.SetItems(filteredItems);
 			TableView.ReloadData();
 
-			SegmentControl.Alpha = 1.0f;
+			NamePriceSegmentControl.Alpha = 1.0f;
 		}
 
 		[Export("willDismissSearchController:")]
@@ -72,8 +82,8 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.Main
 		public override void AttachEvents()
 		{
 			base.AttachEvents();
-			SegmentControl.TouchUpInside += SameButtonClickHandler;
-			SegmentControl.ValueChanged += AnotherButtonClickHandler;
+			NamePriceSegmentControl.TouchUpInside += SameButtonClickHandler;
+			NamePriceSegmentControl.ValueChanged += AnotherButtonClickHandler;
 			_tableSource.ItemSelected += TableSource_ItemSelected;
 			_tableSource.FavoriteClicked += TableSource_FavoriteClicked;
 			SearchButton.Clicked += SearchButtonClickHandler;
@@ -82,8 +92,8 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.Main
 
 		public override void DetachEvents()
 		{
-			SegmentControl.TouchUpInside -= SameButtonClickHandler;
-			SegmentControl.ValueChanged -= AnotherButtonClickHandler;
+			NamePriceSegmentControl.TouchUpInside -= SameButtonClickHandler;
+			NamePriceSegmentControl.ValueChanged -= AnotherButtonClickHandler;
 			_tableSource.ItemSelected -= TableSource_ItemSelected;
 			_tableSource.FavoriteClicked -= TableSource_FavoriteClicked;
 			SearchButton.Clicked -= SearchButtonClickHandler;
@@ -122,12 +132,12 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.Main
 
 		public void SetCompoundDrawableName(bool? isAsc)
 		{
-			//throw new NotImplementedException();
+			SetCompoundDrawableSegment(isAsc, NameTitle, NameSegment);
 		}
 
 		public void SetCompoundDrawablePrice(bool? isAsc)
 		{
-			//throw new NotImplementedException();
+			SetCompoundDrawableSegment(isAsc, PriceTitle, PriceSegment);
 		}
 
 		public void LastUnavailableFavoriteRemoved()
@@ -157,6 +167,13 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.Main
 			TableView.RegisterNibForCellReuse(ProductCell.Nib, ProductCell.Key);
 		}
 
+		private void ConfigureSegmentControl()
+		{
+			_segmentControlHelper = new SegmentControlHelper();
+			// Configure 0 segment
+			ConfigureSegment(NameTitle, NameSegment, ImageConstants.ArrowUpward);
+		}
+
 		private void Search(string searchString)
 		{
 			var search = searchString.Trim();
@@ -173,11 +190,36 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.Main
 			}
 
 			if (searchController.Active)
-				UIView.Animate(0.5, 0, UIViewAnimationOptions.CurveLinear, () => { SegmentControl.Alpha = 0.0f; }, null);
+				UIView.Animate(0.5, 0, UIViewAnimationOptions.CurveLinear, () => { NamePriceSegmentControl.Alpha = 0.0f; }, null);
 			else
-				UIView.Animate(0.5, 0, UIViewAnimationOptions.CurveLinear, () => { SegmentControl.Alpha = 1.0f; }, null);
+				UIView.Animate(0.5, 0, UIViewAnimationOptions.CurveLinear, () => { NamePriceSegmentControl.Alpha = 1.0f; }, null);
 
 			TableView.ReloadData();
+		}
+
+		private void SetCompoundDrawableSegment(bool? isAsc, string title, int segment)
+		{
+			if (isAsc == true)
+				ConfigureSegment(title, segment, ImageConstants.ArrowDownward);
+			else if (isAsc == false)
+				ConfigureSegment(title, segment, ImageConstants.ArrowUpward);
+			else
+				ConfigureSegment(title, segment, null);
+		}
+
+		private void ConfigureSegment(string title, int segment, string imageName = null)
+		{
+			// Configure segment depending on whether the picture is present or not 
+			if (imageName == null)
+			{
+				NamePriceSegmentControl.SetTitle(title, segment);
+			}
+			else
+			{
+				var inputImage = UIImage.FromBundle(imageName);
+				var mergedImage = _segmentControlHelper.ImageFromImageAndText(inputImage, title, UIColor.Black);
+				NamePriceSegmentControl.SetImage(mergedImage, segment);
+			}
 		}
 
 		// -------------------- Event handlers --------------------
@@ -218,7 +260,7 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.Main
 
 		private void SortItems(string category)
 		{
-			switch (SegmentControl.SelectedSegment)
+			switch (NamePriceSegmentControl.SelectedSegment)
 			{
 				case 0: // Name button
 					Presenter.OnSortByNameClicked(category);

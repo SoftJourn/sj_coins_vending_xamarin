@@ -66,22 +66,12 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.AccountPage
 
 		public void SetCompoundDrawableInput(bool? isAsc)
 		{
-			if (isAsc == true)
-				ConfigureSegment(InputSegment, InputTitle, ImageConstants.ArrowDownward);
-			else if (isAsc == false)
-				ConfigureSegment(InputSegment, InputTitle, ImageConstants.ArrowUpward);
-			else 
-				ConfigureSegment(InputSegment, InputTitle, null);
+			SetCompoundDrawableSegment(isAsc, InputTitle, InputSegment);
 		}
 
 		public void SetCompoundDrawableOutput(bool? isAsc)
 		{
-			if (isAsc == true)
-				ConfigureSegment(OutputSegment, OutputTitle, ImageConstants.ArrowDownward);
-			else if (isAsc == false)
-				ConfigureSegment(OutputSegment, OutputTitle, ImageConstants.ArrowUpward);
-			else
-				ConfigureSegment(OutputSegment, OutputTitle, null);
+			SetCompoundDrawableSegment(isAsc, OutputTitle, OutputSegment);
 		}
 		#endregion
 
@@ -121,10 +111,20 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.AccountPage
 		{
 			_segmentControlHelper = new SegmentControlHelper();
 			// Configure 0 segment
-			ConfigureSegment(InputSegment, InputTitle, ImageConstants.ArrowUpward);
+			ConfigureSegment(InputTitle, InputSegment, ImageConstants.ArrowUpward);
 		}
 
-		private void ConfigureSegment(int segment, string title, string imageName = null)
+		private void SetCompoundDrawableSegment(bool? isAsc, string title, int segment)
+		{
+			if (isAsc == true)
+				ConfigureSegment(title, segment, ImageConstants.ArrowDownward);
+			else if (isAsc == false)
+				ConfigureSegment(title, segment, ImageConstants.ArrowUpward);
+			else
+				ConfigureSegment(title, segment, null);
+		}
+
+		private void ConfigureSegment(string title, int segment, string imageName = null)
 		{
 			// Configure segment depending on whether the picture is present or not 
 			if (imageName == null)
