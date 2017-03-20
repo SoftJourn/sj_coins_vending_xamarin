@@ -136,7 +136,6 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers
 			pages = CreatePages();
 			pageDataSource = new PageViewDataSource(pages);
 			pageViewController.DataSource = pageDataSource;
-			//pageViewController.Delegate = new PageViewControllerDelegate(this);
 			var defaultViewController = new UIViewController[] { pages.ElementAt(0) };
 			pageViewController.SetViewControllers(defaultViewController, UIPageViewControllerNavigationDirection.Forward, false, null);
 			pageViewController.View.Frame = new CGRect(25, 25, LogoView.Frame.Width - 50, LogoView.Frame.Size.Height - 50);
