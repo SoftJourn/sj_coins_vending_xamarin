@@ -25,7 +25,6 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.AccountPage
 		}
 
 		MobileBarcodeScanner scanner; 
-				
 		UITapGestureRecognizer qrcodeImageTap;
 		#endregion
 
@@ -49,11 +48,12 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.AccountPage
 			base.ViewDidLoad();
 			ConfigurePageWith(initialParameter);
 		}
+		#endregion
 
-		public override void ViewWillAppear(bool animated)
+		#region BaseViewController
+		public override void AttachEvents()
 		{
-			base.ViewWillAppear(animated);
-			// Attach 
+			base.AttachEvents();
 			AmountTexfield.EditingChanged += AmountTextFieldChanged;
 			GenerateButton.TouchUpInside += GenerateButtonClickHandler;
 			DoneButton.Clicked += DoneButtonClickHandler;
@@ -62,19 +62,13 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.AccountPage
 			QRCodeImage.AddGestureRecognizer(qrcodeImageTap);
 		}
 
-		public override void ViewDidAppear(bool animated)
+		public override void DetachEvents()
 		{
-			base.ViewDidAppear(animated);
-		}
-
-		public override void ViewWillDisappear(bool animated)
-		{
-			// Detach
 			AmountTexfield.EditingChanged -= AmountTextFieldChanged;
 			GenerateButton.TouchUpInside -= GenerateButtonClickHandler;
 			DoneButton.Clicked -= DoneButtonClickHandler;
 			QRCodeImage.RemoveGestureRecognizer(qrcodeImageTap);
-			base.ViewWillDisappear(animated);
+			base.DetachEvents();
 		}
 		#endregion
 
@@ -135,6 +129,7 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.AccountPage
 			BalanceLabel.Text = "Your balance is " + Presenter.GetBalance().ToString() + " coins"; 
 			AmountTexfield.Hidden = false;
 			AmountTexfield.ShouldReturn = TextFieldShouldReturn;
+			AmountTexfield.KeyboardType = UIKeyboardType.NumberPad;
 			GenerateButton.Hidden = false;
 		}
 
@@ -174,7 +169,6 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.AccountPage
 		private void GenerateButtonClickHandler(object sender, EventArgs e)
 		{
 			// Handle clicking on the Generate button
-
 			Presenter.GenerateCode(amount);
 			// Hide keyboard
 			AmountTexfield.ResignFirstResponder();
