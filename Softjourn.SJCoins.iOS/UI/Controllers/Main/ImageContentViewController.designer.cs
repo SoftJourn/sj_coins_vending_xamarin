@@ -12,13 +12,13 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.Main
 	partial class ImageContentViewController
 	{
 		[Outlet]
-		UIKit.UIImageView Image { get; set; }
+		UIKit.UIImageView Logo { get; set; }
 		
 		void ReleaseDesignerOutlets ()
 		{
-			if (Image != null) {
-				Image.Dispose ();
-				Image = null;
+			if (Logo != null) {
+				Logo.Dispose ();
+				Logo = null;
 			}
 		}
 	}

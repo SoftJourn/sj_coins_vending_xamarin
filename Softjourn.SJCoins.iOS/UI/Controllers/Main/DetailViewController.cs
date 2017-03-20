@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using CoreGraphics;
 using Foundation;
 using Softjourn.SJCoins.Core.API.Model.Products;
 using Softjourn.SJCoins.Core.UI.Presenters;
@@ -19,6 +20,7 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers
 		private int productId { get; set; }
 
 		private Product currentProduct;
+		private List<UIViewController> pages;
 		private UIPageViewController pageViewController;
 		#endregion
 
@@ -41,6 +43,8 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers
 		{
 			base.ViewDidLoad();
 			currentProduct = Presenter.GetProduct(productId);
+			ConfigurePageViewController();
+			ConfigurePageControl();
 		}
 
 		public override void ViewWillAppear(bool animated)
@@ -54,14 +58,12 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers
 		public override void AttachEvents()
 		{
 			base.AttachEvents();
-			// Attach 
 			FavoriteButton.TouchUpInside += FavoriteButtonClickHandler;
 			BuyButton.TouchUpInside += BuyButtonClickHandler;
 		}
 
 		public override void DetachEvents()
 		{
-			// Detach
 			FavoriteButton.TouchUpInside -= FavoriteButtonClickHandler;
 			BuyButton.TouchUpInside -= BuyButtonClickHandler;
 			base.DetachEvents();
@@ -88,7 +90,6 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers
 			NameLabel.Text = product.Name;
 			PriceLabel.Text = product.Price.ToString();
 			ConfigureFavoriteImage(product.IsProductFavorite);
-			ConfigurePageViewController();
 		}
 
 		private void ConfigureFavoriteImage(bool isFavorite)
@@ -101,37 +102,59 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers
 
 		private List<UIViewController> CreatePages()
 		{
-			var pages = new List<UIViewController>();
-			foreach (var item in currentProduct.ImagesFullUrls)
+			pages = new List<UIViewController>();
+			if (currentProduct.ImageUrls != null)
 			{
-				var controller = Instantiate(StoryboardConstants.StoryboardMain, StoryboardConstants.ImageContentViewController) as ImageContentViewController;
-				controller.SetImage(item);
-				pages.Add(controller);
+				foreach (var item in currentProduct.ImagesFullUrls)
+				{
+					pages.Add(InstantiateImageContentController(item));
+				}
+			}
+			else
+			{
+				pages.Add(InstantiateImageContentController(currentProduct.ImageFullUrl));
 			}
 			return pages;
 		}
 
 		private UIViewController Instantiate(string storyboard, string viewcontroller) => UIStoryboard.FromName(storyboard, null).InstantiateViewController(viewcontroller);
 
+		private ImageContentViewController InstantiateImageContentController(string imageFullUrl)
+		{
+			var controller = Instantiate(StoryboardConstants.StoryboardMain, StoryboardConstants.ImageContentViewController) as ImageContentViewController;
+			controller.SetImage(imageFullUrl);
+			return controller;
+		}
+
 		private void ConfigurePageViewController()
 		{
 			// Create UIPageViewController and configure it
 			pageViewController = Instantiate(StoryboardConstants.StoryboardLogin, StoryboardConstants.PageViewController) as UIPageViewController;
-			var pages = CreatePages();
+			pages = CreatePages();
 			pageViewController.DataSource = new PageViewDataSource(pages);
 			//pageViewController.Delegate = new PageViewControllerDelegate(this);
 			var defaultViewController = new UIViewController[] { pages.ElementAt(0) };
 			pageViewController.SetViewControllers(defaultViewController, UIPageViewControllerNavigationDirection.Forward, false, null);
-			pageViewController.View.Frame = LogoView.Frame; //new CGRect(0, 0, this.View.Frame.Width, this.View.Frame.Size.Height);
+			pageViewController.View.Frame = new CGRect(25, 25, LogoView.Frame.Width - 50, LogoView.Frame.Size.Height - 50);
 			LogoView.AddSubview(this.pageViewController.View);
 		}
 
-		//private void ConfigurePageControl()
-		//{
-		//	View.BringSubviewToFront(PageControl);
-		//	PageControl.Pages = _pages.Count;
-		//	PageControl.CurrentPage = 0;
-		//}
+		private void ConfigurePageControl()
+		{
+			if (pages.Count > 1)
+			{
+				PageControl.Pages = pages.Count;
+				PageControl.CurrentPage = 0;
+				LogoView.BringSubviewToFront(PageControl);
+				PageControl.Hidden = false;
+				pageViewController.View.UserInteractionEnabled = true;
+			}
+			else
+			{
+				PageControl.Hidden = true;
+				pageViewController.View.UserInteractionEnabled = false;
+			}
+		}
 
 		// -------------------- Event handlers --------------------
 		private void FavoriteButtonClickHandler(object sender, EventArgs e)

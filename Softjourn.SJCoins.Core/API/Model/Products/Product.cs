@@ -16,9 +16,9 @@ namespace Softjourn.SJCoins.Core.API.Model.Products
 
         public int IntPrice { get { return int.Parse(Price.ToString()); } }
 
-        public string ImageFullUrl => Const.BaseUrl + Const.UrlVendingService + ImageUrl ?? "";
+        public string ImageFullUrl => Const.BaseUrl + Const.UrlVendingService + ImageUrl;
 
-		public List<string> ImagesFullUrls => ImageUrls.Select(url => Const.BaseUrl + Const.UrlVendingService + url).ToList() ?? new List<string>();
+		public List<string> ImagesFullUrls => ImageUrls.Select(url => Const.BaseUrl + Const.UrlVendingService + url).ToList();
 
         public bool IsProductFavorite { get; set; }
 

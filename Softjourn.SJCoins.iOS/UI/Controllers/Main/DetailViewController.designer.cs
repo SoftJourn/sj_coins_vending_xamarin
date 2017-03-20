@@ -27,6 +27,9 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers
 		UIKit.UILabel NameLabel { get; set; }
 
 		[Outlet]
+		UIKit.UIPageControl PageControl { get; set; }
+
+		[Outlet]
 		UIKit.UILabel PriceLabel { get; set; }
 		
 		void ReleaseDesignerOutlets ()
@@ -59,6 +62,11 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers
 			if (PriceLabel != null) {
 				PriceLabel.Dispose ();
 				PriceLabel = null;
+			}
+
+			if (PageControl != null) {
+				PageControl.Dispose ();
+				PageControl = null;
 			}
 		}
 	}
