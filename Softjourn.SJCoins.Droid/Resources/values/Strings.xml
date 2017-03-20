@@ -183,7 +183,7 @@
   <string name="option_icon_content_description">Option Icon</string>
 
   <!--Details Activity-->
-  <string name="details_info_label">Information</string>
+  <string name="details_info_label">Nutrition Facts</string>
   <string name="details_info_calories">Calories</string>
   <string name="details_info_fat">Fat</string>
   <string name="details_info_saturates">Saturates</string>
@@ -191,7 +191,7 @@
   <string name="details_info_carbs">Carbs</string>
   <string name="details_info_sugars">Sugars</string>
   <string name="details_info_solt">Salt</string>
-  <string name="details_info_fibre">Fibre</string>
+  <string name="details_info_fibre">Fiber</string>
   <string name="details_info_rating">Rating</string>
 
   <!--Generate code Activity-->

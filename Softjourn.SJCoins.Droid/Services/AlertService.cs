@@ -77,7 +77,6 @@ namespace Softjourn.SJCoins.Droid.Services
                 var adapter = new ArrayAdapter(activity,
                     Android.Resource.Layout.SimpleListItem1, photoSource);
                 sourceList.Adapter = adapter;
-                dialog.Window.Attributes.WindowAnimations = Resource.Style.MachinesDialogAnimation;
                 dialog.Show();
 
                 sourceList.ItemClick += (sender, e) =>
@@ -110,7 +109,6 @@ namespace Softjourn.SJCoins.Droid.Services
                 var adapter = new ArrayAdapter(activity,
                     Android.Resource.Layout.SimpleListItem1, optionsList);
                 sourceList.Adapter = adapter;
-                dialog.Window.Attributes.WindowAnimations = Resource.Style.MachinesDialogAnimation;
                 dialog.Show();
 
                 sourceList.ItemClick += (sender, e) =>
@@ -158,7 +156,6 @@ namespace Softjourn.SJCoins.Droid.Services
                 };
 
                 if (dialog.IsShowing) return;
-                dialog.Window.Attributes.WindowAnimations = Resource.Style.ConfirmDialogAnimation;
                 dialog.Show();
             });
         }
@@ -182,7 +179,6 @@ namespace Softjourn.SJCoins.Droid.Services
 
             if (!confirmDialog.IsShowing)
             {
-                confirmDialog.Window.Attributes.WindowAnimations = Resource.Style.ConfirmDialogAnimation;
                 confirmDialog.Show();
             }
             var okButton = confirmDialog.FindViewById<Button>(Resource.Id.dialogButtonOK);

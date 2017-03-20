@@ -17,6 +17,7 @@ namespace Softjourn.SJCoins.Core.Managers
 		//AddProduct To Favorite in LocalStorage
 		public void AddProductToFavorite(Product product)
 		{
+		    product.IsProductFavorite = true;
 			// If category favorites not exist create it  
 			// and insert in ProductList with index 0 (as first element)
 			if (ProductList[0].Name != Const.Favorites) {

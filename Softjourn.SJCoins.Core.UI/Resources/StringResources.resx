@@ -195,10 +195,16 @@
   <data name="error_field_not_enough_money" xml:space="preserve">
     <value>Amount is bigger than your balance</value>
   </data>
+  <data name="error_field_too_many_characters" xml:space="preserve">
+    <value>Not allowed more than 10 characters</value>
+  </data>
   <data name="unknown_code" xml:space="preserve">
     <value>Sorry, this code is unknown</value>
   </data>
   <data name="wallet_was_funded" xml:space="preserve">
     <value>Your wallet was replenished by </value>
+  </data>
+  <data name="error_not_valid_qr_code" xml:space="preserve">
+    <value>Not valid QR code</value>
   </data>
 </root>

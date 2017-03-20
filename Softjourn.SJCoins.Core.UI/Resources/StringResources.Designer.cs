@@ -152,6 +152,15 @@ namespace Softjourn.SJCoins.Core.UI.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Not allowed more than 10 characters.
+        /// </summary>
+        internal static string error_field_too_many_characters {
+            get {
+                return ResourceManager.GetString("error_field_too_many_characters", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to There are no active machines. Please try to refresh list.
         /// </summary>
         internal static string error_msg_empty_machines_list {
@@ -175,6 +184,15 @@ namespace Softjourn.SJCoins.Core.UI.Resources {
         internal static string error_not_enough_money {
             get {
                 return ResourceManager.GetString("error_not_enough_money", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Not valid QR code.
+        /// </summary>
+        internal static string error_not_valid_qr_code {
+            get {
+                return ResourceManager.GetString("error_not_valid_qr_code", resourceCulture);
             }
         }
         

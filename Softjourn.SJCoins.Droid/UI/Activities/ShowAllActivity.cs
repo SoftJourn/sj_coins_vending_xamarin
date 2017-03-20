@@ -142,7 +142,7 @@ namespace Softjourn.SJCoins.Droid.UI.Activities
             };
             searchView.QueryTextChange += (s, e) =>
             {
-                _adapter.Filter.InvokeFilter(TextUtils.IsEmpty(e.NewText) ? "" : e.NewText);
+                _adapter.Filter.InvokeFilter(TextUtils.IsEmpty(e.NewText) ? "" : e.NewText.ToLower());
 
                 //Disable sorting buttons when search is active
                 //_sortNameButton.Enabled = false;

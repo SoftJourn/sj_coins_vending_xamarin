@@ -54,6 +54,7 @@
     <Compile Include="Exceptions\ApiNotAuthorizedException.cs" />
     <Compile Include="Exceptions\ApiNotFoundException.cs" />
     <Compile Include="Exceptions\CameraException.cs" />
+    <Compile Include="Exceptions\JsonReaderExceptionCustom.cs" />
     <Compile Include="Helpers\Settings.cs" />
     <Compile Include="Interfaces\ILoginService.cs" />
     <Compile Include="Managers\QrManager.cs" />
