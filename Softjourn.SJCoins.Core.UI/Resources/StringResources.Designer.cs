@@ -161,6 +161,15 @@ namespace Softjourn.SJCoins.Core.UI.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Amount should not be zero.
+        /// </summary>
+        internal static string error_field_zero_amount {
+            get {
+                return ResourceManager.GetString("error_field_zero_amount", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to There are no active machines. Please try to refresh list.
         /// </summary>
         internal static string error_msg_empty_machines_list {

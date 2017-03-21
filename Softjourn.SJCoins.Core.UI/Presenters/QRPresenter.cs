@@ -106,6 +106,12 @@ namespace Softjourn.SJCoins.Core.UI.Presenters
                 return false;
             }
 
+            if (Convert.ToInt64(amount) < 1)
+            {
+                View.SetEditFieldError(Resources.StringResources.error_field_zero_amount);
+                return false;
+            }
+
             if (Convert.ToInt64(amount) > MyBalance)
 		    {
 		        View.SetEditFieldError(Resources.StringResources.error_field_not_enough_money);

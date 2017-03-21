@@ -204,6 +204,9 @@
   <data name="wallet_was_funded" xml:space="preserve">
     <value>Your wallet was replenished by </value>
   </data>
+  <data name="error_field_zero_amount" xml:space="preserve">
+    <value>Amount should not be zero</value>
+  </data>
   <data name="error_not_valid_qr_code" xml:space="preserve">
     <value>Not valid QR code</value>
   </data>
