@@ -74,10 +74,10 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers
 		#endregion
 
 		#region IDetailView implementation
-		public void FavoriteChanged(bool isFavorite)
+		public void FavoriteChanged(Product product)
 		{
 			// change button image
-			ConfigureFavoriteImage(isFavorite);
+			ConfigureFavoriteImage(product.IsProductFavorite);
 			// TODO let know another controllers in this product is favorite
 		}
 

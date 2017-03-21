@@ -100,7 +100,10 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.Main
 
 		public void LastUnavailableFavoriteRemoved()
 		{
-			
+		}
+
+		public void FavoriteChanged(Product product)
+		{
 		}
 		#endregion
 
@@ -155,11 +158,6 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.Main
 				var indexPath = CollectionView.IndexPathForCell(firstCell);
 				CollectionView.ReloadItems(new NSIndexPath[] { indexPath });
 			}
-		}
-
-		public void FavoriteChanged(bool isFavorite)
-		{
-			
 		}
 
 		// -------------------- Event handlers --------------------

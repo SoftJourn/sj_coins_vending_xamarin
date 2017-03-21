@@ -20,7 +20,7 @@ namespace Softjourn.SJCoins.iOS.UI.Cells
 			Nib = UINib.FromName("ProductCell", NSBundle.MainBundle);
 		}
 
-		public event EventHandler<ProductCell> ProductCell_FavoriteClicked;
+		public event EventHandler<Product> ProductCell_FavoriteClicked;
 		public bool Favorite { get; set; } = false;
 		public Product Product { get; set; }
 		#endregion
@@ -64,11 +64,7 @@ namespace Softjourn.SJCoins.iOS.UI.Cells
 
 		private void FavoriteButtonClicked(object sender, EventArgs e)
 		{
-			var handler = ProductCell_FavoriteClicked;
-			if (handler != null)
-			{
-				handler(this, this);            
-			}
+			ProductCell_FavoriteClicked?.Invoke(this, Product);
 		}
 	}
 }

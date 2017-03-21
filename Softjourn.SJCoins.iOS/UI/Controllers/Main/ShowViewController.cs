@@ -19,6 +19,7 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.Main
 		private const string PriceTitle = "Price";
 		private const int NameSegment = 0;
 		private const int PriceSegment = 1;
+		private const int tableSection = 0;
 		#endregion
 
 		#region Properties
@@ -109,25 +110,26 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.Main
 		#endregion
 
 		#region IShowAllView implementation
-		public void FavoriteChanged(bool isFavorite)
+		public void FavoriteChanged(Product product)
 		{
-			// TODO Refactoring !
-			// table reload row at index
-			if (_favoriteCellIndex != null)
+			var indexPaths = new List<NSIndexPath>();
+			if (filteredItems.Contains(product))
 			{
-				var index = new NSIndexPath[] { _favoriteCellIndex };
-				if (categoryName == Const.FavoritesCategory)
-				{
-					// Set new items to table source
-					var newItems = Presenter.GetProductList(categoryName);
-					_tableSource.SetItems(newItems);
-					// Delete row
-					TableView.DeleteRows(atIndexPaths: index, withRowAnimation: UITableViewRowAnimation.Fade);
-				}
-				else
-				{
-					TableView.ReloadRows(atIndexPaths: index, withRowAnimation: UITableViewRowAnimation.Fade);
-				}
+				var index = filteredItems.IndexOf(product);
+				var indexPath = NSIndexPath.FromRowSection(index, tableSection);
+				indexPaths.Add(indexPath);
+			}
+
+			if (categoryName == Const.FavoritesCategory)
+			{
+				// Set new items to table source
+				var newItems = Presenter.GetProductList(categoryName);
+				_tableSource.SetItems(newItems);
+				TableView.DeleteRows(atIndexPaths: indexPaths.ToArray(), withRowAnimation: UITableViewRowAnimation.Fade);
+			}
+			else
+			{
+				TableView.ReloadRows(atIndexPaths: indexPaths.ToArray(), withRowAnimation: UITableViewRowAnimation.Fade);
 			}
 		}
 
@@ -149,7 +151,7 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.Main
 
 		public void LastUnavailableFavoriteRemoved()
 		{
-			
+			// Used for Android only.
 		}
 		#endregion
 
@@ -238,11 +240,10 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.Main
 				searchController.DismissViewController(true, null);
 		}
 
-		public void TableSource_FavoriteClicked(object sender, ProductCell cell)
+		public void TableSource_FavoriteClicked(object sender, Product product)
 		{
 			// Trigg presenter that user click on some product for adding it to favorite
-			_favoriteCellIndex = TableView.IndexPathForCell(cell);
-			Presenter.OnFavoriteClick(cell.Product);
+			Presenter.OnFavoriteClick(product);
 		}
 
 		private void SearchButtonClickHandler(object sender, EventArgs e)
@@ -303,7 +304,7 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.Main
 		private List<Product> items = new List<Product>();
 
 		public event EventHandler<Product> ShowAllSource_ItemSelected;
-		public event EventHandler<ProductCell> ShowAllSource_FavoriteClicked;
+		public event EventHandler<Product> ShowAllSource_FavoriteClicked;
 
 		public void SetItems(List<Product> items)
 		{

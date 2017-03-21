@@ -36,12 +36,11 @@ namespace Softjourn.SJCoins.Core.UI.Presenters
 			            // Trigg view that process success 
 			            if (DataManager.GetProductFromListById(product.Id) != null)
 			            {
-			                View.FavoriteChanged(DataManager.GetProductFromListById(product.Id).IsProductFavorite);
+			                View.FavoriteChanged(DataManager.GetProductFromListById(product.Id));
 			            }
 			            else
 			            {
 			                View.LastUnavailableFavoriteRemoved();
-
 			            }
 			        }
 			        else
@@ -53,7 +52,7 @@ namespace Softjourn.SJCoins.Core.UI.Presenters
 			            // Trigg view that process success 
 			            var prod = DataManager.GetProductFromListById(product.Id);
 
-			            View.FavoriteChanged(prod.IsProductFavorite);
+			            View.FavoriteChanged(prod);
 			        }
 			    }
 			    catch (ApiNotAuthorizedException ex)
@@ -66,7 +65,7 @@ namespace Softjourn.SJCoins.Core.UI.Presenters
 			    catch (ApiNotFoundException ex)
 			    {
 			        AlertService.ShowToastMessage(ex.Message);
-			        View.FavoriteChanged(DataManager.ChangeProductsFavoriteStatus(product).IsProductFavorite);
+			        View.FavoriteChanged(DataManager.ChangeProductsFavoriteStatus(product));
 			    }
 			    catch (NotImplementedException ex)
 			    {
