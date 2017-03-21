@@ -74,10 +74,13 @@ namespace Softjourn.SJCoins.iOS
 				previewController.PreViewController_FavoriteActionExecuted -= HomeCell_OnFavoriteActionClickedHandler;
 			}
 			ShowAllButton.TouchUpInside -= HomeCell_OnSeeAllClickedHandler;
-			//_delegate.HomeCellDelegate_ItemSelected -= HomeCell_ItemSelectedHandler;
+			if (_delegate != null)
+			{
+				_delegate.HomeCellDelegate_ItemSelected -= HomeCell_ItemSelectedHandler;
+				_delegate = null;
+			}
 
 			_dataSource = null;
-			_delegate = null;
 
 			Layer.ShouldRasterize = true;
 			Layer.RasterizationScale = UIScreen.MainScreen.Scale;
@@ -166,7 +169,7 @@ namespace Softjourn.SJCoins.iOS
 	}
 
 	#region UICollectionViewSource implementation
-	public class HomeCellDataSource : UICollectionViewDataSource
+	public class HomeCellDataSource : UICollectionViewDataSource, IDisposable
 	{
 		private List<Product> products = new List<Product>(); 
 
@@ -178,6 +181,12 @@ namespace Softjourn.SJCoins.iOS
 		public override nint GetItemsCount(UICollectionView collectionView, nint section) => products.Count;
 
 		public override UICollectionViewCell GetCell(UICollectionView collectionView, NSIndexPath indexPath) => (UICollectionViewCell)collectionView.DequeueReusableCell(HomeInternalCell.Key, indexPath);
+
+		protected override void Dispose(bool disposing)
+		{
+			System.Diagnostics.Debug.WriteLine(String.Format("{0} object disposed", this.GetType()));
+			base.Dispose(disposing);
+		}
 	}
 	#endregion
 

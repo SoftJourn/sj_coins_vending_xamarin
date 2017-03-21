@@ -147,14 +147,13 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.Main
 			{
 				var newList = Presenter.GetCategoriesList();
 				_dataSource.SetCategories(newList);
-				CollectionView.ReloadData();
 
 				//var newFavorites = Presenter.GetProductListForGivenCategory(Const.FavoritesCategory);
 				//_dataSource.RefreshFavorites(newFavorites);
-				//CollectionView.ReloadData();
-				//var firstCell = CollectionView.VisibleCells[0];
-				//var indexPath = CollectionView.IndexPathForCell(firstCell);
-				//CollectionView.ReloadItems(new NSIndexPath[] { indexPath });
+
+				var firstCell = CollectionView.VisibleCells[0];
+				var indexPath = CollectionView.IndexPathForCell(firstCell);
+				CollectionView.ReloadItems(new NSIndexPath[] { indexPath });
 			}
 		}
 

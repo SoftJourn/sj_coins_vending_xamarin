@@ -84,9 +84,12 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.Main
 			base.AttachEvents();
 			NamePriceSegmentControl.TouchUpInside += SameButtonClickHandler;
 			NamePriceSegmentControl.ValueChanged += AnotherButtonClickHandler;
-			_tableSource.ItemSelected += TableSource_ItemSelected;
-			_tableSource.FavoriteClicked += TableSource_FavoriteClicked;
+
+			_tableSource.ShowAllSource_ItemSelected += TableSource_ItemSelected;
+			_tableSource.ShowAllSource_FavoriteClicked += TableSource_FavoriteClicked;
+
 			SearchButton.Clicked += SearchButtonClickHandler;
+
 			searchResultsUpdator.UpdateSearchResults += SearchResultsUpdator_Search;
 		}
 
@@ -94,9 +97,12 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.Main
 		{
 			NamePriceSegmentControl.TouchUpInside -= SameButtonClickHandler;
 			NamePriceSegmentControl.ValueChanged -= AnotherButtonClickHandler;
-			_tableSource.ItemSelected -= TableSource_ItemSelected;
-			_tableSource.FavoriteClicked -= TableSource_FavoriteClicked;
+
+			_tableSource.ShowAllSource_ItemSelected -= TableSource_ItemSelected;
+			_tableSource.ShowAllSource_FavoriteClicked -= TableSource_FavoriteClicked;
+
 			SearchButton.Clicked -= SearchButtonClickHandler;
+
 			searchResultsUpdator.UpdateSearchResults -= SearchResultsUpdator_Search;
 			base.DetachEvents();
 		}
@@ -105,6 +111,7 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.Main
 		#region IShowAllView implementation
 		public void FavoriteChanged(bool isFavorite)
 		{
+			// TODO Refactoring !
 			// table reload row at index
 			if (_favoriteCellIndex != null)
 			{
@@ -291,12 +298,12 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.Main
 	}
 
 	#region UITableViewSource implementation
-	public class ShowAllSource : UITableViewSource
+	public class ShowAllSource : UITableViewSource, IDisposable
 	{
 		private List<Product> items = new List<Product>();
 
-		public event EventHandler<Product> ItemSelected;
-		public event EventHandler<ProductCell> FavoriteClicked;
+		public event EventHandler<Product> ShowAllSource_ItemSelected;
+		public event EventHandler<ProductCell> ShowAllSource_FavoriteClicked;
 
 		public void SetItems(List<Product> items)
 		{
@@ -311,30 +318,49 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.Main
 		{
 			var _cell = (ProductCell)cell;
 			var item = items[indexPath.Row];
-
-			_cell.FavoriteClicked -= FavoriteClicked;
-			_cell.FavoriteClicked += FavoriteClicked;
+			// Attach event
+			_cell.ProductCell_FavoriteClicked -= ShowAllSource_FavoriteClicked;
+			_cell.ProductCell_FavoriteClicked += ShowAllSource_FavoriteClicked;
 
 			_cell.ConfigureWith(item);
+		}
+
+		public override void CellDisplayingEnded(UITableView tableView, UITableViewCell cell, NSIndexPath indexPath)
+		{
+			var _cell = (ProductCell)cell;
+			// Detach event
+			_cell.ProductCell_FavoriteClicked -= ShowAllSource_FavoriteClicked;
 		}
 
 		public override void RowSelected(UITableView tableView, NSIndexPath indexPath)
 		{
 			tableView.DeselectRow(indexPath, true);
 			var item = items[indexPath.Row];
-			ItemSelected?.Invoke(this, item);
+			ShowAllSource_ItemSelected?.Invoke(this, item);
+		}
+
+		protected override void Dispose(bool disposing)
+		{
+			System.Diagnostics.Debug.WriteLine(String.Format("{0} object disposed", this.GetType()));
+			base.Dispose(disposing);
 		}
 	}
 	#endregion
 
 	#region UISearchResultsUpdating implementation
-	public class SearchResultsUpdator : UISearchResultsUpdating
+	public class SearchResultsUpdator : UISearchResultsUpdating, IDisposable
 	{
 		public event EventHandler<string> UpdateSearchResults;
 
 		public override void UpdateSearchResultsForSearchController(UISearchController searchController)
 		{
 			UpdateSearchResults?.Invoke(this, searchController.SearchBar.Text);
+		}
+
+		protected override void Dispose(bool disposing)
+		{
+			System.Diagnostics.Debug.WriteLine(String.Format("{0} object disposed", this.GetType()));
+			base.Dispose(disposing);
 		}
 	}
 	#endregion

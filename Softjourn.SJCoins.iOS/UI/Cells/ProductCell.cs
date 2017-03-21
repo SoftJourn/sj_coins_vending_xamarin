@@ -20,7 +20,7 @@ namespace Softjourn.SJCoins.iOS.UI.Cells
 			Nib = UINib.FromName("ProductCell", NSBundle.MainBundle);
 		}
 
-		public event EventHandler<ProductCell> FavoriteClicked;
+		public event EventHandler<ProductCell> ProductCell_FavoriteClicked;
 		public bool Favorite { get; set; } = false;
 		public Product Product { get; set; }
 		#endregion
@@ -45,6 +45,7 @@ namespace Softjourn.SJCoins.iOS.UI.Cells
 			else
 				FavoriteButton.SetImage(UIImage.FromBundle(ImageConstants.FavoriteUnchecked), forState: UIControlState.Normal);
 
+			// Attach event
 			FavoriteButton.TouchUpInside -= FavoriteButtonClicked;
 			FavoriteButton.TouchUpInside += FavoriteButtonClicked;
 		}
@@ -56,15 +57,17 @@ namespace Softjourn.SJCoins.iOS.UI.Cells
 			PriceLabel.Text = "";
 			Favorite = false;
 			ImageLogo.Image = null; 
+			// Detach event
+			FavoriteButton.TouchUpInside -= FavoriteButtonClicked;
 			base.PrepareForReuse();
 		}
 
 		private void FavoriteButtonClicked(object sender, EventArgs e)
 		{
-			var handler = FavoriteClicked;
+			var handler = ProductCell_FavoriteClicked;
 			if (handler != null)
 			{
-				handler(this, this);
+				handler(this, this);            
 			}
 		}
 	}
