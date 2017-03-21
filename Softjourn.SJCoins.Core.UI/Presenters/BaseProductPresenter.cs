@@ -53,27 +53,35 @@ namespace Softjourn.SJCoins.Core.UI.Presenters
 			            // Trigg view that process success 
 			            var prod = DataManager.GetProductFromListById(product.Id);
 
-                        View.FavoriteChanged(prod.IsProductFavorite);
+			            View.FavoriteChanged(prod.IsProductFavorite);
 			        }
 			    }
 			    catch (ApiNotAuthorizedException ex)
 			    {
 			        AlertService.ShowToastMessage(ex.Message);
-                    DataManager.Profile = null;
-                    Settings.ClearUserData();
-                    NavigationService.NavigateToAsRoot(NavigationPage.Login);
+			        DataManager.Profile = null;
+			        Settings.ClearUserData();
+			        NavigationService.NavigateToAsRoot(NavigationPage.Login);
 			    }
 			    catch (ApiNotFoundException ex)
 			    {
-                    AlertService.ShowToastMessage(ex.Message);
-                    View.FavoriteChanged(DataManager.ChangeProductsFavoriteStatus(product).IsProductFavorite);
+			        AlertService.ShowToastMessage(ex.Message);
+			        View.FavoriteChanged(DataManager.ChangeProductsFavoriteStatus(product).IsProductFavorite);
+			    }
+			    catch (NotImplementedException ex)
+			    {
+
+			    }
+                catch (NullReferenceException ex)
+                {
+
                 }
-				catch (Exception ex)
-				{
-					AlertService.ShowToastMessage(ex.Message);
-				}
-			}
-			else
+                catch (Exception e)
+                {
+                    AlertService.ShowToastMessage(e.Message);
+                }
+            }
+            else
 			{
 				AlertService.ShowToastMessage(Resources.StringResources.internet_turned_off);
 			}

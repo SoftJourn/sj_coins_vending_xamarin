@@ -119,7 +119,7 @@ namespace Softjourn.SJCoins.Droid.UI.Adapters
                     if (product.IsProductFavorite)
                     {
                         Picasso.With(_context).Load(Resource.Drawable.ic_favorite_pink).Into(holder.AddFavorite);
-                        if (product.IsHeartAnimationRunning)
+                        if (product.IsHeartAnimationRunning && _animatedPosition != null)
                         {
                             FinishAnimation(holder);
                             _animatedPosition.Remove(holder.AdapterPosition);
@@ -128,7 +128,7 @@ namespace Softjourn.SJCoins.Droid.UI.Adapters
                     else
                     {
                         Picasso.With(_context).Load(Resource.Drawable.ic_favorite_border).Into(holder.AddFavorite);
-                        if (product.IsHeartAnimationRunning)
+                        if (product.IsHeartAnimationRunning && _animatedPosition != null)
                         {
                             FinishAnimation(holder);
                             _animatedPosition.Remove(holder.AdapterPosition);
@@ -141,7 +141,6 @@ namespace Softjourn.SJCoins.Droid.UI.Adapters
             }
             /**
              * Changing Alpha of image depends on is product present in chosen machine or not
-             * TODO: Not implemented yet
              */
             if (TextUtils.IsEmpty(product.ImageUrl))
             {
@@ -175,6 +174,16 @@ namespace Softjourn.SJCoins.Droid.UI.Adapters
         public void ChangeFavoriteIcon()
         {
             NotifyDataSetChanged();
+        }
+
+        public void StopAnimationIfRunning()
+        {
+            if (_runningAnimations == null) return;
+            foreach (var anim in _runningAnimations.Values)
+            {
+                anim.End();
+            }
+            _runningAnimations.Clear();
         }
 
         #endregion
@@ -284,7 +293,7 @@ namespace Softjourn.SJCoins.Droid.UI.Adapters
 
         private void FinishAnimation(FeatureViewHolder holder)
         {
-            if (_runningAnimations.ContainsKey(holder.AdapterPosition))
+            if (_runningAnimations != null &&_runningAnimations.ContainsKey(holder.AdapterPosition))
             {
                 _runningAnimations[holder.AdapterPosition].End();
                 _runningAnimations.Remove(holder.AdapterPosition);

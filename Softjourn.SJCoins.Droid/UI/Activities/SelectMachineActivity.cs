@@ -37,8 +37,11 @@ namespace Softjourn.SJCoins.Droid.UI.Activities
             _adapter = new SelectMachineListAdapter(this, _machinesList);
             _machineListView.Adapter = _adapter;
 
-            SupportActionBar.SetDisplayHomeAsUpEnabled(true);
-            SupportActionBar.SetHomeButtonEnabled(true);
+            if (ViewPresenter.IsMachineSet())
+            {
+                SupportActionBar.SetDisplayHomeAsUpEnabled(true);
+                SupportActionBar.SetHomeButtonEnabled(true);
+            }
 
             _swipeLayout = FindViewById<SwipeRefreshLayout>(Resource.Id.swipe_container);
             _swipeLayout.SetColorSchemeColors(Resource.Color.colorAccent);

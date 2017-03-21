@@ -101,8 +101,9 @@ namespace Softjourn.SJCoins.Droid.UI.Activities
             }
             else
             {
-                base.OnBackPressed();
+                _adapter.StopAnimationIfRunning();
                 _adapter = null;
+                base.OnBackPressed();
             }
         }
 

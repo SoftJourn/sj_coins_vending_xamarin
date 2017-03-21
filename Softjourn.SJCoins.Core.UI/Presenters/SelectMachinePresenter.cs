@@ -19,6 +19,11 @@ namespace Softjourn.SJCoins.Core.UI.Presenters
 
         }
 
+        public bool IsMachineSet()
+        {
+            return Settings.SelectedMachineId != "";
+        }
+
         public async void GetMachinesList()
         {
             View.ShowProgress(Resources.StringResources.progress_loading);
