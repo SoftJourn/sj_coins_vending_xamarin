@@ -34,6 +34,14 @@ namespace Softjourn.SJCoins.iOS
 			Logo.SetImage(url: new NSUrl(product.ImageFullUrl), placeholder: UIImage.FromBundle(ImageConstants.Placeholder));
 		}
 
+		public void MarkFavorites(Product product)
+		{
+			if (product.IsProductInCurrentMachine)
+				Logo.Alpha = 1.0f;
+			else
+				Logo.Alpha = 0.3f;
+		}
+
 		public override void PrepareForReuse()
 		{
 			// Reset outlets
@@ -43,6 +51,8 @@ namespace Softjourn.SJCoins.iOS
 
 			Layer.ShouldRasterize = true;
 			Layer.RasterizationScale = UIScreen.MainScreen.Scale;
+
+			Logo.Alpha = 1.0f;
 
 			base.PrepareForReuse();
 		}

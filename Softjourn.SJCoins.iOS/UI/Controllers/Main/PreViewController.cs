@@ -15,8 +15,8 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers
 		#region Properties
 		private Product currentProduct { get; set; }
 
-		public event EventHandler<Product> BuyActionExecuted;
-		public event EventHandler<Product> FavoriteActionExecuted;
+		public event EventHandler<Product> PreViewController_BuyActionExecuted;
+		public event EventHandler<Product> PreViewController_FavoriteActionExecuted;
 
 		public override IUIPreviewActionItem[] PreviewActionItems
 		{
@@ -51,19 +51,10 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers
 			ConfigurePageWith(currentProduct);
 		}
 
-		public override void ViewWillAppear(bool animated)
+		protected override void Dispose(bool disposing)
 		{
-			base.ViewWillAppear(animated);
-		}
-
-		public override void ViewDidAppear(bool animated)
-		{
-			base.ViewDidAppear(animated);
-		}
-
-		public override void ViewWillDisappear(bool animated)
-		{
-			base.ViewWillDisappear(animated);
+			base.Dispose(disposing);
+			System.Diagnostics.Debug.WriteLine(String.Format("{0} controller disposed", this.GetType()));
 		}
 		#endregion
 
@@ -91,12 +82,12 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers
 		// -------------------- Action handlers --------------------
 		private void BuyActionClicked()
 		{
-			BuyActionExecuted?.Invoke(this, currentProduct);
+			PreViewController_BuyActionExecuted?.Invoke(this, currentProduct);
 		}
 
 		private void FavoriteActionClicked()
 		{
-			FavoriteActionExecuted?.Invoke(this, currentProduct);
+			PreViewController_FavoriteActionExecuted?.Invoke(this, currentProduct);
 		}
 		// --------------------------------------------------------
 		#endregion
@@ -110,13 +101,6 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers
 					handler();
 				}
 			});
-		}
-
-		protected override void Dispose(bool disposing)
-		{
-			base.Dispose(disposing);
-
-			System.Diagnostics.Debug.WriteLine("Softjourn.SJCoins.iOS.UI.Controllers.PreViewController disposed");
 		}
 	}
 }
