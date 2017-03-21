@@ -41,8 +41,8 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.Main
 		public override void ViewWillAppear(bool animated)
 		{
 			base.ViewWillAppear(animated);
-
 			RefreshFavoritesCell();
+			Presenter.UpdateBalanceView();
 		}
 		#endregion
 
