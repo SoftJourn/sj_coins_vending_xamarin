@@ -8,6 +8,7 @@ using Android.Support.Design.Widget;
 using Android.Support.V4.Content;
 using Android.Views;
 using Android.Widget;
+using Javax.Xml.Datatype;
 using Plugin.CurrentActivity;
 using Softjourn.SJCoins.Core.UI.Services.Alert;
 using Softjourn.SJCoins.Core.API.Model.Products;
@@ -49,7 +50,11 @@ namespace Softjourn.SJCoins.Droid.Services
             {
                 var snackbar = Snackbar
                     .Make(activity.FindViewById(Resource.Id.layout_root), msg,
-                        Snackbar.LengthLong);
+                        Snackbar.LengthIndefinite);
+                snackbar.SetAction("Ok", (v) =>
+                {
+                     snackbar.Dismiss();
+                });
                 snackbar.Show();
             });
         }

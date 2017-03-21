@@ -1,11 +1,19 @@
+using System;
+using System.IO;
 using Android.App;
 using Android.Content;
 using Android.Graphics;
+using Android.InputMethodServices;
+using Android.Media;
 using Android.OS;
 using Android.Provider;
 using Android.Views;
+using Android.Views.InputMethods;
 using Android.Widget;
+using Softjourn.SJCoins.Droid.Services;
 using Softjourn.SJCoins.Droid.UI.Activities;
+using Environment = Android.OS.Environment;
+using File = Java.IO.File;
 
 namespace Softjourn.SJCoins.Droid.UI.Fragments
 {
@@ -18,6 +26,7 @@ namespace Softjourn.SJCoins.Droid.UI.Fragments
         private const string ShareFragmentTitle = "Share Image";
 
         private Bitmap _bitmap;
+        private AlertService _alertService;
 
         public static GenerateCodeFragment NewInstance()
         {
@@ -45,7 +54,12 @@ namespace Softjourn.SJCoins.Droid.UI.Fragments
             _buttonGenerate.Click += (sender, e) =>
             {
                 GetQrCode(_inputAmount.Text);
+                _inputAmount.ClearFocus();
+                var imm = (InputMethodManager) Activity.GetSystemService(Context.InputMethodService);
+                imm.HideSoftInputFromWindow(_inputAmount.WindowToken, 0);
             };
+
+            _alertService = new AlertService();
         }
         #endregion
 
@@ -73,6 +87,8 @@ namespace Softjourn.SJCoins.Droid.UI.Fragments
             };
             var barcode = barcodeWriter.Write(image);
 
+            AddImageToGallery(barcode);
+
             _imageForQrCode.Visibility = ViewStates.Visible;
             _imageForQrCode.SetImageBitmap(barcode);
 
@@ -97,6 +113,20 @@ namespace Softjourn.SJCoins.Droid.UI.Fragments
             share.SetType(ShareType);
             share.PutExtra(Intent.ExtraStream, uri);
             Activity.StartActivity(Intent.CreateChooser(share, ShareFragmentTitle));
+        }
+
+        private void AddImageToGallery(Bitmap bitmap)
+        {
+            var filePath = Environment.ExternalStorageDirectory.AbsolutePath;
+            var dir = new File(filePath + "/SJCoins/");
+            if (!dir.Exists()) dir.Mkdirs();
+
+            var imageFile = System.IO.Path.Combine(dir.Path, "OfflineMoney_"+ DateTime.Now.Ticks+".png");
+            var stream = new FileStream(imageFile, FileMode.Create);
+            bitmap.Compress(Bitmap.CompressFormat.Png, 100, stream);
+            stream.Close();
+
+            _alertService.ShowMessageWithUserInteraction("","QrCode was saved to "+dir.Path,"",null);
         }
         #endregion
     }

@@ -2,12 +2,14 @@
 using System;
 using System.Collections.Generic;
 using Android.App;
+using Android.Content;
 using Android.Content.PM;
 using Android.Graphics;
 using Android.OS;
 using Android.Runtime;
 using Android.Support.Design.Widget;
 using Android.Support.V4.Content;
+using Android.Support.V4.View;
 using Android.Support.V7.Widget;
 using Android.Text;
 using Android.Views;
@@ -31,8 +33,8 @@ namespace Softjourn.SJCoins.Droid.UI.Activities
 
         private string _category;
 
-        private Button _sortNameButton;
-        private Button _sortPriceButton;
+        public static Button _sortNameButton;
+        public static Button _sortPriceButton;
         private View _buttonNameUnderline;
         private View _buttonPriceUnderline;
         private TextView _textViewNoProductsInCategory;
@@ -142,15 +144,10 @@ namespace Softjourn.SJCoins.Droid.UI.Activities
             };
             searchView.QueryTextChange += (s, e) =>
             {
-                _adapter.Filter.InvokeFilter(TextUtils.IsEmpty(e.NewText) ? "" : e.NewText.ToLower());
-
-                //Disable sorting buttons when search is active
-                //_sortNameButton.Enabled = false;
-                //_sortPriceButton.Enabled = false;
                 _sortNameButton.Visibility = ViewStates.Gone;
                 _sortPriceButton.Visibility = ViewStates.Gone;
+                _adapter.Filter.InvokeFilter(TextUtils.IsEmpty(e.NewText) ? "" : e.NewText.ToLower());            
             };
-
 
             searchView.Close += (s, e) =>
 
@@ -168,6 +165,10 @@ namespace Softjourn.SJCoins.Droid.UI.Activities
                 case Android.Resource.Id.Home:
                     OnBackPressed();
                     return true;
+                case Resource.Id.action_search:
+                    _sortNameButton.Visibility = ViewStates.Gone;
+                    _sortPriceButton.Visibility = ViewStates.Gone;
+                    break;
             }
             return base.OnOptionsItemSelected(item);
         }
