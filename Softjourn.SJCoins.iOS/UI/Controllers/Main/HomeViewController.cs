@@ -150,13 +150,10 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.Main
 			{
 				var newList = Presenter.GetCategoriesList();
 				_dataSource.SetCategories(newList);
-
-				//var newFavorites = Presenter.GetProductListForGivenCategory(Const.FavoritesCategory);
-				//_dataSource.RefreshFavorites(newFavorites);
-
-				var firstCell = CollectionView.VisibleCells[0];
-				var indexPath = CollectionView.IndexPathForCell(firstCell);
-				CollectionView.ReloadItems(new NSIndexPath[] { indexPath });
+				CollectionView.ReloadData();
+				//var firstCell = CollectionView.VisibleCells[0];
+				//var indexPath = CollectionView.IndexPathForCell(firstCell);
+				//CollectionView.ReloadItems(new NSIndexPath[] { indexPath });
 			}
 		}
 
@@ -246,17 +243,17 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.Main
 
 				_cell.ConfigureWith(category);
 
-				_cell.HomeCell_ItemSelected -= HomeViewControllerDelegateFlowLayout_ItemSelectedHandler;
-				_cell.HomeCell_ItemSelected += HomeViewControllerDelegateFlowLayout_ItemSelectedHandler;
+				_cell.HomeCell_ItemSelected -= HomeViewControllerDelegateFlowLayout_ItemSelected;
+				_cell.HomeCell_ItemSelected += HomeViewControllerDelegateFlowLayout_ItemSelected;
 
-				_cell.HomeCell_SeeAllClicked -= HomeViewControllerDelegateFlowLayout_SeeAllClickedHandler;
-				_cell.HomeCell_SeeAllClicked += HomeViewControllerDelegateFlowLayout_SeeAllClickedHandler;
+				_cell.HomeCell_SeeAllClicked -= HomeViewControllerDelegateFlowLayout_SeeAllClicked;
+				_cell.HomeCell_SeeAllClicked += HomeViewControllerDelegateFlowLayout_SeeAllClicked;
 
-				_cell.HomeCell_BuyActionExecuted -= HomeViewControllerDelegateFlowLayout_BuyExecutedHandler;
-				_cell.HomeCell_BuyActionExecuted += HomeViewControllerDelegateFlowLayout_BuyExecutedHandler;
+				_cell.HomeCell_BuyActionExecuted -= HomeViewControllerDelegateFlowLayout_BuyExecuted;
+				_cell.HomeCell_BuyActionExecuted += HomeViewControllerDelegateFlowLayout_BuyExecuted;
 
-				_cell.HomeCell_FavoriteActionExecuted -= HomeViewControllerDelegateFlowLayout_AddDeleteFavoriteExecutedHandler;
-				_cell.HomeCell_FavoriteActionExecuted += HomeViewControllerDelegateFlowLayout_AddDeleteFavoriteExecutedHandler;
+				_cell.HomeCell_FavoriteActionExecuted -= HomeViewControllerDelegateFlowLayout_AddDeleteFavoriteExecuted;
+				_cell.HomeCell_FavoriteActionExecuted += HomeViewControllerDelegateFlowLayout_AddDeleteFavoriteExecuted;
 			}
 		}
 
@@ -264,33 +261,11 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.Main
 		{
 			var _cell = (HomeCell)cell;
 
-			_cell.HomeCell_ItemSelected -= HomeViewControllerDelegateFlowLayout_ItemSelectedHandler;
-			_cell.HomeCell_SeeAllClicked -= HomeViewControllerDelegateFlowLayout_SeeAllClickedHandler;
-			_cell.HomeCell_BuyActionExecuted -= HomeViewControllerDelegateFlowLayout_BuyExecutedHandler;
-			_cell.HomeCell_FavoriteActionExecuted -= HomeViewControllerDelegateFlowLayout_AddDeleteFavoriteExecutedHandler;
+			_cell.HomeCell_ItemSelected -= HomeViewControllerDelegateFlowLayout_ItemSelected;
+			_cell.HomeCell_SeeAllClicked -= HomeViewControllerDelegateFlowLayout_SeeAllClicked;
+			_cell.HomeCell_BuyActionExecuted -= HomeViewControllerDelegateFlowLayout_BuyExecuted;
+			_cell.HomeCell_FavoriteActionExecuted -= HomeViewControllerDelegateFlowLayout_AddDeleteFavoriteExecuted;
 		}
-
-		// -------------------- Event handlers --------------------
-		private void HomeViewControllerDelegateFlowLayout_ItemSelectedHandler(object sender, Product product)
-		{
-			HomeViewControllerDelegateFlowLayout_ItemSelected?.Invoke(this, product);
-		}
-
-		private void HomeViewControllerDelegateFlowLayout_SeeAllClickedHandler(object sender, string categoryName)
-		{
-			HomeViewControllerDelegateFlowLayout_SeeAllClicked?.Invoke(this, categoryName);
-		}
-
-		private void HomeViewControllerDelegateFlowLayout_BuyExecutedHandler(object sender, Product product)
-		{
-			HomeViewControllerDelegateFlowLayout_BuyExecuted?.Invoke(this, product);
-		}
-
-		private void HomeViewControllerDelegateFlowLayout_AddDeleteFavoriteExecutedHandler(object sender, Product product)
-		{
-			HomeViewControllerDelegateFlowLayout_AddDeleteFavoriteExecuted?.Invoke(this, product);
-		}
-		// --------------------------------------------------------
 	}
 	#endregion
 }
