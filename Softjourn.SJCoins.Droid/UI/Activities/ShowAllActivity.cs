@@ -26,7 +26,7 @@ using SearchView = Android.Support.V7.Widget.SearchView;
 
 namespace Softjourn.SJCoins.Droid.UI.Activities
 {
-    [Activity(Theme = "@style/AppTheme", ScreenOrientation = ScreenOrientation.Portrait)]
+    [Activity(Theme = "@style/AppTheme", ScreenOrientation = ScreenOrientation.Portrait, LaunchMode = LaunchMode.SingleTop)]
     public class ShowAllActivity : BaseActivity<ShowAllPresenter>, IShowAllView
     {
         private FeaturedProductItemsAdapter _adapter;
@@ -62,11 +62,9 @@ namespace Softjourn.SJCoins.Droid.UI.Activities
             _productList = ViewPresenter.GetProductList(_category);
 
             _sortNameButton = FindViewById<Button>(Resource.Id.button_sort_name);
-            _sortNameButton.Click += OnSortByNameClick;
             _buttonNameUnderline = FindViewById<View>(Resource.Id.button_name_underline);
 
             _sortPriceButton = FindViewById<Button>(Resource.Id.button_sort_price);
-            _sortPriceButton.Click += OnSortByPriceClick;
             _sortPriceButton.SetCompoundDrawables(null, null, null, null);
             _buttonPriceUnderline = FindViewById<View>(Resource.Id.button_price_underline);
 
@@ -360,6 +358,8 @@ namespace Softjourn.SJCoins.Droid.UI.Activities
             _adapter.AddToFavorites += TrigFavorite;
             _adapter.RemoveFromFavorites += TrigFavorite;
             _adapter.LastFavoriteRemoved += ShowEmptyView;
+            _sortPriceButton.Click += OnSortByPriceClick;
+            _sortNameButton.Click += OnSortByNameClick;
         }
 
         public override void DetachEvents()
@@ -369,7 +369,17 @@ namespace Softjourn.SJCoins.Droid.UI.Activities
             _adapter.AddToFavorites -= TrigFavorite;
             _adapter.RemoveFromFavorites -= TrigFavorite;
             _adapter.LastFavoriteRemoved -= ShowEmptyView;
+            _sortPriceButton.Click -= OnSortByPriceClick;
+            _sortNameButton.Click -= OnSortByNameClick;
         }
+
+        protected override void OnDestroy()
+        {
+            _adapter = null;
+            base.OnDestroy();      
+            GC.Collect(GC.MaxGeneration);      
+        }
+
         #endregion
     }
 }

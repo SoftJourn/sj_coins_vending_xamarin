@@ -41,6 +41,9 @@ namespace Softjourn.SJCoins.Core.API.Model.Products
         [JsonProperty("category")]
         public Category Category { get; set; }
 
+        [JsonProperty("nutritionFacts")]
+        public Dictionary<string,string> NutritionFacts { get; set; } 
+
         public bool Equals(Product other)
         {
             return this.Id.Equals(other.Id);

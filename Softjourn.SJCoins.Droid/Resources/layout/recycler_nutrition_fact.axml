@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="@dimen/details_product_left_margin"
+    android:layout_marginEnd="@dimen/details_product_left_margin"
+    android:layout_marginLeft="@dimen/details_product_left_margin"
+    android:layout_marginRight="@dimen/details_product_left_margin"
+    android:layout_marginStart="@dimen/details_product_left_margin">
+    <TextView
+        android:id="@+id/details_info_fact_name"
+        style="@style/NutritionFactsLabelTextViewStyle"
+        android:text="@string/details_info_calories" />
+    <TextView
+        android:id="@+id/details_info_fact_value"
+        style="@style/NutritionFactsValueTextViewStyle"
+        android:text="200" />
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_below="@id/details_info_fact_name"
+        android:background="@color/colorBlue" />
+</RelativeLayout>

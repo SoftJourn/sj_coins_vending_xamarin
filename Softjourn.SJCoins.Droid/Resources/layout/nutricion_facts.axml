@@ -3,41 +3,20 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
-  <TextView
-      android:id="@+id/details_product_Info_label"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:layout_gravity="center"
-      android:layout_marginBottom="8dp"
-      android:layout_marginLeft="@dimen/details_product_left_margin"
-      android:layout_marginStart="@dimen/details_product_left_margin"
-      android:text="@string/details_info_label"
-      android:textColor="@color/colorBlue"
-      android:textSize="30sp"
-      android:textStyle="bold" />
-  <LinearLayout
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:orientation="horizontal">
     <TextView
-        android:id="@+id/details_info_serving_size"
+        android:id="@+id/details_product_Info_label"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_gravity="center"
         android:layout_marginBottom="8dp"
+        android:layout_marginTop="16dp"
         android:layout_marginLeft="@dimen/details_product_left_margin"
         android:layout_marginStart="@dimen/details_product_left_margin"
-        android:text="Serving Size"
+        android:text="@string/details_info_label"
         android:textColor="@color/colorBlue"
-        android:textSize="18sp" />
-    <TextView
-        android:id="@+id/details_info_serving_size_value"
-        android:layout_marginLeft="@dimen/details_product_left_margin"
-        android:layout_marginStart="@dimen/details_product_left_margin"
-        style="@style/NutritionFactsValueTextViewStyle"
-        android:text="172g" />
-  </LinearLayout>
-
-  <View
+        android:textSize="30sp"
+        android:textStyle="bold" />
+    <View
         android:layout_width="match_parent"
         android:layout_height="8dp"
         android:layout_marginBottom="@dimen/details_product_left_margin"
@@ -46,203 +25,24 @@
         android:layout_marginRight="@dimen/details_product_left_margin"
         android:layout_marginStart="@dimen/details_product_left_margin"
         android:background="@color/colorBlue" />
-
-  <RelativeLayout
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      android:layout_marginEnd="@dimen/details_product_left_margin"
-      android:layout_marginLeft="@dimen/details_product_left_margin"
-      android:layout_marginRight="@dimen/details_product_left_margin"
-      android:layout_marginStart="@dimen/details_product_left_margin">
-    <TextView
-        android:id="@+id/details_info_calories"
-        style="@style/NutritionFactsLabelTextViewStyle"
-        android:text="@string/details_info_calories" />
-    <TextView
-        android:id="@+id/details_info_calories_value"
-        style="@style/NutritionFactsValueTextViewStyle"
-        android:text="200" />
-    <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_below="@id/details_info_calories"
-            android:layout_marginBottom="@dimen/details_product_left_margin"
-            android:background="@color/colorBlue" />
-  </RelativeLayout>
-  <RelativeLayout
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      android:layout_marginEnd="@dimen/details_product_left_margin"
-      android:layout_marginLeft="@dimen/details_product_left_margin"
-      android:layout_marginRight="@dimen/details_product_left_margin"
-      android:layout_marginStart="@dimen/details_product_left_margin">
-    <TextView
-        android:id="@+id/details_info_fat"
-        style="@style/NutritionFactsLabelTextViewStyle"
-        android:text="@string/details_info_fat" />
-    <TextView
-        android:id="@+id/details_info_fat_value"
-        style="@style/NutritionFactsValueTextViewStyle"
-        android:text="20g" />
-    <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_below="@id/details_info_fat"
-            android:layout_marginBottom="@dimen/details_product_left_margin"
-            android:background="@color/colorBlue" />
-  </RelativeLayout>
-  <RelativeLayout
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      android:layout_marginEnd="@dimen/details_product_left_margin"
-      android:layout_marginLeft="@dimen/details_product_left_margin"
-      android:layout_marginRight="@dimen/details_product_left_margin"
-      android:layout_marginStart="@dimen/details_product_left_margin">
-    <TextView
-        android:id="@+id/details_info_saturates"
-        style="@style/NutritionFactsLabelTextViewStyle"
-        android:text="@string/details_info_saturates" />
-    <TextView
-        android:id="@+id/details_info_saturates_value"
-        style="@style/NutritionFactsValueTextViewStyle"
-        android:text="20g" />
-    <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_below="@id/details_info_saturates"
-            android:layout_marginBottom="@dimen/details_product_left_margin"
-            android:background="@color/colorBlue" />
-  </RelativeLayout>
-  <RelativeLayout
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      android:layout_marginEnd="@dimen/details_product_left_margin"
-      android:layout_marginLeft="@dimen/details_product_left_margin"
-      android:layout_marginRight="@dimen/details_product_left_margin"
-      android:layout_marginStart="@dimen/details_product_left_margin">
-    <TextView
-        android:id="@+id/details_info_protein"
-        style="@style/NutritionFactsLabelTextViewStyle"
-        android:text="@string/details_info_protein" />
-    <TextView
-        android:id="@+id/details_info_protein_value"
-        style="@style/NutritionFactsValueTextViewStyle"
-        android:text="20g" />
-    <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_below="@id/details_info_protein"
-            android:layout_marginBottom="@dimen/details_product_left_margin"
-            android:background="@color/colorBlue" />
-  </RelativeLayout>
-  <RelativeLayout
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      android:layout_marginEnd="@dimen/details_product_left_margin"
-      android:layout_marginLeft="@dimen/details_product_left_margin"
-      android:layout_marginRight="@dimen/details_product_left_margin"
-      android:layout_marginStart="@dimen/details_product_left_margin">
-    <TextView
-        android:id="@+id/details_info_carbs"
-        style="@style/NutritionFactsLabelTextViewStyle"
-        android:text="@string/details_info_carbs" />
-    <TextView
-        android:id="@+id/details_info_carbs_value"
-        style="@style/NutritionFactsValueTextViewStyle"
-        android:text="20g" />
-    <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_below="@id/details_info_carbs"
-            android:layout_marginBottom="@dimen/details_product_left_margin"
-            android:background="@color/colorBlue" />
-  </RelativeLayout>
-  <RelativeLayout
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      android:layout_marginEnd="@dimen/details_product_left_margin"
-      android:layout_marginLeft="@dimen/details_product_left_margin"
-      android:layout_marginRight="@dimen/details_product_left_margin"
-      android:layout_marginStart="@dimen/details_product_left_margin">
-    <TextView
-        android:id="@+id/details_info_sugars"
-        style="@style/NutritionFactsLabelTextViewStyle"
-        android:text="@string/details_info_sugars" />
-    <TextView
-        android:id="@+id/details_info_sugars_value"
-        style="@style/NutritionFactsValueTextViewStyle"
-        android:text="20g" />
-    <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_below="@id/details_info_sugars"
-            android:layout_marginBottom="@dimen/details_product_left_margin"
-            android:background="@color/colorBlue" />
-  </RelativeLayout>
-  <RelativeLayout
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      android:layout_marginEnd="@dimen/details_product_left_margin"
-      android:layout_marginLeft="@dimen/details_product_left_margin"
-      android:layout_marginRight="@dimen/details_product_left_margin"
-      android:layout_marginStart="@dimen/details_product_left_margin">
-    <TextView
-        android:id="@+id/details_info_solt"
-        style="@style/NutritionFactsLabelTextViewStyle"
-        android:text="@string/details_info_solt" />
-    <TextView
-        android:id="@+id/details_info_solt_value"
-        style="@style/NutritionFactsValueTextViewStyle"
-        android:text="20g" />
-    <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_below="@id/details_info_solt"
-            android:layout_marginBottom="@dimen/details_product_left_margin"
-            android:background="@color/colorBlue" />
-  </RelativeLayout>
-  <RelativeLayout
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      android:layout_marginEnd="@dimen/details_product_left_margin"
-      android:layout_marginLeft="@dimen/details_product_left_margin"
-      android:layout_marginRight="@dimen/details_product_left_margin"
-      android:layout_marginStart="@dimen/details_product_left_margin">
-    <TextView
-        android:id="@+id/details_info_fibre"
-        style="@style/NutritionFactsLabelTextViewStyle"
-        android:text="@string/details_info_fibre" />
-    <TextView
-        android:id="@+id/details_info_fibre_value"
-        style="@style/NutritionFactsValueTextViewStyle"
-        android:text="20g" />
-    <View
-             android:layout_width="match_parent"
-             android:layout_height="1dp"
-             android:layout_below="@id/details_info_fibre"
-             android:layout_marginBottom="@dimen/details_product_left_margin"
-             android:background="@color/colorBlue" />
-  </RelativeLayout>
-  <RelativeLayout
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      android:layout_marginEnd="@dimen/details_product_left_margin"
-      android:layout_marginLeft="@dimen/details_product_left_margin"
-      android:layout_marginRight="@dimen/details_product_left_margin"
-      android:layout_marginStart="@dimen/details_product_left_margin">
-    <TextView
-        android:id="@+id/details_info_rating"
-        style="@style/NutritionFactsLabelTextViewStyle"
-        android:text="@string/details_info_rating" />
-    <TextView
-        android:id="@+id/details_info_rating_value"
-        style="@style/NutritionFactsValueTextViewStyle"
-        android:text="20g" />
-    <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_below="@id/details_info_rating"
-            android:layout_marginBottom="@dimen/details_product_left_margin"
-            android:background="@color/colorBlue" />
-  </RelativeLayout>
+  
+  <TextView
+        android:id="@+id/textViewNoNutritionFacts"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/textViewNoNutritionFacts"
+        android:textAlignment="center"
+        android:gravity="center"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="@dimen/purchase_header_bottom_margin"
+        android:layout_marginBottom="@dimen/purchase_header_bottom_margin"
+        android:textSize="18sp"
+        android:visibility="gone" />
+    
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/nutrition_facts_recycler_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:scrollbars="vertical"
+        android:visibility="gone" />
 </LinearLayout>

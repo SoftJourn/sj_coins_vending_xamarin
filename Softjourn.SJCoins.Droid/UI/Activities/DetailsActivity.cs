@@ -5,6 +5,7 @@ using Android.App;
 using Android.Content.PM;
 using Android.OS;
 using Android.Support.V4.View;
+using Android.Support.V7.Widget;
 using Android.Views;
 using Android.Widget;
 using Softjourn.SJCoins.Core.API.Model.Products;
@@ -27,7 +28,12 @@ namespace Softjourn.SJCoins.Droid.UI.Activities
         private List<string> _images;
         private IMenu _menu;
 
-        private DetailsPagerAdapter _adapter;
+        private DetailsPagerAdapter _pagerAdapter;
+        private NutritionFactsAdapter _nutritionFactsAdapter;
+
+        private RecyclerView.LayoutManager _layoutManager;
+        private RecyclerView _nutritionItems;
+        private TextView _textViewNoNutritionFacts;
 
         #region Public  Methods
         protected override void OnCreate(Bundle savedInstanceState)
@@ -49,12 +55,12 @@ namespace Softjourn.SJCoins.Droid.UI.Activities
                 _images.Add(_product.ImageFullUrl);
             }
 
-            _adapter = new DetailsPagerAdapter(this, _images);
+            _pagerAdapter = new DetailsPagerAdapter(this, _images);
 
             //View Pager for viewing photos by swiping 
             //and adapter for it
             _viewPager = FindViewById<ViewPager>(Resource.Id.viewPager);
-            _viewPager.Adapter = _adapter;
+            _viewPager.Adapter = _pagerAdapter;
 
             _productPrice = FindViewById<TextView>(Resource.Id.details_product_price);
             _productPrice.Text = _product.IntPrice + " coins";
@@ -65,6 +71,25 @@ namespace Softjourn.SJCoins.Droid.UI.Activities
             Title = _product.Name;
 
             SupportActionBar.SetDisplayHomeAsUpEnabled(true);
+
+            _textViewNoNutritionFacts = FindViewById<TextView>(Resource.Id.textViewNoNutritionFacts);
+            if (_product.NutritionFacts.Count < 1 || _product.NutritionFacts == null)
+            {
+                _textViewNoNutritionFacts.Visibility = ViewStates.Visible;
+            }
+            else
+            {
+                _nutritionItems = FindViewById<RecyclerView>(Resource.Id.nutrition_facts_recycler_view);
+                _nutritionItems.Visibility = ViewStates.Visible;
+                _layoutManager = new LinearLayoutManager(this, LinearLayoutManager.Vertical, false);
+
+                _nutritionFactsAdapter = new NutritionFactsAdapter();
+
+                _nutritionItems.SetLayoutManager(_layoutManager);
+                _nutritionItems.SetAdapter(_nutritionFactsAdapter);
+
+                _nutritionFactsAdapter.SetData(_product.NutritionFacts);
+            }
         }
 
         public override bool OnCreateOptionsMenu(IMenu menu)

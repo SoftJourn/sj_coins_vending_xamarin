@@ -118,7 +118,7 @@ namespace Softjourn.SJCoins.Droid.UI.Adapters
                 {
                     if (product.IsProductFavorite)
                     {
-                        Picasso.With(_context).Load(Resource.Drawable.ic_favorite_pink).Into(holder.AddFavorite);
+                        Picasso.With(_context).Load(Resource.Drawable.ic_favorite_pink).NetworkPolicy(NetworkPolicy.NoCache).Into(holder.AddFavorite);
                         if (product.IsHeartAnimationRunning && _animatedPosition != null)
                         {
                             FinishAnimation(holder);
@@ -127,7 +127,7 @@ namespace Softjourn.SJCoins.Droid.UI.Adapters
                     }
                     else
                     {
-                        Picasso.With(_context).Load(Resource.Drawable.ic_favorite_border).Into(holder.AddFavorite);
+                        Picasso.With(_context).Load(Resource.Drawable.ic_favorite_border).NetworkPolicy(NetworkPolicy.NoCache).Into(holder.AddFavorite);
                         if (product.IsHeartAnimationRunning && _animatedPosition != null)
                         {
                             FinishAnimation(holder);
@@ -144,12 +144,12 @@ namespace Softjourn.SJCoins.Droid.UI.Adapters
              */
             if (TextUtils.IsEmpty(product.ImageUrl))
             {
-                Picasso.With(_context).Load(Resource.Drawable.logo).Into(holder.ProductImage);
+                Picasso.With(_context).Load(Resource.Drawable.logo).NetworkPolicy(NetworkPolicy.NoCache).Into(holder.ProductImage);
                 holder.ProductImage.Alpha = 1.0f;
             }
             else
             {
-                Picasso.With(_context).Load(Core.Utils.Const.BaseUrl + Core.Utils.Const.UrlVendingService + ListProducts[holder.AdapterPosition].ImageUrl).Into(holder.ProductImage);
+                Picasso.With(_context).Load(Core.Utils.Const.BaseUrl + Core.Utils.Const.UrlVendingService + ListProducts[holder.AdapterPosition].ImageUrl).NetworkPolicy(NetworkPolicy.NoCache).Into(holder.ProductImage);
                 if (_category == Const.Favorites)
                 holder.ProductImage.Alpha = !product.IsProductInCurrentMachine ? 0.3f : 1.0f;
             }

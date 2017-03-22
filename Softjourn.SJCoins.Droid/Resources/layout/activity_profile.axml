@@ -6,65 +6,65 @@
     android:layout_height="match_parent"
     android:fillViewport="true"
     android:background="@color/colorBackgroundNoInternet">
-  <LinearLayout
-      android:focusableInTouchMode="true"
-      android:orientation="vertical"
-      android:layout_width="match_parent"
-      android:layout_height="match_parent"
-      android:gravity="center_horizontal">
-    <refractored.controls.CircleImageView
-        android:id="@+id/profile_avatar"
-        android:layout_marginTop="@dimen/profile_avatar_top_margin"
-        android:layout_width="@dimen/profile_avatar_size"
-        android:layout_height="@dimen/profile_avatar_size"
-        app:civ_border_width="1dp"
-        app:civ_border_color="@color/colorBlue"
-        android:layout_gravity="center"
-        android:src="@drawable/noavatar"
-        android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true" />
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:id="@+id/profile_user_name"
-        android:textStyle="bold"
-        android:layout_marginTop="10dp"
-        android:layout_gravity="center_horizontal" />
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:id="@+id/profile_amount_available"
-        android:text="@string/profile_updating_label"
-        android:textStyle="bold"
-        android:layout_marginTop="10dp"
-        android:layout_gravity="center_horizontal" />
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceSmall"
-        android:text="@string/item_coins"
-        android:id="@+id/profile_coins_label"
-        android:visibility="invisible"
-        android:layout_gravity="center_horizontal" />
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:id="@+id/profile_more_options_label"
-        android:text="@string/profile_more_options"
-        android:textStyle="bold"
-        android:textColor="@color/colorBlue"
-        android:layout_marginTop="10dp"
-        android:layout_gravity="center_horizontal" />
-    <ListView
-        android:id="@+id/profile_more_options"
-        android:dividerHeight="1dp"
-        android:divider="@color/colorBlue"
-        android:choiceMode="singleChoice"
+    <LinearLayout
+        android:focusableInTouchMode="true"
+        android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:visibility="gone"/>
-  </LinearLayout>
+        android:gravity="center_horizontal">
+        <refractored.controls.CircleImageView
+            android:id="@+id/profile_avatar"
+            android:layout_marginTop="@dimen/profile_avatar_top_margin"
+            android:layout_width="@dimen/profile_avatar_size"
+            android:layout_height="@dimen/profile_avatar_size"
+            app:civ_border_width="1dp"
+            app:civ_border_color="@color/colorBlue"
+            android:layout_gravity="center"
+            android:src="@drawable/noavatar"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:id="@+id/profile_user_name"
+            android:textStyle="bold"
+            android:layout_marginTop="10dp"
+            android:layout_gravity="center_horizontal" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:id="@+id/profile_amount_available"
+            android:text="@string/profile_updating_label"
+            android:textStyle="bold"
+            android:layout_marginTop="10dp"
+            android:layout_gravity="center_horizontal" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:text="@string/item_coins"
+            android:id="@+id/profile_coins_label"
+            android:visibility="invisible"
+            android:layout_gravity="center_horizontal" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:id="@+id/profile_more_options_label"
+            android:text="@string/profile_more_options"
+            android:textStyle="bold"
+            android:textColor="@color/colorBlue"
+            android:layout_marginTop="10dp"
+            android:layout_gravity="center_horizontal" />
+        <ListView
+            android:id="@+id/profile_more_options"
+            android:dividerHeight="1dp"
+            android:divider="@color/colorBlue"
+            android:choiceMode="singleChoice"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="gone" />
+    </LinearLayout>
 </ScrollView>

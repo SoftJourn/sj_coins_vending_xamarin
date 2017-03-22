@@ -70,6 +70,7 @@ namespace Softjourn.SJCoins.Droid.Services
                     break;
                 case NavigationPage.ShowAll:
                     view = new Intent(CrossCurrentActivity.Current.Activity, typeof(ShowAllActivity));
+                    view.AddFlags(ActivityFlags.NewTask);
                     break;
                 case NavigationPage.Detail:
                     view = new Intent(CrossCurrentActivity.Current.Activity, typeof(DetailsActivity));

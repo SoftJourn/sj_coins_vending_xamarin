@@ -200,4 +200,6 @@
   <string name="btn_scan_again">Scan Again</string>
   <string name="wallet_funded">Your coins wallet was funded</string>
 
+  <string name="textViewNoNutritionFacts">There is no info about nutrition facts</string>
+
 </resources>

@@ -67,5 +67,12 @@ namespace Softjourn.SJCoins.Droid
             new Bootstrapper().Init();
 
         }
+
+        public override void OnLowMemory()
+        {
+            GC.Collect(GC.MaxGeneration);
+
+            base.OnLowMemory();
+        }
     }
 }
