@@ -45,10 +45,12 @@ namespace Softjourn.SJCoins.iOS.UI.Cells
 			ImageLogo.SetImage(url: new NSUrl(item.ImageFullUrl), placeholder: UIImage.FromBundle(ImageConstants.Placeholder));
 
 			if (item.IsHeartAnimationRunning)
+			{
 				// Final animation with complition
 				animationService.CompleteRotation(FavoriteButton);
 				animationService.ScaleEffect(FavoriteButton);
 				item.IsHeartAnimationRunning = false;
+			}
 
 			if (item.IsProductFavorite)
 				FavoriteButton.SetImage(UIImage.FromBundle(ImageConstants.FavoriteChecked), forState: UIControlState.Normal);

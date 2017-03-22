@@ -25,7 +25,6 @@ namespace Softjourn.SJCoins.iOS.UI.Services
 			Duration = 0.6,
 			Cumulative = true,
 			RepeatCount = float.MaxValue
-			//RepeatDuration = 600               
 		};
 
 		#endregion

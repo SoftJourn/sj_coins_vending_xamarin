@@ -27,7 +27,7 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers
 		{
 			get {
 				var action1 = PreviewActionForTitle("Buy", UIPreviewActionStyle.Default, new Action(BuyActionClicked));
-				var action2 = PreviewActionForTitle("Add to favorite", UIPreviewActionStyle.Default, new Action(FavoriteActionClicked));
+				var action2 = PreviewActionForTitle(ConfigureFavoriteAction(), UIPreviewActionStyle.Default, new Action(FavoriteActionClicked));
 				return new IUIPreviewActionItem[] { action1, action2 }; 
 			}
 		}
@@ -77,6 +77,11 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers
 				FavoriteButton.SetImage(UIImage.FromBundle(ImageConstants.FavoriteChecked), forState: UIControlState.Normal);
 			else
 				FavoriteButton.SetImage(UIImage.FromBundle(ImageConstants.FavoriteUnchecked), forState: UIControlState.Normal);
+		}
+
+		private string ConfigureFavoriteAction()
+		{
+			return currentProduct.IsProductFavorite ? "Remove from favorites" : "Add to favorites";
 		}
 
 		// -------------------- Action handlers --------------------

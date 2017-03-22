@@ -104,6 +104,7 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.Main
 
 		public void FavoriteChanged(Product product)
 		{
+			RefreshFavoritesCell();
 		}
 		#endregion
 
