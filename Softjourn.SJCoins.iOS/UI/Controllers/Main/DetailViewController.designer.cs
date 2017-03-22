@@ -21,24 +21,37 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers
 		UIKit.UIButton FavoriteButton { get; set; }
 
 		[Outlet]
-		UIKit.UIImageView Logo { get; set; }
+		UIKit.UIView LogoView { get; set; }
 
 		[Outlet]
 		UIKit.UILabel NameLabel { get; set; }
+
+		[Outlet]
+		UIKit.UIPageControl PageControl { get; set; }
 
 		[Outlet]
 		UIKit.UILabel PriceLabel { get; set; }
 		
 		void ReleaseDesignerOutlets ()
 		{
+			if (BuyButton != null) {
+				BuyButton.Dispose ();
+				BuyButton = null;
+			}
+
 			if (DescriptionLabel != null) {
 				DescriptionLabel.Dispose ();
 				DescriptionLabel = null;
 			}
 
-			if (Logo != null) {
-				Logo.Dispose ();
-				Logo = null;
+			if (FavoriteButton != null) {
+				FavoriteButton.Dispose ();
+				FavoriteButton = null;
+			}
+
+			if (LogoView != null) {
+				LogoView.Dispose ();
+				LogoView = null;
 			}
 
 			if (NameLabel != null) {
@@ -51,14 +64,9 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers
 				PriceLabel = null;
 			}
 
-			if (FavoriteButton != null) {
-				FavoriteButton.Dispose ();
-				FavoriteButton = null;
-			}
-
-			if (BuyButton != null) {
-				BuyButton.Dispose ();
-				BuyButton = null;
+			if (PageControl != null) {
+				PageControl.Dispose ();
+				PageControl = null;
 			}
 		}
 	}

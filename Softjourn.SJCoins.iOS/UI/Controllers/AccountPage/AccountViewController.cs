@@ -34,6 +34,11 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.AccountPage
 			base.ViewDidLoad();
 			ConfigureTableView();
 			ConfigureAvatarImage(AvatarImage);
+		}
+
+		public override void ViewWillAppear(bool animated)
+		{
+			base.ViewWillAppear(animated);
 			Presenter.OnStartLoadingPage();
 		}
 		#endregion

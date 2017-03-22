@@ -5,24 +5,33 @@ using Softjourn.SJCoins.Core.API.Model.Products;
 using Softjourn.SJCoins.Core.UI.Presenters;
 using Softjourn.SJCoins.Core.UI.ViewInterfaces;
 using Softjourn.SJCoins.iOS.General.Constants;
+using Softjourn.SJCoins.iOS.General.Helper;
 using Softjourn.SJCoins.iOS.UI.Cells;
+using Softjourn.SJCoins.iOS.UI.Services;
 using UIKit;
 
 namespace Softjourn.SJCoins.iOS.UI.Controllers.Main
 {
 	[Register("ShowViewController")]
-	public partial class ShowViewController : BaseViewController<ShowAllPresenter>, IShowAllView
+	public partial class ShowViewController : BaseViewController<ShowAllPresenter>, IShowAllView, IUISearchControllerDelegate
 	{
+		#region Constants
+		private const string NameTitle = "Name";
+		private const string PriceTitle = "Price";
+		private const int NameSegment = 0;
+		private const int PriceSegment = 1;
+		private const int tableSection = 0;
+		#endregion
+
 		#region Properties
 		private string categoryName { get; set; }
 
-		private ShowAllSource _tableSource; 
-		private NSIndexPath _favoriteCellIndex;
+		private ShowAllSource _tableSource;
 		private UISearchController searchController;
 		private SearchResultsUpdator searchResultsUpdator;
+		private SegmentControlHelper _segmentControlHelper;
 		private List<Product> searchData;
-
-		public List<Product> filteredItems;
+		private List<Product> filteredItems;
 		#endregion
 
 		#region Constructor
@@ -43,23 +52,29 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.Main
 		public override void ViewDidLoad()
 		{
 			base.ViewDidLoad();
-			// Throw to presenter category name what needs to be displayed and take products.
-			filteredItems = Presenter.GetProductList(categoryName);
-			// Configure table view with source and events.
 			ConfigureSearch();
 			ConfigureTableView();
+			ConfigureSegmentControl();
 		}
 
 		public override void ViewWillAppear(bool animated)
 		{
 			base.ViewWillAppear(animated);
 			Title = categoryName;
+			// Throw to presenter category name what needs to be displayed and take products.
+			filteredItems = Presenter.GetProductList(categoryName);
+			_tableSource.SetItems(filteredItems);
+			TableView.ReloadData();
+
+			NamePriceSegmentControl.Alpha = 1.0f;
 		}
 
-		public override void ViewDidDisappear(bool animated)
+		[Export("willDismissSearchController:")]
+		public void WillDismissSearchController(UISearchController searchController)
 		{
-			base.ViewDidDisappear(animated);
-			Presenter = null;
+			_tableSource.SetItems(filteredItems);
+			TableView.ReloadData();
+			_refreshControl.Enabled = true;
 		}
 		#endregion
 
@@ -67,45 +82,53 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.Main
 		public override void AttachEvents()
 		{
 			base.AttachEvents();
-			SegmentControl.TouchUpInside += SameButtonClickHandler;
-			SegmentControl.ValueChanged += AnotherButtonClickHandler;
-			_tableSource.ItemSelected += TableSource_ItemSelected;
-			_tableSource.FavoriteClicked += TableSource_FavoriteClicked;
+			NamePriceSegmentControl.TouchUpInside += SameButtonClickHandler;
+			NamePriceSegmentControl.ValueChanged += AnotherButtonClickHandler;
+
+			_tableSource.ShowAllSource_ItemSelected += TableSource_ItemSelected;
+			_tableSource.ShowAllSource_FavoriteClicked += TableSource_FavoriteClicked;
+
 			SearchButton.Clicked += SearchButtonClickHandler;
-			searchResultsUpdator.UpdateSearchResults += Search;
+
+			searchResultsUpdator.UpdateSearchResults += SearchResultsUpdator_Search;
 		}
 
 		public override void DetachEvents()
 		{
-			SegmentControl.TouchUpInside -= SameButtonClickHandler;
-			SegmentControl.ValueChanged -= AnotherButtonClickHandler;
-			_tableSource.ItemSelected -= TableSource_ItemSelected;
-			_tableSource.FavoriteClicked -= TableSource_FavoriteClicked;
+			NamePriceSegmentControl.TouchUpInside -= SameButtonClickHandler;
+			NamePriceSegmentControl.ValueChanged -= AnotherButtonClickHandler;
+
+			_tableSource.ShowAllSource_ItemSelected -= TableSource_ItemSelected;
+			_tableSource.ShowAllSource_FavoriteClicked -= TableSource_FavoriteClicked;
+
 			SearchButton.Clicked -= SearchButtonClickHandler;
-			searchResultsUpdator.UpdateSearchResults -= Search;
+
+			searchResultsUpdator.UpdateSearchResults -= SearchResultsUpdator_Search;
 			base.DetachEvents();
 		}
 		#endregion
 
 		#region IShowAllView implementation
-		public void FavoriteChanged(bool isFavorite)
+		public void FavoriteChanged(Product product)
 		{
-			// table reload row at index
-			if (_favoriteCellIndex != null)
+			var indexPaths = new List<NSIndexPath>();
+			if (filteredItems.Contains(product))
 			{
-				var index = new NSIndexPath[] { _favoriteCellIndex };
-				if (categoryName == Const.FavoritesCategory)
-				{
-					// Set new items to table source
-					var newItems = Presenter.GetProductList(categoryName);
-					_tableSource.SetItems(newItems);
-					// Delete row
-					TableView.DeleteRows(atIndexPaths: index, withRowAnimation: UITableViewRowAnimation.Fade);
-				}
-				else
-				{
-					TableView.ReloadRows(atIndexPaths: index, withRowAnimation: UITableViewRowAnimation.Fade);
-				}
+				var index = filteredItems.IndexOf(product);
+				var indexPath = NSIndexPath.FromRowSection(index, tableSection);
+				indexPaths.Add(indexPath);
+			}
+
+			if (categoryName == Const.FavoritesCategory)
+			{
+				// Set new items to table source
+				var newItems = Presenter.GetProductList(categoryName);
+				_tableSource.SetItems(newItems);
+				TableView.DeleteRows(atIndexPaths: indexPaths.ToArray(), withRowAnimation: UITableViewRowAnimation.Fade);
+			}
+			else
+			{
+				TableView.ReloadRows(atIndexPaths: indexPaths.ToArray(), withRowAnimation: UITableViewRowAnimation.Fade);
 			}
 		}
 
@@ -117,29 +140,21 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.Main
 
 		public void SetCompoundDrawableName(bool? isAsc)
 		{
-			//throw new NotImplementedException();
+			SetCompoundDrawableSegment(isAsc, NameTitle, NameSegment);
 		}
 
 		public void SetCompoundDrawablePrice(bool? isAsc)
 		{
-			//throw new NotImplementedException();
+			SetCompoundDrawableSegment(isAsc, PriceTitle, PriceSegment);
 		}
 
 		public void LastUnavailableFavoriteRemoved()
 		{
-			
+			// Used for Android only.
 		}
 		#endregion
 
 		#region Private methods
-		private void ConfigureTableView()
-		{
-			_tableSource = new ShowAllSource(filteredItems);
-
-			TableView.Source = _tableSource;
-			TableView.RegisterNibForCellReuse(ProductCell.Nib, ProductCell.Key);
-		}
-
 		private void ConfigureSearch()
 		{
 			searchData = new List<Product>();
@@ -152,20 +167,67 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.Main
 			};
 		}
 
-		public void Search(string searchString)
+		private void ConfigureTableView()
+		{
+			_tableSource = new ShowAllSource();
+
+			TableView.Source = _tableSource;
+			TableView.RegisterNibForCellReuse(ProductCell.Nib, ProductCell.Key);
+		}
+
+		private void ConfigureSegmentControl()
+		{
+			_segmentControlHelper = new SegmentControlHelper();
+			// Configure 0 segment
+			ConfigureSegment(NameTitle, NameSegment, ImageConstants.ArrowUpward);
+		}
+
+		private void Search(string searchString)
 		{
 			var search = searchString.Trim();
 			searchData.Clear();
 
 			if (searchController.SearchBar.Text != "")
-				searchData = filteredItems.FindAll(item => item.Name.Contains(search));
-				
-			if (searchData.Count > 0)
+			{
+				searchData = filteredItems.FindAll(item => item.Name.ToLower().Contains(search.ToLower()));
 				_tableSource.SetItems(searchData);
+			}
 			else
+			{
 				_tableSource.SetItems(filteredItems);
-			
+			}
+
+			if (searchController.Active)
+				UIView.Animate(0.5, 0, UIViewAnimationOptions.CurveLinear, () => { NamePriceSegmentControl.Alpha = 0.0f; }, null);
+			else
+				UIView.Animate(0.5, 0, UIViewAnimationOptions.CurveLinear, () => { NamePriceSegmentControl.Alpha = 1.0f; }, null);
+
 			TableView.ReloadData();
+		}
+
+		private void SetCompoundDrawableSegment(bool? isAsc, string title, int segment)
+		{
+			if (isAsc == true)
+				ConfigureSegment(title, segment, ImageConstants.ArrowDownward);
+			else if (isAsc == false)
+				ConfigureSegment(title, segment, ImageConstants.ArrowUpward);
+			else
+				ConfigureSegment(title, segment, null);
+		}
+
+		private void ConfigureSegment(string title, int segment, string imageName = null)
+		{
+			// Configure segment depending on whether the picture is present or not 
+			if (imageName == null)
+			{
+				NamePriceSegmentControl.SetTitle(title, segment);
+			}
+			else
+			{
+				var inputImage = UIImage.FromBundle(imageName);
+				var mergedImage = _segmentControlHelper.ImageFromImageAndText(inputImage, title, UIColor.Black);
+				NamePriceSegmentControl.SetImage(mergedImage, segment);
+			}
 		}
 
 		// -------------------- Event handlers --------------------
@@ -173,18 +235,20 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.Main
 		{
 			// Trigg presenter that user click on some product to see details
 			Presenter.OnProductDetailsClick(product.Id);
+			if (searchController.Active)
+				searchController.DismissViewController(true, null);
 		}
 
-		public void TableSource_FavoriteClicked(object sender, ProductCell cell)
+		public void TableSource_FavoriteClicked(object sender, Product product)
 		{
 			// Trigg presenter that user click on some product for adding it to favorite
-			_favoriteCellIndex = TableView.IndexPathForCell(cell);
-			Presenter.OnFavoriteClick(cell.Product);
+			Presenter.OnFavoriteClick(product);
 		}
 
 		private void SearchButtonClickHandler(object sender, EventArgs e)
 		{
 			// Handle clicking on the Search button
+			searchController.SearchBar.Text = "";
 			PresentViewController(searchController, true, completionHandler: null);
 		}
 
@@ -203,7 +267,7 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.Main
 
 		private void SortItems(string category)
 		{
-			switch (SegmentControl.SelectedSegment)
+			switch (NamePriceSegmentControl.SelectedSegment)
 			{
 				case 0: // Name button
 					Presenter.OnSortByNameClicked(category);
@@ -214,6 +278,11 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.Main
 				default:
 					break;
 			}
+		}
+
+		private void SearchResultsUpdator_Search(object sender, string searchString)
+		{
+			Search(searchString);
 		}
 		// -------------------------------------------------------- 
 		#endregion
@@ -229,17 +298,12 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.Main
 	}
 
 	#region UITableViewSource implementation
-	public class ShowAllSource : UITableViewSource
+	public class ShowAllSource : UITableViewSource, IDisposable
 	{
-		private List<Product> items;
+		private List<Product> items = new List<Product>();
 
-		public event EventHandler<Product> ItemSelected;
-		public event EventHandler<ProductCell> FavoriteClicked;
-
-		public ShowAllSource(List<Product> items)
-		{
-			this.items = items;
-		}
+		public event EventHandler<Product> ShowAllSource_ItemSelected;
+		public event EventHandler<Product> ShowAllSource_FavoriteClicked;
 
 		public void SetItems(List<Product> items)
 		{
@@ -254,30 +318,49 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.Main
 		{
 			var _cell = (ProductCell)cell;
 			var item = items[indexPath.Row];
-
-			_cell.FavoriteClicked -= FavoriteClicked;
-			_cell.FavoriteClicked += FavoriteClicked;
+			// Attach event
+			_cell.ProductCell_FavoriteClicked -= ShowAllSource_FavoriteClicked;
+			_cell.ProductCell_FavoriteClicked += ShowAllSource_FavoriteClicked;
 
 			_cell.ConfigureWith(item);
+		}
+
+		public override void CellDisplayingEnded(UITableView tableView, UITableViewCell cell, NSIndexPath indexPath)
+		{
+			var _cell = (ProductCell)cell;
+			// Detach event
+			_cell.ProductCell_FavoriteClicked -= ShowAllSource_FavoriteClicked;
 		}
 
 		public override void RowSelected(UITableView tableView, NSIndexPath indexPath)
 		{
 			tableView.DeselectRow(indexPath, true);
 			var item = items[indexPath.Row];
-			ItemSelected?.Invoke(this, item);
+			ShowAllSource_ItemSelected?.Invoke(this, item);
+		}
+
+		protected override void Dispose(bool disposing)
+		{
+			System.Diagnostics.Debug.WriteLine(String.Format("{0} object disposed", this.GetType()));
+			base.Dispose(disposing);
 		}
 	}
 	#endregion
 
 	#region UISearchResultsUpdating implementation
-	public class SearchResultsUpdator : UISearchResultsUpdating
+	public class SearchResultsUpdator : UISearchResultsUpdating, IDisposable
 	{
-		public event Action<string> UpdateSearchResults = delegate { };
+		public event EventHandler<string> UpdateSearchResults;
 
 		public override void UpdateSearchResultsForSearchController(UISearchController searchController)
 		{
-			UpdateSearchResults?.Invoke(searchController.SearchBar.Text);
+			UpdateSearchResults?.Invoke(this, searchController.SearchBar.Text);
+		}
+
+		protected override void Dispose(bool disposing)
+		{
+			System.Diagnostics.Debug.WriteLine(String.Format("{0} object disposed", this.GetType()));
+			base.Dispose(disposing);
 		}
 	}
 	#endregion

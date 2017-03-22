@@ -451,6 +451,8 @@
     <Folder Include="Assets.xcassets\ic_share_funs.imageset\" />
     <Folder Include="Assets.xcassets\ic_select_machine.imageset\" />
     <Folder Include="Assets.xcassets\ic_logout.imageset\" />
+    <Folder Include="UI\DataSources\" />
+    <Folder Include="UI\Delegates\" />
   </ItemGroup>
   <ItemGroup>
     <InterfaceDefinition Include="LaunchScreen.storyboard" />
@@ -553,6 +555,14 @@
       <DependentUpon>TransactionCell.cs</DependentUpon>
     </Compile>
     <Compile Include="General\Helper\SegmentControlHelper.cs" />
+    <Compile Include="UI\DataSources\PageViewDataSource.cs" />
+    <Compile Include="UI\Controllers\Main\ImageContentViewController.cs" />
+    <Compile Include="UI\Controllers\Main\ImageContentViewController.designer.cs">
+      <DependentUpon>ImageContentViewController.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Delegates\PageViewDelegate.cs" />
+    <Compile Include="UI\Delegates\AmountTextFieldDelegate.cs" />
+    <Compile Include="UI\Services\AnimationService.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
 </Project>

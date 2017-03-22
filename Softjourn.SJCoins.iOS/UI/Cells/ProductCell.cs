@@ -5,6 +5,7 @@ using SDWebImage;
 using Softjourn.SJCoins.Core.API.Model.Products;
 using Softjourn.SJCoins.Core.Utils;
 using Softjourn.SJCoins.iOS.General.Constants;
+using Softjourn.SJCoins.iOS.UI.Services;
 using UIKit;
 
 namespace Softjourn.SJCoins.iOS.UI.Cells
@@ -20,9 +21,12 @@ namespace Softjourn.SJCoins.iOS.UI.Cells
 			Nib = UINib.FromName("ProductCell", NSBundle.MainBundle);
 		}
 
-		public event EventHandler<ProductCell> FavoriteClicked;
+		public event EventHandler<Product> ProductCell_FavoriteClicked;
 		public bool Favorite { get; set; } = false;
 		public Product Product { get; set; }
+
+		private Lazy<AnimationService> lazyAnimationService = new Lazy<AnimationService>(() => { return new AnimationService(); });
+		private AnimationService animationService { get { return lazyAnimationService.Value; } }
 		#endregion
 
 		#region Constructor
@@ -40,11 +44,20 @@ namespace Softjourn.SJCoins.iOS.UI.Cells
 			Favorite = item.IsProductFavorite;
 			ImageLogo.SetImage(url: new NSUrl(item.ImageFullUrl), placeholder: UIImage.FromBundle(ImageConstants.Placeholder));
 
+			if (item.IsHeartAnimationRunning)
+			{
+				// Final animation with complition
+				animationService.CompleteRotation(FavoriteButton);
+				animationService.ScaleEffect(FavoriteButton);
+				item.IsHeartAnimationRunning = false;
+			}
+
 			if (item.IsProductFavorite)
 				FavoriteButton.SetImage(UIImage.FromBundle(ImageConstants.FavoriteChecked), forState: UIControlState.Normal);
 			else
 				FavoriteButton.SetImage(UIImage.FromBundle(ImageConstants.FavoriteUnchecked), forState: UIControlState.Normal);
 
+			// Attach event
 			FavoriteButton.TouchUpInside -= FavoriteButtonClicked;
 			FavoriteButton.TouchUpInside += FavoriteButtonClicked;
 		}
@@ -56,16 +69,18 @@ namespace Softjourn.SJCoins.iOS.UI.Cells
 			PriceLabel.Text = "";
 			Favorite = false;
 			ImageLogo.Image = null; 
+			// Detach event
+			FavoriteButton.TouchUpInside -= FavoriteButtonClicked;
 			base.PrepareForReuse();
 		}
 
 		private void FavoriteButtonClicked(object sender, EventArgs e)
 		{
-			var handler = FavoriteClicked;
-			if (handler != null)
-			{
-				handler(this, this);
-			}
+			// Start animation
+			animationService.StartRotation(FavoriteButton);
+			Product.IsHeartAnimationRunning = true;
+
+			ProductCell_FavoriteClicked?.Invoke(this, Product);
 		}
 	}
 }

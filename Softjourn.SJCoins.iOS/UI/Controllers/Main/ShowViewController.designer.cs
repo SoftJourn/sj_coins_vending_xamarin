@@ -12,29 +12,29 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.Main
 	partial class ShowViewController
 	{
 		[Outlet]
-		UIKit.UIBarButtonItem SearchButton { get; set; }
+		UIKit.UISegmentedControl NamePriceSegmentControl { get; set; }
 
 		[Outlet]
-		UIKit.UISegmentedControl SegmentControl { get; set; }
+		UIKit.UIBarButtonItem SearchButton { get; set; }
 
 		[Outlet]
 		UIKit.UITableView TableView { get; set; }
 		
 		void ReleaseDesignerOutlets ()
 		{
-			if (SegmentControl != null) {
-				SegmentControl.Dispose ();
-				SegmentControl = null;
+			if (SearchButton != null) {
+				SearchButton.Dispose ();
+				SearchButton = null;
+			}
+
+			if (NamePriceSegmentControl != null) {
+				NamePriceSegmentControl.Dispose ();
+				NamePriceSegmentControl = null;
 			}
 
 			if (TableView != null) {
 				TableView.Dispose ();
 				TableView = null;
-			}
-
-			if (SearchButton != null) {
-				SearchButton.Dispose ();
-				SearchButton = null;
 			}
 		}
 	}

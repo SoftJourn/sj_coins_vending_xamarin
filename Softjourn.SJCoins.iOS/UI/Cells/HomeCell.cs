@@ -14,18 +14,18 @@ namespace Softjourn.SJCoins.iOS
 		public static readonly NSString Key = new NSString("HomeCell");
 		public static readonly UINib Nib;
 
+		public event EventHandler<Product> HomeCell_BuyActionExecuted;
+		public event EventHandler<Product> HomeCell_FavoriteActionExecuted;
+		public event EventHandler<string> HomeCell_SeeAllClicked;
+		public event EventHandler<Product> HomeCell_ItemSelected;
+
 		private AppDelegate _currentApplication
 		{
 			get { return (AppDelegate)UIApplication.SharedApplication.Delegate; }
 		}
 		private string categoryName; 
 		private List<Product> categoryProducts;
-
-		public event EventHandler<Product> BuyActionExecuted;
-		public event EventHandler<Product> FavoriteActionExecuted;
-		public event EventHandler<string> SeeAllClickedEvent;
-
-		public HomeCellDelegate _delegate;
+		private HomeCellDelegate _delegate;
 		private HomeCellDataSource _dataSource;
 		private PreViewController previewController;
 
@@ -38,22 +38,26 @@ namespace Softjourn.SJCoins.iOS
 		{
 		}
 
-		public void  ConfigureWith(Categories category)
+		public void ConfigureWith(Categories category)
 		{
 			// Save and set category name
 			categoryName = category.Name;
 			CategoryNameLabel.Text = category.Name;
 			categoryProducts = category.Products;
 
-			_delegate = new HomeCellDelegate(category.Products);
+			_delegate = new HomeCellDelegate(category.Products, categoryName);
 			_dataSource = new HomeCellDataSource(category.Products);
 
 			InternalCollectionView.DataSource = _dataSource;
 			InternalCollectionView.Delegate = _delegate;
 			InternalCollectionView.ReloadData();
+
 			//Attach
-			ShowAllButton.TouchUpInside -= OnSeeAllClicked;
-			ShowAllButton.TouchUpInside += OnSeeAllClicked;
+			ShowAllButton.TouchUpInside -= HomeCell_OnSeeAllClickedHandler;
+			ShowAllButton.TouchUpInside += HomeCell_OnSeeAllClickedHandler;
+
+			_delegate.HomeCellDelegate_ItemSelected -= HomeCell_ItemSelectedHandler;
+			_delegate.HomeCellDelegate_ItemSelected += HomeCell_ItemSelectedHandler;
 		}
 
 		public override void PrepareForReuse()
@@ -63,38 +67,51 @@ namespace Softjourn.SJCoins.iOS
 			CategoryNameLabel.Text = "";
 			categoryProducts = null;
 
-			_dataSource?.Dispose();
-			_dataSource = null;
-
-			_delegate?.Dispose();
-			_delegate = null;
-
 			// Dettach
 			if (previewController != null)
 			{
-				previewController.BuyActionExecuted -= OnBuyActionClicked;
-				previewController.FavoriteActionExecuted -= OnFavoriteActionClicked;
+				previewController.PreViewController_BuyActionExecuted -= HomeCell_OnFavoriteActionClickedHandler;
+				previewController.PreViewController_FavoriteActionExecuted -= HomeCell_OnFavoriteActionClickedHandler;
 			}
+			ShowAllButton.TouchUpInside -= HomeCell_OnSeeAllClickedHandler;
+			if (_delegate != null)
+			{
+				_delegate.HomeCellDelegate_ItemSelected -= HomeCell_ItemSelectedHandler;
+				_delegate = null;
+			}
+
+			_dataSource = null;
+
+			Layer.ShouldRasterize = true;
+			Layer.RasterizationScale = UIScreen.MainScreen.Scale;
+
 			base.PrepareForReuse();
 		}
 
 		// -------------------- Event handlers --------------------
-		public void OnSeeAllClicked(object sender, EventArgs e)
+		public void HomeCell_OnSeeAllClickedHandler(object sender, EventArgs e)
 		{
 			// Execute event and throw category name to HomeViewController
-			SeeAllClickedEvent?.Invoke(this, categoryName);
+			// User click on button
+			HomeCell_SeeAllClicked?.Invoke(this, categoryName);
 		}
 
-		public void OnBuyActionClicked(object sender, Product product)
+		private void HomeCell_ItemSelectedHandler(object sender, Product product)
 		{
-			// Execute event and throw product to HomeViewController
-			BuyActionExecuted?.Invoke(this, product);
+			// ItemSelected from delegate object
+			HomeCell_ItemSelected?.Invoke(this, product);
 		}
 
-		public void OnFavoriteActionClicked(object sender, Product product)
+		public void HomeCell_OnBuyActionClickedHandler(object sender, Product product)
 		{
-			// Execute event and throw product to HomeViewController
-			FavoriteActionExecuted?.Invoke(this, product);
+			// Execute event via 3D Touch functionality and throw product to HomeViewController
+			HomeCell_BuyActionExecuted?.Invoke(this, product);
+		}
+
+		public void HomeCell_OnFavoriteActionClickedHandler(object sender, Product product)
+		{
+			// Execute event via 3D Touch functionality and throw product to HomeViewController
+			HomeCell_FavoriteActionExecuted?.Invoke(this, product);
 		}
 		// --------------------------------------------------------
 
@@ -136,8 +153,8 @@ namespace Softjourn.SJCoins.iOS
 			var previewItem = categoryProducts[indexPath.Row];
 			previewController.SetItem(previewItem);
 			// Attach
-			previewController.BuyActionExecuted += OnBuyActionClicked;
-			previewController.FavoriteActionExecuted += OnFavoriteActionClicked;
+			previewController.PreViewController_BuyActionExecuted += HomeCell_OnBuyActionClickedHandler;
+			previewController.PreViewController_FavoriteActionExecuted += HomeCell_OnFavoriteActionClickedHandler;
 
 			previewController.PreferredContentSize = new CGSize(0, 420);
 			previewingContext.SourceRect = cell.Frame;
@@ -152,7 +169,7 @@ namespace Softjourn.SJCoins.iOS
 	}
 
 	#region UICollectionViewSource implementation
-	public class HomeCellDataSource : UICollectionViewDataSource
+	public class HomeCellDataSource : UICollectionViewDataSource, IDisposable
 	{
 		private List<Product> products = new List<Product>(); 
 
@@ -164,18 +181,27 @@ namespace Softjourn.SJCoins.iOS
 		public override nint GetItemsCount(UICollectionView collectionView, nint section) => products.Count;
 
 		public override UICollectionViewCell GetCell(UICollectionView collectionView, NSIndexPath indexPath) => (UICollectionViewCell)collectionView.DequeueReusableCell(HomeInternalCell.Key, indexPath);
+
+		protected override void Dispose(bool disposing)
+		{
+			System.Diagnostics.Debug.WriteLine(String.Format("{0} object disposed", this.GetType()));
+			base.Dispose(disposing);
+		}
 	}
 	#endregion
 
 	#region UICollectionViewDelegate implementation
-	public class HomeCellDelegate : UICollectionViewDelegate
+	public class HomeCellDelegate : UICollectionViewDelegate, IDisposable
 	{
-		private List<Product> products = new List<Product>();
-		public event EventHandler<Product> ItemSelectedEvent;
+		public event EventHandler<Product> HomeCellDelegate_ItemSelected;
 
-		public HomeCellDelegate(List<Product> products)
+		private List<Product> products = new List<Product>();
+		private string categoryName;
+
+		public HomeCellDelegate(List<Product> products, string categoryName)
 		{
 			this.products = products;
+			this.categoryName = categoryName;
 		}
 
 		public override void WillDisplayCell(UICollectionView collectionView, UICollectionViewCell cell, NSIndexPath indexPath)
@@ -183,11 +209,20 @@ namespace Softjourn.SJCoins.iOS
 			var _cell = cell as HomeInternalCell;
 			var item = products[indexPath.Row];
 			_cell.ConfigureWith(item);
+
+			if (categoryName == Const.FavoritesCategory)
+				_cell.MarkFavorites(item);
 		}
 
 		public override void ItemSelected(UICollectionView collectionView, NSIndexPath indexPath)
 		{
-			ItemSelectedEvent?.Invoke(this, products[indexPath.Row]);
+			HomeCellDelegate_ItemSelected?.Invoke(this, products[indexPath.Row]);
+		}
+
+		protected override void Dispose(bool disposing)
+		{
+			System.Diagnostics.Debug.WriteLine(String.Format("{0} object disposed", this.GetType()));
+			base.Dispose(disposing);
 		}
 	}
 	#endregion

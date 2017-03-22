@@ -84,18 +84,11 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers
 			base.ViewWillDisappear(animated);
 		}
 
-		public override void ViewDidUnload()
-		{
-			//Presenter.DetachView();
-			_scope.Dispose();
-			base.ViewDidUnload();
-		}
-
 		protected override void Dispose(bool disposing)
 		{
 			base.Dispose(disposing);
 			Presenter = null;
-
+			GC.Collect(GC.MaxGeneration);
 			System.Diagnostics.Debug.WriteLine(String.Format("{0} controller disposed", this.GetType()));
 		}
 		#endregion

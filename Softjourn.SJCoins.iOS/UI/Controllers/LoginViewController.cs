@@ -110,11 +110,11 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers
 		#region UITextFieldDelegate implementation
 		private class TextDieldDelegate : UITextFieldDelegate
 		{
-			private LoginViewController parent; // TODO need to be weak
+			private WeakReference parent;
 
 			public TextDieldDelegate(LoginViewController parent)
 			{
-				this.parent = parent;
+				this.parent = new WeakReference(parent);
 			}
 
 			public override bool ShouldChangeCharacters(UITextField textField, NSRange range, string replacementString)
@@ -124,18 +124,19 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers
 
 			public override bool ShouldReturn(UITextField textField)
 			{
-				if (textField == parent.LoginTextField)
+				var loginController = parent.Target as LoginViewController;
+				if (textField == loginController.LoginTextField)
 				{
-					parent.PasswordTextField.BecomeFirstResponder();
+					loginController.PasswordTextField.BecomeFirstResponder();
 				}
-				if (textField == parent.PasswordTextField)
+				if (textField == loginController.PasswordTextField)
 				{
-					parent.PasswordTextField.ResignFirstResponder();
+					loginController.PasswordTextField.ResignFirstResponder();
 					textField.ReturnKeyType = UIReturnKeyType.Done;
 				}
 				return true;
 			}
+			#endregion
 		}
-		#endregion
 	}
 }

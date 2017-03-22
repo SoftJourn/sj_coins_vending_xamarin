@@ -29,7 +29,17 @@ namespace Softjourn.SJCoins.iOS
 			// Set outlets
 			NameLabel.Text = product.Name;
 			PriceLabel.Text = product.Price.ToString() + " coins";
+			Logo.Layer.CornerRadius = 16;
+			Logo.Layer.BorderWidth = 0.1f;
 			Logo.SetImage(url: new NSUrl(product.ImageFullUrl), placeholder: UIImage.FromBundle(ImageConstants.Placeholder));
+		}
+
+		public void MarkFavorites(Product product)
+		{
+			if (product.IsProductInCurrentMachine)
+				Logo.Alpha = 1.0f;
+			else
+				Logo.Alpha = 0.3f;
 		}
 
 		public override void PrepareForReuse()
@@ -38,6 +48,12 @@ namespace Softjourn.SJCoins.iOS
 			NameLabel.Text = "";
 			PriceLabel.Text = "";
 			Logo.Image = null;
+
+			Layer.ShouldRasterize = true;
+			Layer.RasterizationScale = UIScreen.MainScreen.Scale;
+
+			Logo.Alpha = 1.0f;
+
 			base.PrepareForReuse();
 		}
 	}

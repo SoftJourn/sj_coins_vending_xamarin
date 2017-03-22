@@ -41,21 +41,30 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.Main
 		public override void ViewWillAppear(bool animated)
 		{
 			base.ViewWillAppear(animated);
-			// Attach
-			AccountButton.Clicked += OnAccountClicked;
 			RefreshFavoritesCell();
+			Presenter.UpdateBalanceView();
+		}
+		#endregion
+
+		#region BaseViewController
+		public override void AttachEvents()
+		{
+			base.AttachEvents();
+			AccountButton.Clicked += OnAccountClicked;
+			_delegate.HomeViewControllerDelegateFlowLayout_ItemSelected += OnItemSelected;
+			_delegate.HomeViewControllerDelegateFlowLayout_SeeAllClicked += OnSeeAllClicked;
+			_delegate.HomeViewControllerDelegateFlowLayout_BuyExecuted += OnBuyActionClicked;
+			_delegate.HomeViewControllerDelegateFlowLayout_AddDeleteFavoriteExecuted += OnFavoriteActionClicked;
 		}
 
-		public override void ViewDidAppear(bool animated)
+		public override void DetachEvents()
 		{
-			base.ViewDidAppear(animated);
-		}
-
-		public override void ViewWillDisappear(bool animated)
-		{
-			// Detach
 			AccountButton.Clicked -= OnAccountClicked;
-			base.ViewWillDisappear(animated);
+			_delegate.HomeViewControllerDelegateFlowLayout_ItemSelected -= OnItemSelected;
+			_delegate.HomeViewControllerDelegateFlowLayout_SeeAllClicked -= OnSeeAllClicked;
+			_delegate.HomeViewControllerDelegateFlowLayout_BuyExecuted -= OnBuyActionClicked;
+			_delegate.HomeViewControllerDelegateFlowLayout_AddDeleteFavoriteExecuted -= OnFavoriteActionClicked;
+			base.DetachEvents();
 		}
 		#endregion
 
@@ -85,16 +94,18 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.Main
 			// Save downloaded data and show them on view
 			Categories = listCategories;
 			_dataSource.SetCategories(listCategories);
+			_delegate.SetCategories(listCategories);
 			CollectionView.ReloadData();
 		}
 
 		public void LastUnavailableFavoriteRemoved()
 		{
-			
 		}
-		#endregion
 
-		#region BaseViewController -> IBaseView implementation
+		public void FavoriteChanged(Product product)
+		{
+			RefreshFavoritesCell();
+		}
 		#endregion
 
 		#region Private methods
@@ -126,14 +137,11 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.Main
 		{
 			// Configure datasource and delegate
 			_dataSource = new HomeViewControllerDataSource();
-			_delegate = new HomeViewControllerDelegateFlowLayout(this); //TODO retain circle
+			_delegate = new HomeViewControllerDelegateFlowLayout();
 
 			CollectionView.DataSource = _dataSource;
 			CollectionView.Delegate = _delegate;
 			CollectionView.AlwaysBounceVertical = true;
-
-			//detach
-			//attach
 		}
 
 		private void RefreshFavoritesCell()
@@ -144,19 +152,10 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.Main
 				var newList = Presenter.GetCategoriesList();
 				_dataSource.SetCategories(newList);
 				CollectionView.ReloadData();
-
-				//var newFavorites = Presenter.GetProductListForGivenCategory(Const.FavoritesCategory);
-				//_dataSource.RefreshFavorites(newFavorites);
-				//CollectionView.ReloadData();
 				//var firstCell = CollectionView.VisibleCells[0];
 				//var indexPath = CollectionView.IndexPathForCell(firstCell);
 				//CollectionView.ReloadItems(new NSIndexPath[] { indexPath });
 			}
-		}
-
-		public void FavoriteChanged(bool isFavorite)
-		{
-			
 		}
 
 		// -------------------- Event handlers --------------------
@@ -221,35 +220,52 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.Main
 	#region UICollectionViewDelegateFlowLayout implementation
 	public class HomeViewControllerDelegateFlowLayout : UICollectionViewDelegateFlowLayout
 	{
-		private const int cellHeight = 180;
-		private HomeViewController parent;
+		public event EventHandler<Product> HomeViewControllerDelegateFlowLayout_ItemSelected;
+		public event EventHandler<string> HomeViewControllerDelegateFlowLayout_SeeAllClicked;
+		public event EventHandler<Product> HomeViewControllerDelegateFlowLayout_BuyExecuted;
+		public event EventHandler<Product> HomeViewControllerDelegateFlowLayout_AddDeleteFavoriteExecuted;
 
-		public HomeViewControllerDelegateFlowLayout(HomeViewController parent)
+		private List<Categories> categories = new List<Categories>();
+		private const int cellHeight = 180;
+
+		public void SetCategories(List<Categories> categories)
 		{
-			this.parent = parent;
+			this.categories = categories;
 		}
 
 		public override CGSize GetSizeForItem(UICollectionView collectionView, UICollectionViewLayout layout, NSIndexPath indexPath) => new CGSize(collectionView.Bounds.Width, cellHeight);
 
 		public override void WillDisplayCell(UICollectionView collectionView, UICollectionViewCell cell, NSIndexPath indexPath)
 		{
+			if (categories.Count > 0)
+			{
+				var _cell = (HomeCell)cell;
+				var category = categories[indexPath.Row];
+
+				_cell.ConfigureWith(category);
+
+				_cell.HomeCell_ItemSelected -= HomeViewControllerDelegateFlowLayout_ItemSelected;
+				_cell.HomeCell_ItemSelected += HomeViewControllerDelegateFlowLayout_ItemSelected;
+
+				_cell.HomeCell_SeeAllClicked -= HomeViewControllerDelegateFlowLayout_SeeAllClicked;
+				_cell.HomeCell_SeeAllClicked += HomeViewControllerDelegateFlowLayout_SeeAllClicked;
+
+				_cell.HomeCell_BuyActionExecuted -= HomeViewControllerDelegateFlowLayout_BuyExecuted;
+				_cell.HomeCell_BuyActionExecuted += HomeViewControllerDelegateFlowLayout_BuyExecuted;
+
+				_cell.HomeCell_FavoriteActionExecuted -= HomeViewControllerDelegateFlowLayout_AddDeleteFavoriteExecuted;
+				_cell.HomeCell_FavoriteActionExecuted += HomeViewControllerDelegateFlowLayout_AddDeleteFavoriteExecuted;
+			}
+		}
+
+		public override void CellDisplayingEnded(UICollectionView collectionView, UICollectionViewCell cell, NSIndexPath indexPath)
+		{
 			var _cell = (HomeCell)cell;
-			var category = parent.Categories[indexPath.Row];
 
-			// TODO Add functionality with unavailable product
-			_cell.ConfigureWith(category);
-
-			_cell._delegate.ItemSelectedEvent -= parent.OnItemSelected;
-			_cell._delegate.ItemSelectedEvent += parent.OnItemSelected;
-
-			_cell.SeeAllClickedEvent -= parent.OnSeeAllClicked; //!
-			_cell.SeeAllClickedEvent += parent.OnSeeAllClicked;
-
-			_cell.BuyActionExecuted -= parent.OnBuyActionClicked;
-			_cell.BuyActionExecuted += parent.OnBuyActionClicked;
-
-			_cell.FavoriteActionExecuted -= parent.OnFavoriteActionClicked;
-			_cell.FavoriteActionExecuted += parent.OnFavoriteActionClicked;
+			_cell.HomeCell_ItemSelected -= HomeViewControllerDelegateFlowLayout_ItemSelected;
+			_cell.HomeCell_SeeAllClicked -= HomeViewControllerDelegateFlowLayout_SeeAllClicked;
+			_cell.HomeCell_BuyActionExecuted -= HomeViewControllerDelegateFlowLayout_BuyExecuted;
+			_cell.HomeCell_FavoriteActionExecuted -= HomeViewControllerDelegateFlowLayout_AddDeleteFavoriteExecuted;
 		}
 	}
 	#endregion
