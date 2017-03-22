@@ -111,16 +111,9 @@ namespace Softjourn.SJCoins.Droid.UI.Activities
          * Is using to add or remove favorite product from favorite fragment when adding ar removing
          * favorite from details or preview
          */
-        public void FavoriteChanged(bool isFavorite)
+        public void FavoriteChanged(Product product)
         {
-            ChangeFavoriteIcon(isFavorite);
-            var bottomFragment = SupportFragmentManager.FindFragmentByTag(Const.BottomSheetFragmentTag) as ProductDetailsFragment;
-
-            //if fragment exists
-            if (bottomFragment != null)
-            {
-                bottomFragment.ChangeFavoriteIcon();
-            }
+            FavoriteChanged(product.IsProductFavorite);
         }
 
         public void LastUnavailableFavoriteRemoved()
@@ -383,6 +376,18 @@ namespace Softjourn.SJCoins.Droid.UI.Activities
                     refreshedFavorites);
             }
             
+        }
+
+        private void FavoriteChanged(bool isFavorite)
+        {
+            ChangeFavoriteIcon(isFavorite);
+            var bottomFragment = SupportFragmentManager.FindFragmentByTag(Const.BottomSheetFragmentTag) as ProductDetailsFragment;
+
+            //if fragment exists
+            if (bottomFragment != null)
+            {
+                bottomFragment.ChangeFavoriteIcon();
+            }
         }
         #endregion
     }

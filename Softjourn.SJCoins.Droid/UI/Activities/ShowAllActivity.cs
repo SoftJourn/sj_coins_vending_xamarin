@@ -249,7 +249,7 @@ namespace Softjourn.SJCoins.Droid.UI.Activities
          * to make adapter redraw recyclerview
          */
 
-        public void FavoriteChanged(bool isFavorite)
+        public void FavoriteChanged(Product product)
         {
             if (!_category.Equals(Const.Favorites))
             {

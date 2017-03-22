@@ -121,10 +121,10 @@ namespace Softjourn.SJCoins.Droid.UI.Activities
             return base.OnOptionsItemSelected(item);
         }
 
-        public void FavoriteChanged(bool isFavorite)
+        public void FavoriteChanged(Product product)
         {
-            ChangeIcon(_menu.FindItem(Resource.Id.menu_add_favorite), isFavorite);
-            _product.IsProductFavorite = isFavorite;
+            ChangeIcon(_menu.FindItem(Resource.Id.menu_add_favorite), product.IsProductFavorite);
+            _product.IsProductFavorite = product.IsProductFavorite;
         }
 
         public void LastUnavailableFavoriteRemoved()
