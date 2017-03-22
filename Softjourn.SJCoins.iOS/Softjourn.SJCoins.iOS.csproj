@@ -562,6 +562,7 @@
     </Compile>
     <Compile Include="UI\Delegates\PageViewDelegate.cs" />
     <Compile Include="UI\Delegates\AmountTextFieldDelegate.cs" />
+    <Compile Include="UI\Services\AnimationService.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
 </Project>

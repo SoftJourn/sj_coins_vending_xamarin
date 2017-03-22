@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using CoreGraphics;
+using CoreAnimation;
 using Foundation;
 using Softjourn.SJCoins.Core.API.Model.Products;
 using Softjourn.SJCoins.Core.UI.Presenters;
@@ -10,6 +11,7 @@ using Softjourn.SJCoins.iOS.General.Constants;
 using Softjourn.SJCoins.iOS.UI.Controllers.Main;
 using Softjourn.SJCoins.iOS.UI.DataSources;
 using UIKit;
+using Softjourn.SJCoins.iOS.UI.Services;
 
 namespace Softjourn.SJCoins.iOS.UI.Controllers
 {
@@ -23,6 +25,8 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers
 		private List<UIViewController> pages;
 		private UIPageViewController pageViewController;
 		private PageViewDataSource pageDataSource;
+		private Lazy<AnimationService> lazyAnimationService = new Lazy<AnimationService>(() => { return new AnimationService(); });
+		private AnimationService animationService { get { return lazyAnimationService.Value; } }
 		#endregion
 
 		#region Constructor
@@ -53,6 +57,12 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers
 			base.ViewWillAppear(animated);
 			ConfigurePageWith(currentProduct);
 		}
+
+		public override void ViewDidDisappear(bool animated)
+		{
+			animationService.Dispose();
+			base.ViewDidDisappear(animated);
+		}
 		#endregion
 
 		#region BaseViewController 
@@ -76,9 +86,11 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers
 		#region IDetailView implementation
 		public void FavoriteChanged(Product product)
 		{
+			// End button rotation
+			animationService.CompleteRotation(FavoriteButton);
+			animationService.StartScaling(FavoriteButton);
 			// change button image
 			ConfigureFavoriteImage(product.IsProductFavorite);
-			// TODO let know another controllers in this product is favorite
 		}
 
 		public void LastUnavailableFavoriteRemoved()
@@ -163,6 +175,8 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers
 		private void FavoriteButtonClicked(object sender, EventArgs e)
 		{
 			// Handle clicking on the Favorite button
+
+			animationService.StartRotation(FavoriteButton);
 			Presenter.OnFavoriteClick(currentProduct);
 		}
 

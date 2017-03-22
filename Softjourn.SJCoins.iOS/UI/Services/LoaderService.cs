@@ -1,6 +1,4 @@
-﻿using System;
-using BigTed;
-using UIKit;
+﻿using BigTed;
 
 namespace Softjourn.SJCoins.iOS.UI.Services
 {

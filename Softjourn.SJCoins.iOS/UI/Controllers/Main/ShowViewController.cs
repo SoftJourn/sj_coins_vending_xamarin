@@ -7,6 +7,7 @@ using Softjourn.SJCoins.Core.UI.ViewInterfaces;
 using Softjourn.SJCoins.iOS.General.Constants;
 using Softjourn.SJCoins.iOS.General.Helper;
 using Softjourn.SJCoins.iOS.UI.Cells;
+using Softjourn.SJCoins.iOS.UI.Services;
 using UIKit;
 
 namespace Softjourn.SJCoins.iOS.UI.Controllers.Main
@@ -25,14 +26,14 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.Main
 		#region Properties
 		private string categoryName { get; set; }
 
-		private ShowAllSource _tableSource; 
-		private NSIndexPath _favoriteCellIndex;
+		private ShowAllSource _tableSource;
 		private UISearchController searchController;
 		private SearchResultsUpdator searchResultsUpdator;
 		private SegmentControlHelper _segmentControlHelper;
 		private List<Product> searchData;
-
-		public List<Product> filteredItems;
+		private List<Product> filteredItems;
+		private Lazy<AnimationService> lazyAnimationService = new Lazy<AnimationService>(() => { return new AnimationService(); });
+		private AnimationService animationService { get { return lazyAnimationService.Value; } }
 		#endregion
 
 		#region Constructor
@@ -243,6 +244,7 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.Main
 		public void TableSource_FavoriteClicked(object sender, Product product)
 		{
 			// Trigg presenter that user click on some product for adding it to favorite
+			//animationService.StartRotation(Fa);
 			Presenter.OnFavoriteClick(product);
 		}
 
