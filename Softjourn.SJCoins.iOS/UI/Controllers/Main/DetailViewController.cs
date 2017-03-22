@@ -88,7 +88,7 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers
 		{
 			// End button rotation
 			animationService.CompleteRotation(FavoriteButton);
-			animationService.StartScaling(FavoriteButton);
+			animationService.ScaleEffect(FavoriteButton);
 			// change button image
 			ConfigureFavoriteImage(product.IsProductFavorite);
 		}

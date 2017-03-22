@@ -47,7 +47,7 @@ namespace Softjourn.SJCoins.iOS.UI.Cells
 			if (item.IsHeartAnimationRunning)
 				// Final animation with complition
 				animationService.CompleteRotation(FavoriteButton);
-				animationService.StartScaling(FavoriteButton);
+				animationService.ScaleEffect(FavoriteButton);
 				item.IsHeartAnimationRunning = false;
 
 			if (item.IsProductFavorite)

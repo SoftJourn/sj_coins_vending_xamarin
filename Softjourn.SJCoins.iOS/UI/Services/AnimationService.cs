@@ -41,7 +41,7 @@ namespace Softjourn.SJCoins.iOS.UI.Services
 			view.Layer.RemoveAnimation(rotationAnimationKey);
 		}
 
-		public void StartScaling(UIView view)
+		public void ScaleEffect(UIView view)
 		{
 			UIView.AnimateNotify(0.1, () => { view.Transform = CGAffineTransform.MakeScale(1.2f, 1.2f); },
 			                     (bool finished) => { view.Transform = CGAffineTransform.MakeIdentity(); });
