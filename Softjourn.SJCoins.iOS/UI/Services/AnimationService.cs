@@ -22,19 +22,10 @@ namespace Softjourn.SJCoins.iOS.UI.Services
 		{
 			KeyPath = "transform.rotation.z",
 			To = new NSNumber(Math.PI * 2),
-			Duration = 1,
+			Duration = 0.6,
 			Cumulative = true,
-			RepeatCount = float.MaxValue,
-			RepeatDuration = 600               
-		};
-
-		private CABasicAnimation scaleAnimation = new CABasicAnimation()
-		{
-			KeyPath = "scale",
-			To = new NSNumber(Math.PI * 2),
-			Cumulative = true,
-			RepeatCount = float.MaxValue,
-			RepeatDuration = 600
+			RepeatCount = float.MaxValue
+			//RepeatDuration = 600               
 		};
 
 		#endregion
@@ -52,10 +43,8 @@ namespace Softjourn.SJCoins.iOS.UI.Services
 
 		public void StartScaling(UIView view)
 		{
-			UIView.Animate(0.1, 0, UIViewAnimationOptions.CurveLinear | UIViewAnimationOptions.Autoreverse,
-						   () => { view.Transform = CGAffineTransform.MakeScale(1.2f, 1.2f); },
-			               () => { view.Transform = CGAffineTransform.MakeIdentity(); }
-						  );
+			UIView.AnimateNotify(0.1, () => { view.Transform = CGAffineTransform.MakeScale(1.2f, 1.2f); },
+			                     (bool finished) => { view.Transform = CGAffineTransform.MakeIdentity(); });
 		}
 
 		public void Dispose()

@@ -5,6 +5,7 @@ using SDWebImage;
 using Softjourn.SJCoins.Core.API.Model.Products;
 using Softjourn.SJCoins.Core.Utils;
 using Softjourn.SJCoins.iOS.General.Constants;
+using Softjourn.SJCoins.iOS.UI.Services;
 using UIKit;
 
 namespace Softjourn.SJCoins.iOS.UI.Cells
@@ -23,6 +24,9 @@ namespace Softjourn.SJCoins.iOS.UI.Cells
 		public event EventHandler<Product> ProductCell_FavoriteClicked;
 		public bool Favorite { get; set; } = false;
 		public Product Product { get; set; }
+
+		private Lazy<AnimationService> lazyAnimationService = new Lazy<AnimationService>(() => { return new AnimationService(); });
+		private AnimationService animationService { get { return lazyAnimationService.Value; } }
 		#endregion
 
 		#region Constructor
@@ -39,6 +43,12 @@ namespace Softjourn.SJCoins.iOS.UI.Cells
 			PriceLabel.Text = item.Price.ToString() + " Coins";
 			Favorite = item.IsProductFavorite;
 			ImageLogo.SetImage(url: new NSUrl(item.ImageFullUrl), placeholder: UIImage.FromBundle(ImageConstants.Placeholder));
+
+			if (item.IsHeartAnimationRunning)
+				// Final animation with complition
+				animationService.CompleteRotation(FavoriteButton);
+				animationService.StartScaling(FavoriteButton);
+				item.IsHeartAnimationRunning = false;
 
 			if (item.IsProductFavorite)
 				FavoriteButton.SetImage(UIImage.FromBundle(ImageConstants.FavoriteChecked), forState: UIControlState.Normal);
@@ -64,6 +74,10 @@ namespace Softjourn.SJCoins.iOS.UI.Cells
 
 		private void FavoriteButtonClicked(object sender, EventArgs e)
 		{
+			// Start animation
+			animationService.StartRotation(FavoriteButton);
+			Product.IsHeartAnimationRunning = true;
+
 			ProductCell_FavoriteClicked?.Invoke(this, Product);
 		}
 	}

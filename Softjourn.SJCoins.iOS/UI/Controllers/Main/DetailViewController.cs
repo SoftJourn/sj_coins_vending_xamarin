@@ -175,7 +175,6 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers
 		private void FavoriteButtonClicked(object sender, EventArgs e)
 		{
 			// Handle clicking on the Favorite button
-
 			animationService.StartRotation(FavoriteButton);
 			Presenter.OnFavoriteClick(currentProduct);
 		}

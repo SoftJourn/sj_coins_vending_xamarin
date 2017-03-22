@@ -32,8 +32,6 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.Main
 		private SegmentControlHelper _segmentControlHelper;
 		private List<Product> searchData;
 		private List<Product> filteredItems;
-		private Lazy<AnimationService> lazyAnimationService = new Lazy<AnimationService>(() => { return new AnimationService(); });
-		private AnimationService animationService { get { return lazyAnimationService.Value; } }
 		#endregion
 
 		#region Constructor
@@ -244,7 +242,6 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.Main
 		public void TableSource_FavoriteClicked(object sender, Product product)
 		{
 			// Trigg presenter that user click on some product for adding it to favorite
-			//animationService.StartRotation(Fa);
 			Presenter.OnFavoriteClick(product);
 		}
 
