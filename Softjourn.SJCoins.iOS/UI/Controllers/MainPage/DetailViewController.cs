@@ -104,7 +104,7 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers
 		#region Private methods
 		private void ConfigurePageWith(Product product)
 		{
-			NameLabel.Text = product.Name;
+			Title = product.Name;
 			PriceLabel.Text = product.Price.ToString();
 			ConfigureFavoriteImage(product.IsProductFavorite);
 		}

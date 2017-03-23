@@ -21,9 +21,6 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers
 		UIKit.UIView LogoView { get; set; }
 
 		[Outlet]
-		UIKit.UILabel NameLabel { get; set; }
-
-		[Outlet]
 		UIKit.UIPageControl PageControl { get; set; }
 
 		[Outlet]
@@ -34,11 +31,6 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers
 		
 		void ReleaseDesignerOutlets ()
 		{
-			if (TableView != null) {
-				TableView.Dispose ();
-				TableView = null;
-			}
-
 			if (BuyButton != null) {
 				BuyButton.Dispose ();
 				BuyButton = null;
@@ -54,11 +46,6 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers
 				LogoView = null;
 			}
 
-			if (NameLabel != null) {
-				NameLabel.Dispose ();
-				NameLabel = null;
-			}
-
 			if (PageControl != null) {
 				PageControl.Dispose ();
 				PageControl = null;
@@ -67,6 +54,11 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers
 			if (PriceLabel != null) {
 				PriceLabel.Dispose ();
 				PriceLabel = null;
+			}
+
+			if (TableView != null) {
+				TableView.Dispose ();
+				TableView = null;
 			}
 		}
 	}

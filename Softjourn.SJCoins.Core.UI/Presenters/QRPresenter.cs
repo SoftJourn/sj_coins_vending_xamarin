@@ -71,6 +71,7 @@ namespace Softjourn.SJCoins.Core.UI.Presenters
         {
             if (ValidateAmount(amount))
             {
+                await PermissionsUtils.CheckGalleryPermissionAsync();
                 await WithdrawMoney(amount);
             }
         }

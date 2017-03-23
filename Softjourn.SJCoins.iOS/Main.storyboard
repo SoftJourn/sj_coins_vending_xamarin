@@ -127,7 +127,7 @@
         <scene sceneID="vus-eu-tpe">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="UxB-iK-pO6" userLabel="NavigationShowAll" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="All Items" image="C5068911-F7F5-4610-9C02-065CE46AD063" id="eof-dA-PO7"/>
+                    <tabBarItem key="tabBarItem" title="All Items" image="D750329D-8B92-42A8-86F1-9C048AF5A630" id="eof-dA-PO7"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="iHX-3p-5pT">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
@@ -477,15 +477,6 @@
                                             <color key="pageIndicatorTintColor" red="0.0" green="0.47843137250000001" blue="1" alpha="0.5" colorSpace="custom" customColorSpace="sRGB"/>
                                             <color key="currentPageIndicatorTintColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         </pageControl>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="NameLabel sdfgs gsdg sgsd" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wqf-8P-G2O">
-                                            <rect key="frame" x="78.5" y="0.0" width="218" height="30"/>
-                                            <constraints>
-                                                <constraint firstAttribute="height" constant="30" id="bwT-vh-kQM"/>
-                                            </constraints>
-                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                            <nil key="textColor"/>
-                                            <nil key="highlightedColor"/>
-                                        </label>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1500 Coins" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="H1i-gz-afG">
                                             <rect key="frame" x="8" y="282" width="86" height="30"/>
                                             <constraints>
@@ -496,23 +487,19 @@
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ABb-Ab-Guw">
-                                            <rect key="frame" x="250" y="282" width="46" height="30"/>
-                                            <state key="normal" title="Button"/>
+                                            <rect key="frame" x="282" y="282" width="30" height="30"/>
                                         </button>
                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5nK-Om-zpz">
-                                            <rect key="frame" x="321" y="282" width="46" height="30"/>
+                                            <rect key="frame" x="337" y="282" width="30" height="30"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="30" id="jdL-Ln-91E"/>
                                             </constraints>
-                                            <state key="normal" title="Button"/>
                                         </button>
                                     </subviews>
                                     <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                                     <constraints>
-                                        <constraint firstItem="wqf-8P-G2O" firstAttribute="top" secondItem="Zyj-Bg-gt4" secondAttribute="top" id="12B-c9-Akk"/>
                                         <constraint firstItem="5nK-Om-zpz" firstAttribute="centerY" secondItem="H1i-gz-afG" secondAttribute="centerY" id="2bm-eQ-kCd"/>
                                         <constraint firstItem="ABb-Ab-Guw" firstAttribute="centerY" secondItem="H1i-gz-afG" secondAttribute="centerY" id="5nB-RC-UYm"/>
-                                        <constraint firstItem="wqf-8P-G2O" firstAttribute="centerX" secondItem="Zyj-Bg-gt4" secondAttribute="centerX" id="KmN-Me-ypa"/>
                                         <constraint firstItem="5nK-Om-zpz" firstAttribute="leading" secondItem="ABb-Ab-Guw" secondAttribute="trailing" constant="25" id="QtL-H5-NNz"/>
                                         <constraint firstItem="H1i-gz-afG" firstAttribute="leading" secondItem="Zyj-Bg-gt4" secondAttribute="leadingMargin" id="RDt-xv-8vQ"/>
                                         <constraint firstItem="uDg-NH-Tw1" firstAttribute="centerX" secondItem="Zyj-Bg-gt4" secondAttribute="centerX" id="RyX-a9-vlR"/>
@@ -611,7 +598,6 @@
                         <outlet property="BuyButton" destination="ABb-Ab-Guw" id="YbA-jG-E5K"/>
                         <outlet property="FavoriteButton" destination="5nK-Om-zpz" id="W3E-sd-PiP"/>
                         <outlet property="LogoView" destination="Zyj-Bg-gt4" id="Hhb-ve-hc0"/>
-                        <outlet property="NameLabel" destination="wqf-8P-G2O" id="5nv-b7-rhb"/>
                         <outlet property="PageControl" destination="uDg-NH-Tw1" id="Pwp-Xd-CUL"/>
                         <outlet property="PriceLabel" destination="H1i-gz-afG" id="Ogn-Pb-Pfm"/>
                         <outlet property="TableView" destination="v14-sN-lwS" id="oOy-CO-czv"/>
@@ -623,7 +609,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="C5068911-F7F5-4610-9C02-065CE46AD063" width="16" height="16">
+        <image name="D750329D-8B92-42A8-86F1-9C048AF5A630" width="16" height="16">
             <mutableData key="keyedArchiveRepresentation">
 YnBsaXN0MDDUAQIDBAUGODlYJHZlcnNpb25YJG9iamVjdHNZJGFyY2hpdmVyVCR0b3ASAAGGoKwHCBEW
 GxwiIyksMjVVJG51bGzUCQoLDA0ODxBWJGNsYXNzXE5TSW1hZ2VGbGFnc1ZOU1JlcHNXTlNDb2xvcoAL
