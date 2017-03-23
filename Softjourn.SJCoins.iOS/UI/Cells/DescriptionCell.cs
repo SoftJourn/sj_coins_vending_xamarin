@@ -19,5 +19,10 @@ namespace Softjourn.SJCoins.iOS
 		{
 			// Note: this .ctor should not contain any initialization logic.
 		}
+
+		public void ConfigureWith(string description)
+		{
+			DescriptionLabel.Text = description;
+		}
 	}
 }

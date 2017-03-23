@@ -28,9 +28,17 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers
 
 		[Outlet]
 		UIKit.UILabel PriceLabel { get; set; }
+
+		[Outlet]
+		UIKit.UITableView TableView { get; set; }
 		
 		void ReleaseDesignerOutlets ()
 		{
+			if (TableView != null) {
+				TableView.Dispose ();
+				TableView = null;
+			}
+
 			if (BuyButton != null) {
 				BuyButton.Dispose ();
 				BuyButton = null;

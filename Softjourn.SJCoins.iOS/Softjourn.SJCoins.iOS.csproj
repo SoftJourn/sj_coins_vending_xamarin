@@ -461,6 +461,7 @@
     <InterfaceDefinition Include="UI\Cells\ProductCell.xib" />
     <InterfaceDefinition Include="Account.storyboard" />
     <InterfaceDefinition Include="UI\Cells\DescriptionCell.xib" />
+    <InterfaceDefinition Include="UI\Cells\NutritionCell.xib" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
@@ -478,24 +479,20 @@
     <Compile Include="UI\Controllers\InitialViewController.designer.cs" />
     <Compile Include="UI\Controllers\LoginViewController.cs" />
     <Compile Include="UI\Controllers\LoginViewController.designer.cs" />
-    <Compile Include="UI\Controllers\Informative\ContentViewController.cs" />
-    <Compile Include="UI\Controllers\Informative\ContentViewController.designer.cs" />
-    <Compile Include="UI\Controllers\Informative\InformativeViewController.cs" />
-    <Compile Include="UI\Controllers\Informative\InformativeViewController.designer.cs" />
+    <Compile Include="UI\Controllers\InformativePage\ContentViewController.cs" />
+    <Compile Include="UI\Controllers\InformativePage\ContentViewController.designer.cs" />
+    <Compile Include="UI\Controllers\InformativePage\InformativeViewController.cs" />
+    <Compile Include="UI\Controllers\InformativePage\InformativeViewController.designer.cs" />
     <Compile Include="UI\Services\AlertService.cs" />
     <Compile Include="UI\Services\LoaderService.cs" />
     <Compile Include="UI\Services\KeyboardScrollService.cs" />
     <Compile Include="UI\Services\NavigationService.cs" />
-    <Compile Include="UI\Controllers\SelectMachineViewController.cs" />
-    <Compile Include="UI\Controllers\SelectMachineViewController.designer.cs">
-      <DependentUpon>SelectMachineViewController.cs</DependentUpon>
-    </Compile>
     <Compile Include="UI\Cells\SelectMachineCell.cs" />
     <Compile Include="UI\Cells\SelectMachineCell.designer.cs">
       <DependentUpon>SelectMachineCell.cs</DependentUpon>
     </Compile>
-    <Compile Include="UI\Controllers\Main\HomeViewController.cs" />
-    <Compile Include="UI\Controllers\Main\HomeViewController.designer.cs">
+    <Compile Include="UI\Controllers\MainPage\HomeViewController.cs" />
+    <Compile Include="UI\Controllers\MainPage\HomeViewController.designer.cs">
       <DependentUpon>HomeViewController.cs</DependentUpon>
     </Compile>
     <Compile Include="UI\Cells\HomeCell.cs" />
@@ -510,16 +507,16 @@
     <Compile Include="UI\Cells\ProductCell.designer.cs">
       <DependentUpon>ProductCell.cs</DependentUpon>
     </Compile>
-    <Compile Include="UI\Controllers\Main\PreViewController.cs" />
-    <Compile Include="UI\Controllers\Main\PreViewController.designer.cs">
+    <Compile Include="UI\Controllers\MainPage\PreViewController.cs" />
+    <Compile Include="UI\Controllers\MainPage\PreViewController.designer.cs">
       <DependentUpon>PreViewController.cs</DependentUpon>
     </Compile>
-    <Compile Include="UI\Controllers\Main\DetailViewController.cs" />
-    <Compile Include="UI\Controllers\Main\DetailViewController.designer.cs">
+    <Compile Include="UI\Controllers\MainPage\DetailViewController.cs" />
+    <Compile Include="UI\Controllers\MainPage\DetailViewController.designer.cs">
       <DependentUpon>DetailViewController.cs</DependentUpon>
     </Compile>
-    <Compile Include="UI\Controllers\Main\ShowViewController.cs" />
-    <Compile Include="UI\Controllers\Main\ShowViewController.designer.cs">
+    <Compile Include="UI\Controllers\MainPage\ShowViewController.cs" />
+    <Compile Include="UI\Controllers\MainPage\ShowViewController.designer.cs">
       <DependentUpon>ShowViewController.cs</DependentUpon>
     </Compile>
     <Compile Include="General\Constants\ImageConstants.cs" />
@@ -557,8 +554,8 @@
     </Compile>
     <Compile Include="General\Helper\SegmentControlHelper.cs" />
     <Compile Include="UI\Sources\PageViewDataSource.cs" />
-    <Compile Include="UI\Controllers\Main\ImageContentViewController.cs" />
-    <Compile Include="UI\Controllers\Main\ImageContentViewController.designer.cs">
+    <Compile Include="UI\Controllers\MainPage\ImageContentViewController.cs" />
+    <Compile Include="UI\Controllers\MainPage\ImageContentViewController.designer.cs">
       <DependentUpon>ImageContentViewController.cs</DependentUpon>
     </Compile>
     <Compile Include="UI\Delegates\PageViewDelegate.cs" />
@@ -569,6 +566,14 @@
     <Compile Include="UI\Cells\DescriptionCell.cs" />
     <Compile Include="UI\Cells\DescriptionCell.designer.cs">
       <DependentUpon>DescriptionCell.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Controllers\AccountPage\SelectMachineViewController.cs" />
+    <Compile Include="UI\Controllers\AccountPage\SelectMachineViewController.designer.cs">
+      <DependentUpon>SelectMachineViewController.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Cells\NutritionCell.cs" />
+    <Compile Include="UI\Cells\NutritionCell.designer.cs">
+      <DependentUpon>NutritionCell.cs</DependentUpon>
     </Compile>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
