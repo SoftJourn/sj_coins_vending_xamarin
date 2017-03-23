@@ -19,14 +19,15 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers
 	public partial class DetailViewController : BaseViewController<DetailPresenter>, IDetailView
 	{
 		#region Properties
+		private Lazy<AnimationService> lazyAnimationService = new Lazy<AnimationService>(() => { return new AnimationService(); });
+		private AnimationService animationService { get { return lazyAnimationService.Value; } }
 		private int productId { get; set; }
 
 		private Product currentProduct;
 		private List<UIViewController> pages;
 		private UIPageViewController pageViewController;
 		private PageViewDataSource pageDataSource;
-		private Lazy<AnimationService> lazyAnimationService = new Lazy<AnimationService>(() => { return new AnimationService(); });
-		private AnimationService animationService { get { return lazyAnimationService.Value; } }
+		private DetailViewSource tableSource;
 		#endregion
 
 		#region Constructor
@@ -50,6 +51,7 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers
 			currentProduct = Presenter.GetProduct(productId);
 			ConfigurePageViewController();
 			ConfigurePageControl();
+			ConfigureTableView();
 		}
 
 		public override void ViewWillAppear(bool animated)
@@ -105,6 +107,12 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers
 			NameLabel.Text = product.Name;
 			PriceLabel.Text = product.Price.ToString();
 			ConfigureFavoriteImage(product.IsProductFavorite);
+		}
+
+		private void ConfigureTableView()
+		{
+			tableSource = new DetailViewSource(currentProduct);
+			TableView.Source = tableSource;
 		}
 
 		private void ConfigureFavoriteImage(bool isFavorite)

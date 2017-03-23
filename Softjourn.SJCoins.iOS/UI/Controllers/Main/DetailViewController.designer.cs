@@ -15,9 +15,6 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers
 		UIKit.UIButton BuyButton { get; set; }
 
 		[Outlet]
-		UIKit.UILabel DescriptionLabel { get; set; }
-
-		[Outlet]
 		UIKit.UIButton FavoriteButton { get; set; }
 
 		[Outlet]
@@ -39,11 +36,6 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers
 				BuyButton = null;
 			}
 
-			if (DescriptionLabel != null) {
-				DescriptionLabel.Dispose ();
-				DescriptionLabel = null;
-			}
-
 			if (FavoriteButton != null) {
 				FavoriteButton.Dispose ();
 				FavoriteButton = null;
@@ -59,14 +51,14 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers
 				NameLabel = null;
 			}
 
-			if (PriceLabel != null) {
-				PriceLabel.Dispose ();
-				PriceLabel = null;
-			}
-
 			if (PageControl != null) {
 				PageControl.Dispose ();
 				PageControl = null;
+			}
+
+			if (PriceLabel != null) {
+				PriceLabel.Dispose ();
+				PriceLabel = null;
 			}
 		}
 	}

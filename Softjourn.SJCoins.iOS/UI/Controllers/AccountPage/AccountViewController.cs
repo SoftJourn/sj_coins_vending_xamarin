@@ -9,6 +9,7 @@ using Softjourn.SJCoins.Core.UI.Presenters;
 using Softjourn.SJCoins.Core.UI.ViewInterfaces;
 using Softjourn.SJCoins.iOS.General.Constants;
 using Softjourn.SJCoins.iOS.UI.Cells;
+using Softjourn.SJCoins.iOS.UI.Sources;
 using UIKit;
 
 namespace Softjourn.SJCoins.iOS.UI.Controllers.AccountPage
@@ -17,7 +18,7 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.AccountPage
 	public partial class AccountViewController : BaseViewController<AccountPresenter>, IAccountView
 	{
 		#region Properties
-		private AccountSource _tableSource;
+		private AccountViewSource _tableSource;
 
 		UITapGestureRecognizer avatarImageTap; 
 		#endregion
@@ -99,7 +100,7 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.AccountPage
 			var optionsSecondSection = new List<AccountOption>(options);
 			optionsSecondSection.RemoveRange(0, optionsSecondSection.Count - 1);
 
-			_tableSource = new AccountSource(optionsFirstSection, optionsSecondSection);
+			_tableSource = new AccountViewSource(optionsFirstSection, optionsSecondSection);
 			TableView.Source = _tableSource;
 
 			TableView.RegisterNibForCellReuse(ProductCell.Nib, ProductCell.Key);
@@ -132,64 +133,4 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.AccountPage
 		// -------------------------------------------------------- 
 		#endregion
 	}
-
-	#region UITableViewSource implementation
-	public class AccountSource : UITableViewSource
-	{
-		private List<AccountOption> optionsFirstSection = new List<AccountOption>();
-		private List<AccountOption> optionsSecondSection = new List<AccountOption>();
-
-		public event EventHandler<AccountOption> ItemSelected;
-
-		public AccountSource(List<AccountOption> first, List<AccountOption> second)
-		{
-			optionsFirstSection = first;
-			optionsSecondSection = second;
-		}
-
-		public override nint NumberOfSections(UITableView tableView) => 2;
-
-		public override nint RowsInSection(UITableView tableview, nint section) 
-		{
-			switch (section)
-			{
-				case 0:
-					return optionsFirstSection.Count;
-				case 1:
-					return optionsSecondSection.Count;
-				default:
-					return 0;
-			}
-		}
-		public override UITableViewCell GetCell(UITableView tableView, NSIndexPath indexPath) => (AccountCell)tableView.DequeueReusableCell(AccountCell.Key, indexPath);
-
-		public override void WillDisplay(UITableView tableView, UITableViewCell cell, NSIndexPath indexPath)
-		{
-			var _cell = (AccountCell)cell;
-            switch (indexPath.Section)
-			{
-				case 0:
-					_cell.ConfigureWith(optionsFirstSection[indexPath.Row]);
-					break;
-				case 1:
-					_cell.ConfigureWith(optionsSecondSection[indexPath.Row]);
-					break;
-			}
-		}
-
-		public override void RowSelected(UITableView tableView, NSIndexPath indexPath)
-		{
-			tableView.DeselectRow(indexPath, true);
-			switch (indexPath.Section)
-			{
-				case 0:
-					ItemSelected?.Invoke(this, optionsFirstSection[indexPath.Row]);
-					break;
-				case 1:
-					ItemSelected?.Invoke(this, optionsSecondSection[indexPath.Row]);
-					break;
-			}
-		}
-	}
-	#endregion
 }
