@@ -91,6 +91,7 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers
 			// End button rotation
 			animationService.CompleteRotation(FavoriteButton);
 			animationService.ScaleEffect(FavoriteButton);
+			currentProduct.IsHeartAnimationRunning = false;
 			// change button image
 			ConfigureFavoriteImage(product.IsProductFavorite);
 		}
@@ -105,7 +106,7 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers
 		private void ConfigurePageWith(Product product)
 		{
 			Title = product.Name;
-			PriceLabel.Text = product.Price.ToString();
+			PriceLabel.Text = "Price: " + product.Price.ToString() + " Coins";
 			ConfigureFavoriteImage(product.IsProductFavorite);
 		}
 
@@ -113,6 +114,8 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers
 		{
 			tableSource = new DetailViewSource(currentProduct);
 			TableView.Source = tableSource;
+			TableView.EstimatedRowHeight = 300;
+			TableView.RowHeight = UITableView.AutomaticDimension;
 		}
 
 		private void ConfigureFavoriteImage(bool isFavorite)
@@ -158,7 +161,7 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers
 			pageViewController.DataSource = pageDataSource;
 			var defaultViewController = new UIViewController[] { pages.ElementAt(0) };
 			pageViewController.SetViewControllers(defaultViewController, UIPageViewControllerNavigationDirection.Forward, false, null);
-			pageViewController.View.Frame = new CGRect(25, 25, LogoView.Frame.Width - 50, LogoView.Frame.Size.Height - 50);
+			pageViewController.View.Frame = new CGRect(25, 10, LogoView.Frame.Width - 50, LogoView.Frame.Size.Height - 50);
 			LogoView.AddSubview(this.pageViewController.View);
 		}
 
@@ -183,8 +186,12 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers
 		private void FavoriteButtonClicked(object sender, EventArgs e)
 		{
 			// Handle clicking on the Favorite button
-			animationService.StartRotation(FavoriteButton);
-			Presenter.OnFavoriteClick(currentProduct);
+			if (!currentProduct.IsHeartAnimationRunning)
+			{
+				animationService.StartRotation(FavoriteButton);
+				currentProduct.IsHeartAnimationRunning = true;
+				Presenter.OnFavoriteClick(currentProduct);
+			}
 		}
 
 		private void BuyButtonClicked(object sender, EventArgs e)

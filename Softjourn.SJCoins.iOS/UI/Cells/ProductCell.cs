@@ -20,10 +20,10 @@ namespace Softjourn.SJCoins.iOS.UI.Cells
 		{
 			Nib = UINib.FromName("ProductCell", NSBundle.MainBundle);
 		}
-
 		public event EventHandler<Product> ProductCell_FavoriteClicked;
 		public bool Favorite { get; set; } = false;
 		public Product Product { get; set; }
+		public bool FavoriteAnimated { get; set; } = false;
 
 		private Lazy<AnimationService> lazyAnimationService = new Lazy<AnimationService>(() => { return new AnimationService(); });
 		private AnimationService animationService { get { return lazyAnimationService.Value; } }
@@ -77,10 +77,12 @@ namespace Softjourn.SJCoins.iOS.UI.Cells
 		private void FavoriteButtonClicked(object sender, EventArgs e)
 		{
 			// Start animation
-			animationService.StartRotation(FavoriteButton);
-			Product.IsHeartAnimationRunning = true;
-
-			ProductCell_FavoriteClicked?.Invoke(this, Product);
+			if (!Product.IsHeartAnimationRunning)
+			{
+				animationService.StartRotation(FavoriteButton);
+				Product.IsHeartAnimationRunning = true;
+				ProductCell_FavoriteClicked?.Invoke(this, Product);
+			}
 		}
 	}
 }

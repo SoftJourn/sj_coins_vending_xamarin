@@ -460,8 +460,6 @@
     <InterfaceDefinition Include="Login.storyboard" />
     <InterfaceDefinition Include="UI\Cells\ProductCell.xib" />
     <InterfaceDefinition Include="Account.storyboard" />
-    <InterfaceDefinition Include="UI\Cells\DescriptionCell.xib" />
-    <InterfaceDefinition Include="UI\Cells\NutritionCell.xib" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />

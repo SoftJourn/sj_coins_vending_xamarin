@@ -10,6 +10,8 @@ namespace Softjourn.SJCoins.iOS
 		public static readonly NSString Key = new NSString("DescriptionCell");
 		public static readonly UINib Nib;
 
+		private const string defaultDescription = "No description to current product."; 
+
 		static DescriptionCell()
 		{
 			Nib = UINib.FromName("DescriptionCell", NSBundle.MainBundle);
@@ -22,7 +24,10 @@ namespace Softjourn.SJCoins.iOS
 
 		public void ConfigureWith(string description)
 		{
-			DescriptionLabel.Text = description;
+			if (String.IsNullOrEmpty(description))
+				DescriptionLabel.Text = defaultDescription;
+			else
+				DescriptionLabel.Text = description;
 		}
 	}
 }

@@ -1,6 +1,7 @@
 using System;
 using System.Linq;
 using Foundation;
+using Softjourn.SJCoins.Core.Exceptions;
 using Softjourn.SJCoins.Core.UI.Presenters;
 using Softjourn.SJCoins.Core.UI.ViewInterfaces;
 using Softjourn.SJCoins.iOS.General.Helper;
@@ -140,15 +141,23 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.AccountPage
 
 		private async void ScanQRCode()
 		{
-			await Presenter.CheckPermission();
-
-			scanner = new ZXing.Mobile.MobileBarcodeScanner(this);
-			var result = await scanner.Scan();
-
-			if (result != null)
+			try
 			{
-				var cashObject = new QRCodeHelper().ConvertScanResult(result);
-				Presenter.ScanCodeIOS(cashObject);
+				await Presenter.CheckPermission();
+
+				scanner = new ZXing.Mobile.MobileBarcodeScanner(this);
+				var result = await scanner.Scan();
+
+				if (result != null)
+				{
+					var cashObject = new QRCodeHelper().ConvertScanResult(result);
+					Presenter.ScanCodeIOS(cashObject);
+				}
+			}
+			catch (CameraException e)
+			{
+				// TODO show exeption
+				//AlertService.ShowToastMessage(e.ToString());
 			}
 		}
 

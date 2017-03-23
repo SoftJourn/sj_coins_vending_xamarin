@@ -20,9 +20,10 @@ namespace Softjourn.SJCoins.iOS
 			// Note: this .ctor should not contain any initialization logic.
 		}
 
-		public void ConfigureWith()
+		public void ConfigureWith(string key, string value)
 		{
-			
+			NameLabel.Text = System.Threading.Thread.CurrentThread.CurrentCulture.TextInfo.ToTitleCase(key);
+			AmountLabel.Text = value;
 		}
 	}
 }

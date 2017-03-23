@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using Foundation;
 using Softjourn.SJCoins.Core.API.Model.Products;
 using UIKit;
@@ -19,7 +20,23 @@ namespace Softjourn.SJCoins.iOS
 			this.product = product;
 		}
 
-		public override nint NumberOfSections(UITableView tableView) => numberOfSections;
+		public override nint NumberOfSections(UITableView tableView)// => numberOfSections;
+		{
+			return numberOfSections;
+		}
+
+		public override string TitleForHeader(UITableView tableView, nint section)
+		{
+			switch (section)
+			{
+				case descriptionSection:
+					return "Descriptions";
+				case nutritionSection:
+					return product.NutritionFacts.Count > 0 ? "Nutrition Facts" : "";
+				default:
+					return "";
+			}
+		}
 
 		public override nint RowsInSection(UITableView tableview, nint section)
 		{
@@ -33,7 +50,21 @@ namespace Softjourn.SJCoins.iOS
 					return 0;
 			}
 		}
-		public override UITableViewCell GetCell(UITableView tableView, NSIndexPath indexPath) //=> (AccountCell)tableView.DequeueReusableCell(AccountCell.Key, indexPath);
+
+		//public override nfloat GetHeightForRow(UITableView tableView, NSIndexPath indexPath)
+		//{
+		//	switch (indexPath.Section)
+		//	{
+		//		case descriptionSection:
+		//			return 150.0f;
+		//		case nutritionSection:
+		//			return 50.0f;
+		//		default:
+		//			return 0;
+		//	}
+		//}
+
+		public override UITableViewCell GetCell(UITableView tableView, NSIndexPath indexPath) 
 		{
 			switch (indexPath.Section)
 			{
@@ -45,6 +76,7 @@ namespace Softjourn.SJCoins.iOS
 					return null;
 			}
 		}
+
 		public override void WillDisplay(UITableView tableView, UITableViewCell cell, NSIndexPath indexPath)
 		{
 			switch (indexPath.Section)
@@ -55,7 +87,9 @@ namespace Softjourn.SJCoins.iOS
 					break;
 				case nutritionSection:
 					var nutritionCell = (NutritionCell)cell;
-					nutritionCell.ConfigureWith();
+					var key = product.NutritionFacts.Keys.ElementAt(indexPath.Row);
+					var value = product.NutritionFacts.Values.ElementAt(indexPath.Row);
+					nutritionCell.ConfigureWith(key, value);
 					break;
 			}
 		}
