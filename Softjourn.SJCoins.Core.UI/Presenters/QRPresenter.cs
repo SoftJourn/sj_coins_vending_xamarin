@@ -49,7 +49,7 @@ namespace Softjourn.SJCoins.Core.UI.Presenters
             }
             catch (CameraException e)
             {
-                AlertService.ShowToastMessage(e.ToString());
+                AlertService.ShowToastMessage(e.Message);
             }
         }
 
@@ -71,8 +71,15 @@ namespace Softjourn.SJCoins.Core.UI.Presenters
         {
             if (ValidateAmount(amount))
             {
-                await PermissionsUtils.CheckGalleryPermissionAsync();
-                await WithdrawMoney(amount);
+                try
+                {
+                    await PermissionsUtils.CheckGalleryPermissionAsync();
+                    await WithdrawMoney(amount);
+                }
+                catch (CameraException e)
+                {
+                    AlertService.ShowToastMessage(e.Message);
+                }
             }
         }
 
