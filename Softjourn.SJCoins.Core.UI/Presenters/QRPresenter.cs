@@ -71,6 +71,7 @@ namespace Softjourn.SJCoins.Core.UI.Presenters
         {
             if (ValidateAmount(amount))
             {
+                await PermissionsUtils.CheckGalleryPermissionAsync();
                 await WithdrawMoney(amount);
             }
         }
@@ -80,11 +81,6 @@ namespace Softjourn.SJCoins.Core.UI.Presenters
         {
             return MyBalance;
         }
-
-		public async Task CheckPermission()
-		{
-			await PermissionsUtils.CheckCameraPermissiomAsync();
-		}
 
 		//Return true if amount is not empty, is integer and not exceeds user's balance
 		public bool ValidateAmount(string amount)
