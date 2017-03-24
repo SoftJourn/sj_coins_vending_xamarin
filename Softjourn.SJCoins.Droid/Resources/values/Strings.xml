@@ -201,5 +201,6 @@
   <string name="wallet_funded">Your coins wallet was funded</string>
 
   <string name="textViewNoNutritionFacts">There is no info about nutrition facts</string>
+  <string name="chooseOption">"Choose Option"</string>
 
 </resources>

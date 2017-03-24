@@ -110,6 +110,8 @@ namespace Softjourn.SJCoins.Droid.Services
                 dialog.Window.RequestFeature(WindowFeatures.NoTitle);
                 dialog.Window.RequestFeature(WindowFeatures.SwipeToDismiss);
                 dialog.SetContentView(Resource.Layout.dialog_select_photo);
+                var title = dialog.FindViewById<TextView>(Resource.Id.textTitle);
+                title.Text = activity.GetString(Resource.String.chooseOption);
                 var sourceList = dialog.FindViewById<ListView>(Resource.Id.lv);
                 var adapter = new ArrayAdapter(activity,
                     Android.Resource.Layout.SimpleListItem1, optionsList);
