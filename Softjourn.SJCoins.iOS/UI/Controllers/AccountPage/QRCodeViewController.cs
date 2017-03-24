@@ -5,6 +5,7 @@ using Softjourn.SJCoins.Core.Exceptions;
 using Softjourn.SJCoins.Core.UI.Presenters;
 using Softjourn.SJCoins.Core.UI.ViewInterfaces;
 using Softjourn.SJCoins.iOS.General.Helper;
+using Softjourn.SJCoins.iOS.UI.Delegates;
 using Softjourn.SJCoins.iOS.UI.Services;
 using UIKit;
 using ZXing.Mobile;
