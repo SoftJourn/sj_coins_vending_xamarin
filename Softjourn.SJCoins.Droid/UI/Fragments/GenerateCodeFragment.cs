@@ -24,6 +24,7 @@ namespace Softjourn.SJCoins.Droid.UI.Fragments
         private Button _buttonGenerate;
         private const string ShareType = "image/jpeg";
         private const string ShareFragmentTitle = "Share Image";
+        private bool IsShareScreenActive;
 
         private Bitmap _bitmap;
         private AlertService _alertService;
@@ -61,6 +62,13 @@ namespace Softjourn.SJCoins.Droid.UI.Fragments
 
             _alertService = new AlertService();
         }
+
+        public override void OnResume()
+        {
+            base.OnResume();
+            IsShareScreenActive = false;
+        }
+
         #endregion
 
 
@@ -107,6 +115,8 @@ namespace Softjourn.SJCoins.Droid.UI.Fragments
         //Starts Activity for choosing method of sharing an image of QRCode
         private void ShareCode()
         {
+            if (IsShareScreenActive) return;
+            IsShareScreenActive = true;
             var path = MediaStore.Images.Media.InsertImage(Activity.ContentResolver, _bitmap, "MoneyCode", null);
             var uri = Android.Net.Uri.Parse(path);
             var share = new Intent(Intent.ActionSend);
