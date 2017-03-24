@@ -5,6 +5,7 @@ using Softjourn.SJCoins.Core.Exceptions;
 using Softjourn.SJCoins.Core.UI.Presenters;
 using Softjourn.SJCoins.Core.UI.ViewInterfaces;
 using Softjourn.SJCoins.iOS.General.Helper;
+using Softjourn.SJCoins.iOS.UI.Services;
 using UIKit;
 using ZXing.Mobile;
 
@@ -16,6 +17,7 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.AccountPage
 		#region Constants
 		private const string Scan = "Scan";
 		private const string Generate = "Generate";
+		private const string notValidCode = "Not valid QR code.";
 		#endregion
 
 		#region Properties
@@ -106,6 +108,7 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.AccountPage
 		#region Private methods
 		private void ConfigurePageWith(string parameter)
 		{
+			BalanceLabel.Text = "Your balance is " + Presenter.GetBalance().ToString() + " coins";
 			ErrorLabel.Hidden = true;
 			QRCodeImage.Hidden = true;
 
@@ -122,21 +125,19 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.AccountPage
 
 		private void ConfigureScanMode()
 		{
-			BalanceLabel.Hidden = true;
-			AmountTexfield.Hidden = true;
-			GenerateButton.Hidden = true;
-			//Execute scaning
+			// Execute scaning
 			ScanQRCode();
+			// Prepare Controller to ReScaning
+			AmountTexfield.Hidden = true;
+			GenerateButton.SetTitle("Scan Again", UIControlState.Normal);	
 		}
 
 		private void ConfigureGenerateMode()
 		{
-			BalanceLabel.Text = "Your balance is " + Presenter.GetBalance().ToString() + " coins"; 
 			textFieldDelegate = new AmountTextFieldDelegate();
 			AmountTexfield.Hidden = false;
 			AmountTexfield.KeyboardType = UIKeyboardType.NumberPad;
 			AmountTexfield.Delegate = textFieldDelegate;
-			GenerateButton.Hidden = false;
 		}
 
 		private async void ScanQRCode()
@@ -144,20 +145,21 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.AccountPage
 			try
 			{
 				await Presenter.CheckPermission();
-
 				scanner = new ZXing.Mobile.MobileBarcodeScanner(this);
 				var result = await scanner.Scan();
-
 				if (result != null)
 				{
 					var cashObject = new QRCodeHelper().ConvertScanResult(result);
 					Presenter.ScanCodeIOS(cashObject);
 				}
 			}
+			catch (JsonReaderExceptionCustom)
+			{
+				new AlertService().ShowToastMessage(notValidCode);
+			}
 			catch (CameraException e)
 			{
-				// TODO show exeption
-				//AlertService.ShowToastMessage(e.ToString());
+				new AlertService().ShowToastMessage(e.ToString());
 			}
 		}
 
@@ -189,10 +191,18 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.AccountPage
 
 		private void GenerateButtonClickHandler(object sender, EventArgs e)
 		{
-			// Handle clicking on the Generate button
-			Presenter.GenerateCode(amount);
-			// Hide keyboard
-			AmountTexfield.ResignFirstResponder();
+			if (initialParameter == Scan)
+			{
+				// Execute scaning
+				ScanQRCode();
+			}
+			else if (initialParameter == Generate)
+			{
+				// Handle clicking on the Generate button
+				Presenter.GenerateCode(amount);
+				// Hide keyboard
+				AmountTexfield.ResignFirstResponder();
+			}
 		}
 
 		private void DoneButtonClickHandler(object sender, EventArgs e)

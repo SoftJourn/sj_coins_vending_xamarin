@@ -20,10 +20,7 @@ namespace Softjourn.SJCoins.iOS
 			this.product = product;
 		}
 
-		public override nint NumberOfSections(UITableView tableView)// => numberOfSections;
-		{
-			return numberOfSections;
-		}
+		public override nint NumberOfSections(UITableView tableView) => numberOfSections;
 
 		public override string TitleForHeader(UITableView tableView, nint section)
 		{
@@ -51,25 +48,14 @@ namespace Softjourn.SJCoins.iOS
 			}
 		}
 
-		//public override nfloat GetHeightForRow(UITableView tableView, NSIndexPath indexPath)
-		//{
-		//	switch (indexPath.Section)
-		//	{
-		//		case descriptionSection:
-		//			return 150.0f;
-		//		case nutritionSection:
-		//			return 50.0f;
-		//		default:
-		//			return 0;
-		//	}
-		//}
-
 		public override UITableViewCell GetCell(UITableView tableView, NSIndexPath indexPath) 
 		{
 			switch (indexPath.Section)
 			{
 				case descriptionSection:
-					return (UITableViewCell)tableView.DequeueReusableCell(DescriptionCell.Key, indexPath);
+					var descriptionCell = (DescriptionCell)tableView.DequeueReusableCell(DescriptionCell.Key, indexPath);;
+					descriptionCell.ConfigureWith(product.Description);
+					return descriptionCell;
 				case nutritionSection:
 					return (UITableViewCell)tableView.DequeueReusableCell(NutritionCell.Key, indexPath);
 				default:
@@ -82,8 +68,6 @@ namespace Softjourn.SJCoins.iOS
 			switch (indexPath.Section)
 			{
 				case descriptionSection:
-					var descriptionCell = (DescriptionCell)cell;
-					descriptionCell.ConfigureWith(product.Description);
 					break;
 				case nutritionSection:
 					var nutritionCell = (NutritionCell)cell;

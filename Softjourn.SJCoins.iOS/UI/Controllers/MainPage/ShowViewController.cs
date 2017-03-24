@@ -165,6 +165,11 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.Main
 				DimsBackgroundDuringPresentation = false,
 				WeakSearchResultsUpdater = searchResultsUpdator					
 			};
+
+			if (categoryName == Const.FavoritesCategory)
+			{
+				NavigationItem.RightBarButtonItem = null;
+			}
 		}
 
 		private void ConfigureTableView()

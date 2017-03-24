@@ -18,8 +18,7 @@ namespace Softjourn.SJCoins.Core.UI.Presenters
     {
         public int MyBalance
         {
-            get { return DataManager.Profile.Amount; }
-            set { }
+			get { return DataManager.Profile.Amount; }
         }
 
         private QrManager QrManager;

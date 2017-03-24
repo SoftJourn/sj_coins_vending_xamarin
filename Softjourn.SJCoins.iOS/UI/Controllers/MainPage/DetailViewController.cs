@@ -114,7 +114,7 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers
 		{
 			tableSource = new DetailViewSource(currentProduct);
 			TableView.Source = tableSource;
-			TableView.EstimatedRowHeight = 300;
+			TableView.EstimatedRowHeight = 50;
 			TableView.RowHeight = UITableView.AutomaticDimension;
 		}
 

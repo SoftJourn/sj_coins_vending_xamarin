@@ -1,6 +1,9 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 using System.Threading.Tasks;
+using Newtonsoft.Json;
 using Softjourn.SJCoins.Core.API.Model;
+using Softjourn.SJCoins.Core.Exceptions;
 using UIKit;
 using ZXing;
 using ZXing.Mobile;
@@ -10,8 +13,18 @@ namespace Softjourn.SJCoins.iOS.General.Helper
 {
 	public class QRCodeHelper
 	{
-		//Converts Scan result to Cash object 
-		public Cash ConvertScanResult(ZXing.Result result) => Newtonsoft.Json.JsonConvert.DeserializeObject<Cash>(result.Text);
+		//Converts Scan result to Cash object
+		public Cash ConvertScanResult(ZXing.Result result)
+		{
+			try
+            {
+                return Newtonsoft.Json.JsonConvert.DeserializeObject<Cash>(result.Text);
+            }
+            catch (JsonReaderException e)
+            {
+				throw new JsonReaderExceptionCustom(e.Message);
+			}
+		}
 
 		public UIImage GenerateQRImage(string content, int width, int height)
 		{
