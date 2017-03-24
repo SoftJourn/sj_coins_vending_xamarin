@@ -195,7 +195,7 @@ namespace Softjourn.SJCoins.Core.UI.Presenters
             }
             catch (CameraException e)
             {
-                AlertService.ShowToastMessage(e.ToString());
+                AlertService.ShowToastMessage(e.Message);
             }
         }
 
@@ -211,7 +211,7 @@ namespace Softjourn.SJCoins.Core.UI.Presenters
             }
             catch (CameraException e)
             {
-                AlertService.ShowToastMessage(e.ToString());
+                AlertService.ShowToastMessage(e.Message);
             }
         }
 
@@ -228,7 +228,7 @@ namespace Softjourn.SJCoins.Core.UI.Presenters
             }
             catch (CameraException e)
             {
-                AlertService.ShowToastMessage(e.ToString());
+                AlertService.ShowToastMessage(e.Message);
             }
         }
 
@@ -245,7 +245,7 @@ namespace Softjourn.SJCoins.Core.UI.Presenters
             }
             catch (CameraException e)
             {
-                AlertService.ShowToastMessage(e.ToString());
+                AlertService.ShowToastMessage(e.Message);
             }
         }
         #endregion
