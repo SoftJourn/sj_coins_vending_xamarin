@@ -7,10 +7,11 @@ namespace Softjourn.SJCoins.iOS.UI.Delegates
 {
 	public class PageViewDelegate : UIPageViewControllerDelegate
 	{
-		public event EventHandler<int> PendingIndexChanged;
+		public event EventHandler<int> CurrentIndexChanged;
 
 		private List<UIViewController> pages;
 		private int pendingIndex;
+		private int currentIndex = 0;
 
 		public PageViewDelegate(List<UIViewController> pages)
 		{
@@ -26,10 +27,8 @@ namespace Softjourn.SJCoins.iOS.UI.Delegates
 		{
 			if (completed)
 			{
-				//currentIndex = pendingIndex;
-				//PageControl.CurrentPage = parent.currentIndex;
-
-				//ConfigureDinamicUIElements();
+				currentIndex = pendingIndex;
+				CurrentIndexChanged?.Invoke(this, currentIndex);
 			}
 		}
 	}

@@ -12,6 +12,7 @@ using Softjourn.SJCoins.iOS.UI.Controllers.Main;
 using Softjourn.SJCoins.iOS.UI.DataSources;
 using UIKit;
 using Softjourn.SJCoins.iOS.UI.Services;
+using Softjourn.SJCoins.iOS.UI.Delegates;
 
 namespace Softjourn.SJCoins.iOS.UI.Controllers
 {
@@ -27,6 +28,7 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers
 		private List<UIViewController> pages;
 		private UIPageViewController pageViewController;
 		private PageViewDataSource pageDataSource;
+		private PageViewDelegate pageDelegate;
 		private DetailViewSource tableSource;
 		#endregion
 
@@ -73,14 +75,14 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers
 			base.AttachEvents();
 			FavoriteButton.TouchUpInside += FavoriteButtonClicked;
 			BuyButton.TouchUpInside += BuyButtonClicked;
-			pageDataSource.CurrentIndexChanged += ImageIndexChanged;
+			pageDelegate.CurrentIndexChanged += ImageIndexChanged;
 		}
 
 		public override void DetachEvents()
 		{
 			FavoriteButton.TouchUpInside -= FavoriteButtonClicked;
 			BuyButton.TouchUpInside -= BuyButtonClicked;
-			pageDataSource.CurrentIndexChanged -= ImageIndexChanged;
+			pageDelegate.CurrentIndexChanged -= ImageIndexChanged;
 			base.DetachEvents();
 		}
 		#endregion
@@ -159,6 +161,8 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers
 			pages = CreatePages();
 			pageDataSource = new PageViewDataSource(pages);
 			pageViewController.DataSource = pageDataSource;
+			pageDelegate = new PageViewDelegate(pages);
+			pageViewController.Delegate = pageDelegate;
 			var defaultViewController = new UIViewController[] { pages.ElementAt(0) };
 			pageViewController.SetViewControllers(defaultViewController, UIPageViewControllerNavigationDirection.Forward, false, null);
 			pageViewController.View.Frame = new CGRect(25, 10, LogoView.Frame.Width - 50, LogoView.Frame.Size.Height - 50);

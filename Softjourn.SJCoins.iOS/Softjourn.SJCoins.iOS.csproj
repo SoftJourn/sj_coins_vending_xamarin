@@ -477,8 +477,6 @@
     <Compile Include="UI\Controllers\InitialViewController.designer.cs" />
     <Compile Include="UI\Controllers\LoginViewController.cs" />
     <Compile Include="UI\Controllers\LoginViewController.designer.cs" />
-    <Compile Include="UI\Controllers\InformativePage\ContentViewController.cs" />
-    <Compile Include="UI\Controllers\InformativePage\ContentViewController.designer.cs" />
     <Compile Include="UI\Controllers\InformativePage\InformativeViewController.cs" />
     <Compile Include="UI\Controllers\InformativePage\InformativeViewController.designer.cs" />
     <Compile Include="UI\Services\AlertService.cs" />

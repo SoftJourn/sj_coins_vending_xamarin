@@ -6,9 +6,7 @@ namespace Softjourn.SJCoins.iOS.UI.DataSources
 {
 	public class PageViewDataSource: UIPageViewControllerDataSource
 	{
-		public event EventHandler<int> CurrentIndexChanged;
-
-		private List<UIViewController> pages;
+		private readonly List<UIViewController> pages;
 		private int currentIndex = 0;
 
 		public PageViewDataSource(List<UIViewController> pages)
@@ -20,7 +18,6 @@ namespace Softjourn.SJCoins.iOS.UI.DataSources
 		{
 			currentIndex = pages.IndexOf(referenceViewController);
 			var controller = currentIndex == pages.Count - 1 ? null : pages[(currentIndex + 1) % pages.Count];
-			CurrentIndexChanged?.Invoke(this, currentIndex);
 			return controller;
 		}
 
@@ -28,7 +25,6 @@ namespace Softjourn.SJCoins.iOS.UI.DataSources
 		{
 			currentIndex = pages.IndexOf(referenceViewController);
 			var controller = currentIndex == 0 ? null : pages[(currentIndex - 1) % pages.Count];
-			CurrentIndexChanged?.Invoke(this, currentIndex);
 			return controller;		
 		}
 	}

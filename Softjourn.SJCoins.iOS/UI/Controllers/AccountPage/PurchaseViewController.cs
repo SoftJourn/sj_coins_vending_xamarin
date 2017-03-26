@@ -37,21 +37,6 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.AccountPage
 			Title = Purchases;
 			Presenter.OnStartLoadingPage();
 		}
-
-		public override void ViewWillAppear(bool animated)
-		{
-			base.ViewWillAppear(animated);
-		}
-
-		public override void ViewDidAppear(bool animated)
-		{
-			base.ViewDidAppear(animated);
-		}
-
-		public override void ViewWillDisappear(bool animated)
-		{
-			base.ViewWillDisappear(animated);
-		}
 		#endregion
 
 		#region BaseViewController -> IBaseView implementation
