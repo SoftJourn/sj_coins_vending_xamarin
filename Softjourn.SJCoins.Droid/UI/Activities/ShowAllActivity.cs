@@ -145,7 +145,7 @@ namespace Softjourn.SJCoins.Droid.UI.Activities
             {
                 _sortNameButton.Visibility = ViewStates.Gone;
                 _sortPriceButton.Visibility = ViewStates.Gone;
-                _adapter.Filter.InvokeFilter(TextUtils.IsEmpty(e.NewText) ? "" : e.NewText.ToLower());            
+                _adapter.Filter.InvokeFilter(TextUtils.IsEmpty(e.NewText) ? "" : e.NewText.ToLower());
             };
 
             searchView.Close += (s, e) =>
@@ -251,17 +251,22 @@ namespace Softjourn.SJCoins.Droid.UI.Activities
 
         public void FavoriteChanged(Product product)
         {
+            var fragment = SupportFragmentManager.FindFragmentByTag(Const.BottomSheetFragmentTag) as ProductDetailsFragment;
             if (!_category.Equals(Const.Favorites))
             {
-                _adapter.ChangeFavoriteIcon();
+                _adapter.ChangeFavoriteIcon();                
             }
-
-            var fragment = SupportFragmentManager.FindFragmentByTag(Const.BottomSheetFragmentTag) as ProductDetailsFragment;
-            //if fragment exists
+            else
+            {                
+                //if fragment exists
+                if (fragment == null) return;
+                _adapter.RemoveFavoriteItem(product.Id);
+                fragment.Dismiss();
+            }
             fragment?.ChangeFavoriteIcon();
         }
 
-        public void LastUnavailableFavoriteRemoved()
+        public void LastUnavailableFavoriteRemoved(Product product)
         {
             throw new NotImplementedException();
         }
@@ -376,8 +381,8 @@ namespace Softjourn.SJCoins.Droid.UI.Activities
         protected override void OnDestroy()
         {
             _adapter = null;
-            base.OnDestroy();      
-            GC.Collect(GC.MaxGeneration);      
+            base.OnDestroy();
+            GC.Collect(GC.MaxGeneration);
         }
 
         #endregion

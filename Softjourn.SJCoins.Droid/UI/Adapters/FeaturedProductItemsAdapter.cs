@@ -176,6 +176,24 @@ namespace Softjourn.SJCoins.Droid.UI.Adapters
             NotifyDataSetChanged();
         }
 
+        public void RemoveFavoriteItem(int productID)
+        {
+            for (var position = 0; position <= ListProducts.Count; position++)
+            {
+                if (ListProducts[position].Id == productID)
+                {
+                    ListProducts.RemoveAt(position);
+                    NotifyItemRemoved(position);
+                    NotifyItemRangeChanged(position, ItemCount + 1);
+                    break;
+                }
+            }
+            if (ListProducts.Count < 1)
+            {
+                LastFavoriteRemoved.Invoke(this, EventArgs.Empty);
+            }
+        }
+
         public void StopAnimationIfRunning()
         {
             if (_runningAnimations == null) return;

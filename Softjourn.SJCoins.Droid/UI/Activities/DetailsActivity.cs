@@ -127,7 +127,7 @@ namespace Softjourn.SJCoins.Droid.UI.Activities
             _product.IsProductFavorite = product.IsProductFavorite;
         }
 
-        public void LastUnavailableFavoriteRemoved()
+        public void LastUnavailableFavoriteRemoved(Product product)
         {
             Finish();
         }

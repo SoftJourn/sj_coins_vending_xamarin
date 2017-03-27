@@ -116,7 +116,7 @@ namespace Softjourn.SJCoins.Droid.UI.Activities
             FavoriteChanged(product.IsProductFavorite);
         }
 
-        public void LastUnavailableFavoriteRemoved()
+        public void LastUnavailableFavoriteRemoved(Product product)
         {
             ChangeFavoriteIcon(false);
             var bottomFragment = SupportFragmentManager.FindFragmentByTag(Const.BottomSheetFragmentTag) as ProductDetailsFragment;
