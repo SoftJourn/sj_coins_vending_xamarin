@@ -111,25 +111,12 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.Main
 		#region IShowAllView implementation
 		public void FavoriteChanged(Product product)
 		{
-			var indexPaths = new List<NSIndexPath>();
-			if (filteredItems.Contains(product))
-			{
-				var index = filteredItems.IndexOf(product);
-				var indexPath = NSIndexPath.FromRowSection(index, tableSection);
-				indexPaths.Add(indexPath);
-			}
+			ChangeFavorite(product);
+		}
 
-			if (categoryName == Const.FavoritesCategory)
-			{
-				// Set new items to table source
-				var newItems = Presenter.GetProductList(categoryName);
-				_tableSource.SetItems(newItems);
-				TableView.DeleteRows(atIndexPaths: indexPaths.ToArray(), withRowAnimation: UITableViewRowAnimation.Fade);
-			}
-			else
-			{
-				TableView.ReloadRows(atIndexPaths: indexPaths.ToArray(), withRowAnimation: UITableViewRowAnimation.Fade);
-			}
+		public void LastUnavailableFavoriteRemoved(Product product)
+		{
+			ChangeFavorite(product);
 		}
 
 		public void ShowSortedList(List<Product> products)
@@ -146,11 +133,6 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.Main
 		public void SetCompoundDrawablePrice(bool? isAsc)
 		{
 			SetCompoundDrawableSegment(isAsc, PriceTitle, PriceSegment);
-		}
-
-		public void LastUnavailableFavoriteRemoved()
-		{
-			// Used for Android only.
 		}
 		#endregion
 
@@ -232,6 +214,29 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.Main
 				var inputImage = UIImage.FromBundle(imageName);
 				var mergedImage = _segmentControlHelper.ImageFromImageAndText(inputImage, title, UIColor.Black);
 				NamePriceSegmentControl.SetImage(mergedImage, segment);
+			}
+		}
+
+		private void ChangeFavorite(Product product)
+		{
+			var indexPaths = new List<NSIndexPath>();
+			if (filteredItems.Contains(product))
+			{
+				var index = filteredItems.IndexOf(product);
+				var indexPath = NSIndexPath.FromRowSection(index, tableSection);
+				indexPaths.Add(indexPath);
+			}
+
+			if (categoryName == Const.FavoritesCategory)
+			{
+				// Set new items to table source
+				var newItems = Presenter.GetProductList(categoryName);
+				_tableSource.SetItems(newItems);
+				TableView.DeleteRows(atIndexPaths: indexPaths.ToArray(), withRowAnimation: UITableViewRowAnimation.Fade);
+			}
+			else
+			{
+				TableView.ReloadRows(atIndexPaths: indexPaths.ToArray(), withRowAnimation: UITableViewRowAnimation.Fade);
 			}
 		}
 

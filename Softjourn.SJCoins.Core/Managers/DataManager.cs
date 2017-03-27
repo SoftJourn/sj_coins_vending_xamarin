@@ -105,9 +105,7 @@ namespace Softjourn.SJCoins.Core.Managers
 
         public Product GetProductFromListById(int productId)
         {
-            var categoriesList = ProductList;
-
-            return categoriesList.SelectMany(category => category.Products).FirstOrDefault(product => product.Id == productId);
+			return ProductList.SelectMany(category => category.Products).FirstOrDefault(product => product.Id == productId);;
         }
 
         public List<Product> GetProductListByGivenCategory(string categoryInput)

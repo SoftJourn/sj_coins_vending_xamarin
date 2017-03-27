@@ -25,7 +25,7 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.AccountPage
 		private UIImage qrcode;
 		private string initialParameter { get; set; }
 		private string amount
-		{ 
+		{
 			get { return AmountTexfield.Text; } 
 		}
 

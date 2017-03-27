@@ -69,7 +69,7 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers
 		}
 		#endregion
 
-		#region BaseViewController 
+		#region BaseViewController
 		public override void AttachEvents()
 		{
 			base.AttachEvents();
@@ -98,9 +98,10 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers
 			ConfigureFavoriteImage(product.IsProductFavorite);
 		}
 
-		public void LastUnavailableFavoriteRemoved()
+		public void LastUnavailableFavoriteRemoved(Product product)
 		{
-			
+			animationService.CompleteRotation(FavoriteButton);
+			animationService.ScaleEffect(FavoriteButton);
 		}
 		#endregion
 

@@ -98,7 +98,7 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.Main
 			CollectionView.ReloadData();
 		}
 
-		public void LastUnavailableFavoriteRemoved()
+		public void LastUnavailableFavoriteRemoved(Product product)
 		{
 		}
 
