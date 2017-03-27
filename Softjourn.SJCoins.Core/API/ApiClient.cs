@@ -26,15 +26,12 @@ namespace Softjourn.SJCoins.Core.API
         public const string GrandTypePassword = "password";
         public const string GrandTypeRefreshToken = "refresh_token";
 
-        public const string BaseUrl = "https://sjcoins-testing.softjourn.if.ua";
-        public const string LoginAuthorizationHeader = "Basic dXNlcl9jcmVkOnN1cGVyc2VjcmV0";
+        public const string BaseUrl = Const.BaseUrl;
+        public const string LoginAuthorizationHeader = Const.HeaderAuthorizationValue;
 
-        public const string VendingApiVersion = "v1/";
-        public const string CoinsApiVersion = "api/v1/";
-
-        public const string UrlAuthService = "/auth/";
-        public const string UrlVendingService = "/vending/" + VendingApiVersion;
-        public const string UrlCoinService = "/coins/" + CoinsApiVersion;
+        public const string UrlAuthService = Const.UrlAuthService;
+        public const string UrlVendingService = Const.UrlVendingService;
+        public const string UrlCoinService = Const.UrlCoinService;
 
 
         public ApiClient() {

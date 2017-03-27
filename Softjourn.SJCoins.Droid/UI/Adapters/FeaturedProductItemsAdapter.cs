@@ -115,6 +115,7 @@ namespace Softjourn.SJCoins.Droid.UI.Adapters
              */
             if (holder.AddFavorite != null)
             {
+                holder.AddFavorite.Enabled = true;
                 {
                     if (product.IsProductFavorite)
                     {
@@ -265,10 +266,10 @@ namespace Softjourn.SJCoins.Droid.UI.Adapters
                 if (_category == Const.Favorites)
                 {
                     RemoveFromFavorites?.Invoke(this, product);
+                    holder.AddFavorite.Enabled = false;
                     ListProducts.RemoveAt(holder.AdapterPosition);
                     NotifyItemRemoved(holder.AdapterPosition);
                     NotifyItemRangeChanged(holder.AdapterPosition, ItemCount + 1);
-                    holder.AddFavorite.Enabled = false;
                     if (ItemCount < 1)
                     {
                         LastFavoriteRemoved?.Invoke(this, EventArgs.Empty);

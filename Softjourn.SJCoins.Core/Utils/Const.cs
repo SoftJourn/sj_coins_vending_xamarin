@@ -28,7 +28,7 @@ namespace Softjourn.SJCoins.Core.Utils
         //public const string BASE_URL = "http://192.168.102.251:8111";
 
         public const string VendingApiVersion = "v1/";
-        public const string CoinsApiVersion = "api/v1/";
+        public const string CoinsApiVersion = "v1/";
 
         public const string UrlAuthService = "/auth/";
         public const string UrlVendingService = "/vending/" + VendingApiVersion;
