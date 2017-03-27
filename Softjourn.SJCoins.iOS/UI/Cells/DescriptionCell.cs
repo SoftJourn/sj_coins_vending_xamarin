@@ -25,7 +25,10 @@ namespace Softjourn.SJCoins.iOS
 		public void ConfigureWith(string description)
 		{
 			if (String.IsNullOrEmpty(description))
+			{
+				DescriptionLabel.TextColor = UIColor.Gray;
 				DescriptionLabel.Text = defaultDescription;
+			}
 			else
 				DescriptionLabel.Text = description;
 		}
