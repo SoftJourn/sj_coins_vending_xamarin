@@ -3,9 +3,12 @@ using System.Collections.Generic;
 
 using Android.App;
 using Android.Content.PM;
+using Android.Graphics;
 using Android.OS;
+using Android.Support.V4.Content;
 using Android.Support.V4.View;
 using Android.Support.V7.Widget;
+using Android.Text;
 using Android.Views;
 using Android.Widget;
 using Softjourn.SJCoins.Core.API.Model.Products;
@@ -27,6 +30,8 @@ namespace Softjourn.SJCoins.Droid.UI.Activities
         private TextView _productDescription;
         private List<string> _images;
         private IMenu _menu;
+        private TextView[] _dots;
+        private LinearLayout _dotsLayout;
 
         private DetailsPagerAdapter _pagerAdapter;
         private NutritionFactsAdapter _nutritionFactsAdapter;
@@ -56,11 +61,17 @@ namespace Softjourn.SJCoins.Droid.UI.Activities
             }
 
             _pagerAdapter = new DetailsPagerAdapter(this, _images);
+            _dotsLayout = FindViewById<LinearLayout>(Resource.Id.layoutDots);
+            AddBottomDots(0);
 
             //View Pager for viewing photos by swiping 
             //and adapter for it
             _viewPager = FindViewById<ViewPager>(Resource.Id.viewPager);
             _viewPager.Adapter = _pagerAdapter;
+            _viewPager.PageSelected += (s, e) =>
+            {
+                AddBottomDots(e.Position);
+            };
 
             _productPrice = FindViewById<TextView>(Resource.Id.details_product_price);
             _productPrice.Text = _product.IntPrice + " coins";
@@ -142,6 +153,28 @@ namespace Softjourn.SJCoins.Droid.UI.Activities
         {
             item.SetIcon(isFavorite ? Resource.Drawable.ic_favorite_white_24dp : Resource.Drawable.ic_favorite_border_white);
             item.SetEnabled(true);
+        }
+
+        private void AddBottomDots(int currentPage)
+        {
+            _dots = new TextView[_images.Count];
+
+            var colorsActive = ContextCompat.GetColor(this, Resource.Color.dot_detail_light_screen);
+                
+            var colorsInactive = ContextCompat.GetColor(this, Resource.Color.dot_detail_dark_screen);
+
+            _dotsLayout.RemoveAllViews();
+            for (int i = 0; i < _dots.Length; i++)
+            {
+                _dots[i] = new TextView(this);
+                _dots[i].Text = Html.FromHtml("&#8226;").ToString();
+                _dots[i].TextSize = 35;
+                _dots[i].SetTextColor(new Color(colorsInactive));
+                _dotsLayout.AddView(_dots[i]);
+            }
+
+            if (_dots.Length > 0)
+                _dots[currentPage].SetTextColor(new Color(colorsActive));
         }
         #endregion
     }
