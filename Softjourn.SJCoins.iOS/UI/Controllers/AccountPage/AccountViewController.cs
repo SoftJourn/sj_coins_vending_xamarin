@@ -72,9 +72,6 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.AccountPage
 			{
 				NameLabel.Text = account.Name + " " + account.Surname;
 				AmountLabel.Text = account.Amount.ToString() + " coins";
-
-				// TODO need change default avatar image
-				AvatarImage.SetImage(url: new NSUrl("https://sjcoins-testing.softjourn.if.ua/vending/v1/products/100/image.jpeg"), placeholder: UIImage.FromBundle(ImageConstants.Placeholder));
 			}
 		}
 

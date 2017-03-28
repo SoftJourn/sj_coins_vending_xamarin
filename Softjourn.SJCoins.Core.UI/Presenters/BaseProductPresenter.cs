@@ -40,6 +40,7 @@ namespace Softjourn.SJCoins.Core.UI.Presenters
 			            }
 			            else
 			            {
+							product.IsProductFavorite = false;
 			                View.LastUnavailableFavoriteRemoved(product);
 			            }
 			        }

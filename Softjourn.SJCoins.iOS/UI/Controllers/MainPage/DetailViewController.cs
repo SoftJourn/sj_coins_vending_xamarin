@@ -100,8 +100,11 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers
 
 		public void LastUnavailableFavoriteRemoved(Product product)
 		{
+			// End button rotation
 			animationService.CompleteRotation(FavoriteButton);
 			animationService.ScaleEffect(FavoriteButton);
+			// change button image
+			ConfigureFavoriteImage(product.IsProductFavorite);
 		}
 		#endregion
 
