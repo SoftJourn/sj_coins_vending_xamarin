@@ -1,4 +1,5 @@
 
+using System;
 using System.Collections.Generic;
 
 using Android.App;
@@ -92,6 +93,7 @@ namespace Softjourn.SJCoins.Droid.UI.Activities
             {
                 _nutritionItems = FindViewById<RecyclerView>(Resource.Id.nutrition_facts_recycler_view);
                 _nutritionItems.Visibility = ViewStates.Visible;
+                _nutritionItems.NestedScrollingEnabled = false;
                 _layoutManager = new LinearLayoutManager(this, LinearLayoutManager.Vertical, false);
 
                 _nutritionFactsAdapter = new NutritionFactsAdapter();
@@ -130,6 +132,12 @@ namespace Softjourn.SJCoins.Droid.UI.Activities
                     break;
             }
             return base.OnOptionsItemSelected(item);
+        }
+
+        protected override void OnDestroy()
+        {
+            base.OnDestroy();
+            GC.Collect(GC.MaxGeneration);
         }
 
         public void FavoriteChanged(Product product)

@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v4.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:id="@+id/layout_root">
     <LinearLayout
         android:layout_width="match_parent"
@@ -20,6 +20,8 @@
                 android:padding="10dp" />
             <LinearLayout
                 android:id="@+id/layoutDots"
+                android:paddingLeft="@dimen/details_product_left_margin"
+                android:paddingRight="@dimen/details_product_left_margin"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/dots_height"
                 android:layout_marginTop="@dimen/dots_margin_bottom"
@@ -56,4 +58,4 @@
                 layout="@layout/nutricion_facts" />
         </LinearLayout>
     </LinearLayout>
-</ScrollView>
+</android.support.v4.widget.NestedScrollView>
