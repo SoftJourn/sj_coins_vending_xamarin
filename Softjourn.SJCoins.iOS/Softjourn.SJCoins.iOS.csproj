@@ -427,8 +427,12 @@
     <ImageAsset Include="Assets.xcassets\ic_purchase.imageset\ic_purchase%403x.png">
       <InProject>false</InProject>
     </ImageAsset>
-    <ImageAsset Include="Assets.xcassets\DefaultAvatar.imageset\Contents.json" />
-    <ImageAsset Include="Assets.xcassets\DefaultAvatar.imageset\noavatar.png" />
+    <ImageAsset Include="Assets.xcassets\DefaultAvatar.imageset\Contents.json">
+      <InProject>false</InProject>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\DefaultAvatar.imageset\noavatar.png">
+      <InProject>false</InProject>
+    </ImageAsset>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Assets.xcassets\AccountTabIcon.imageset\" />
