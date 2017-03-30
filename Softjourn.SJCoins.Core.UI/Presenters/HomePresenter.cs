@@ -56,6 +56,7 @@ namespace Softjourn.SJCoins.Core.UI.Presenters
                         }
                     }
                     DataManager.ProductList = AddIsProductInCurrentMachineFlagToProducts(AddFavoriteFlagToProducts(productCategoriesList));
+                    DataManager.SetNutritionFactsInCorrectOrder();
                     View.ShowProducts(DataManager.ProductList);
                     View.HideProgress();
                 }

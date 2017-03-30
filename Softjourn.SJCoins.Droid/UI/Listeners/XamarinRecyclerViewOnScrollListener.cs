@@ -3,6 +3,10 @@ using Android.Support.V7.Widget;
 
 namespace Softjourn.SJCoins.Droid.UI.Listeners
 {
+
+    //Class for checking if scrolled list is in its 
+    //bottom position 
+    //is used for continious loading
     public class XamarinRecyclerViewOnScrollListener : RecyclerView.OnScrollListener
     {
         public delegate void LoadMoreEventHandler(object sender, EventArgs e);

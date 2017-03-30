@@ -32,7 +32,8 @@
   <dimen name="desc_padding">40dp</dimen>
 
   <!-- Details Product Margins-->
-  <dimen name="details_product_header_height">200dp</dimen>
+  <dimen name="details_product_image_viewer_height">200dp</dimen>
+  <dimen name="details_product_header_height">260dp</dimen>
   <dimen name="details_product_product_name_width">240dp</dimen>
   <dimen name="details_product_left_margin">16dp</dimen>
   <dimen name="details_product_favorite_left_margin">24dp</dimen>
