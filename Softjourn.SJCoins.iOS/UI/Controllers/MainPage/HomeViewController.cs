@@ -66,6 +66,14 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.Main
 			_delegate.HomeViewControllerDelegateFlowLayout_AddDeleteFavoriteExecuted -= OnFavoriteActionClicked;
 			base.DetachEvents();
 		}
+
+		public override void ShowProgress(string message)
+		{
+		}
+
+		public override void HideProgress()
+		{
+		}
 		#endregion
 
 		#region IHomeView implementation

@@ -429,6 +429,10 @@
     </ImageAsset>
     <ImageAsset Include="Assets.xcassets\DefaultAvatar.imageset\Contents.json" />
     <ImageAsset Include="Assets.xcassets\DefaultAvatar.imageset\noavatar.png" />
+    <ImageAsset Include="Assets.xcassets\Account.imageset\Contents.json" />
+    <ImageAsset Include="Assets.xcassets\Account.imageset\Account.png" />
+    <ImageAsset Include="Assets.xcassets\Account.imageset\Account_x3.png" />
+    <ImageAsset Include="Assets.xcassets\Account.imageset\Account_x2.png" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Assets.xcassets\AccountTabIcon.imageset\" />
@@ -456,6 +460,13 @@
     <Folder Include="UI\Sources\" />
     <Folder Include="UI\Delegates\" />
     <Folder Include="Assets.xcassets\DefaultAvatar.imageset\" />
+    <Folder Include="Assets.xcassets\Account.imageset\" />
+    <Folder Include="Assets.xcassets\AccountImage.imageset\" />
+    <Folder Include="Assets.xcassets\account.imageset\" />
+    <Folder Include="Assets.xcassets\Account.imageset\" />
+    <Folder Include="Assets.xcassets\AccountImage.imageset\" />
+    <Folder Include="Assets.xcassets\account.imageset\" />
+    <Folder Include="Assets.xcassets\Account.imageset\" />
   </ItemGroup>
   <ItemGroup>
     <InterfaceDefinition Include="LaunchScreen.storyboard" />
