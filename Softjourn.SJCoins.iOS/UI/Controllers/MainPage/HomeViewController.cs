@@ -73,6 +73,7 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.Main
 
 		public override void HideProgress()
 		{
+			ActivityIndicator.StopAnimating();
 		}
 		#endregion
 
@@ -139,6 +140,8 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.Main
 			//Hide no items label
 			NoItemsLabel.Hidden = true;
 			BalanceLabel.Hidden = true;
+			ActivityIndicator.Transform = CGAffineTransform.MakeScale(1.2f, 1.2f);
+			ActivityIndicator.StartAnimating();
 		}
 
 		private void ConfigureCollectionView()

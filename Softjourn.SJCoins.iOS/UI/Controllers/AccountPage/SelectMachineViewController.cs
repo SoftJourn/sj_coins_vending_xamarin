@@ -47,6 +47,15 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers
 		}
 		#endregion
 
+		public override void ShowProgress(string message)
+		{
+		}
+
+		public override void HideProgress()
+		{
+			StopRefreshing();
+		}
+
 		#region ISelectMachineView implementation
 		public void ShowNoMachineView(string message)
 		{
@@ -94,7 +103,6 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers
 
 		protected override void PullToRefreshTriggered(object sender, EventArgs e)
 		{
-			StopRefreshing();
 			Presenter.GetMachinesList();
 		}
 	}

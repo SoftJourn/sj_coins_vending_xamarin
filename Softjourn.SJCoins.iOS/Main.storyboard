@@ -108,7 +108,7 @@
                                 </constraints>
                             </imageView>
                         </subviews>
-                        <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                        <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="HbQ-WX-gQg" firstAttribute="leading" secondItem="2PD-sR-EI0" secondAttribute="leadingMargin" constant="56" id="DFL-Il-gMZ"/>
                             <constraint firstItem="HbQ-WX-gQg" firstAttribute="centerX" secondItem="2PD-sR-EI0" secondAttribute="centerX" id="cCz-1a-gLe"/>
@@ -403,13 +403,18 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <activityIndicatorView opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" animating="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="gks-pV-Gd9">
+                                <rect key="frame" x="177.5" y="323.5" width="20" height="20"/>
+                            </activityIndicatorView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="Qzc-Wj-K1C" firstAttribute="width" secondItem="3pT-Ss-wWX" secondAttribute="width" id="9Xc-DD-70t"/>
                             <constraint firstItem="Qzc-Wj-K1C" firstAttribute="centerX" secondItem="3pT-Ss-wWX" secondAttribute="centerX" id="B3M-wk-6Lp"/>
+                            <constraint firstItem="gks-pV-Gd9" firstAttribute="centerX" secondItem="3pT-Ss-wWX" secondAttribute="centerX" id="Cbp-za-xOA"/>
                             <constraint firstItem="OWz-jQ-7Ch" firstAttribute="centerX" secondItem="3pT-Ss-wWX" secondAttribute="centerX" id="HAH-WU-619"/>
                             <constraint firstItem="OWz-jQ-7Ch" firstAttribute="centerY" secondItem="3pT-Ss-wWX" secondAttribute="centerY" id="Rbl-4m-5vS"/>
+                            <constraint firstItem="gks-pV-Gd9" firstAttribute="centerY" secondItem="3pT-Ss-wWX" secondAttribute="centerY" id="WkK-9H-lcj"/>
                             <constraint firstItem="Qzc-Wj-K1C" firstAttribute="centerY" secondItem="3pT-Ss-wWX" secondAttribute="centerY" id="Wy8-Ra-IbI"/>
                             <constraint firstItem="rFA-W2-jdl" firstAttribute="leading" secondItem="3pT-Ss-wWX" secondAttribute="leading" id="g67-7l-YcX"/>
                             <constraint firstItem="rFA-W2-jdl" firstAttribute="centerX" secondItem="3pT-Ss-wWX" secondAttribute="centerX" id="hIU-Gx-F4Q"/>
@@ -425,6 +430,7 @@
                     </navigationItem>
                     <connections>
                         <outlet property="AccountButton" destination="Q0g-9k-XxC" id="uA7-GB-8me"/>
+                        <outlet property="ActivityIndicator" destination="gks-pV-Gd9" id="Oay-Ym-puT"/>
                         <outlet property="BalanceLabel" destination="u8R-cz-8Rb" id="8BM-Ai-i37"/>
                         <outlet property="CollectionView" destination="Qzc-Wj-K1C" id="DjX-0b-OHg"/>
                         <outlet property="NoItemsLabel" destination="OWz-jQ-7Ch" id="It5-37-ta0"/>

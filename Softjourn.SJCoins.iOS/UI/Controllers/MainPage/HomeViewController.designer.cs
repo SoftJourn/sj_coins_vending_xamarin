@@ -15,6 +15,9 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.Main
 		UIKit.UIBarButtonItem AccountButton { get; set; }
 
 		[Outlet]
+		UIKit.UIActivityIndicatorView ActivityIndicator { get; set; }
+
+		[Outlet]
 		UIKit.UILabel BalanceLabel { get; set; }
 
 		[Outlet]
@@ -43,6 +46,11 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.Main
 			if (NoItemsLabel != null) {
 				NoItemsLabel.Dispose ();
 				NoItemsLabel = null;
+			}
+
+			if (ActivityIndicator != null) {
+				ActivityIndicator.Dispose ();
+				ActivityIndicator = null;
 			}
 		}
 	}
