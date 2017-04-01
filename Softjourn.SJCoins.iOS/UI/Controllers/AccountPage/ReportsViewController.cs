@@ -93,6 +93,16 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.AccountPage
 			_tableSource.GetNexPage -= TableSource_GetNextPageExecuted;
 			base.DetachEvents();
 		}
+
+		public override void ShowProgress(string message)
+		{
+			UIApplication.SharedApplication.NetworkActivityIndicatorVisible = true;
+		}
+
+		public override void HideProgress()
+		{
+			UIApplication.SharedApplication.NetworkActivityIndicatorVisible = false;
+		}
 		#endregion
 
 		#region Private methods
