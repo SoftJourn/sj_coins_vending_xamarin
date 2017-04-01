@@ -619,10 +619,10 @@
                                     <outlet property="delegate" destination="rb1-j7-a37" id="I68-7X-gVl"/>
                                 </connections>
                             </tableView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Gnb-Oy-2qp">
-                                <rect key="frame" x="16" y="319" width="343" height="30"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Gnb-Oy-2qp">
+                                <rect key="frame" x="16" y="284" width="343" height="100"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="30" id="aD5-Xl-Jtt"/>
+                                    <constraint firstAttribute="height" constant="100" id="aD5-Xl-Jtt"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
