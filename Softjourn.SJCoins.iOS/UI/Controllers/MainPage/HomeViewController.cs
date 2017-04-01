@@ -18,6 +18,7 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.Main
 
 		private HomeViewControllerDataSource _dataSource;
 		private HomeViewControllerDelegateFlowLayout _delegate;
+		private bool firstStart = true;
 		#endregion
 
 		#region Constructor
@@ -66,11 +67,17 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.Main
 
 		public override void ShowProgress(string message)
 		{
+			if (firstStart)
+				base.ShowProgress(message);
 		}
 
 		public override void HideProgress()
 		{
-			ActivityIndicator.StopAnimating();
+			if (firstStart)
+			{
+				firstStart = false;
+				base.HideProgress();
+			}
 		}
 		#endregion
 
@@ -137,8 +144,6 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.Main
 			//Hide no items label
 			NoItemsLabel.Hidden = true;
 			BalanceLabel.Hidden = true;
-			ActivityIndicator.Transform = CGAffineTransform.MakeScale(1.2f, 1.2f);
-			ActivityIndicator.StartAnimating();
 		}
 
 		private void ConfigureCollectionView()
