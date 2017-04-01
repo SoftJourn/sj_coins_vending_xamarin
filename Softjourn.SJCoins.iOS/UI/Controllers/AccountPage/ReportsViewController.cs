@@ -227,7 +227,7 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.AccountPage
 	public class ReportsSource : UITableViewSource
 	{
 		private const int tableSection = 0;
-		private const int rowBeforeEnd = 5;
+		private const int rowBeforeEnd = 15;
 		private const int numberOfItemsOnOnePage = 50;
 
 		private List<Transaction> _items = new List<Transaction>();
