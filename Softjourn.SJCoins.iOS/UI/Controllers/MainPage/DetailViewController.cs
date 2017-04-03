@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using CoreGraphics;
-using CoreAnimation;
 using Foundation;
 using Softjourn.SJCoins.Core.API.Model.Products;
 using Softjourn.SJCoins.Core.UI.Presenters;

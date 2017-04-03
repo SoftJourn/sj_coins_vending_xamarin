@@ -93,6 +93,16 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.AccountPage
 			_tableSource.GetNexPage -= TableSource_GetNextPageExecuted;
 			base.DetachEvents();
 		}
+
+		public override void ShowProgress(string message)
+		{
+			UIApplication.SharedApplication.NetworkActivityIndicatorVisible = true;
+		}
+
+		public override void HideProgress()
+		{
+			UIApplication.SharedApplication.NetworkActivityIndicatorVisible = false;
+		}
 		#endregion
 
 		#region Private methods
@@ -217,7 +227,7 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.AccountPage
 	public class ReportsSource : UITableViewSource
 	{
 		private const int tableSection = 0;
-		private const int rowBeforeEnd = 5;
+		private const int rowBeforeEnd = 15;
 		private const int numberOfItemsOnOnePage = 50;
 
 		private List<Transaction> _items = new List<Transaction>();

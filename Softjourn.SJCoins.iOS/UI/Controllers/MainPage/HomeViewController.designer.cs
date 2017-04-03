@@ -22,12 +22,14 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.Main
 
 		[Outlet]
 		UIKit.UILabel NoItemsLabel { get; set; }
-
-		[Outlet]
-		UIKit.UIBarButtonItem SettingButton { get; set; }
 		
 		void ReleaseDesignerOutlets ()
 		{
+			if (AccountButton != null) {
+				AccountButton.Dispose ();
+				AccountButton = null;
+			}
+
 			if (BalanceLabel != null) {
 				BalanceLabel.Dispose ();
 				BalanceLabel = null;
@@ -41,16 +43,6 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.Main
 			if (NoItemsLabel != null) {
 				NoItemsLabel.Dispose ();
 				NoItemsLabel = null;
-			}
-
-			if (SettingButton != null) {
-				SettingButton.Dispose ();
-				SettingButton = null;
-			}
-
-			if (AccountButton != null) {
-				AccountButton.Dispose ();
-				AccountButton = null;
 			}
 		}
 	}

@@ -17,7 +17,7 @@ namespace Softjourn.SJCoins.iOS.General.Helper
 		// Create a UIImage from an icon file and string for use in a UISegmentControl. 
 		public UIImage ImageFromImageAndText(UIImage image, string title, UIColor color)
 		{
-			UIFont font = UIFont.SystemFontOfSize(defaultFontSize);
+			var font = UIFont.SystemFontOfSize(defaultFontSize);
 
 			var nsString = new NSString(title);
 			var attribs = new UIStringAttributes { Font = font };
@@ -27,7 +27,7 @@ namespace Softjourn.SJCoins.iOS.General.Helper
 			var width = expectedTextSize.Width + image.Size.Width + distanceBetweenElements;
 			var height = (nfloat)Math.Max(expectedTextSize.Height, image.Size.Width);
 
-			var size = new CGSize(width, height);
+			var size = new CGSize(width + 28, height);
 
 			UIGraphics.BeginImageContextWithOptions(size, false, 0);
 			var context = UIGraphics.GetCurrentContext();
@@ -39,13 +39,13 @@ namespace Softjourn.SJCoins.iOS.General.Helper
 			title.DrawString(textPoint, font);
 
 			// Images upside down so flip them
-			CGAffineTransform flipVertical = new CGAffineTransform(1, 0, 0, -1, 0, size.Height);
+			var flipVertical = new CGAffineTransform(1, 0, 0, -1, 0, size.Height);
 			context.ConcatCTM(flipVertical);
 			var rect = new CGRect(0, (height - image.Size.Height) / half, image.Size.Width, image.Size.Height);
 
 			context.DrawImage(rect, image.CGImage);
 
-			UIImage newImage = UIGraphics.GetImageFromCurrentImageContext();
+			var newImage = UIGraphics.GetImageFromCurrentImageContext();
 			UIGraphics.EndImageContext();
 
 			return newImage;

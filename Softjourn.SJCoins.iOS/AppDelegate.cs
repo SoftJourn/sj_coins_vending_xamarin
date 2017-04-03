@@ -40,8 +40,8 @@ namespace Softjourn.SJCoins.iOS
 
 		private void ConfigureProgressHUD()
 		{
-			ProgressHUD.Shared.HudBackgroundColour = UIColor.Black;
-			ProgressHUD.Shared.HudForegroundColor = UIColor.White;
+			ProgressHUD.Shared.HudBackgroundColour = UIColor.FromRGB(239, 239, 244);
+			ProgressHUD.Shared.HudForegroundColor = UIColor.Black;
 		}
     }
 }

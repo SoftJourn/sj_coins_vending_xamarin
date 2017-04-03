@@ -44,12 +44,12 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers
 		}
 
 		//IBaseView
-		public void ShowProgress(string message)
+		public virtual void ShowProgress(string message)
 		{
 			LoaderService.Show(message);
 		}
 
-		public void HideProgress()
+		public virtual void HideProgress()
 		{
 			LoaderService.Hide();
 		}
