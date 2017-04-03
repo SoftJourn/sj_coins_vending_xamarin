@@ -230,8 +230,8 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.Main
 			if (categoryName == Const.FavoritesCategory)
 			{
 				// Set new items to table source
-				var newItems = Presenter.GetProductList(categoryName);
-				_tableSource.SetItems(newItems);
+				filteredItems = Presenter.GetProductList(categoryName);
+				_tableSource.SetItems(filteredItems);
 				TableView.DeleteRows(atIndexPaths: indexPaths.ToArray(), withRowAnimation: UITableViewRowAnimation.Fade);
 			}
 			else

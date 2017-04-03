@@ -7,9 +7,6 @@ using CoreGraphics;
 using Softjourn.SJCoins.Core.API.Model.AccountInfo;
 using Softjourn.SJCoins.Core.UI.Presenters;
 using Softjourn.SJCoins.Core.UI.ViewInterfaces;
-using Softjourn.SJCoins.iOS.UI.Services;
-using Softjourn.SJCoins.iOS.General.Constants;
-using System.Linq;
 
 namespace Softjourn.SJCoins.iOS.UI.Controllers.Main
 {
@@ -21,6 +18,7 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.Main
 
 		private HomeViewControllerDataSource _dataSource;
 		private HomeViewControllerDelegateFlowLayout _delegate;
+		private bool firstStart = true;
 		#endregion
 
 		#region Constructor
@@ -65,6 +63,21 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.Main
 			_delegate.HomeViewControllerDelegateFlowLayout_BuyExecuted -= OnBuyActionClicked;
 			_delegate.HomeViewControllerDelegateFlowLayout_AddDeleteFavoriteExecuted -= OnFavoriteActionClicked;
 			base.DetachEvents();
+		}
+
+		public override void ShowProgress(string message)
+		{
+			if (firstStart)
+				base.ShowProgress(message);
+		}
+
+		public override void HideProgress()
+		{
+			if (firstStart)
+			{
+				firstStart = false;
+				base.HideProgress();
+			}
 		}
 		#endregion
 

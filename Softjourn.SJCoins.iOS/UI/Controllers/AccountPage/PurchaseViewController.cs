@@ -39,7 +39,16 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.AccountPage
 		}
 		#endregion
 
-		#region BaseViewController -> IBaseView implementation
+		#region BaseViewController
+		public override void ShowProgress(string message)
+		{
+			UIApplication.SharedApplication.NetworkActivityIndicatorVisible = true;
+		}
+
+		public override void HideProgress()
+		{
+			UIApplication.SharedApplication.NetworkActivityIndicatorVisible = false;
+		}
 		#endregion
 
 		#region IAccountView implementation
