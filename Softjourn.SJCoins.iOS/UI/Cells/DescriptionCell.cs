@@ -1,6 +1,7 @@
 ﻿using System;
 
 using Foundation;
+using Softjourn.SJCoins.iOS.General.Constants;
 using UIKit;
 
 namespace Softjourn.SJCoins.iOS
@@ -9,8 +10,6 @@ namespace Softjourn.SJCoins.iOS
 	{
 		public static readonly NSString Key = new NSString("DescriptionCell");
 		public static readonly UINib Nib;
-
-		private const string defaultDescription = "No description to current product."; 
 
 		static DescriptionCell()
 		{
@@ -27,7 +26,7 @@ namespace Softjourn.SJCoins.iOS
 			if (String.IsNullOrEmpty(description))
 			{
 				DescriptionLabel.TextColor = UIColor.Gray;
-				DescriptionLabel.Text = defaultDescription;
+				DescriptionLabel.Text = Const.defaultDescription;
 			}
 			else
 				DescriptionLabel.Text = description;

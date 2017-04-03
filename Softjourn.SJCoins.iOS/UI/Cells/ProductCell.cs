@@ -62,6 +62,14 @@ namespace Softjourn.SJCoins.iOS.UI.Cells
 			FavoriteButton.TouchUpInside += FavoriteButtonClicked;
 		}
 
+		public void MarkFavorites(Product product)
+		{
+			if (product.IsProductInCurrentMachine)
+				ImageLogo.Alpha = 1.0f;
+			else
+				ImageLogo.Alpha = 0.3f;
+		}
+
 		public override void PrepareForReuse()
 		{
 			Product = null;

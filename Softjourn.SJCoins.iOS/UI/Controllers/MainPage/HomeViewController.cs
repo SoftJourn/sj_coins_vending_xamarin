@@ -113,6 +113,7 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.Main
 
 		public void LastUnavailableFavoriteRemoved(Product product)
 		{
+			RefreshFavoritesCell();
 		}
 
 		public void FavoriteChanged(Product product)

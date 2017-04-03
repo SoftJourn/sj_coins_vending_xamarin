@@ -155,7 +155,7 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.Main
 
 		private void ConfigureTableView()
 		{
-			_tableSource = new ShowAllSource();
+			_tableSource = new ShowAllSource(categoryName);
 
 			TableView.Source = _tableSource;
 			TableView.RegisterNibForCellReuse(ProductCell.Nib, ProductCell.Key);
@@ -301,9 +301,15 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.Main
 	public class ShowAllSource : UITableViewSource, IDisposable
 	{
 		private List<Product> items = new List<Product>();
+		private string categoryName;
 
 		public event EventHandler<Product> ShowAllSource_ItemSelected;
 		public event EventHandler<Product> ShowAllSource_FavoriteClicked;
+
+		public ShowAllSource(string categoryName)
+		{
+			this.categoryName = categoryName;		
+		}
 
 		public void SetItems(List<Product> items)
 		{
@@ -323,6 +329,9 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.Main
 			_cell.ProductCell_FavoriteClicked += ShowAllSource_FavoriteClicked;
 
 			_cell.ConfigureWith(item);
+
+			if (categoryName == Const.FavoritesCategory)
+				_cell.MarkFavorites(item);
 		}
 
 		public override void CellDisplayingEnded(UITableView tableView, UITableViewCell cell, NSIndexPath indexPath)

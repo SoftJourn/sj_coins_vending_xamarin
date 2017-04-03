@@ -62,21 +62,20 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers
 		private void ConfigurePageWith(Product product)
 		{
 			if (product != null)
+			{
 				NameLabel.Text = product.Name;
-				PriceLabel.Text = product.Price.ToString();
-				DescriptionLabel.Text = "Descriprion lalala....";
-				
+				PriceLabel.Text = "Price: " + product.Price.ToString() + " Coins";
+				if (String.IsNullOrEmpty(product.Description))
+				{
+					DescriptionLabel.Text = product.Description;
+				}
+				else
+				{
+					DescriptionLabel.TextColor = UIColor.Gray;
+					DescriptionLabel.Text = Const.defaultDescription;;
+				}
 				Logo.SetImage(url: new NSUrl(product.ImageFullUrl), placeholder: UIImage.FromBundle(ImageConstants.Placeholder));
-
-				ConfigureFavoriteImage(product.IsProductFavorite);
-		}
-
-		private void ConfigureFavoriteImage(bool isFavorite)
-		{
-			if (isFavorite)
-				FavoriteButton.SetImage(UIImage.FromBundle(ImageConstants.FavoriteChecked), forState: UIControlState.Normal);
-			else
-				FavoriteButton.SetImage(UIImage.FromBundle(ImageConstants.FavoriteUnchecked), forState: UIControlState.Normal);
+			}
 		}
 
 		private string ConfigureFavoriteAction()
