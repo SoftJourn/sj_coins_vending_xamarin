@@ -74,7 +74,6 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.Main
 		{
 			_tableSource.SetItems(filteredItems);
 			TableView.ReloadData();
-			_refreshControl.Enabled = true;
 		}
 		#endregion
 
