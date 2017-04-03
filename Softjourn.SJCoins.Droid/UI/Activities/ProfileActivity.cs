@@ -1,13 +1,13 @@
 using System;
-
+using System.IO;
 using Android.App;
 using Android.Content.PM;
 using Android.Graphics;
 using Android.OS;
 using Android.Views;
 using Android.Widget;
+using Java.IO;
 using Plugin.Permissions;
-using Softjourn.SJCoins.Core.API.Model;
 using Softjourn.SJCoins.Core.API.Model.AccountInfo;
 using Softjourn.SJCoins.Core.UI.Presenters;
 using Softjourn.SJCoins.Core.UI.ViewInterfaces;
@@ -52,7 +52,8 @@ namespace Softjourn.SJCoins.Droid.UI.Activities
             };
             //To make Actvity Opened
             _avatar.RequestFocus();
-            ViewPresenter.OnStartLoadingPage();
+
+            ViewPresenter.GetImageFromServer();
         }
 
         public override bool OnCreateOptionsMenu(IMenu menu)
@@ -82,7 +83,7 @@ namespace Softjourn.SJCoins.Droid.UI.Activities
 
         public void ImageAcquired(byte[] data)
         {
-            
+            SetAvatarImage(data);
         }
 
         public void ImageAcquired(string data)
@@ -108,6 +109,28 @@ namespace Softjourn.SJCoins.Droid.UI.Activities
             options.InPreferredConfig = Bitmap.Config.Rgb565;
             _bmp = BitmapFactory.DecodeFile(data, options);
             _bmp = BitmapUtils.RotateIfNeeded(_bmp, data);
+            _avatar.SetImageBitmap(_bmp);
+
+            byte[] byteArray;
+            using (var stream = new MemoryStream())
+            {
+                _bmp.Compress(Bitmap.CompressFormat.Jpeg, 100, stream);
+                byteArray = stream.ToArray();
+            }
+            ViewPresenter.StoreAvatarOnServer(byteArray);
+        }
+
+        private void SetAvatarImage(byte[] data)
+        {
+            const int imageSize = 360;
+            _bmp?.Recycle();
+            var options = new BitmapFactory.Options();
+            options.InJustDecodeBounds = true;
+            _bmp = BitmapFactory.DecodeByteArray(data, 0, data.Length, options);
+            options.InSampleSize = BitmapUtils.CalculateInSampleSize(options, imageSize, imageSize);
+            options.InJustDecodeBounds = false;
+            options.InPreferredConfig = Bitmap.Config.Rgb565;
+            _bmp = BitmapFactory.DecodeByteArray(data, 0, data.Length, options);
             _avatar.SetImageBitmap(_bmp);
         }
 
