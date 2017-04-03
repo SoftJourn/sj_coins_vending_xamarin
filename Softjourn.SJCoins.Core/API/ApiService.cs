@@ -106,5 +106,15 @@ namespace Softjourn.SJCoins.Core.API
         {
             return await ApiClient.GetTransactionReport(transactionrequest);
         }
+
+        public async Task<byte[]> GetAvatarImage(string endpoint)
+        {
+            return await ApiClient.GetAvatarImage(endpoint);
+        }
+
+        public async Task<EmptyResponse> SetAvatarImage(byte[] image)
+        {
+            return await ApiClient.SetAvatarImage(image);
+        }
     }
 }

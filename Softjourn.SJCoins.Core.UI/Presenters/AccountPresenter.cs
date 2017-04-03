@@ -32,7 +32,12 @@ namespace Softjourn.SJCoins.Core.UI.Presenters
         public void OnStartLoadingPage()
         {
             // Display account information
-            View.SetAccountInfo(DataManager.Profile);
+            View.SetAccountInfo(DataManager.Profile);            
+        }
+
+        public void GetImageFromServer()
+        {
+            GetAvatarImage(DataManager.Profile.Image);
         }
 
         //Returns List of Options taken from string resources
@@ -123,6 +128,17 @@ namespace Softjourn.SJCoins.Core.UI.Presenters
                     return;
             }
         }
+
+        /// <summary>
+        /// Start call to send image to the server
+        /// Is using by android platform only as on Android Presenter have only 
+        /// photo path after capturing and actually byte array
+        /// </summary>
+        /// <param name="image">byte array of image</param>
+        public void StoreAvatarOnServer(byte[] image)
+        {
+            SetAvatarImage(image);
+        }
         #endregion
 
         #region Private Methods
@@ -192,6 +208,7 @@ namespace Softjourn.SJCoins.Core.UI.Presenters
 
                 if (photo != null)
                     View.ImageAcquired(photo);
+                    SetAvatarImage(photo);
             }
             catch (CameraException e)
             {
@@ -208,6 +225,7 @@ namespace Softjourn.SJCoins.Core.UI.Presenters
 
                 if (photo != null)
                     View.ImageAcquired(photo);
+                    SetAvatarImage(photo);
             }
             catch (CameraException e)
             {
@@ -246,6 +264,57 @@ namespace Softjourn.SJCoins.Core.UI.Presenters
             catch (CameraException e)
             {
                 AlertService.ShowToastMessage(e.Message);
+            }
+        }
+
+        private async void GetAvatarImage(string endpoint)
+        {
+            if (NetworkUtils.IsConnected)
+            {
+
+                try
+                {
+                    var image = await RestApiServise.GetAvatarImage(endpoint.Substring(1));
+                    View.ImageAcquired(image);
+                }
+                catch (ApiBadRequestException ex)
+                {
+                    AlertService.ShowMessageWithUserInteraction("Server Error", Resources.StringResources.server_error_bad_username_or_password, Resources.StringResources.btn_title_ok, null);
+                }
+                catch (Exception ex)
+                {
+                    AlertService.ShowToastMessage(ex.Message);
+                }
+            }
+            else
+            {
+                AlertService.ShowToastMessage(Resources.StringResources.internet_turned_off);
+            }
+        }
+
+        private async void SetAvatarImage(byte[] image)
+        {
+            if (NetworkUtils.IsConnected)
+            {
+
+                try
+                {
+                    await RestApiServise.SetAvatarImage(image);
+                    AlertService.ShowMessageWithUserInteraction("","Image was stored on server","",null);
+                }
+                catch (ApiBadRequestException ex)
+                {
+                    AlertService.ShowMessageWithUserInteraction("Server Error", "", Resources.StringResources.btn_title_ok, null);
+                }
+                catch (Exception ex)
+                {
+                    AlertService.ShowToastMessage(ex.Message);
+                    System.Diagnostics.Debug.WriteLine(ex.ToString());
+                }
+            }
+            else
+            {
+                AlertService.ShowToastMessage(Resources.StringResources.internet_turned_off);
             }
         }
         #endregion

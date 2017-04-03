@@ -36,6 +36,8 @@ namespace Softjourn.SJCoins.Core.API
         Task<DepositeTransaction> GetOfflineCash(Cash scannedCode);
         Task<Report> GetTransactionReport(TransactionRequest transactionrequest);
         Task<Cash> WithdrawMoney(Amount amount);
+        Task<byte[]> GetAvatarImage(string endpoint);
+        Task<EmptyResponse> SetAvatarImage(byte[] image);
 
         #endregion
     }
