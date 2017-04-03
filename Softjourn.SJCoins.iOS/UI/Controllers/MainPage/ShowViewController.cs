@@ -296,15 +296,6 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.Main
 		}
 		// -------------------------------------------------------- 
 		#endregion
-
-		// Throw TableView to parent
-		protected override UIScrollView GetRefreshableScrollView() => TableView;
-
-		protected override void PullToRefreshTriggered(object sender, System.EventArgs e)
-		{
-			StopRefreshing();
-			Presenter.GetProductList(categoryName);
-		}
 	}
 
 	#region UITableViewSource implementation

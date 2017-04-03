@@ -33,14 +33,15 @@ namespace Softjourn.SJCoins.Core.UI.Presenters
 			            await RestApiServise.RemoveProductFromFavorites(product.Id.ToString());
 			            // Remove favorite locally
 			            DataManager.RemoveProductFromFavorite(product);
-			            // Trigg view that process success 
+						product.IsProductFavorite = false;
+			            // Trigg view that process success
 			            if (DataManager.GetProductFromListById(product.Id) != null)
 			            {
 			                View.FavoriteChanged(DataManager.GetProductFromListById(product.Id));
 			            }
 			            else
 			            {
-							product.IsProductFavorite = false;
+							//product.IsProductFavorite = false;
 			                View.LastUnavailableFavoriteRemoved(product);
 			            }
 			        }
