@@ -300,7 +300,8 @@ namespace Softjourn.SJCoins.Core.UI.Presenters
                 try
                 {
                     await RestApiServise.SetAvatarImage(image);
-                    AlertService.ShowMessageWithUserInteraction("","Image was stored on server","",null);
+                    DataManager.Profile = await RestApiServise.GetUserAccountAsync();
+                    AlertService.ShowMessageWithUserInteraction("","Image was stored on server","",null);                  
                 }
                 catch (ApiBadRequestException ex)
                 {

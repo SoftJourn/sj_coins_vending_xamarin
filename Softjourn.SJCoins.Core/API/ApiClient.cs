@@ -343,7 +343,7 @@ namespace Softjourn.SJCoins.Core.API
             fileContent.Headers.ContentDisposition = new ContentDispositionHeaderValue("form-data")
             {
                 Name = "file",
-                FileName = "my_uploaded_image.jpg"
+                FileName = "avatar.jpg"
             };
 
             var boundary = "---8d0f01e6b3b5dafaaadaad";
