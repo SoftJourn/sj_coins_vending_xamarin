@@ -48,16 +48,7 @@
             android:id="@+id/profile_coins_label"
             android:visibility="invisible"
             android:layout_gravity="center_horizontal" />
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:id="@+id/profile_more_options_label"
-            android:text="@string/profile_more_options"
-            android:textStyle="bold"
-            android:textColor="@color/colorBlue"
-            android:layout_marginTop="10dp"
-            android:layout_gravity="center_horizontal" />
+
         <ListView
             android:id="@+id/profile_more_options"
             android:dividerHeight="1dp"
