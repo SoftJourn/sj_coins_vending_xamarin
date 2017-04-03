@@ -30,7 +30,7 @@
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <subviews>
                                         <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="buZ-Oi-KDG" customClass="CustomSegmentControl">
-                                            <rect key="frame" x="18" y="8" width="340" height="26"/>
+                                            <rect key="frame" x="13" y="8" width="350" height="26"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="25" id="ohj-y1-JhE"/>
                                             </constraints>
@@ -42,9 +42,9 @@
                                     </subviews>
                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     <constraints>
-                                        <constraint firstAttribute="trailingMargin" secondItem="buZ-Oi-KDG" secondAttribute="trailing" constant="10" id="EpV-Xo-eCZ"/>
+                                        <constraint firstAttribute="trailingMargin" secondItem="buZ-Oi-KDG" secondAttribute="trailing" constant="5" id="EpV-Xo-eCZ"/>
                                         <constraint firstItem="buZ-Oi-KDG" firstAttribute="centerY" secondItem="v8N-04-Eeh" secondAttribute="centerY" id="XQ3-px-FkV"/>
-                                        <constraint firstItem="buZ-Oi-KDG" firstAttribute="leading" secondItem="v8N-04-Eeh" secondAttribute="leadingMargin" constant="10" id="cTE-vV-evd"/>
+                                        <constraint firstItem="buZ-Oi-KDG" firstAttribute="leading" secondItem="v8N-04-Eeh" secondAttribute="leadingMargin" constant="5" id="cTE-vV-evd"/>
                                         <constraint firstItem="buZ-Oi-KDG" firstAttribute="centerX" secondItem="v8N-04-Eeh" secondAttribute="centerX" id="xTl-GN-2Wh"/>
                                     </constraints>
                                 </view>
@@ -58,7 +58,7 @@
                                         <rect key="frame" x="0.0" y="68" width="376" height="62"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="bMg-6R-VDt" id="rag-c4-p6H">
-                                            <rect key="frame" x="0.0" y="0.0" width="376" height="62"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="376" height="61.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         </tableViewCellContentView>
@@ -520,10 +520,10 @@
                                 </view>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="0.0" reuseIdentifier="DescriptionCell" id="xWj-dB-baA" customClass="DescriptionCell">
-                                        <rect key="frame" x="0.0" y="375" width="375" height="50"/>
+                                        <rect key="frame" x="0.0" y="375" width="376" height="50"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="xWj-dB-baA" id="Dl9-H0-7KK">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="50"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="49.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ssi-sp-lO8">
@@ -547,14 +547,14 @@
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" restorationIdentifier="NutritionCell" selectionStyle="default" indentationWidth="0.0" reuseIdentifier="NutritionCell" rowHeight="50" id="sfG-OX-aKd" customClass="NutritionCell">
-                                        <rect key="frame" x="0.0" y="425" width="375" height="50"/>
+                                        <rect key="frame" x="0.0" y="425" width="376" height="50"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="sfG-OX-aKd" id="u1o-8S-hQa">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="50"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="49.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Some Nutrition Facts sdf sdgsd gsdg" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hkb-q2-EfS">
-                                                    <rect key="frame" x="18" y="9" width="259" height="30"/>
+                                                    <rect key="frame" x="18" y="9" width="219" height="30"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="30" id="gYA-4i-aOb"/>
                                                     </constraints>
@@ -563,9 +563,9 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="100 g" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xod-Qn-lzj">
-                                                    <rect key="frame" x="297" y="10" width="60" height="30"/>
+                                                    <rect key="frame" x="257" y="10" width="100" height="30"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="width" constant="60" id="mTC-9g-TF6"/>
+                                                        <constraint firstAttribute="width" constant="100" id="mTC-9g-TF6"/>
                                                         <constraint firstAttribute="height" constant="30" id="pXO-gj-kVH"/>
                                                     </constraints>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>

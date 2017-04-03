@@ -83,8 +83,8 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers
 
 		private UIView ConfigureVendingMachinesHeader()
 		{
-			UIView view = new UIView();
-			UILabel label = new UILabel(frame: new CGRect(x: 25, y: 15, width: 300, height: 20));
+			var view = new UIView();
+			var label = new UILabel(frame: new CGRect(x: 25, y: 15, width: 300, height: 20));
 			label.TextAlignment = UITextAlignment.Left;
 			label.Text = "Vending Machines";
 			label.TextColor = UIColor.Gray;
