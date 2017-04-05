@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using CoreAnimation;
+using CoreGraphics;
 using Foundation;
 using SDWebImage;
 using Softjourn.SJCoins.Core.API.Model;
@@ -35,6 +36,7 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.AccountPage
 			base.ViewDidLoad();
 			ConfigureTableView();
 			ConfigureAvatarImage(AvatarImage);
+			Presenter.GetImageFromServer();
 		}
 
 		public override void ViewWillAppear(bool animated)
@@ -78,7 +80,10 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.AccountPage
 		public void ImageAcquired(byte[] receipt)
 		{
 			// Set image to imageView
-			AvatarImage.Image = UIImage.LoadFromData(NSData.FromArray(receipt));
+			var image = UIImage.LoadFromData(NSData.FromArray(receipt));
+			var scaledImage = ScaleImage(image);
+
+			AvatarImage.Image = scaledImage;
 		}
 
 		public void ImageAcquired(string receipt)
@@ -110,6 +115,21 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.AccountPage
 			imageCircle.CornerRadius = 60;
 			imageCircle.BorderWidth = 0.2f;
 			imageCircle.MasksToBounds = true;
+		}
+
+		private UIImage ScaleImage(UIImage image)
+		{
+			var size = new CGSize(360, 360);
+			var rect = new CGRect(0, 0, 360, 360);
+
+			UIGraphics.BeginImageContextWithOptions(size, false, 0);
+			var context = UIGraphics.GetCurrentContext();
+			context.DrawImage(rect, image.CGImage);
+
+			var newImage = UIGraphics.GetImageFromCurrentImageContext();
+			UIGraphics.EndImageContext();
+
+			return newImage;
 		}
 
 		// -------------------- Event handlers --------------------

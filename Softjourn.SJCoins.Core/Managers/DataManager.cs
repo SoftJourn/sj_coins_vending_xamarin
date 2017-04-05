@@ -11,6 +11,7 @@ namespace Softjourn.SJCoins.Core.Managers
         #region Properties
         public Account Profile { get; set; }
         public List<Categories> ProductList { get; set; }
+		public byte[] Avatar { get; set; }
 
         //Predefined elements for keys in Dictionary in 
         //nutrition facts should be exact in below order

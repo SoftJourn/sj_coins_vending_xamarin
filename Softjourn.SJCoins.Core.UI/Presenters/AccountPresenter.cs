@@ -14,6 +14,8 @@ namespace Softjourn.SJCoins.Core.UI.Presenters
 {
     public class AccountPresenter : BasePresenter<IAccountView>
     {
+		private const int oneMb = 1048576;
+
         private List<AccountOption> OptionsList { get; set; }
 
         public AccountPresenter()
@@ -21,8 +23,8 @@ namespace Softjourn.SJCoins.Core.UI.Presenters
             OptionsList = new List<AccountOption>();
             OptionsList.Add(new AccountOption(Const.ProfileOptionsPurchase, Const.ProfileOptionsPurchaseIconName));
             OptionsList.Add(new AccountOption(Const.ProfileOptionsReports, Const.ProfileOptionsReportsIconName));
-            OptionsList.Add(new AccountOption(Const.ProfileOptionsPrivacyTerms, Const.ProfileOptionsPrivacyTermsIconName));
-            OptionsList.Add(new AccountOption(Const.ProfileOptionsHelp, Const.ProfileOptionsHelpIconName));
+            //OptionsList.Add(new AccountOption(Const.ProfileOptionsPrivacyTerms, Const.ProfileOptionsPrivacyTermsIconName));
+            //OptionsList.Add(new AccountOption(Const.ProfileOptionsHelp, Const.ProfileOptionsHelpIconName));
             OptionsList.Add(new AccountOption(Const.ProfileOptionsShareFuns, Const.ProfileOptionsShareFunsIconName));
             OptionsList.Add(new AccountOption(Const.ProfileOptionsSelectMachine,Const.ProfileOptionsSelectMachineIconName));
             OptionsList.Add(new AccountOption(Const.ProfileOptionsLogout, Const.ProfileOptionsLogoutIconName));
@@ -271,15 +273,29 @@ namespace Softjourn.SJCoins.Core.UI.Presenters
         {
             if (NetworkUtils.IsConnected)
             {
-
                 try
                 {
-                    var image = await RestApiServise.GetAvatarImage(endpoint.Substring(1));
-                    View.ImageAcquired(image);
+					byte[] image;
+					if (DataManager.Avatar == null)
+					{
+						// Avatar not stored
+						image = await RestApiServise.GetAvatarImage(endpoint.Substring(1));
+
+						if (image.Length < oneMb)
+						{
+							// Store in data manager
+							DataManager.Avatar = image;
+						}
+					}
+					else
+						// Avatar stored
+						image = DataManager.Avatar;
+
+					View.ImageAcquired(image);
                 }
                 catch (ApiBadRequestException ex)
                 {
-                    AlertService.ShowMessageWithUserInteraction("Server Error", Resources.StringResources.server_error_bad_username_or_password, Resources.StringResources.btn_title_ok, null);
+                    AlertService.ShowMessageWithUserInteraction("", Resources.StringResources.server_error_bad_username_or_password, Resources.StringResources.btn_title_ok, null);
                 }
                 catch (Exception ex)
                 {
