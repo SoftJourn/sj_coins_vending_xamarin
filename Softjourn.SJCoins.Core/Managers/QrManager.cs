@@ -22,6 +22,10 @@ namespace Softjourn.SJCoins.Core.Managers
             {
                 throw new JsonReaderExceptionCustom(e.Message);
             }
+            catch (JsonSerializationException e)
+            {
+                throw new JsonReaderExceptionCustom(e.Message);
+            }
             catch (NullReferenceException e)
             {
                 return null;

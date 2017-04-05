@@ -113,19 +113,19 @@ namespace Softjourn.SJCoins.Core.UI.Presenters
                 case 1:
                     NavigationService.NavigateTo(NavigationPage.Reports);
                     return;
+                //case 2:
+                //    NavigationService.NavigateTo(NavigationPage.PrivacyTerms);
+                //    return;
+                //case 3:
+                //    NavigationService.NavigateTo(NavigationPage.Help);
+                //    return;
                 case 2:
-                    NavigationService.NavigateTo(NavigationPage.PrivacyTerms);
-                    return;
-                case 3:
-                    NavigationService.NavigateTo(NavigationPage.Help);
-                    return;
-                case 4:
                     ShowDialogForChoosingQrStrategy();
                     return;
-                case 5:
+                case 3:
                     NavigationService.NavigateTo(NavigationPage.SelectMachine);
                     return;
-                case 6:
+                case 4:
                     LogOut();
                     return;
             }
