@@ -211,7 +211,7 @@ namespace Softjourn.SJCoins.Core.UI.Presenters
                 var photo = await PhotoManager.GetImageFromCameraAsync();
 
                 if (photo != null)
-                    View.ImageAcquired(photo);
+                    View.ImageAcquiredPlugin(photo);
             }
             catch (CameraException e)
             {
@@ -228,7 +228,7 @@ namespace Softjourn.SJCoins.Core.UI.Presenters
                 var photo = await PhotoManager.GetImageFromGalleryAsync();
 
                 if (photo != null)
-                    View.ImageAcquired(photo);
+                    View.ImageAcquiredPlugin(photo);
             }
             catch (CameraException e)
             {

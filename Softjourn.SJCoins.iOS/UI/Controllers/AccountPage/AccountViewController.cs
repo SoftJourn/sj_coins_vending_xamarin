@@ -20,6 +20,8 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.AccountPage
 	{
 		#region Properties
 		private AccountViewSource _tableSource;
+		private Lazy<UIImageHelper> helper = new Lazy<UIImageHelper>(() => { return new UIImageHelper(); });
+		private UIImageHelper imageHelper { get { return helper.Value; } }
 
 		UITapGestureRecognizer avatarImageTap; 
 		#endregion
@@ -79,28 +81,29 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.AccountPage
 
 		public void ImageAcquired(byte[] receipt)
 		{
-			var helper = new UIImageHelper();
+			// Method trigged when data taken from server or dataManager
+			var image = UIImage.LoadFromData(NSData.FromArray(receipt));
 
-			var imageData = NSData.FromArray(receipt);
-			var image = UIImage.LoadFromData(imageData);
+			AvatarImage.Image = image;
+		}
 
-
+		public void ImageAcquiredPlugin(byte[] receipt)
+		{
+			// Method trigged when data taken from plugin (camera or library)
+			var image = UIImage.LoadFromData(NSData.FromArray(receipt));
 			// Resize image
-			var scaledImage = helper.ScaleImage(image);
-			// Set to imageView
-			AvatarImage.Image = scaledImage;
+			var scaledImage = imageHelper.ScaleImage(image);
+
+			AvatarImage.Image = image;
 
 			// Convert scaled image to byte
-			var bytes = helper.BytesFromImage(scaledImage);
+			var bytes = imageHelper.BytesFromImage(scaledImage);
 			// Send image to server
 			if (bytes != null)
 				Presenter.StoreAvatarOnServer(bytes);
 		}
 
-		public void ImageAcquired(string receipt)
-		{
-			
-		}
+		public void ImageAcquired(string receipt) { }
 		#endregion
 
 		#region Private methods
@@ -128,6 +131,8 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.AccountPage
 			imageCircle.BorderWidth = 0.2f;
 			imageCircle.MasksToBounds = true;
 		}
+
+		private UIImage ConvertBytesToImage(byte[] receipt) => UIImage.LoadFromData(NSData.FromArray(receipt));
 
 		// -------------------- Event handlers --------------------
 		private void TableSource_ItemClicked(object sender, AccountOption item)

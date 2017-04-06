@@ -8,8 +8,8 @@ namespace Softjourn.SJCoins.iOS
 	public class UIImageHelper
 	{
 		#region Constants
-		private const float width = 20;
-		private const float height = 20;
+		private const float width = 200;
+		private const float height = 200;
 		#endregion
 
 		#region Public methods
