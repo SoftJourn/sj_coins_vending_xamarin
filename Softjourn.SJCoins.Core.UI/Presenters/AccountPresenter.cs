@@ -25,7 +25,7 @@ namespace Softjourn.SJCoins.Core.UI.Presenters
             OptionsList.Add(new AccountOption(Const.ProfileOptionsReports, Const.ProfileOptionsReportsIconName));
             //OptionsList.Add(new AccountOption(Const.ProfileOptionsPrivacyTerms, Const.ProfileOptionsPrivacyTermsIconName));
             //OptionsList.Add(new AccountOption(Const.ProfileOptionsHelp, Const.ProfileOptionsHelpIconName));
-            OptionsList.Add(new AccountOption(Const.ProfileOptionsShareFuns, Const.ProfileOptionsShareFunsIconName));
+            OptionsList.Add(new AccountOption(Const.ProfileOptionsShareFunds, Const.ProfileOptionsShareFundsIconName));
             OptionsList.Add(new AccountOption(Const.ProfileOptionsSelectMachine,Const.ProfileOptionsSelectMachineIconName));
             OptionsList.Add(new AccountOption(Const.ProfileOptionsLogout, Const.ProfileOptionsLogoutIconName));
         }
@@ -90,7 +90,7 @@ namespace Softjourn.SJCoins.Core.UI.Presenters
                 case Const.ProfileOptionsHelp:
                     NavigationService.NavigateTo(NavigationPage.Help);
                     return;
-                case Const.ProfileOptionsShareFuns:
+                case Const.ProfileOptionsShareFunds:
                     ShowDialogForChoosingQrStrategy();
                     return;
                 case Const.ProfileOptionsSelectMachine:

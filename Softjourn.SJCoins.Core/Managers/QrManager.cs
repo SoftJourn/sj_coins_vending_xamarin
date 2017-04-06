@@ -43,10 +43,19 @@ namespace Softjourn.SJCoins.Core.Managers
         {
             await PermissionsUtils.CheckCameraPermissiomAsync();
 
-            var scanner = new ZXing.Mobile.MobileBarcodeScanner();
-            var result = await scanner.Scan();
+            ZXing.Result result;
 
-            return result;
+            try
+            {
+                var scanner = new ZXing.Mobile.MobileBarcodeScanner();
+                result = await scanner.Scan();
+                return result;
+            }
+            catch (ZXing.ReaderException e)
+            {
+             
+            }
+            return default(ZXing.Result);
         }
     }
 }

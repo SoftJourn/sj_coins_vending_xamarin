@@ -73,7 +73,7 @@ namespace Softjourn.SJCoins.Core.Utils
         public const string ProfileOptionsReports = "Reports";
         public const string ProfileOptionsPrivacyTerms = "Privace and Terms";
         public const string ProfileOptionsHelp = "Help";
-        public const string ProfileOptionsShareFuns = "Share Funs";
+        public const string ProfileOptionsShareFunds = "Share Funds";
         public const string ProfileOptionsSelectMachine = "Select Machine";
         public const string ProfileOptionsLogout = "Logout";
 
@@ -83,7 +83,7 @@ namespace Softjourn.SJCoins.Core.Utils
         public const string ProfileOptionsReportsIconName = "ic_reports";
         public const string ProfileOptionsPrivacyTermsIconName = "ic_privacy_and_terms";
         public const string ProfileOptionsHelpIconName = "ic_help";
-        public const string ProfileOptionsShareFunsIconName = "ic_share_funs";
+        public const string ProfileOptionsShareFundsIconName = "ic_share_funs";
         public const string ProfileOptionsSelectMachineIconName = "ic_select_machine";
         public const string ProfileOptionsLogoutIconName = "ic_logout";
     }
