@@ -79,11 +79,20 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.AccountPage
 
 		public void ImageAcquired(byte[] receipt)
 		{
+			var helper = new UIImageHelper();
+
 			// Set image to imageView
 			var image = UIImage.LoadFromData(NSData.FromArray(receipt));
-			var scaledImage = ScaleImage(image);
-
+			// Resize image
+			var scaledImage = helper.ScaleImage(image);
+			// Set to imageView
 			AvatarImage.Image = scaledImage;
+
+			// Convert scaled image to byte
+			var bytes = helper.BytesFromImage(scaledImage);
+			// Send image to server
+			if (bytes != null)
+				Presenter.StoreAvatarOnServer(bytes);
 		}
 
 		public void ImageAcquired(string receipt)
@@ -115,21 +124,6 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.AccountPage
 			imageCircle.CornerRadius = 60;
 			imageCircle.BorderWidth = 0.2f;
 			imageCircle.MasksToBounds = true;
-		}
-
-		private UIImage ScaleImage(UIImage image)
-		{
-			var size = new CGSize(360, 360);
-			var rect = new CGRect(0, 0, 360, 360);
-
-			UIGraphics.BeginImageContextWithOptions(size, false, 0);
-			var context = UIGraphics.GetCurrentContext();
-			context.DrawImage(rect, image.CGImage);
-
-			var newImage = UIGraphics.GetImageFromCurrentImageContext();
-			UIGraphics.EndImageContext();
-
-			return newImage;
 		}
 
 		// -------------------- Event handlers --------------------

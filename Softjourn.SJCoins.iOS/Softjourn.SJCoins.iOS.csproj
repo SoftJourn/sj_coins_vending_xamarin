@@ -591,6 +591,7 @@
     <Compile Include="UI\Cells\NutritionCell.designer.cs">
       <DependentUpon>NutritionCell.cs</DependentUpon>
     </Compile>
+    <Compile Include="General\Helper\UIImageHelper.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
 </Project>
