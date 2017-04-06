@@ -84,7 +84,8 @@ namespace Softjourn.SJCoins.Core.UI.Presenters
             else
 			{
 				AlertService.ShowToastMessage(Resources.StringResources.internet_turned_off);
-			}
+                View.FavoriteChanged(DataManager.GetProductFromListById(product.Id));
+            }
 		}
 
 		// show purchase dialog with proposal to purchase product
