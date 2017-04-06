@@ -8,9 +8,8 @@ namespace Softjourn.SJCoins.iOS
 	public class UIImageHelper
 	{
 		#region Constants
-		//private const float defaultFontSize = 14.0f;
-		//private const int distanceBetweenElements = 5;
-		//private const int half = 2;
+		private const float width = 20;
+		private const float height = 20;
 		#endregion
 
 		#region Public methods
@@ -18,8 +17,8 @@ namespace Softjourn.SJCoins.iOS
 		{
 			if (image != null)
 			{
-				var size = new CGSize(360, 360);
-				var rect = new CGRect(0, 0, 360, 360);
+				var size = new CGSize(width, height);
+				var rect = new CGRect(0, 0, width, height);
 
 				UIGraphics.BeginImageContextWithOptions(size, false, 0);
 				var context = UIGraphics.GetCurrentContext();

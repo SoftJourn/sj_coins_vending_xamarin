@@ -42,6 +42,10 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers
 			//Hide error labels before view appears
 			LoginErrorLabel.Hidden = true;
 			PasswordErrorLabel.Hidden = true;
+
+			// Debug
+			LoginTextField.Text = "opankiv";
+			PasswordTextField.Text = "azKI87987";
 		}
 		#endregion
 

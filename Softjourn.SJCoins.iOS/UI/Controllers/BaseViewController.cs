@@ -69,12 +69,12 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers
 			base.ViewWillAppear(animated);
 			AttachEvents();
 			Presenter.ViewShowed();
+			currentApplication.VisibleViewController = this;
 		}
 		public override void ViewDidAppear(bool animated)
 		{
 			base.ViewDidAppear(animated);
 			//Set this view controller when visible
-			currentApplication.VisibleViewController = this;
 		}
 
 		public override void ViewWillDisappear(bool animated)

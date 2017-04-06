@@ -81,8 +81,10 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.AccountPage
 		{
 			var helper = new UIImageHelper();
 
-			// Set image to imageView
-			var image = UIImage.LoadFromData(NSData.FromArray(receipt));
+			var imageData = NSData.FromArray(receipt);
+			var image = UIImage.LoadFromData(imageData);
+
+
 			// Resize image
 			var scaledImage = helper.ScaleImage(image);
 			// Set to imageView
@@ -97,6 +99,7 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.AccountPage
 
 		public void ImageAcquired(string receipt)
 		{
+			
 		}
 		#endregion
 

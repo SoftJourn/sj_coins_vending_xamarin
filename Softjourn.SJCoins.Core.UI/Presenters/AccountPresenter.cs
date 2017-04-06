@@ -180,6 +180,7 @@ namespace Softjourn.SJCoins.Core.UI.Presenters
                 {
                     await RestApiServise.RevokeTokenAsync();
                     DataManager.Profile = null;
+					DataManager.Avatar = null;
                     Settings.ClearUserData();
                     NavigationService.NavigateToAsRoot(NavigationPage.Login);
                 }
@@ -202,6 +203,7 @@ namespace Softjourn.SJCoins.Core.UI.Presenters
         }
 
         //Gets photo from Camera
+		//For IOS use
         private async void GetPhotoFromCamera()
         {
             try
@@ -210,7 +212,6 @@ namespace Softjourn.SJCoins.Core.UI.Presenters
 
                 if (photo != null)
                     View.ImageAcquired(photo);
-                    SetAvatarImage(photo);
             }
             catch (CameraException e)
             {
@@ -219,6 +220,7 @@ namespace Softjourn.SJCoins.Core.UI.Presenters
         }
 
         //Gets photo from Gallery
+		//For IOS use
         private async void GetPhotoFromGallery()
         {
             try
@@ -227,7 +229,6 @@ namespace Softjourn.SJCoins.Core.UI.Presenters
 
                 if (photo != null)
                     View.ImageAcquired(photo);
-                    SetAvatarImage(photo);
             }
             catch (CameraException e)
             {
