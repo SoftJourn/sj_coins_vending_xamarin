@@ -1,6 +1,6 @@
 ﻿using System;
+using System.IO;
 using CoreGraphics;
-using Foundation;
 using UIKit;
 
 namespace Softjourn.SJCoins.iOS
@@ -38,7 +38,20 @@ namespace Softjourn.SJCoins.iOS
 				return null;
 		}
 
-		public Byte[] BytesFromImage(UIImage image) => image != null ? new Byte[image.AsJPEG().Length] : null;
+		public Byte[] BytesFromImage(UIImage image)
+		{
+			if (image != null)
+			{
+				var imageStream = image.AsJPEG(0).AsStream();
+				using (MemoryStream memStream = new MemoryStream())
+				{
+					imageStream.CopyTo(memStream);
+					return memStream.ToArray();
+				}
+			}
+			else
+				return null;
+		}
 		#endregion
 	}
 }
