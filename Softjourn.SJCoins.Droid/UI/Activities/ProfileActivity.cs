@@ -86,6 +86,11 @@ namespace Softjourn.SJCoins.Droid.UI.Activities
             SetAvatarImage(data);
         }
 
+        public void ImageAcquiredPlugin(byte[] receipt)
+        {
+
+        }
+
         public void ImageAcquired(string data)
         {
             SetAvatarImage(data);

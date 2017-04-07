@@ -386,7 +386,7 @@ namespace Softjourn.SJCoins.Droid.UI.Activities
             //if fragment exists
             if (bottomFragment != null)
             {
-                bottomFragment.ChangeFavoriteIcon();
+                bottomFragment.ChangeFavoriteIcon(isFavorite);
             }
         }
         #endregion

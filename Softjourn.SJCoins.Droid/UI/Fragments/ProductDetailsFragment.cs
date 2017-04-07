@@ -63,9 +63,11 @@ namespace Softjourn.SJCoins.Droid.UI.Fragments
 
         #region Public Methods
 
-        public void ChangeFavoriteIcon()
+        public void ChangeFavoriteIcon(bool isFavorite)
         {
             FinishAnimation();
+            _product.IsProductFavorite = isFavorite;
+            _favorites.Tag = isFavorite;
         }
         #endregion
 
@@ -120,21 +122,23 @@ namespace Softjourn.SJCoins.Droid.UI.Fragments
             {
                 if (Activity.LocalClassName.Contains("MainActivity"))
                 {
+                    AnimateHeartButton();
                     ((MainActivity)Activity).TrigFavorite(_product);
                 }
                 else ((ShowAllActivity)Activity).TrigFavorite(_product);
-                AnimateHeartButton();
-                _favorites.Tag = true;
+                //AnimateHeartButton();
+                //_favorites.Tag = true;
             }
             else
             {
                 if (Activity.LocalClassName.Contains("MainActivity"))
                 {
+                    AnimateHeartButton();
                     ((MainActivity)Activity).TrigFavorite(_product);
                 }
                 else ((ShowAllActivity)Activity).TrigFavorite(_product);
-                AnimateHeartButton();
-                _favorites.Tag = false;
+                //AnimateHeartButton();
+                //_favorites.Tag = false;
             }
         }
 
@@ -179,13 +183,13 @@ namespace Softjourn.SJCoins.Droid.UI.Fragments
                 {
                     _favorites.SetImageResource(
                         Resource.Drawable.ic_favorite_pink);
-                    _product.IsProductFavorite = true;
+                //    _product.IsProductFavorite = true;
                 }
                 else
                 {
                     _favorites.SetImageResource(
                         Resource.Drawable.ic_favorite_border_white);
-                    _product.IsProductFavorite = false;
+                //    _product.IsProductFavorite = false;
                 }
             };
 

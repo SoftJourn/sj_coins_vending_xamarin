@@ -263,7 +263,7 @@ namespace Softjourn.SJCoins.Droid.UI.Activities
                 _adapter.RemoveFavoriteItem(product.Id);
                 fragment.Dismiss();
             }
-            fragment?.ChangeFavoriteIcon();
+            fragment?.ChangeFavoriteIcon(product.IsProductFavorite);
         }
 
         public void LastUnavailableFavoriteRemoved(Product product)

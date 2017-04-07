@@ -127,8 +127,8 @@ namespace Softjourn.SJCoins.Droid.UI.Activities
                     ViewPresenter.OnBuyProductClick(_product);
                     break;
                 case Resource.Id.menu_add_favorite:
-                    ViewPresenter.OnFavoriteClick(_product);
                     item.SetEnabled(false);
+                    ViewPresenter.OnFavoriteClick(_product);                    
                     break;
             }
             return base.OnOptionsItemSelected(item);
