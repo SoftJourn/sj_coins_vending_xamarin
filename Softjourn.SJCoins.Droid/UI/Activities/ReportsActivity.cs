@@ -57,6 +57,11 @@ namespace Softjourn.SJCoins.Droid.UI.Activities
 
             _refreshLayout = FindViewById<SwipeRefreshLayout>(Resource.Id.swipe_container);
             _refreshLayout.SetColorSchemeResources(Resource.Color.colorAccent);
+            _refreshLayout.Refresh += (s, e) =>
+            {
+                _transactionsRecyclerView.Visibility = ViewStates.Gone;
+                ViewPresenter.OnStartLoadingPage();
+            };
 
             SupportActionBar.SetDisplayHomeAsUpEnabled(true);
             SupportActionBar.SetHomeButtonEnabled(true);
