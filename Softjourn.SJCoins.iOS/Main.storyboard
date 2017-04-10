@@ -377,11 +377,47 @@
                     </view>
                     <navigationItem key="navigationItem" id="S6D-Si-nNA">
                         <barButtonItem key="backBarButtonItem" title="Back" id="Jll-ss-Uqs"/>
+                        <view key="titleView" contentMode="scaleToFill" id="V2y-4v-0wY" userLabel="TitleView">
+                            <rect key="frame" x="47" y="-3" width="270" height="50"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <subviews>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Vending Machine" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4OX-5t-fX6">
+                                    <rect key="frame" x="0.0" y="3" width="270" height="20"/>
+                                    <constraints>
+                                        <constraint firstAttribute="height" constant="20" id="QVp-nL-Vsu"/>
+                                        <constraint firstAttribute="width" constant="270" id="a8a-Ci-1Vh"/>
+                                    </constraints>
+                                    <fontDescription key="fontDescription" style="UICTFontTextStyleFootnote"/>
+                                    <nil key="textColor"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Your balance: 24500 coins" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="A85-Nq-17K">
+                                    <rect key="frame" x="0.0" y="24" width="270" height="20"/>
+                                    <constraints>
+                                        <constraint firstAttribute="height" constant="20" id="TvB-yf-VPp"/>
+                                        <constraint firstAttribute="width" constant="270" id="cTt-rg-4Ct"/>
+                                    </constraints>
+                                    <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                    <nil key="textColor"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                            </subviews>
+                            <constraints>
+                                <constraint firstAttribute="bottom" secondItem="A85-Nq-17K" secondAttribute="bottom" constant="6" id="BLK-BI-8ce"/>
+                                <constraint firstItem="4OX-5t-fX6" firstAttribute="top" secondItem="V2y-4v-0wY" secondAttribute="top" constant="3" id="BPM-U5-0zq"/>
+                                <constraint firstAttribute="width" constant="270" id="W08-pj-9Nl"/>
+                                <constraint firstAttribute="height" constant="50" id="g3U-fz-kGK"/>
+                                <constraint firstItem="A85-Nq-17K" firstAttribute="centerX" secondItem="V2y-4v-0wY" secondAttribute="centerX" id="l00-J4-Nri"/>
+                                <constraint firstItem="4OX-5t-fX6" firstAttribute="centerX" secondItem="V2y-4v-0wY" secondAttribute="centerX" id="tLY-Nz-fKO"/>
+                            </constraints>
+                        </view>
                         <barButtonItem key="rightBarButtonItem" image="Account" id="Q0g-9k-XxC"/>
                     </navigationItem>
                     <connections>
                         <outlet property="AccountButton" destination="Q0g-9k-XxC" id="Hzo-nG-cUc"/>
                         <outlet property="CollectionView" destination="Qzc-Wj-K1C" id="DjX-0b-OHg"/>
+                        <outlet property="MachineNameLabel" destination="4OX-5t-fX6" id="j6w-M2-G9j"/>
+                        <outlet property="MyBalanceLabel" destination="A85-Nq-17K" id="krI-C8-1CN"/>
                         <outlet property="NoItemsLabel" destination="OWz-jQ-7Ch" id="It5-37-ta0"/>
                     </connections>
                 </viewController>

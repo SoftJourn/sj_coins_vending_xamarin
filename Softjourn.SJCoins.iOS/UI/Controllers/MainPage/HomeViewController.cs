@@ -85,8 +85,7 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.Main
 		public void SetAccountInfo(Account account)
 		{
 			// Show user balance on start
-			string balance = account.Amount.ToString();
-			SetBalance(balance);
+            SetBalance(account.Amount.ToString());
 		}
 
 		public void SetUserBalance(string balance)
@@ -97,8 +96,8 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.Main
 
 		public void SetMachineName(string name)
 		{
-			// Set chosenMachine name as title to viewController 
-			NavigationItem.Title = name;
+			// Set chosenMachine name as title 
+			MachineNameLabel.Text = name;
 		}
 
 		public void ShowProducts(List<Categories> listCategories)
@@ -124,7 +123,7 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.Main
 		#region Private methods
 		private void SetBalance(string balance)
 		{
-			NavigationItem.Prompt = "Your balance: " + balance + " coins";
+			MyBalanceLabel.Text = "Your balance: " + balance + " coins";
 		}
 
 		private UIView ConfigureVendingMachinesHeader()
@@ -143,6 +142,8 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.Main
 		{
 			//Hide no items label
 			NoItemsLabel.Hidden = true;
+			MachineNameLabel.Text = "";
+			MyBalanceLabel.Text = "";
 		}
 
 		private void ConfigureCollectionView()
