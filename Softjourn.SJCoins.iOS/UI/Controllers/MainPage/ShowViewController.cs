@@ -7,7 +7,6 @@ using Softjourn.SJCoins.Core.UI.ViewInterfaces;
 using Softjourn.SJCoins.iOS.General.Constants;
 using Softjourn.SJCoins.iOS.General.Helper;
 using Softjourn.SJCoins.iOS.UI.Cells;
-using Softjourn.SJCoins.iOS.UI.Services;
 using UIKit;
 
 namespace Softjourn.SJCoins.iOS.UI.Controllers.Main
@@ -120,7 +119,8 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.Main
 
 		public void ShowSortedList(List<Product> products)
 		{
-			_tableSource.SetItems(products);
+			filteredItems = products;
+			_tableSource.SetItems(filteredItems);
 			TableView.ReloadData();
 		}
 
