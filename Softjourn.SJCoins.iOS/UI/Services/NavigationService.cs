@@ -12,7 +12,7 @@ namespace Softjourn.SJCoins.iOS.Services
 	{
 		private enum NavigationType
 		{
-			Push, Present, PresentExisting
+			 Push, Present, PresentExisting
 		}
 		private AppDelegate _currentApplication 
 		{ 
