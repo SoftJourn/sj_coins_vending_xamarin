@@ -58,7 +58,7 @@
                                         <rect key="frame" x="0.0" y="68" width="376" height="62"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="bMg-6R-VDt" id="rag-c4-p6H">
-                                            <rect key="frame" x="0.0" y="0.0" width="376" height="61.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="376" height="62"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         </tableViewCellContentView>
@@ -462,7 +462,7 @@
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <subviews>
                                         <pageControl opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" numberOfPages="27" translatesAutoresizingMaskIntoConstraints="NO" id="uDg-NH-Tw1">
-                                            <rect key="frame" x="23" y="233" width="329" height="37"/>
+                                            <rect key="frame" x="19" y="233" width="337" height="37"/>
                                             <color key="pageIndicatorTintColor" red="0.0" green="0.47843137250000001" blue="1" alpha="0.5" colorSpace="custom" customColorSpace="sRGB"/>
                                             <color key="currentPageIndicatorTintColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         </pageControl>
@@ -504,7 +504,7 @@
                                     <constraints>
                                         <constraint firstItem="5nK-Om-zpz" firstAttribute="centerY" secondItem="H1i-gz-afG" secondAttribute="centerY" id="2bm-eQ-kCd"/>
                                         <constraint firstItem="ABb-Ab-Guw" firstAttribute="centerY" secondItem="H1i-gz-afG" secondAttribute="centerY" id="5nB-RC-UYm"/>
-                                        <constraint firstItem="uDg-NH-Tw1" firstAttribute="leading" secondItem="Zyj-Bg-gt4" secondAttribute="leadingMargin" constant="15" id="FEh-x6-gBA"/>
+                                        <constraint firstItem="uDg-NH-Tw1" firstAttribute="leading" secondItem="Zyj-Bg-gt4" secondAttribute="leadingMargin" constant="11" id="FEh-x6-gBA"/>
                                         <constraint firstAttribute="trailingMargin" secondItem="5nK-Om-zpz" secondAttribute="trailing" constant="20" id="NJ3-1o-ybw"/>
                                         <constraint firstItem="5nK-Om-zpz" firstAttribute="leading" secondItem="ABb-Ab-Guw" secondAttribute="trailing" constant="20" id="QtL-H5-NNz"/>
                                         <constraint firstItem="uDg-NH-Tw1" firstAttribute="centerX" secondItem="Zyj-Bg-gt4" secondAttribute="centerX" id="RyX-a9-vlR"/>
@@ -520,10 +520,10 @@
                                 </view>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="0.0" reuseIdentifier="DescriptionCell" id="xWj-dB-baA" customClass="DescriptionCell">
-                                        <rect key="frame" x="0.0" y="375" width="376" height="50"/>
+                                        <rect key="frame" x="0.0" y="375" width="375" height="50"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="xWj-dB-baA" id="Dl9-H0-7KK">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="49.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="50"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ssi-sp-lO8">
@@ -547,10 +547,10 @@
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" restorationIdentifier="NutritionCell" selectionStyle="default" indentationWidth="0.0" reuseIdentifier="NutritionCell" rowHeight="50" id="sfG-OX-aKd" customClass="NutritionCell">
-                                        <rect key="frame" x="0.0" y="425" width="376" height="50"/>
+                                        <rect key="frame" x="0.0" y="425" width="375" height="50"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="sfG-OX-aKd" id="u1o-8S-hQa">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="49.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="50"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Some Nutrition Facts sdf sdgsd gsdg" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hkb-q2-EfS">

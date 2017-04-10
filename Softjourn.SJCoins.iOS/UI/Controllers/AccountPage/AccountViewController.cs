@@ -96,7 +96,6 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.AccountPage
 			// Method trigged when data taken from plugin (camera or library)
 			var image = UIImage.LoadFromData(NSData.FromArray(receipt));
 			// Resize image
-			//var scaledImage = imageHelper.ScaleImage(image);
 			var scaledRotatedImage = imageHelper.ScaleAndRotateImage(image, image.Orientation);
 
 			// Set image

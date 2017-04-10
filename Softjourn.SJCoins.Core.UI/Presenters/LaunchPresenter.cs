@@ -35,7 +35,7 @@ namespace Softjourn.SJCoins.Core.UI.Presenters
                     {
                         if (string.IsNullOrEmpty(Settings.SelectedMachineId))
                         {
-                            NavigationService.NavigateToAsRoot(NavigationPage.SelectMachine);
+                            NavigationService.NavigateToAsRoot(NavigationPage.SelectMachineFirstTime);
                         } else
                         {
                             NavigationService.NavigateToAsRoot(NavigationPage.Home);
