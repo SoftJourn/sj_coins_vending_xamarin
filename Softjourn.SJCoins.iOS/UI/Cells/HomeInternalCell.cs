@@ -30,7 +30,7 @@ namespace Softjourn.SJCoins.iOS
 			NameLabel.Text = product.Name;
 			PriceLabel.Text = product.Price.ToString() + " coins";
 			Logo.Layer.CornerRadius = 16;
-			Logo.Layer.BorderWidth = 0.1f;
+			//Logo.Layer.BorderWidth = 0.1f;
 			Logo.SetImage(url: new NSUrl(product.ImageFullUrl), placeholder: UIImage.FromBundle(ImageConstants.Placeholder));
 		}
 

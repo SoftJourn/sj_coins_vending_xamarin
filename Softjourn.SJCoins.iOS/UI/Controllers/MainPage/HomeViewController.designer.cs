@@ -15,9 +15,6 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.Main
 		UIKit.UIBarButtonItem AccountButton { get; set; }
 
 		[Outlet]
-		UIKit.UILabel BalanceLabel { get; set; }
-
-		[Outlet]
 		UIKit.UICollectionView CollectionView { get; set; }
 
 		[Outlet]
@@ -28,11 +25,6 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.Main
 			if (AccountButton != null) {
 				AccountButton.Dispose ();
 				AccountButton = null;
-			}
-
-			if (BalanceLabel != null) {
-				BalanceLabel.Dispose ();
-				BalanceLabel = null;
 			}
 
 			if (CollectionView != null) {
