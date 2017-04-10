@@ -47,6 +47,8 @@ namespace Softjourn.SJCoins.Droid.UI.Activities
             _swipeLayout.SetColorSchemeColors(Resource.Color.colorAccent);
             _swipeLayout.Refresh += (s, e) =>
             {
+                _noMachinesTextView.Visibility = ViewStates.Gone;
+                _machineListView.Visibility = ViewStates.Gone;
                 ViewPresenter.GetMachinesList();
             };
 
