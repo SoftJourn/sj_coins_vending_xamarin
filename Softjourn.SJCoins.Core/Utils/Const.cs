@@ -20,9 +20,9 @@ namespace Softjourn.SJCoins.Core.Utils
         public const string TagAllProductsFragment = "TAG_ALL_PRODUCTS_FRAGMENT";
 
         //URLs
-        //public const string BaseUrl = "https://vending.softjourn.if.ua/api";
+        public const string BaseUrl = "https://vending.softjourn.if.ua/api";
         //URL for testing server
-        public const string BaseUrl = "https://sjcoins-testing.softjourn.if.ua";
+        //public const string BaseUrl = "https://sjcoins-testing.softjourn.if.ua";
 
         //Test URL
         //public const string BASE_URL = "http://192.168.102.251:8111";
