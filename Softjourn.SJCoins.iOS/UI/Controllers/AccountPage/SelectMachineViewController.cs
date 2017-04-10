@@ -61,6 +61,9 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers
 		#region ISelectMachineView implementation
 		public void ShowNoMachineView(string message)
 		{
+			_tableSource.SetParameters(new List<Machines>());
+			TableView.ReloadData();
+
 			// show label that no machines fetched
 			NoMachinesLabel.Text = message;
 			NoMachinesLabel.Hidden = false;
@@ -69,6 +72,7 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers
 		public void ShowMachinesList(List<Machines> list, Machines selectedMachine = null)
 		{
 			// save list in controller and reload tableView
+			NoMachinesLabel.Hidden = true;
 			_tableSource.SetParameters(list, selectedMachine, ConfigureVendingMachinesHeader());
 			TableView.ReloadData();
 		}

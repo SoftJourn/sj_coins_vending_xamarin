@@ -84,6 +84,10 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.AccountPage
 			// Method trigged when data taken from server or dataManager
 			var image = UIImage.LoadFromData(NSData.FromArray(receipt));
 
+			// Set image
+			if (AvatarImage.Hidden)
+				AvatarImage.Hidden = false;
+
 			AvatarImage.Image = image;
 		}
 
@@ -92,17 +96,22 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.AccountPage
 			// Method trigged when data taken from plugin (camera or library)
 			var image = UIImage.LoadFromData(NSData.FromArray(receipt));
 			// Resize image
-			var scaledImage = imageHelper.ScaleImage(image);
+			var scaledRotatedImage = imageHelper.ScaleAndRotateImage(image, image.Orientation);
 
-			AvatarImage.Image = image;
+			// Set image
+			if (AvatarImage.Hidden)
+				AvatarImage.Hidden = false;
+			
+			AvatarImage.Image = scaledRotatedImage;
 
 			// Convert scaled image to byte
-			var bytes = imageHelper.BytesFromImage(scaledImage);
+			var bytes = imageHelper.BytesFromImage(scaledRotatedImage);
 			// Send image to server
 			if (bytes != null)
 				Presenter.StoreAvatarOnServer(bytes);
 		}
 
+		//Android
 		public void ImageAcquired(string receipt) { }
 		#endregion
 
@@ -125,9 +134,10 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.AccountPage
 
 		private void ConfigureAvatarImage(UIImageView imageView)
 		{
+			AvatarImage.Hidden = true;
 			// Make image rounded
 			CALayer imageCircle = imageView.Layer;
-			imageCircle.CornerRadius = 60;
+			imageCircle.CornerRadius = 70;
 			imageCircle.BorderWidth = 0.2f;
 			imageCircle.MasksToBounds = true;
 		}
