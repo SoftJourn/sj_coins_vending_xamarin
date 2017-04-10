@@ -353,36 +353,7 @@
                                         </connections>
                                     </collectionViewCell>
                                 </cells>
-                                <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="rect" keyPath="contentInset">
-                                        <rect key="value" x="20" y="0.0" width="0.0" height="0.0"/>
-                                    </userDefinedRuntimeAttribute>
-                                </userDefinedRuntimeAttributes>
                             </collectionView>
-                            <view alpha="0.97000002861022949" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rFA-W2-jdl">
-                                <rect key="frame" x="0.0" y="64" width="375" height="30"/>
-                                <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="BalanceLabel" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="u8R-cz-8Rb">
-                                        <rect key="frame" x="0.0" y="0.0" width="375" height="30"/>
-                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="30" id="Oee-Jw-896"/>
-                                        </constraints>
-                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                </subviews>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <constraints>
-                                    <constraint firstItem="u8R-cz-8Rb" firstAttribute="centerY" secondItem="rFA-W2-jdl" secondAttribute="centerY" id="3ed-xZ-7JG"/>
-                                    <constraint firstItem="u8R-cz-8Rb" firstAttribute="width" secondItem="rFA-W2-jdl" secondAttribute="width" id="9Ms-Yp-xeK"/>
-                                    <constraint firstItem="u8R-cz-8Rb" firstAttribute="height" secondItem="rFA-W2-jdl" secondAttribute="height" id="Ut9-P8-fIY"/>
-                                    <constraint firstItem="u8R-cz-8Rb" firstAttribute="centerX" secondItem="rFA-W2-jdl" secondAttribute="centerX" id="WSc-I0-7jZ"/>
-                                    <constraint firstAttribute="height" constant="30" id="h4n-h1-Iv3"/>
-                                </constraints>
-                            </view>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="NoItemsLabel" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OWz-jQ-7Ch">
                                 <rect key="frame" x="20" y="303.5" width="334" height="60"/>
                                 <constraints>
@@ -400,11 +371,7 @@
                             <constraint firstItem="OWz-jQ-7Ch" firstAttribute="centerX" secondItem="3pT-Ss-wWX" secondAttribute="centerX" id="HAH-WU-619"/>
                             <constraint firstItem="OWz-jQ-7Ch" firstAttribute="centerY" secondItem="3pT-Ss-wWX" secondAttribute="centerY" id="Rbl-4m-5vS"/>
                             <constraint firstItem="Qzc-Wj-K1C" firstAttribute="centerY" secondItem="3pT-Ss-wWX" secondAttribute="centerY" id="Wy8-Ra-IbI"/>
-                            <constraint firstItem="rFA-W2-jdl" firstAttribute="leading" secondItem="3pT-Ss-wWX" secondAttribute="leading" id="g67-7l-YcX"/>
-                            <constraint firstItem="rFA-W2-jdl" firstAttribute="centerX" secondItem="3pT-Ss-wWX" secondAttribute="centerX" id="hIU-Gx-F4Q"/>
-                            <constraint firstAttribute="trailing" secondItem="rFA-W2-jdl" secondAttribute="trailing" id="idu-rH-tk9"/>
                             <constraint firstItem="Qzc-Wj-K1C" firstAttribute="height" secondItem="3pT-Ss-wWX" secondAttribute="height" id="oL7-9Y-pqm"/>
-                            <constraint firstItem="rFA-W2-jdl" firstAttribute="top" secondItem="scj-pz-6dv" secondAttribute="bottom" id="qTp-f0-sga"/>
                             <constraint firstItem="OWz-jQ-7Ch" firstAttribute="leading" secondItem="3pT-Ss-wWX" secondAttribute="leadingMargin" constant="4" id="yFr-3n-LTg"/>
                         </constraints>
                     </view>
@@ -414,7 +381,6 @@
                     </navigationItem>
                     <connections>
                         <outlet property="AccountButton" destination="Q0g-9k-XxC" id="Hzo-nG-cUc"/>
-                        <outlet property="BalanceLabel" destination="u8R-cz-8Rb" id="8BM-Ai-i37"/>
                         <outlet property="CollectionView" destination="Qzc-Wj-K1C" id="DjX-0b-OHg"/>
                         <outlet property="NoItemsLabel" destination="OWz-jQ-7Ch" id="It5-37-ta0"/>
                     </connections>

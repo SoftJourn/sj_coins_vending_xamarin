@@ -1,4 +1,5 @@
 ﻿
+using System;
 using Softjourn.SJCoins.Core.API.Model.Products;
 using Softjourn.SJCoins.Core.UI.ViewInterfaces;
 
@@ -13,7 +14,7 @@ namespace Softjourn.SJCoins.Core.UI.Presenters
 
 		public override void ChangeUserBalance(string balance)
 		{
-
+			DataManager.Profile.Amount = Int32.Parse(balance);
 		}
 
 	    public Product GetProduct(int productID)

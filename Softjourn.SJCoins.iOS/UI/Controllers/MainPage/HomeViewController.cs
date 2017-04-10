@@ -7,6 +7,7 @@ using CoreGraphics;
 using Softjourn.SJCoins.Core.API.Model.AccountInfo;
 using Softjourn.SJCoins.Core.UI.Presenters;
 using Softjourn.SJCoins.Core.UI.ViewInterfaces;
+using System.Drawing;
 
 namespace Softjourn.SJCoins.iOS.UI.Controllers.Main
 {
@@ -18,7 +19,7 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.Main
 
 		private HomeViewControllerDataSource _dataSource;
 		private HomeViewControllerDelegateFlowLayout _delegate;
-		private bool firstStart = true;
+		private bool pullToRefreshTrigged = false;
 		#endregion
 
 		#region Constructor
@@ -67,17 +68,16 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.Main
 
 		public override void ShowProgress(string message)
 		{
-			if (firstStart)
+			if (!pullToRefreshTrigged)
 				base.ShowProgress(message);
 		}
 
 		public override void HideProgress()
 		{
-			if (firstStart)
-			{
-				firstStart = false;
+			if (!pullToRefreshTrigged)
 				base.HideProgress();
-			}
+
+			pullToRefreshTrigged = false;
 		}
 		#endregion
 
@@ -87,7 +87,6 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.Main
 			// Show user balance on start
 			string balance = account.Amount.ToString();
 			SetBalance(balance);
-			BalanceLabel.Hidden = false;
 		}
 
 		public void SetUserBalance(string balance)
@@ -125,7 +124,7 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.Main
 		#region Private methods
 		private void SetBalance(string balance)
 		{
-			BalanceLabel.Text = "Your balance is " + balance + " coins";
+			NavigationItem.Prompt = "Your balance: " + balance + " coins";
 		}
 
 		private UIView ConfigureVendingMachinesHeader()
@@ -144,7 +143,6 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.Main
 		{
 			//Hide no items label
 			NoItemsLabel.Hidden = true;
-			BalanceLabel.Hidden = true;
 		}
 
 		private void ConfigureCollectionView()
@@ -210,6 +208,7 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.Main
 		protected override void PullToRefreshTriggered(object sender, System.EventArgs e)
 		{
 			StopRefreshing();
+			pullToRefreshTrigged = true;
 			Presenter.OnStartLoadingPage();
 		}
 		#endregion

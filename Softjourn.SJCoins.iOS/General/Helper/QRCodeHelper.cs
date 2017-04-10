@@ -24,6 +24,10 @@ namespace Softjourn.SJCoins.iOS.General.Helper
             {
 				throw new JsonReaderExceptionCustom(e.Message);
 			}
+			catch (JsonSerializationException e)
+            {
+				throw new JsonReaderExceptionCustom(e.Message);
+			}
 		}
 
 		public UIImage GenerateQRImage(string content, int width, int height)
