@@ -179,7 +179,6 @@
                                     <constraint firstAttribute="width" constant="130" id="lW2-wN-8uq"/>
                                 </constraints>
                                 <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="string" keyPath="layer.borderWidth" value="0.1"/>
                                     <userDefinedRuntimeAttribute type="string" keyPath="layer.cornerRadius" value="16"/>
                                 </userDefinedRuntimeAttributes>
                             </imageView>
