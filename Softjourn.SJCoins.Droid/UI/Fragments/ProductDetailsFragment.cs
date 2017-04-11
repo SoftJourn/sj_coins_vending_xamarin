@@ -95,7 +95,7 @@ namespace Softjourn.SJCoins.Droid.UI.Fragments
          */
         private void LoadFavoriteIcon()
         {
-            _favorites.Tag = false;
+
             if (_product.IsProductFavorite)
             {
                 Picasso.With(Activity).Load(Resource.Drawable.ic_favorite_pink).Into(_favorites);
@@ -179,7 +179,7 @@ namespace Softjourn.SJCoins.Droid.UI.Fragments
             bounceAnimY.SetInterpolator(new OvershootInterpolator());
             bounceAnimY.AnimationStart += (sender, e) =>
             {
-                if ((bool)_favorites.Tag)
+                if (!(bool)_favorites.Tag)
                 {
                     _favorites.SetImageResource(
                         Resource.Drawable.ic_favorite_pink);

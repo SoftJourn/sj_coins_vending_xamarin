@@ -505,7 +505,7 @@ namespace Softjourn.SJCoins.Core.API
                         throw new ApiNotFoundException(NetworkErrorUtils.GetErrorMessage(409));
                     }
                 default: // for all rest codes
-                    throw new ApiException(errorDescription);
+                    throw new ApiException(NetworkErrorUtils.GetErrorMessage(500));
             }
         }
 
