@@ -30,9 +30,9 @@ namespace Softjourn.SJCoins.Core.Utils
         public const string VendingApiVersion = "v1/";
         public const string CoinsApiVersion = "v1/";
 
-        public const string UrlAuthService = "/auth/";
-        public const string UrlVendingService = "/vending/" + VendingApiVersion;
-        public const string UrlCoinService = "/coins/" + CoinsApiVersion;
+        public const string UrlAuthService = "/api/auth/";
+        public const string UrlVendingService = "/api/vending/" + VendingApiVersion;
+        public const string UrlCoinService = "/api/coins/" + CoinsApiVersion;
 
         public const string UrlLogin = UrlAuthService + "oauth/token";
 
