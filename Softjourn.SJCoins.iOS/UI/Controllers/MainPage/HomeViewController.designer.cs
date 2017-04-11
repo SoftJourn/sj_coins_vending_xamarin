@@ -18,10 +18,26 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.Main
 		UIKit.UICollectionView CollectionView { get; set; }
 
 		[Outlet]
+		UIKit.UILabel MachineNameLabel { get; set; }
+
+		[Outlet]
+		UIKit.UILabel MyBalanceLabel { get; set; }
+
+		[Outlet]
 		UIKit.UILabel NoItemsLabel { get; set; }
 		
 		void ReleaseDesignerOutlets ()
 		{
+			if (MachineNameLabel != null) {
+				MachineNameLabel.Dispose ();
+				MachineNameLabel = null;
+			}
+
+			if (MyBalanceLabel != null) {
+				MyBalanceLabel.Dispose ();
+				MyBalanceLabel = null;
+			}
+
 			if (AccountButton != null) {
 				AccountButton.Dispose ();
 				AccountButton = null;
