@@ -5,6 +5,7 @@ using Android.OS;
 using Android.Runtime;
 using Softjourn.SJCoins.Droid.Bootstrapping;
 using Plugin.CurrentActivity;
+using Softjourn.SJCoins.Droid.Utils;
 
 namespace Softjourn.SJCoins.Droid
 {
@@ -21,6 +22,8 @@ namespace Softjourn.SJCoins.Droid
         {
             base.OnCreate();
             RegisterActivityLifecycleCallbacks(this);
+
+            HockeyAppUtils.CheckForCrashes(ApplicationContext);
 
             InitializeIoC();
         }

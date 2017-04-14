@@ -64,6 +64,14 @@
       <HintPath>..\packages\FubarCoder.RestSharp.Portable.HttpClient.4.0.7\lib\monoandroid10\FubarCoder.RestSharp.Portable.HttpClient.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="HockeySDK, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\HockeySDK.Xamarin.4.1.2\lib\MonoAndroid403\HockeySDK.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="HockeySDK.AndroidBindings, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\HockeySDK.Xamarin.4.1.2\lib\MonoAndroid403\HockeySDK.AndroidBindings.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Java.Interop" />
     <Reference Include="Newtonsoft.Json, Version=9.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.9.0.1\lib\portable-net45+wp80+win8+wpa81\Newtonsoft.Json.dll</HintPath>
@@ -239,8 +247,8 @@
     <Compile Include="UI\Listeners\XamarinRecyclerViewOnScrollListener.cs" />
     <Compile Include="Utils\BitmapUtils.cs" />
     <Compile Include="Utils\Const.cs" />
+    <Compile Include="Utils\HockeyAppUtils.cs" />
     <Compile Include="Utils\JavaHolder.cs" />
-    <Compile Include="Utils\LeftSideMenuController.cs" />
     <Compile Include="Utils\ObjectExtensions.cs" />
     <Compile Include="Utils\Utils.cs" />
   </ItemGroup>
