@@ -1,8 +1,8 @@
 ﻿using Foundation;
 using UIKit;
-using Softjourn.SJCoins.iOS.Bootstraper;
 using Softjourn.SJCoins.iOS.General.Constants;
 using BigTed;
+using HockeyApp.iOS;
 
 namespace Softjourn.SJCoins.iOS
 {
@@ -21,6 +21,7 @@ namespace Softjourn.SJCoins.iOS
 			InitIoC();
 			InitInitialViewControllerManually();
 			ConfigureProgressHUD();
+			ConfigureHockeyAppCrashAnalitics();
 			return true;
         }
 
@@ -42,6 +43,15 @@ namespace Softjourn.SJCoins.iOS
 		{
 			ProgressHUD.Shared.HudBackgroundColour = UIColor.FromRGB(239, 239, 244);
 			ProgressHUD.Shared.HudForegroundColor = UIColor.Black;
+		}
+
+		private void ConfigureHockeyAppCrashAnalitics()
+		{
+			var manager = BITHockeyManager.SharedHockeyManager;
+			manager.Configure("9e94cec1cac44720ba336059aa00f430"); // key from hockeyapp.net
+			manager.CrashManager.CrashManagerStatus = BITCrashManagerStatus.AutoSend;
+   			manager.StartManager();
+   			manager.Authenticator.AuthenticateInstallation(); // This line is obsolete in crash only builds
 		}
     }
 }

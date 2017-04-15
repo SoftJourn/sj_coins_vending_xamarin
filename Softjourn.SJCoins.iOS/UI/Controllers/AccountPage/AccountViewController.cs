@@ -1,14 +1,11 @@
 using System;
 using System.Collections.Generic;
 using CoreAnimation;
-using CoreGraphics;
 using Foundation;
-using SDWebImage;
 using Softjourn.SJCoins.Core.API.Model;
 using Softjourn.SJCoins.Core.API.Model.AccountInfo;
 using Softjourn.SJCoins.Core.UI.Presenters;
 using Softjourn.SJCoins.Core.UI.ViewInterfaces;
-using Softjourn.SJCoins.iOS.General.Constants;
 using Softjourn.SJCoins.iOS.UI.Cells;
 using Softjourn.SJCoins.iOS.UI.Sources;
 using UIKit;
@@ -45,6 +42,7 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.AccountPage
 		{
 			base.ViewWillAppear(animated);
 			Presenter.OnStartLoadingPage();
+			//throw new NotImplementedException("Spessial_cresh_for_testing");
 		}
 		#endregion
 
@@ -141,8 +139,6 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.AccountPage
 			imageCircle.BorderWidth = 0.2f;
 			imageCircle.MasksToBounds = true;
 		}
-
-		private UIImage ConvertBytesToImage(byte[] receipt) => UIImage.LoadFromData(NSData.FromArray(receipt));
 
 		// -------------------- Event handlers --------------------
 		private void TableSource_ItemClicked(object sender, AccountOption item)
