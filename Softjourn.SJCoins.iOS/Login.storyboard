@@ -99,10 +99,10 @@
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <button opaque="NO" alpha="0.20000000000000001" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7OD-C5-6Nl">
-                                                <rect key="frame" x="8" y="38" width="60" height="40"/>
+                                                <rect key="frame" x="18" y="38" width="35" height="25"/>
                                                 <constraints>
-                                                    <constraint firstAttribute="height" constant="40" id="feb-qL-O5H"/>
-                                                    <constraint firstAttribute="width" constant="60" id="sVs-kE-GE3"/>
+                                                    <constraint firstAttribute="height" constant="25" id="feb-qL-O5H"/>
+                                                    <constraint firstAttribute="width" constant="35" id="sVs-kE-GE3"/>
                                                 </constraints>
                                                 <state key="normal" image="BackImage"/>
                                             </button>
@@ -127,7 +127,7 @@
                                             <constraint firstItem="c90-7P-fMl" firstAttribute="trailing" secondItem="aMW-md-VeR" secondAttribute="trailing" id="df4-hc-Ic2"/>
                                             <constraint firstItem="c90-7P-fMl" firstAttribute="leading" secondItem="aMW-md-VeR" secondAttribute="leading" id="gb9-Dt-IBm"/>
                                             <constraint firstItem="q05-kS-lPh" firstAttribute="leading" secondItem="yCO-qR-FRw" secondAttribute="leading" id="h6D-pX-7QJ"/>
-                                            <constraint firstItem="7OD-C5-6Nl" firstAttribute="leading" secondItem="ljM-S2-uPj" secondAttribute="leadingMargin" id="hcc-h2-YQu"/>
+                                            <constraint firstItem="7OD-C5-6Nl" firstAttribute="leading" secondItem="ljM-S2-uPj" secondAttribute="leadingMargin" constant="10" id="hcc-h2-YQu"/>
                                             <constraint firstItem="aMW-md-VeR" firstAttribute="top" secondItem="7Uf-QG-kb1" secondAttribute="bottom" constant="40" id="iIZ-Ys-5Py"/>
                                             <constraint firstItem="aMW-md-VeR" firstAttribute="width" secondItem="yCO-qR-FRw" secondAttribute="width" id="iJL-sV-Bo8"/>
                                             <constraint firstItem="aMW-md-VeR" firstAttribute="top" secondItem="c90-7P-fMl" secondAttribute="bottom" constant="5" id="jW0-mg-cqV"/>

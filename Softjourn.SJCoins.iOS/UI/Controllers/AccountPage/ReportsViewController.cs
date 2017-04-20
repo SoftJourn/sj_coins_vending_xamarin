@@ -236,7 +236,7 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.AccountPage
 
 		public void SetItems(List<Transaction> items)
 		{
-			_items = items;
+			_items = items ?? new List<Transaction>();
 		}
 
 		public void AddItems(List<Transaction> items, UITableView tableView)

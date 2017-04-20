@@ -89,7 +89,7 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.AccountPage
 
 		public void SetItems(List<History> items)
 		{
-			this.items = items;
+			this.items = items ?? new List<History>();
 		}
 
 		public override nint RowsInSection(UITableView tableview, nint section) => items.Count;
