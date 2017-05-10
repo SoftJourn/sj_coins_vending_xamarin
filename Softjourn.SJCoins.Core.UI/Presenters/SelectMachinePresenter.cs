@@ -16,7 +16,6 @@ namespace Softjourn.SJCoins.Core.UI.Presenters
 
         public SelectMachinePresenter()
         {
-
         }
 
         public bool IsMachineSet()
@@ -35,9 +34,11 @@ namespace Softjourn.SJCoins.Core.UI.Presenters
                 {
                     if (machinesList.Count == 1)
                     {
+						Settings.OnlyOneVendingMachine = true;
                         OnMachineSelected(machinesList.First<Machines>());
                     } else {
-                        Machines selectedMachine = GetSelectedMachine(machinesList);
+						Settings.OnlyOneVendingMachine = false;
+						Machines selectedMachine = GetSelectedMachine(machinesList);
                         View.ShowMachinesList(machinesList, selectedMachine);
                     }                   
                 } else

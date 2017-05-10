@@ -26,7 +26,8 @@ namespace Softjourn.SJCoins.Core.UI.Presenters
             //OptionsList.Add(new AccountOption(Const.ProfileOptionsPrivacyTerms, Const.ProfileOptionsPrivacyTermsIconName));
             //OptionsList.Add(new AccountOption(Const.ProfileOptionsHelp, Const.ProfileOptionsHelpIconName));
             OptionsList.Add(new AccountOption(Const.ProfileOptionsShareFunds, Const.ProfileOptionsShareFundsIconName));
-            OptionsList.Add(new AccountOption(Const.ProfileOptionsSelectMachine,Const.ProfileOptionsSelectMachineIconName));
+			if (!Settings.OnlyOneVendingMachine)
+				OptionsList.Add(new AccountOption(Const.ProfileOptionsSelectMachine,Const.ProfileOptionsSelectMachineIconName));
             OptionsList.Add(new AccountOption(Const.ProfileOptionsLogout, Const.ProfileOptionsLogoutIconName));
         }
 

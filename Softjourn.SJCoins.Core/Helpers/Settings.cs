@@ -83,6 +83,8 @@ namespace Softjourn.SJCoins.Core.Helpers
             set { AppSettings.AddOrUpdateValue(SelectedMachineNameKey, value); }
         }
 
+		public static bool OnlyOneVendingMachine { get; set; } = true;
+
         public static void ClearUserData()
         {
             AccessToken = AccessTokenDefault;

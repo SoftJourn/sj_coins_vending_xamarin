@@ -15,6 +15,7 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers
 	{
 		#region Properties
 		private SelectMachineSource _tableSource;
+		private bool pullToRefreshTrigged = false;
 		#endregion
 
 		#region Constructor
@@ -50,10 +51,16 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers
 		#region BaseViewController
 		public override void ShowProgress(string message)
 		{
+			if (!pullToRefreshTrigged)
+				base.ShowProgress(message);
 		}
 
 		public override void HideProgress()
 		{
+			if (!pullToRefreshTrigged)
+				base.HideProgress();
+
+			pullToRefreshTrigged = false;
 			StopRefreshing();
 		}
 		#endregion
@@ -109,6 +116,8 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers
 
 		protected override void PullToRefreshTriggered(object sender, EventArgs e)
 		{
+            StopRefreshing();
+			pullToRefreshTrigged = true;
 			Presenter.GetMachinesList();
 		}
 	}
