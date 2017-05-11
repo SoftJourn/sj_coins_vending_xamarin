@@ -592,6 +592,15 @@
       <DependentUpon>NutritionCell.cs</DependentUpon>
     </Compile>
     <Compile Include="General\Helper\UIImageHelper.cs" />
+    <Compile Include="UI\Controllers\MainPage\NewHomeViewController.cs" />
+    <Compile Include="UI\Sources\NewHomeViewSource.cs" />
+    <Compile Include="UI\Cells\NewHomeCell.cs" />
+    <Compile Include="UI\Cells\NewHomeCell.designer.cs">
+      <DependentUpon>NewHomeCell.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Controllers\MainPage\NewHomeViewController.designer.cs">
+      <DependentUpon>NewHomeViewController.cs</DependentUpon>
+    </Compile>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
 </Project>
