@@ -601,6 +601,7 @@
     <Compile Include="UI\Controllers\MainPage\NewHomeViewController.designer.cs">
       <DependentUpon>NewHomeViewController.cs</DependentUpon>
     </Compile>
+    <Compile Include="UI\Sources\NewInternalHomeViewSource.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
 </Project>

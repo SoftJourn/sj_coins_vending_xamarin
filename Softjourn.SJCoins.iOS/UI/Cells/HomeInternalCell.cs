@@ -27,10 +27,10 @@ namespace Softjourn.SJCoins.iOS
 		public void ConfigureWith(Product product)
 		{
 			// Set outlets
-			NameLabel.Text = product.Name;
-			PriceLabel.Text = product.Price.ToString() + " coins";
+			//NameLabel.Text = product.Name;
+			//PriceLabel.Text = product.Price.ToString() + " coins";
 			Logo.Layer.CornerRadius = 16;
-			//Logo.Layer.BorderWidth = 0.1f;
+			////Logo.Layer.BorderWidth = 0.1f;
 			Logo.SetImage(url: new NSUrl(product.ImageFullUrl), placeholder: UIImage.FromBundle(ImageConstants.Placeholder));
 		}
 
@@ -45,14 +45,14 @@ namespace Softjourn.SJCoins.iOS
 		public override void PrepareForReuse()
 		{
 			// Reset outlets
-			NameLabel.Text = "";
-			PriceLabel.Text = "";
+			//NameLabel.Text = "";
+			//PriceLabel.Text = "";
 			Logo.Image = null;
 
-			Layer.ShouldRasterize = true;
-			Layer.RasterizationScale = UIScreen.MainScreen.Scale;
+			//Layer.ShouldRasterize = true;
+			//Layer.RasterizationScale = UIScreen.MainScreen.Scale;
 
-			Logo.Alpha = 1.0f;
+			//Logo.Alpha = 1.0f;
 
 			base.PrepareForReuse();
 		}

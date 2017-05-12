@@ -14,7 +14,7 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.Main
 	{
 		#region Properties
 		private bool pullToRefreshTrigged = false;
-		private NewHomeViewSource tableSource;
+		private NewHomeViewSource tableSource = new NewHomeViewSource();
 		#endregion
 	
 		#region Constructor
@@ -114,8 +114,6 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.Main
 			//MyBalanceLabel.Text = "";
 
 			// Configure datasource and delegate
-			tableSource = new NewHomeViewSource();
-			tableSource.Categories = new List<Categories>();
 			TableView.Source = tableSource;
 			TableView.AlwaysBounceVertical = true;
 		}

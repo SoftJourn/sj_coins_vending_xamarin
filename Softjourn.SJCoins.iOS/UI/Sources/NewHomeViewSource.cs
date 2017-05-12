@@ -8,7 +8,7 @@ namespace Softjourn.SJCoins.iOS.UI.Sources
 {
 	public class NewHomeViewSource : UITableViewSource
 	{
-		public List<Categories> Categories { get; set; }
+		public List<Categories> Categories { get; set; } = new List<Categories>();
 
 		public override nint RowsInSection(UITableView tableview, nint section) => Categories.Count;
 
@@ -16,9 +16,11 @@ namespace Softjourn.SJCoins.iOS.UI.Sources
 
 		public override void WillDisplay(UITableView tableView, UITableViewCell cell, NSIndexPath indexPath)
 		{
-			var _cell = (NewHomeCell)cell;
-			_cell.ConfigureWith(Categories[indexPath.Row]);
-			//_cell.setCollectionViewDataSourceAndDelegate(this, indexPath.Row);
+			if (Categories.Count > 0)
+			{
+				var _cell = (NewHomeCell)cell;
+				_cell.ConfigureWith(Categories[indexPath.Row], new NewInternalHomeViewSource(), indexPath.Row);
+			}
 		}
 	}
 }

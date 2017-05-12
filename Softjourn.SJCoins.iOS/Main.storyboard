@@ -293,7 +293,7 @@
                                                                         <color key="textColor" red="0.33333333329999998" green="0.33333333329999998" blue="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                         <nil key="highlightedColor"/>
                                                                     </label>
-                                                                    <label clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Product name" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TrZ-9t-Zff">
+                                                                    <label clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="ProductName" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TrZ-9t-Zff">
                                                                         <rect key="frame" x="5" y="90" width="80" height="14.5"/>
                                                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                                         <constraints>
@@ -437,7 +437,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="190" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="t0d-7m-DEn">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="190" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="t0d-7m-DEn">
                                 <rect key="frame" x="-0.5" y="0.0" width="375" height="667"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
@@ -470,7 +470,7 @@
                                                 </button>
                                                 <collectionView clipsSubviews="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="ym5-nb-bwv">
                                                     <rect key="frame" x="0.0" y="35" width="375" height="150.5"/>
-                                                    <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                     <inset key="scrollIndicatorInsets" minX="0.0" minY="0.0" maxX="0.0" maxY="10"/>
                                                     <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="5" minimumInteritemSpacing="5" id="ScE-Qd-aNo">
                                                         <size key="itemSize" width="90" height="140"/>
@@ -479,54 +479,29 @@
                                                         <inset key="sectionInset" minX="5" minY="0.0" maxX="5" maxY="0.0"/>
                                                     </collectionViewFlowLayout>
                                                     <cells>
-                                                        <collectionViewCell autoresizesSubviews="NO" clipsSubviews="YES" contentMode="center" reuseIdentifier="HomeInternalCell" id="QPv-X7-UWK" customClass="HomeInternalCell">
+                                                        <collectionViewCell clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="center" reuseIdentifier="HomeInternalCell" id="QPv-X7-UWK" customClass="HomeInternalCell">
                                                             <rect key="frame" x="5" y="5.5" width="90" height="140"/>
                                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                             <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                                                                <rect key="frame" x="0.0" y="0.0" width="90" height="141"/>
+                                                                <rect key="frame" x="0.0" y="0.0" width="90" height="140"/>
                                                                 <autoresizingMask key="autoresizingMask"/>
                                                                 <subviews>
-                                                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="62A-pp-TzW">
+                                                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="vending_logo" translatesAutoresizingMaskIntoConstraints="NO" id="62A-pp-TzW">
                                                                         <rect key="frame" x="5" y="5" width="80" height="80"/>
                                                                         <constraints>
                                                                             <constraint firstAttribute="height" constant="80" id="GmQ-hK-Qii"/>
                                                                             <constraint firstAttribute="width" constant="80" id="oxT-Ma-utI"/>
                                                                         </constraints>
                                                                     </imageView>
-                                                                    <label clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1000 Coins" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="a6z-VJ-gV1">
-                                                                        <rect key="frame" x="5" y="107.5" width="80" height="13.5"/>
-                                                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                                                        <fontDescription key="fontDescription" type="system" pointSize="11"/>
-                                                                        <color key="textColor" red="0.33333333329999998" green="0.33333333329999998" blue="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                                        <nil key="highlightedColor"/>
-                                                                    </label>
-                                                                    <label clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Product name" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oEb-kR-cEF">
-                                                                        <rect key="frame" x="5" y="90" width="80" height="14.5"/>
-                                                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                                                        <constraints>
-                                                                            <constraint firstAttribute="height" relation="lessThanOrEqual" constant="30" id="8pj-N9-puq"/>
-                                                                        </constraints>
-                                                                        <fontDescription key="fontDescription" name=".AppleSystemUIFont" family=".AppleSystemUIFont" pointSize="12"/>
-                                                                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                                        <nil key="highlightedColor"/>
-                                                                    </label>
                                                                 </subviews>
                                                             </view>
                                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                             <constraints>
-                                                                <constraint firstItem="oEb-kR-cEF" firstAttribute="trailing" secondItem="62A-pp-TzW" secondAttribute="trailing" id="4Hp-LA-vWK"/>
-                                                                <constraint firstItem="a6z-VJ-gV1" firstAttribute="trailing" secondItem="oEb-kR-cEF" secondAttribute="trailing" id="Dvq-g7-2lG"/>
                                                                 <constraint firstItem="62A-pp-TzW" firstAttribute="top" secondItem="QPv-X7-UWK" secondAttribute="top" constant="5" id="HFn-0Z-o4A"/>
                                                                 <constraint firstItem="62A-pp-TzW" firstAttribute="centerX" secondItem="QPv-X7-UWK" secondAttribute="centerX" id="Obq-lg-hSM"/>
-                                                                <constraint firstItem="oEb-kR-cEF" firstAttribute="leading" secondItem="62A-pp-TzW" secondAttribute="leading" id="RPf-du-FZJ"/>
-                                                                <constraint firstItem="oEb-kR-cEF" firstAttribute="top" secondItem="62A-pp-TzW" secondAttribute="bottom" constant="5" id="hfO-Cs-3gK"/>
-                                                                <constraint firstItem="a6z-VJ-gV1" firstAttribute="top" secondItem="oEb-kR-cEF" secondAttribute="bottom" constant="3" id="j2r-kV-dPy"/>
-                                                                <constraint firstItem="a6z-VJ-gV1" firstAttribute="leading" secondItem="oEb-kR-cEF" secondAttribute="leading" id="nga-fY-iWK"/>
                                                             </constraints>
                                                             <connections>
                                                                 <outlet property="Logo" destination="62A-pp-TzW" id="IRI-gf-KsY"/>
-                                                                <outlet property="NameLabel" destination="oEb-kR-cEF" id="cpM-80-GRj"/>
-                                                                <outlet property="PriceLabel" destination="a6z-VJ-gV1" id="6F5-o9-jNJ"/>
                                                             </connections>
                                                         </collectionViewCell>
                                                     </cells>
@@ -812,5 +787,6 @@ pwCuALYAwgDEAMYAyAFHAUwBVwFgAWYBaQFyAXcBfwGCAYkBkQGeAaMBpQGnAawBtAG3AbwBxAHHAdkB
 3AHhAAAAAAAAAgEAAAAAAAAAPAAAAAAAAAAAAAAAAAAAAeM
 </mutableData>
         </image>
+        <image name="vending_logo" width="230" height="265"/>
     </resources>
 </document>

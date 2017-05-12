@@ -210,8 +210,8 @@ namespace Softjourn.SJCoins.iOS
 			var item = products[indexPath.Row];
 			_cell.ConfigureWith(item);
 
-			if (categoryName == Const.FavoritesCategory)
-				_cell.MarkFavorites(item);
+			//if (categoryName == Const.FavoritesCategory)
+			//	_cell.MarkFavorites(item);
 		}
 
 		public override void ItemSelected(UICollectionView collectionView, NSIndexPath indexPath)

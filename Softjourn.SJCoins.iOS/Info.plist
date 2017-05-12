@@ -3,9 +3,9 @@
 <plist version="1.0">
 <dict>
 	<key>CFBundleName</key>
-	<string>SJCoinsX</string>
+	<string>SJCoinsX2</string>
 	<key>CFBundleIdentifier</key>
-	<string>com.softdzhorn-urkaina.sjcoins</string>
+	<string>com.softjourn.sjcoins</string>
 	<key>CFBundleShortVersionString</key>
 	<string>2.0</string>
 	<key>LSRequiresIPhoneOS</key>

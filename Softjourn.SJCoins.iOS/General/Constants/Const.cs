@@ -1,5 +1,4 @@
-﻿using System;
-namespace Softjourn.SJCoins.iOS.General.Constants
+﻿namespace Softjourn.SJCoins.iOS.General.Constants
 {
 	public static class Const
 	{
