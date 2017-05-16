@@ -3,11 +3,11 @@
 <plist version="1.0">
 <dict>
 	<key>CFBundleName</key>
-	<string>SJCoinsX2</string>
+	<string>SJCoinsX</string>
 	<key>CFBundleIdentifier</key>
 	<string>com.softjourn.sjcoins</string>
 	<key>CFBundleShortVersionString</key>
-	<string>2.0</string>
+	<string>2.1</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>MinimumOSVersion</key>
@@ -45,6 +45,6 @@
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>This app needs access to photos.</string>
 	<key>CFBundleVersion</key>
-	<string>2</string>
+	<string>1</string>
 </dict>
 </plist>

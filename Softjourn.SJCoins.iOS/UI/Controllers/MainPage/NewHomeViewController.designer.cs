@@ -12,6 +12,15 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.Main
 	partial class NewHomeViewController
 	{
 		[Outlet]
+		UIKit.UIBarButtonItem AccountButton { get; set; }
+
+		[Outlet]
+		UIKit.UILabel MachineNameLabel { get; set; }
+
+		[Outlet]
+		UIKit.UILabel MyBalanceLabel { get; set; }
+
+		[Outlet]
 		UIKit.UILabel NoItemsLabel { get; set; }
 
 		[Outlet]
@@ -19,14 +28,29 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.Main
 		
 		void ReleaseDesignerOutlets ()
 		{
+			if (NoItemsLabel != null) {
+				NoItemsLabel.Dispose ();
+				NoItemsLabel = null;
+			}
+
 			if (TableView != null) {
 				TableView.Dispose ();
 				TableView = null;
 			}
 
-			if (NoItemsLabel != null) {
-				NoItemsLabel.Dispose ();
-				NoItemsLabel = null;
+			if (AccountButton != null) {
+				AccountButton.Dispose ();
+				AccountButton = null;
+			}
+
+			if (MachineNameLabel != null) {
+				MachineNameLabel.Dispose ();
+				MachineNameLabel = null;
+			}
+
+			if (MyBalanceLabel != null) {
+				MyBalanceLabel.Dispose ();
+				MyBalanceLabel = null;
 			}
 		}
 	}

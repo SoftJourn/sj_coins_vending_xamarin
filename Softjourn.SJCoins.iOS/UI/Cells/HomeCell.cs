@@ -121,10 +121,10 @@ namespace Softjourn.SJCoins.iOS
 			// Must call base method
 			base.TraitCollectionDidChange(previousTraitCollection);
 
-			if (TraitCollection.ForceTouchCapability == UIForceTouchCapability.Available)
-			{
-				_currentApplication.VisibleViewController.RegisterForPreviewingWithDelegate(this, InternalCollectionView);
-			}
+			//if (TraitCollection.ForceTouchCapability == UIForceTouchCapability.Available)
+			//{
+			//	_currentApplication.VisibleViewController.RegisterForPreviewingWithDelegate(this, InternalCollectionView);
+			//}
 			//else {
 			//	// TODO Need move fom here !!!
 			//	UIAlertController alertController = UIAlertController.Create("3D Touch Not Available", "Unsupported device.", UIAlertControllerStyle.Alert);

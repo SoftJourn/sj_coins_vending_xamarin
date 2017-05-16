@@ -1,10 +1,9 @@
 ﻿using System;
-
 using Foundation;
 using Softjourn.SJCoins.Core.API.Model.Products;
 using UIKit;
+using CoreGraphics;
 using SDWebImage;
-using Softjourn.SJCoins.Core.Utils;
 using Softjourn.SJCoins.iOS.General.Constants;
 
 namespace Softjourn.SJCoins.iOS
@@ -13,6 +12,10 @@ namespace Softjourn.SJCoins.iOS
 	{
 		public static readonly NSString Key = new NSString("HomeInternalCell");
 		public static readonly UINib Nib;
+
+		private UIImageView Logo { get; set; }
+		private UILabel NameLabel { get; set; }
+		private UILabel PriceLabel { get; set; }
 
 		static HomeInternalCell()
 		{
@@ -26,11 +29,46 @@ namespace Softjourn.SJCoins.iOS
 
 		public void ConfigureWith(Product product)
 		{
-			// Set outlets
-			//NameLabel.Text = product.Name;
-			//PriceLabel.Text = product.Price.ToString() + " coins";
-			Logo.Layer.CornerRadius = 16;
-			////Logo.Layer.BorderWidth = 0.1f;
+			if (Logo == null)
+			{
+				Logo = new UIImageView
+				{
+					Frame = new CGRect(5, 0, 80, 80),
+					BackgroundColor = UIColor.White,
+					ContentMode = UIViewContentMode.ScaleAspectFit					                         
+				};
+				Logo.Layer.CornerRadius = 16;
+				Logo.Layer.BorderWidth = 0.1f;
+				AddSubview(Logo);
+			}
+
+			if (NameLabel == null)
+			{
+				NameLabel = new UILabel
+				{
+					Frame = new CGRect(5, Logo.Frame.Height + 5, 80, 28),
+					Font = UIFont.SystemFontOfSize(11),
+					Lines = 2,
+					BackgroundColor = UIColor.White
+				};
+				AddSubview(NameLabel);
+			}
+
+			if (PriceLabel == null)
+			{
+				PriceLabel = new UILabel
+				{
+					Frame = new CGRect(5, Logo.Frame.Height + 5 + NameLabel.Frame.Height + 2, 80, 14),
+					Font = UIFont.SystemFontOfSize(11),
+					Lines = 1,
+					BackgroundColor = UIColor.White,
+					TextColor = UIColor.Gray
+				};
+				AddSubview(PriceLabel);
+			}
+
+			NameLabel.Text = product.Name;
+			PriceLabel.Text = product.Price.ToString() + " coins";
 			Logo.SetImage(url: new NSUrl(product.ImageFullUrl), placeholder: UIImage.FromBundle(ImageConstants.Placeholder));
 		}
 
@@ -45,15 +83,10 @@ namespace Softjourn.SJCoins.iOS
 		public override void PrepareForReuse()
 		{
 			// Reset outlets
-			//NameLabel.Text = "";
-			//PriceLabel.Text = "";
+			NameLabel.Text = "";
+			PriceLabel.Text = "";
 			Logo.Image = null;
-
-			//Layer.ShouldRasterize = true;
-			//Layer.RasterizationScale = UIScreen.MainScreen.Scale;
-
-			//Logo.Alpha = 1.0f;
-
+			Logo.Alpha = 1.0f;
 			base.PrepareForReuse();
 		}
 	}

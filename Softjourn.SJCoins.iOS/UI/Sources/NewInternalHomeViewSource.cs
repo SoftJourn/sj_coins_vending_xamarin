@@ -11,7 +11,7 @@ namespace Softjourn.SJCoins.iOS.UI.Sources
 	{
 		public List<Product> Products { get; set; } = new List<Product>();
 		public string CategoryName { get; set; }
-		public event EventHandler<Product> HomeCellDelegate_ItemSelected;
+		public event EventHandler<Product> NewInternalHomeViewSource_ItemSelected;
 
 		public override nint GetItemsCount(UICollectionView collectionView, nint section) => Products.Count;
 
@@ -21,14 +21,14 @@ namespace Softjourn.SJCoins.iOS.UI.Sources
 			var item = Products[indexPath.Row];
 			cell.ConfigureWith(item);
 
-			//if (CategoryName == Const.FavoritesCategory)
-			//	cell.MarkFavorites(item);
+			if (CategoryName == Const.FavoritesCategory)
+				cell.MarkFavorites(item);
 
 			return cell;
 		}
 		public override void ItemSelected(UICollectionView collectionView, NSIndexPath indexPath)
 		{
-			HomeCellDelegate_ItemSelected?.Invoke(this, Products[indexPath.Row]);
+			NewInternalHomeViewSource_ItemSelected?.Invoke(this, Products[indexPath.Row]);
 		}
 
 		protected override void Dispose(bool disposing)

@@ -433,18 +433,10 @@
     <ImageAsset Include="Assets.xcassets\DefaultAvatar.imageset\noavatar.png">
       <InProject>false</InProject>
     </ImageAsset>
-    <ImageAsset Include="Assets.xcassets\Account.imageset\Contents.json">
-      <InProject>false</InProject>
-    </ImageAsset>
-    <ImageAsset Include="Assets.xcassets\Account.imageset\Account.png">
-      <InProject>false</InProject>
-    </ImageAsset>
-    <ImageAsset Include="Assets.xcassets\Account.imageset\Account_x2.png">
-      <InProject>false</InProject>
-    </ImageAsset>
-    <ImageAsset Include="Assets.xcassets\Account.imageset\Account_x3.png">
-      <InProject>false</InProject>
-    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\NewAccount2.imageset\Contents.json" />
+    <ImageAsset Include="Assets.xcassets\NewAccount2.imageset\customer.png" />
+    <ImageAsset Include="Assets.xcassets\NewAccount2.imageset\customer_x2.png" />
+    <ImageAsset Include="Assets.xcassets\NewAccount2.imageset\customer_x3.png" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Assets.xcassets\AccountTabIcon.imageset\" />
@@ -473,6 +465,8 @@
     <Folder Include="UI\Delegates\" />
     <Folder Include="Assets.xcassets\DefaultAvatar.imageset\" />
     <Folder Include="Assets.xcassets\Account.imageset\" />
+    <Folder Include="Assets.xcassets\NewAccount.imageset\" />
+    <Folder Include="Assets.xcassets\NewAccount2.imageset\" />
   </ItemGroup>
   <ItemGroup>
     <InterfaceDefinition Include="LaunchScreen.storyboard" />

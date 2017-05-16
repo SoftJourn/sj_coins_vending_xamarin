@@ -12,31 +12,9 @@ namespace Softjourn.SJCoins.iOS
 	[Register ("HomeInternalCell")]
 	partial class HomeInternalCell
 	{
-		[Outlet]
-		UIKit.UIImageView Logo { get; set; }
-
-		[Outlet]
-		UIKit.UILabel NameLabel { get; set; }
-
-		[Outlet]
-		UIKit.UILabel PriceLabel { get; set; }
 		
 		void ReleaseDesignerOutlets ()
 		{
-			if (Logo != null) {
-				Logo.Dispose ();
-				Logo = null;
-			}
-
-			if (NameLabel != null) {
-				NameLabel.Dispose ();
-				NameLabel = null;
-			}
-
-			if (PriceLabel != null) {
-				PriceLabel.Dispose ();
-				PriceLabel = null;
-			}
 		}
 	}
 }
