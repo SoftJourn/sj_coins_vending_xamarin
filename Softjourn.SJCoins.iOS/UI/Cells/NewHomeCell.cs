@@ -1,6 +1,7 @@
 ﻿using System;
 using UIKit;
 using Foundation;
+using CoreGraphics;
 using Softjourn.SJCoins.Core.API.Model.Products;
 using Softjourn.SJCoins.iOS.UI.Sources;
 using System.Collections.Generic;
@@ -41,9 +42,10 @@ namespace Softjourn.SJCoins.iOS
 			// Set products which need to be displayed 
 			this.source = source;
 			source.Products = category.Products;
+			source.CategoryName = categoryName;
 			// Configure CollectionView
 			CollectionView.Source = source;
-			CollectionView.Tag = row;
+			CollectionView.SetContentOffset(CollectionView.ContentOffset, false);
 			CollectionView.ReloadData();
 
 			//Attach

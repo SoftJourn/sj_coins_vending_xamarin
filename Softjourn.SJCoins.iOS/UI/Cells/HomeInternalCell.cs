@@ -75,9 +75,17 @@ namespace Softjourn.SJCoins.iOS
 		public void MarkFavorites(Product product)
 		{
 			if (product.IsProductInCurrentMachine)
+			{
 				Logo.Alpha = 1.0f;
+				NameLabel.Alpha = 1.0f;
+				PriceLabel.Alpha = 1.0f;
+			}
 			else
+			{
 				Logo.Alpha = 0.3f;
+				NameLabel.Alpha = 0.3f;
+				PriceLabel.Alpha = 0.3f;
+			}
 		}
 
 		public override void PrepareForReuse()

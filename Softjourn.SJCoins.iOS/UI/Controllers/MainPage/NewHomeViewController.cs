@@ -93,8 +93,9 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.Main
 
 		public void SetMachineName(string name)
 		{
-			// Set chosenMachine name as title 
+			// Set chosenMachine name as title
 			MachineNameLabel.Text = name;
+			NavigationItem.RightBarButtonItem = AccountButton;
 		}
 
 		public void ShowProducts(List<Categories> listCategories)
@@ -123,6 +124,7 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.Main
 			NoItemsLabel.Hidden = true;
 			MachineNameLabel.Text = "";
 			MyBalanceLabel.Text = "";
+			NavigationItem.RightBarButtonItem = null;
 
 			// Configure datasource and delegate
 			TableView.Source = tableSource;
@@ -187,6 +189,5 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.Main
 			Presenter.OnStartLoadingPage();
 		}
 		#endregion
-
 	}
 }
