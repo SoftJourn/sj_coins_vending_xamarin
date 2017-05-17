@@ -12,6 +12,8 @@ namespace Softjourn.SJCoins.iOS.UI.Sources
 		public List<Product> Products { get; set; } = new List<Product>();
 		public string CategoryName { get; set; }
 		public event EventHandler<Product> NewInternalHomeViewSource_ItemSelected;
+		public event EventHandler<Product> NewInternalHomeViewSource_BuyActionExecuted;
+		public event EventHandler<Product> NewInternalHomeViewSource_FavoriteActionExecuted;
 
 		public override nint GetItemsCount(UICollectionView collectionView, nint section) => Products.Count;
 
@@ -26,6 +28,24 @@ namespace Softjourn.SJCoins.iOS.UI.Sources
 
 			return cell;
 		}
+
+		public override void WillDisplayCell(UICollectionView collectionView, UICollectionViewCell cell, NSIndexPath indexPath)
+		{
+			var _cell = (HomeInternalCell)cell;
+			_cell.HomeInternalCell_BuyActionExecuted -= NewInternalHomeViewSource_BuyActionExecuted;
+			_cell.HomeInternalCell_BuyActionExecuted += NewInternalHomeViewSource_BuyActionExecuted;
+
+			_cell.HomeInternalCell_FavoriteActionExecuted -= NewInternalHomeViewSource_FavoriteActionExecuted;
+			_cell.HomeInternalCell_FavoriteActionExecuted += NewInternalHomeViewSource_FavoriteActionExecuted;
+		}
+
+		public override void CellDisplayingEnded(UICollectionView collectionView, UICollectionViewCell cell, NSIndexPath indexPath)
+		{
+			var _cell = (HomeInternalCell)cell;
+			_cell.HomeInternalCell_BuyActionExecuted -= NewInternalHomeViewSource_BuyActionExecuted;
+			_cell.HomeInternalCell_FavoriteActionExecuted -= NewInternalHomeViewSource_FavoriteActionExecuted;
+		}
+
 		public override void ItemSelected(UICollectionView collectionView, NSIndexPath indexPath)
 		{
 			NewInternalHomeViewSource_ItemSelected?.Invoke(this, Products[indexPath.Row]);

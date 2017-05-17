@@ -501,10 +501,6 @@
     <Compile Include="UI\Cells\SelectMachineCell.designer.cs">
       <DependentUpon>SelectMachineCell.cs</DependentUpon>
     </Compile>
-    <Compile Include="UI\Cells\HomeCell.cs" />
-    <Compile Include="UI\Cells\HomeCell.designer.cs">
-      <DependentUpon>HomeCell.cs</DependentUpon>
-    </Compile>
     <Compile Include="UI\Cells\HomeInternalCell.cs" />
     <Compile Include="UI\Cells\HomeInternalCell.designer.cs">
       <DependentUpon>HomeInternalCell.cs</DependentUpon>
