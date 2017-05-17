@@ -35,7 +35,8 @@ namespace Softjourn.SJCoins.iOS
 				{
 					Frame = new CGRect(5, 0, 80, 80),
 					BackgroundColor = UIColor.White,
-					ContentMode = UIViewContentMode.ScaleAspectFit					                         
+					ContentMode = UIViewContentMode.ScaleAspectFit,
+					ClipsToBounds = true           
 				};
 				Logo.Layer.CornerRadius = 16;
 				Logo.Layer.BorderWidth = 0.1f;
@@ -95,6 +96,8 @@ namespace Softjourn.SJCoins.iOS
 			PriceLabel.Text = "";
 			Logo.Image = null;
 			Logo.Alpha = 1.0f;
+			NameLabel.Alpha = 1.0f;
+			PriceLabel.Alpha = 1.0f;
 			base.PrepareForReuse();
 		}
 	}
