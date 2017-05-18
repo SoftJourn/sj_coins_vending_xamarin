@@ -26,7 +26,7 @@ namespace Softjourn.SJCoins.iOS.UI.Sources
 				var _cell = (NewHomeCell)cell;
 				_cell.ConfigureWith(Categories[indexPath.Row], new NewInternalHomeViewSource(), indexPath.Row);
 
-				//_cell.NewHomeCell_ItemSelected -= NewHomeViewSource_ItemSelected;
+				_cell.NewHomeCell_ItemSelected -= NewHomeViewSource_ItemSelected;
 				_cell.NewHomeCell_ItemSelected += NewHomeViewSource_ItemSelected;
 
 				_cell.NewHomeCell_SeeAllClicked -= NewHomeViewSource_SeeAllClicked;

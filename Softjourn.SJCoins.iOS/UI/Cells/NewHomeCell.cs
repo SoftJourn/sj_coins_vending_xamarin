@@ -54,14 +54,14 @@ namespace Softjourn.SJCoins.iOS
 			ShowAllButton.TouchUpInside -= NewHomeCell_OnSeeAllClickedHandler;
 			ShowAllButton.TouchUpInside += NewHomeCell_OnSeeAllClickedHandler;
 
-			//source.NewInternalHomeViewSource_ItemSelected -= NewHomeCell_ItemSelected;
-			source.NewInternalHomeViewSource_ItemSelected += TestHandler;
+			source.NewInternalHomeViewSource_ItemSelected -= NewHomeCell_ItemSelected;
+			source.NewInternalHomeViewSource_ItemSelected += NewHomeCell_ItemSelected;
 
-			source.NewInternalHomeViewSource_BuyActionExecuted -= TestHandler;
-			source.NewInternalHomeViewSource_BuyActionExecuted += TestHandler;
+			source.NewInternalHomeViewSource_BuyActionExecuted -= NewHomeCell_BuyActionExecuted;
+			source.NewInternalHomeViewSource_BuyActionExecuted += NewHomeCell_BuyActionExecuted;
 
-			source.NewInternalHomeViewSource_FavoriteActionExecuted -= TestHandler;
-			source.NewInternalHomeViewSource_FavoriteActionExecuted += TestHandler;
+			source.NewInternalHomeViewSource_FavoriteActionExecuted -= NewHomeCell_FavoriteActionExecuted;
+			source.NewInternalHomeViewSource_FavoriteActionExecuted += NewHomeCell_FavoriteActionExecuted;
 		}
 
 		public override void PrepareForReuse()

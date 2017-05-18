@@ -50,7 +50,7 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.Main
 			tableSource.NewHomeViewSource_ItemSelected += OnItemSelected;
 			tableSource.NewHomeViewSource_SeeAllClicked += OnSeeAllClicked;
 			tableSource.NewHomeViewSource_BuyExecuted += OnBuyActionClicked;
-			tableSource.NewHomeViewSource_AddDeleteFavoriteExecuted += OnFavoriteActionClicked;
+			tableSource.NewHomeViewSource_AddDeleteFavoriteExecuted += TestHandler;
 		}
 
 		public override void DetachEvents()
@@ -176,6 +176,11 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.Main
 		{
 			// Trigg presenter that user click Favorite action on preview page 
 			Presenter.OnFavoriteClick(product);
+		}
+
+		public void TestHandler(object sender, Product product)
+		{
+			
 		}
 		// --------------------------------------------------------
 
