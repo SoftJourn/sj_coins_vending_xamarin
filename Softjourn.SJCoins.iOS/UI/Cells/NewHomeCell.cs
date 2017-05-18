@@ -36,7 +36,7 @@ namespace Softjourn.SJCoins.iOS
 
 		public void ConfigureWith(Categories category, NewInternalHomeViewSource source, int row)
 		{
-			
+
 			// Set category name
 			categoryName = category.Name;
 			NameLabel.Text = categoryName;
@@ -54,14 +54,14 @@ namespace Softjourn.SJCoins.iOS
 			ShowAllButton.TouchUpInside -= NewHomeCell_OnSeeAllClickedHandler;
 			ShowAllButton.TouchUpInside += NewHomeCell_OnSeeAllClickedHandler;
 
-			source.NewInternalHomeViewSource_ItemSelected -= NewHomeCell_ItemSelected;
-			source.NewInternalHomeViewSource_ItemSelected += NewHomeCell_ItemSelected;
+			source.NewInternalHomeViewSource_ItemSelected -= ItemSelectedHandler;
+			source.NewInternalHomeViewSource_ItemSelected += ItemSelectedHandler;
 
-			source.NewInternalHomeViewSource_BuyActionExecuted -= NewHomeCell_BuyActionExecuted;
-			source.NewInternalHomeViewSource_BuyActionExecuted += NewHomeCell_BuyActionExecuted;
+			source.NewInternalHomeViewSource_BuyActionExecuted -= BuyHandler;
+			source.NewInternalHomeViewSource_BuyActionExecuted += BuyHandler;
 
-			source.NewInternalHomeViewSource_FavoriteActionExecuted -= NewHomeCell_FavoriteActionExecuted;
-			source.NewInternalHomeViewSource_FavoriteActionExecuted += NewHomeCell_FavoriteActionExecuted;
+			source.NewInternalHomeViewSource_FavoriteActionExecuted -= FavoriteHandler;
+			source.NewInternalHomeViewSource_FavoriteActionExecuted += FavoriteHandler;
 		}
 
 		public override void PrepareForReuse()
@@ -75,15 +75,15 @@ namespace Softjourn.SJCoins.iOS
 
 			if (source != null)
 			{
-				source.NewInternalHomeViewSource_ItemSelected -= NewHomeCell_ItemSelected;
+				source.NewInternalHomeViewSource_ItemSelected -= ItemSelectedHandler;
 				source.NewInternalHomeViewSource_BuyActionExecuted -= NewHomeCell_BuyActionExecuted;
 				source.NewInternalHomeViewSource_FavoriteActionExecuted -= NewHomeCell_FavoriteActionExecuted;
 				source = null;
 			}
-			base.PrepareForReuse();		
+			base.PrepareForReuse();
 		}
 
-		// -------------------- Event handlers --------------------
+		#region Events handlers
 		public void NewHomeCell_OnSeeAllClickedHandler(object sender, EventArgs e)
 		{
 			// Execute event and throw category name to HomeViewController
@@ -91,10 +91,20 @@ namespace Softjourn.SJCoins.iOS
 			NewHomeCell_SeeAllClicked?.Invoke(this, categoryName);
 		}
 
-		public void TestHandler(object sender, Product product)
+		public void ItemSelectedHandler(object sender, Product product)
 		{
-			
+			NewHomeCell_ItemSelected?.Invoke(this, product);
 		}
-		// --------------------------------------------------------
+
+		public void FavoriteHandler(object sender, Product product)
+		{
+			NewHomeCell_FavoriteActionExecuted?.Invoke(this, product);
+		}
+
+		public void BuyHandler(object sender, Product product)
+		{
+			NewHomeCell_BuyActionExecuted?.Invoke(this, product);
+		}
+		#endregion
 	}
 }

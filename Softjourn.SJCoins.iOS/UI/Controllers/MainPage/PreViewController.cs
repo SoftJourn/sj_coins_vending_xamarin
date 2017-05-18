@@ -91,7 +91,7 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers
 
 		private void FavoriteActionClicked()
 		{
-			PreViewController_FavoriteActionExecuted?.Invoke(this, currentProduct);
+			PreViewController_FavoriteActionExecuted?.Invoke(this, currentProduct); 
 		}
 		// --------------------------------------------------------
 		#endregion
