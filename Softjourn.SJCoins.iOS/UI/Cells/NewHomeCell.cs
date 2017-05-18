@@ -1,16 +1,13 @@
 ﻿using System;
 using UIKit;
 using Foundation;
-using CoreGraphics;
 using Softjourn.SJCoins.Core.API.Model.Products;
 using Softjourn.SJCoins.iOS.UI.Sources;
 using System.Collections.Generic;
-using Softjourn.SJCoins.iOS.UI.Controllers;
-using Softjourn.SJCoins.iOS.General.Constants;
 
 namespace Softjourn.SJCoins.iOS
 {
-	public partial class NewHomeCell : UITableViewCell//, IUIViewControllerPreviewingDelegate
+	public partial class NewHomeCell : UITableViewCell
 	{
 		public static readonly NSString Key = new NSString("NewHomeCell");
 		public static readonly UINib Nib;
