@@ -21,7 +21,7 @@ namespace Softjourn.SJCoins.iOS.UI.Sources
 		{
 			var cell = (HomeInternalCell)collectionView.DequeueReusableCell(HomeInternalCell.Key, indexPath);
 			var item = Products[indexPath.Row];
-			cell.ConfigureWith(item);
+			//cell.ConfigureWith(item);
 
 			if (CategoryName == Const.FavoritesCategory)
 				cell.MarkFavorites(item);
@@ -37,6 +37,7 @@ namespace Softjourn.SJCoins.iOS.UI.Sources
 
 			_cell.HomeInternalCell_FavoriteActionExecuted -= NewInternalHomeViewSource_FavoriteActionExecuted;
 			_cell.HomeInternalCell_FavoriteActionExecuted += NewInternalHomeViewSource_FavoriteActionExecuted;
+            _cell.Fill(Products[indexPath.Row]);
 		}
 
 		public override void CellDisplayingEnded(UICollectionView collectionView, UICollectionViewCell cell, NSIndexPath indexPath)
