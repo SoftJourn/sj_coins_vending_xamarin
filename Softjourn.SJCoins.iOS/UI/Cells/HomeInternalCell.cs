@@ -17,10 +17,11 @@ namespace Softjourn.SJCoins.iOS
         public event EventHandler<Product> HomeInternalCell_BuyActionExecuted;
         public event EventHandler<Product> HomeInternalCell_FavoriteActionExecuted;
 
-        private UIImageView Logo { get; set; }
-        private UILabel NameLabel { get; set; }
-        private UILabel PriceLabel { get; set; }
-        private Product Product { get; set; }
+		private UIFont nameLabelFont = UIFont.SystemFontOfSize(12);
+		private UIImageView LogoImage { get; set; }
+		private UILabel NameLabel { get; set; }
+		private UILabel PriceLabel { get; set; }
+		private Product Product { get; set; }
         private PreViewController previewController;
         private IUIViewControllerPreviewing previewing;
         private AppDelegate currentApplication
@@ -38,134 +39,44 @@ namespace Softjourn.SJCoins.iOS
             // Note: this .ctor should not contain any initialization logic.
         }
 
-        //public override void AwakeFromNib()
-        //{
-        //    base.AwakeFromNib();
-        //    SetUpUI();
-        //}
-
-        public void SetUpUI()
+        public override void AwakeFromNib()
         {
-            Logo = new UIImageView
-            {
-                BackgroundColor = UIColor.White,
-                ContentMode = UIViewContentMode.ScaleAspectFit,
-                ClipsToBounds = true
-            };
-            Logo.Layer.CornerRadius = 16;
-            //Logo.Layer.BorderWidth = 0.1f;
-            AddSubview(Logo);
-
-            NameLabel = new UILabel
-            {
-                //Frame = new CGRect(5, Logo.Frame.Height + 5, 80, 28),
-                Font = UIFont.SystemFontOfSize(11),
-                Lines = 2,
-                BackgroundColor = UIColor.Clear,
-                TextColor = UIColor.Black
-            };
-            AddSubview(NameLabel);
-
-            PriceLabel = new UILabel
-            {
-                //Frame = new CGRect(5, Logo.Frame.Height + 5 + NameLabel.Frame.Height + 2, 80, 14),
-                Font = UIFont.SystemFontOfSize(11),
-                Lines = 1,
-                BackgroundColor = UIColor.Clear,
-                TextColor = UIColor.Gray
-            };
-            AddSubview(PriceLabel);
-            //this.Layer.CornerRadius = 16;
+            base.AwakeFromNib();
+			SetUpUI();
         }
 
-        public void LayoutUI()
-        {
-            var leftInset = 0;
-            Logo.Frame = new CGRect(leftInset, 0, 110, 110);
-            NameLabel.Frame = new CGRect(leftInset, Logo.Frame.Height + 5, 80, 28);
-            PriceLabel.Frame = new CGRect(leftInset, Logo.Frame.Height + 5 + NameLabel.Frame.Height + 2, 80, 14);
-        }
+		public override void LayoutSubviews()
+		{
+		    base.LayoutSubviews();
+			LayoutUI(Product);
+		}
 
         public void Fill(Product product)
         {
-            //NameLabel.Text = product.Name;
-            //PriceLabel.Text = product.Price.ToString() + " coins";
-            //Logo.SetImage(url: new NSUrl(product.ImageFullUrl), placeholder: UIImage.FromBundle(ImageConstants.Placeholder));
-        }
+			this.Product = product;
 
-        //public override void LayoutSubviews()
-        //{
-        //    base.LayoutSubviews();
-        //    LayoutUI();
-        //}
-
-        public void ConfigureWith(Product product)
-        {
-            this.Product = product;
-            this.Layer.CornerRadius = 16;
-
-            if (Logo == null)
-            {
-                Logo = new UIImageView
-                {
-                    Frame = new CGRect(5, 5, 80, 80),
-                    BackgroundColor = UIColor.White,
-                    ContentMode = UIViewContentMode.ScaleAspectFit,
-                    ClipsToBounds = true
-                };
-                Logo.Layer.CornerRadius = 16;
-                Logo.Layer.BorderWidth = 0.1f;
-                AddSubview(Logo);
-            }
-
-            if (NameLabel == null)
-            {
-                NameLabel = new UILabel
-                {
-                    Frame = new CGRect(5, Logo.Frame.Height + 5, 80, 28),
-                    Font = UIFont.SystemFontOfSize(11),
-                    Lines = 2,
-                    BackgroundColor = UIColor.White
-                };
-                AddSubview(NameLabel);
-            }
-
-            if (PriceLabel == null)
-            {
-                PriceLabel = new UILabel
-                {
-                    Frame = new CGRect(5, Logo.Frame.Height + 5 + NameLabel.Frame.Height + 2, 80, 14),
-                    Font = UIFont.SystemFontOfSize(11),
-                    Lines = 1,
-                    BackgroundColor = UIColor.White,
-                    TextColor = UIColor.Gray
-                };
-                AddSubview(PriceLabel);
-            }
-
-            NameLabel.Text = product.Name;
+			NameLabel.Text = product.Name;
             PriceLabel.Text = product.Price.ToString() + " coins";
-            Logo.SetImage(url: new NSUrl(product.ImageFullUrl), placeholder: UIImage.FromBundle(ImageConstants.Placeholder));
+            LogoImage.SetImage(url: new NSUrl(product.ImageFullUrl), placeholder: UIImage.FromBundle(ImageConstants.Placeholder));
 
-            // Register for preview
-            //previewing = currentApplication.VisibleViewController.RegisterForPreviewingWithDelegate(this, this);
+			// Register for preview
+			previewing = currentApplication.VisibleViewController.RegisterForPreviewingWithDelegate(this, this);
         }
 
         public void MarkFavorites(Product product)
-        {
-            //var
-            //if (product.IsProductInCurrentMachine)
-            //{
-            //    Logo.Alpha = 1.0f;
-            //    NameLabel.Alpha = 1.0f;
-            //    PriceLabel.Alpha = 1.0f;
-            //}
-            //else
-            //{
-            //    Logo.Alpha = 0.3f;
-            //    NameLabel.Alpha = 0.3f;
-            //    PriceLabel.Alpha = 0.3f;
-            //}
+		{
+            if (product.IsProductInCurrentMachine)
+            {
+				LogoImage.Alpha = 1.0f;
+                NameLabel.Alpha = 1.0f;
+                PriceLabel.Alpha = 1.0f;
+            }
+            else
+            {
+                LogoImage.Alpha = 0.3f;
+                NameLabel.Alpha = 0.3f;
+                PriceLabel.Alpha = 0.3f;
+            }
         }
 
         public override void PrepareForReuse()
@@ -173,8 +84,8 @@ namespace Softjourn.SJCoins.iOS
             // Reset outlets
             NameLabel.Text = "";
             PriceLabel.Text = "";
-            Logo.Image = null;
-            Logo.Alpha = 1.0f;
+			LogoImage.Image = null;
+            LogoImage.Alpha = 1.0f;
             NameLabel.Alpha = 1.0f;
             PriceLabel.Alpha = 1.0f;
 
@@ -185,13 +96,80 @@ namespace Softjourn.SJCoins.iOS
                 previewController.PreViewController_FavoriteActionExecuted -= HomeInternalCell_FavoriteActionExecuted;
                 previewController = null;
             }
-            // Unregister for preview
-            //currentApplication.VisibleViewController.UnregisterForPreviewingWithContext(previewing);
+			if (previewing != null)
+			{
+				// Unregister for preview
+				currentApplication.VisibleViewController.UnregisterForPreviewingWithContext(previewing);
+			}
             base.PrepareForReuse();
         }
 
-        #region IUIViewControllerPreviewingDelegate implementation
-        public override void TraitCollectionDidChange(UITraitCollection previousTraitCollection)
+		#region Private methods
+		private void SetUpUI()
+		{
+			LogoImage = new UIImageView
+			{
+				BackgroundColor = UIColor.White,
+				ContentMode = UIViewContentMode.ScaleAspectFit,
+				ClipsToBounds = true
+			};
+			LogoImage.Layer.CornerRadius = 16;
+			LogoImage.Layer.BorderWidth = 1f / UIScreen.MainScreen.Scale;
+			LogoImage.Layer.BorderColor = UIColor.LightGray.CGColor;
+			AddSubview(LogoImage);
+
+			NameLabel = new UILabel
+			{
+				Font = nameLabelFont,
+				Lines = 2,
+				BackgroundColor = UIColor.Clear,
+				TextColor = UIColor.Black
+			};
+			AddSubview(NameLabel);
+
+			PriceLabel = new UILabel
+			{
+				Font = UIFont.BoldSystemFontOfSize(11),
+				Lines = 1,
+				BackgroundColor = UIColor.Clear,
+				TextColor = UIColor.DarkGray //UIColor.FromRGBA(red: 80, green: 80, blue: 80, alpha: 1)
+			};
+            AddSubview(PriceLabel);	
+		}
+
+		private void LayoutUI(Product product)
+		{
+			if (product != null)
+			{
+				var leftInset = 0;
+				var cellWidht = 100;
+				var nameLabelTopRetreat = 5;
+				var nameLabelBottomRetreat = 5;
+
+				// Calculate size of product name text.
+				var nameString = new NSString(product.Name);
+				CGSize nameStringSize = nameString.GetSizeUsingAttributes(new UIStringAttributes { Font = nameLabelFont });
+
+				// Set frames to UI elements.
+				LogoImage.Frame = new CGRect(leftInset, 1, cellWidht, 100);
+
+				if (nameStringSize.Width < cellWidht - 10)
+				{
+					NameLabel.Frame = new CGRect(leftInset, LogoImage.Frame.Height + nameLabelTopRetreat, cellWidht, 15);
+				}
+				else
+				{
+					NameLabel.Frame = new CGRect(leftInset, LogoImage.Frame.Height + nameLabelTopRetreat, cellWidht, 30);
+				}
+
+				PriceLabel.Frame = new CGRect(leftInset, LogoImage.Frame.Height + nameLabelBottomRetreat + NameLabel.Frame.Height, cellWidht, 15);
+			}
+		}
+
+		#endregion
+
+		#region IUIViewControllerPreviewingDelegate implementation
+		public override void TraitCollectionDidChange(UITraitCollection previousTraitCollection)
         {
             // Must call base method
             base.TraitCollectionDidChange(previousTraitCollection);

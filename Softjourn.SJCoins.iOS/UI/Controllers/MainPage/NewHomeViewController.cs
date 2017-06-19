@@ -50,7 +50,7 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.Main
 			tableSource.NewHomeViewSource_ItemSelected += OnItemSelected;
 			tableSource.NewHomeViewSource_SeeAllClicked += OnSeeAllClicked;
 			tableSource.NewHomeViewSource_BuyExecuted += OnBuyActionClicked;
-			tableSource.NewHomeViewSource_AddDeleteFavoriteExecuted += TestHandler;
+			tableSource.NewHomeViewSource_AddDeleteFavoriteExecuted += OnFavoriteActionClicked;
 		}
 
 		public override void DetachEvents()
@@ -147,7 +147,7 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.Main
 			}
 		}
 
-		// -------------------- Event handlers --------------------
+		#region Event handlers
 		public void OnAccountClicked(object sender, EventArgs e)
 		{
 			// Trigg presenter that user click on account
@@ -182,7 +182,7 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.Main
 		{
 			
 		}
-		// --------------------------------------------------------
+		#endregion
 
 		// Throw TableView to parent
 		protected override UIScrollView GetRefreshableScrollView() => TableView;
