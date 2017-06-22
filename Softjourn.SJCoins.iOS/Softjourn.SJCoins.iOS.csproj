@@ -588,6 +588,7 @@
       <DependentUpon>NewHomeViewController.cs</DependentUpon>
     </Compile>
     <Compile Include="UI\Sources\NewInternalHomeViewSource.cs" />
+    <Compile Include="General\Constants\UIColorConstants.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
 </Project>

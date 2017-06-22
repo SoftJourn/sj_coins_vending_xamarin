@@ -26,6 +26,8 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.Main
 			base.ViewWillAppear(animated);
 
 			Logo.Layer.CornerRadius = 16;
+			Logo.Layer.BorderWidth = 1f / UIScreen.MainScreen.Scale;
+			Logo.Layer.BorderColor = UIColor.LightGray.CGColor;
 			Logo.Layer.MasksToBounds = true;
 			Logo.SetImage(url: new NSUrl(imageUrl), placeholder: UIImage.FromBundle(ImageConstants.Placeholder));
 		}

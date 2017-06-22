@@ -17,7 +17,7 @@ namespace Softjourn.SJCoins.iOS.UI.Sources
 
 		public override nint RowsInSection(UITableView tableview, nint section) => Categories.Count;
 
-		public override UITableViewCell GetCell(UITableView tableView, NSIndexPath indexPath)  => tableView.DequeueReusableCell(NewHomeCell.Key, indexPath);
+		public override UITableViewCell GetCell(UITableView tableView, NSIndexPath indexPath) => tableView.DequeueReusableCell(NewHomeCell.Key, indexPath);
 
 		public override void WillDisplay(UITableView tableView, UITableViewCell cell, NSIndexPath indexPath)
 		{

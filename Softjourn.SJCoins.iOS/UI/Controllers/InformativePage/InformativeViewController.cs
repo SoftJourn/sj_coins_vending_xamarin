@@ -104,14 +104,14 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.Informative
 		private void ConfigureFirstPage()
 		{
 			// set background color as first page and hide button
-			View.BackgroundColor = UIColor.FromRGB(246, 76, 115).ColorWithAlpha(1.0f);
+			View.BackgroundColor = UIColorConstants.FirstPageBackgroundColor;
 			GotItButton.Hidden = true;
 		}
 
 		private void ConfigureLastPage()
 		{
 			// set background color as last page and show button
-			View.BackgroundColor = UIColor.FromRGB(200, 115, 244).ColorWithAlpha(1.0f);
+			View.BackgroundColor = UIColorConstants.LastPageBackgroundColor;
 			GotItButton.Hidden = false;
 		}
 

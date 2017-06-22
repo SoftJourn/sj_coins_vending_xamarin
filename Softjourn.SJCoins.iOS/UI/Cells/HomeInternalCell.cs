@@ -123,7 +123,8 @@ namespace Softjourn.SJCoins.iOS
 				Font = nameLabelFont,
 				Lines = 2,
 				BackgroundColor = UIColor.Clear,
-				TextColor = UIColor.Black
+				TextColor = UIColor.Black,
+				LineBreakMode = UILineBreakMode.CharacterWrap
 			};
 			AddSubview(NameLabel);
 
@@ -132,7 +133,7 @@ namespace Softjourn.SJCoins.iOS
 				Font = UIFont.BoldSystemFontOfSize(11),
 				Lines = 1,
 				BackgroundColor = UIColor.Clear,
-				TextColor = UIColor.DarkGray //UIColor.FromRGBA(red: 80, green: 80, blue: 80, alpha: 1)
+				TextColor = UIColorConstants.PriceGoldColor
 			};
             AddSubview(PriceLabel);	
 		}

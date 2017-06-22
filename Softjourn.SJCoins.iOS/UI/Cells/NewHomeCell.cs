@@ -10,7 +10,7 @@ using Softjourn.SJCoins.iOS.General.Constants;
 
 namespace Softjourn.SJCoins.iOS
 {
-	public partial class NewHomeCell : UITableViewCell//, IUIViewControllerPreviewingDelegate
+	public partial class NewHomeCell : UITableViewCell
 	{
 		public static readonly NSString Key = new NSString("NewHomeCell");
 		public static readonly UINib Nib;

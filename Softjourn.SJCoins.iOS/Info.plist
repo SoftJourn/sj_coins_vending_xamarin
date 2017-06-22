@@ -2,6 +2,8 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>UIViewControllerBasedStatusBarAppearance</key>
+	<false/>
 	<key>CFBundleName</key>
 	<string>SJCoinsX</string>
 	<key>CFBundleIdentifier</key>
@@ -46,5 +48,7 @@
 	<string>This app needs access to photos.</string>
 	<key>CFBundleVersion</key>
 	<string>1</string>
+	<key>UIStatusBarStyle</key>
+	<string>UIStatusBarStyleLightContent</string>
 </dict>
 </plist>
