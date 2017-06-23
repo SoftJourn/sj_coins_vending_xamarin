@@ -38,7 +38,6 @@ namespace Softjourn.SJCoins.iOS
 			// Configure CollectionView
 			source = new NewInternalHomeViewSource();
 			CollectionView.Source = source;
-			//CollectionView.SetContentOffset(CollectionView.ContentOffset, false);
 
 			// Set products which need to be displayed 
 			categoryName = category.Name;

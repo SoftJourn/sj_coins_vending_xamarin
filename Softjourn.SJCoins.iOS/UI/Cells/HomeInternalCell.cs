@@ -18,9 +18,11 @@ namespace Softjourn.SJCoins.iOS
         public event EventHandler<Product> HomeInternalCell_FavoriteActionExecuted;
 
 		private UIFont nameLabelFont = UIFont.SystemFontOfSize(12);
+		private UIFont priceLabelFont = UIFont.BoldSystemFontOfSize(11);
 		private UIImageView LogoImage { get; set; }
 		private UILabel NameLabel { get; set; }
 		private UILabel PriceLabel { get; set; }
+		private UIImageView CoinImage { get; set; }
 		private Product Product { get; set; }
         private PreViewController previewController;
         private IUIViewControllerPreviewing previewing;
@@ -36,27 +38,21 @@ namespace Softjourn.SJCoins.iOS
 
         protected HomeInternalCell(IntPtr handle) : base(handle)
         {
-            // Note: this .ctor should not contain any initialization logic.
+			// Note: this .ctor should not contain any initialization logic.
         }
 
-        public override void AwakeFromNib()
-        {
-            base.AwakeFromNib();
-			SetUpUI();
-        }
+		//public override void LayoutSubviews()
+		//{
+		//	base.LayoutSubviews();
+		//	LayoutUI(Product);		
+		//}
 
-		public override void LayoutSubviews()
-		{
-		    base.LayoutSubviews();
-			LayoutUI(Product);
-		}
-
-        public void Fill(Product product)
+        public void ConfigureWith(Product product)
         {
 			this.Product = product;
-
+			LayoutUI(product);
 			NameLabel.Text = product.Name;
-            PriceLabel.Text = product.Price.ToString() + " coins";
+            PriceLabel.Text = product.Price.ToString();
             LogoImage.SetImage(url: new NSUrl(product.ImageFullUrl), placeholder: UIImage.FromBundle(ImageConstants.Placeholder));
 
 			// Register for preview
@@ -65,7 +61,7 @@ namespace Softjourn.SJCoins.iOS
 
         public void MarkFavorites(Product product)
 		{
-            if (product.IsProductInCurrentMachine)
+            if (product.IsProductInCurrentMachine) 
             {
 				LogoImage.Alpha = 1.0f;
                 NameLabel.Alpha = 1.0f;
@@ -86,6 +82,8 @@ namespace Softjourn.SJCoins.iOS
             PriceLabel.Text = "";
 			LogoImage.Image = null;
             LogoImage.Alpha = 1.0f;
+			CoinImage.Image = null;
+			CoinImage.Alpha = 1.0f;
             NameLabel.Alpha = 1.0f;
             PriceLabel.Alpha = 1.0f;
 
@@ -104,40 +102,60 @@ namespace Softjourn.SJCoins.iOS
             base.PrepareForReuse();
         }
 
-		#region Private methods
-		private void SetUpUI()
+		public void SetUpUI()
 		{
-			LogoImage = new UIImageView
+			if (LogoImage == null)
 			{
-				BackgroundColor = UIColor.White,
-				ContentMode = UIViewContentMode.ScaleAspectFit,
-				ClipsToBounds = true
-			};
-			LogoImage.Layer.CornerRadius = 16;
-			LogoImage.Layer.BorderWidth = 1f / UIScreen.MainScreen.Scale;
-			LogoImage.Layer.BorderColor = UIColor.LightGray.CGColor;
-			AddSubview(LogoImage);
+				LogoImage = new UIImageView
+				{
+					BackgroundColor = UIColor.Clear,
+					ContentMode = UIViewContentMode.ScaleAspectFit,
+					ClipsToBounds = true
+				};
+				LogoImage.Layer.CornerRadius = 16;
+				LogoImage.Layer.BorderWidth = 1f / UIScreen.MainScreen.Scale;
+				LogoImage.Layer.BorderColor = UIColor.LightGray.CGColor;
+				AddSubview(LogoImage);
+			}
 
-			NameLabel = new UILabel
+			if (NameLabel == null)
 			{
-				Font = nameLabelFont,
-				Lines = 2,
-				BackgroundColor = UIColor.Clear,
-				TextColor = UIColor.Black,
-				LineBreakMode = UILineBreakMode.CharacterWrap
-			};
-			AddSubview(NameLabel);
+				NameLabel = new UILabel
+				{
+					Font = nameLabelFont,
+					Lines = 2,
+					BackgroundColor = UIColor.Clear,
+					TextColor = UIColor.Clear,
+					LineBreakMode = UILineBreakMode.WordWrap
+				};
+				AddSubview(NameLabel);
+			}
 
-			PriceLabel = new UILabel
+			if (PriceLabel == null)
 			{
-				Font = UIFont.BoldSystemFontOfSize(11),
-				Lines = 1,
-				BackgroundColor = UIColor.Clear,
-				TextColor = UIColorConstants.PriceGoldColor
-			};
-            AddSubview(PriceLabel);	
+				PriceLabel = new UILabel
+				{
+					Font = priceLabelFont,
+					Lines = 1,
+					BackgroundColor = UIColor.Clear,
+					TextColor = UIColorConstants.PriceGoldColor
+				};
+				AddSubview(PriceLabel);
+			}
+
+			if (CoinImage == null)
+			{
+				CoinImage = new UIImageView
+				{
+					BackgroundColor = UIColor.Blue,
+					ContentMode = UIViewContentMode.ScaleAspectFit,
+					ClipsToBounds = true
+				};
+				AddSubview(LogoImage);
+			}
 		}
 
+		#region Private methods
 		private void LayoutUI(Product product)
 		{
 			if (product != null)
@@ -150,11 +168,14 @@ namespace Softjourn.SJCoins.iOS
 				// Calculate size of product name text.
 				var nameString = new NSString(product.Name);
 				CGSize nameStringSize = nameString.GetSizeUsingAttributes(new UIStringAttributes { Font = nameLabelFont });
+				// Calculate size of product price text.
+				var priceString = new NSString(product.Price.ToString());
+				CGSize priceStringSize = nameString.GetSizeUsingAttributes(new UIStringAttributes { Font = priceLabelFont });
 
 				// Set frames to UI elements.
 				LogoImage.Frame = new CGRect(leftInset, 1, cellWidht, 100);
 
-				if (nameStringSize.Width < cellWidht - 10)
+				if (nameStringSize.Width < cellWidht)
 				{
 					NameLabel.Frame = new CGRect(leftInset, LogoImage.Frame.Height + nameLabelTopRetreat, cellWidht, 15);
 				}
@@ -163,7 +184,8 @@ namespace Softjourn.SJCoins.iOS
 					NameLabel.Frame = new CGRect(leftInset, LogoImage.Frame.Height + nameLabelTopRetreat, cellWidht, 30);
 				}
 
-				PriceLabel.Frame = new CGRect(leftInset, LogoImage.Frame.Height + nameLabelBottomRetreat + NameLabel.Frame.Height, cellWidht, 15);
+				PriceLabel.Frame = new CGRect(leftInset, LogoImage.Frame.Height + nameLabelBottomRetreat + NameLabel.Frame.Height, priceStringSize.Width, 15);
+				CoinImage.Frame = new CGRect(priceStringSize.Width + 3, LogoImage.Frame.Height + nameLabelBottomRetreat + NameLabel.Frame.Height, 15, 15);
 			}
 		}
 

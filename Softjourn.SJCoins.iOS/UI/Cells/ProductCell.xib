@@ -67,6 +67,7 @@
                     <constraint firstItem="RmD-Yl-Ems" firstAttribute="centerY" secondItem="YTl-1W-gDM" secondAttribute="centerY" id="yTm-2k-Qbx"/>
                 </constraints>
             </tableViewCellContentView>
+            <color key="backgroundColor" red="0.98224609380000005" green="0.98224609380000005" blue="0.9815551924" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <connections>
                 <outlet property="FavoriteButton" destination="PHV-Hh-Vwr" id="4pa-Z6-auo"/>
                 <outlet property="ImageLogo" destination="RmD-Yl-Ems" id="Ncx-2R-yBQ"/>

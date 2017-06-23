@@ -1,4 +1,5 @@
 ﻿using System;
+using CoreGraphics;
 using Foundation;
 using Softjourn.SJCoins.Core.API.Model.Products;
 using Softjourn.SJCoins.iOS.General.Constants;
@@ -16,31 +17,24 @@ namespace Softjourn.SJCoins.iOS.UI.Sources
 
 		public override nint GetItemsCount(UICollectionView collectionView, nint section) => Category.Products.Count;
 
-		public override UICollectionViewCell GetCell(UICollectionView collectionView, NSIndexPath indexPath)
-		{
-			var cell = (HomeInternalCell)collectionView.DequeueReusableCell(HomeInternalCell.Key, indexPath);
-			var item = Category.Products[indexPath.Row];
-
-			if (Category.Name == Const.FavoritesCategory)
-				cell.MarkFavorites(item);
-
-			return cell;
-		}
+		public override UICollectionViewCell GetCell(UICollectionView collectionView, NSIndexPath indexPath) => (HomeInternalCell)collectionView.DequeueReusableCell(HomeInternalCell.Key, indexPath);
 
 		public override void WillDisplayCell(UICollectionView collectionView, UICollectionViewCell cell, NSIndexPath indexPath)
 		{
 			var _cell = (HomeInternalCell)cell;
-			_cell.HomeInternalCell_BuyActionExecuted -= NewInternalHomeViewSource_BuyActionExecuted;
-			_cell.HomeInternalCell_BuyActionExecuted += NewInternalHomeViewSource_BuyActionExecuted;
-
-			_cell.HomeInternalCell_FavoriteActionExecuted -= NewInternalHomeViewSource_FavoriteActionExecuted;
-			_cell.HomeInternalCell_FavoriteActionExecuted += NewInternalHomeViewSource_FavoriteActionExecuted;
-            _cell.Fill(Category.Products[indexPath.Row]);
+			_cell.SetUpUI();
+			_cell.ConfigureWith(Category.Products[indexPath.Row]);
 
 			if (Category.Name == Const.FavoritesCategory)
 			{
 				_cell.MarkFavorites(Category.Products[indexPath.Row]);
 			}
+
+			_cell.HomeInternalCell_BuyActionExecuted -= NewInternalHomeViewSource_BuyActionExecuted;
+			_cell.HomeInternalCell_BuyActionExecuted += NewInternalHomeViewSource_BuyActionExecuted;
+
+			_cell.HomeInternalCell_FavoriteActionExecuted -= NewInternalHomeViewSource_FavoriteActionExecuted;
+			_cell.HomeInternalCell_FavoriteActionExecuted += NewInternalHomeViewSource_FavoriteActionExecuted;
 		}
 
 		public override void CellDisplayingEnded(UICollectionView collectionView, UICollectionViewCell cell, NSIndexPath indexPath)
