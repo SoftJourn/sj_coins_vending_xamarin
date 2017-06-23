@@ -21,7 +21,6 @@ namespace Softjourn.SJCoins.iOS
 		public event EventHandler<Product> NewHomeCell_ItemSelected;
 
 		private string categoryName;
-		private List<Product> categoryProducts;
 		private NewInternalHomeViewSource source;
 
 		static NewHomeCell()
@@ -34,20 +33,18 @@ namespace Softjourn.SJCoins.iOS
 			// Note: this .ctor should not contain any initialization logic.
 		}
 
-		public void ConfigureWith(Categories category, NewInternalHomeViewSource source, int row)
+		public void ConfigureWith(Categories category)
 		{
+			// Configure CollectionView
+			source = new NewInternalHomeViewSource();
+			CollectionView.Source = source;
+			//CollectionView.SetContentOffset(CollectionView.ContentOffset, false);
 
-			// Set category name
+			// Set products which need to be displayed 
 			categoryName = category.Name;
 			NameLabel.Text = categoryName;
-			// Set products which need to be displayed 
-			this.source = source;
-			categoryProducts = category.Products;
-			source.Products = categoryProducts;
-			source.CategoryName = categoryName;
-			// Configure CollectionView
-			CollectionView.Source = source;
-			CollectionView.SetContentOffset(CollectionView.ContentOffset, false);
+			source.Category = category;
+
 			CollectionView.ReloadData();
 
 			//Attach
@@ -69,7 +66,6 @@ namespace Softjourn.SJCoins.iOS
 			NameLabel.Text = "";
 			CollectionView.Source = null;
 			categoryName = null;
-			categoryProducts = null;
 
 			ShowAllButton.TouchUpInside -= NewHomeCell_OnSeeAllClickedHandler;
 

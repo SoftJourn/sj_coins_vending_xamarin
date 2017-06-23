@@ -246,7 +246,7 @@
                                             <subviews>
                                                 <label clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="NameLabel" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bAt-J9-qG0" userLabel="NameLabel">
                                                     <rect key="frame" x="10" y="8" width="236" height="25"/>
-                                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                    <color key="backgroundColor" red="0.98224609380000005" green="0.98224609380000005" blue="0.9815551924" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="25" id="fKu-Ma-yIM"/>
                                                     </constraints>
@@ -256,7 +256,7 @@
                                                 </label>
                                                 <button clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="right" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fpi-Zj-jJu">
                                                     <rect key="frame" x="245" y="8" width="65" height="25"/>
-                                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                    <color key="backgroundColor" red="0.98224609380000005" green="0.98224609380000005" blue="0.9815551924" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="65" id="QTn-Ax-RfY"/>
                                                         <constraint firstAttribute="height" constant="25" id="mYn-b1-k4M"/>
@@ -267,42 +267,42 @@
                                                     </state>
                                                 </button>
                                                 <collectionView clipsSubviews="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="ym5-nb-bwv">
-                                                    <rect key="frame" x="10" y="39" width="310" height="151"/>
-                                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                    <rect key="frame" x="0.0" y="39" width="320" height="151"/>
+                                                    <color key="backgroundColor" red="0.98224609380000005" green="0.98224609380000005" blue="0.9815551924" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <inset key="scrollIndicatorInsets" minX="0.0" minY="0.0" maxX="0.0" maxY="10"/>
                                                     <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="16" minimumInteritemSpacing="0.0" id="ScE-Qd-aNo">
                                                         <size key="itemSize" width="100" height="150"/>
                                                         <size key="headerReferenceSize" width="0.0" height="0.0"/>
                                                         <size key="footerReferenceSize" width="0.0" height="0.0"/>
-                                                        <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                                        <inset key="sectionInset" minX="10" minY="0.0" maxX="0.0" maxY="0.0"/>
                                                     </collectionViewFlowLayout>
                                                     <cells>
                                                         <collectionViewCell clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="center" reuseIdentifier="HomeInternalCell" id="LyT-2K-FD1" customClass="HomeInternalCell">
-                                                            <rect key="frame" x="0.0" y="0.5" width="100" height="150"/>
+                                                            <rect key="frame" x="10" y="0.5" width="100" height="150"/>
                                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                             <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
                                                                 <rect key="frame" x="0.0" y="0.0" width="100" height="150"/>
                                                                 <autoresizingMask key="autoresizingMask"/>
                                                             </view>
-                                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                            <color key="backgroundColor" red="0.98224609380000005" green="0.98224609380000005" blue="0.9815551924" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                         </collectionViewCell>
                                                     </cells>
                                                 </collectionView>
                                             </subviews>
-                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                            <color key="backgroundColor" red="0.98224609380000005" green="0.98224609380000005" blue="0.9815551924" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <constraints>
-                                                <constraint firstItem="ym5-nb-bwv" firstAttribute="leading" secondItem="bAt-J9-qG0" secondAttribute="leading" id="6aA-HS-wgn"/>
                                                 <constraint firstItem="bAt-J9-qG0" firstAttribute="leading" secondItem="5Zq-5h-N7A" secondAttribute="leading" constant="10" id="Chr-eF-esC"/>
                                                 <constraint firstItem="fpi-Zj-jJu" firstAttribute="leading" secondItem="bAt-J9-qG0" secondAttribute="trailing" constant="-1" id="DHR-m9-AEr"/>
                                                 <constraint firstAttribute="trailing" secondItem="fpi-Zj-jJu" secondAttribute="trailing" constant="10" id="GxM-Bt-Ldw"/>
                                                 <constraint firstAttribute="bottom" secondItem="ym5-nb-bwv" secondAttribute="bottom" constant="4" id="L72-tn-cWB"/>
-                                                <constraint firstAttribute="trailing" secondItem="ym5-nb-bwv" secondAttribute="trailing" id="Pjd-zb-l9b"/>
+                                                <constraint firstItem="ym5-nb-bwv" firstAttribute="leading" secondItem="5Zq-5h-N7A" secondAttribute="leading" id="TIG-iE-TV7"/>
+                                                <constraint firstItem="ym5-nb-bwv" firstAttribute="width" secondItem="5Zq-5h-N7A" secondAttribute="width" id="bA3-Ts-HFM"/>
                                                 <constraint firstItem="fpi-Zj-jJu" firstAttribute="top" secondItem="5Zq-5h-N7A" secondAttribute="top" constant="8" id="o3f-uZ-6qh"/>
                                                 <constraint firstItem="ym5-nb-bwv" firstAttribute="top" secondItem="bAt-J9-qG0" secondAttribute="bottom" constant="6" id="rld-IJ-NIe"/>
                                                 <constraint firstItem="bAt-J9-qG0" firstAttribute="centerY" secondItem="fpi-Zj-jJu" secondAttribute="centerY" id="yl6-H3-63n"/>
                                             </constraints>
                                         </tableViewCellContentView>
-                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        <color key="backgroundColor" red="0.98224609380000005" green="0.98224609380000005" blue="0.9815551924" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <connections>
                                             <outlet property="CollectionView" destination="ym5-nb-bwv" id="Set-Bn-Tkd"/>
                                             <outlet property="NameLabel" destination="bAt-J9-qG0" id="M2S-zD-KjF"/>
@@ -318,6 +318,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                         </subviews>
+                        <color key="backgroundColor" red="0.98224609380000005" green="0.98224609380000005" blue="0.9815551924" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="t0d-7m-DEn" firstAttribute="height" secondItem="NQF-7g-8dV" secondAttribute="height" id="A8q-OY-BCC"/>
                             <constraint firstItem="Moe-sz-kgb" firstAttribute="width" secondItem="NQF-7g-8dV" secondAttribute="width" multiplier="0.8" id="KvM-iP-Nsw"/>

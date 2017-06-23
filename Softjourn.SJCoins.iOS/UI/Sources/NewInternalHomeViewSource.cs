@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using Foundation;
 using Softjourn.SJCoins.Core.API.Model.Products;
 using Softjourn.SJCoins.iOS.General.Constants;
@@ -9,20 +8,20 @@ namespace Softjourn.SJCoins.iOS.UI.Sources
 {
 	public class NewInternalHomeViewSource : UICollectionViewSource, IDisposable
 	{
-		public List<Product> Products { get; set; } = new List<Product>();
-		public string CategoryName { get; set; }
+		public Categories Category { get; set; } = new Categories();
+
 		public event EventHandler<Product> NewInternalHomeViewSource_ItemSelected;
 		public event EventHandler<Product> NewInternalHomeViewSource_BuyActionExecuted;
 		public event EventHandler<Product> NewInternalHomeViewSource_FavoriteActionExecuted;
 
-		public override nint GetItemsCount(UICollectionView collectionView, nint section) => Products.Count;
+		public override nint GetItemsCount(UICollectionView collectionView, nint section) => Category.Products.Count;
 
 		public override UICollectionViewCell GetCell(UICollectionView collectionView, NSIndexPath indexPath)
 		{
 			var cell = (HomeInternalCell)collectionView.DequeueReusableCell(HomeInternalCell.Key, indexPath);
-			var item = Products[indexPath.Row];
+			var item = Category.Products[indexPath.Row];
 
-			if (CategoryName == Const.FavoritesCategory)
+			if (Category.Name == Const.FavoritesCategory)
 				cell.MarkFavorites(item);
 
 			return cell;
@@ -36,11 +35,11 @@ namespace Softjourn.SJCoins.iOS.UI.Sources
 
 			_cell.HomeInternalCell_FavoriteActionExecuted -= NewInternalHomeViewSource_FavoriteActionExecuted;
 			_cell.HomeInternalCell_FavoriteActionExecuted += NewInternalHomeViewSource_FavoriteActionExecuted;
-            _cell.Fill(Products[indexPath.Row]);
+            _cell.Fill(Category.Products[indexPath.Row]);
 
-			if (CategoryName == Const.FavoritesCategory)
+			if (Category.Name == Const.FavoritesCategory)
 			{
-				_cell.MarkFavorites(Products[indexPath.Row]);
+				_cell.MarkFavorites(Category.Products[indexPath.Row]);
 			}
 		}
 
@@ -53,7 +52,7 @@ namespace Softjourn.SJCoins.iOS.UI.Sources
 
 		public override void ItemSelected(UICollectionView collectionView, NSIndexPath indexPath)
 		{
-			NewInternalHomeViewSource_ItemSelected?.Invoke(this, Products[indexPath.Row]);
+			NewInternalHomeViewSource_ItemSelected?.Invoke(this, Category.Products[indexPath.Row]);
 		}
 
 		protected override void Dispose(bool disposing)

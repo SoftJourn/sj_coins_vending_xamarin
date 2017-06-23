@@ -126,7 +126,7 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.Main
 			MyBalanceLabel.Text = "";
 			NavigationItem.RightBarButtonItem = null;
 
-			// Configure datasource and delegate
+			// Configure datasource and delegate 
 			TableView.Source = tableSource;
 			TableView.AlwaysBounceVertical = true;
 		}
@@ -176,11 +176,6 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.Main
 		{
 			// Trigg presenter that user click Favorite action on preview page 
 			Presenter.OnFavoriteClick(product);
-		}
-
-		public void TestHandler(object sender, Product product)
-		{
-			
 		}
 		#endregion
 
