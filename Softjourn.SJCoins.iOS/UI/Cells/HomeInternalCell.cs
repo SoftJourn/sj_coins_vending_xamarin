@@ -39,22 +39,10 @@ namespace Softjourn.SJCoins.iOS
             // Note: this .ctor should not contain any initialization logic.
         }
 
-        public override void AwakeFromNib()
-        {
-            base.AwakeFromNib();
-			SetUpUI();
-        }
-
-		public override void LayoutSubviews()
-		{
-		    base.LayoutSubviews();
-			LayoutUI(Product);
-		}
-
         public void Fill(Product product)
         {
 			this.Product = product;
-
+			LayoutUI(product);
 			NameLabel.Text = product.Name;
             PriceLabel.Text = product.Price.ToString() + " coins";
             LogoImage.SetImage(url: new NSUrl(product.ImageFullUrl), placeholder: UIImage.FromBundle(ImageConstants.Placeholder));
@@ -104,41 +92,50 @@ namespace Softjourn.SJCoins.iOS
             base.PrepareForReuse();
         }
 
-		#region Private methods
-		private void SetUpUI()
+		//#region Private methods
+		public void SetUpUI()
 		{
-			LogoImage = new UIImageView
+			if (LogoImage == null)
 			{
-				BackgroundColor = UIColor.White,
-				ContentMode = UIViewContentMode.ScaleAspectFit,
-				ClipsToBounds = true
-			};
-			LogoImage.Layer.CornerRadius = 16;
-			LogoImage.Layer.BorderWidth = 1f / UIScreen.MainScreen.Scale;
-			LogoImage.Layer.BorderColor = UIColor.LightGray.CGColor;
-			AddSubview(LogoImage);
+				LogoImage = new UIImageView
+				{
+					BackgroundColor = UIColor.White,
+					ContentMode = UIViewContentMode.ScaleAspectFit,
+					ClipsToBounds = true
+				};
+				LogoImage.Layer.CornerRadius = 16;
+				LogoImage.Layer.BorderWidth = 1f / UIScreen.MainScreen.Scale;
+				LogoImage.Layer.BorderColor = UIColor.LightGray.CGColor;
+				AddSubview(LogoImage);
+			}
 
-			NameLabel = new UILabel
+			if (NameLabel == null)
 			{
-				Font = nameLabelFont,
-				Lines = 2,
-				BackgroundColor = UIColor.Clear,
-				TextColor = UIColor.Black,
-				LineBreakMode = UILineBreakMode.CharacterWrap
-			};
-			AddSubview(NameLabel);
+				NameLabel = new UILabel
+				{
+					Font = nameLabelFont,
+					Lines = 2,
+					BackgroundColor = UIColor.Clear,
+					TextColor = UIColor.Black,
+					LineBreakMode = UILineBreakMode.CharacterWrap
+				};
+				AddSubview(NameLabel);
+			}
 
-			PriceLabel = new UILabel
+			if (PriceLabel == null)
 			{
-				Font = UIFont.BoldSystemFontOfSize(11),
-				Lines = 1,
-				BackgroundColor = UIColor.Clear,
-				TextColor = UIColorConstants.PriceGoldColor
-			};
-            AddSubview(PriceLabel);	
+				PriceLabel = new UILabel
+				{
+					Font = UIFont.BoldSystemFontOfSize(11),
+					Lines = 1,
+					BackgroundColor = UIColor.Clear,
+					TextColor = UIColorConstants.PriceGoldColor
+				};
+				AddSubview(PriceLabel);
+			}
 		}
 
-		private void LayoutUI(Product product)
+		public void LayoutUI(Product product)
 		{
 			if (product != null)
 			{
@@ -166,8 +163,7 @@ namespace Softjourn.SJCoins.iOS
 				PriceLabel.Frame = new CGRect(leftInset, LogoImage.Frame.Height + nameLabelBottomRetreat + NameLabel.Frame.Height, cellWidht, 15);
 			}
 		}
-
-		#endregion
+		//#endregion
 
 		#region IUIViewControllerPreviewingDelegate implementation
 		public override void TraitCollectionDidChange(UITraitCollection previousTraitCollection)

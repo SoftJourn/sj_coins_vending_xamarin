@@ -20,28 +20,25 @@ namespace Softjourn.SJCoins.iOS.UI.Sources
 		public override UICollectionViewCell GetCell(UICollectionView collectionView, NSIndexPath indexPath)
 		{
 			var cell = (HomeInternalCell)collectionView.DequeueReusableCell(HomeInternalCell.Key, indexPath);
-			var item = Products[indexPath.Row];
-
-			if (CategoryName == Const.FavoritesCategory)
-				cell.MarkFavorites(item);
-
+			cell.SetUpUI();
 			return cell;
 		}
 
 		public override void WillDisplayCell(UICollectionView collectionView, UICollectionViewCell cell, NSIndexPath indexPath)
 		{
 			var _cell = (HomeInternalCell)cell;
+			_cell.Fill(Products[indexPath.Row]);
+
+			if (CategoryName == Const.FavoritesCategory)
+			{
+				_cell.MarkFavorites(Products[indexPath.Row]);
+			}
 			_cell.HomeInternalCell_BuyActionExecuted -= NewInternalHomeViewSource_BuyActionExecuted;
 			_cell.HomeInternalCell_BuyActionExecuted += NewInternalHomeViewSource_BuyActionExecuted;
 
 			_cell.HomeInternalCell_FavoriteActionExecuted -= NewInternalHomeViewSource_FavoriteActionExecuted;
 			_cell.HomeInternalCell_FavoriteActionExecuted += NewInternalHomeViewSource_FavoriteActionExecuted;
             _cell.Fill(Products[indexPath.Row]);
-
-			if (CategoryName == Const.FavoritesCategory)
-			{
-				_cell.MarkFavorites(Products[indexPath.Row]);
-			}
 		}
 
 		public override void CellDisplayingEnded(UICollectionView collectionView, UICollectionViewCell cell, NSIndexPath indexPath)
