@@ -1,6 +1,5 @@
 using System;
 using Autofac;
-using BigTed;
 using Foundation;
 using Softjourn.SJCoins.Core.UI.Presenters;
 using Softjourn.SJCoins.Core.UI.ViewInterfaces;
@@ -15,6 +14,8 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers
 	{
 		#region Properties
 		private KeyboardScrollService _scrollService;
+        private LoginPageTextFieldsDelegate loginTextFieldDelegate = new LoginPageTextFieldsDelegate();
+		private LoginPageTextFieldsDelegate passwordTextFieldDelegate = new LoginPageTextFieldsDelegate();
 		#endregion
 
 		#region Constructor
@@ -28,20 +29,26 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers
 		{
 			base.ViewDidLoad();
 
-			LoginTextField.Delegate = new TextDieldDelegate(this);
-			PasswordTextField.Delegate = new TextDieldDelegate(this);
+            LoginTextField.Delegate = loginTextFieldDelegate;
+			PasswordTextField.Delegate = passwordTextFieldDelegate;
+			_scrollService = new KeyboardScrollService(ScrollView);
 		}
 
 		public override void ViewWillAppear(bool animated)
 		{
 			base.ViewWillAppear(animated);
 
-			_scrollService = new KeyboardScrollService(ScrollView);
-			_scrollService.AttachToKeyboardNotifications();
-
 			//Hide error labels before view appears
 			LoginErrorLabel.Hidden = true;
 			PasswordErrorLabel.Hidden = true;
+		}
+
+		public override void ViewWillDisappear(bool animated)
+		{
+			base.ViewWillDisappear(animated);
+			_scrollService = null;
+			loginTextFieldDelegate = null;
+			passwordTextFieldDelegate = null;
 		}
 		#endregion
 
@@ -84,18 +91,23 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers
 			base.AttachEvents();
 			BackButton.TouchUpInside += BackButtonClicked;
 			LoginButton.TouchUpInside += LoginButtonClicked;
+            loginTextFieldDelegate.ShouldReturnEvent += TextFieldShouldReturn;
+			passwordTextFieldDelegate.ShouldReturnEvent += TextFieldShouldReturn;
+			_scrollService.AttachToKeyboardNotifications();
 		}
 
 		public override void DetachEvents()
 		{
 			BackButton.TouchUpInside -= BackButtonClicked;
 			LoginButton.TouchUpInside -= LoginButtonClicked;
+            loginTextFieldDelegate.ShouldReturnEvent -= TextFieldShouldReturn; 
+            passwordTextFieldDelegate.ShouldReturnEvent -= TextFieldShouldReturn;
+            _scrollService.DetachToKeyboardNotifications();
 			base.DetachEvents();
 		}
-		#endregion
+		#endregion 
 
-		#region Private methods
-		// -------------------- Event handlers --------------------
+		#region Event handlers
 		private void BackButtonClicked(object sender, EventArgs e)
 		{
 			Presenter.ToWelcomePage();
@@ -105,38 +117,19 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers
 		{
 			Presenter.Login(LoginTextField.Text, PasswordTextField.Text);
 		}
-		#endregion
 
-		#region UITextFieldDelegate implementation
-		private class TextDieldDelegate : UITextFieldDelegate
+        private void TextFieldShouldReturn(object sender, UITextField textField)
 		{
-			private WeakReference parent;
-
-			public TextDieldDelegate(LoginViewController parent)
+			if (textField == LoginTextField)
 			{
-				this.parent = new WeakReference(parent);
+			  PasswordTextField.BecomeFirstResponder();
 			}
-
-			public override bool ShouldChangeCharacters(UITextField textField, NSRange range, string replacementString)
+			if (textField == PasswordTextField)
 			{
-				return replacementString == " " ? false : true;
+			  PasswordTextField.ResignFirstResponder();
+			  textField.ReturnKeyType = UIReturnKeyType.Done;
 			}
-
-			public override bool ShouldReturn(UITextField textField)
-			{
-				var loginController = parent.Target as LoginViewController;
-				if (textField == loginController.LoginTextField)
-				{
-					loginController.PasswordTextField.BecomeFirstResponder();
-				}
-				if (textField == loginController.PasswordTextField)
-				{
-					loginController.PasswordTextField.ResignFirstResponder();
-					textField.ReturnKeyType = UIReturnKeyType.Done;
-				}
-				return true;
-			}
-			#endregion
 		}
+		#endregion 
 	}
 }

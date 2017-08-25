@@ -7,18 +7,18 @@
 using Foundation;
 using System.CodeDom.Compiler;
 
-namespace Softjourn.SJCoins.iOS.UI.Controllers.Informative
+namespace Softjourn.SJCoins.iOS
 {
-	partial class InformativeViewController
+	partial class InformativeFavoritesPage
 	{
 		[Outlet]
-		UIKit.UIPageControl PageControl { get; set; }
+		UIKit.UIButton GotItButton { get; set; }
 		
 		void ReleaseDesignerOutlets ()
 		{
-			if (PageControl != null) {
-				PageControl.Dispose ();
-				PageControl = null;
+			if (GotItButton != null) {
+				GotItButton.Dispose ();
+				GotItButton = null;
 			}
 		}
 	}

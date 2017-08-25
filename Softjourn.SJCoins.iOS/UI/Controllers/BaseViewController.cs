@@ -62,6 +62,7 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers
 			InitPresenter();
 			Presenter.AttachView(this);
 			AttachPullToRefresh();
+            System.Diagnostics.Debug.WriteLine(String.Format("{0} created", this.GetType()));
 		}
 
 		public override void ViewWillAppear(bool animated)
@@ -71,6 +72,7 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers
 			Presenter.ViewShowed();
 			currentApplication.VisibleViewController = this;
 		}
+
 		public override void ViewDidAppear(bool animated)
 		{
 			base.ViewDidAppear(animated);
@@ -89,7 +91,7 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers
 			base.Dispose(disposing);
 			Presenter = null;
 			GC.Collect(GC.MaxGeneration);
-			System.Diagnostics.Debug.WriteLine(String.Format("{0} controller disposed", this.GetType()));
+			System.Diagnostics.Debug.WriteLine(String.Format("{0} disposed", this.GetType()));
 		}
 		#endregion
 

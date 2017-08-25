@@ -22,7 +22,7 @@ namespace Softjourn.SJCoins.Core.UI.Presenters
 
             if (!Validators.IsUserNameEmpty(userName))
             {
-                View.SetPasswordError(Resources.StringResources.activity_login_empty_username);
+                View.SetUsernameError(Resources.StringResources.activity_login_empty_username);
                 return;
             }
 

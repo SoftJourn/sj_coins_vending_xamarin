@@ -1,5 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+﻿<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">iPhoneSimulator</Platform>
@@ -493,6 +492,7 @@
     <Compile Include="UI\Controllers\LoginViewController.designer.cs" />
     <Compile Include="UI\Controllers\InformativePage\InformativeViewController.cs" />
     <Compile Include="UI\Controllers\InformativePage\InformativeViewController.designer.cs" />
+    <Compile Include="UI\Controllers\InformativePage\InformativeFavoritesPage.cs" />
     <Compile Include="UI\Services\AlertService.cs" />
     <Compile Include="UI\Services\LoaderService.cs" />
     <Compile Include="UI\Services\KeyboardScrollService.cs" />
@@ -596,6 +596,10 @@
       <DependentUpon>NewHomeViewController.cs</DependentUpon>
     </Compile>
     <Compile Include="UI\Sources\NewInternalHomeViewSource.cs" />
+    <Compile Include="UI\Controllers\InformativePage\InformativeFavoritesPage.designer.cs">
+      <DependentUpon>InformativeFavoritesPage.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Delegates\LoginTextFieldDelegate.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
 </Project>

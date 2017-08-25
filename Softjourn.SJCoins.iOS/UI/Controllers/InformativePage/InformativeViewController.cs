@@ -21,6 +21,7 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.Informative
 		private PageViewDataSource pageDataSource;
 		private PageViewDelegate pageDelegate;
 		private int currentIndex = 0;
+        private InformativeFavoritesPage favoritePage;
 		#endregion
 
 		#region Controller Life cycle
@@ -36,23 +37,33 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.Informative
 			//Set configuration of internal view elements
 			ConfigurePageViewController();
 			ConfigurePageControl();
-			ConfigureGotItButton();
 			ConfigureFirstPage();
+		}
+
+		public override void ViewWillDisappear(bool animated)
+		{
+			base.ViewWillDisappear(animated);
+			pageViewController = null;
+			pages = null;
+			pageDataSource = null;
+			pageDelegate = null;
+			favoritePage = null;
+            PageControl = null;
 		}
 		#endregion
 
 		#region BaseViewController -> IBaseView implementation
 		public override void AttachEvents()
 		{
-			// ToLoginPage event
-			GotItButton.TouchUpInside += GotItButtonClickHandler;
+            // ToLoginPage event
+            favoritePage.GotItButtonTapped += GotItButtonClickHandler;
 			pageDelegate.CurrentIndexChanged += PageChangeHandler;
 		}
 
 		public override void DetachEvents()
 		{
 			// ToLoginPage event
-			GotItButton.TouchUpInside -= GotItButtonClickHandler;
+			favoritePage.GotItButtonTapped -= GotItButtonClickHandler;
 			pageDelegate.CurrentIndexChanged -= PageChangeHandler;
 		}
 		#endregion
@@ -67,7 +78,8 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.Informative
 			_pages.Add(Instantiate(StoryboardConstants.StoryboardLogin, StoryboardConstants.InformativeLoginPage));
 			_pages.Add(Instantiate(StoryboardConstants.StoryboardLogin, StoryboardConstants.InformativeBuyPage));
 			_pages.Add(Instantiate(StoryboardConstants.StoryboardLogin, StoryboardConstants.InformativeCoinsPage));
-			_pages.Add(Instantiate(StoryboardConstants.StoryboardLogin, StoryboardConstants.InformativeFavoritesPage));
+            favoritePage = Instantiate(StoryboardConstants.StoryboardLogin, StoryboardConstants.InformativeFavoritesPage) as InformativeFavoritesPage;
+			_pages.Add(favoritePage);
 			return _pages;
 		}
 
@@ -88,34 +100,26 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.Informative
 			View.AddSubview(this.pageViewController.View);
 		}
 
-		private void ConfigurePageControl()
-		{
-			View.BringSubviewToFront(PageControl);
-			PageControl.Pages = pages.Count;
-			PageControl.CurrentPage = 0;
-		}
-
-		private void ConfigureGotItButton()
-		{
-			View.BringSubviewToFront(GotItButton);
-			GotItButton.Hidden = true;
-		}
+        private void ConfigurePageControl()
+        {
+            View.BringSubviewToFront(PageControl);
+            PageControl.Pages = pages.Count;
+            PageControl.CurrentPage = 0;
+        }
 
 		private void ConfigureFirstPage()
 		{
 			// set background color as first page and hide button
 			View.BackgroundColor = UIColor.FromRGB(246, 76, 115).ColorWithAlpha(1.0f);
-			GotItButton.Hidden = true;
 		}
 
 		private void ConfigureLastPage()
 		{
 			// set background color as last page and show button
 			View.BackgroundColor = UIColor.FromRGB(200, 115, 244).ColorWithAlpha(1.0f);
-			GotItButton.Hidden = false;
 		}
 
-		// -------------------- Event handlers --------------------
+		#region Event handlers
 		private void GotItButtonClickHandler(object sender, EventArgs e)
 		{
 			Presenter.ToLoginScreen();
@@ -132,7 +136,7 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.Informative
 			else
 				ConfigureFirstPage();
 		}
-		// -------------------------------------------------------- 
-		#endregion
+		#endregion Event handlers
+		#endregion Private methods
 	}
 }

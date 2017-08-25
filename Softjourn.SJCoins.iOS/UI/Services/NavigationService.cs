@@ -22,14 +22,12 @@ namespace Softjourn.SJCoins.iOS.Services
 		#region INavigationService implementation
 		public void NavigateTo(NavigationPage page, object initialParameter = null)
 		{
-			try { Present(page, initialParameter); }
-			catch { throw new Exception("Navigation to controller went wrong"); }
+            Present(page, initialParameter);
 		}
 
 		public void NavigateToAsRoot(NavigationPage page)
 		{
-			try { PresentAsRoot(InitializeControllerWith(page)); }
-			catch { throw new Exception("Navigation to rootController went wrong"); }
+            PresentAsRoot(InitializeControllerWith(page));
 		}
 		#endregion
 
