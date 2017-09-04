@@ -11,7 +11,7 @@ using UIKit;
 namespace Softjourn.SJCoins.iOS.UI.Controllers.Main
 {
 	[Register("NewHomeViewController")]
-	public partial class NewHomeViewController: BaseViewController<HomePresenter>, IHomeView
+    public partial class NewHomeViewController: BaseViewController<HomePresenter>, IHomeView, IDisposable
 	{
 		#region Properties
 		public List<Categories> Categories { get; private set; }
@@ -32,6 +32,7 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.Main
 			base.ViewDidLoad();
 			ConfigurePage();
 			Presenter.OnStartLoadingPage();
+            TableView.Alpha = 0;
 		}
 
 		public override void ViewWillAppear(bool animated)
@@ -103,6 +104,7 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.Main
 			// Send downloaded data to dataSource and show them on view
 			tableSource.Categories = Categories;
 			TableView.ReloadData();
+            UIView.Animate(0.5, 0, UIViewAnimationOptions.CurveEaseIn, () => { TableView.Alpha = 1.0f; }, null);
 		}
 
 		public void LastUnavailableFavoriteRemoved(Product product)
@@ -144,8 +146,9 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.Main
 				TableView.ReloadData();
 			}
 		}
+		#endregion
 
-		// -------------------- Event handlers --------------------
+		#region Event handlers
 		public void OnAccountClicked(object sender, EventArgs e)
 		{
 			// Trigg presenter that user click on account
@@ -175,9 +178,9 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.Main
 			// Trigg presenter that user click Favorite action on preview page 
 			Presenter.OnFavoriteClick(product);
 		}
-		// --------------------------------------------------------
+		#endregion
 
-		// Throw TableView to parent
+		#region Throw TableView to parent 
 		protected override UIScrollView GetRefreshableScrollView() => TableView;
 
 		protected override void PullToRefreshTriggered(object sender, System.EventArgs e)
@@ -188,5 +191,10 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.Main
 		}
 		#endregion
 
+		protected override void Dispose(bool disposing)
+		{
+			System.Diagnostics.Debug.WriteLine(String.Format("{0} object disposed", this.GetType()));
+			base.Dispose(disposing);
+		}
 	}
 }

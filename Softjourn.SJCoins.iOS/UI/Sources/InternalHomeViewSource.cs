@@ -7,11 +7,12 @@ using UIKit;
 
 namespace Softjourn.SJCoins.iOS.UI.Sources
 {
-	public class NewInternalHomeViewSource : UICollectionViewSource, IDisposable
+	public class InternalHomeViewSource : UICollectionViewSource, IDisposable
 	{
+		// Horizontal CollectionView flowlayout delegate object.
+
 		public List<Product> Products { get; set; } = new List<Product>();
 		public string CategoryName { get; set; }
-		public event EventHandler<Product> NewInternalHomeViewSource_ItemSelected;
 
 		public override nint GetItemsCount(UICollectionView collectionView, nint section) => Products.Count;
 
@@ -24,11 +25,7 @@ namespace Softjourn.SJCoins.iOS.UI.Sources
 			if (CategoryName == Const.FavoritesCategory)
 				cell.MarkFavorites(item);
 
-			return cell;
-		}
-		public override void ItemSelected(UICollectionView collectionView, NSIndexPath indexPath)
-		{
-			NewInternalHomeViewSource_ItemSelected?.Invoke(this, Products[indexPath.Row]);
+            return cell;
 		}
 
 		protected override void Dispose(bool disposing)

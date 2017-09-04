@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Foundation;
 using Softjourn.SJCoins.Core.API.Model.Products;
 using UIKit;
+using Softjourn.SJCoins.iOS.General.Constants;
 
 namespace Softjourn.SJCoins.iOS.UI.Sources
 {
@@ -17,14 +18,14 @@ namespace Softjourn.SJCoins.iOS.UI.Sources
 
 		public override nint RowsInSection(UITableView tableview, nint section) => Categories.Count;
 
-		public override UITableViewCell GetCell(UITableView tableView, NSIndexPath indexPath)  => tableView.DequeueReusableCell(NewHomeCell.Key, indexPath);
+		public override UITableViewCell GetCell(UITableView tableView, NSIndexPath indexPath) => tableView.DequeueReusableCell(NewHomeCell.Key, indexPath);
 
 		public override void WillDisplay(UITableView tableView, UITableViewCell cell, NSIndexPath indexPath)
 		{
 			if (Categories.Count > 0)
 			{
 				var _cell = (NewHomeCell)cell;
-				_cell.ConfigureWith(Categories[indexPath.Row], new NewInternalHomeViewSource(), indexPath.Row);
+				_cell.ConfigureWith(Categories[indexPath.Row]);
 
 				_cell.NewHomeCell_ItemSelected -= NewHomeViewSource_ItemSelected;
 				_cell.NewHomeCell_ItemSelected += NewHomeViewSource_ItemSelected;
@@ -48,5 +49,10 @@ namespace Softjourn.SJCoins.iOS.UI.Sources
 			_cell.NewHomeCell_BuyActionExecuted -= NewHomeViewSource_BuyExecuted;
 			_cell.NewHomeCell_FavoriteActionExecuted -= NewHomeViewSource_AddDeleteFavoriteExecuted;
 		}
+
+        public override nfloat GetHeightForRow(UITableView tableView, NSIndexPath indexPath)
+        {
+            return (tableView.Frame.Size.Height - 64) / Const.heightCoefficient;
+        }
 	}
 }

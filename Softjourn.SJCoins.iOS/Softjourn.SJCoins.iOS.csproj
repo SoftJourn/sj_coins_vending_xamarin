@@ -436,6 +436,14 @@
     <ImageAsset Include="Assets.xcassets\NewAccount2.imageset\customer.png" />
     <ImageAsset Include="Assets.xcassets\NewAccount2.imageset\customer_x2.png" />
     <ImageAsset Include="Assets.xcassets\NewAccount2.imageset\customer_x3.png" />
+    <ImageAsset Include="Assets.xcassets\ForwardImage.imageset\Contents.json" />
+    <ImageAsset Include="Assets.xcassets\ForwardImage.imageset\ForwardRow.png" />
+    <ImageAsset Include="Assets.xcassets\ForwardImage.imageset\ForwardRow%402x.png" />
+    <ImageAsset Include="Assets.xcassets\ForwardImage.imageset\ForwardRow%403x.png" />
+    <ImageAsset Include="Assets.xcassets\Bitcoin.imageset\Bitcoin.png" />
+    <ImageAsset Include="Assets.xcassets\Bitcoin.imageset\Bitcoin%402x.png" />
+    <ImageAsset Include="Assets.xcassets\Bitcoin.imageset\Bitcoin%403x.png" />
+    <ImageAsset Include="Assets.xcassets\Bitcoin.imageset\Contents.json" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Assets.xcassets\AccountTabIcon.imageset\" />
@@ -466,6 +474,8 @@
     <Folder Include="Assets.xcassets\Account.imageset\" />
     <Folder Include="Assets.xcassets\NewAccount.imageset\" />
     <Folder Include="Assets.xcassets\NewAccount2.imageset\" />
+    <Folder Include="Assets.xcassets\ForwardImage.imageset\" />
+    <Folder Include="Assets.xcassets\Bitcoin.imageset\" />
   </ItemGroup>
   <ItemGroup>
     <InterfaceDefinition Include="LaunchScreen.storyboard" />
@@ -500,14 +510,6 @@
     <Compile Include="UI\Cells\SelectMachineCell.cs" />
     <Compile Include="UI\Cells\SelectMachineCell.designer.cs">
       <DependentUpon>SelectMachineCell.cs</DependentUpon>
-    </Compile>
-    <Compile Include="UI\Controllers\MainPage\HomeViewController.cs" />
-    <Compile Include="UI\Controllers\MainPage\HomeViewController.designer.cs">
-      <DependentUpon>HomeViewController.cs</DependentUpon>
-    </Compile>
-    <Compile Include="UI\Cells\HomeCell.cs" />
-    <Compile Include="UI\Cells\HomeCell.designer.cs">
-      <DependentUpon>HomeCell.cs</DependentUpon>
     </Compile>
     <Compile Include="UI\Cells\HomeInternalCell.cs" />
     <Compile Include="UI\Cells\HomeInternalCell.designer.cs">
@@ -595,11 +597,12 @@
     <Compile Include="UI\Controllers\MainPage\NewHomeViewController.designer.cs">
       <DependentUpon>NewHomeViewController.cs</DependentUpon>
     </Compile>
-    <Compile Include="UI\Sources\NewInternalHomeViewSource.cs" />
+    <Compile Include="UI\Sources\InternalHomeViewSource.cs" />
     <Compile Include="UI\Controllers\InformativePage\InformativeFavoritesPage.designer.cs">
       <DependentUpon>InformativeFavoritesPage.cs</DependentUpon>
     </Compile>
     <Compile Include="UI\Delegates\LoginTextFieldDelegate.cs" />
+    <Compile Include="UI\Delegates\CollectionViewFlowLayoutDelegate.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
 </Project>

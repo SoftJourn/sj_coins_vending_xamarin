@@ -3,13 +3,13 @@ using UIKit;
 using Foundation;
 using Softjourn.SJCoins.Core.API.Model.Products;
 using Softjourn.SJCoins.iOS.UI.Sources;
-using System.Collections.Generic;
-using Softjourn.SJCoins.iOS.UI.Controllers;
+using Softjourn.SJCoins.iOS.UI.Delegates;
 
 namespace Softjourn.SJCoins.iOS
 {
-	public partial class NewHomeCell : UITableViewCell
+    public partial class NewHomeCell : UITableViewCell, IDisposable
 	{
+		#region Properties
 		public static readonly NSString Key = new NSString("NewHomeCell");
 		public static readonly UINib Nib;
 
@@ -19,66 +19,62 @@ namespace Softjourn.SJCoins.iOS
 		public event EventHandler<Product> NewHomeCell_ItemSelected;
 
 		private string categoryName;
-		private List<Product> categoryProducts;
-		private NewInternalHomeViewSource source;
-		private PreViewController previewController;
+        private InternalHomeViewSource collectionSource;
+        private CollectionViewFlowLayoutDelegate collectionDelegate;
 
 		static NewHomeCell()
-		{
+		{ 
 			Nib = UINib.FromName("NewHomeCell", NSBundle.MainBundle);
 		}
+        #endregion
 
 		protected NewHomeCell(IntPtr handle) : base(handle)
 		{
 			// Note: this .ctor should not contain any initialization logic.
 		}
 
-		public void ConfigureWith(Categories category, NewInternalHomeViewSource source, int row)
-		{
-			// Set category name
-			categoryName = category.Name;
-			NameLabel.Text = categoryName;
-			// Set products which need to be displayed 
-			this.source = source;
-			source.Products = category.Products;
+        public override void AwakeFromNib()
+        {
+            base.AwakeFromNib();
+
+			this.collectionSource = new InternalHomeViewSource();
+			this.collectionDelegate = new CollectionViewFlowLayoutDelegate();
+
 			// Configure CollectionView
-			CollectionView.Source = source;
-			CollectionView.Tag = row;
-			CollectionView.ReloadData();
+			CollectionView.DataSource = collectionSource;
+			CollectionView.Delegate = collectionDelegate;
 
 			//Attach
 			ShowAllButton.TouchUpInside -= NewHomeCell_OnSeeAllClickedHandler;
 			ShowAllButton.TouchUpInside += NewHomeCell_OnSeeAllClickedHandler;
 
-			source.NewInternalHomeViewSource_ItemSelected -= NewHomeCell_ItemSelectedHandler;
-			source.NewInternalHomeViewSource_ItemSelected += NewHomeCell_ItemSelectedHandler;
+			collectionDelegate.SelectedItem -= NewHomeCell_ItemSelectedHandler;
+			collectionDelegate.SelectedItem += NewHomeCell_ItemSelectedHandler;
+        }
+
+		public void ConfigureWith(Categories category)
+		{
+			// Set category name
+			categoryName = category.Name;
+			NameLabel.Text = categoryName;
+
+			// Set products which need to be displayed
+			collectionSource.Products = category.Products;
+            collectionDelegate.Products = category.Products;
+
+            CollectionView.ReloadData();
 		}
 
 		public override void PrepareForReuse()
 		{
 			NameLabel.Text = "";
-			CollectionView.Source = null;
 			categoryName = null;
-			categoryProducts = null;
 
-			// Dettach
-			if (previewController != null)
-			{
-				previewController.PreViewController_BuyActionExecuted -= NewHomeCell_OnFavoriteActionClickedHandler;
-				previewController.PreViewController_FavoriteActionExecuted -= NewHomeCell_OnFavoriteActionClickedHandler;
-			}
-
-			ShowAllButton.TouchUpInside -= NewHomeCell_OnSeeAllClickedHandler;
-
-			if (source != null)
-			{
-				source.NewInternalHomeViewSource_ItemSelected -= NewHomeCell_ItemSelectedHandler;
-				source = null;
-			}
+			//ShowAllButton.TouchUpInside -= NewHomeCell_OnSeeAllClickedHandler;
 			base.PrepareForReuse();		
 		}
 
-		// -------------------- Event handlers --------------------
+		#region Event handlers
 		public void NewHomeCell_OnSeeAllClickedHandler(object sender, EventArgs e)
 		{
 			// Execute event and throw category name to HomeViewController
@@ -103,6 +99,12 @@ namespace Softjourn.SJCoins.iOS
 			// Execute event via 3D Touch functionality and throw product to HomeViewController
 			NewHomeCell_FavoriteActionExecuted?.Invoke(this, product);
 		}
-		// --------------------------------------------------------
+		#endregion
+
+		protected override void Dispose(bool disposing)
+		{
+			System.Diagnostics.Debug.WriteLine(String.Format("{0} object disposed", this.GetType()));
+			base.Dispose(disposing);
+		}
 	}
 }
