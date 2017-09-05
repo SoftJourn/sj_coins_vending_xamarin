@@ -9,7 +9,7 @@ using System.CodeDom.Compiler;
 
 namespace Softjourn.SJCoins.iOS.UI.Controllers.Main
 {
-	partial class NewHomeViewController
+	partial class HomeViewController
 	{
 		[Outlet]
 		UIKit.UIBarButtonItem AccountButton { get; set; }

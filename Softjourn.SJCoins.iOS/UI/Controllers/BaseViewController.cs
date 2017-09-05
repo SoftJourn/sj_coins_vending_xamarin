@@ -133,6 +133,8 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers
 			if (refreshableScrollView != null)
 			{
 				_refreshControl = new UIRefreshControl();
+                _refreshControl.TintColor = UIColorConstants.ProductNameColor;
+				_refreshControl.TintColorDidChange();
 				refreshableScrollView.AddSubview(_refreshControl);
 			}
 		}

@@ -10,7 +10,7 @@ using System.CodeDom.Compiler;
 namespace Softjourn.SJCoins.iOS
 {
 	[Register ("NewHomeCell")]
-	partial class NewHomeCell
+	partial class HomeCell
 	{
 		[Outlet]
 		UIKit.UICollectionView CollectionView { get; set; }

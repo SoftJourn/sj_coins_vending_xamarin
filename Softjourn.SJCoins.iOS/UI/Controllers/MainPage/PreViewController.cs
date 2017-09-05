@@ -2,8 +2,6 @@ using System;
 using Foundation;
 using SDWebImage;
 using Softjourn.SJCoins.Core.API.Model.Products;
-using Softjourn.SJCoins.Core.UI.Presenters;
-using Softjourn.SJCoins.Core.UI.ViewInterfaces;
 using Softjourn.SJCoins.iOS.General.Constants;
 using UIKit;
 

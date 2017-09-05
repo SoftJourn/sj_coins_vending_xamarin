@@ -15,14 +15,14 @@ namespace Softjourn.SJCoins.iOS
 		public static readonly NSString Key = new NSString("HomeInternalCell");
 		public static readonly UINib Nib;
 
-		public event EventHandler<Product> HomeInternalCell_BuyActionExecuted;
-		public event EventHandler<Product> HomeInternalCell_FavoriteActionExecuted;
+		public event EventHandler<Product> BuyAction;
+		public event EventHandler<Product> FavoriteAction;
 
+        private UIFont nameLabelFont = UIFont.SystemFontOfSize(12);
 		private UIImageView ProductImage { get; set; }
 		private UILabel NameLabel { get; set; }
 		private UILabel PriceLabel { get; set; }
         private UIImageView CoinImage { get; set; }
-
 		private Product Product { get; set; }
 		private PreViewController previewController;
 		private IUIViewControllerPreviewing previewing;
@@ -45,26 +45,17 @@ namespace Softjourn.SJCoins.iOS
         public override void AwakeFromNib()
         {
             base.AwakeFromNib();
-            SetUp();
+            SetUpUI();
         }
 
         public override void LayoutSubviews()
         {
             base.LayoutSubviews();
-			
-            ProductImage.Frame = new CGRect(0, 0, this.Frame.Width, this.Frame.Width);
-
-            var expectedNameSize = NameLabel.SizeThatFits(new CGSize(this.Frame.Width, 28));
-            NameLabel.Frame = new CGRect(0, ProductImage.Frame.Height + 8, this.Frame.Width, expectedNameSize.Height);
-
-            var expectedPriceSize = PriceLabel.SizeThatFits(new CGSize(this.Frame.Width, 14));
-			PriceLabel.Frame = new CGRect(0, ProductImage.Frame.Height + 6 + NameLabel.Frame.Height + 2, expectedPriceSize.Width, 14);
-
-            CoinImage.Frame = new CGRect(PriceLabel.Frame.Width, ProductImage.Frame.Height + 6 + NameLabel.Frame.Height + 2, 14, 14);
+            LayoutUI(Product);
 		}
 
 		#region Private methods
-		private void SetUp()
+		private void SetUpUI()
         {
             ProductImage = new UIImageView {
                 BackgroundColor = UIColor.White,
@@ -73,23 +64,24 @@ namespace Softjourn.SJCoins.iOS
             };
             ProductImage.Layer.CornerRadius = 24;
             ProductImage.Layer.BorderWidth = 1;
-            ProductImage.Layer.BorderColor = UIColor.FromRGB(220, 220, 220).ColorWithAlpha(1.0f).CGColor; 
+            ProductImage.Layer.BorderColor = UIColorConstants.ProductImageBorderColor.CGColor;
             AddSubview(ProductImage);
 
-            NameLabel = new UILabel {
-                Font = UIFont.SystemFontOfSize(11),
+            NameLabel = new UILabel
+            {
+                Font = nameLabelFont,
                 Lines = 2,
-                TextColor = UIColor.FromRGB(81, 69, 62).ColorWithAlpha(1.0f),
+                TextColor = UIColorConstants.ProductNameColor,
                 BackgroundColor = UIColor.White,
                 LineBreakMode = UILineBreakMode.TailTruncation
             };
             AddSubview(NameLabel);
 
             PriceLabel = new UILabel {
-                Font = UIFont.SystemFontOfSize(11),
+                Font = nameLabelFont,
                 Lines = 1,
                 BackgroundColor = UIColor.White,
-                TextColor = UIColor.Gray
+                TextColor = UIColorConstants.ProductPriceColor
             };
             AddSubview(PriceLabel);
 
@@ -102,13 +94,29 @@ namespace Softjourn.SJCoins.iOS
 			AddSubview(CoinImage);
             BringSubviewToFront(CoinImage);
         }
+
+        public void LayoutUI(Product product)
+        {
+            if (product != null)
+            {
+				ProductImage.Frame = new CGRect(0, 0, this.Frame.Width, this.Frame.Width);
+
+				var expectedNameSize = NameLabel.SizeThatFits(new CGSize(this.Frame.Width, 28));
+				NameLabel.Frame = new CGRect(2, ProductImage.Frame.Height + 8, this.Frame.Width, expectedNameSize.Height);
+
+				var expectedPriceSize = PriceLabel.SizeThatFits(new CGSize(this.Frame.Width, 14));
+				PriceLabel.Frame = new CGRect(2, ProductImage.Frame.Height + 6 + NameLabel.Frame.Height + 2, expectedPriceSize.Width, 14);
+
+				CoinImage.Frame = new CGRect(PriceLabel.Frame.Width + 2, ProductImage.Frame.Height + 6 + NameLabel.Frame.Height + 2, 14, 14);   
+            }
+        }
 		#endregion
 
 		#region Public methods
 		public void ConfigureWith(Product product)
 		{
 			this.Product = product;
-			this.Layer.CornerRadius = 24;
+			//this.Layer.CornerRadius = 24;
 
 			NameLabel.Text = product.Name;
 			PriceLabel.Text = product.Price.ToString();
@@ -125,26 +133,41 @@ namespace Softjourn.SJCoins.iOS
 			ProductImage.Alpha = 1.0f;
 			NameLabel.Text = "";
             NameLabel.Frame = new CGRect(0, ProductImage.Frame.Height + 8, 0, 0);
+            NameLabel.Alpha = 1.0f;
 			PriceLabel.Text = "";
+            PriceLabel.Alpha = 1.0f;
 
 			// Dettach
 			if (previewController != null)
 			{
-				previewController.PreViewController_BuyActionExecuted -= HomeInternalCell_BuyActionExecuted;
-				previewController.PreViewController_FavoriteActionExecuted -= HomeInternalCell_FavoriteActionExecuted;
+                previewController.PreViewController_BuyActionExecuted -= BuyAction;
+                previewController.PreViewController_FavoriteActionExecuted -= FavoriteAction;
 				previewController = null;
 			}
-			// Unregister for preview
-			currentApplication.VisibleViewController.UnregisterForPreviewingWithContext(previewing);
+            if (previewing != null)
+            {
+				// Unregister for preview
+				currentApplication.VisibleViewController.UnregisterForPreviewingWithContext(previewing);
+            }
 			base.PrepareForReuse();
 		}
 
 		public void MarkFavorites(Product product)
 		{
 			if (product.IsProductInCurrentMachine)
-				ProductImage.Alpha = 1.0f;
+            {
+                ProductImage.Alpha = 1.0f;
+                NameLabel.Alpha = 1.0f;
+                PriceLabel.Alpha = 1.0f;
+                CoinImage.Alpha = 1.0f;
+            }
 			else
+            {
 				ProductImage.Alpha = 0.3f;
+                NameLabel.Alpha = 0.3f;
+                PriceLabel.Alpha = 0.3f;
+                CoinImage.Alpha = 0.3f;
+			}
 		}
 		#endregion
 
@@ -161,8 +184,8 @@ namespace Softjourn.SJCoins.iOS
             previewingContext.SourceRect = this.Bounds;
 
 			// Attach
-			previewController.PreViewController_BuyActionExecuted += HomeInternalCell_BuyActionExecuted;
-			previewController.PreViewController_FavoriteActionExecuted += HomeInternalCell_FavoriteActionExecuted;
+            previewController.PreViewController_BuyActionExecuted += BuyAction;
+            previewController.PreViewController_FavoriteActionExecuted += FavoriteAction;
 
 			return previewController;
 		}

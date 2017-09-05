@@ -11,17 +11,17 @@ using UIKit;
 namespace Softjourn.SJCoins.iOS.UI.Controllers.Main
 {
 	[Register("NewHomeViewController")]
-    public partial class NewHomeViewController: BaseViewController<HomePresenter>, IHomeView, IDisposable
+    public partial class HomeViewController: BaseViewController<HomePresenter>, IHomeView, IDisposable
 	{
 		#region Properties
 		public List<Categories> Categories { get; private set; }
 
 		private bool pullToRefreshTrigged = false;
-		private NewHomeViewSource tableSource = new NewHomeViewSource();
+		private HomeViewSource tableSource = new HomeViewSource();
 		#endregion
 	
 		#region Constructor
-		public NewHomeViewController(IntPtr handle) : base(handle)
+		public HomeViewController(IntPtr handle) : base(handle)
 		{
 		}
 		#endregion
@@ -32,14 +32,14 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.Main
 			base.ViewDidLoad();
 			ConfigurePage();
 			Presenter.OnStartLoadingPage();
-            TableView.Alpha = 0;
+            //TableView.Alpha = 0;
 		}
 
 		public override void ViewWillAppear(bool animated)
 		{
 			base.ViewWillAppear(animated);
 			RefreshFavoritesCell();
-			Presenter.UpdateBalanceView();
+            Presenter.UpdateBalanceView();
 		}
 		#endregion
 
@@ -48,19 +48,19 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.Main
 		{
 			base.AttachEvents();
 			AccountButton.Clicked += OnAccountClicked;
-			tableSource.NewHomeViewSource_ItemSelected += OnItemSelected;
-			tableSource.NewHomeViewSource_SeeAllClicked += OnSeeAllClicked;
-			tableSource.NewHomeViewSource_BuyExecuted += OnBuyActionClicked;
-			tableSource.NewHomeViewSource_AddDeleteFavoriteExecuted += OnFavoriteActionClicked;
+			tableSource.HomeViewSource_ItemSelected += OnItemSelected;
+			tableSource.HomeViewSource_SeeAllClicked += OnSeeAllClicked;
+			tableSource.HomeViewSource_BuyExecuted += OnBuyActionClicked;
+			tableSource.HomeViewSource_AddDeleteFavoriteExecuted += OnFavoriteActionClicked;
 		}
 
 		public override void DetachEvents()
 		{
 			AccountButton.Clicked -= OnAccountClicked;
-			tableSource.NewHomeViewSource_ItemSelected -= OnItemSelected;
-			tableSource.NewHomeViewSource_SeeAllClicked -= OnSeeAllClicked;
-			tableSource.NewHomeViewSource_BuyExecuted -= OnBuyActionClicked;
-			tableSource.NewHomeViewSource_AddDeleteFavoriteExecuted -= OnFavoriteActionClicked;
+			tableSource.HomeViewSource_ItemSelected -= OnItemSelected;
+			tableSource.HomeViewSource_SeeAllClicked -= OnSeeAllClicked;
+			tableSource.HomeViewSource_BuyExecuted -= OnBuyActionClicked;
+			tableSource.HomeViewSource_AddDeleteFavoriteExecuted -= OnFavoriteActionClicked;
 			base.DetachEvents();
 		}
 
@@ -94,17 +94,25 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.Main
 
 		public void SetMachineName(string name)
 		{
-			// Set chosenMachine name as title 
+			// Set chosenMachine name as title
 			MachineNameLabel.Text = name;
 		}
 
 		public void ShowProducts(List<Categories> listCategories)
 		{
+            NoItemsLabel.Hidden = true;
 			Categories = listCategories;
 			// Send downloaded data to dataSource and show them on view
 			tableSource.Categories = Categories;
 			TableView.ReloadData();
-            UIView.Animate(0.5, 0, UIViewAnimationOptions.CurveEaseIn, () => { TableView.Alpha = 1.0f; }, null);
+            //UIView.Animate(0.5, 0, UIViewAnimationOptions.CurveEaseIn, () => { TableView.Alpha = 1.0f; }, null);
+		}
+
+		public void ServiceNotAvailable()
+		{
+            // Set chosenMachine name as title
+            NoItemsLabel.Hidden = false;
+			NoItemsLabel.Text = "Service is not available.";
 		}
 
 		public void LastUnavailableFavoriteRemoved(Product product)

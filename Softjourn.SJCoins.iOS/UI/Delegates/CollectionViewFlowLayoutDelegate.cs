@@ -9,14 +9,34 @@ namespace Softjourn.SJCoins.iOS.UI.Delegates
 {
     public class CollectionViewFlowLayoutDelegate: UICollectionViewDelegateFlowLayout, IDisposable
     {
-        // Horizontal CollectionView flowlayout delegate object.
+		// Horizontal CollectionView flowlayout delegate object.
+
+		public event EventHandler<Product> SelectedItem;
+		public event EventHandler<Product> BuyActionExecuted;
+		public event EventHandler<Product> FavoriteActionExecuted;
 
 		public List<Product> Products { get; set; } = new List<Product>();
-		public event EventHandler<Product> SelectedItem;
+		public string CategoryName { get; set; }
 
 		public override CGSize GetSizeForItem(UICollectionView collectionView, UICollectionViewLayout layout, Foundation.NSIndexPath indexPath)
         {
             return new CGSize(collectionView.Bounds.Width / Const.widthCoefficient, collectionView.Bounds.Height);
+        }
+
+        public override void WillDisplayCell(UICollectionView collectionView, UICollectionViewCell cell, Foundation.NSIndexPath indexPath)
+        {
+			var _cell = (HomeInternalCell)cell;
+			_cell.ConfigureWith(Products[indexPath.Row]);
+
+			if (CategoryName == Const.FavoritesCategory)
+			{
+				_cell.MarkFavorites(Products[indexPath.Row]);
+			}
+            _cell.BuyAction -= BuyActionExecuted;
+            _cell.BuyAction += BuyActionExecuted;
+
+            _cell.FavoriteAction -= FavoriteActionExecuted;
+            _cell.FavoriteAction += FavoriteActionExecuted;
         }
 
         public override void ItemSelected(UICollectionView collectionView, Foundation.NSIndexPath indexPath)

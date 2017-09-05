@@ -12,25 +12,25 @@ namespace Softjourn.SJCoins.iOS.UI.Sources
 		// Horizontal CollectionView flowlayout delegate object.
 
 		public List<Product> Products { get; set; } = new List<Product>();
-		public string CategoryName { get; set; }
+		//public string CategoryName { get; set; }
 
 		public override nint GetItemsCount(UICollectionView collectionView, nint section) => Products.Count;
 
 		public override UICollectionViewCell GetCell(UICollectionView collectionView, NSIndexPath indexPath)
 		{
-			var cell = (HomeInternalCell)collectionView.DequeueReusableCell(HomeInternalCell.Key, indexPath);
-			var item = Products[indexPath.Row];
-			cell.ConfigureWith(item);
+			//var cell = (HomeInternalCell)collectionView.DequeueReusableCell(HomeInternalCell.Key, indexPath);
+			//var item = Products[indexPath.Row];
+			//cell.ConfigureWith(item);
 
-			if (CategoryName == Const.FavoritesCategory)
-				cell.MarkFavorites(item);
+			//if (CategoryName == Const.FavoritesCategory)
+				//cell.MarkFavorites(item);
 
-            return cell;
+            return (HomeInternalCell)collectionView.DequeueReusableCell(HomeInternalCell.Key, indexPath);
 		}
 
 		protected override void Dispose(bool disposing)
 		{
-			System.Diagnostics.Debug.WriteLine(String.Format("{0} object disposed", this.GetType()));
+			System.Diagnostics.Debug.WriteLine(String.Format("{0} disposed", this.GetType()));
 			base.Dispose(disposing);
 		}
 	}

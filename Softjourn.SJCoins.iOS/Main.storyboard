@@ -228,12 +228,17 @@
                         <viewControllerLayoutGuide type="bottom" id="uQ3-je-zid"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="NQF-7g-8dV">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="64" width="375" height="603"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" style="plain" separatorStyle="default" allowsSelection="NO" rowHeight="190" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="t0d-7m-DEn">
-                                <rect key="frame" x="-0.5" y="0.0" width="375" height="667"/>
+                                <rect key="frame" x="-0.5" y="0.0" width="375" height="603"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <view key="tableFooterView" contentMode="scaleToFill" id="pxM-fp-16c" userLabel="BottomView">
+                                    <rect key="frame" x="0.0" y="218" width="375" height="0.0"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </view>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="NewHomeCell" id="5aw-n0-Onr" customClass="NewHomeCell">
                                         <rect key="frame" x="0.0" y="28" width="375" height="190"/>
@@ -286,7 +291,7 @@
                                                     </cells>
                                                 </collectionView>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ForwardImage" translatesAutoresizingMaskIntoConstraints="NO" id="tp1-5T-TzA">
-                                                    <rect key="frame" x="349" y="15.5" width="16" height="19"/>
+                                                    <rect key="frame" x="349" y="14.5" width="16" height="19"/>
                                                     <color key="tintColor" red="0.18039215689999999" green="0.61568627450000002" blue="0.21176470589999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 </imageView>
                                             </subviews>
@@ -316,9 +321,9 @@
                                 </prototypes>
                             </tableView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="NoItemsLabel" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Moe-sz-kgb">
-                                <rect key="frame" x="37.5" y="323" width="300" height="20.5"/>
+                                <rect key="frame" x="37.5" y="259.5" width="300" height="20.5"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="textColor"/>
+                                <color key="textColor" red="0.31764705879999999" green="0.27058823529999998" blue="0.24313725489999999" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                         </subviews>
@@ -327,7 +332,7 @@
                             <constraint firstItem="t0d-7m-DEn" firstAttribute="height" secondItem="NQF-7g-8dV" secondAttribute="height" id="A8q-OY-BCC"/>
                             <constraint firstItem="Moe-sz-kgb" firstAttribute="width" secondItem="NQF-7g-8dV" secondAttribute="width" multiplier="0.8" id="KvM-iP-Nsw"/>
                             <constraint firstItem="t0d-7m-DEn" firstAttribute="centerX" secondItem="NQF-7g-8dV" secondAttribute="centerX" id="PNJ-10-vMc"/>
-                            <constraint firstItem="Moe-sz-kgb" firstAttribute="centerY" secondItem="NQF-7g-8dV" secondAttribute="centerY" id="ShS-eH-zQw"/>
+                            <constraint firstItem="Moe-sz-kgb" firstAttribute="centerY" secondItem="NQF-7g-8dV" secondAttribute="centerY" constant="-32" id="ShS-eH-zQw"/>
                             <constraint firstItem="t0d-7m-DEn" firstAttribute="width" secondItem="NQF-7g-8dV" secondAttribute="width" id="da5-j1-N6t"/>
                             <constraint firstItem="t0d-7m-DEn" firstAttribute="centerY" secondItem="NQF-7g-8dV" secondAttribute="centerY" id="gbI-lL-pvR"/>
                             <constraint firstItem="Moe-sz-kgb" firstAttribute="centerX" secondItem="NQF-7g-8dV" secondAttribute="centerX" id="xqF-Aa-RnA"/>
@@ -353,7 +358,7 @@
                                         <constraint firstAttribute="width" constant="270" id="a8a-Ci-1Vh"/>
                                     </constraints>
                                     <fontDescription key="fontDescription" style="UICTFontTextStyleFootnote"/>
-                                    <nil key="textColor"/>
+                                    <color key="textColor" red="0.31764705879999999" green="0.27058823529999998" blue="0.24313725489999999" alpha="1" colorSpace="calibratedRGB"/>
                                     <nil key="highlightedColor"/>
                                 </label>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Your balance: 24500 coins" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="A85-Nq-17K">
@@ -363,7 +368,7 @@
                                         <constraint firstAttribute="width" constant="270" id="cTt-rg-4Ct"/>
                                     </constraints>
                                     <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
-                                    <nil key="textColor"/>
+                                    <color key="textColor" red="0.31764705879999999" green="0.27058823529999998" blue="0.24313725489999999" alpha="1" colorSpace="calibratedRGB"/>
                                     <nil key="highlightedColor"/>
                                 </label>
                             </subviews>
@@ -567,9 +572,10 @@
             <objects>
                 <navigationController storyboardIdentifier="NavigationHomeViewController" automaticallyAdjustsScrollViewInsets="NO" id="jRC-Xd-MMN" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="2mK-na-P50">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" translucent="NO" id="2mK-na-P50">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
+                        <color key="barTintColor" red="0.18039215689999999" green="0.61568627450000002" blue="0.21176470589999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>

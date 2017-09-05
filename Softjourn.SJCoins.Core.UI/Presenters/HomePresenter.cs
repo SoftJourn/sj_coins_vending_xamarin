@@ -71,6 +71,7 @@ namespace Softjourn.SJCoins.Core.UI.Presenters
                 catch (Exception ex)
                 {
                     View.HideProgress();
+                    View.ServiceNotAvailable();
                     AlertService.ShowToastMessage(ex.Message);
                 }
             }

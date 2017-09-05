@@ -588,14 +588,14 @@
       <DependentUpon>NutritionCell.cs</DependentUpon>
     </Compile>
     <Compile Include="General\Helper\UIImageHelper.cs" />
-    <Compile Include="UI\Controllers\MainPage\NewHomeViewController.cs" />
-    <Compile Include="UI\Sources\NewHomeViewSource.cs" />
-    <Compile Include="UI\Cells\NewHomeCell.cs" />
-    <Compile Include="UI\Cells\NewHomeCell.designer.cs">
-      <DependentUpon>NewHomeCell.cs</DependentUpon>
+    <Compile Include="UI\Controllers\MainPage\HomeViewController.cs" />
+    <Compile Include="UI\Sources\HomeViewSource.cs" />
+    <Compile Include="UI\Cells\HomeCell.cs" />
+    <Compile Include="UI\Cells\HomeCell.designer.cs">
+      <DependentUpon>HomeCell.cs</DependentUpon>
     </Compile>
-    <Compile Include="UI\Controllers\MainPage\NewHomeViewController.designer.cs">
-      <DependentUpon>NewHomeViewController.cs</DependentUpon>
+    <Compile Include="UI\Controllers\MainPage\HomeViewController.designer.cs">
+      <DependentUpon>HomeViewController.cs</DependentUpon>
     </Compile>
     <Compile Include="UI\Sources\InternalHomeViewSource.cs" />
     <Compile Include="UI\Controllers\InformativePage\InformativeFavoritesPage.designer.cs">
@@ -603,6 +603,7 @@
     </Compile>
     <Compile Include="UI\Delegates\LoginTextFieldDelegate.cs" />
     <Compile Include="UI\Delegates\CollectionViewFlowLayoutDelegate.cs" />
+    <Compile Include="General\Constants\UIColorConstants.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
 </Project>
