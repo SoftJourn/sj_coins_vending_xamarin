@@ -433,7 +433,6 @@
       <InProject>false</InProject>
     </ImageAsset>
     <ImageAsset Include="Assets.xcassets\NewAccount2.imageset\Contents.json" />
-    <ImageAsset Include="Assets.xcassets\NewAccount2.imageset\customer.png" />
     <ImageAsset Include="Assets.xcassets\NewAccount2.imageset\customer_x2.png" />
     <ImageAsset Include="Assets.xcassets\NewAccount2.imageset\customer_x3.png" />
     <ImageAsset Include="Assets.xcassets\ForwardImage.imageset\Contents.json" />
@@ -444,6 +443,11 @@
     <ImageAsset Include="Assets.xcassets\Bitcoin.imageset\Bitcoin%402x.png" />
     <ImageAsset Include="Assets.xcassets\Bitcoin.imageset\Bitcoin%403x.png" />
     <ImageAsset Include="Assets.xcassets\Bitcoin.imageset\Contents.json" />
+    <ImageAsset Include="Assets.xcassets\NewAccount2.imageset\customer.png" />
+    <ImageAsset Include="Assets.xcassets\Heart.imageset\Contents.json" />
+    <ImageAsset Include="Assets.xcassets\Heart.imageset\Heart.png" />
+    <ImageAsset Include="Assets.xcassets\HeartFilled.imageset\Contents.json" />
+    <ImageAsset Include="Assets.xcassets\HeartFilled.imageset\HeartFilled.png" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Assets.xcassets\AccountTabIcon.imageset\" />
@@ -476,6 +480,10 @@
     <Folder Include="Assets.xcassets\NewAccount2.imageset\" />
     <Folder Include="Assets.xcassets\ForwardImage.imageset\" />
     <Folder Include="Assets.xcassets\Bitcoin.imageset\" />
+    <Folder Include="Assets.xcassets\Heard.imageset\" />
+    <Folder Include="Assets.xcassets\Heart filled.imageset\" />
+    <Folder Include="Assets.xcassets\Heart.imageset\" />
+    <Folder Include="Assets.xcassets\HeartFilled.imageset\" />
   </ItemGroup>
   <ItemGroup>
     <InterfaceDefinition Include="LaunchScreen.storyboard" />
@@ -604,6 +612,7 @@
     <Compile Include="UI\Delegates\LoginTextFieldDelegate.cs" />
     <Compile Include="UI\Delegates\CollectionViewFlowLayoutDelegate.cs" />
     <Compile Include="General\Constants\UIColorConstants.cs" />
+    <Compile Include="General\Helper\SizeHelper.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
 </Project>

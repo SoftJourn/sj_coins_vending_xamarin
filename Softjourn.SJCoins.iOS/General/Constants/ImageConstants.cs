@@ -10,6 +10,8 @@ namespace Softjourn.SJCoins.iOS.General.Constants
 		public const string ArrowDownward = "ArrowDownward.png";
 		public const string ArrowUpward = "ArrowUpward.png";
 		public const string Bitcoin = "Bitcoin.png";
+        public const string Heart = "Heart.png";
+		public const string HeartFilled = "HeartFilled.png";
 		#endregion
 	}
 }

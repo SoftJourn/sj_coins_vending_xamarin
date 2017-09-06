@@ -48,12 +48,6 @@ namespace Softjourn.SJCoins.iOS
             SetUpUI();
         }
 
-        public override void LayoutSubviews()
-        {
-            base.LayoutSubviews();
-            LayoutUI(Product);
-		}
-
 		#region Private methods
 		private void SetUpUI()
         {
@@ -122,6 +116,8 @@ namespace Softjourn.SJCoins.iOS
 			PriceLabel.Text = product.Price.ToString();
 			ProductImage.SetImage(url: new NSUrl(product.ImageFullUrl), placeholder: UIImage.FromBundle(ImageConstants.Placeholder));
 
+			LayoutUI(Product);
+
 			// Register for preview
 			previewing = currentApplication.VisibleViewController.RegisterForPreviewingWithDelegate(this, this);
 		}
@@ -149,6 +145,10 @@ namespace Softjourn.SJCoins.iOS
 				// Unregister for preview
 				currentApplication.VisibleViewController.UnregisterForPreviewingWithContext(previewing);
             }
+
+			//Layer.ShouldRasterize = true;
+			//Layer.RasterizationScale = UIScreen.MainScreen.Scale;
+
 			base.PrepareForReuse();
 		}
 

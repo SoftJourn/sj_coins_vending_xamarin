@@ -1,6 +1,7 @@
 ﻿using System;
 using UIKit;
 using Foundation;
+using CoreGraphics;
 using Softjourn.SJCoins.Core.API.Model.Products;
 using Softjourn.SJCoins.iOS.UI.Sources;
 using Softjourn.SJCoins.iOS.UI.Delegates;
@@ -19,6 +20,7 @@ namespace Softjourn.SJCoins.iOS
 		public event EventHandler<Product> HomeCell_ItemSelected;
 
 		private string categoryName;
+        private CGPoint contentOffset;
         private InternalHomeViewSource collectionSource;
         private CollectionViewFlowLayoutDelegate collectionDelegate;
 
@@ -49,7 +51,6 @@ namespace Softjourn.SJCoins.iOS
             collectionSource.Products = category.Products;
 			collectionDelegate.Products = category.Products;
 
-            CollectionView.SetContentOffset(CollectionView.ContentOffset, false);
             CollectionView.ReloadData();
 
             AttachEvents();
@@ -57,12 +58,18 @@ namespace Softjourn.SJCoins.iOS
 
 		public override void PrepareForReuse()
 		{
+			CollectionView.SetContentOffset(new CGPoint(0, 0), false);
+
 			NameLabel.Text = "";
 			categoryName = null;
 
             DetachEvents();
             this.collectionSource = null;
             this.collectionDelegate = null;
+
+			//Layer.ShouldRasterize = true;
+			//Layer.RasterizationScale = UIScreen.MainScreen.Scale;
+
 			base.PrepareForReuse();		
 		}
 

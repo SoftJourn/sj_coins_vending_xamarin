@@ -14,7 +14,7 @@ namespace Softjourn.SJCoins.iOS.UI.Services
 
 		public AnimationService()
 		{
-			System.Diagnostics.Debug.WriteLine(String.Format("{0} object initialized", this.GetType()));
+			System.Diagnostics.Debug.WriteLine(String.Format("{0} initialized", this.GetType()));
 		}
 
 		#region Properties
@@ -48,7 +48,7 @@ namespace Softjourn.SJCoins.iOS.UI.Services
 
 		public void Dispose()
 		{
-			System.Diagnostics.Debug.WriteLine(String.Format("{0} object disposed", this.GetType()));
+			System.Diagnostics.Debug.WriteLine(String.Format("{0} disposed", this.GetType()));
 		}
 		#endregion
 	}

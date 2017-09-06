@@ -2,22 +2,28 @@
 using System.Linq;
 using Foundation;
 using Softjourn.SJCoins.Core.API.Model.Products;
+using Softjourn.SJCoins.iOS.General.Constants;
 using UIKit;
 
 namespace Softjourn.SJCoins.iOS
 {
 	public class DetailViewSource : UITableViewSource
 	{
-		private const int numberOfSections = 2;
 		private const int oneCell = 1;
 		private const int descriptionSection = 0;
 		private const int nutritionSection = 1;
 
 		private Product product;
+		private int numberOfSections = 2;
 
 		public DetailViewSource(Product product)
 		{
 			this.product = product;
+
+            if (String.IsNullOrEmpty(product.Description) && product.NutritionFacts.Count == 0)
+            {
+                numberOfSections = 0;  
+            }
 		}
 
 		public override nint NumberOfSections(UITableView tableView) => numberOfSections;
@@ -77,5 +83,10 @@ namespace Softjourn.SJCoins.iOS
 					break;
 			}
 		}
+
+        public override nfloat GetHeightForHeader(UITableView tableView, nint section)
+        {
+            return 70f;
+        }
 	}
 }

@@ -1,6 +1,6 @@
 // WARNING
 //
-// This file has been generated automatically by Xamarin Studio to store outlets and
+// This file has been generated automatically by Visual Studio to store outlets and
 // actions made in the UI designer. If it is removed, they will be lost.
 // Manual changes to this file may not be handled correctly.
 //
@@ -15,10 +15,10 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers
 		UIKit.UIButton BuyButton { get; set; }
 
 		[Outlet]
-		UIKit.UIButton FavoriteButton { get; set; }
+		UIKit.UIBarButtonItem FavoriteButton { get; set; }
 
 		[Outlet]
-		UIKit.UIView LogoView { get; set; }
+		UIKit.UIView HeaderView { get; set; }
 
 		[Outlet]
 		UIKit.UIPageControl PageControl { get; set; }
@@ -41,9 +41,9 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers
 				FavoriteButton = null;
 			}
 
-			if (LogoView != null) {
-				LogoView.Dispose ();
-				LogoView = null;
+			if (HeaderView != null) {
+				HeaderView.Dispose ();
+				HeaderView = null;
 			}
 
 			if (PageControl != null) {

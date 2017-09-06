@@ -18,9 +18,9 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers
 	[Register("DetailViewController")]
 	public partial class DetailViewController : BaseViewController<DetailPresenter>, IDetailView
 	{
+        public const float pageHeightCoefficient = 1.85f;
+
 		#region Properties
-		private Lazy<AnimationService> lazyAnimationService = new Lazy<AnimationService>(() => { return new AnimationService(); });
-		private AnimationService animationService { get { return lazyAnimationService.Value; } }
 		private int productId { get; set; }
 
 		private Product currentProduct;
@@ -59,27 +59,25 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers
 		{
 			base.ViewWillAppear(animated);
 			ConfigurePageWith(currentProduct);
+            var headerHeight = new SizeHelper().DetailHeaderHeight(TableView.Frame.Height);
+            TableView.TableHeaderView.Frame = new CGRect(0, 0, TableView.Frame.Width, headerHeight);
+			pageViewController.View.Frame = new CGRect(0, 0, TableView.TableHeaderView.Frame.Width, TableView.TableHeaderView.Frame.Height * 0.88f);
 		}
 
-		public override void ViewDidDisappear(bool animated)
-		{
-			animationService.Dispose();
-			base.ViewDidDisappear(animated);
-		}
 		#endregion
 
 		#region BaseViewController
 		public override void AttachEvents()
 		{
 			base.AttachEvents();
-			FavoriteButton.TouchUpInside += FavoriteButtonClicked;
+			FavoriteButton.Clicked += FavoriteButtonClicked;
 			BuyButton.TouchUpInside += BuyButtonClicked;
 			pageDelegate.CurrentIndexChanged += ImageIndexChanged;
 		}
 
 		public override void DetachEvents()
 		{
-			FavoriteButton.TouchUpInside -= FavoriteButtonClicked;
+			FavoriteButton.Clicked -= FavoriteButtonClicked;
 			BuyButton.TouchUpInside -= BuyButtonClicked;
 			pageDelegate.CurrentIndexChanged -= ImageIndexChanged;
 			base.DetachEvents();
@@ -89,19 +87,14 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers
 		#region IDetailView implementation
 		public void FavoriteChanged(Product product)
 		{
-			// End button rotation
-			animationService.CompleteRotation(FavoriteButton);
-			animationService.ScaleEffect(FavoriteButton);
-			currentProduct.IsHeartAnimationRunning = false;
+			LoaderService.Hide();
 			// change button image
 			ConfigureFavoriteImage(product.IsProductFavorite);
 		}
 
 		public void LastUnavailableFavoriteRemoved(Product product)
 		{
-			// End button rotation
-			animationService.CompleteRotation(FavoriteButton);
-			animationService.ScaleEffect(FavoriteButton);
+            LoaderService.Hide();
 			// change button image
 			ConfigureFavoriteImage(product.IsProductFavorite);
 		}
@@ -111,7 +104,7 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers
 		private void ConfigurePageWith(Product product)
 		{
 			Title = product.Name;
-			PriceLabel.Text = "Price: " + product.Price.ToString() + " Coins";
+			PriceLabel.Text = product.Price.ToString();
 			ConfigureFavoriteImage(product.IsProductFavorite);
 		}
 
@@ -125,10 +118,10 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers
 
 		private void ConfigureFavoriteImage(bool isFavorite)
 		{
-			if (isFavorite)
-				FavoriteButton.SetImage(UIImage.FromBundle(ImageConstants.FavoriteChecked), forState: UIControlState.Normal);
+            if (isFavorite)
+                FavoriteButton.Image = UIImage.FromBundle(ImageConstants.HeartFilled);
 			else
-				FavoriteButton.SetImage(UIImage.FromBundle(ImageConstants.FavoriteUnchecked), forState: UIControlState.Normal);
+                FavoriteButton.Image = UIImage.FromBundle(ImageConstants.Heart);
 		}
 
 		private List<UIViewController> CreatePages()
@@ -162,14 +155,18 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers
 			// Create UIPageViewController and configure it
 			pageViewController = Instantiate(StoryboardConstants.StoryboardLogin, StoryboardConstants.PageViewController) as UIPageViewController;
 			pages = CreatePages();
-			pageDataSource = new PageViewDataSource(pages);
-			pageViewController.DataSource = pageDataSource;
+			
+            pageDataSource = new PageViewDataSource(pages);
 			pageDelegate = new PageViewDelegate(pages);
+
+			pageViewController.DataSource = pageDataSource;
 			pageViewController.Delegate = pageDelegate;
-			var defaultViewController = new UIViewController[] { pages.ElementAt(0) };
+			
+            var defaultViewController = new UIViewController[] { pages.ElementAt(0) };
 			pageViewController.SetViewControllers(defaultViewController, UIPageViewControllerNavigationDirection.Forward, false, null);
-			pageViewController.View.Frame = new CGRect(25, 10, LogoView.Frame.Width - 50, LogoView.Frame.Size.Height - 50);
-			LogoView.AddSubview(this.pageViewController.View);
+
+            var height = TableView.TableHeaderView.Frame.Height;
+			HeaderView.AddSubview(this.pageViewController.View);
 		}
 
 		private void ConfigurePageControl()
@@ -178,7 +175,7 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers
 			{
 				PageControl.Pages = pages.Count;
 				PageControl.CurrentPage = 0;
-				LogoView.BringSubviewToFront(PageControl);
+				HeaderView.BringSubviewToFront(PageControl);
 				PageControl.Hidden = false;
 				pageViewController.View.UserInteractionEnabled = true;
 			}
@@ -188,17 +185,14 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers
 				pageViewController.View.UserInteractionEnabled = false;
 			}
 		}
+		#endregion
 
-		// -------------------- Event handlers --------------------
+		#region Event handlers
 		private void FavoriteButtonClicked(object sender, EventArgs e)
 		{
-			// Handle clicking on the Favorite button
-			if (!currentProduct.IsHeartAnimationRunning)
-			{
-				animationService.StartRotation(FavoriteButton);
-				currentProduct.IsHeartAnimationRunning = true;
-				Presenter.OnFavoriteClick(currentProduct);
-			}
+            // Handle clicking on the Favorite button
+            LoaderService.Show("Loading");
+			Presenter.OnFavoriteClick(currentProduct);
 		}
 
 		private void BuyButtonClicked(object sender, EventArgs e)
@@ -212,7 +206,6 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers
 			// Change dot on Page Control
 			PageControl.CurrentPage = currentIndex;
 		}
-		// -------------------------------------------------------- 
 		#endregion
 	}
 }
