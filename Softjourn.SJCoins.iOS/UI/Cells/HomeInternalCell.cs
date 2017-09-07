@@ -52,14 +52,14 @@ namespace Softjourn.SJCoins.iOS
 		private void SetUpUI()
         {
             ProductImage = new UIImageView {
-			    //BackgroundColor = UIColor.White,
+			    BackgroundColor = UIColor.White,
                 ContentMode = UIViewContentMode.ScaleAspectFit,
                 ClipsToBounds = true                   
             };
             ProductImage.Opaque = true;
-            //ProductImage.Layer.CornerRadius = 24;
-            //ProductImage.Layer.BorderWidth = 1;
-            //ProductImage.Layer.BorderColor = UIColorConstants.ProductImageBorderColor.CGColor;
+            ProductImage.Layer.CornerRadius = 24;
+            ProductImage.Layer.BorderWidth = 1;
+            ProductImage.Layer.BorderColor = UIColorConstants.ProductImageBorderColor.CGColor;
             AddSubview(ProductImage);
 
             NameLabel = new UILabel
