@@ -1,9 +1,7 @@
 ﻿using System;
-
 using Foundation;
 using SDWebImage;
 using Softjourn.SJCoins.Core.API.Model.Products;
-using Softjourn.SJCoins.Core.Utils;
 using Softjourn.SJCoins.iOS.General.Constants;
 using Softjourn.SJCoins.iOS.UI.Services;
 using UIKit;

@@ -111,20 +111,20 @@
                                                 <color key="tintColor" red="0.18039215689999999" green="0.61568627450000002" blue="0.21176470589999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <state key="normal" image="BackImage"/>
                                             </button>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Help" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xb0-0Q-qxr">
-                                                <rect key="frame" x="45" y="38" width="38" height="25"/>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lkw-0p-21s">
+                                                <rect key="frame" x="45" y="37.5" width="38" height="25"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="18"/>
-                                                <color key="textColor" red="0.18039215689999999" green="0.61568627450000002" blue="0.21176470589999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                <nil key="highlightedColor"/>
-                                            </label>
+                                                <state key="normal" title="Help">
+                                                    <color key="titleColor" red="0.18039215689999999" green="0.61568627450000002" blue="0.21176470589999999" alpha="1" colorSpace="calibratedRGB"/>
+                                                </state>
+                                            </button>
                                         </subviews>
                                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                         <constraints>
-                                            <constraint firstItem="xb0-0Q-qxr" firstAttribute="height" secondItem="7OD-C5-6Nl" secondAttribute="height" id="21r-ps-ZSN"/>
+                                            <constraint firstItem="lkw-0p-21s" firstAttribute="leading" secondItem="7OD-C5-6Nl" secondAttribute="trailing" id="2xq-4G-Me5"/>
                                             <constraint firstItem="aMW-md-VeR" firstAttribute="height" secondItem="yCO-qR-FRw" secondAttribute="height" id="5w6-nY-7e9"/>
                                             <constraint firstItem="yCO-qR-FRw" firstAttribute="width" secondItem="PL9-iP-f9L" secondAttribute="width" id="6dg-Ac-Tfs"/>
-                                            <constraint firstItem="xb0-0Q-qxr" firstAttribute="leading" secondItem="7OD-C5-6Nl" secondAttribute="trailing" id="9vb-Gg-7Xs"/>
-                                            <constraint firstItem="xb0-0Q-qxr" firstAttribute="centerY" secondItem="7OD-C5-6Nl" secondAttribute="centerY" id="G5G-Xi-iKg"/>
+                                            <constraint firstItem="lkw-0p-21s" firstAttribute="height" secondItem="7OD-C5-6Nl" secondAttribute="height" id="9CZ-Ym-j3d"/>
                                             <constraint firstItem="7Uf-QG-kb1" firstAttribute="top" secondItem="ljM-S2-uPj" secondAttribute="top" priority="750" constant="100" id="GrG-zk-o2h"/>
                                             <constraint firstItem="yCO-qR-FRw" firstAttribute="top" secondItem="q05-kS-lPh" secondAttribute="bottom" constant="4" id="Hve-Wo-zY8"/>
                                             <constraint firstItem="7OD-C5-6Nl" firstAttribute="top" secondItem="ljM-S2-uPj" secondAttribute="topMargin" constant="30" id="KPE-Yx-A5q"/>
@@ -137,6 +137,7 @@
                                             </constraint>
                                             <constraint firstItem="aMW-md-VeR" firstAttribute="centerY" secondItem="ljM-S2-uPj" secondAttribute="centerY" id="S3M-23-SxV"/>
                                             <constraint firstItem="yCO-qR-FRw" firstAttribute="top" secondItem="aMW-md-VeR" secondAttribute="bottom" constant="30" id="Vzh-qs-zEH"/>
+                                            <constraint firstItem="lkw-0p-21s" firstAttribute="centerY" secondItem="7OD-C5-6Nl" secondAttribute="centerY" id="WgT-g4-d9E"/>
                                             <constraint firstItem="yCO-qR-FRw" firstAttribute="centerX" secondItem="PL9-iP-f9L" secondAttribute="centerX" id="Zml-jX-yaO"/>
                                             <constraint firstItem="7Uf-QG-kb1" firstAttribute="centerX" secondItem="ljM-S2-uPj" secondAttribute="centerX" id="aFs-Hg-Nh2"/>
                                             <constraint firstItem="q05-kS-lPh" firstAttribute="trailing" secondItem="yCO-qR-FRw" secondAttribute="trailing" id="aRm-lW-ZKZ"/>
@@ -180,6 +181,7 @@
                     <navigationItem key="navigationItem" id="dV4-zc-PfA"/>
                     <connections>
                         <outlet property="BackButton" destination="7OD-C5-6Nl" id="nJG-3N-ICP"/>
+                        <outlet property="BackHelpButton" destination="lkw-0p-21s" id="E48-wI-mZQ"/>
                         <outlet property="ImageLogo" destination="7Uf-QG-kb1" id="9jo-ng-5jy"/>
                         <outlet property="LoginButton" destination="PL9-iP-f9L" id="at1-10-0zV"/>
                         <outlet property="LoginErrorLabel" destination="c90-7P-fMl" id="faQ-rm-FU4"/>
@@ -250,15 +252,17 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="vending_logo" translatesAutoresizingMaskIntoConstraints="NO" id="KeJ-ew-dJ1">
-                                <rect key="frame" x="309" y="437" width="150" height="150"/>
+                                <rect key="frame" x="230" y="247" width="308" height="530"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="150" id="s82-61-gyG"/>
-                                    <constraint firstAttribute="height" constant="150" id="yB3-bW-WLr"/>
+                                    <constraint firstAttribute="width" secondItem="KeJ-ew-dJ1" secondAttribute="height" multiplier="154:265" id="A2L-UI-a8c"/>
                                 </constraints>
                             </imageView>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
+                            <constraint firstItem="KeJ-ew-dJ1" firstAttribute="leading" secondItem="TEi-AL-hrw" secondAttribute="leading" constant="110" id="8tL-O5-eo5">
+                                <variation key="heightClass=regular-widthClass=regular" constant="230"/>
+                            </constraint>
                             <constraint firstItem="KeJ-ew-dJ1" firstAttribute="centerX" secondItem="TEi-AL-hrw" secondAttribute="centerX" id="Shb-Yw-9Ph"/>
                             <constraint firstItem="KeJ-ew-dJ1" firstAttribute="centerY" secondItem="TEi-AL-hrw" secondAttribute="centerY" id="iHL-VK-qv1"/>
                         </constraints>
@@ -310,7 +314,7 @@
                                 </variation>
                             </label>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="InfoLoginLogo" translatesAutoresizingMaskIntoConstraints="NO" id="spW-HT-uvI">
-                                <rect key="frame" x="230.5" y="186.5" width="307" height="308"/>
+                                <rect key="frame" x="230.5" y="187" width="307" height="307.5"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="spW-HT-uvI" secondAttribute="height" multiplier="1:1" id="8Fj-4u-hoU"/>
                                 </constraints>
@@ -383,7 +387,7 @@
                                 </variation>
                             </label>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="InfoBuyLogo" translatesAutoresizingMaskIntoConstraints="NO" id="paj-vt-ASH">
-                                <rect key="frame" x="230.5" y="186.5" width="307" height="308"/>
+                                <rect key="frame" x="230.5" y="187" width="307" height="307.5"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="paj-vt-ASH" secondAttribute="height" multiplier="1:1" id="3PS-8z-bd4"/>
                                 </constraints>
@@ -455,7 +459,7 @@
                                 </variation>
                             </label>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="InfoCoinsLogo" translatesAutoresizingMaskIntoConstraints="NO" id="hgh-DX-Lp1">
-                                <rect key="frame" x="230.5" y="186.5" width="307" height="308"/>
+                                <rect key="frame" x="230.5" y="187" width="307" height="307.5"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="hgh-DX-Lp1" secondAttribute="height" multiplier="1:1" id="rKA-OQ-8jJ"/>
                                 </constraints>
@@ -529,7 +533,7 @@
                                 </variation>
                             </label>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="InfoFavoritesLogo" translatesAutoresizingMaskIntoConstraints="NO" id="k54-Ax-LaR">
-                                <rect key="frame" x="230.5" y="186.5" width="307" height="308"/>
+                                <rect key="frame" x="230.5" y="187" width="307" height="307.5"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="k54-Ax-LaR" secondAttribute="height" multiplier="1:1" id="ast-yR-GRr"/>
                                 </constraints>

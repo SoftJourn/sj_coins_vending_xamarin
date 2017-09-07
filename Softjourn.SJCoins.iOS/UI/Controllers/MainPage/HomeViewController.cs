@@ -137,6 +137,7 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.Main
 			// Configure datasource and delegate
 			TableView.Source = tableSource;
 			TableView.AlwaysBounceVertical = true;
+            TableView.ScrollsToTop = true;
 		}
 
 		private void SetBalance(string balance)
@@ -171,7 +172,7 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.Main
 
 		public void OnSeeAllClicked(object sender, string categoryName)
 		{
-			// Trigg presenter that user click on SeeAll button 
+			// Trigg presenter that user click on SeeAll button
 			Presenter.OnShowAllClick(categoryName);
 		}
 

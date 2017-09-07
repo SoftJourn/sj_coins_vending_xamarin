@@ -89,6 +89,7 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers
 		public override void AttachEvents()
 		{
 			base.AttachEvents();
+            BackHelpButton.TouchUpInside += BackButtonClicked;
 			BackButton.TouchUpInside += BackButtonClicked;
 			LoginButton.TouchUpInside += LoginButtonClicked;
             loginTextFieldDelegate.ShouldReturnEvent += TextFieldShouldReturn;
@@ -98,6 +99,7 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers
 
 		public override void DetachEvents()
 		{
+			BackHelpButton.TouchUpInside -= BackButtonClicked;
 			BackButton.TouchUpInside -= BackButtonClicked;
 			LoginButton.TouchUpInside -= LoginButtonClicked;
             loginTextFieldDelegate.ShouldReturnEvent -= TextFieldShouldReturn; 

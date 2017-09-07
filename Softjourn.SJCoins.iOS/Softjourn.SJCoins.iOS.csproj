@@ -448,6 +448,12 @@
     <ImageAsset Include="Assets.xcassets\Heart.imageset\Heart.png" />
     <ImageAsset Include="Assets.xcassets\HeartFilled.imageset\Contents.json" />
     <ImageAsset Include="Assets.xcassets\HeartFilled.imageset\HeartFilled.png" />
+    <ImageAsset Include="Assets.xcassets\NewAccount3.imageset\Contents.json" />
+    <ImageAsset Include="Assets.xcassets\NewAccount3.imageset\profile%402x.png" />
+    <ImageAsset Include="Assets.xcassets\NewAccount3.imageset\profile%403x.png" />
+    <ImageAsset Include="Assets.xcassets\NewAccount3.imageset\profile.png" />
+    <ImageAsset Include="Assets.xcassets\NewAccount4.imageset\Contents.json" />
+    <ImageAsset Include="Assets.xcassets\NewAccount4.imageset\MaleUser.png" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Assets.xcassets\AccountTabIcon.imageset\" />
@@ -484,6 +490,8 @@
     <Folder Include="Assets.xcassets\Heart filled.imageset\" />
     <Folder Include="Assets.xcassets\Heart.imageset\" />
     <Folder Include="Assets.xcassets\HeartFilled.imageset\" />
+    <Folder Include="Assets.xcassets\NewAccount3.imageset\" />
+    <Folder Include="Assets.xcassets\NewAccount4.imageset\" />
   </ItemGroup>
   <ItemGroup>
     <InterfaceDefinition Include="LaunchScreen.storyboard" />

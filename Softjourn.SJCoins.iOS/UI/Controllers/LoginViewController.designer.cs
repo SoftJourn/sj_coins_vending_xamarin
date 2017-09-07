@@ -15,6 +15,9 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers
 		UIKit.UIButton BackButton { get; set; }
 
 		[Outlet]
+		UIKit.UIButton BackHelpButton { get; set; }
+
+		[Outlet]
 		UIKit.UIImageView ImageLogo { get; set; }
 
 		[Outlet]
@@ -49,6 +52,11 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers
 			if (BackButton != null) {
 				BackButton.Dispose ();
 				BackButton = null;
+			}
+
+			if (BackHelpButton != null) {
+				BackHelpButton.Dispose ();
+				BackHelpButton = null;
 			}
 
 			if (ImageLogo != null) {
