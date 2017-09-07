@@ -52,13 +52,14 @@ namespace Softjourn.SJCoins.iOS
 		private void SetUpUI()
         {
             ProductImage = new UIImageView {
-                BackgroundColor = UIColor.White,
+			    //BackgroundColor = UIColor.White,
                 ContentMode = UIViewContentMode.ScaleAspectFit,
                 ClipsToBounds = true                   
             };
-            ProductImage.Layer.CornerRadius = 24;
-            ProductImage.Layer.BorderWidth = 1;
-            ProductImage.Layer.BorderColor = UIColorConstants.ProductImageBorderColor.CGColor;
+            ProductImage.Opaque = true;
+            //ProductImage.Layer.CornerRadius = 24;
+            //ProductImage.Layer.BorderWidth = 1;
+            //ProductImage.Layer.BorderColor = UIColorConstants.ProductImageBorderColor.CGColor;
             AddSubview(ProductImage);
 
             NameLabel = new UILabel
@@ -93,8 +94,7 @@ namespace Softjourn.SJCoins.iOS
         {
             if (product != null)
             {
-				ProductImage.Frame = new CGRect(0, 0, this.Frame.Width, this.Frame.Width);
-
+                ProductImage.Frame = new CGRect(0, 0, this.Frame.Width, this.Frame.Width);
 				var expectedNameSize = NameLabel.SizeThatFits(new CGSize(this.Frame.Width, 28));
 				NameLabel.Frame = new CGRect(2, ProductImage.Frame.Height + 8, this.Frame.Width, expectedNameSize.Height);
 
@@ -114,6 +114,7 @@ namespace Softjourn.SJCoins.iOS
 
 			NameLabel.Text = product.Name;
 			PriceLabel.Text = product.Price.ToString();
+            // On server image size 200*200
 			ProductImage.SetImage(url: new NSUrl(product.ImageFullUrl), placeholder: UIImage.FromBundle(ImageConstants.Placeholder));
 
 			LayoutUI(Product);

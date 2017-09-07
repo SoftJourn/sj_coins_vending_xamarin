@@ -130,6 +130,30 @@ namespace Softjourn.SJCoins.iOS
 				return null;
 		}
 
+        public UIImage optimizedImage(UIImage imageIn)
+        {
+            if (imageIn != null)
+            {
+                CGImage imgRef = imageIn.CGImage;
+                float width = imgRef.Width;
+                float height = imgRef.Height;
+                RectangleF bounds = PrepareRectangle(width, height);
+
+                SizeF imageSize = new SizeF(width, height);
+
+                UIGraphics.BeginImageContextWithOptions(new CGSize(width, height), true, 1.0f); //BeginImageContext(bounds.Size);
+                CGContext context = UIGraphics.GetCurrentContext();
+                context.DrawImage(new RectangleF(0, 0, width, height), imgRef);
+                UIImage imageCopy = UIGraphics.GetImageFromCurrentImageContext();
+                UIGraphics.EndImageContext();
+                return imageCopy;
+            }
+            else
+                return null;
+        }
+		#endregion
+
+		#region Private methods
 		private RectangleF PrepareRectangle(float width, float height)
 		{
 			var bounds = new RectangleF(0, 0, width, height);
