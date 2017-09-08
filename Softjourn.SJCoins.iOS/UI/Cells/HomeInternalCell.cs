@@ -94,14 +94,18 @@ namespace Softjourn.SJCoins.iOS
         {
             if (product != null)
             {
+                //var helper = new SizeHelper(this.Subviews.s);
+
+
                 ProductImage.Frame = new CGRect(0, 0, this.Frame.Width, this.Frame.Width);
-				var expectedNameSize = NameLabel.SizeThatFits(new CGSize(this.Frame.Width, 28));
-				NameLabel.Frame = new CGRect(2, ProductImage.Frame.Height + 8, this.Frame.Width, expectedNameSize.Height);
+				
+                var expectedNameSize = NameLabel.SizeThatFits(new CGSize(this.Frame.Width, Const.MaxPhoneNameLabelHeight));
+                NameLabel.Frame = new CGRect(2, ProductImage.Frame.Height + Const.PhoneNameLabelRetreat, this.Frame.Width, expectedNameSize.Height);
 
 				var expectedPriceSize = PriceLabel.SizeThatFits(new CGSize(this.Frame.Width, 14));
-				PriceLabel.Frame = new CGRect(2, ProductImage.Frame.Height + 6 + NameLabel.Frame.Height + 2, expectedPriceSize.Width, 14);
+                PriceLabel.Frame = new CGRect(2, ProductImage.Frame.Height + Const.PhoneNameLabelRetreat + NameLabel.Frame.Height, expectedPriceSize.Width, Const.MaxPhonePriceLabelHeight);
 
-				CoinImage.Frame = new CGRect(PriceLabel.Frame.Width + 2, ProductImage.Frame.Height + 6 + NameLabel.Frame.Height + 2, 14, 14);   
+				CoinImage.Frame = new CGRect(PriceLabel.Frame.Width + 2, ProductImage.Frame.Height + Const.PhoneNameLabelRetreat + NameLabel.Frame.Height, 14, 14);
             }
         }
 		#endregion

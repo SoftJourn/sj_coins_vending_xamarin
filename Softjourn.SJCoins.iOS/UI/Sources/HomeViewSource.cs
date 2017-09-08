@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using Foundation;
 using Softjourn.SJCoins.Core.API.Model.Products;
 using UIKit;
-using Softjourn.SJCoins.iOS.General.Constants;
 
 namespace Softjourn.SJCoins.iOS.UI.Sources
 {
@@ -52,7 +51,7 @@ namespace Softjourn.SJCoins.iOS.UI.Sources
 
         public override nfloat GetHeightForRow(UITableView tableView, NSIndexPath indexPath)
         {
-            return new SizeHelper().VerticalCellHeight(tableView.Frame.Height);
+            return new SizeHelper().VerticalCellHeight(tableView.Frame.Height, tableView.Frame.Width);
         }
 	}
 }
