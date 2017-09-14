@@ -59,7 +59,7 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers
 		{
 			base.ViewWillAppear(animated);
 			ConfigurePageWith(currentProduct);
-            var headerHeight = new SizeHelper().DetailHeaderHeight(TableView.Frame.Height);
+            var headerHeight = SizeHelper.DetailHeaderHeight(TableView.Frame.Height);
             TableView.TableHeaderView.Frame = new CGRect(0, 0, TableView.Frame.Width, headerHeight);
 			pageViewController.View.Frame = new CGRect(0, 0, TableView.TableHeaderView.Frame.Width, TableView.TableHeaderView.Frame.Height * 0.88f);
 		}

@@ -20,8 +20,7 @@ namespace Softjourn.SJCoins.iOS.UI.Delegates
 
 		public override CGSize GetSizeForItem(UICollectionView collectionView, UICollectionViewLayout layout, Foundation.NSIndexPath indexPath)
         {
-            var cellWidth = new SizeHelper().HorizontalCellWidth(collectionView.Bounds.Width);
-            return new CGSize(cellWidth, collectionView.Bounds.Height);
+            return new CGSize(SizeHelper.HorizontalCellWidth(), collectionView.Bounds.Height);
         }
 
         public override void WillDisplayCell(UICollectionView collectionView, UICollectionViewCell cell, Foundation.NSIndexPath indexPath)

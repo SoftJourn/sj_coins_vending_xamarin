@@ -4,54 +4,58 @@ using Softjourn.SJCoins.iOS.General.Constants;
 
 namespace Softjourn.SJCoins.iOS
 {
-    public class SizeHelper
+    public static class SizeHelper
     {
         #region Constants
-        public const float phoneVerticalCoefficient = 3.0f;         // Home page vertical cell height coeficient. (Table)
-        public const float padVerticalCoefficient = 4.6f;           // Home page vertical cell height coeficient. (Table)
+        private static float phoneVerticalCoefficient = 3.0f;         // Home page vertical cell height coeficient. (Table)
+        private static float padVerticalCoefficient = 4.6f;           // Home page vertical cell height coeficient. (Table)
 
-        public const float phoneWidthCoefficient = 3.9f;            // Home page horizontal cell width coeficient. (Collection)
-        public const float padWidthCoefficient = 7.1f;              // Home page horizontal cell width coeficient. (Collection)
+        private static float phoneWidthCoefficient = 3.9f;            // Home page horizontal cell width coeficient. (Collection)
+        private static float padWidthCoefficient = 7.1f;              // Home page horizontal cell width coeficient. (Collection)
 
-        public const float phoneDetailHeightCoefficient = 0.5f;     // Detail Page Header height. (PageController)
-        public const float padDetailHeightCoefficient = 0.8f;       // Detail Page Header height. (PageController)
+        private static float phoneDetailHeightCoefficient = 0.5f;     // Detail Page Header height. (PageController)
+        private static float padDetailHeightCoefficient = 0.8f;       // Detail Page Header height. (PageController)
 
-		public const float CategoryNameLabelHeight = 38.0f;      
-		public const float BottomRetreat = 6.0f;      
-		#endregion
+		private static float phoneAccountHeight = 350.0f;             // Account Page Header height.
+		private static float padAccountHeight = 400.0f;
 
-		#region Properties
-		private UIUserInterfaceIdiom idiom = UIDevice.CurrentDevice.UserInterfaceIdiom;
+		private static float CategoryNameLabelHeight = 38.0f;      
+		private static float BottomRetreat = 6.0f;
         #endregion
 
-        #region Public methods
-        public nfloat VerticalCellHeight(nfloat height, nfloat width)
-        {
-            return CellHeight(idiom, width);
-        }
+        #region Properties
+        private static readonly UIUserInterfaceIdiom idiom = UIDevice.CurrentDevice.UserInterfaceIdiom;
+        private static readonly nfloat width = UIScreen.MainScreen.Bounds.Width;
+		#endregion
 
-        public nfloat HorizontalCellWidth(nfloat width)
+		#region Public methods
+		public static nfloat VerticalCellHeight()
+		{
+			var productCellWidth = idiom == UIUserInterfaceIdiom.Pad ? RoundingOf(width / padWidthCoefficient) : RoundingOf(width / phoneWidthCoefficient);
+			var productCellHeight = CategoryNameLabelHeight + productCellWidth + Const.MaxPhoneNameLabelHeight + Const.PhoneNameLabelRetreat + Const.MaxPhonePriceLabelHeight + Const.PhonePriceLabelRetreat + BottomRetreat;
+			return productCellHeight;
+		}
+
+        public static nfloat HorizontalCellWidth()
         {
             return idiom == UIUserInterfaceIdiom.Pad ? RoundingOf(width / padWidthCoefficient) : RoundingOf(width / phoneWidthCoefficient);
         }
 
-        public nfloat DetailHeaderHeight(nfloat height)
+        public static nfloat DetailHeaderHeight(nfloat height)
         {
             return idiom == UIUserInterfaceIdiom.Pad ? RoundingOf(height * padDetailHeightCoefficient) : RoundingOf(height * phoneDetailHeightCoefficient);
+		}
+
+		public static nfloat AccountHeaderHeight()
+		{
+            return idiom == UIUserInterfaceIdiom.Pad ? padAccountHeight : phoneAccountHeight;
 		}
         #endregion
 
         #region Private methods
-        private nfloat RoundingOf(nfloat digit)
+        private static nfloat RoundingOf(nfloat digit)
         {
             return (nfloat)Math.Round((Decimal)digit, 0, MidpointRounding.AwayFromZero);
-        }
-
-        private nfloat CellHeight(UIUserInterfaceIdiom idioma, nfloat width)
-        {
-            var productCellWidth = idioma == UIUserInterfaceIdiom.Pad ? RoundingOf(width / padWidthCoefficient) : RoundingOf(width / phoneWidthCoefficient);
-            var productCellHeight = CategoryNameLabelHeight + productCellWidth + Const.MaxPhoneNameLabelHeight + Const.PhoneNameLabelRetreat + Const.MaxPhonePriceLabelHeight + Const.PhonePriceLabelRetreat + BottomRetreat;
-            return productCellHeight;
         }
         #endregion
     }

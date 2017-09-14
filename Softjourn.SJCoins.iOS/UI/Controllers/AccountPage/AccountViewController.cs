@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using CoreAnimation;
+using CoreGraphics;
 using Foundation;
 using Softjourn.SJCoins.Core.API.Model;
 using Softjourn.SJCoins.Core.API.Model.AccountInfo;
@@ -16,7 +17,7 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.AccountPage
 	public partial class AccountViewController : BaseViewController<AccountPresenter>, IAccountView
 	{
 		#region Properties
-		private AccountViewSource _tableSource;
+		private AccountViewSource tableSource;
 		private Lazy<UIImageHelper> helper = new Lazy<UIImageHelper>(() => { return new UIImageHelper(); });
 		private UIImageHelper imageHelper { get { return helper.Value; } }
 
@@ -42,7 +43,13 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.AccountPage
 		{
 			base.ViewWillAppear(animated);
 			Presenter.OnStartLoadingPage();
-			//throw new NotImplementedException("Spessial_cresh_for_testing");
+            NavigationController.SetNavigationBarHidden(true, true);
+		}
+
+        public override void ViewWillDisappear(bool animated)
+        {
+            base.ViewWillDisappear(animated);
+            NavigationController.SetNavigationBarHidden(false, true);
 		}
 		#endregion
 
@@ -50,8 +57,8 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.AccountPage
 		public override void AttachEvents()
 		{
 			base.AttachEvents();
-			DoneButton.Clicked += DoneButtonClickHandler;
-			_tableSource.ItemSelected += TableSource_ItemClicked;
+            DoneButton.TouchUpInside += DoneButtonClickHandler;
+			tableSource.ItemSelected += TableSource_ItemClicked;
 			// Add tap gesture to avatar image
 			avatarImageTap = new UITapGestureRecognizer(AvatarImageTapHandler);
 			AvatarImage.AddGestureRecognizer(avatarImageTap);
@@ -59,8 +66,8 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.AccountPage
 
 		public override void DetachEvents()
 		{
-			DoneButton.Clicked -= DoneButtonClickHandler;
-			_tableSource.ItemSelected -= TableSource_ItemClicked;
+			DoneButton.TouchUpInside -= DoneButtonClickHandler;
+			tableSource.ItemSelected -= TableSource_ItemClicked;
 			// Remove tap gesture from avatar image
 			AvatarImage.RemoveGestureRecognizer(avatarImageTap);
 			base.DetachEvents();
@@ -73,7 +80,7 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.AccountPage
 			if (account != null)
 			{
 				NameLabel.Text = account.Name + " " + account.Surname;
-				AmountLabel.Text = account.Amount.ToString() + " coins";
+				AmountLabel.Text = account.Amount.ToString();
 			}
 		}
 
@@ -118,29 +125,40 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.AccountPage
 		{
 			var options = Presenter.GetOptionsList();
 
-			var optionsFirstSection = new List<AccountOption>(options);
-			optionsFirstSection.RemoveAt(optionsFirstSection.Count - 1);
+			tableSource = new AccountViewSource(options);
+            TableView.Source = tableSource;
 
-			var optionsSecondSection = new List<AccountOption>(options);
-			optionsSecondSection.RemoveRange(0, optionsSecondSection.Count - 1);
+            TableView.TableHeaderView.Frame = new CGRect(0, 0, TableView.Frame.Width, SizeHelper.AccountHeaderHeight());
 
-			_tableSource = new AccountViewSource(optionsFirstSection, optionsSecondSection);
-			TableView.Source = _tableSource;
+            MakeHeaderViewGradient();
 
 			TableView.RegisterNibForCellReuse(ProductCell.Nib, ProductCell.Key);
 		}
 
 		private void ConfigureAvatarImage(UIImageView imageView)
 		{
-			AvatarImage.Hidden = true;
-			// Make image rounded
+			//AvatarImage.Hidden = true;
+            // Make image rounded
 			CALayer imageCircle = imageView.Layer;
-			imageCircle.CornerRadius = 70;
-			imageCircle.BorderWidth = 0.2f;
+			imageCircle.CornerRadius = imageView.Frame.Height / 2;
+            imageCircle.BorderWidth = 0.3f;
+            imageCircle.BorderColor = UIColorConstants.ProductImageBorderColor.CGColor;
 			imageCircle.MasksToBounds = true;
 		}
 
-		// -------------------- Event handlers --------------------
+        private void MakeHeaderViewGradient()
+        {
+            var gradientLayer = new CAGradientLayer
+            {
+                Colors = new CGColor[] {UIColorConstants.MainGreenColor.CGColor, UIColor.White.CGColor},
+                Frame = TableView.TableHeaderView.Frame,
+                Locations = new NSNumber[] {0.0, 0.9}
+			};
+			TableView.TableHeaderView.Layer.InsertSublayer(gradientLayer, 0);
+		}
+		#endregion
+
+        #region Event handlers
 		private void TableSource_ItemClicked(object sender, AccountOption item)
 		{
 			Presenter.OnItemClick(item.OptionName);
@@ -148,14 +166,13 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.AccountPage
 
 		private void DoneButtonClickHandler(object sender, EventArgs e)
 		{
-			DismissViewController(animated: true, completionHandler: null);
+			DismissViewController(true, null);
 		}
 
 		private void AvatarImageTapHandler(UITapGestureRecognizer gestureRecognizer)
 		{
 			Presenter.OnPhotoClicked();
 		}
-		// -------------------------------------------------------- 
 		#endregion
 	}
 }

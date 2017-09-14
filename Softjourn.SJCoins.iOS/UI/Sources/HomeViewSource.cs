@@ -51,7 +51,7 @@ namespace Softjourn.SJCoins.iOS.UI.Sources
 
         public override nfloat GetHeightForRow(UITableView tableView, NSIndexPath indexPath)
         {
-            return new SizeHelper().VerticalCellHeight(tableView.Frame.Height, tableView.Frame.Width);
+            return SizeHelper.VerticalCellHeight();
         }
 	}
 }

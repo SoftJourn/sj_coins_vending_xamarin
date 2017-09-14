@@ -1,6 +1,6 @@
 // WARNING
 //
-// This file has been generated automatically by Xamarin Studio to store outlets and
+// This file has been generated automatically by Visual Studio to store outlets and
 // actions made in the UI designer. If it is removed, they will be lost.
 // Manual changes to this file may not be handled correctly.
 //
@@ -18,7 +18,7 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.AccountPage
 		UIKit.UIImageView AvatarImage { get; set; }
 
 		[Outlet]
-		UIKit.UIBarButtonItem DoneButton { get; set; }
+		UIKit.UIButton DoneButton { get; set; }
 
 		[Outlet]
 		UIKit.UIView HeaderView { get; set; }

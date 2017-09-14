@@ -253,7 +253,7 @@
                                                         <constraint firstAttribute="height" constant="38" id="1PF-xe-gxo"/>
                                                     </constraints>
                                                     <fontDescription key="fontDescription" type="boldSystem" pointSize="16"/>
-                                                    <color key="textColor" red="0.31764705879999999" green="0.27058823529999998" blue="0.24313725489999999" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <button autoresizesSubviews="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" contentHorizontalAlignment="right" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fpi-Zj-jJu">
@@ -264,7 +264,7 @@
                                                     </constraints>
                                                     <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                     <state key="normal" title="Show All">
-                                                        <color key="titleColor" red="0.18039215689999999" green="0.61568627450000002" blue="0.21176470589999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                        <color key="titleColor" red="0.0673493891954422" green="0.61436396837234497" blue="0.052932456135749817" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     </state>
                                                 </button>
                                                 <collectionView clipsSubviews="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="ym5-nb-bwv">
@@ -291,7 +291,7 @@
                                                 </collectionView>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ForwardImage" translatesAutoresizingMaskIntoConstraints="NO" id="tp1-5T-TzA">
                                                     <rect key="frame" x="349" y="9.5" width="16" height="19"/>
-                                                    <color key="tintColor" red="0.18039215689999999" green="0.61568627450000002" blue="0.21176470589999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    <color key="tintColor" red="0.0673493891954422" green="0.61436396837234497" blue="0.052932456135749817" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 </imageView>
                                             </subviews>
                                             <constraints>
@@ -607,11 +607,11 @@
             <objects>
                 <navigationController storyboardIdentifier="NavigationHomeViewController" automaticallyAdjustsScrollViewInsets="NO" id="jRC-Xd-MMN" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" autoresizesSubviews="NO" contentMode="scaleToFill" translucent="NO" id="2mK-na-P50">
+                    <navigationBar key="navigationBar" autoresizesSubviews="NO" contentMode="scaleToFill" misplaced="YES" translucent="NO" id="2mK-na-P50">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <color key="barTintColor" red="0.18039215689999999" green="0.61568627450000002" blue="0.21176470589999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="barTintColor" red="0.0673493891954422" green="0.61436396837234497" blue="0.052932456135749817" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <textAttributes key="titleTextAttributes">
                             <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         </textAttributes>
