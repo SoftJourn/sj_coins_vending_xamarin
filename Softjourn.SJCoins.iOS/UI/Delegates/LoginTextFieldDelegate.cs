@@ -10,7 +10,7 @@ namespace Softjourn.SJCoins.iOS
 
 		public override bool ShouldChangeCharacters(UITextField textField, NSRange range, string replacementString)
 		{
-			return replacementString == " " ? false : true;
+			return replacementString != " ";
 		}
 
 		public override bool ShouldReturn(UITextField textField)

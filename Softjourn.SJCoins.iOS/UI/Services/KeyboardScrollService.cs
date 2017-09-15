@@ -1,5 +1,6 @@
 ﻿using System;
 using Foundation;
+using CoreGraphics;
 using UIKit;
 
 namespace Softjourn.SJCoins.iOS.Services
@@ -10,15 +11,20 @@ namespace Softjourn.SJCoins.iOS.Services
 		private NSObject _onKeyboardWillShowNotificationObserver;
 		private NSObject _onKeyboardWillHideNotificationObserver;
 		private UIEdgeInsets _originalInsets;
-		private UITapGestureRecognizer _tapGetureRecognizer;
-		private UIScrollView _scrollView;
+        private readonly UITapGestureRecognizer _tapGetureRecognizer;
+        private readonly UIScrollView _scrollView;
+        private readonly CGPoint _buttonLocation;
+        private CGRect _frame;
 		#endregion
 
 		#region Constructor
-		public KeyboardScrollService(UIScrollView scrollView)
+		public KeyboardScrollService(UIScrollView scrollView, CGPoint buttonLocation, CGRect frame)
 		{
 			_originalInsets = scrollView.ContentInset;
 			_scrollView = scrollView;
+            _buttonLocation = buttonLocation;
+            _frame = frame;
+
 			Action action = () =>
 			{
 				UIView editableView = _scrollView;
@@ -28,9 +34,11 @@ namespace Softjourn.SJCoins.iOS.Services
 				}
 				editableView.EndEditing(true);
 			};
-			_tapGetureRecognizer = new UITapGestureRecognizer(action);
-			_tapGetureRecognizer.Enabled = false;
-			_scrollView.AddGestureRecognizer(_tapGetureRecognizer);
+            _tapGetureRecognizer = new UITapGestureRecognizer(action)
+            {
+                Enabled = false
+            };
+            _scrollView.AddGestureRecognizer(_tapGetureRecognizer);
 		}
 		#endregion
 
@@ -61,6 +69,15 @@ namespace Softjourn.SJCoins.iOS.Services
 			var insets = new UIEdgeInsets(_originalInsets.Top, _originalInsets.Left, keyboardHeight, _originalInsets.Right);
 			_scrollView.ContentInset = insets;
 			_scrollView.ScrollIndicatorInsets = insets;
+
+            var visibleRect = _frame;
+            visibleRect.Height -= keyboardSize.Height;
+
+            if (!visibleRect.Contains(_buttonLocation))
+			{
+                var scrollPoint = new CGPoint(0, _buttonLocation.Y - visibleRect.Height - 110);
+                _scrollView.SetContentOffset(scrollPoint, true);
+			}
 		}
 
 		private void OnKeyboardWillHideNotification(NSNotification notification)
@@ -70,6 +87,8 @@ namespace Softjourn.SJCoins.iOS.Services
 			var defaultInsets = _originalInsets;
 			_scrollView.ContentInset = defaultInsets;
 			_scrollView.ScrollIndicatorInsets = defaultInsets;
+
+            _scrollView.SetContentOffset(CGPoint.Empty, true);
 		}
 		#endregion
 	}

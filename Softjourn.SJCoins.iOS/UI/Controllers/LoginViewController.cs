@@ -31,7 +31,9 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers
 
             LoginTextField.Delegate = loginTextFieldDelegate;
 			PasswordTextField.Delegate = passwordTextFieldDelegate;
-			_scrollService = new KeyboardScrollService(ScrollView);
+
+            var buttonLocation = LoginButton.Frame.Location;
+            _scrollService = new KeyboardScrollService(ScrollView, buttonLocation, View.Frame);
 		}
 
 		public override void ViewWillAppear(bool animated)
@@ -107,10 +109,25 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers
             _scrollService.DetachToKeyboardNotifications();
 			base.DetachEvents();
 		}
-		#endregion 
+        #endregion
 
-		#region Event handlers
-		private void BackButtonClicked(object sender, EventArgs e)
+        #region Private methods
+        private void ConfigurePage1()
+        {
+        //	//Hide no items label
+        //	NoItemsLabel.Hidden = true;
+        //	MachineNameLabel.Text = "";
+        //	MyBalanceLabel.Text = "";
+
+        //	// Configure datasource and delegate
+        //	TableView.Source = tableSource;
+        //	TableView.AlwaysBounceVertical = true;
+        //	TableView.ScrollsToTop = true;
+        }
+        #endregion
+
+        #region Event handlers
+        private void BackButtonClicked(object sender, EventArgs e)
 		{
 			Presenter.ToWelcomePage();
 		}
