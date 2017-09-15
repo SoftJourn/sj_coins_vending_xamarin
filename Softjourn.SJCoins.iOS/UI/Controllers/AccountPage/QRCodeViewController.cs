@@ -1,5 +1,4 @@
 using System;
-using System.Linq;
 using Foundation;
 using Softjourn.SJCoins.Core.Exceptions;
 using Softjourn.SJCoins.Core.UI.Presenters;
@@ -23,14 +22,14 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.AccountPage
 
 		#region Properties
 		private UIImage qrcode;
-		private string initialParameter { get; set; }
-		private string amount
+		private string InitialParameter { get; set; }
+		private string Amount
 		{
 			get { return AmountTexfield.Text; } 
 		}
 
-		MobileBarcodeScanner scanner; 
-		UITapGestureRecognizer qrcodeImageTap;
+		private MobileBarcodeScanner scanner; 
+		private UITapGestureRecognizer qrcodeImageTap;
 		private AmountTextFieldDelegate textFieldDelegate;
 		#endregion
 
@@ -43,7 +42,7 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.AccountPage
 		{
 			if (initialParameter is string)
 			{
-				this.initialParameter = (string)initialParameter;
+				this.InitialParameter = (string)initialParameter;
 			}
 		}
 		#endregion
@@ -52,7 +51,7 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.AccountPage
 		public override void ViewDidLoad()
 		{
 			base.ViewDidLoad();
-			ConfigurePageWith(initialParameter);
+			ConfigurePageWith(InitialParameter);
 		}
 		#endregion
 
@@ -146,7 +145,7 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.AccountPage
 			try
 			{
 				await Presenter.CheckPermission();
-				scanner = new ZXing.Mobile.MobileBarcodeScanner(this);
+				scanner = new MobileBarcodeScanner(this);
 				var result = await scanner.Scan();
 				if (result != null)
 				{
@@ -182,8 +181,9 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.AccountPage
 			var activityController = new UIActivityViewController(new NSObject[] { qrcode }, null);
 			PresentViewController(activityController, true, null);
 		}
+		#endregion
 
-		// -------------------- Event handlers --------------------
+		#region Event handlers
 		private void AmountTextFieldChanged(object sender, EventArgs e)
 		{
 			ErrorLabel.Text = "";
@@ -192,15 +192,15 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.AccountPage
 
 		private void GenerateButtonClickHandler(object sender, EventArgs e)
 		{
-			if (initialParameter == Scan)
+			if (InitialParameter == Scan)
 			{
 				// Execute scaning
 				ScanQRCode();
 			}
-			else if (initialParameter == Generate)
+			else if (InitialParameter == Generate)
 			{
 				// Handle clicking on the Generate button
-				Presenter.GenerateCode(amount);
+				Presenter.GenerateCode(Amount);
 				// Hide keyboard
 				AmountTexfield.ResignFirstResponder();
 			}
@@ -217,7 +217,6 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.AccountPage
 			// Handle tapping on the QRCode image
 			PresentSharedSheet();
 		}
-		// -------------------------------------------------------- 
 		#endregion
 	}
 }

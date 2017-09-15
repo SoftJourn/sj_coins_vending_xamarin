@@ -1,5 +1,4 @@
 using System;
-using System.Collections.Generic;
 using CoreAnimation;
 using CoreGraphics;
 using Foundation;
@@ -19,7 +18,7 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.AccountPage
 		#region Properties
 		private AccountViewSource tableSource;
 		private Lazy<UIImageHelper> helper = new Lazy<UIImageHelper>(() => { return new UIImageHelper(); });
-		private UIImageHelper imageHelper { get { return helper.Value; } }
+		private UIImageHelper ImageHelper { get { return helper.Value; } }
 
 		UITapGestureRecognizer avatarImageTap; 
 		#endregion
@@ -101,7 +100,7 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.AccountPage
 			// Method trigged when data taken from plugin (camera or library)
 			var image = UIImage.LoadFromData(NSData.FromArray(receipt));
 			// Resize image
-			var scaledRotatedImage = imageHelper.ScaleAndRotateImage(image, image.Orientation);
+			var scaledRotatedImage = ImageHelper.ScaleAndRotateImage(image, image.Orientation);
 
 			// Set image
 			if (AvatarImage.Hidden)
@@ -110,7 +109,7 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.AccountPage
 			AvatarImage.Image = scaledRotatedImage;
 
 			// Convert scaled image to byte
-			var bytes = imageHelper.BytesFromImage(scaledRotatedImage);
+			var bytes = ImageHelper.BytesFromImage(scaledRotatedImage);
 			// Send image to server
 			if (bytes != null)
 				Presenter.StoreAvatarOnServer(bytes);

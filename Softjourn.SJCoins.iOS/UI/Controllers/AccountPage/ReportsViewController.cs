@@ -4,9 +4,7 @@ using Foundation;
 using Softjourn.SJCoins.Core.API.Model.TransactionReports;
 using Softjourn.SJCoins.Core.UI.Presenters;
 using Softjourn.SJCoins.Core.UI.ViewInterfaces;
-using Softjourn.SJCoins.iOS.UI.Cells;
 using UIKit;
-using CoreGraphics;
 using Softjourn.SJCoins.iOS.General.Helper;
 using Softjourn.SJCoins.iOS.General.Constants;
 
@@ -25,8 +23,8 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.AccountPage
 		#endregion
 
 		#region Properties
-		private ReportsSource _tableSource;
-		private SegmentControlHelper _segmentControlHelper;
+        private ReportsViewSource tableSource;
+        private SegmentControlHelper segmentControlHelper;
 		#endregion
 
 		#region Constructor
@@ -54,14 +52,14 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.AccountPage
 
 		public void SetData(List<Transaction> transactionsList)
 		{
-			_tableSource.SetItems(transactionsList);
+			tableSource.SetItems(transactionsList);
 			TableView.ReloadData();
 			TableView.TableFooterView.Hidden = false;
 		}
 
 		public void AddItemsToExistedList(List<Transaction> transactionsList)
 		{
-			_tableSource.AddItems(transactionsList, TableView);
+			tableSource.AddItems(transactionsList, TableView);
 		}
 
 		public void SetCompoundDrawableInput(bool? isAsc)
@@ -82,7 +80,7 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.AccountPage
 			InputOutputSegmentControl.TouchUpInside += InputOutputSegmentControl_SameButtonClicked;
 			InputOutputSegmentControl.ValueChanged += InputOutputSegmentControl_AnotherButtonClicked;
 			DateAmountSegmentControl.ValueChanged += DateAmountSegmentControl_AnotherButtonClicked;
-			_tableSource.GetNexPage += TableSource_GetNextPageExecuted;
+			tableSource.GetNexPage += TableSource_GetNextPageExecuted;
 		}
 
 		public override void DetachEvents()
@@ -90,7 +88,7 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.AccountPage
 			InputOutputSegmentControl.TouchUpInside -= InputOutputSegmentControl_SameButtonClicked;
 			InputOutputSegmentControl.ValueChanged -= InputOutputSegmentControl_AnotherButtonClicked;
 			DateAmountSegmentControl.ValueChanged -= DateAmountSegmentControl_AnotherButtonClicked;
-			_tableSource.GetNexPage -= TableSource_GetNextPageExecuted;
+			tableSource.GetNexPage -= TableSource_GetNextPageExecuted;
 			base.DetachEvents();
 		}
 
@@ -113,13 +111,13 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.AccountPage
 
 		private void ConfigureTableView()
 		{
-			_tableSource = new ReportsSource();
-			TableView.Source = _tableSource;
+            tableSource = new ReportsViewSource();
+			TableView.Source = tableSource;
 		}
 
 		private void ConfigureSegmentControl()
 		{
-			_segmentControlHelper = new SegmentControlHelper();
+			segmentControlHelper = new SegmentControlHelper();
 			// Configure 0 segment
 			ConfigureSegment(InputTitle, InputSegment, ImageConstants.ArrowUpward);
 		}
@@ -144,7 +142,7 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.AccountPage
 			else
 			{
 				var inputImage = UIImage.FromBundle(imageName);
-				var mergedImage = _segmentControlHelper.ImageFromImageAndText(inputImage, title, UIColor.Black);
+				var mergedImage = segmentControlHelper.ImageFromImageAndText(inputImage, title, UIColor.Black);
 				InputOutputSegmentControl.SetImage(mergedImage, segment);
 			}
 		}
@@ -187,8 +185,9 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.AccountPage
 					break;
 			}
 		}
+		#endregion
 
-		// -------------------- Event handlers --------------------
+		#region Event handlers
 		// DateAmountSegmentControl methods 
 		public void DateAmountSegmentControl_AnotherButtonClicked(object sender, EventArgs e)
 		{
@@ -221,62 +220,5 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.AccountPage
 			StopRefreshing();
 			Presenter.OnStartLoadingPage();
 		}
-	}
-
-	#region UITableViewSource implementation
-	public class ReportsSource : UITableViewSource
-	{
-		private const int tableSection = 0;
-		private const int rowBeforeEnd = 15;
-		private const int numberOfItemsOnOnePage = 50;
-
-		private List<Transaction> _items = new List<Transaction>();
-
-		public event EventHandler GetNexPage;
-
-		public void SetItems(List<Transaction> items)
-		{
-			_items = items ?? new List<Transaction>();
-		}
-
-		public void AddItems(List<Transaction> items, UITableView tableView)
-		{
-			// Add new items to existing list
-			_items.AddRange(items);
-
-			// Create empty list
-			var indexPaths = new List<NSIndexPath>();
-
-			// Add elements to list
-			foreach (Transaction item in items)
-			{
-				if (_items.Contains(item))
-				{
-					var index = _items.IndexOf(item);
-					var indexPath = NSIndexPath.FromRowSection(index, tableSection);
-					indexPaths.Add(indexPath);
-				}
-			}
-
-			// Insert into table
-			tableView.InsertRows(atIndexPaths: indexPaths.ToArray(), withRowAnimation: UITableViewRowAnimation.Fade);
-		}
-
-		public override nint RowsInSection(UITableView tableview, nint section) => _items.Count;
-
-		public override UITableViewCell GetCell(UITableView tableView, NSIndexPath indexPath) => tableView.DequeueReusableCell(TransactionCell.Key, indexPath);
-
-		public override void WillDisplay(UITableView tableView, UITableViewCell cell, NSIndexPath indexPath)
-		{
-			var _cell = (TransactionCell)cell;
-			_cell.ConfigureWith(_items[indexPath.Row]);
-
-			if (indexPath.Row == _items.Count - rowBeforeEnd && _items.Count >= numberOfItemsOnOnePage)
-			{
-				// trigg presenter to give the next page.
-				GetNexPage?.Invoke(this, null);
-			}
-		}
-	}
-	#endregion
+	}	
 }

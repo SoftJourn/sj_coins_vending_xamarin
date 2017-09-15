@@ -25,7 +25,7 @@ namespace Softjourn.SJCoins.iOS
 		{
 			DateLabel.Text = purchaseObj.PrettyTime;
 			NameLabel.Text = purchaseObj.Name;
-			PriceLabel.Text = purchaseObj.Price.ToString() + " coins";
+			PriceLabel.Text = purchaseObj.Price.ToString();
 		}
 
 		public override void PrepareForReuse()

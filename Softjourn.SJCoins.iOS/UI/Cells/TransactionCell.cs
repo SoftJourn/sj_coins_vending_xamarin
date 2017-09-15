@@ -29,7 +29,7 @@ namespace Softjourn.SJCoins.iOS.UI.Cells
 			DateLabel.Text = item.PrettyTime;
 			SenderLabel.Text = item.Account;
 			ReceiverLabel.Text = item.Destination;
-			AmountLabel.Text = item.Amount.ToString() + " Coins";
+			AmountLabel.Text = item.Amount.ToString();
 		}
 
 		public override void PrepareForReuse()

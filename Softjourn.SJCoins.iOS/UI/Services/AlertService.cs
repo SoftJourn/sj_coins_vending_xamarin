@@ -110,7 +110,7 @@ namespace Softjourn.SJCoins.iOS.UI.Services
 			UIApplication.SharedApplication.InvokeOnMainThread(() =>
 			{
 				var alertController = UIAlertController.Create(title, message, UIAlertControllerStyle.ActionSheet);
-
+                alertController.View.TintColor = UIColorConstants.MainGreenColor;
 				for (int i = 0; i < items.Length; i++)
 				{
 					AddActionToAlert(alertController, items[i], UIAlertActionStyle.Default, itemActions[i]);

@@ -621,6 +621,8 @@
     <Compile Include="UI\Delegates\CollectionViewFlowLayoutDelegate.cs" />
     <Compile Include="General\Constants\UIColorConstants.cs" />
     <Compile Include="General\Helper\SizeHelper.cs" />
+    <Compile Include="UI\Sources\PurchaseViewSource.cs" />
+    <Compile Include="UI\Sources\ReportsViewSource.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
 </Project>

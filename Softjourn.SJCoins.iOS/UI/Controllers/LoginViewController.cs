@@ -43,6 +43,8 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers
 			//Hide error labels before view appears
 			LoginErrorLabel.Hidden = true;
 			PasswordErrorLabel.Hidden = true;
+
+            UIApplication.SharedApplication.SetStatusBarStyle(UIStatusBarStyle.Default, false);
 		}
 
 		public override void ViewWillDisappear(bool animated)
@@ -51,6 +53,8 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers
 			_scrollService = null;
 			loginTextFieldDelegate = null;
 			passwordTextFieldDelegate = null;
+
+            UIApplication.SharedApplication.SetStatusBarStyle(UIStatusBarStyle.LightContent, false);
 		}
 		#endregion
 
