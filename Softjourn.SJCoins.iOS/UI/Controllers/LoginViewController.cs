@@ -116,18 +116,6 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers
         #endregion
 
         #region Private methods
-        private void ConfigurePage1()
-        {
-        //	//Hide no items label
-        //	NoItemsLabel.Hidden = true;
-        //	MachineNameLabel.Text = "";
-        //	MyBalanceLabel.Text = "";
-
-        //	// Configure datasource and delegate
-        //	TableView.Source = tableSource;
-        //	TableView.AlwaysBounceVertical = true;
-        //	TableView.ScrollsToTop = true;
-        }
         #endregion
 
         #region Event handlers

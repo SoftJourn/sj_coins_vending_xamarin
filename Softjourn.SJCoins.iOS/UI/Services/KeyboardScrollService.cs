@@ -12,7 +12,7 @@ namespace Softjourn.SJCoins.iOS.Services
 		private NSObject _onKeyboardWillHideNotificationObserver;
 		private UIEdgeInsets _originalInsets;
         private readonly UITapGestureRecognizer _tapGetureRecognizer;
-        private readonly UIScrollView _scrollView;
+        private readonly UIScrollView scrollView;
         private readonly CGPoint _buttonLocation;
         private CGRect _frame;
 		#endregion
@@ -21,13 +21,13 @@ namespace Softjourn.SJCoins.iOS.Services
 		public KeyboardScrollService(UIScrollView scrollView, CGPoint buttonLocation, CGRect frame)
 		{
 			_originalInsets = scrollView.ContentInset;
-			_scrollView = scrollView;
+			this.scrollView = scrollView;
             _buttonLocation = buttonLocation;
             _frame = frame;
 
 			Action action = () =>
 			{
-				UIView editableView = _scrollView;
+				UIView editableView = scrollView;
 				while (editableView.Superview != null)
 				{
 					editableView = editableView.Superview;
@@ -38,7 +38,7 @@ namespace Softjourn.SJCoins.iOS.Services
             {
                 Enabled = false
             };
-            _scrollView.AddGestureRecognizer(_tapGetureRecognizer);
+            scrollView.AddGestureRecognizer(_tapGetureRecognizer);
 		}
 		#endregion
 
@@ -61,22 +61,22 @@ namespace Softjourn.SJCoins.iOS.Services
 		{
 			_tapGetureRecognizer.Enabled = true;
 
-			var keyboardSize = UIKeyboard.FrameBeginFromNotification(notification);
+            var keyboardSize = UIKeyboard.FrameEndFromNotification(notification);
 			var keyboardHeight = keyboardSize.Height;
 
-			_originalInsets.Top = _scrollView.ContentInset.Top;
+			_originalInsets.Top = scrollView.ContentInset.Top;
 
 			var insets = new UIEdgeInsets(_originalInsets.Top, _originalInsets.Left, keyboardHeight, _originalInsets.Right);
-			_scrollView.ContentInset = insets;
-			_scrollView.ScrollIndicatorInsets = insets;
+			scrollView.ContentInset = insets;
+			scrollView.ScrollIndicatorInsets = insets;
 
             var visibleRect = _frame;
             visibleRect.Height -= keyboardSize.Height;
 
             if (!visibleRect.Contains(_buttonLocation))
 			{
-                var scrollPoint = new CGPoint(0, _buttonLocation.Y - visibleRect.Height - 110);
-                _scrollView.SetContentOffset(scrollPoint, true);
+                var scrollPoint = new CGPoint(0, _buttonLocation.Y - visibleRect.Height + 60);
+                scrollView.SetContentOffset(scrollPoint, true);
 			}
 		}
 
@@ -85,10 +85,10 @@ namespace Softjourn.SJCoins.iOS.Services
 			_tapGetureRecognizer.Enabled = false;
 
 			var defaultInsets = _originalInsets;
-			_scrollView.ContentInset = defaultInsets;
-			_scrollView.ScrollIndicatorInsets = defaultInsets;
+			scrollView.ContentInset = defaultInsets;
+			scrollView.ScrollIndicatorInsets = defaultInsets;
 
-            _scrollView.SetContentOffset(CGPoint.Empty, true);
+            scrollView.SetContentOffset(CGPoint.Empty, true);
 		}
 		#endregion
 	}
