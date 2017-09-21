@@ -24,57 +24,34 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="64" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="hzM-ok-9xB">
-                                <rect key="frame" x="-1.5" y="0.0" width="376" height="666"/>
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="fcA-eP-pU5">
+                                <rect key="frame" x="-0.5" y="-0.5" width="375" height="667"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <view key="tableHeaderView" contentMode="scaleToFill" id="v8N-04-Eeh" userLabel="HeaderView">
-                                    <rect key="frame" x="0.0" y="0.0" width="376" height="48"/>
-                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                    <subviews>
-                                        <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="buZ-Oi-KDG" customClass="CustomSegmentControl">
-                                            <rect key="frame" x="13" y="14.5" width="350" height="26"/>
-                                            <constraints>
-                                                <constraint firstAttribute="height" constant="25" id="ohj-y1-JhE"/>
-                                            </constraints>
-                                            <segments>
-                                                <segment title="Name"/>
-                                                <segment title="Price"/>
-                                            </segments>
-                                        </segmentedControl>
-                                    </subviews>
-                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                    <constraints>
-                                        <constraint firstAttribute="trailingMargin" secondItem="buZ-Oi-KDG" secondAttribute="trailing" constant="5" id="EpV-Xo-eCZ"/>
-                                        <constraint firstItem="buZ-Oi-KDG" firstAttribute="centerY" secondItem="v8N-04-Eeh" secondAttribute="centerY" constant="3" id="XQ3-px-FkV"/>
-                                        <constraint firstItem="buZ-Oi-KDG" firstAttribute="leading" secondItem="v8N-04-Eeh" secondAttribute="leadingMargin" constant="5" id="cTE-vV-evd"/>
-                                        <constraint firstItem="buZ-Oi-KDG" firstAttribute="centerX" secondItem="v8N-04-Eeh" secondAttribute="centerX" id="xTl-GN-2Wh"/>
-                                    </constraints>
-                                </view>
-                                <view key="tableFooterView" contentMode="scaleToFill" id="xfg-zO-eIb" userLabel="FooterView">
-                                    <rect key="frame" x="0.0" y="138" width="376" height="0.0"/>
-                                    <autoresizingMask key="autoresizingMask"/>
-                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                </view>
-                                <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="ProductCell" rowHeight="62" id="bMg-6R-VDt" customClass="ProductCell">
-                                        <rect key="frame" x="0.0" y="76" width="376" height="62"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="bMg-6R-VDt" id="rag-c4-p6H">
-                                            <rect key="frame" x="0.0" y="0.0" width="376" height="62"/>
+                                <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="cti-qZ-9Y6">
+                                    <size key="itemSize" width="169" height="183"/>
+                                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                    <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                </collectionViewFlowLayout>
+                                <cells>
+                                    <collectionViewCell clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="ProductCell" id="MrH-Cd-ZsX" customClass="ProductCell">
+                                        <rect key="frame" x="0.0" y="0.0" width="169" height="183"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                                            <rect key="frame" x="0.0" y="0.0" width="169" height="183"/>
                                             <autoresizingMask key="autoresizingMask"/>
-                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                        </tableViewCellContentView>
-                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                    </tableViewCell>
-                                </prototypes>
-                            </tableView>
+                                        </view>
+                                        <color key="backgroundColor" red="0.067349389199999998" green="0.61436396839999996" blue="0.05293245614" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    </collectionViewCell>
+                                </cells>
+                            </collectionView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="hzM-ok-9xB" firstAttribute="centerX" secondItem="uIh-4g-Aig" secondAttribute="centerX" constant="-1" id="0Qb-LD-pdd"/>
-                            <constraint firstItem="hzM-ok-9xB" firstAttribute="height" secondItem="uIh-4g-Aig" secondAttribute="height" constant="-1" id="UT8-zy-uNn"/>
-                            <constraint firstItem="hzM-ok-9xB" firstAttribute="centerY" secondItem="uIh-4g-Aig" secondAttribute="centerY" constant="-0.5" id="raD-Ih-UNF"/>
-                            <constraint firstItem="hzM-ok-9xB" firstAttribute="width" secondItem="uIh-4g-Aig" secondAttribute="width" constant="1" id="tSx-5h-Or8"/>
+                            <constraint firstItem="fcA-eP-pU5" firstAttribute="height" secondItem="uIh-4g-Aig" secondAttribute="height" id="NmI-hs-sa8"/>
+                            <constraint firstItem="fcA-eP-pU5" firstAttribute="width" secondItem="uIh-4g-Aig" secondAttribute="width" id="PvQ-1C-P4T"/>
+                            <constraint firstItem="fcA-eP-pU5" firstAttribute="centerX" secondItem="uIh-4g-Aig" secondAttribute="centerX" id="ZXb-qt-SLo"/>
+                            <constraint firstItem="fcA-eP-pU5" firstAttribute="centerY" secondItem="uIh-4g-Aig" secondAttribute="centerY" id="ij3-kn-US4"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="CategoryName" id="R8i-LZ-RZu">
@@ -85,14 +62,12 @@
                     </navigationItem>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
                     <connections>
-                        <outlet property="NamePriceSegmentControl" destination="buZ-Oi-KDG" id="Flt-CY-XWe"/>
-                        <outlet property="SearchButton" destination="wEY-b6-570" id="SMq-We-D6W"/>
-                        <outlet property="TableView" destination="hzM-ok-9xB" id="QUT-1t-iTC"/>
+                        <outlet property="CollectionView" destination="fcA-eP-pU5" id="caK-L1-SeU"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="FyA-Ec-j0O" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4532" y="904"/>
+            <point key="canvasLocation" x="4532" y="903.59820089955031"/>
         </scene>
         <!--Image Content View Controller-->
         <scene sceneID="wgV-wR-jrA">

@@ -7,10 +7,10 @@ namespace Softjourn.SJCoins.iOS
     public static class SizeHelper
     {
         #region Constants
-        private static float phoneVerticalCoefficient = 3.0f;         // Home page vertical cell height coeficient. (Table)
-        private static float padVerticalCoefficient = 4.6f;           // Home page vertical cell height coeficient. (Table)
+        private static float phoneShowAllItemCoefficient = 2.0f;      // ShowAll page item width coeficient. (Collection)
+        private static float padShowAllItemCoefficient = 4.6f;        // ShowAll page item width coeficient. (Collection)
 
-        private static float phoneWidthCoefficient = 3.9f;            // Home page horizontal cell width coeficient. (Collection)
+		private static float phoneWidthCoefficient = 3.9f;            // Home page horizontal cell width coeficient. (Collection)
         private static float padWidthCoefficient = 7.1f;              // Home page horizontal cell width coeficient. (Collection)
 
         private static float phoneDetailHeightCoefficient = 0.5f;     // Detail Page Header height. (PageController)
@@ -34,6 +34,11 @@ namespace Softjourn.SJCoins.iOS
 			var productCellWidth = idiom == UIUserInterfaceIdiom.Pad ? RoundingOf(width / padWidthCoefficient) : RoundingOf(width / phoneWidthCoefficient);
 			var productCellHeight = CategoryNameLabelHeight + productCellWidth + Const.MaxPhoneNameLabelHeight + Const.PhoneNameLabelRetreat + Const.MaxPhonePriceLabelHeight + Const.PhonePriceLabelRetreat + BottomRetreat;
 			return productCellHeight;
+		}
+
+		public static nfloat ShowAllItemWidth()
+		{
+			return idiom == UIUserInterfaceIdiom.Pad ? RoundingOf(width / padShowAllItemCoefficient) : RoundingOf(width / phoneShowAllItemCoefficient);
 		}
 
         public static nfloat HorizontalCellWidth()

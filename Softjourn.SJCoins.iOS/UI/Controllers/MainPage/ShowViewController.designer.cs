@@ -1,6 +1,6 @@
 // WARNING
 //
-// This file has been generated automatically by Xamarin Studio to store outlets and
+// This file has been generated automatically by Visual Studio to store outlets and
 // actions made in the UI designer. If it is removed, they will be lost.
 // Manual changes to this file may not be handled correctly.
 //
@@ -12,29 +12,13 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.Main
 	partial class ShowViewController
 	{
 		[Outlet]
-		UIKit.UISegmentedControl NamePriceSegmentControl { get; set; }
-
-		[Outlet]
-		UIKit.UIBarButtonItem SearchButton { get; set; }
-
-		[Outlet]
-		UIKit.UITableView TableView { get; set; }
+		UIKit.UICollectionView CollectionView { get; set; }
 		
 		void ReleaseDesignerOutlets ()
 		{
-			if (SearchButton != null) {
-				SearchButton.Dispose ();
-				SearchButton = null;
-			}
-
-			if (NamePriceSegmentControl != null) {
-				NamePriceSegmentControl.Dispose ();
-				NamePriceSegmentControl = null;
-			}
-
-			if (TableView != null) {
-				TableView.Dispose ();
-				TableView = null;
+			if (CollectionView != null) {
+				CollectionView.Dispose ();
+				CollectionView = null;
 			}
 		}
 	}

@@ -497,7 +497,6 @@
     <InterfaceDefinition Include="LaunchScreen.storyboard" />
     <InterfaceDefinition Include="Main.storyboard" />
     <InterfaceDefinition Include="Login.storyboard" />
-    <InterfaceDefinition Include="UI\Cells\ProductCell.xib" />
     <InterfaceDefinition Include="Account.storyboard" />
   </ItemGroup>
   <ItemGroup>
@@ -586,6 +585,7 @@
     <Compile Include="UI\Controllers\MainPage\ImageContentViewController.designer.cs">
       <DependentUpon>ImageContentViewController.cs</DependentUpon>
     </Compile>
+    <Compile Include="UI\Delegates\ShowAllCollectionFlowLayoutDelegate.cs" />
     <Compile Include="UI\Delegates\PageViewDelegate.cs" />
     <Compile Include="UI\Delegates\AmountTextFieldDelegate.cs" />
     <Compile Include="UI\Services\AnimationService.cs" />
@@ -623,6 +623,7 @@
     <Compile Include="General\Helper\SizeHelper.cs" />
     <Compile Include="UI\Sources\PurchaseViewSource.cs" />
     <Compile Include="UI\Sources\ReportsViewSource.cs" />
+    <Compile Include="UI\Sources\ShowAllSource.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
 </Project>
