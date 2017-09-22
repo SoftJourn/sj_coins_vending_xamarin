@@ -497,7 +497,6 @@
     <InterfaceDefinition Include="LaunchScreen.storyboard" />
     <InterfaceDefinition Include="Main.storyboard" />
     <InterfaceDefinition Include="Login.storyboard" />
-    <InterfaceDefinition Include="UI\Cells\ProductCell.xib" />
     <InterfaceDefinition Include="Account.storyboard" />
   </ItemGroup>
   <ItemGroup>
@@ -623,6 +622,7 @@
     <Compile Include="General\Helper\SizeHelper.cs" />
     <Compile Include="UI\Sources\PurchaseViewSource.cs" />
     <Compile Include="UI\Sources\ReportsViewSource.cs" />
+    <Compile Include="UI\Sources\SeeAllViewSource.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
 </Project>

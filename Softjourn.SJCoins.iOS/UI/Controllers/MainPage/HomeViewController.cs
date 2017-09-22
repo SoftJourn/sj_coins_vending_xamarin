@@ -138,6 +138,9 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.Main
 			TableView.Source = tableSource;
 			TableView.AlwaysBounceVertical = true;
             TableView.ScrollsToTop = true;
+
+            NavigationController.NavigationBar.SetBackgroundImage(new UIImage(), UIBarMetrics.Default);
+            NavigationController.NavigationBar.ShadowImage = new UIImage();
 		}
 
 		private void SetBalance(string balance)

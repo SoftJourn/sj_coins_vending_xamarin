@@ -14,18 +14,11 @@ namespace Softjourn.SJCoins.iOS
 		//	get { return UIColor.FromRGB(246, 76, 115); }
 		//}
 
-		public static UIColor HudBackgroundColor
+		public static UIColor MainBackgroundColor
 		{
-			get { return UIColor.FromRGB(239, 239, 244); }
+			get { return UIColor.FromRGB(245, 245, 245); }
 		}
 
-		// Old green
-		//public static UIColor MainGreenColor               
-		//{
-		//	get { return UIColor.FromRGB(46, 157, 54); }
-		//}
-
-		// New Green
 		public static UIColor MainGreenColor                
 		{
 			get { return UIColor.FromRGB(17, 157, 13); }
@@ -33,12 +26,12 @@ namespace Softjourn.SJCoins.iOS
 
 		public static UIColor ProductImageBorderColor
 		{
-			get { return UIColor.FromRGB(220, 220, 220); }
+			get { return UIColor.FromRGB(225, 225, 225); }
 		}
 
 		public static UIColor ProductNameColor
 		{
-			get { return UIColor.FromRGB(81, 69, 62); }
+			get { return UIColor.FromRGB(45, 45, 45); }
 		}
 
 		public static UIColor ProductPriceColor

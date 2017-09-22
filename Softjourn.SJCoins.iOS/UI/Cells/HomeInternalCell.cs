@@ -26,7 +26,7 @@ namespace Softjourn.SJCoins.iOS
 		private Product Product { get; set; }
 		private PreViewController previewController;
 		private IUIViewControllerPreviewing previewing;
-		private AppDelegate currentApplication
+		private AppDelegate CurrentApplication
 		{
 			get { return (AppDelegate)UIApplication.SharedApplication.Delegate; }
 		}
@@ -57,8 +57,8 @@ namespace Softjourn.SJCoins.iOS
                 ClipsToBounds = true                   
             };
             ProductImage.Opaque = true;
-            ProductImage.Layer.CornerRadius = 24;
-            ProductImage.Layer.BorderWidth = 1;
+            ProductImage.Layer.CornerRadius = 22.0f;
+            ProductImage.Layer.BorderWidth = 0.6f;
             ProductImage.Layer.BorderColor = UIColorConstants.ProductImageBorderColor.CGColor;
             AddSubview(ProductImage);
 
@@ -67,7 +67,7 @@ namespace Softjourn.SJCoins.iOS
                 Font = nameLabelFont,
                 Lines = 2,
                 TextColor = UIColorConstants.ProductNameColor,
-                BackgroundColor = UIColor.White,
+                BackgroundColor = UIColorConstants.MainBackgroundColor,
                 LineBreakMode = UILineBreakMode.TailTruncation
             };
             AddSubview(NameLabel);
@@ -75,14 +75,14 @@ namespace Softjourn.SJCoins.iOS
             PriceLabel = new UILabel {
                 Font = nameLabelFont,
                 Lines = 1,
-                BackgroundColor = UIColor.White,
+                BackgroundColor = UIColorConstants.MainBackgroundColor,
                 TextColor = UIColorConstants.ProductPriceColor
             };
             AddSubview(PriceLabel);
 
             CoinImage = new UIImageView {
 				Image = UIImage.FromBundle(ImageConstants.Bitcoin),
-                BackgroundColor = UIColor.White,
+                BackgroundColor = UIColorConstants.MainBackgroundColor,
 				ContentMode = UIViewContentMode.ScaleAspectFit,
 				ClipsToBounds = true
 			};
@@ -94,9 +94,6 @@ namespace Softjourn.SJCoins.iOS
         {
             if (product != null)
             {
-                //var helper = new SizeHelper(this.Subviews.s);
-
-
                 ProductImage.Frame = new CGRect(0, 0, this.Frame.Width, this.Frame.Width);
 				
                 var expectedNameSize = NameLabel.SizeThatFits(new CGSize(this.Frame.Width, Const.MaxPhoneNameLabelHeight));
@@ -124,7 +121,7 @@ namespace Softjourn.SJCoins.iOS
 			LayoutUI(Product);
 
 			// Register for preview
-			previewing = currentApplication.VisibleViewController.RegisterForPreviewingWithDelegate(this, this);
+			previewing = CurrentApplication.VisibleViewController.RegisterForPreviewingWithDelegate(this, this);
 		}
 
 		public override void PrepareForReuse()
@@ -148,7 +145,7 @@ namespace Softjourn.SJCoins.iOS
             if (previewing != null)
             {
 				// Unregister for preview
-				currentApplication.VisibleViewController.UnregisterForPreviewingWithContext(previewing);
+				CurrentApplication.VisibleViewController.UnregisterForPreviewingWithContext(previewing);
             }
 
 			//Layer.ShouldRasterize = true;
@@ -197,7 +194,7 @@ namespace Softjourn.SJCoins.iOS
 
 		public void CommitViewController(IUIViewControllerPreviewing previewingContext, UIViewController viewControllerToCommit)
 		{
-			currentApplication.VisibleViewController.ShowViewController(viewControllerToCommit, this);
+			CurrentApplication.VisibleViewController.ShowViewController(viewControllerToCommit, this);
 		}
 		#endregion
 	}

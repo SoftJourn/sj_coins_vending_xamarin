@@ -10,7 +10,7 @@ namespace Softjourn.SJCoins.iOS
         private static float phoneVerticalCoefficient = 3.0f;         // Home page vertical cell height coeficient. (Table)
         private static float padVerticalCoefficient = 4.6f;           // Home page vertical cell height coeficient. (Table)
 
-        private static float phoneWidthCoefficient = 3.9f;            // Home page horizontal cell width coeficient. (Collection)
+        private static float phoneWidthCoefficient = 3.66f;            // Home page horizontal cell width coeficient. (Collection)
         private static float padWidthCoefficient = 7.1f;              // Home page horizontal cell width coeficient. (Collection)
 
         private static float phoneDetailHeightCoefficient = 0.5f;     // Detail Page Header height. (PageController)
