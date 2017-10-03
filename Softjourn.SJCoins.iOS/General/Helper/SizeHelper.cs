@@ -7,20 +7,17 @@ namespace Softjourn.SJCoins.iOS
     public static class SizeHelper
     {
         #region Constants
-        private static float phoneVerticalCoefficient = 3.0f;         // Home page vertical cell height coeficient. (Table)
-        private static float padVerticalCoefficient = 4.6f;           // Home page vertical cell height coeficient. (Table)
-
         private static float phoneWidthCoefficient = 3.66f;            // Home page horizontal cell width coeficient. (Collection)
         private static float padWidthCoefficient = 7.1f;              // Home page horizontal cell width coeficient. (Collection)
 
         private static float phoneDetailHeightCoefficient = 0.5f;     // Detail Page Header height. (PageController)
         private static float padDetailHeightCoefficient = 0.8f;       // Detail Page Header height. (PageController)
 
-		private static float phoneAccountHeight = 350.0f;             // Account Page Header height.
+		private static float phoneAccountHeight = 340.0f;             // Account Page Header height.
 		private static float padAccountHeight = 400.0f;
 
-		private static float CategoryNameLabelHeight = 38.0f;      
-		private static float BottomRetreat = 6.0f;
+		private static float CategoryNameLabelHeight = 44.0f;         
+		private static float BottomRetreat = 12.0f;
         #endregion
 
         #region Properties
@@ -32,7 +29,7 @@ namespace Softjourn.SJCoins.iOS
 		public static nfloat VerticalCellHeight()
 		{
 			var productCellWidth = idiom == UIUserInterfaceIdiom.Pad ? RoundingOf(width / padWidthCoefficient) : RoundingOf(width / phoneWidthCoefficient);
-			var productCellHeight = CategoryNameLabelHeight + productCellWidth + Const.MaxPhoneNameLabelHeight + Const.PhoneNameLabelRetreat + Const.MaxPhonePriceLabelHeight + Const.PhonePriceLabelRetreat + BottomRetreat;
+			var productCellHeight = CategoryNameLabelHeight + productCellWidth + Const.PhoneNameLabelRetreat + Const.MaxPhoneNameLabelHeight + Const.MaxPhonePriceLabelHeight + Const.PhonePriceLabelRetreat + BottomRetreat;
 			return productCellHeight;
 		}
 

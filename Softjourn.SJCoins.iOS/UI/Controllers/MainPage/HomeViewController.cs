@@ -17,7 +17,10 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.Main
 		public List<Categories> Categories { get; private set; }
 
 		private bool pullToRefreshTrigged = false;
+        private string currentBalance = "";
+        private string currentUser = "";
 		private HomeViewSource tableSource = new HomeViewSource();
+
 		#endregion
 	
 		#region Constructor
@@ -32,7 +35,6 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.Main
 			base.ViewDidLoad();
 			ConfigurePage();
 			Presenter.OnStartLoadingPage();
-            //TableView.Alpha = 0;
 		}
 
 		public override void ViewWillAppear(bool animated)
@@ -82,14 +84,21 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.Main
 		#region IHomeView implementation
 		public void SetAccountInfo(Account account)
 		{
-			// Show user balance on start
-			SetBalance(account.Amount.ToString());
+            // Show user balance on start
+            var name = account.Name;
+            var surname = account.Surname;
+            currentUser = name + " " + surname;
+
+            var balance = account.Amount.ToString();
+            currentBalance = balance;
+
+            SetBalance(balance, currentUser);
 		}
 
 		public void SetUserBalance(string balance)
 		{
 			// Show user balance after buying
-			SetBalance(balance);
+            SetBalance(balance, currentUser);
 		}
 
 		public void SetMachineName(string name)
@@ -102,10 +111,12 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.Main
 		{
             NoItemsLabel.Hidden = true;
 			Categories = listCategories;
+
 			// Send downloaded data to dataSource and show them on view
 			tableSource.Categories = Categories;
-			TableView.ReloadData();
-            //UIView.Animate(0.5, 0, UIViewAnimationOptions.CurveEaseIn, () => { TableView.Alpha = 1.0f; }, null);
+            ReloadTable();
+
+			ShowScreenInfo();
 		}
 
 		public void ServiceNotAvailable()
@@ -132,7 +143,10 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.Main
 			//Hide no items label
 			NoItemsLabel.Hidden = true;
 			MachineNameLabel.Text = "";
+            MachineNameLabel.Alpha = 0.0f;
 			MyBalanceLabel.Text = "";
+            MyBalanceLabel.Alpha = 0.0f;
+            CoinLogo.Alpha = 0.0f;
 
 			// Configure datasource and delegate
 			TableView.Source = tableSource;
@@ -143,9 +157,9 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.Main
             NavigationController.NavigationBar.ShadowImage = new UIImage();
 		}
 
-		private void SetBalance(string balance)
+		private void SetBalance(string balance, string user)
 		{
-			MyBalanceLabel.Text = "Your balance: " + balance + " coins";		
+            MyBalanceLabel.Text = user + ": " + balance;		
 		}
 
 		private void RefreshFavoritesCell()
@@ -155,8 +169,24 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.Main
 			{
 				var newList = Presenter.GetCategoriesList();
 				tableSource.Categories = newList;
-				TableView.ReloadData();
+                ReloadTable();
 			}
+		}
+
+        private void ReloadTable()
+        {
+            TableView.ReloadSections(new NSIndexSet(0), UITableViewRowAnimation.Automatic);
+        }
+
+        private void ShowScreenInfo()
+        {
+			UIView.Animate(0.5, 0, UIViewAnimationOptions.CurveLinear, () => {
+				MachineNameLabel.Alpha = 1.0f;
+				MyBalanceLabel.Alpha = 1.0f;
+				CoinLogo.Alpha = 1.0f;
+                AccountButton.Enabled = true;
+                AccountButton.TintColor = UIColorConstants.MainGreenColor;
+			}, null);
 		}
 		#endregion
 
@@ -192,7 +222,7 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.Main
 		}
 		#endregion
 
-		#region Throw TableView to parent 
+		#region Throw TableView to parent
 		protected override UIScrollView GetRefreshableScrollView() => TableView;
 
 		protected override void PullToRefreshTriggered(object sender, System.EventArgs e)
@@ -205,7 +235,7 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.Main
 
 		protected override void Dispose(bool disposing)
 		{
-			System.Diagnostics.Debug.WriteLine(String.Format("{0} object disposed", this.GetType()));
+			System.Diagnostics.Debug.WriteLine(String.Format("{0} disposed", this.GetType()));
 			base.Dispose(disposing);
 		}
 	}

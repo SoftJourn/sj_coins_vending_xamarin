@@ -249,30 +249,6 @@
     <ImageAsset Include="Assets.xcassets\Placeholder.imageset\placeholder_tv%403x.png">
       <InProject>false</InProject>
     </ImageAsset>
-    <ImageAsset Include="Assets.xcassets\FavoriteChecked.imageset\Contents.json">
-      <InProject>false</InProject>
-    </ImageAsset>
-    <ImageAsset Include="Assets.xcassets\FavoriteUnchecked.imageset\Contents.json">
-      <InProject>false</InProject>
-    </ImageAsset>
-    <ImageAsset Include="Assets.xcassets\FavoriteChecked.imageset\favorite_checked1x.png">
-      <InProject>false</InProject>
-    </ImageAsset>
-    <ImageAsset Include="Assets.xcassets\FavoriteChecked.imageset\favorite_checked2x.png">
-      <InProject>false</InProject>
-    </ImageAsset>
-    <ImageAsset Include="Assets.xcassets\FavoriteChecked.imageset\favorite_checked3x.png">
-      <InProject>false</InProject>
-    </ImageAsset>
-    <ImageAsset Include="Assets.xcassets\FavoriteUnchecked.imageset\favorite_uhecked1x.png">
-      <InProject>false</InProject>
-    </ImageAsset>
-    <ImageAsset Include="Assets.xcassets\FavoriteUnchecked.imageset\favorite_uhecked2x.png">
-      <InProject>false</InProject>
-    </ImageAsset>
-    <ImageAsset Include="Assets.xcassets\FavoriteUnchecked.imageset\favorite_uhecked3x.png">
-      <InProject>false</InProject>
-    </ImageAsset>
     <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\Icon-Spotlight-40%402x.png">
       <InProject>false</InProject>
     </ImageAsset>
@@ -432,9 +408,6 @@
     <ImageAsset Include="Assets.xcassets\DefaultAvatar.imageset\noavatar.png">
       <InProject>false</InProject>
     </ImageAsset>
-    <ImageAsset Include="Assets.xcassets\NewAccount2.imageset\Contents.json" />
-    <ImageAsset Include="Assets.xcassets\NewAccount2.imageset\customer_x2.png" />
-    <ImageAsset Include="Assets.xcassets\NewAccount2.imageset\customer_x3.png" />
     <ImageAsset Include="Assets.xcassets\ForwardImage.imageset\Contents.json" />
     <ImageAsset Include="Assets.xcassets\ForwardImage.imageset\ForwardRow.png" />
     <ImageAsset Include="Assets.xcassets\ForwardImage.imageset\ForwardRow%402x.png" />
@@ -443,7 +416,6 @@
     <ImageAsset Include="Assets.xcassets\Bitcoin.imageset\Bitcoin%402x.png" />
     <ImageAsset Include="Assets.xcassets\Bitcoin.imageset\Bitcoin%403x.png" />
     <ImageAsset Include="Assets.xcassets\Bitcoin.imageset\Contents.json" />
-    <ImageAsset Include="Assets.xcassets\NewAccount2.imageset\customer.png" />
     <ImageAsset Include="Assets.xcassets\Heart.imageset\Contents.json" />
     <ImageAsset Include="Assets.xcassets\Heart.imageset\Heart.png" />
     <ImageAsset Include="Assets.xcassets\HeartFilled.imageset\Contents.json" />
@@ -453,7 +425,9 @@
     <ImageAsset Include="Assets.xcassets\NewAccount3.imageset\profile%403x.png" />
     <ImageAsset Include="Assets.xcassets\NewAccount3.imageset\profile.png" />
     <ImageAsset Include="Assets.xcassets\NewAccount4.imageset\Contents.json" />
-    <ImageAsset Include="Assets.xcassets\NewAccount4.imageset\MaleUser.png" />
+    <ImageAsset Include="Assets.xcassets\NewAccount4.imageset\Male_User.png" />
+    <ImageAsset Include="Assets.xcassets\NewAccount4.imageset\Male_User2x.png" />
+    <ImageAsset Include="Assets.xcassets\NewAccount4.imageset\Male_User3x.png" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Assets.xcassets\AccountTabIcon.imageset\" />

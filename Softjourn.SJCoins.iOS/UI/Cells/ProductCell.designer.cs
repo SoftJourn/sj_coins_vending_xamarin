@@ -13,6 +13,15 @@ namespace Softjourn.SJCoins.iOS.UI.Cells
 	partial class ProductCell
 	{
 		[Outlet]
+		UIKit.UIButton BuyButton { get; set; }
+
+		[Outlet]
+		UIKit.UILabel DescriptLabel { get; set; }
+
+		[Outlet]
+		UIKit.UIButton FavoriteButton { get; set; }
+
+		[Outlet]
 		UIKit.UIImageView LogoImage { get; set; }
 
 		[Outlet]
@@ -28,6 +37,21 @@ namespace Softjourn.SJCoins.iOS.UI.Cells
 			if (NameLabel != null) {
 				NameLabel.Dispose ();
 				NameLabel = null;
+			}
+
+			if (DescriptLabel != null) {
+				DescriptLabel.Dispose ();
+				DescriptLabel = null;
+			}
+
+			if (FavoriteButton != null) {
+				FavoriteButton.Dispose ();
+				FavoriteButton = null;
+			}
+
+			if (BuyButton != null) {
+				BuyButton.Dispose ();
+				BuyButton = null;
 			}
 		}
 	}

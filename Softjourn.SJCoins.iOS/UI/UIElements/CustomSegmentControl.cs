@@ -12,6 +12,7 @@ namespace Softjourn.SJCoins.iOS
 		#region Constructor
 		public CustomSegmentControl(IntPtr handle) : base(handle)
 		{
+            configure();
 		}
 		#endregion
 
@@ -26,6 +27,16 @@ namespace Softjourn.SJCoins.iOS
 			base.TouchesEnded(touches, evt);
 			if (oldValue == (int)SelectedSegment)
 				SendActionForControlEvents(UIControlEvent.TouchUpInside);
+		}
+
+        private void configure()
+        {
+			var attributes = new UITextAttributes
+			{
+				Font = UIFont.SystemFontOfSize(16)
+			};
+            SetTitleTextAttributes(attributes, UIControlState.Normal);
+            SetTitleTextAttributes(attributes, UIControlState.Selected);
 		}
 	}
 }

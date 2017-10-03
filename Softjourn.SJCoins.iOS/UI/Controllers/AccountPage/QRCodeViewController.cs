@@ -53,6 +53,16 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.AccountPage
 			base.ViewDidLoad();
 			ConfigurePageWith(InitialParameter);
 		}
+
+        public override void ViewDidDisappear(bool animated)
+        {
+            base.ViewDidDisappear(animated);
+			//GenerateButton.Enabled = true;
+			GenerateButton.Hidden = false;
+            BalanceLabel.Hidden = false;
+            CoinLogo.Hidden = false;
+        }
+
 		#endregion
 
 		#region BaseViewController
@@ -108,7 +118,7 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.AccountPage
 		#region Private methods
 		private void ConfigurePageWith(string parameter)
 		{
-			BalanceLabel.Text = "Your balance is " + Presenter.GetBalance().ToString() + " coins";
+			BalanceLabel.Text = "Your balance is " + Presenter.GetBalance().ToString();
 			ErrorLabel.Hidden = true;
 			QRCodeImage.Hidden = true;
 
@@ -134,6 +144,10 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.AccountPage
 
 		private void ConfigureGenerateMode()
 		{
+			GenerateButton.Hidden = false;
+			BalanceLabel.Hidden = false;
+            CoinLogo.Hidden = false;
+
 			textFieldDelegate = new AmountTextFieldDelegate();
 			AmountTexfield.Hidden = false;
 			AmountTexfield.KeyboardType = UIKeyboardType.NumberPad;

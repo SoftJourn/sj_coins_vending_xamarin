@@ -15,6 +15,7 @@ namespace Softjourn.SJCoins.iOS
 
 		public event EventHandler<Product> ItemSelected;
 		public event EventHandler<Product> FavoriteClicked;
+		public event EventHandler<Product> BuyClicked;
 
 		public SeeAllViewSource(string categoryName)
 		{
@@ -38,6 +39,9 @@ namespace Softjourn.SJCoins.iOS
 			_cell.FavoriteClicked -= FavoriteClicked;
 			_cell.FavoriteClicked += FavoriteClicked;
 
+            _cell.BuyClicked -= BuyClicked;
+            _cell.BuyClicked += BuyClicked;
+
 			_cell.ConfigureWith(item);
 
 			if (categoryName == Const.FavoritesCategory)
@@ -49,13 +53,13 @@ namespace Softjourn.SJCoins.iOS
 			var _cell = (ProductCell)cell;
 			// Detach event
 			_cell.FavoriteClicked -= FavoriteClicked;
+            _cell.BuyClicked -= BuyClicked;
 		}
 
 		public override void RowSelected(UITableView tableView, NSIndexPath indexPath)
 		{
 			tableView.DeselectRow(indexPath, true);
-			var item = items[indexPath.Row];
-			ItemSelected?.Invoke(this, item);
+			ItemSelected?.Invoke(this, items[indexPath.Row]);
 		}
 
 		protected override void Dispose(bool disposing)

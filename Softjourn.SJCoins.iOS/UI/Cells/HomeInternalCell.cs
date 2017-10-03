@@ -18,7 +18,7 @@ namespace Softjourn.SJCoins.iOS
 		public event EventHandler<Product> BuyAction;
 		public event EventHandler<Product> FavoriteAction;
 
-        private UIFont nameLabelFont = UIFont.SystemFontOfSize(12);
+        private UIFont nameLabelFont = UIFont.SystemFontOfSize(13);
 		private UIImageView ProductImage { get; set; }
 		private UILabel NameLabel { get; set; }
 		private UILabel PriceLabel { get; set; }
@@ -99,10 +99,10 @@ namespace Softjourn.SJCoins.iOS
                 var expectedNameSize = NameLabel.SizeThatFits(new CGSize(this.Frame.Width, Const.MaxPhoneNameLabelHeight));
                 NameLabel.Frame = new CGRect(2, ProductImage.Frame.Height + Const.PhoneNameLabelRetreat, this.Frame.Width, expectedNameSize.Height);
 
-				var expectedPriceSize = PriceLabel.SizeThatFits(new CGSize(this.Frame.Width, 14));
-                PriceLabel.Frame = new CGRect(2, ProductImage.Frame.Height + Const.PhoneNameLabelRetreat + NameLabel.Frame.Height, expectedPriceSize.Width, Const.MaxPhonePriceLabelHeight);
+				var expectedPriceSize = PriceLabel.SizeThatFits(new CGSize(this.Frame.Width, Const.MaxPhonePriceLabelHeight));
+                PriceLabel.Frame = new CGRect(2, ProductImage.Frame.Height + Const.PhoneNameLabelRetreat + NameLabel.Frame.Height + Const.PhonePriceLabelRetreat, expectedPriceSize.Width, Const.MaxPhonePriceLabelHeight);
 
-				CoinImage.Frame = new CGRect(PriceLabel.Frame.Width + 2, ProductImage.Frame.Height + Const.PhoneNameLabelRetreat + NameLabel.Frame.Height, 14, 14);
+				CoinImage.Frame = new CGRect(PriceLabel.Frame.Width + 2, ProductImage.Frame.Height + Const.PhoneNameLabelRetreat + NameLabel.Frame.Height + Const.PhonePriceLabelRetreat, Const.MaxPhonePriceLabelHeight, Const.MaxPhonePriceLabelHeight);
             }
         }
 		#endregion

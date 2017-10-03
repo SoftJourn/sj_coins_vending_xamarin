@@ -11,7 +11,7 @@
 		public const float MaxPhoneNameLabelHeight = 28f;
 		public const float MaxPhonePriceLabelHeight = 14f;
 		
-        public const float PhoneNameLabelRetreat = 8.0f;
-		public const float PhonePriceLabelRetreat = 6.0f;
-	}
+        public const float PhoneNameLabelRetreat = 10.0f;
+		public const float PhonePriceLabelRetreat = 2.0f;
+	} 
 }

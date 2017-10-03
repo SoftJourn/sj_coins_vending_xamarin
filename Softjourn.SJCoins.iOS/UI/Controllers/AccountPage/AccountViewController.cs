@@ -33,6 +33,7 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.AccountPage
 		public override void ViewDidLoad()
 		{
 			base.ViewDidLoad();
+            ConfigurePage();
 			ConfigureTableView();
 			ConfigureAvatarImage(AvatarImage);
 			Presenter.GetImageFromServer();
@@ -42,13 +43,6 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.AccountPage
 		{
 			base.ViewWillAppear(animated);
 			Presenter.OnStartLoadingPage();
-            NavigationController.SetNavigationBarHidden(true, true);
-		}
-
-        public override void ViewWillDisappear(bool animated)
-        {
-            base.ViewWillDisappear(animated);
-            NavigationController.SetNavigationBarHidden(false, true);
 		}
 		#endregion
 
@@ -56,7 +50,7 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.AccountPage
 		public override void AttachEvents()
 		{
 			base.AttachEvents();
-            DoneButton.TouchUpInside += DoneButtonClickHandler;
+			DoneButton.Clicked += DoneButtonClickHandler;
 			tableSource.ItemSelected += TableSource_ItemClicked;
 			// Add tap gesture to avatar image
 			avatarImageTap = new UITapGestureRecognizer(AvatarImageTapHandler);
@@ -65,7 +59,7 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.AccountPage
 
 		public override void DetachEvents()
 		{
-			DoneButton.TouchUpInside -= DoneButtonClickHandler;
+            DoneButton.Clicked -= DoneButtonClickHandler;
 			tableSource.ItemSelected -= TableSource_ItemClicked;
 			// Remove tap gesture from avatar image
 			AvatarImage.RemoveGestureRecognizer(avatarImageTap);
@@ -120,40 +114,28 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.AccountPage
 		#endregion
 
 		#region Private methods
+		private void ConfigurePage()
+		{
+			NavigationController.NavigationBar.SetBackgroundImage(new UIImage(), UIBarMetrics.Default);
+			NavigationController.NavigationBar.ShadowImage = new UIImage();
+		}
+
 		private void ConfigureTableView()
 		{
 			var options = Presenter.GetOptionsList();
-
 			tableSource = new AccountViewSource(options);
             TableView.Source = tableSource;
-
             TableView.TableHeaderView.Frame = new CGRect(0, 0, TableView.Frame.Width, SizeHelper.AccountHeaderHeight());
-
-            MakeHeaderViewGradient();
-
-			TableView.RegisterNibForCellReuse(ProductCell.Nib, ProductCell.Key);
 		}
 
 		private void ConfigureAvatarImage(UIImageView imageView)
 		{
-			//AvatarImage.Hidden = true;
             // Make image rounded
 			CALayer imageCircle = imageView.Layer;
 			imageCircle.CornerRadius = imageView.Frame.Height / 2;
             imageCircle.BorderWidth = 0.3f;
             imageCircle.BorderColor = UIColorConstants.ProductImageBorderColor.CGColor;
 			imageCircle.MasksToBounds = true;
-		}
-
-        private void MakeHeaderViewGradient()
-        {
-            var gradientLayer = new CAGradientLayer
-            {
-                Colors = new CGColor[] {UIColorConstants.MainGreenColor.CGColor, UIColor.White.CGColor},
-                Frame = TableView.TableHeaderView.Frame,
-                Locations = new NSNumber[] {0.0, 0.9}
-			};
-			TableView.TableHeaderView.Layer.InsertSublayer(gradientLayer, 0);
 		}
 		#endregion
 

@@ -18,7 +18,7 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.AccountPage
 		UIKit.UIImageView AvatarImage { get; set; }
 
 		[Outlet]
-		UIKit.UIButton DoneButton { get; set; }
+		UIKit.UIBarButtonItem DoneButton { get; set; }
 
 		[Outlet]
 		UIKit.UIView HeaderView { get; set; }

@@ -19,7 +19,9 @@ namespace Softjourn.SJCoins.iOS.UI.Cells
             Nib = UINib.FromName("ProductCell", NSBundle.MainBundle);
         }
         public event EventHandler<Product> FavoriteClicked;
-        public bool Favorite { get; set; } = false;
+		public event EventHandler<Product> BuyClicked;
+
+		public bool Favorite { get; set; } = false;
         public Product Product { get; set; }
         #endregion
 
@@ -40,26 +42,18 @@ namespace Softjourn.SJCoins.iOS.UI.Cells
         {
             Product = item;
             NameLabel.Text = item.Name;
-            //PriceLabel.Text = item.Price.ToString() + " Coins";
             LogoImage.SetImage(url: new NSUrl(item.ImageFullUrl), placeholder: UIImage.FromBundle(ImageConstants.Placeholder));
+            ConfigureDescript(item);
+            ConfigureFavoriteImage(item.IsProductFavorite);
+            BuyButton.SetTitle("SJ " + string.Format("{0}", item.Price), UIControlState.Normal);
 
-            //if (item.IsHeartAnimationRunning)
-            //{
-            //	// Final animation with complition
-            //	animationService.CompleteRotation(FavoriteButton);
-            //	animationService.ScaleEffect(FavoriteButton);
-            //	item.IsHeartAnimationRunning = false;
-            //}
+            // Attach event
+            FavoriteButton.TouchUpInside -= FavoriteButtonClicked;
+            FavoriteButton.TouchUpInside += FavoriteButtonClicked;
 
-            //if (item.IsProductFavorite)
-            //	FavoriteButton.SetImage(UIImage.FromBundle(ImageConstants.FavoriteChecked), forState: UIControlState.Normal);
-            //else
-            //	FavoriteButton.SetImage(UIImage.FromBundle(ImageConstants.FavoriteUnchecked), forState: UIControlState.Normal);
-
-            //// Attach event
-            //FavoriteButton.TouchUpInside -= FavoriteButtonClicked;
-            //FavoriteButton.TouchUpInside += FavoriteButtonClicked;
-        }
+            BuyButton.TouchUpInside -= BuyButtonClicked;
+			BuyButton.TouchUpInside += BuyButtonClicked;
+		}
 
         public void MarkFavorites(Product product)
         {
@@ -73,11 +67,12 @@ namespace Softjourn.SJCoins.iOS.UI.Cells
         {
             Product = null;
             NameLabel.Text = "";
-            //PriceLabel.Text = "";
+            DescriptLabel.Text = "";
             LogoImage.Image = null;
-            //// Detach event
-            //FavoriteButton.TouchUpInside -= FavoriteButtonClicked;
-            base.PrepareForReuse();
+            // Detach event
+            FavoriteButton.TouchUpInside -= FavoriteButtonClicked;
+			BuyButton.TouchUpInside -= BuyButtonClicked;
+			base.PrepareForReuse();
         }
 
         #region Private methods
@@ -88,10 +83,36 @@ namespace Softjourn.SJCoins.iOS.UI.Cells
             LogoImage.Layer.BorderColor = UIColorConstants.ProductImageBorderColor.CGColor;
         }
 
-        private void FavoriteButtonClicked(object sender, EventArgs e)
+		private void ConfigureFavoriteImage(bool isFavorite)
+		{
+			if (isFavorite)
+                FavoriteButton.SetImage(UIImage.FromBundle(ImageConstants.HeartFilled), forState: UIControlState.Normal);
+			else
+				FavoriteButton.SetImage(UIImage.FromBundle(ImageConstants.Heart), forState: UIControlState.Normal);
+		}
+
+		private void ConfigureDescript(Product product)
+		{
+            var descriptString = "";
+
+            if (!String.IsNullOrEmpty(product.Description))
+                descriptString = "Description";
+            
+            if (product.NutritionFacts.Count > 0)
+                descriptString = descriptString + ", Nutrition Facts";
+
+            DescriptLabel.Text = descriptString;
+		}
+		#endregion
+
+		private void FavoriteButtonClicked(object sender, EventArgs e)
         {
-            //FavoriteClicked?.Invoke(this, Product);
+            FavoriteClicked?.Invoke(this, Product);
         }
-        #endregion
+
+		private void BuyButtonClicked(object sender, EventArgs e)
+		{
+            BuyClicked?.Invoke(this, Product);
+		}
     }
 }

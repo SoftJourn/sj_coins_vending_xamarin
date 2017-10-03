@@ -4,19 +4,14 @@ namespace Softjourn.SJCoins.iOS
 {
 	public static class UIColorConstants
 	{
-		//public static UIColor LastPageBackgroundColor
-		//{
-		//	get { return UIColor.FromRGB(200, 115, 244); }
-		//}
-
-		//public static UIColor FirstPageBackgroundColor
-		//{
-		//	get { return UIColor.FromRGB(246, 76, 115); }
-		//}
-
 		public static UIColor MainBackgroundColor
 		{
 			get { return UIColor.FromRGB(245, 245, 245); }
+		}
+
+		public static UIColor SpinerBackgroundColor
+		{
+			get { return UIColor.FromRGB(235, 235, 241); }
 		}
 
 		public static UIColor MainGreenColor                

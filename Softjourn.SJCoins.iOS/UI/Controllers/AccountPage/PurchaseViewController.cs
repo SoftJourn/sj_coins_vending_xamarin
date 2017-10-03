@@ -52,7 +52,7 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.AccountPage
 		public void SetData(List<History> purchaseList)
 		{
             TableView.Source = new PurchaseViewSource(purchaseList);
-			TableView.ReloadData();
+            ReloadTable();
 		}
 
 		public void ShowEmptyView()
@@ -62,6 +62,10 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.AccountPage
 		#endregion
 
 		#region Private methods
+		private void ReloadTable()
+		{
+			TableView.ReloadSections(new NSIndexSet(0), UITableViewRowAnimation.Fade);
+		}
 		#endregion
 
 		// Throw TableView to parent

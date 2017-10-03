@@ -1,6 +1,6 @@
 // WARNING
 //
-// This file has been generated automatically by Xamarin Studio to store outlets and
+// This file has been generated automatically by Visual Studio to store outlets and
 // actions made in the UI designer. If it is removed, they will be lost.
 // Manual changes to this file may not be handled correctly.
 //
@@ -13,6 +13,9 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.Main
 	{
 		[Outlet]
 		UIKit.UIBarButtonItem AccountButton { get; set; }
+
+		[Outlet]
+		UIKit.UIImageView CoinLogo { get; set; }
 
 		[Outlet]
 		UIKit.UILabel MachineNameLabel { get; set; }
@@ -28,16 +31,6 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.Main
 		
 		void ReleaseDesignerOutlets ()
 		{
-			if (NoItemsLabel != null) {
-				NoItemsLabel.Dispose ();
-				NoItemsLabel = null;
-			}
-
-			if (TableView != null) {
-				TableView.Dispose ();
-				TableView = null;
-			}
-
 			if (AccountButton != null) {
 				AccountButton.Dispose ();
 				AccountButton = null;
@@ -51,6 +44,21 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.Main
 			if (MyBalanceLabel != null) {
 				MyBalanceLabel.Dispose ();
 				MyBalanceLabel = null;
+			}
+
+			if (NoItemsLabel != null) {
+				NoItemsLabel.Dispose ();
+				NoItemsLabel = null;
+			}
+
+			if (TableView != null) {
+				TableView.Dispose ();
+				TableView = null;
+			}
+
+			if (CoinLogo != null) {
+				CoinLogo.Dispose ();
+				CoinLogo = null;
 			}
 		}
 	}

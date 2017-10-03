@@ -8,7 +8,7 @@ namespace Softjourn.SJCoins.iOS.General.Helper
 	public class SegmentControlHelper
 	{
 		#region Constants
-		private const float defaultFontSize = 14.0f;
+		private const float defaultFontSize = 16.0f;
 		private const int distanceBetweenElements = 5;
 		private const int half = 2;
 		#endregion

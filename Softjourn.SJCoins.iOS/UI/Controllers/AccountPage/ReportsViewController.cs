@@ -53,7 +53,7 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.AccountPage
 		public void SetData(List<Transaction> transactionsList)
 		{
 			tableSource.SetItems(transactionsList);
-			TableView.ReloadData();
+            ReloadTable();
 			TableView.TableFooterView.Hidden = false;
 		}
 
@@ -120,6 +120,11 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.AccountPage
 			segmentControlHelper = new SegmentControlHelper();
 			// Configure 0 segment
 			ConfigureSegment(InputTitle, InputSegment, ImageConstants.ArrowUpward);
+		}
+
+		private void ReloadTable()
+		{
+            TableView.ReloadSections(new NSIndexSet(0), UITableViewRowAnimation.Fade);
 		}
 
 		private void SetCompoundDrawableSegment(bool? isAsc, string title, int segment)
