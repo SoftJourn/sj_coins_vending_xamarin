@@ -89,7 +89,7 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.Main
 			tableSource.FavoriteClicked += TableSource_FavoriteClicked;
             tableSource.BuyClicked += TableSource_BuyClicked;
 
-			SearchButton.Clicked += SearchButtonClickHandler;
+			//SearchButton.Clicked += SearchButtonClickHandler;
 
 			searchResultsUpdator.UpdateSearchResults += SearchResultsUpdator_Search;
 		}
@@ -103,7 +103,7 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.Main
 			tableSource.FavoriteClicked -= TableSource_FavoriteClicked;
 			tableSource.BuyClicked -= TableSource_BuyClicked;
 
-			SearchButton.Clicked -= SearchButtonClickHandler;
+			//SearchButton.Clicked -= SearchButtonClickHandler;
 
 			searchResultsUpdator.UpdateSearchResults -= SearchResultsUpdator_Search;
 			base.DetachEvents();

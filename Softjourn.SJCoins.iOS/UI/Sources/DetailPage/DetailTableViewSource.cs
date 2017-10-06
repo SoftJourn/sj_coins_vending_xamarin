@@ -2,12 +2,11 @@
 using System.Linq;
 using Foundation;
 using Softjourn.SJCoins.Core.API.Model.Products;
-using Softjourn.SJCoins.iOS.General.Constants;
 using UIKit;
 
 namespace Softjourn.SJCoins.iOS
 {
-	public class DetailViewSource : UITableViewSource
+	public class DetailTableViewSource : UITableViewSource
 	{
 		private const int oneCell = 1;
 		private const int descriptionSection = 0;
@@ -16,7 +15,7 @@ namespace Softjourn.SJCoins.iOS
 		private Product product;
 		private int numberOfSections = 2;
 
-		public DetailViewSource(Product product)
+		public DetailTableViewSource(Product product)
 		{
 			this.product = product;
 

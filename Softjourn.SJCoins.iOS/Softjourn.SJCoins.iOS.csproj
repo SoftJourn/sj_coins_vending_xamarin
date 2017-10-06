@@ -428,6 +428,14 @@
     <ImageAsset Include="Assets.xcassets\NewAccount4.imageset\Male_User.png" />
     <ImageAsset Include="Assets.xcassets\NewAccount4.imageset\Male_User2x.png" />
     <ImageAsset Include="Assets.xcassets\NewAccount4.imageset\Male_User3x.png" />
+    <ImageAsset Include="Assets.xcassets\Back_Filled.imageset\Contents.json" />
+    <ImageAsset Include="Assets.xcassets\Back_Filled.imageset\Back_Filled-25.png" />
+    <ImageAsset Include="Assets.xcassets\Back_Filled.imageset\Back_Filled-50.png" />
+    <ImageAsset Include="Assets.xcassets\Back_Filled.imageset\Back_Filled-75.png" />
+    <ImageAsset Include="Assets.xcassets\Back_Filled2.imageset\Contents.json" />
+    <ImageAsset Include="Assets.xcassets\Back_Filled2.imageset\Back_Filled2-75.png" />
+    <ImageAsset Include="Assets.xcassets\Back_Filled2.imageset\Back_Filled2-50 2.png" />
+    <ImageAsset Include="Assets.xcassets\Back_Filled2.imageset\Back_Filled2-25 3.png" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Assets.xcassets\AccountTabIcon.imageset\" />
@@ -466,6 +474,15 @@
     <Folder Include="Assets.xcassets\HeartFilled.imageset\" />
     <Folder Include="Assets.xcassets\NewAccount3.imageset\" />
     <Folder Include="Assets.xcassets\NewAccount4.imageset\" />
+    <Folder Include="UI\Delegates\DetailPage\" />
+    <Folder Include="UI\Sources\DetailPage\" />
+    <Folder Include="UI\Sources\HomePage\" />
+    <Folder Include="UI\Sources\AccountPage\" />
+    <Folder Include="UI\Delegates\HomePage\" />
+    <Folder Include="UI\Controllers\DetailPage\" />
+    <Folder Include="Assets.xcassets\Back_Filled.imageset\" />
+    <Folder Include="Assets.xcassets\Back_Filled2.imageset\" />
+    <Folder Include="UI\Delegates\PresentationDelegates\" />
   </ItemGroup>
   <ItemGroup>
     <InterfaceDefinition Include="LaunchScreen.storyboard" />
@@ -508,16 +525,12 @@
     <Compile Include="UI\Cells\ProductCell.designer.cs">
       <DependentUpon>ProductCell.cs</DependentUpon>
     </Compile>
-    <Compile Include="UI\Controllers\MainPage\PreViewController.cs" />
-    <Compile Include="UI\Controllers\MainPage\PreViewController.designer.cs">
+    <Compile Include="UI\Controllers\HomePage\PreViewController.cs" />
+    <Compile Include="UI\Controllers\HomePage\PreViewController.designer.cs">
       <DependentUpon>PreViewController.cs</DependentUpon>
     </Compile>
-    <Compile Include="UI\Controllers\MainPage\DetailViewController.cs" />
-    <Compile Include="UI\Controllers\MainPage\DetailViewController.designer.cs">
-      <DependentUpon>DetailViewController.cs</DependentUpon>
-    </Compile>
-    <Compile Include="UI\Controllers\MainPage\ShowViewController.cs" />
-    <Compile Include="UI\Controllers\MainPage\ShowViewController.designer.cs">
+    <Compile Include="UI\Controllers\HomePage\ShowViewController.cs" />
+    <Compile Include="UI\Controllers\HomePage\ShowViewController.designer.cs">
       <DependentUpon>ShowViewController.cs</DependentUpon>
     </Compile>
     <Compile Include="General\Constants\ImageConstants.cs" />
@@ -555,15 +568,9 @@
     </Compile>
     <Compile Include="General\Helper\SegmentControlHelper.cs" />
     <Compile Include="UI\Sources\PageViewDataSource.cs" />
-    <Compile Include="UI\Controllers\MainPage\ImageContentViewController.cs" />
-    <Compile Include="UI\Controllers\MainPage\ImageContentViewController.designer.cs">
-      <DependentUpon>ImageContentViewController.cs</DependentUpon>
-    </Compile>
     <Compile Include="UI\Delegates\PageViewDelegate.cs" />
     <Compile Include="UI\Delegates\AmountTextFieldDelegate.cs" />
     <Compile Include="UI\Services\AnimationService.cs" />
-    <Compile Include="UI\Sources\DetailViewSource.cs" />
-    <Compile Include="UI\Sources\AccountViewSource.cs" />
     <Compile Include="UI\Cells\DescriptionCell.cs" />
     <Compile Include="UI\Cells\DescriptionCell.designer.cs">
       <DependentUpon>DescriptionCell.cs</DependentUpon>
@@ -577,26 +584,52 @@
       <DependentUpon>NutritionCell.cs</DependentUpon>
     </Compile>
     <Compile Include="General\Helper\UIImageHelper.cs" />
-    <Compile Include="UI\Controllers\MainPage\HomeViewController.cs" />
-    <Compile Include="UI\Sources\HomeViewSource.cs" />
+    <Compile Include="UI\Controllers\HomePage\HomeViewController.cs" />
     <Compile Include="UI\Cells\HomeCell.cs" />
     <Compile Include="UI\Cells\HomeCell.designer.cs">
       <DependentUpon>HomeCell.cs</DependentUpon>
     </Compile>
-    <Compile Include="UI\Controllers\MainPage\HomeViewController.designer.cs">
+    <Compile Include="UI\Controllers\HomePage\HomeViewController.designer.cs">
       <DependentUpon>HomeViewController.cs</DependentUpon>
     </Compile>
-    <Compile Include="UI\Sources\InternalHomeViewSource.cs" />
     <Compile Include="UI\Controllers\InformativePage\InformativeFavoritesPage.designer.cs">
       <DependentUpon>InformativeFavoritesPage.cs</DependentUpon>
     </Compile>
     <Compile Include="UI\Delegates\LoginTextFieldDelegate.cs" />
-    <Compile Include="UI\Delegates\CollectionViewFlowLayoutDelegate.cs" />
     <Compile Include="General\Constants\UIColorConstants.cs" />
     <Compile Include="General\Helper\SizeHelper.cs" />
-    <Compile Include="UI\Sources\PurchaseViewSource.cs" />
-    <Compile Include="UI\Sources\ReportsViewSource.cs" />
     <Compile Include="UI\Sources\SeeAllViewSource.cs" />
+    <Compile Include="UI\Cells\ImageDetailCell.cs" />
+    <Compile Include="UI\Cells\ImageDetailCell.designer.cs">
+      <DependentUpon>ImageDetailCell.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Cells\ImageCell.cs" />
+    <Compile Include="UI\Cells\ImageCell.designer.cs">
+      <DependentUpon>ImageCell.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Delegates\DetailPage\BaseFlowLayoutDelegate.cs" />
+    <Compile Include="UI\Delegates\DetailPage\DetailCollectionViewFlowLayoutDelegate.cs" />
+    <Compile Include="UI\Delegates\DetailPage\ImageCarouselViewFlowLayoutDelegate.cs" />
+    <Compile Include="UI\Sources\DetailPage\BaseImageSource.cs" />
+    <Compile Include="UI\Sources\DetailPage\DetailCollectionViewSource.cs" />
+    <Compile Include="UI\Sources\DetailPage\ImageCarouselViewSource.cs" />
+    <Compile Include="UI\Sources\DetailPage\DetailTableViewSource.cs" />
+    <Compile Include="UI\Sources\HomePage\HomeViewSource.cs" />
+    <Compile Include="UI\Sources\HomePage\InternalHomeViewSource.cs" />
+    <Compile Include="UI\Sources\AccountPage\PurchaseViewSource.cs" />
+    <Compile Include="UI\Sources\AccountPage\ReportsViewSource.cs" />
+    <Compile Include="UI\Sources\AccountPage\AccountViewSource.cs" />
+    <Compile Include="UI\Delegates\HomePage\CollectionViewFlowLayoutDelegate.cs" />
+    <Compile Include="UI\Controllers\DetailPage\DetailViewController.cs" />
+    <Compile Include="UI\Controllers\DetailPage\DetailViewController.designer.cs">
+      <DependentUpon>DetailViewController.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Controllers\DetailPage\ImageCarouselViewController.cs" />
+    <Compile Include="UI\Controllers\DetailPage\ImageCarouselViewController.designer.cs">
+      <DependentUpon>ImageCarouselViewController.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Delegates\PresentationDelegates\DetailTransitioningDelegate.cs" />
+    <Compile Include="UI\Controllers\DetailPage\DetailViewPresentationController.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
 </Project>

@@ -29,7 +29,7 @@
 
 		public const string PreViewController = "PreViewController";
 		public const string DetailViewController = "DetailViewController";
-		public const string ImageContentViewController = "ImageContentViewController";
+		public const string ImageCarouselViewController = "ImageCarouselViewController";
 		public const string ShowViewController = "ShowViewController";
 
 		// Account page 

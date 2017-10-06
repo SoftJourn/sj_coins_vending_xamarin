@@ -21,6 +21,9 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers
 		UIKit.UIView HeaderView { get; set; }
 
 		[Outlet]
+		UIKit.UICollectionView ImageCollectionView { get; set; }
+
+		[Outlet]
 		UIKit.UIPageControl PageControl { get; set; }
 
 		[Outlet]
@@ -59,6 +62,11 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers
 			if (TableView != null) {
 				TableView.Dispose ();
 				TableView = null;
+			}
+
+			if (ImageCollectionView != null) {
+				ImageCollectionView.Dispose ();
+				ImageCollectionView = null;
 			}
 		}
 	}

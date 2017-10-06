@@ -9,7 +9,7 @@ namespace Softjourn.SJCoins.iOS.UI.Delegates
 {
     public class CollectionViewFlowLayoutDelegate: UICollectionViewDelegateFlowLayout, IDisposable
     {
-		// Horizontal CollectionView flowlayout delegate object.
+		// Main screen Horizontal CollectionView flowlayout delegate object.
 
 		public event EventHandler<Product> SelectedItem;
 		public event EventHandler<Product> BuyActionExecuted;

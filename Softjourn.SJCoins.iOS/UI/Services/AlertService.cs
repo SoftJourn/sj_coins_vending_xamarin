@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using BigTed;
 using Softjourn.SJCoins.Core.API.Model.Products;
 using Softjourn.SJCoins.Core.UI.Services.Alert;
 using UIKit;
@@ -42,7 +40,6 @@ namespace Softjourn.SJCoins.iOS.UI.Services
 		{
 			// Present information alert with one botton
 			PresentAlert("", msg, "Ok", null, UIAlertActionStyle.Default, null, null);
-			//BTProgressHUD.ShowToast(msg, true, 1000.0);
 		}
 
 		public void ShowPurchaseConfirmationDialod(Product product, Action<Product> onPurchaseProductAction)
@@ -56,53 +53,50 @@ namespace Softjourn.SJCoins.iOS.UI.Services
 
 		public void ShowPhotoSelectorDialog(List<string> photoSource, Action fromCamera, Action fromGallery)
 		{
-			// Show action sheet with 2 buttons
-			var actions = new List<Action>();
-			actions.Add(fromCamera);
-			actions.Add(fromGallery);
-
-			PresentActionSheet(null, null, photoSource.ToArray(), actions.ToArray());
+            // Show action sheet with 2 buttons
+            var actions = new List<Action>
+            {
+                fromCamera,
+                fromGallery
+            };
+            PresentActionSheet(null, null, photoSource.ToArray(), actions.ToArray());
 		}
 
 		public void ShowQrSelectorDialog(List<string> optionsList, Action scanCode, Action generateCode)
 		{
-			// Show action sheet with 2 buttons
-			var actions = new List<Action>();
-			actions.Add(scanCode);
-			actions.Add(generateCode);
-
-			PresentActionSheet(null, null, optionsList.ToArray(), actions.ToArray());
+            // Show action sheet with 2 buttons
+            var actions = new List<Action>
+            {
+                scanCode,
+                generateCode
+            };
+            PresentActionSheet(null, null, optionsList.ToArray(), actions.ToArray());
 		}
 		#endregion
 
 		private void PresentAlert(string title, string message, string accept, string cancel, UIAlertActionStyle acceptStyle, Action<Product> acceptClicked = null, Action cancelClicked = null, Product product = null)
 		{
 			UIApplication.SharedApplication.InvokeOnMainThread(() =>
-				{
+			{
 				try
 				{
 					var alertController = UIAlertController.Create(title, message, UIAlertControllerStyle.Alert);
+					alertController.View.TintColor = UIColorConstants.MainGreenColor;
 					if (acceptClicked != null)
 					{
 						var cancelAction = UIAlertAction.Create(cancel, UIAlertActionStyle.Cancel, null);
-						var acceptAction = UIAlertAction.Create(accept, acceptStyle, (action) =>
-						{
-							if (acceptClicked != null)
-							{
-								acceptClicked(product);
-							}
-						});
-					alertController.AddAction(cancelAction);
-					alertController.AddAction(acceptAction);
+						var acceptAction = UIAlertAction.Create(accept, acceptStyle, (action) => { acceptClicked?.Invoke(product); });
+					    alertController.AddAction(cancelAction);
+					    alertController.AddAction(acceptAction);
 					}
 					else {
 						var okAction = UIAlertAction.Create("Ok", UIAlertActionStyle.Cancel, null);
 						alertController.AddAction(okAction);
 					}
 					_currentApplicationDelegate.VisibleViewController.PresentViewController(alertController, true, null);
-				}
+			    }
 				catch { }
-				});
+			});
 		}
 
 		private void PresentActionSheet(string title, string message, string[] items, Action[] itemActions)
@@ -125,13 +119,7 @@ namespace Softjourn.SJCoins.iOS.UI.Services
 		{
 			if (!String.IsNullOrEmpty(title))
 			{
-				var alertAction = UIAlertAction.Create(title, style, (action) =>
-				{
-					if (handler != null)
-					{
-						handler();
-					}
-				});
+				var alertAction = UIAlertAction.Create(title, style, (action) => { handler?.Invoke(); });
 				alertController.AddAction(alertAction);
 			}
 		}
