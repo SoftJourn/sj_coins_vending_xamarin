@@ -11,7 +11,7 @@ namespace Softjourn.SJCoins.iOS
     public partial class HomeCell : UITableViewCell, IDisposable
 	{
 		#region Properties
-		public static readonly NSString Key = new NSString("NewHomeCell");
+		public static readonly NSString Key = new NSString("HomeCell");
 		public static readonly UINib Nib;
 
 		public event EventHandler<Product> HomeCell_BuyActionExecuted;
@@ -26,7 +26,7 @@ namespace Softjourn.SJCoins.iOS
 
 		static HomeCell()
 		{ 
-			Nib = UINib.FromName("NewHomeCell", NSBundle.MainBundle);
+			Nib = UINib.FromName("HomeCell", NSBundle.MainBundle);
 		}
         #endregion
 

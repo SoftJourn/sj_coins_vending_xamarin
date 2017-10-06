@@ -9,7 +9,7 @@ using System.CodeDom.Compiler;
 
 namespace Softjourn.SJCoins.iOS
 {
-	[Register ("NewHomeCell")]
+	[Register ("HomeCell")]
 	partial class HomeCell
 	{
 		[Outlet]
