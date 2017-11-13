@@ -1,242 +1,340 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
+using CoreAnimation;
+using CoreGraphics;
 using Foundation;
 using Softjourn.SJCoins.Core.API.Model.AccountInfo;
 using Softjourn.SJCoins.Core.API.Model.Products;
 using Softjourn.SJCoins.Core.UI.Presenters;
 using Softjourn.SJCoins.Core.UI.ViewInterfaces;
+using Softjourn.SJCoins.iOS.General.Constants;
+using Softjourn.SJCoins.iOS.Services;
 using Softjourn.SJCoins.iOS.UI.Sources;
 using UIKit;
 
-namespace Softjourn.SJCoins.iOS.UI.Controllers.Main
+namespace Softjourn.SJCoins.iOS.UI.Controllers.HomePage
 {
-	[Register("NewHomeViewController")]
-    public partial class HomeViewController: BaseViewController<HomePresenter>, IHomeView, IDisposable
-	{
-		#region Properties
-		public List<Categories> Categories { get; private set; }
+    [Register("HomeViewController")]
+    public partial class HomeViewController : BaseViewController<HomePresenter>, IHomeView, IUISearchControllerDelegate, IUISearchBarDelegate, IUISearchResultsUpdating, IDisposable
+    {
+        #region Properties
+        public List<Categories> Categories { get; private set; }
 
-		private bool pullToRefreshTrigged = false;
+        private List<Categories> MatchesCategory { get; set; }
+        private bool pullToRefreshTrigged = false;
         private string currentBalance = "";
         private string currentUser = "";
-		private HomeViewSource tableSource = new HomeViewSource();
+        private HomeViewSource tableSource = new HomeViewSource();
+        private UISearchController searchController;
+        private UITapGestureRecognizer accountTapGesture;
+        #endregion
 
-		#endregion
-	
-		#region Constructor
-		public HomeViewController(IntPtr handle) : base(handle)
-		{
-		}
-		#endregion
+        #region Constructor
+        public HomeViewController(IntPtr handle) : base(handle)
+        {
+        }
+        #endregion
 
-		#region Controller Life cycle
-		public override void ViewDidLoad()
-		{
-			base.ViewDidLoad();
-			ConfigurePage();
-			Presenter.OnStartLoadingPage();
-		}
+        #region Controller Life cycle
+        public override void ViewDidLoad()
+        {
+            base.ViewDidLoad();
+            ConfigurePage();
+            ConfigureAvatarImage(AvatarImage);
+            ConfigureTableView();
+            ConfigureSearch();
+            Presenter.OnStartLoadingPage();
+        }
 
-		public override void ViewWillAppear(bool animated)
-		{
-			base.ViewWillAppear(animated);
-			RefreshFavoritesCell();
+        public override void ViewWillAppear(bool animated)
+        {
+            base.ViewWillAppear(animated);
+            RefreshFavoritesCell();
             Presenter.UpdateBalanceView();
-		}
-		#endregion
+        }
+        #endregion
 
-		#region BaseViewController
-		public override void AttachEvents()
-		{
-			base.AttachEvents();
-			AccountButton.Clicked += OnAccountClicked;
-			tableSource.HomeViewSource_ItemSelected += OnItemSelected;
-			tableSource.HomeViewSource_SeeAllClicked += OnSeeAllClicked;
-			tableSource.HomeViewSource_BuyExecuted += OnBuyActionClicked;
-			tableSource.HomeViewSource_AddDeleteFavoriteExecuted += OnFavoriteActionClicked;
-		}
+        #region BaseViewController
+        public override void AttachEvents()
+        {
+            base.AttachEvents();
+            AccountView.AddGestureRecognizer(accountTapGesture);
+            SearchButton.Clicked += OnSearchClicked;
+            tableSource.HomeViewSource_ItemSelected += OnItemSelected;
+            tableSource.HomeViewSource_SeeAllClicked += OnSeeAllClicked;
+            tableSource.HomeViewSource_BuyExecuted += OnBuyActionClicked;
+            tableSource.HomeViewSource_AddDeleteFavoriteExecuted += OnFavoriteActionClicked;
+        }
 
-		public override void DetachEvents()
-		{
-			AccountButton.Clicked -= OnAccountClicked;
-			tableSource.HomeViewSource_ItemSelected -= OnItemSelected;
-			tableSource.HomeViewSource_SeeAllClicked -= OnSeeAllClicked;
-			tableSource.HomeViewSource_BuyExecuted -= OnBuyActionClicked;
-			tableSource.HomeViewSource_AddDeleteFavoriteExecuted -= OnFavoriteActionClicked;
-			base.DetachEvents();
-		}
+        public override void DetachEvents()
+        {
+            AccountView.RemoveGestureRecognizer(accountTapGesture);
+            SearchButton.Clicked -= OnSearchClicked;
+            tableSource.HomeViewSource_ItemSelected -= OnItemSelected;
+            tableSource.HomeViewSource_SeeAllClicked -= OnSeeAllClicked;
+            tableSource.HomeViewSource_BuyExecuted -= OnBuyActionClicked;
+            tableSource.HomeViewSource_AddDeleteFavoriteExecuted -= OnFavoriteActionClicked;
+            base.DetachEvents();
+        }
 
-		public override void ShowProgress(string message)
-		{
-			if (!pullToRefreshTrigged)
-				base.ShowProgress(message);
-		}
+        public override void ShowProgress(string message)
+        {
+            if (!pullToRefreshTrigged)
+                base.ShowProgress(message);
+        }
 
-		public override void HideProgress()
-		{
-			if (!pullToRefreshTrigged)
-				base.HideProgress();
+        public override void HideProgress()
+        {
+            if (!pullToRefreshTrigged)
+                base.HideProgress();
 
-			pullToRefreshTrigged = false;
-		}
-		#endregion
+            pullToRefreshTrigged = false;
+        }
+        #endregion
 
-		#region IHomeView implementation
-		public void SetAccountInfo(Account account)
-		{
+        #region IHomeView implementation
+        public void SetAccountInfo(Account account)
+        {
             // Show user balance on start
-            var name = account.Name;
-            var surname = account.Surname;
-            currentUser = name + " " + surname;
-
+            currentUser = account.Name + " " + account.Surname;
             var balance = account.Amount.ToString();
             currentBalance = balance;
-
             SetBalance(balance, currentUser);
-		}
+        }
 
-		public void SetUserBalance(string balance)
-		{
-			// Show user balance after buying
+        public void SetUserBalance(string balance)
+        {
+            // Show user balance after buying
             SetBalance(balance, currentUser);
-		}
+        }
 
-		public void SetMachineName(string name)
-		{
-			// Set chosenMachine name as title
-			MachineNameLabel.Text = name;
-		}
+        public void SetMachineName(string name)
+        {
+            // Set chosenMachine name as title
+            MachineNameLabel.Text = name;
+        }
 
-		public void ShowProducts(List<Categories> listCategories)
-		{
+        public void ShowProducts(List<Categories> listCategories)
+        {
             NoItemsLabel.Hidden = true;
-			Categories = listCategories;
+            Categories = listCategories;
+            tableSource.Categories = Categories;
+            TableView.ReloadData();
+            ShowScreenAnimated(true);
+        }
 
-			// Send downloaded data to dataSource and show them on view
-			tableSource.Categories = Categories;
-            ReloadTable();
-
-			ShowScreenInfo();
-		}
-
-		public void ServiceNotAvailable()
-		{
+        public void ServiceNotAvailable()
+        {
             // Set chosenMachine name as title
             NoItemsLabel.Hidden = false;
-			NoItemsLabel.Text = "Service is not available.";
-		}
+            NoItemsLabel.Text = "Service is not available.";
+            ShowScreenAnimated(false);
+        }
 
-		public void LastUnavailableFavoriteRemoved(Product product)
-		{
-			RefreshFavoritesCell();
-		}
+        public void LastUnavailableFavoriteRemoved(Product product)
+        {
+            RefreshFavoritesCell();
+        }
 
-		public void FavoriteChanged(Product product)
-		{
-			RefreshFavoritesCell();
-		}
-		#endregion
+        public void FavoriteChanged(Product product)
+        {
+            RefreshFavoritesCell();
+        }
+        #endregion
 
-		#region Private methods
-		private void ConfigurePage()
-		{
-			//Hide no items label
-			NoItemsLabel.Hidden = true;
-			MachineNameLabel.Text = "";
-            MachineNameLabel.Alpha = 0.0f;
-			MyBalanceLabel.Text = "";
-            MyBalanceLabel.Alpha = 0.0f;
-            CoinLogo.Alpha = 0.0f;
-
-			// Configure datasource and delegate
-			TableView.Source = tableSource;
-			TableView.AlwaysBounceVertical = true;
-            TableView.ScrollsToTop = true;
+        #region Private methods
+        private void ConfigurePage()
+        {
+            //Hide no items label
+            NoItemsLabel.Hidden = true;
+            AccountView.Alpha = 0.0f;
+            TableView.Alpha = 0.0f;
 
             NavigationController.NavigationBar.SetBackgroundImage(new UIImage(), UIBarMetrics.Default);
             NavigationController.NavigationBar.ShadowImage = new UIImage();
-		}
 
-		private void SetBalance(string balance, string user)
-		{
-            MyBalanceLabel.Text = user + ": " + balance;		
-		}
+            accountTapGesture = new UITapGestureRecognizer(AccountTap);
+            accountTapGesture.Enabled = true;
+            AccountView.AddGestureRecognizer(accountTapGesture);
+        }
 
-		private void RefreshFavoritesCell()
-		{
-			// TODO refactoring 
-			if (Categories != null)
-			{
-				var newList = Presenter.GetCategoriesList();
-				tableSource.Categories = newList;
+        private void ConfigureTableView()
+        {
+            // Configure datasource and delegate
+            TableView.Source = tableSource;
+            TableView.AlwaysBounceVertical = true;
+            TableView.ScrollsToTop = true;
+        }
+
+        private void ConfigureSearch()
+        {
+            searchController = new UISearchController(searchResultsController: null)
+            {
+                WeakDelegate = this,
+                DimsBackgroundDuringPresentation = false,
+                WeakSearchResultsUpdater = this,
+                HidesNavigationBarDuringPresentation = false
+            };
+            searchController.SearchBar.Delegate = this;
+            DefinesPresentationContext = false;
+
+            MatchesCategory = new List<Categories>
+            {
+                new Categories { Name = "Matches", Products = new List<Product>() }
+            };
+        }
+
+        private void ConfigureAvatarImage(UIImageView imageView)
+        {
+            // Make image rounded
+            CALayer imageCircle = imageView.Layer;
+            imageCircle.CornerRadius = AvatarImage.Frame.Height / 2;
+            imageCircle.MasksToBounds = true;
+            AvatarImage.Image = UIImage.FromBundle("NoAvatarSmall.png");
+        }
+
+        private void SetBalance(string balance, string user)
+        {
+            MyBalanceLabel.Text = user + ": " + balance;
+        }
+
+        private void RefreshFavoritesCell()
+        {
+            // TODO refactoring 
+            if (Categories != null)
+            {
+                var newList = Presenter.GetCategoriesList();
+                tableSource.Categories = newList;
                 ReloadTable();
-			}
-		}
+            }
+        }
+
+        private void DismissSearch()
+        {
+            if (searchController != null && searchController.Active)
+                searchController.DismissViewController(true, null);
+        }
 
         private void ReloadTable()
         {
-            TableView.ReloadSections(new NSIndexSet(0), UITableViewRowAnimation.Automatic);
+            TableView.ReloadSections(new NSIndexSet(0), UITableViewRowAnimation.None);
+        }
+        #endregion
+
+        #region Event handlers
+        private void OnItemSelected(object sender, Product product)
+        {
+            // Trigg presenter that user click on some product for showing details controllers
+            Presenter.OnProductDetailsClick(product.Id);
+            DismissSearch();
         }
 
-        private void ShowScreenInfo()
+        private void OnSeeAllClicked(object sender, string categoryName)
         {
-			UIView.Animate(0.5, 0, UIViewAnimationOptions.CurveLinear, () => {
-				MachineNameLabel.Alpha = 1.0f;
-				MyBalanceLabel.Alpha = 1.0f;
-				CoinLogo.Alpha = 1.0f;
-                AccountButton.Enabled = true;
-                AccountButton.TintColor = UIColorConstants.MainGreenColor;
-			}, null);
-		}
-		#endregion
+            // Trigg presenter that user click on SeeAll button
+            Presenter.OnShowAllClick(categoryName);
+            DismissSearch();
+        }
 
-		#region Event handlers
-		public void OnAccountClicked(object sender, EventArgs e)
-		{
-			// Trigg presenter that user click on account
-			Presenter.OnProfileButtonClicked();
-		}
+        private void OnBuyActionClicked(object sender, Product product)
+        {
+            // Trigg presenter that user click Buy action on preview page 
+            Presenter.OnBuyProductClick(product);
+        }
 
-		public void OnItemSelected(object sender, Product product)
-		{
-			// Trigg presenter that user click on some product for showing details controllers
-			Presenter.OnProductDetailsClick(product.Id);
-		}
+        private void OnFavoriteActionClicked(object sender, Product product)
+        {
+            // Trigg presenter that user click Favorite action on preview page 
+            Presenter.OnFavoriteClick(product);
+        }
 
-		public void OnSeeAllClicked(object sender, string categoryName)
-		{
-			// Trigg presenter that user click on SeeAll button
-			Presenter.OnShowAllClick(categoryName);
-		}
+        private void OnSearchClicked(object sender, EventArgs e)
+        {
+            // Handle clicking on the Search button
+            searchController.SearchBar.Text = "";
+            PresentViewController(searchController, true, null);
 
-		public void OnBuyActionClicked(object sender, Product product)
-		{
-			// Trigg presenter that user click Buy action on preview page 
-			Presenter.OnBuyProductClick(product);
-		}
+            // Disable PullToRefresh
+            TableView.Bounces = false;
+            //TableView.SetContentOffset(new CGPoint(0, 0), false);
+        }
 
-		public void OnFavoriteActionClicked(object sender, Product product)
-		{
-			// Trigg presenter that user click Favorite action on preview page 
-			Presenter.OnFavoriteClick(product);
-		}
-		#endregion
+        private void AccountTap(UITapGestureRecognizer gestureRecognizer)
+        {
+            // Trigg presenter that user click on account
+            Presenter.OnProfileButtonClicked();
+        }
+        #endregion
 
-		#region Throw TableView to parent
-		protected override UIScrollView GetRefreshableScrollView() => TableView;
+        #region Throw TableView to parent
+        protected override UIScrollView GetRefreshableScrollView() => TableView;
 
-		protected override void PullToRefreshTriggered(object sender, System.EventArgs e)
-		{
-			StopRefreshing();
-			pullToRefreshTrigged = true;
-			Presenter.OnStartLoadingPage();
-		}
-		#endregion
+        protected override void PullToRefreshTriggered(object sender, System.EventArgs e)
+        {
+            StopRefreshing();
+            pullToRefreshTrigged = true;
+            Presenter.OnStartLoadingPage();
+        }
+        #endregion
 
-		protected override void Dispose(bool disposing)
-		{
-			System.Diagnostics.Debug.WriteLine(String.Format("{0} disposed", this.GetType()));
-			base.Dispose(disposing);
-		}
-	}
+        protected override void ShowAnimated(bool loadSuccess)
+        {
+            AccountView.Alpha = loadSuccess ? 1.0f : 0f;
+            TableView.Alpha = 1.0f;
+            SearchButton.Enabled = loadSuccess;
+            SearchButton.TintColor = UIColorConstants.MainGreenColor;
+        }
+
+        #region IUISearchControllerDelegate
+        [Export("willDismissSearchController:")]
+        public void WillDismissSearchController(UISearchController searchController)
+        {
+            tableSource.Categories = Categories;
+            TableView.ReloadData();
+
+            // Enable PullToRefresh
+            TableView.Bounces = true;
+        }
+        #endregion
+
+        #region IUISearchBarDelegate
+        [Export("searchBarSearchButtonClicked:")]
+        public void SearchButtonClicked(UISearchBar searchBar)
+        {
+            searchBar.ResignFirstResponder();
+        }
+
+        [Export("searchBar:textDidChange:")]
+        public void TextChanged(UISearchBar searchBar, string searchText)
+        {
+            MatchesCategory[0].Products.Clear();
+            if (searchController.Active && searchText != "")
+            {
+                var search = searchController.SearchBar.Text.Trim();
+                foreach (var category in Categories)
+                {
+                    var products = category.Products.FindAll(item => item.Name.ToLower().Contains(search.ToLower()));
+                    MatchesCategory[0].Products.AddRange(products);
+                }
+            }
+            MatchesCategory[0].Products = MatchesCategory[0].Products.Distinct().ToList();
+            tableSource.Categories = MatchesCategory;
+            TableView.ReloadData();
+        }
+        #endregion
+
+        #region IUISearchResultsUpdating
+        public void UpdateSearchResultsForSearchController(UISearchController searchController)
+        {
+
+        }
+        #endregion
+
+        protected override void Dispose(bool disposing)
+        {
+            System.Diagnostics.Debug.WriteLine(String.Format("{0} disposed", this.GetType()));
+            base.Dispose(disposing);
+        }
+    }
 }

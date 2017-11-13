@@ -6,11 +6,16 @@ using CoreGraphics;
 using SDWebImage;
 using Softjourn.SJCoins.iOS.General.Constants;
 using Softjourn.SJCoins.iOS.UI.Controllers;
+using System.Threading.Tasks;
 
 namespace Softjourn.SJCoins.iOS
 {
-	public partial class HomeInternalCell : UICollectionViewCell, IUIViewControllerPreviewingDelegate
+	public partial class HomeInternalCell : UICollectionViewCell //IUIViewControllerPreviewingDelegate
 	{
+		// TODO
+        // Make image and cashing custom draw with needed size 
+        // Cash layout calculation
+
 		#region Properties
 		public static readonly NSString Key = new NSString("HomeInternalCell");
 		public static readonly UINib Nib;
@@ -116,12 +121,14 @@ namespace Softjourn.SJCoins.iOS
 			NameLabel.Text = product.Name;
 			PriceLabel.Text = product.Price.ToString();
             // On server image size 200*200
-			ProductImage.SetImage(url: new NSUrl(product.ImageFullUrl), placeholder: UIImage.FromBundle(ImageConstants.Placeholder));
+			ProductImage.SetImage(new NSUrl(product.ImageFullUrl), UIImage.FromBundle(ImageConstants.Placeholder));
 
-			LayoutUI(Product);
+            LayoutUI(Product);
 
-			// Register for preview
-			previewing = CurrentApplication.VisibleViewController.RegisterForPreviewingWithDelegate(this, this);
+            //new Task(() => 
+            //{ 
+            //    previewing = CurrentApplication.VisibleViewController.RegisterForPreviewingWithDelegate(this, this); 
+            //}).Start();
 		}
 
 		public override void PrepareForReuse()
@@ -136,21 +143,21 @@ namespace Softjourn.SJCoins.iOS
             PriceLabel.Alpha = 1.0f;
 
 			// Dettach
-			if (previewController != null)
-			{
-                previewController.PreViewController_BuyActionExecuted -= BuyAction;
-                previewController.PreViewController_FavoriteActionExecuted -= FavoriteAction;
-				previewController = null;
-			}
-            if (previewing != null)
-            {
-				// Unregister for preview
-				CurrentApplication.VisibleViewController.UnregisterForPreviewingWithContext(previewing);
-            }
+			//new Task(() => {
 
-			//Layer.ShouldRasterize = true;
-			//Layer.RasterizationScale = UIScreen.MainScreen.Scale;
+				//if (previewController != null)
+				//{
+				//	previewController.PreViewController_BuyActionExecuted -= BuyAction;
+				//	previewController.PreViewController_FavoriteActionExecuted -= FavoriteAction;
+				//	previewController = null;
+				//}
+				//if (previewing != null)
+				//{
+				//	// Unregister for preview
+				//	CurrentApplication.VisibleViewController.UnregisterForPreviewingWithContext(previewing);
+				//}
 
+            //}).Start();
 			base.PrepareForReuse();
 		}
 
@@ -173,29 +180,29 @@ namespace Softjourn.SJCoins.iOS
 		}
 		#endregion
 
-		#region IUIViewControllerPreviewingDelegate implementation
-		public UIViewController GetViewControllerForPreview(IUIViewControllerPreviewing previewingContext, CGPoint location)
-		{
-			// Create a preview controller and set its properties.
-			previewController = (PreViewController)UIStoryboard.FromName(StoryboardConstants.StoryboardMain, null).InstantiateViewController(StoryboardConstants.PreViewController);
-			if (previewController == null)
-				return null;
+		//#region IUIViewControllerPreviewingDelegate implementation
+		//public UIViewController GetViewControllerForPreview(IUIViewControllerPreviewing previewingContext, CGPoint location)
+		//{
+		//	// Create a preview controller and set its properties.
+		//	previewController = (PreViewController)UIStoryboard.FromName(StoryboardConstants.StoryboardMain, null).InstantiateViewController(StoryboardConstants.PreViewController);
+		//	if (previewController == null)
+		//		return null;
 
-			previewController.SetItem(Product);
-			previewController.PreferredContentSize = new CGSize(0, 420);
-            previewingContext.SourceRect = this.Bounds;
+		//	previewController.SetItem(Product);
+		//	previewController.PreferredContentSize = new CGSize(0, 420);
+  //          previewingContext.SourceRect = this.Bounds;
 
-			// Attach
-            previewController.PreViewController_BuyActionExecuted += BuyAction;
-            previewController.PreViewController_FavoriteActionExecuted += FavoriteAction;
+		//	// Attach
+  //          previewController.PreViewController_BuyActionExecuted += BuyAction;
+  //          previewController.PreViewController_FavoriteActionExecuted += FavoriteAction;
 
-			return previewController;
-		}
+		//	return previewController;
+		//}
 
-		public void CommitViewController(IUIViewControllerPreviewing previewingContext, UIViewController viewControllerToCommit)
-		{
-			CurrentApplication.VisibleViewController.ShowViewController(viewControllerToCommit, this);
-		}
-		#endregion
+		//public void CommitViewController(IUIViewControllerPreviewing previewingContext, UIViewController viewControllerToCommit)
+		//{
+		//	CurrentApplication.VisibleViewController.ShowViewController(viewControllerToCommit, this);
+		//}
+		//#endregion
 	}
 }

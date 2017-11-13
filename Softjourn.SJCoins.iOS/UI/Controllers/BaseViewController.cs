@@ -3,6 +3,7 @@ using Autofac;
 using Softjourn.SJCoins.Core.UI.Bootstrapper;
 using Softjourn.SJCoins.Core.UI.Presenters.IPresenters;
 using Softjourn.SJCoins.Core.UI.ViewInterfaces;
+using Softjourn.SJCoins.iOS.General.Constants;
 using Softjourn.SJCoins.iOS.UI.Services;
 using UIKit;
 
@@ -93,6 +94,11 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers
 			GC.Collect(GC.MaxGeneration);
 			System.Diagnostics.Debug.WriteLine(String.Format("{0} disposed", this.GetType()));
 		}
+
+        public void ShowScreenAnimated(bool loadSuccess)
+        {
+            UIView.Animate(Const.ShowScreenInfoDelay, 0, UIViewAnimationOptions.CurveLinear, () => { ShowAnimated(loadSuccess); }, null);
+        }
 		#endregion
 
 		#region Methods for inheritanse
@@ -106,6 +112,11 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers
 		{
 			
 		}
+
+        protected virtual void ShowAnimated(bool loadSuccess)
+        {
+            // virtual method for animated showing elements in child controllers
+        }
 		#endregion
 
 		#region Public methods

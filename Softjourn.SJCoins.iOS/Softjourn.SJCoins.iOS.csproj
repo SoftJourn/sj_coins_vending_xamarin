@@ -436,6 +436,10 @@
     <ImageAsset Include="Assets.xcassets\Back_Filled2.imageset\Back_Filled2-75.png" />
     <ImageAsset Include="Assets.xcassets\Back_Filled2.imageset\Back_Filled2-50 2.png" />
     <ImageAsset Include="Assets.xcassets\Back_Filled2.imageset\Back_Filled2-25 3.png" />
+    <ImageAsset Include="Assets.xcassets\NoAvatarSmall.imageset\Contents.json" />
+    <ImageAsset Include="Assets.xcassets\NoAvatarSmall.imageset\NoAvatarSmall2x.png" />
+    <ImageAsset Include="Assets.xcassets\NoAvatarSmall.imageset\NoAvatarSmall.png" />
+    <ImageAsset Include="Assets.xcassets\NoAvatarSmall.imageset\NoAvatarSmall3x.png" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Assets.xcassets\AccountTabIcon.imageset\" />
@@ -483,6 +487,7 @@
     <Folder Include="Assets.xcassets\Back_Filled.imageset\" />
     <Folder Include="Assets.xcassets\Back_Filled2.imageset\" />
     <Folder Include="UI\Delegates\PresentationDelegates\" />
+    <Folder Include="Assets.xcassets\NoAvatarSmall.imageset\" />
   </ItemGroup>
   <ItemGroup>
     <InterfaceDefinition Include="LaunchScreen.storyboard" />
@@ -630,6 +635,7 @@
     </Compile>
     <Compile Include="UI\Delegates\PresentationDelegates\DetailTransitioningDelegate.cs" />
     <Compile Include="UI\Controllers\DetailPage\DetailViewPresentationController.cs" />
+    <Compile Include="UI\Delegates\HomePage\SearchControllerDelegate.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
 </Project>

@@ -5,6 +5,7 @@ using CoreGraphics;
 using Softjourn.SJCoins.Core.API.Model.Products;
 using Softjourn.SJCoins.iOS.UI.Sources;
 using Softjourn.SJCoins.iOS.UI.Delegates;
+using Softjourn.SJCoins.iOS.General.Constants;
 
 namespace Softjourn.SJCoins.iOS
 {
@@ -54,6 +55,8 @@ namespace Softjourn.SJCoins.iOS
             CollectionView.ReloadData();
 
             AttachEvents();
+
+            ShowAllButton.Hidden |= categoryName == Const.MatchesCategory;
 		}
 
 		public override void PrepareForReuse()
@@ -67,8 +70,7 @@ namespace Softjourn.SJCoins.iOS
             this.collectionSource = null;
             this.collectionDelegate = null;
 
-			//Layer.ShouldRasterize = true;
-			//Layer.RasterizationScale = UIScreen.MainScreen.Scale;
+            ShowAllButton.Hidden = false;
 
 			base.PrepareForReuse();		
 		}

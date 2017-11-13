@@ -8,14 +8,16 @@ namespace Softjourn.SJCoins.iOS
     public static class SizeHelper
     {
         #region Constants
-        private static float phoneWidthCoefficient = 3.66f;            // Home page horizontal cell width coeficient. (Collection)
+        private static float phoneWidthCoefficient = 3.66f;           // Home page horizontal cell width coeficient. (Collection)
         private static float padWidthCoefficient = 7.1f;              // Home page horizontal cell width coeficient. (Collection)
 
-		private static float phoneAccountHeight = 340.0f;             // Account Page Header height.
+		private static float phoneAccountHeight = 350.0f;             // Account Page Header height.
 		private static float padAccountHeight = 400.0f;
 
 		private static float CategoryNameLabelHeight = 44.0f;         
 		private static float BottomRetreat = 12.0f;
+
+        private static nfloat calculatedHeight = 0;
         #endregion
 
         #region Properties
@@ -26,9 +28,12 @@ namespace Softjourn.SJCoins.iOS
 		#region Public methods
 		public static nfloat VerticalCellHeight()
 		{
-            var productCellWidth = idiom == UIUserInterfaceIdiom.Pad ? RoundingOf(mainBounds.Width / padWidthCoefficient) : RoundingOf(mainBounds.Width / phoneWidthCoefficient);
-			var productCellHeight = CategoryNameLabelHeight + productCellWidth + Const.PhoneNameLabelRetreat + Const.MaxPhoneNameLabelHeight + Const.MaxPhonePriceLabelHeight + Const.PhonePriceLabelRetreat + BottomRetreat;
-			return productCellHeight;
+            if (calculatedHeight == 0)
+            {
+				var productCellWidth = idiom == UIUserInterfaceIdiom.Pad ? RoundingOf(mainBounds.Width / padWidthCoefficient) : RoundingOf(mainBounds.Width / phoneWidthCoefficient);
+				calculatedHeight = CategoryNameLabelHeight + productCellWidth + Const.PhoneNameLabelRetreat + Const.MaxPhoneNameLabelHeight + Const.MaxPhonePriceLabelHeight + Const.PhonePriceLabelRetreat + BottomRetreat;
+			}
+			return calculatedHeight;
 		}
 
         public static nfloat HorizontalCellWidth()

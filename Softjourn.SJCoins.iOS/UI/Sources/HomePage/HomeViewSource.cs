@@ -40,15 +40,6 @@ namespace Softjourn.SJCoins.iOS.UI.Sources
 			}
 		}
 
-		public override void CellDisplayingEnded(UITableView tableView, UITableViewCell cell, NSIndexPath indexPath)
-		{
-			var _cell = (HomeCell)cell;
-			_cell.HomeCell_ItemSelected -= HomeViewSource_ItemSelected;
-			_cell.HomeCell_SeeAllClicked -= HomeViewSource_SeeAllClicked;
-			_cell.HomeCell_BuyActionExecuted -= HomeViewSource_BuyExecuted;
-			_cell.HomeCell_FavoriteActionExecuted -= HomeViewSource_AddDeleteFavoriteExecuted;
-		}
-
         public override nfloat GetHeightForRow(UITableView tableView, NSIndexPath indexPath)
         {
             return SizeHelper.VerticalCellHeight();

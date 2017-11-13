@@ -4,9 +4,9 @@ using Foundation;
 using Softjourn.SJCoins.Core.API.Model.Machines;
 using Softjourn.SJCoins.Core.UI.Presenters;
 using Softjourn.SJCoins.Core.UI.ViewInterfaces;
-using CoreGraphics;
 
 using UIKit;
+using Softjourn.SJCoins.iOS.General.Constants;
 
 namespace Softjourn.SJCoins.iOS.UI.Controllers
 {
@@ -14,8 +14,8 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers
 	public partial class SelectMachineViewController : BaseViewController<SelectMachinePresenter>, ISelectMachineView
 	{
 		#region Properties
-		private SelectMachineSource _tableSource;
-		private bool pullToRefreshTrigged = false;
+        private SelectMachineSource TableSource;
+		private bool pullToRefreshTrigged;
 		#endregion
 
 		#region Constructor
@@ -28,23 +28,9 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers
 		public override void ViewDidLoad()
 		{
 			base.ViewDidLoad();
+            ConfigurePage();
 			ConfigureTableView();
 			Presenter.GetMachinesList();
-		}
-
-		public override void ViewWillAppear(bool animated)
-		{
-			base.ViewWillAppear(animated);
-			// Attach 
-			_tableSource.ItemSelected += TableSource_ItemClicked;
-			NoMachinesLabel.Hidden = true;
-		}
-
-		public override void ViewWillDisappear(bool animated)
-		{
-			// Detach 
-			_tableSource.ItemSelected -= TableSource_ItemClicked;
-			base.ViewWillDisappear(animated);
 		}
 		#endregion
 
@@ -63,63 +49,75 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers
 			pullToRefreshTrigged = false;
 			StopRefreshing();
 		}
+
+        public override void AttachEvents()
+        {
+            base.AttachEvents();
+            TableSource.ItemSelected += TableSource_ItemClicked;
+        }
+
+        public override void DetachEvents()
+        {
+            TableSource.ItemSelected -= TableSource_ItemClicked;
+            base.DetachEvents();
+        }
 		#endregion
 
 		#region ISelectMachineView implementation
 		public void ShowNoMachineView(string message)
 		{
-			_tableSource.SetParameters(new List<Machines>());
-			TableView.ReloadData();
-
-			// show label that no machines fetched
-			NoMachinesLabel.Text = message;
-			NoMachinesLabel.Hidden = false;
+            NoMachinesLabel.Text = message;
+            ShowScreenAnimated(false);			
 		}
 
 		public void ShowMachinesList(List<Machines> list, Machines selectedMachine = null)
 		{
-			// save list in controller and reload tableView
-			NoMachinesLabel.Hidden = true;
-			_tableSource.SetParameters(list, selectedMachine, ConfigureVendingMachinesHeader());
+			TableSource.SetParameters(list, selectedMachine);
 			TableView.ReloadData();
+            ShowScreenAnimated(true);
 		}
 		#endregion
 
 		#region Private methods
+        private void ConfigurePage()
+        {
+            NoMachinesLabel.Alpha = 0.0f;
+            TableView.Alpha = 0.0f;
+
+            NavigationController.NavigationBar.SetBackgroundImage(new UIImage(), UIBarMetrics.Default);
+            NavigationController.NavigationBar.ShadowImage = new UIImage();
+        }
+
 		private void ConfigureTableView()
 		{
-			_tableSource = new SelectMachineSource();
-			TableView.Source = _tableSource;
+			TableSource = new SelectMachineSource();
+			TableView.Source = TableSource;
 		}
+        #endregion
 
-		private UIView ConfigureVendingMachinesHeader()
-		{
-			var view = new UIView();
-			var label = new UILabel(frame: new CGRect(x: 25, y: 15, width: 300, height: 20));
-			label.TextAlignment = UITextAlignment.Left;
-			label.Text = "Vending Machines";
-			label.TextColor = UIColor.Gray;
-			view.Add(label);
-			return view;
-		}
-
-		// -------------------- Event handlers --------------------
+        #region Event handlers
 		private void TableSource_ItemClicked(object sender, Machines machine)
 		{
 			Presenter.OnMachineSelected(machine);
 		}
-		// -------------------------------------------------------- 
-		#endregion
-
+        #endregion 
+		
 		// Throw TableView to parent
 		protected override UIScrollView GetRefreshableScrollView() => TableView;
 
 		protected override void PullToRefreshTriggered(object sender, EventArgs e)
 		{
+            NoMachinesLabel.Alpha = 0f;
             StopRefreshing();
 			pullToRefreshTrigged = true;
 			Presenter.GetMachinesList();
 		}
+
+        protected override void ShowAnimated(bool loadSuccess)
+        {
+            NoMachinesLabel.Alpha = !loadSuccess ? 1.0f : 0f;
+            TableView.Alpha = 1.0f;
+        }
 	}
 
 	#region SelectMachineSource implementation
@@ -127,15 +125,13 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers
 	{
 		private List<Machines> machines = new List<Machines>();
 		private Machines selectedMachine;
-		private UIView headerView;
 
 		public event EventHandler<Machines> ItemSelected;
 
-		public void SetParameters(List<Machines> machines, Machines selectedMachine = null, UIView headerView = null)
+		public void SetParameters(List<Machines> machines, Machines selectedMachine = null)
 		{
 			this.machines = machines;
 			this.selectedMachine = selectedMachine;
-			this.headerView = headerView;
 		}
 
 		public override nint RowsInSection(UITableView tableview, nint section) => machines.Count;
@@ -158,8 +154,6 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers
 		}
 
 		public override nfloat GetHeightForHeader(UITableView tableView, nint section) => section == 0 ? 40 : 0;
-
-		public override UIView GetViewForHeader(UITableView tableView, nint section) => headerView;
 
 		public override void RowSelected(UITableView tableView, NSIndexPath indexPath)
 		{

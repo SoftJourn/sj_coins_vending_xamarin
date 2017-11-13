@@ -19,10 +19,11 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.AccountPage
 		private const int InputSegment = 0;
 		private const int OutputSegment = 1;
 
-		enum segmentControls { DateAmount, InputOutput };
-		#endregion
+		enum SegmentControls { DateAmount, InputOutput };
+        #endregion
 
-		#region Properties
+        #region Properties
+        private bool firstStart = true;
         private ReportsViewSource tableSource;
         private SegmentControlHelper segmentControlHelper;
 		#endregion
@@ -45,17 +46,23 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.AccountPage
 		#endregion
 
 		#region IReportsView implementation
-		public void ShowEmptyView()
-		{
-			NoItemsLabel.Hidden = false;
-		}
-
 		public void SetData(List<Transaction> transactionsList)
 		{
 			tableSource.SetItems(transactionsList);
-            ReloadTable();
-			TableView.TableFooterView.Hidden = false;
+            if (firstStart == true)
+            {
+                TableView.ReloadData();
+                firstStart = false;
+            }
+            else
+                ReloadTable();
+            ShowScreenAnimated(true);
 		}
+
+        public void ShowEmptyView()
+        {
+            ShowScreenAnimated(false);
+        }
 
 		public void AddItemsToExistedList(List<Transaction> transactionsList)
 		{
@@ -107,6 +114,8 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.AccountPage
 		private void ConfigurePage()
 		{
 			NoItemsLabel.Hidden = true;
+            NoItemsLabel.Alpha = 0.0f;
+            TableView.Alpha = 0.0f;
 		}
 
 		private void ConfigureTableView()
@@ -141,9 +150,7 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.AccountPage
 		{
 			// Configure segment depending on whether the picture is present or not 
 			if (imageName == null)
-			{
 				InputOutputSegmentControl.SetTitle(title, segment);
-			}
 			else
 			{
 				var inputImage = UIImage.FromBundle(imageName);
@@ -152,14 +159,14 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.AccountPage
 			}
 		}
 
-		private void SortBy(segmentControls control)
+		private void SortBy(SegmentControls control)
 		{
 			switch (control)
 			{
-				case segmentControls.DateAmount:
+				case SegmentControls.DateAmount:
 					SortByDateAmount();
 					break;
-				case segmentControls.InputOutput:
+				case SegmentControls.InputOutput:
 					SortByInputOutput();
 					break;
 			}
@@ -196,18 +203,18 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.AccountPage
 		// DateAmountSegmentControl methods 
 		public void DateAmountSegmentControl_AnotherButtonClicked(object sender, EventArgs e)
 		{
-			SortBy(segmentControls.DateAmount);
+			SortBy(SegmentControls.DateAmount);
 		}
 
 		// InputOutputSegmentControl methods 
 		public void InputOutputSegmentControl_SameButtonClicked(object sender, EventArgs e)
 		{
-			SortBy(segmentControls.InputOutput);
+			SortBy(SegmentControls.InputOutput);
 		}
 
 		public void InputOutputSegmentControl_AnotherButtonClicked(object sender, EventArgs e)
 		{
-			SortBy(segmentControls.InputOutput);
+			SortBy(SegmentControls.InputOutput);
 		}
 
 		// TableSource methods 
@@ -225,5 +232,13 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.AccountPage
 			StopRefreshing();
 			Presenter.OnStartLoadingPage();
 		}
+
+        protected override void ShowAnimated(bool loadSuccess)
+        {
+            TableView.TableFooterView.Hidden = !loadSuccess;
+            NoItemsLabel.Alpha = !loadSuccess ? 1.0f : 0f;
+            NoItemsLabel.Hidden = loadSuccess;
+            TableView.Alpha = 1.0f;
+        }
 	}	
 }

@@ -28,10 +28,7 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.AccountPage
 		public override void ViewDidLoad()
 		{
 			base.ViewDidLoad();
-			// Hide NoItems label
-			NoItemsLabel.Hidden = true;
-			// SetTitle;
-			Title = Purchases;
+            ConfigurePage();
 			Presenter.OnStartLoadingPage();
 		}
 		#endregion
@@ -52,29 +49,41 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.AccountPage
 		public void SetData(List<History> purchaseList)
 		{
             TableView.Source = new PurchaseViewSource(purchaseList);
-            ReloadTable();
+            TableView.ReloadData(); //TableView.ReloadSections(new NSIndexSet(0), UITableViewRowAnimation.Fade);
+            ShowScreenAnimated(true);
 		}
 
 		public void ShowEmptyView()
 		{
-			NoItemsLabel.Hidden = false;
+            ShowScreenAnimated(false);
 		}
 		#endregion
 
 		#region Private methods
-		private void ReloadTable()
-		{
-			TableView.ReloadSections(new NSIndexSet(0), UITableViewRowAnimation.Fade);
-		}
+        private void ConfigurePage()
+        {
+            // Hide NoItems label
+            Title = Purchases;
+            NoItemsLabel.Hidden = true;
+            NoItemsLabel.Alpha = 0.0f;
+            TableView.Alpha = 0.0f;
+        }
 		#endregion
 
 		// Throw TableView to parent
 		protected override UIScrollView GetRefreshableScrollView() => TableView;
 
-		protected override void PullToRefreshTriggered(object sender, System.EventArgs e)
+		protected override void PullToRefreshTriggered(object sender, EventArgs e)
 		{
 			StopRefreshing();
 			Presenter.OnStartLoadingPage();
 		}
+
+        protected override void ShowAnimated(bool loadSuccess)
+        {
+            NoItemsLabel.Hidden = loadSuccess;
+            NoItemsLabel.Alpha = !loadSuccess ? 1.0f : 0f;
+            TableView.Alpha = 1.0f;
+        }
 	}
 }

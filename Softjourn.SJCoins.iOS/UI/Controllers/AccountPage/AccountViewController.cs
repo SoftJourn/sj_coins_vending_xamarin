@@ -6,7 +6,6 @@ using Softjourn.SJCoins.Core.API.Model;
 using Softjourn.SJCoins.Core.API.Model.AccountInfo;
 using Softjourn.SJCoins.Core.UI.Presenters;
 using Softjourn.SJCoins.Core.UI.ViewInterfaces;
-using Softjourn.SJCoins.iOS.UI.Cells;
 using Softjourn.SJCoins.iOS.UI.Sources;
 using UIKit;
 
@@ -43,14 +42,21 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.AccountPage
 		{
 			base.ViewWillAppear(animated);
 			Presenter.OnStartLoadingPage();
+            NavigationController.SetNavigationBarHidden(true, true);
 		}
+
+        public override void ViewWillDisappear(bool animated)
+        {
+            base.ViewWillDisappear(animated);
+            NavigationController.SetNavigationBarHidden(false, true);
+        }
 		#endregion
 
 		#region BaseViewController
 		public override void AttachEvents()
 		{
 			base.AttachEvents();
-			DoneButton.Clicked += DoneButtonClickHandler;
+            DoneButton.TouchUpInside += DoneButtonClickHandler;
 			tableSource.ItemSelected += TableSource_ItemClicked;
 			// Add tap gesture to avatar image
 			avatarImageTap = new UITapGestureRecognizer(AvatarImageTapHandler);
@@ -59,7 +65,7 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.AccountPage
 
 		public override void DetachEvents()
 		{
-            DoneButton.Clicked -= DoneButtonClickHandler;
+            DoneButton.TouchUpInside -= DoneButtonClickHandler;
 			tableSource.ItemSelected -= TableSource_ItemClicked;
 			// Remove tap gesture from avatar image
 			AvatarImage.RemoveGestureRecognizer(avatarImageTap);

@@ -32,11 +32,12 @@ namespace Softjourn.SJCoins.iOS.UI.Delegates
 			{
 				_cell.MarkFavorites(Products[indexPath.Row]);
 			}
-            _cell.BuyAction -= BuyActionExecuted;
-            _cell.BuyAction += BuyActionExecuted;
 
-            _cell.FavoriteAction -= FavoriteActionExecuted;
-            _cell.FavoriteAction += FavoriteActionExecuted;
+            //_cell.BuyAction -= BuyActionExecuted;
+            //_cell.BuyAction += BuyActionExecuted;
+
+            //_cell.FavoriteAction -= FavoriteActionExecuted;
+            //_cell.FavoriteAction += FavoriteActionExecuted;
         }
 
         public override void ItemSelected(UICollectionView collectionView, Foundation.NSIndexPath indexPath)

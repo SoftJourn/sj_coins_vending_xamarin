@@ -121,7 +121,7 @@
     <value>Not clear request to server</value>
   </data>
   <data name="server_error_401" xml:space="preserve">
-    <value>Something wrong with your authentication. Check your credentials</value>
+    <value>Your session has expired. Please log in again.</value>
   </data>
   <data name="server_error_404" xml:space="preserve">
     <value>Resource is not found</value>

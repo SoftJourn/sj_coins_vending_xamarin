@@ -53,8 +53,6 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers
 			_scrollService = null;
 			loginTextFieldDelegate = null;
 			passwordTextFieldDelegate = null;
-
-            UIApplication.SharedApplication.SetStatusBarStyle(UIStatusBarStyle.LightContent, false);
 		}
 		#endregion
 

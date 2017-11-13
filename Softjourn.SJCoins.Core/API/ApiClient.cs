@@ -93,11 +93,13 @@ namespace Softjourn.SJCoins.Core.API
                 {
                     Session session = deserial.Deserialize<Session>(response);
                     SaveTokens(session);
+                    System.Diagnostics.Debug.WriteLine(String.Format(session == null ? "Tokens no saved !" : "Tokens saved !"));
                     return session;
                 }
                 else
                 {
-                    ApiErrorHandler(response);
+                    System.Diagnostics.Debug.WriteLine(String.Format("Refresh token Failure!"));
+                    throw new ApiNotAuthorizedException(Resources.StringResources.server_error_401);
                 }
             }
             // catch is missing because all exceptions should be caught on Presenter side
@@ -272,6 +274,7 @@ namespace Softjourn.SJCoins.Core.API
 
                 if (response.IsSuccess)
                 {
+                    System.Diagnostics.Debug.WriteLine(String.Format("Responce status code: {0}", response.StatusCode));
                     TResult data = deserial.Deserialize<TResult>(response);
                     return data;
                 }

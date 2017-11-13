@@ -7,12 +7,15 @@
 using Foundation;
 using System.CodeDom.Compiler;
 
-namespace Softjourn.SJCoins.iOS.UI.Controllers.Main
+namespace Softjourn.SJCoins.iOS.UI.Controllers.HomePage
 {
 	partial class HomeViewController
 	{
 		[Outlet]
-		UIKit.UIBarButtonItem AccountButton { get; set; }
+		UIKit.UIView AccountView { get; set; }
+
+		[Outlet]
+		UIKit.UIImageView AvatarImage { get; set; }
 
 		[Outlet]
 		UIKit.UIImageView CoinLogo { get; set; }
@@ -27,13 +30,26 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.Main
 		UIKit.UILabel NoItemsLabel { get; set; }
 
 		[Outlet]
+		UIKit.UIBarButtonItem SearchButton { get; set; }
+
+		[Outlet]
 		UIKit.UITableView TableView { get; set; }
 		
 		void ReleaseDesignerOutlets ()
 		{
-			if (AccountButton != null) {
-				AccountButton.Dispose ();
-				AccountButton = null;
+			if (AccountView != null) {
+				AccountView.Dispose ();
+				AccountView = null;
+			}
+
+			if (AvatarImage != null) {
+				AvatarImage.Dispose ();
+				AvatarImage = null;
+			}
+
+			if (CoinLogo != null) {
+				CoinLogo.Dispose ();
+				CoinLogo = null;
 			}
 
 			if (MachineNameLabel != null) {
@@ -51,14 +67,14 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.Main
 				NoItemsLabel = null;
 			}
 
+			if (SearchButton != null) {
+				SearchButton.Dispose ();
+				SearchButton = null;
+			}
+
 			if (TableView != null) {
 				TableView.Dispose ();
 				TableView = null;
-			}
-
-			if (CoinLogo != null) {
-				CoinLogo.Dispose ();
-				CoinLogo = null;
 			}
 		}
 	}

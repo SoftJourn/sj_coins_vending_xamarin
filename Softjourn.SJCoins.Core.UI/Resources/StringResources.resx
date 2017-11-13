@@ -160,7 +160,7 @@
     <value>Your balance is %s coins</value>
   </data>
   <data name="error_msg_empty_machines_list" xml:space="preserve">
-    <value>There are no active machines. Please try to refresh list</value>
+    <value>There are no active machines. Please refresh the list and try again.</value>
   </data>
   <data name="error_msg_invalid_selected_machine" xml:space="preserve">
     <value>Invalid selected machine</value>
@@ -169,7 +169,7 @@
     <value>Buying</value>
   </data>
   <data name="server_error_bad_username_or_password" xml:space="preserve">
-    <value>Username or password is incorrect</value>
+    <value>Username or password is incorrect.</value>
   </data>
   <data name="error_not_enough_money" xml:space="preserve">
     <value>Not enough money!</value>

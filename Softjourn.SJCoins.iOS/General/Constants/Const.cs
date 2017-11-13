@@ -4,6 +4,7 @@
 	{
 		#region Category names from bundle
 		public const string FavoritesCategory = "Favorites";
+        public const string MatchesCategory = "Matches";
 		#endregion
 
 		public const string defaultDescription = "No description to current product.";
@@ -13,5 +14,7 @@
 		
         public const float PhoneNameLabelRetreat = 10.0f;
 		public const float PhonePriceLabelRetreat = 2.0f;
+
+        public const float ShowScreenInfoDelay = 0.3f;
 	} 
 }
