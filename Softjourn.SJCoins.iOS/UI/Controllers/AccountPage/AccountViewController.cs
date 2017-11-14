@@ -32,7 +32,6 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.AccountPage
 		public override void ViewDidLoad()
 		{
 			base.ViewDidLoad();
-            ConfigurePage();
 			ConfigureTableView();
 			ConfigureAvatarImage(AvatarImage);
 			Presenter.GetImageFromServer();
@@ -120,12 +119,6 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.AccountPage
 		#endregion
 
 		#region Private methods
-		private void ConfigurePage()
-		{
-			NavigationController.NavigationBar.SetBackgroundImage(new UIImage(), UIBarMetrics.Default);
-			NavigationController.NavigationBar.ShadowImage = new UIImage();
-		}
-
 		private void ConfigureTableView()
 		{
 			var options = Presenter.GetOptionsList();

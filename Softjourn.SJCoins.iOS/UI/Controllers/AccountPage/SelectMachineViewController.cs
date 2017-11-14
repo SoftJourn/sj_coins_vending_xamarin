@@ -83,9 +83,6 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers
         {
             NoMachinesLabel.Alpha = 0.0f;
             TableView.Alpha = 0.0f;
-
-            NavigationController.NavigationBar.SetBackgroundImage(new UIImage(), UIBarMetrics.Default);
-            NavigationController.NavigationBar.ShadowImage = new UIImage();
         }
 
 		private void ConfigureTableView()
@@ -152,8 +149,6 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers
 						cell.Accessory = UITableViewCellAccessory.None;
 				}
 		}
-
-		public override nfloat GetHeightForHeader(UITableView tableView, nint section) => section == 0 ? 40 : 0;
 
 		public override void RowSelected(UITableView tableView, NSIndexPath indexPath)
 		{

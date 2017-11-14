@@ -41,6 +41,7 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.HomePage
             ConfigureAvatarImage(AvatarImage);
             ConfigureTableView();
             ConfigureSearch();
+            CustomizeUIDependingOnVersion();
             Presenter.OnStartLoadingPage();
         }
 
@@ -155,12 +156,11 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.HomePage
             AccountView.Alpha = 0.0f;
             TableView.Alpha = 0.0f;
 
-            NavigationController.NavigationBar.SetBackgroundImage(new UIImage(), UIBarMetrics.Default);
-            NavigationController.NavigationBar.ShadowImage = new UIImage();
-
             accountTapGesture = new UITapGestureRecognizer(AccountTap);
             accountTapGesture.Enabled = true;
             AccountView.AddGestureRecognizer(accountTapGesture);
+
+            NavigationController.NavigationBar.TintColor = UIColorConstants.MainGreenColor;
         }
 
         private void ConfigureTableView()
@@ -178,7 +178,7 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.HomePage
                 WeakDelegate = this,
                 DimsBackgroundDuringPresentation = false,
                 WeakSearchResultsUpdater = this,
-                HidesNavigationBarDuringPresentation = false
+
             };
             searchController.SearchBar.Delegate = this;
             DefinesPresentationContext = false;
@@ -196,6 +196,24 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.HomePage
             imageCircle.CornerRadius = AvatarImage.Frame.Height / 2;
             imageCircle.MasksToBounds = true;
             AvatarImage.Image = UIImage.FromBundle("NoAvatarSmall.png");
+        }
+
+        private void CustomizeUIDependingOnVersion() 
+        {
+            if (UIDevice.CurrentDevice.CheckSystemVersion(11, 0))
+            {
+                // Code that uses features from iOS 11.0 and later
+                NavigationItem.SearchController = searchController;
+                NavigationItem.HidesSearchBarWhenScrolling = true;
+                // Disable SearchButton
+                NavigationItem.RightBarButtonItem = null;
+            }
+            else
+            {
+                // Code to support earlier iOS versions
+            }
+
+            UISearchBar.Appearance.TintColor = UIColorConstants.MainGreenColor;
         }
 
         private void SetBalance(string balance, string user)
@@ -261,7 +279,6 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.HomePage
 
             // Disable PullToRefresh
             TableView.Bounces = false;
-            //TableView.SetContentOffset(new CGPoint(0, 0), false);
         }
 
         private void AccountTap(UITapGestureRecognizer gestureRecognizer)

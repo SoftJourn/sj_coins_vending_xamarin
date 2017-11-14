@@ -49,7 +49,7 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.AccountPage
 		public void SetData(List<History> purchaseList)
 		{
             TableView.Source = new PurchaseViewSource(purchaseList);
-            TableView.ReloadData(); //TableView.ReloadSections(new NSIndexSet(0), UITableViewRowAnimation.Fade);
+            TableView.ReloadData();
             ShowScreenAnimated(true);
 		}
 
