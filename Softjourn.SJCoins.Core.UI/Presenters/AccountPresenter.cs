@@ -14,8 +14,6 @@ namespace Softjourn.SJCoins.Core.UI.Presenters
 {
     public class AccountPresenter : BasePresenter<IAccountView>
     {
-		private const int oneMb = 1048576;
-
         private List<AccountOption> OptionsList { get; set; }
 
         public AccountPresenter()
@@ -271,50 +269,10 @@ namespace Softjourn.SJCoins.Core.UI.Presenters
             }
         }
 
-        private async void GetAvatarImage(string endpoint)
-        {
-            if (NetworkUtils.IsConnected)
-            {
-                try
-                {
-					byte[] image;
-					if (DataManager.Avatar == null)
-					{
-						// Avatar not stored
-						image = await RestApiServise.GetAvatarImage(endpoint.Substring(1));
-
-						if (image.Length < oneMb)
-						{
-							// Store in data manager
-							DataManager.Avatar = image;
-						}
-					}
-					else
-						// Avatar stored
-						image = DataManager.Avatar;
-
-					View.ImageAcquired(image);
-                }
-                catch (ApiBadRequestException ex)
-                {
-                    AlertService.ShowMessageWithUserInteraction("", Resources.StringResources.server_error_bad_username_or_password, Resources.StringResources.btn_title_ok, null);
-                }
-                catch (Exception ex)
-                {
-                    AlertService.ShowToastMessage(ex.Message);
-                }
-            }
-            else
-            {
-                AlertService.ShowToastMessage(Resources.StringResources.internet_turned_off);
-            }
-        }
-
         private async void SetAvatarImage(byte[] image)
         {
             if (NetworkUtils.IsConnected)
             {
-
                 try
                 {
                     await RestApiServise.SetAvatarImage(image);
@@ -322,7 +280,7 @@ namespace Softjourn.SJCoins.Core.UI.Presenters
 					DataManager.Avatar = image;
                     AlertService.ShowMessageWithUserInteraction("","Image was stored on server","",null);                  
                 }
-                catch (ApiBadRequestException ex)
+                catch (ApiBadRequestException)
                 {
                     AlertService.ShowMessageWithUserInteraction("Server Error", "", Resources.StringResources.btn_title_ok, null);
                 }
@@ -338,5 +296,10 @@ namespace Softjourn.SJCoins.Core.UI.Presenters
             }
         }
         #endregion
+
+        protected override void AvatarImageAcquired(byte[] receipt)
+        {
+            View.ImageAcquired(receipt);
+        }
     }
 }

@@ -26,6 +26,7 @@ namespace Softjourn.SJCoins.Core.UI.Presenters
                     View.ShowProgress(Resources.StringResources.progress_loading);
                     DataManager.Profile = await RestApiServise.GetUserAccountAsync();
                     MyBalance = DataManager.Profile.Amount;
+                    GetAvatarImage(DataManager.Profile.Image);
                     View.SetAccountInfo(DataManager.Profile);
                     View.SetMachineName(Settings.SelectedMachineName);
                     var favoritesList = await RestApiServise.GetFavoritesList();
@@ -254,5 +255,10 @@ namespace Softjourn.SJCoins.Core.UI.Presenters
         }
 
         public List<Categories> GetCategoriesList() => DataManager.ProductList;
+
+        protected override void AvatarImageAcquired(byte[] receipt)
+        {
+            View.ImageAcquired(receipt);
+        }
     }
 }

@@ -2,14 +2,11 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using CoreAnimation;
-using CoreGraphics;
 using Foundation;
 using Softjourn.SJCoins.Core.API.Model.AccountInfo;
 using Softjourn.SJCoins.Core.API.Model.Products;
 using Softjourn.SJCoins.Core.UI.Presenters;
 using Softjourn.SJCoins.Core.UI.ViewInterfaces;
-using Softjourn.SJCoins.iOS.General.Constants;
-using Softjourn.SJCoins.iOS.Services;
 using Softjourn.SJCoins.iOS.UI.Sources;
 using UIKit;
 
@@ -122,6 +119,13 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.HomePage
             tableSource.Categories = Categories;
             TableView.ReloadData();
             ShowScreenAnimated(true);
+        }
+
+        public void ImageAcquired(byte[] receipt)
+        {
+            // Method trigged when data taken from server or dataManager
+            var image = UIImage.LoadFromData(NSData.FromArray(receipt));
+            AvatarImage.Image = image;
         }
 
         public void ServiceNotAvailable()

@@ -166,5 +166,10 @@ namespace Softjourn.SJCoins.Core.UI.Presenters
 			}
 		}
 		#endregion
+
+        protected override void AvatarImageAcquired(byte[] receipt)
+        {
+            
+        }
 	}
 }

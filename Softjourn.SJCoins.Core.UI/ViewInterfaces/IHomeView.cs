@@ -13,5 +13,6 @@ namespace Softjourn.SJCoins.Core.UI.ViewInterfaces
         void SetMachineName(String name);
         void ShowProducts(List<Categories> listCategories); //have to add Favorites to the first place to list
         void ServiceNotAvailable();
+        void ImageAcquired(byte[] receipt);
     }
 }
