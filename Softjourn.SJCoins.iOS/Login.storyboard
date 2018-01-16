@@ -145,6 +145,16 @@
                                                     <fontDescription key="fontDescription" type="system" pointSize="24"/>
                                                 </variation>
                                             </button>
+                                            <button contentMode="center" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="j9D-l4-inv">
+                                                <rect key="frame" x="279" y="399" width="48" height="48"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" secondItem="j9D-l4-inv" secondAttribute="height" id="34i-xi-Qeq"/>
+                                                </constraints>
+                                                <color key="tintColor" red="0.1922209859" green="0.59310054779999999" blue="0.010391112419999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <state key="normal" image="TouchIDSmall">
+                                                    <color key="titleColor" red="0.1922209859" green="0.59310054779999999" blue="0.010391112419999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                </state>
+                                            </button>
                                         </subviews>
                                         <color key="backgroundColor" red="0.96078431369999995" green="0.96078431369999995" blue="0.96078431369999995" alpha="1" colorSpace="calibratedRGB"/>
                                         <constraints>
@@ -152,6 +162,7 @@
                                             <constraint firstItem="7Uf-QG-kb1" firstAttribute="leading" secondItem="ljM-S2-uPj" secondAttribute="leading" constant="110" id="3pe-31-HWj">
                                                 <variation key="heightClass=regular-widthClass=regular" constant="270"/>
                                             </constraint>
+                                            <constraint firstAttribute="trailingMargin" secondItem="j9D-l4-inv" secondAttribute="trailing" constant="40" id="4at-pQ-gIa"/>
                                             <constraint firstItem="aMW-md-VeR" firstAttribute="height" secondItem="yCO-qR-FRw" secondAttribute="height" id="5w6-nY-7e9"/>
                                             <constraint firstItem="yCO-qR-FRw" firstAttribute="width" secondItem="PL9-iP-f9L" secondAttribute="width" id="6dg-Ac-Tfs"/>
                                             <constraint firstItem="lkw-0p-21s" firstAttribute="height" secondItem="7OD-C5-6Nl" secondAttribute="height" id="9CZ-Ym-j3d"/>
@@ -176,6 +187,8 @@
                                             <constraint firstItem="7Uf-QG-kb1" firstAttribute="centerX" secondItem="ljM-S2-uPj" secondAttribute="centerX" id="aFs-Hg-Nh2"/>
                                             <constraint firstItem="q05-kS-lPh" firstAttribute="trailing" secondItem="yCO-qR-FRw" secondAttribute="trailing" id="aRm-lW-ZKZ"/>
                                             <constraint firstItem="c90-7P-fMl" firstAttribute="trailing" secondItem="aMW-md-VeR" secondAttribute="trailing" id="df4-hc-Ic2"/>
+                                            <constraint firstItem="j9D-l4-inv" firstAttribute="centerY" secondItem="yCO-qR-FRw" secondAttribute="centerY" id="eAo-d4-Zae"/>
+                                            <constraint firstItem="j9D-l4-inv" firstAttribute="height" secondItem="yCO-qR-FRw" secondAttribute="height" multiplier="1.2" id="fL9-Ls-ORm"/>
                                             <constraint firstItem="c90-7P-fMl" firstAttribute="leading" secondItem="aMW-md-VeR" secondAttribute="leading" id="gb9-Dt-IBm"/>
                                             <constraint firstItem="q05-kS-lPh" firstAttribute="leading" secondItem="yCO-qR-FRw" secondAttribute="leading" id="h6D-pX-7QJ"/>
                                             <constraint firstItem="7OD-C5-6Nl" firstAttribute="leading" secondItem="ljM-S2-uPj" secondAttribute="leadingMargin" constant="2" id="hcc-h2-YQu"/>
@@ -220,12 +233,13 @@
                         <outlet property="PasswordErrorLabel" destination="q05-kS-lPh" id="FdG-31-yZQ"/>
                         <outlet property="PasswordTextField" destination="yCO-qR-FRw" id="b2t-Fk-UQi"/>
                         <outlet property="ScrollView" destination="I3d-3h-pYl" id="t7z-sl-fmh"/>
+                        <outlet property="TouchIDButton" destination="j9D-l4-inv" id="7lc-rj-OPY"/>
                         <outlet property="VersionLabel" destination="ft1-Yn-S12" id="4Zq-C1-iN7"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="zLJ-rd-p62" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2451" y="-370"/>
+            <point key="canvasLocation" x="2450.4000000000001" y="-370.16491754122939"/>
         </scene>
         <!--Informative View Controller-->
         <scene sceneID="q38-Xd-sW4">
@@ -633,6 +647,7 @@
         <image name="InfoCoinsLogo" width="85" height="85"/>
         <image name="InfoFavoritesLogo" width="85" height="85"/>
         <image name="InfoLoginLogo" width="85" height="85"/>
+        <image name="TouchIDSmall" width="36" height="36"/>
         <image name="vending_logo" width="230" height="265"/>
     </resources>
 </document>

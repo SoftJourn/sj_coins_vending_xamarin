@@ -127,6 +127,17 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers
 				Invoke(() => _refreshControl.EndRefreshing(), 1); //IOS 10 fix 
 			}
 		}
+
+        public void StyleNavigationBar()
+        {
+            if (NavigationController != null) {
+                NavigationController.NavigationBar.TitleTextAttributes = new UIStringAttributes 
+                    {
+                        ForegroundColor = UIColorConstants.ProductNameColor,
+                        Font = UIFont.SystemFontOfSize(18, UIFontWeight.Medium)
+                    };
+            }
+        }
 		#endregion
 
 		#region Private methods

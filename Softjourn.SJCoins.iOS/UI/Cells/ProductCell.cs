@@ -45,7 +45,7 @@ namespace Softjourn.SJCoins.iOS.UI.Cells
             LogoImage.SetImage(url: new NSUrl(item.ImageFullUrl), placeholder: UIImage.FromBundle(ImageConstants.Placeholder));
             ConfigureDescript(item);
             ConfigureFavoriteImage(item.IsProductFavorite);
-            BuyButton.SetTitle("SJ " + string.Format("{0}", item.Price), UIControlState.Normal);
+            BuyButton.SetTitle(string.Format("{0}", item.Price), UIControlState.Normal);
 
             // Attach event
             FavoriteButton.TouchUpInside -= FavoriteButtonClicked;

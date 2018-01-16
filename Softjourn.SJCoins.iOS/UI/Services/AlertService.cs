@@ -74,6 +74,7 @@ namespace Softjourn.SJCoins.iOS.UI.Services
 		}
 		#endregion
 
+        #region Private methods
 		private void PresentAlert(string title, string message, string accept, string cancel, UIAlertActionStyle acceptStyle, Action<Product> acceptClicked = null, Action cancelClicked = null, Product product = null)
 		{
 			UIApplication.SharedApplication.InvokeOnMainThread(() =>
@@ -123,5 +124,27 @@ namespace Softjourn.SJCoins.iOS.UI.Services
 				alertController.AddAction(alertAction);
 			}
 		}
+        #endregion
+
+        #region Public methods
+        public void ShowConfirmationAlert(string title, string msg, Action btnOkClicked, Action btnCancelClicked)
+        {
+            // Present confirmation alert with two buttons  
+            UIApplication.SharedApplication.InvokeOnMainThread(() =>
+            {
+                try
+                {
+                    var alertController = UIAlertController.Create(title, msg, UIAlertControllerStyle.Alert);
+                    alertController.View.TintColor = UIColorConstants.MainGreenColor;
+                    var cancelAction = UIAlertAction.Create("cancel", UIAlertActionStyle.Cancel, (action) => { btnCancelClicked?.Invoke(); });
+                    var acceptAction = UIAlertAction.Create("accept", UIAlertActionStyle.Default, (action) => { btnOkClicked?.Invoke(); });
+                    alertController.AddAction(cancelAction);
+                    alertController.AddAction(acceptAction);
+                    _currentApplicationDelegate.VisibleViewController.PresentViewController(alertController, true, null);
+                }
+                catch { }
+            });
+        }
+        #endregion
 	}
 }

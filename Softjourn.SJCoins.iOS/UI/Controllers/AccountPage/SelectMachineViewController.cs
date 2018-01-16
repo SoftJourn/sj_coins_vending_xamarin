@@ -83,6 +83,7 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers
         {
             NoMachinesLabel.Alpha = 0.0f;
             TableView.Alpha = 0.0f;
+            StyleNavigationBar();
         }
 
 		private void ConfigureTableView()
@@ -114,6 +115,7 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers
         {
             NoMachinesLabel.Alpha = !loadSuccess ? 1.0f : 0f;
             TableView.Alpha = 1.0f;
+            NavigationItem.Title = "Vending Machines";
         }
 	}
 

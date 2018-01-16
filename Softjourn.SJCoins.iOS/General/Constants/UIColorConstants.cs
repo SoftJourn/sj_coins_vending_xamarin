@@ -31,7 +31,7 @@ namespace Softjourn.SJCoins.iOS
 
 		public static UIColor ProductPriceColor
 		{
-			get { return UIColor.FromRGB(221, 169, 8); }
+			get { return UIColor.FromRGB(201, 143, 0); }
 		}
 	}
 }

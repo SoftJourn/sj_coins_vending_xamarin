@@ -8,6 +8,9 @@
 		#endregion
 
 		public const string defaultDescription = "No description to current product.";
+        public const string Unlock_Access = "to activate";
+
+        public static string FIRSTLOGIN = "fistLogin";
 
 		public const float MaxPhoneNameLabelHeight = 28f;
 		public const float MaxPhonePriceLabelHeight = 14f;

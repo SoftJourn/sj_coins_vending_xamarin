@@ -12,24 +12,24 @@ namespace Softjourn.SJCoins.iOS
 		#region Constructor
 		public CustomSegmentControl(IntPtr handle) : base(handle)
 		{
-            configure();
+            Configure();
 		}
 		#endregion
 
-		public override void TouchesBegan(Foundation.NSSet touches, UIEvent evt)
+		public override void TouchesBegan(NSSet touches, UIEvent evt)
 		{
 			oldValue = (int)SelectedSegment;
 			base.TouchesBegan(touches, evt);
 		}
 
-		public override void TouchesEnded(Foundation.NSSet touches, UIEvent evt)
+		public override void TouchesEnded(NSSet touches, UIEvent evt)
 		{
 			base.TouchesEnded(touches, evt);
 			if (oldValue == (int)SelectedSegment)
 				SendActionForControlEvents(UIControlEvent.TouchUpInside);
 		}
 
-        private void configure()
+        private void Configure()
         {
 			var attributes = new UITextAttributes
 			{

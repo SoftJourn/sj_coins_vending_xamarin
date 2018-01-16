@@ -39,6 +39,9 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers
 		UIKit.UIScrollView ScrollView { get; set; }
 
 		[Outlet]
+		UIKit.UIButton TouchIDButton { get; set; }
+
+		[Outlet]
 		UIKit.UILabel VersionLabel { get; set; }
 
 		[Action ("LoginTextFieldDidChange:")]
@@ -92,6 +95,11 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers
 			if (ScrollView != null) {
 				ScrollView.Dispose ();
 				ScrollView = null;
+			}
+
+			if (TouchIDButton != null) {
+				TouchIDButton.Dispose ();
+				TouchIDButton = null;
 			}
 
 			if (VersionLabel != null) {

@@ -20,8 +20,8 @@ namespace Softjourn.SJCoins.iOS
 		public static readonly NSString Key = new NSString("HomeInternalCell");
 		public static readonly UINib Nib;
 
-		public event EventHandler<Product> BuyAction;
-		public event EventHandler<Product> FavoriteAction;
+		//public event EventHandler<Product> BuyAction;
+		//public event EventHandler<Product> FavoriteAction;
 
         private UIFont nameLabelFont = UIFont.SystemFontOfSize(13);
 		private UIImageView ProductImage { get; set; }
@@ -29,8 +29,8 @@ namespace Softjourn.SJCoins.iOS
 		private UILabel PriceLabel { get; set; }
         private UIImageView CoinImage { get; set; }
 		private Product Product { get; set; }
-		private PreViewController previewController;
-		private IUIViewControllerPreviewing previewing;
+		//private PreViewController previewController;
+		//private IUIViewControllerPreviewing previewing;
 		private AppDelegate CurrentApplication
 		{
 			get { return (AppDelegate)UIApplication.SharedApplication.Delegate; }
@@ -86,7 +86,7 @@ namespace Softjourn.SJCoins.iOS
             AddSubview(PriceLabel);
 
             CoinImage = new UIImageView {
-				Image = UIImage.FromBundle(ImageConstants.Bitcoin),
+				Image = UIImage.FromBundle(ImageConstants.Coin_v1),
                 BackgroundColor = UIColorConstants.MainBackgroundColor,
 				ContentMode = UIViewContentMode.ScaleAspectFit,
 				ClipsToBounds = true
@@ -107,7 +107,7 @@ namespace Softjourn.SJCoins.iOS
 				var expectedPriceSize = PriceLabel.SizeThatFits(new CGSize(this.Frame.Width, Const.MaxPhonePriceLabelHeight));
                 PriceLabel.Frame = new CGRect(2, ProductImage.Frame.Height + Const.PhoneNameLabelRetreat + NameLabel.Frame.Height + Const.PhonePriceLabelRetreat, expectedPriceSize.Width, Const.MaxPhonePriceLabelHeight);
 
-				CoinImage.Frame = new CGRect(PriceLabel.Frame.Width + 2, ProductImage.Frame.Height + Const.PhoneNameLabelRetreat + NameLabel.Frame.Height + Const.PhonePriceLabelRetreat, Const.MaxPhonePriceLabelHeight, Const.MaxPhonePriceLabelHeight);
+				CoinImage.Frame = new CGRect(PriceLabel.Frame.Width + 4, ProductImage.Frame.Height + Const.PhoneNameLabelRetreat + NameLabel.Frame.Height + Const.PhonePriceLabelRetreat, Const.MaxPhonePriceLabelHeight, Const.MaxPhonePriceLabelHeight);
             }
         }
 		#endregion

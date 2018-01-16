@@ -58,7 +58,7 @@ namespace Softjourn.SJCoins.Core.UI.Presenters
 			    }
 			    catch (ApiNotAuthorizedException ex)
 			    {
-			        AlertService.ShowToastMessage(ex.Message);
+			        //AlertService.ShowToastMessage(ex.Message);
 			        DataManager.Profile = null;
 			        Settings.ClearUserData();
 			        NavigationService.NavigateToAsRoot(NavigationPage.Login);
@@ -137,7 +137,7 @@ namespace Softjourn.SJCoins.Core.UI.Presenters
 					catch (ApiNotAuthorizedException ex)
 					{
 						View.HideProgress();
-						AlertService.ShowToastMessage(ex.Message);
+						//AlertService.ShowToastMessage(ex.Message);
                         DataManager.Profile = null;
                         Settings.ClearUserData();
                         NavigationService.NavigateToAsRoot(NavigationPage.Login);

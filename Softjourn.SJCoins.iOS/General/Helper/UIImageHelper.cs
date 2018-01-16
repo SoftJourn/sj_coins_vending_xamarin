@@ -151,6 +151,21 @@ namespace Softjourn.SJCoins.iOS
             else
                 return null;
         }
+
+        public UIImage GetColoredImage(UIColor color)
+        {
+            var rect = new RectangleF(0, 0, 1.0f, 1.0f);
+            UIGraphics.BeginImageContext(rect.Size);
+            CGContext context = UIGraphics.GetCurrentContext();
+
+            context.SetFillColor(color.CGColor);
+            context.FillRect(rect);
+
+            UIImage coloredImage = UIGraphics.GetImageFromCurrentImageContext();
+
+            UIGraphics.EndImageContext();
+            return coloredImage;
+        }
 		#endregion
 
 		#region Private methods

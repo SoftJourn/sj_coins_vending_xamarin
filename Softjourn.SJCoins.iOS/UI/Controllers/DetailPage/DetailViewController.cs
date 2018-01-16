@@ -46,6 +46,7 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers
 		{
 			base.ViewDidLoad();
 			currentProduct = Presenter.GetProduct(ProductId);
+            ConfigurePage();
 			ConfigurePageControl();
 			ConfigureTableView();
             ConfigureImageCollection();
@@ -102,6 +103,11 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers
 		#endregion
 
 		#region Private methods
+        private void ConfigurePage() 
+        {
+            StyleNavigationBar();
+        }
+
 		private void ConfigurePageWith(Product product)
 		{
 			Title = product.Name;
@@ -161,7 +167,7 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers
 		private void FavoriteButtonClicked(object sender, EventArgs e)
 		{
             // Handle clicking on the Favorite button
-            LoaderService.Show("Loading");
+            LoaderService.Show("Loading...");
 			Presenter.OnFavoriteClick(currentProduct);
 		}
 

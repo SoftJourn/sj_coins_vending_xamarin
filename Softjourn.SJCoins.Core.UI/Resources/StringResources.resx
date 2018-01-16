@@ -151,7 +151,7 @@
     <value>Authenticating…</value>
   </data>
   <data name="progress_loading" xml:space="preserve">
-    <value>Loading</value>
+    <value>Loading...</value>
   </data>
   <data name="there_are_no_items" xml:space="preserve">
     <value>Currently there are no products in this category</value>

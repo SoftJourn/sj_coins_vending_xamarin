@@ -7,6 +7,7 @@ using Softjourn.SJCoins.Core.API.Model.AccountInfo;
 using Softjourn.SJCoins.Core.API.Model.Products;
 using Softjourn.SJCoins.Core.UI.Presenters;
 using Softjourn.SJCoins.Core.UI.ViewInterfaces;
+using Softjourn.SJCoins.iOS.General.Constants;
 using Softjourn.SJCoins.iOS.UI.Sources;
 using UIKit;
 
@@ -161,6 +162,8 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.HomePage
             AccountView.AddGestureRecognizer(accountTapGesture);
 
             NavigationController.NavigationBar.TintColor = UIColorConstants.MainGreenColor;
+
+            NSUserDefaults.StandardUserDefaults.SetBool(true, Const.FIRSTLOGIN);
         }
 
         private void ConfigureTableView()

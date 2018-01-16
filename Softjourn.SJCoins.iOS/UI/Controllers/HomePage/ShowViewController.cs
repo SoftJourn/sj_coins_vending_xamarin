@@ -6,6 +6,7 @@ using Softjourn.SJCoins.Core.UI.Presenters;
 using Softjourn.SJCoins.Core.UI.ViewInterfaces;
 using Softjourn.SJCoins.iOS.General.Constants;
 using Softjourn.SJCoins.iOS.General.Helper;
+using Softjourn.SJCoins.iOS.UI.Services;
 using UIKit;
 
 namespace Softjourn.SJCoins.iOS.UI.Controllers.Main
@@ -37,9 +38,7 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.Main
 		public void SetInitialParameter(object categoryName)
 		{
 			if (categoryName is string)
-			{
 				this.CategoryName = (string)categoryName;
-			}
 		}
 		#endregion
 
@@ -49,9 +48,10 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.Main
 			base.ViewDidLoad();
 
             NavigationItem.LargeTitleDisplayMode = UINavigationItemLargeTitleDisplayMode.Never;
-
+            ConfigurePage();
 			ConfigureTableView();
 			ConfigureSegmentControl();
+
 		}
 
 		public override void ViewWillAppear(bool animated)
@@ -123,6 +123,12 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.Main
 		#endregion
 
 		#region Private methods
+        private void ConfigurePage()
+        {
+            StyleNavigationBar();
+            StyleSegmentedControl();
+        }
+
 		private void ConfigureTableView()
 		{
             tableSource = new SeeAllViewSource(CategoryName);
@@ -155,9 +161,7 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.Main
 		{
 			// Configure segment depending on whether the picture is present or not 
 			if (imageName == null)
-			{
 				NamePriceSegmentControl.SetTitle(title, segment);
-			}
 			else
 			{
 				var inputImage = UIImage.FromBundle(imageName);
@@ -166,8 +170,24 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.Main
 			}
 		}
 
+        private void StyleSegmentedControl()
+        {
+            var imageHelper = new UIImageHelper();
+            NamePriceSegmentControl.SetBackgroundImage(imageHelper.GetColoredImage(UIColorConstants.SpinerBackgroundColor), UIControlState.Highlighted, UIBarMetrics.Default);
+            NamePriceSegmentControl.SetBackgroundImage(imageHelper.GetColoredImage(UIColorConstants.MainGreenColor), UIControlState.Selected, UIBarMetrics.Default);
+            NamePriceSegmentControl.SetBackgroundImage(imageHelper.GetColoredImage(UIColorConstants.SpinerBackgroundColor), UIControlState.Normal, UIBarMetrics.Default);
+            NamePriceSegmentControl.SetDividerImage(imageHelper.GetColoredImage(UIColorConstants.SpinerBackgroundColor), UIControlState.Normal, UIControlState.Normal, UIBarMetrics.Default);
+
+            // Cusctomizing style of SegmentControl
+            NamePriceSegmentControl.Layer.CornerRadius = NamePriceSegmentControl.Frame.Height / 2;
+            NamePriceSegmentControl.Layer.BorderWidth = 1.0f;
+            NamePriceSegmentControl.Layer.BorderColor = UIColor.Clear.CGColor; 
+            NamePriceSegmentControl.Layer.MasksToBounds = true;
+        }
+
 		private void ChangeFavorite(Product product)
 		{
+            LoaderService.Hide();
 			var indexPaths = new List<NSIndexPath>();
 			if (filteredItems.Contains(product))
 			{
@@ -202,6 +222,7 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.Main
 		public void TableSource_FavoriteClicked(object sender, Product product)
 		{
 			// Trigg presenter that user click on some product for adding it to favorite
+            LoaderService.Show("Loading...");
 			Presenter.OnFavoriteClick(product);
 		}
 
@@ -229,7 +250,7 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.Main
 			switch (NamePriceSegmentControl.SelectedSegment)
 			{
 				case 0: // Name button
-					Presenter.OnSortByNameClicked(category);
+					Presenter.OnSortByNameClicked(category); 
 					break;
 				case 1:	// Price button
 					Presenter.OnSortByPriceClicked(category);
