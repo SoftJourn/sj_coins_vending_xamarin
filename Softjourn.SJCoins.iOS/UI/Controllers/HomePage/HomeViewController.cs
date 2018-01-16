@@ -180,8 +180,7 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.HomePage
             {
                 WeakDelegate = this,
                 DimsBackgroundDuringPresentation = false,
-                WeakSearchResultsUpdater = this,
-
+                WeakSearchResultsUpdater = this
             };
             searchController.SearchBar.Delegate = this;
             DefinesPresentationContext = false;
@@ -235,10 +234,14 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.HomePage
             }
         }
 
-        private void DismissSearch()
+        private void DismissSearchAndEnableRefresh()
         {
             if (searchController != null && searchController.Active)
+            {
+                TableView.Bounces = true;
+                searchController.SearchBar.Text = "";
                 searchController.DismissViewController(true, null);
+            }
         }
 
         private void ReloadTable()
@@ -251,15 +254,15 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.HomePage
         private void OnItemSelected(object sender, Product product)
         {
             // Trigg presenter that user click on some product for showing details controllers
+            DismissSearchAndEnableRefresh();
             Presenter.OnProductDetailsClick(product.Id);
-            DismissSearch();
         }
 
         private void OnSeeAllClicked(object sender, string categoryName)
         {
             // Trigg presenter that user click on SeeAll button
+            DismissSearchAndEnableRefresh();
             Presenter.OnShowAllClick(categoryName);
-            DismissSearch();
         }
 
         private void OnBuyActionClicked(object sender, Product product)
@@ -294,7 +297,7 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.HomePage
         #region Throw TableView to parent
         protected override UIScrollView GetRefreshableScrollView() => TableView;
 
-        protected override void PullToRefreshTriggered(object sender, System.EventArgs e)
+        protected override void PullToRefreshTriggered(object sender, EventArgs e)
         {
             StopRefreshing();
             pullToRefreshTrigged = true;
@@ -314,11 +317,17 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.HomePage
         [Export("willDismissSearchController:")]
         public void WillDismissSearchController(UISearchController searchController)
         {
+            // Show all categories.
             tableSource.Categories = Categories;
             TableView.ReloadData();
+            DismissSearchAndEnableRefresh();
+        }
 
-            // Enable PullToRefresh
-            TableView.Bounces = true;
+        [Export("didPresentSearchController:")]
+        public void DidPresentSearchController(UISearchController searchController)
+        {
+            // Disable PullToRefresh
+            TableView.Bounces = false;
         }
         #endregion
 
@@ -341,9 +350,13 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.HomePage
                     var products = category.Products.FindAll(item => item.Name.ToLower().Contains(search.ToLower()));
                     MatchesCategory[0].Products.AddRange(products);
                 }
+                MatchesCategory[0].Products = MatchesCategory[0].Products.Distinct().ToList();
+
+                tableSource.Categories = MatchesCategory;
             }
-            MatchesCategory[0].Products = MatchesCategory[0].Products.Distinct().ToList();
-            tableSource.Categories = MatchesCategory;
+            else 
+                tableSource.Categories = Categories;
+
             TableView.ReloadData();
         }
         #endregion
@@ -351,6 +364,8 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.HomePage
         #region IUISearchResultsUpdating
         public void UpdateSearchResultsForSearchController(UISearchController searchController)
         {
+            //searchController.DimsBackgroundDuringPresentation = searchController.SearchBar.Text == "";
+
 
         }
         #endregion
