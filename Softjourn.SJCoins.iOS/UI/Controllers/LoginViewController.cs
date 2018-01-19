@@ -46,6 +46,8 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers
 			PasswordErrorLabel.Hidden = true;
 
             UIApplication.SharedApplication.SetStatusBarStyle(UIStatusBarStyle.Default, false);
+
+            MakeNavigationBarTransparent();
 		}
 
 		public override void ViewWillDisappear(bool animated)
@@ -94,8 +96,7 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers
 		public override void AttachEvents()
 		{
 			base.AttachEvents();
-            BackHelpButton.TouchUpInside += BackButtonClicked;
-			BackButton.TouchUpInside += BackButtonClicked;
+            BackHelpButton.Clicked += BackButtonClicked;
 			LoginButton.TouchUpInside += LoginButtonClicked;
             TouchIDButton.TouchUpInside += TouchIDButtonClicked;
             loginTextFieldDelegate.ShouldReturnEvent += TextFieldShouldReturn;
@@ -107,8 +108,7 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers
 
 		public override void DetachEvents()
 		{
-			BackHelpButton.TouchUpInside -= BackButtonClicked;
-			BackButton.TouchUpInside -= BackButtonClicked;
+            BackHelpButton.Clicked -= BackButtonClicked;
 			LoginButton.TouchUpInside -= LoginButtonClicked;
             TouchIDButton.TouchUpInside -= TouchIDButtonClicked;
             loginTextFieldDelegate.ShouldReturnEvent -= TextFieldShouldReturn; 
@@ -145,7 +145,6 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers
                     TouchIDButton.TintColor = UIColorConstants.MainGreenColor;
                     TouchIDButton.Enabled = true;
 
-                    //LoginTextField.Text = Retreive(LoginKey);
                     LoginTextField.Hidden = true;
                     PasswordTextField.Hidden = true;
                     LoginButton.Hidden = true;

@@ -113,7 +113,7 @@ namespace Softjourn.SJCoins.iOS.Services
 				case NavigationPage.Welcome:
 					return Instantiate(StoryboardConstants.StoryboardLogin, StoryboardConstants.InformativeViewController);
 				case NavigationPage.Login:
-					return Instantiate(StoryboardConstants.StoryboardLogin, StoryboardConstants.LoginViewController);
+                    return Instantiate(StoryboardConstants.StoryboardLogin, StoryboardConstants.LoginViewController);
 
 				// If Home, Detail and ShowAll pages instantiate from Main storyboard
 				case NavigationPage.Home:

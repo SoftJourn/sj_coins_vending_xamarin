@@ -12,10 +12,7 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers
 	partial class LoginViewController
 	{
 		[Outlet]
-		UIKit.UIButton BackButton { get; set; }
-
-		[Outlet]
-		UIKit.UIButton BackHelpButton { get; set; }
+		UIKit.UIBarButtonItem BackHelpButton { get; set; }
 
 		[Outlet]
 		UIKit.UIImageView ImageLogo { get; set; }
@@ -52,11 +49,6 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers
 		
 		void ReleaseDesignerOutlets ()
 		{
-			if (BackButton != null) {
-				BackButton.Dispose ();
-				BackButton = null;
-			}
-
 			if (BackHelpButton != null) {
 				BackHelpButton.Dispose ();
 				BackHelpButton = null;
