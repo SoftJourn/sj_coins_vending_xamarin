@@ -14,7 +14,7 @@ using UIKit;
 namespace Softjourn.SJCoins.iOS.UI.Controllers.HomePage
 {
     [Register("HomeViewController")]
-    public partial class HomeViewController : BaseViewController<HomePresenter>, IHomeView, IUISearchControllerDelegate, IUISearchBarDelegate, IUISearchResultsUpdating, IDisposable
+    public partial class HomeViewController : BaseViewController<HomePresenter>, IHomeView, IUISearchControllerDelegate, IUISearchBarDelegate, IDisposable
     {
         #region Properties
         public List<Categories> Categories { get; private set; }
@@ -121,6 +121,11 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.HomePage
             tableSource.Categories = Categories;
             TableView.ReloadData();
             ShowScreenAnimated(true);
+
+            if (UIDevice.CurrentDevice.CheckSystemVersion(11, 0))
+                NavigationItem.SearchController = searchController;
+            else
+                SearchButton.Enabled = true;
         }
 
         public void ImageAcquired(byte[] receipt)
@@ -136,6 +141,11 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.HomePage
             NoItemsLabel.Hidden = false;
             NoItemsLabel.Text = "Service is not available.";
             ShowScreenAnimated(false);
+
+            if (UIDevice.CurrentDevice.CheckSystemVersion(11, 0))
+                NavigationItem.SearchController = null;
+            else
+                SearchButton.Enabled = false;
         }
 
         public void LastUnavailableFavoriteRemoved(Product product)
@@ -180,7 +190,6 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.HomePage
             {
                 WeakDelegate = this,
                 DimsBackgroundDuringPresentation = false,
-                WeakSearchResultsUpdater = this
             };
             searchController.SearchBar.Delegate = this;
             DefinesPresentationContext = false;
@@ -239,7 +248,6 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.HomePage
             if (searchController != null && searchController.Active)
             {
                 TableView.Bounces = true;
-                searchController.SearchBar.Text = "";
                 searchController.DismissViewController(true, null);
             }
         }
@@ -358,15 +366,6 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.HomePage
                 tableSource.Categories = Categories;
 
             TableView.ReloadData();
-        }
-        #endregion
-
-        #region IUISearchResultsUpdating
-        public void UpdateSearchResultsForSearchController(UISearchController searchController)
-        {
-            //searchController.DimsBackgroundDuringPresentation = searchController.SearchBar.Text == "";
-
-
         }
         #endregion
 
