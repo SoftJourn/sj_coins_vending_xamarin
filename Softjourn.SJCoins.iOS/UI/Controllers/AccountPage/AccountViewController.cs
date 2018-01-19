@@ -41,13 +41,13 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.AccountPage
 		{
 			base.ViewWillAppear(animated);
 			Presenter.OnStartLoadingPage();
-            NavigationController.SetNavigationBarHidden(true, true);
+            MakeNavigationBarTransparent();
 		}
 
         public override void ViewWillDisappear(bool animated)
         {
             base.ViewWillDisappear(animated);
-            NavigationController.SetNavigationBarHidden(false, true);
+            MakeNavigationBarDefault();
         }
 		#endregion
 
@@ -55,7 +55,7 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.AccountPage
 		public override void AttachEvents()
 		{
 			base.AttachEvents();
-            DoneButton.TouchUpInside += DoneButtonClickHandler;
+            DoneButton.Clicked += DoneButtonClickHandler;
 			tableSource.ItemSelected += TableSource_ItemClicked;
 			// Add tap gesture to avatar image
 			avatarImageTap = new UITapGestureRecognizer(AvatarImageTapHandler);
@@ -64,7 +64,7 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.AccountPage
 
 		public override void DetachEvents()
 		{
-            DoneButton.TouchUpInside -= DoneButtonClickHandler;
+            DoneButton.Clicked -= DoneButtonClickHandler;
 			tableSource.ItemSelected -= TableSource_ItemClicked;
 			// Remove tap gesture from avatar image
 			AvatarImage.RemoveGestureRecognizer(avatarImageTap);
@@ -124,7 +124,6 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.AccountPage
 			var options = Presenter.GetOptionsList();
 			tableSource = new AccountViewSource(options);
             TableView.Source = tableSource;
-            TableView.TableHeaderView.Frame = new CGRect(0, 0, TableView.Frame.Width, SizeHelper.AccountHeaderHeight());
 		}
 
 		private void ConfigureAvatarImage(UIImageView imageView)

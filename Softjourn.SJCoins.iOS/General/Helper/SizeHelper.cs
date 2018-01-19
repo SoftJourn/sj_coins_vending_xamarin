@@ -11,9 +11,6 @@ namespace Softjourn.SJCoins.iOS
         private static float phoneWidthCoefficient = 3.66f;           // Home page horizontal cell width coeficient. (Collection)
         private static float padWidthCoefficient = 7.1f;              // Home page horizontal cell width coeficient. (Collection)
 
-		private static float phoneAccountHeight = 350.0f;             // Account Page Header height.
-		private static float padAccountHeight = 400.0f;
-
 		private static float CategoryNameLabelHeight = 44.0f;         
 		private static float BottomRetreat = 12.0f;
 
@@ -44,11 +41,6 @@ namespace Softjourn.SJCoins.iOS
         public static nfloat DetailHeaderHeight()
         {
             return idiom == UIUserInterfaceIdiom.Pad ? 450f : 320f;
-		}
-
-		public static nfloat AccountHeaderHeight()
-		{
-            return idiom == UIUserInterfaceIdiom.Pad ? padAccountHeight : phoneAccountHeight;
 		}
         #endregion
 

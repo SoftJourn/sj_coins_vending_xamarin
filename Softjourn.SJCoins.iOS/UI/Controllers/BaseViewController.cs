@@ -138,6 +138,21 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers
                     };
             }
         }
+
+        public void MakeNavigationBarTransparent()
+        {
+            NavigationController.NavigationBar.SetBackgroundImage(new UIImage(), UIBarMetrics.Default);
+            NavigationController.NavigationBar.ShadowImage = new UIImage();
+            NavigationController.NavigationBar.Translucent = true;
+            NavigationController.View.BackgroundColor = UIColor.Clear;
+        }
+
+        public void MakeNavigationBarDefault()
+        {
+            NavigationController.NavigationBar.SetBackgroundImage(null, UIBarMetrics.Default);
+            NavigationController.NavigationBar.ShadowImage = null;
+            NavigationController.View.BackgroundColor = null;
+        }
 		#endregion
 
 		#region Private methods

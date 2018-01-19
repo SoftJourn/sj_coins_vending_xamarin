@@ -160,7 +160,7 @@
                             <constraint firstItem="hzM-ok-9xB" firstAttribute="width" secondItem="uIh-4g-Aig" secondAttribute="width" constant="1" id="tSx-5h-Or8"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="CategoryName" id="R8i-LZ-RZu">
+                    <navigationItem key="navigationItem" id="R8i-LZ-RZu">
                         <barButtonItem key="backBarButtonItem" title=" " id="oJm-EX-OCb"/>
                     </navigationItem>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
@@ -258,7 +258,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="6hO-Gt-Gas" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3629.5999999999999" y="146.17691154422789"/>
+            <point key="canvasLocation" x="7390" y="139"/>
         </scene>
         <!--DetailViewController-->
         <scene sceneID="ehB-kV-7b4">
@@ -348,7 +348,7 @@
                                                 </constraint>
                                             </constraints>
                                         </view>
-                                        <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" pagingEnabled="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="Ubj-NW-pZ7">
+                                        <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" bounces="NO" pagingEnabled="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="Ubj-NW-pZ7">
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="240"/>
                                             <color key="backgroundColor" red="0.96078431369999995" green="0.96078431369999995" blue="0.96078431369999995" alpha="1" colorSpace="calibratedRGB"/>
                                             <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="0.0" minimumInteritemSpacing="0.0" id="PFO-Sg-qSy">
@@ -593,7 +593,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="U7h-kb-rrf" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="6304" y="902"/>
+            <point key="canvasLocation" x="7391" y="902"/>
         </scene>
         <!--Home View Controller-->
         <scene sceneID="CeY-bV-nWQ">

@@ -24,7 +24,6 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers
 		private DetailTableViewSource tableSource;
         private DetailCollectionViewSource collectionSource;
         private DetailCollectionViewFlowLayoutDelegate collectionDelegate;
-        private DetailTransitioningDelegate detailTransitionDelegate;
 		#endregion
 
 		#region Constructor
@@ -187,15 +186,13 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers
         private void ShowImageCarousel(object sender, string image)
 		{
             // Show carousel on image
-            var controller = UIStoryboard.FromName(StoryboardConstants.StoryboardMain, null).InstantiateViewController(StoryboardConstants.ImageCarouselViewController) as ImageCarouselViewController;
-            controller.CurrentProduct = currentProduct;
-            controller.CurrentImage = currentImage;
-            controller.VisibleItem += ImageChanged;
+   //         var controller = UIStoryboard.FromName(StoryboardConstants.StoryboardMain, null).InstantiateViewController(StoryboardConstants.ImageCarouselViewController) as UINavigationController;
+   //         var firstController = controller.ViewControllers[0] as ImageCarouselViewController;
+   //         firstController.CurrentProduct = currentProduct;
+   //         firstController.CurrentImage = currentImage;
+   //         firstController.VisibleItem += ImageChanged;
 
-			//controller.TransitioningDelegate = detailTransitionDelegate;
-			//controller.ModalPresentationStyle = UIModalPresentationStyle.Custom;
-
-			PresentViewController(controller, true, null);
+			//PresentViewController(controller, true, null);
 		}
 
 		private void ImageChanged(object sender, int currentIndex)
