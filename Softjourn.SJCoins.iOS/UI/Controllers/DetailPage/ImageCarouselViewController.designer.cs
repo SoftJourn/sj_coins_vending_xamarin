@@ -12,7 +12,7 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers
 	partial class ImageCarouselViewController
 	{
 		[Outlet]
-		UIKit.UIButton BackButton { get; set; }
+		UIKit.UIBarButtonItem BackButton { get; set; }
 
 		[Outlet]
 		UIKit.UICollectionView CollectionView { get; set; }

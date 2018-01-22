@@ -35,23 +35,31 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers
 		public override void ViewWillAppear(bool animated)
 		{
 			base.ViewWillAppear(animated);
-            BackButton.TouchUpInside += BackButtonClicked;
+            BackButton.Clicked += BackButtonClicked;
 			collectionDelegate.VisibleItem += ImageIndexChanged;
-			UIApplication.SharedApplication.SetStatusBarHidden(true, UIStatusBarAnimation.Fade);
+            UIApplication.SharedApplication.SetStatusBarHidden(true, UIStatusBarAnimation.Fade);
+
+            NavigationController.NavigationBar.SetBackgroundImage(new UIImage(), UIBarMetrics.Default);
+            NavigationController.NavigationBar.ShadowImage = new UIImage();
+            NavigationController.NavigationBar.Translucent = true;
+            NavigationController.View.BackgroundColor = UIColor.Clear;
 		}
 
         public override void ViewDidLayoutSubviews()
         {
             base.ViewDidLayoutSubviews();
-            CollectionView.SetContentOffset(new CGPoint(CurrentImage * SizeHelper.mainBounds.Width, 0.0), false);
 			PageControl.CurrentPage = CurrentImage;
         }
 
         public override void ViewWillDisappear(bool animated)
         {
-			BackButton.TouchUpInside -= BackButtonClicked;
+            BackButton.Clicked -= BackButtonClicked;
 			collectionDelegate.VisibleItem -= ImageIndexChanged;
             UIApplication.SharedApplication.SetStatusBarHidden(false, UIStatusBarAnimation.Fade);
+
+            NavigationController.NavigationBar.SetBackgroundImage(null, UIBarMetrics.Default);
+            NavigationController.NavigationBar.ShadowImage = null;
+            NavigationController.View.BackgroundColor = null;
 			base.ViewWillDisappear(animated);
         }
 		#endregion
@@ -83,9 +91,7 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers
 				PageControl.Hidden = false;
 			}
 			else
-			{
 				PageControl.Hidden = true;
-			}
 		}
         #endregion
 

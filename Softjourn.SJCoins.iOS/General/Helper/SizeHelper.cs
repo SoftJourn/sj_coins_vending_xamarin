@@ -37,11 +37,6 @@ namespace Softjourn.SJCoins.iOS
         {
             return idiom == UIUserInterfaceIdiom.Pad ? RoundingOf(mainBounds.Width / padWidthCoefficient) : RoundingOf(mainBounds.Width / phoneWidthCoefficient);
         }
-
-        public static nfloat DetailHeaderHeight()
-        {
-            return idiom == UIUserInterfaceIdiom.Pad ? 450f : 320f;
-		}
         #endregion
 
         #region Private methods

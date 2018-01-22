@@ -11,7 +11,7 @@ using Softjourn.SJCoins.iOS.UI.Services;
 namespace Softjourn.SJCoins.iOS.UI.Controllers
 {
 	[Register("DetailViewController")]
-	public partial class DetailViewController : BaseViewController<DetailPresenter>, IDetailView
+    public partial class DetailViewController : BaseViewController<DetailPresenter>, IDetailView
 	{
         public const float pageHeightCoefficient = 1.85f;
 
@@ -34,9 +34,7 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers
 		public void SetInitialParameter(object productId)
 		{
 			if (productId is int)
-			{
 				this.ProductId = (int)productId;
-			}
 		}
 		#endregion
 
@@ -55,14 +53,7 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers
 		{
 			base.ViewWillAppear(animated);
 			ConfigurePageWith(currentProduct);
-            TableView.TableHeaderView.Frame = new CGRect(0, 0, TableView.Frame.Width, SizeHelper.DetailHeaderHeight());
-		}
-
-        public override void ViewDidAppear(bool animated)
-        {
-            base.ViewDidAppear(animated);
         }
-
 		#endregion
 
 		#region BaseViewController
@@ -186,13 +177,13 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers
         private void ShowImageCarousel(object sender, string image)
 		{
             // Show carousel on image
-   //         var controller = UIStoryboard.FromName(StoryboardConstants.StoryboardMain, null).InstantiateViewController(StoryboardConstants.ImageCarouselViewController) as UINavigationController;
-   //         var firstController = controller.ViewControllers[0] as ImageCarouselViewController;
-   //         firstController.CurrentProduct = currentProduct;
-   //         firstController.CurrentImage = currentImage;
-   //         firstController.VisibleItem += ImageChanged;
+            var controller = UIStoryboard.FromName(StoryboardConstants.StoryboardMain, null).InstantiateViewController(StoryboardConstants.ImageCarouselViewController) as UINavigationController;
+            var firstController = controller.ViewControllers[0] as ImageCarouselViewController;
+            firstController.CurrentProduct = currentProduct;
+            firstController.CurrentImage = currentImage;
+            firstController.VisibleItem += ImageChanged;
 
-			//PresentViewController(controller, true, null);
+			PresentViewController(controller, true, null);
 		}
 
 		private void ImageChanged(object sender, int currentIndex)
