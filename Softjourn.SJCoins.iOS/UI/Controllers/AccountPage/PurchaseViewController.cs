@@ -31,6 +31,12 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.AccountPage
             ConfigurePage();
 			Presenter.OnStartLoadingPage();
 		}
+
+        public override void ViewWillDisappear(bool animated)
+        {
+            //MakeNavigationBarTransparent();
+            base.ViewWillDisappear(animated);
+        }
 		#endregion
 
 		#region BaseViewController

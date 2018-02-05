@@ -8,6 +8,8 @@ namespace Softjourn.SJCoins.iOS
 {
 	public class DetailTableViewSource : UITableViewSource
 	{
+        //public event EventHandler DidScroll;
+
 		private const int oneCell = 1;
 		private const int descriptionSection = 0;
 		private const int nutritionSection = 1;
@@ -87,5 +89,10 @@ namespace Softjourn.SJCoins.iOS
         {
             return 70f;
         }
+
+        //public override void Scrolled(UIScrollView scrollView)
+        //{
+        //    DidScroll?.Invoke(this, null);
+        //}
 	}
 }

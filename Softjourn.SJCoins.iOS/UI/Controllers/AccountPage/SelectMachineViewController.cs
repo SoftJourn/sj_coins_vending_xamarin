@@ -22,16 +22,17 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers
 		public SelectMachineViewController(IntPtr handle) : base(handle) 
 		{
 		}
-		#endregion
+        #endregion
 
-		#region Controller Life cycle 
-		public override void ViewDidLoad()
-		{
-			base.ViewDidLoad();
+        #region Controller Life cycle 
+        public override void ViewDidLoad()
+        {
+            base.ViewDidLoad();
             ConfigurePage();
-			ConfigureTableView();
-			Presenter.GetMachinesList();
-		}
+            ConfigureTableView();
+            Presenter.GetMachinesList();
+            NavigationController.SetNavigationBarHidden(true, false);
+        }
 		#endregion
 
 		#region BaseViewController
@@ -67,6 +68,7 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers
 		public void ShowNoMachineView(string message)
 		{
             NoMachinesLabel.Text = message;
+            NavigationController.SetNavigationBarHidden(false, false);
             ShowScreenAnimated(false);			
 		}
 
@@ -74,6 +76,7 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers
 		{
 			TableSource.SetParameters(list, selectedMachine);
 			TableView.ReloadData();
+            NavigationController.SetNavigationBarHidden(false, false);
             ShowScreenAnimated(true);
 		}
 		#endregion

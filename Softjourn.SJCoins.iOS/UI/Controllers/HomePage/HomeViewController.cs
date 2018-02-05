@@ -41,9 +41,9 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.HomePage
             ConfigurePage();
             ConfigureAvatarImage(AvatarImage);
             ConfigureTableView();
-            ConfigureSearch();
             CustomizeUIDependingOnVersion();
             Presenter.OnStartLoadingPage();
+            NavigationController.SetNavigationBarHidden(true, false);
         }
 
         public override void ViewWillAppear(bool animated)
@@ -51,6 +51,7 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.HomePage
             base.ViewWillAppear(animated);
             RefreshFavoritesCell();
             Presenter.UpdateBalanceView();
+            Presenter.GetImageFromServer();
         }
         #endregion
 
@@ -120,6 +121,11 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.HomePage
             Categories = listCategories;
             tableSource.Categories = Categories;
             TableView.ReloadData();
+            NavigationController.SetNavigationBarHidden(false, false);
+
+            if (searchController == null)
+                ConfigureSearch();
+            
             ShowScreenAnimated(true);
 
             if (UIDevice.CurrentDevice.CheckSystemVersion(11, 0))
@@ -167,8 +173,10 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.HomePage
             AccountView.Alpha = 0.0f;
             TableView.Alpha = 0.0f;
 
-            accountTapGesture = new UITapGestureRecognizer(AccountTap);
-            accountTapGesture.Enabled = true;
+            accountTapGesture = new UITapGestureRecognizer(AccountTap)
+            {
+                Enabled = true
+            };
             AccountView.AddGestureRecognizer(accountTapGesture);
 
             NavigationController.NavigationBar.TintColor = UIColorConstants.MainGreenColor;
@@ -256,6 +264,19 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.HomePage
         {
             TableView.ReloadSections(new NSIndexSet(0), UITableViewRowAnimation.None);
         }
+
+        private void StyleTableForSearchResult() 
+        {
+            NoItemsLabel.Hidden = false;
+            NoItemsLabel.Text = "Product not found.";
+            TableView.SeparatorStyle = UITableViewCellSeparatorStyle.None;
+        }
+
+        private void DefaultTableStyle()
+        {
+            NoItemsLabel.Hidden = true;
+            TableView.SeparatorStyle = UITableViewCellSeparatorStyle.SingleLine;
+        }
         #endregion
 
         #region Event handlers
@@ -329,6 +350,7 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.HomePage
             tableSource.Categories = Categories;
             TableView.ReloadData();
             DismissSearchAndEnableRefresh();
+            DefaultTableStyle();
         }
 
         [Export("didPresentSearchController:")]
@@ -349,21 +371,40 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.HomePage
         [Export("searchBar:textDidChange:")]
         public void TextChanged(UISearchBar searchBar, string searchText)
         {
-            MatchesCategory[0].Products.Clear();
+            var matchCategory = MatchesCategory[0];
+            matchCategory.Products.Clear();
+
             if (searchController.Active && searchText != "")
             {
                 var search = searchController.SearchBar.Text.Trim();
                 foreach (var category in Categories)
                 {
-                    var products = category.Products.FindAll(item => item.Name.ToLower().Contains(search.ToLower()));
-                    MatchesCategory[0].Products.AddRange(products);
-                }
-                MatchesCategory[0].Products = MatchesCategory[0].Products.Distinct().ToList();
+                    if (category.Name == Const.FavoritesCategory)
+                        continue;
 
+                    var products = category.Products.FindAll(item => item.Name.ToLower().Contains(search.ToLower()));
+                    matchCategory.Products.AddRange(products);
+                }
+
+                if (matchCategory.Products.Count > 0)
+                {
+                    matchCategory.Products = matchCategory.Products.Distinct().ToList();
+                    matchCategory.Name = "Matches";
+                    DefaultTableStyle();
+                }
+                else 
+                {
+                    matchCategory.Name = "";
+                    StyleTableForSearchResult();
+                }
+                MatchesCategory[0] = matchCategory;
                 tableSource.Categories = MatchesCategory;
             }
             else 
+            {
+                DefaultTableStyle();
                 tableSource.Categories = Categories;
+            }
 
             TableView.ReloadData();
         }

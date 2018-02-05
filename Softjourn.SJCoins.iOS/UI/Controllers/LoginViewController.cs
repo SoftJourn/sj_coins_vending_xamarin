@@ -169,7 +169,7 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers
             };
             Action cancel = LogIn;
 
-            new AlertService().ShowConfirmationAlert("Title", "Message", ok, cancel);
+            new AlertService().ShowConfirmationAlert("Credentials", "Save credentials to fingerprint ?", ok, cancel);
         }
 
         private void LogIn()

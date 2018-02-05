@@ -166,7 +166,7 @@
     <value>Invalid selected machine</value>
   </data>
   <data name="progress_buying" xml:space="preserve">
-    <value>Buying</value>
+    <value>Buying...</value>
   </data>
   <data name="server_error_bad_username_or_password" xml:space="preserve">
     <value>Username or password is incorrect.</value>

@@ -64,6 +64,7 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers
 			BuyButton.TouchUpInside += BuyButtonClicked;
 			collectionDelegate.SelectedItem += ShowImageCarousel;
             collectionDelegate.VisibleItem += ImageIndexChanged;
+            //tableSource.DidScroll += TableViewScrolled;
 		}
 
 		public override void DetachEvents()
@@ -72,6 +73,7 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers
 			BuyButton.TouchUpInside -= BuyButtonClicked;
             collectionDelegate.SelectedItem -= ShowImageCarousel;
 			collectionDelegate.VisibleItem -= ImageIndexChanged;
+            //tableSource.DidScroll -= TableViewScrolled;
 			base.DetachEvents();
 		}
 		#endregion
@@ -169,7 +171,7 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers
 
 		private void ImageIndexChanged(object sender, int currentIndex)
 		{
-			// Change dot on Page Control
+			// Change dot on Page Controlсщшт
 			currentImage = currentIndex;
 			PageControl.CurrentPage = currentIndex;
 		}
@@ -194,6 +196,14 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers
             currentImage = currentIndex;
 			PageControl.CurrentPage = currentIndex;
 		}
+
+        //private void TableViewScrolled(object sender, EventArgs e)
+        //{
+        //    var offsetY = TableView.ContentOffset.Y;
+        //    if (offsetY < 0) {
+                
+        //    }
+        //}
 		#endregion
 	}
 }

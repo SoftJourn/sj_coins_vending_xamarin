@@ -58,7 +58,7 @@ namespace Softjourn.SJCoins.iOS
         {
             ProductImage = new UIImageView {
 			    BackgroundColor = UIColor.White,
-                ContentMode = UIViewContentMode.ScaleAspectFit,
+                ContentMode = UIViewContentMode.ScaleAspectFill,
                 ClipsToBounds = true                   
             };
             ProductImage.Opaque = true;

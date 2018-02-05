@@ -56,7 +56,7 @@ namespace Softjourn.SJCoins.iOS
 
             AttachEvents();
 
-            ShowAllButton.Hidden |= categoryName == Const.MatchesCategory;
+            ShowAllButton.Hidden |= categoryName == Const.MatchesCategory || categoryName == "";
 		}
 
 		public override void PrepareForReuse()

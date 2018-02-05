@@ -46,12 +46,9 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.Main
 		public override void ViewDidLoad()
 		{
 			base.ViewDidLoad();
-
-            NavigationItem.LargeTitleDisplayMode = UINavigationItemLargeTitleDisplayMode.Never;
             ConfigurePage();
 			ConfigureTableView();
 			ConfigureSegmentControl();
-
 		}
 
 		public override void ViewWillAppear(bool animated)
@@ -127,6 +124,9 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.Main
         {
             StyleNavigationBar();
             StyleSegmentedControl();
+
+            if (UIDevice.CurrentDevice.CheckSystemVersion(11, 0))
+                NavigationItem.LargeTitleDisplayMode = UINavigationItemLargeTitleDisplayMode.Never;
         }
 
 		private void ConfigureTableView()

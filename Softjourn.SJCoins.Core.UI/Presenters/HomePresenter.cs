@@ -117,6 +117,14 @@ namespace Softjourn.SJCoins.Core.UI.Presenters
             }
         }
 
+        public void GetImageFromServer()
+        {
+            if (DataManager.Profile != null) {
+                GetAvatarImage(DataManager.Profile.Image);
+                View.SetAccountInfo(DataManager.Profile);
+            }
+        }
+
         //Adding Favorite flag to product before returning to View
         private List<Categories> AddFavoriteFlagToProducts(List<Categories> categoriesList)
         {
