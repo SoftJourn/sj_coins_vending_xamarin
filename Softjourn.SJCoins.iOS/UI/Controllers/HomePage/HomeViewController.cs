@@ -257,6 +257,7 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.HomePage
             {
                 TableView.Bounces = true;
                 searchController.DismissViewController(true, null);
+                searchController.SearchBar.Text = "";
             }
         }
 
