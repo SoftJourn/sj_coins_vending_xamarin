@@ -44,6 +44,7 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.HomePage
             CustomizeUIDependingOnVersion();
             Presenter.OnStartLoadingPage();
             NavigationController.SetNavigationBarHidden(true, false);
+            AccountView.TranslatesAutoresizingMaskIntoConstraints = false;
         }
 
         public override void ViewWillAppear(bool animated)

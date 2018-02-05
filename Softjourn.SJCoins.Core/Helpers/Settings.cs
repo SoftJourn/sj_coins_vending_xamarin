@@ -83,7 +83,7 @@ namespace Softjourn.SJCoins.Core.Helpers
             set { AppSettings.AddOrUpdateValue(SelectedMachineNameKey, value); }
         }
 
-		public static bool OnlyOneVendingMachine { get; set; } = true;
+        public static bool OnlyOneVendingMachine { get; set; } = false;
 
         public static void ClearUserData()
         {
