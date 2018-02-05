@@ -20,22 +20,22 @@ namespace Softjourn.SJCoins.Core.Utils
         public const string TagAllProductsFragment = "TAG_ALL_PRODUCTS_FRAGMENT";
 
         //URLs
-        //public const string BaseUrl = "https://vending.softjourn.if.ua";
-        //public const string VendingApiVersion = "v1/";
-        //public const string CoinsApiVersion = "v1/";
-        //public const string UrlAuthService = "/api/auth/";
-        //public const string UrlVendingService = "/api/vending/" + VendingApiVersion;
-        //public const string UrlCoinService = "/api/coins/" + CoinsApiVersion;
-        //public const string UrlLogin = UrlAuthService + "oauth/token";
-
-        //URL for testing server
-        public const string BaseUrl = "https://sjcoins-testing.softjourn.if.ua";
+        public const string BaseUrl = "https://vending.softjourn.if.ua";
         public const string VendingApiVersion = "v1/";
         public const string CoinsApiVersion = "v1/";
-        public const string UrlAuthService = "/auth/";
-        public const string UrlVendingService = "/vending/" + VendingApiVersion;
-        public const string UrlCoinService = "/coins/" + CoinsApiVersion;
+        public const string UrlAuthService = "/api/auth/";
+        public const string UrlVendingService = "/api/vending/" + VendingApiVersion;
+        public const string UrlCoinService = "/api/coins/" + CoinsApiVersion;
         public const string UrlLogin = UrlAuthService + "oauth/token";
+
+        //URL for testing server
+        //public const string BaseUrl = "https://sjcoins-testing.softjourn.if.ua";
+        //public const string VendingApiVersion = "v1/";
+        //public const string CoinsApiVersion = "v1/";
+        //public const string UrlAuthService = "/auth/";
+        //public const string UrlVendingService = "/vending/" + VendingApiVersion;
+        //public const string UrlCoinService = "/coins/" + CoinsApiVersion;
+        //public const string UrlLogin = UrlAuthService + "oauth/token";
 
         public const string GrantTypePassword = "password";
         public const string GrantTypeRefreshToken = "refresh_token";
