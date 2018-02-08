@@ -389,6 +389,16 @@ namespace Softjourn.SJCoins.Droid.UI.Activities
                 bottomFragment.ChangeFavoriteIcon(isFavorite);
             }
         }
+
+        public void ServiceNotAvailable()
+        {
+            ShowToast("Service not available");
+        }
+
+        public void ImageAcquired(byte[] receipt)
+        {
+            
+        }
         #endregion
     }
 }
