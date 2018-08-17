@@ -405,7 +405,7 @@ namespace Softjourn.SJCoins.Core.API
             catch (ApiNotAuthorizedException)
             {
                 await RefreshTokenAsync();
-                return await MakeRequestAsync<TResult>(url, httpMethod);
+                return await MakeRequestWithQueryParametersAsync<TResult>(url, httpMethod, transactionRequest);
             }
             // all another exceptions should be caught on Presenter side
             finally
@@ -442,7 +442,7 @@ namespace Softjourn.SJCoins.Core.API
             catch (ApiNotAuthorizedException)
             {
                 await RefreshTokenAsync();
-                return await MakeRequestAsync<TResult>(url, httpMethod);
+                return await MakeRequestWithBodyAsync<TResult>(url, httpMethod, body);
             }
             // all another exceptions should be caught on Presenter side
             finally

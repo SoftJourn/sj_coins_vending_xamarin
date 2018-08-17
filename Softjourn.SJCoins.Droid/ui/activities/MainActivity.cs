@@ -197,7 +197,7 @@ namespace Softjourn.SJCoins.Droid.UI.Activities
          */
         public void ShowPreview(Product product)
         {
-            BottomSheetDialogFragment bottomSheetDialogFragment = new ProductDetailsFragment(product);
+            BottomSheetDialogFragment bottomSheetDialogFragment = ProductDetailsFragment.GetInstance(product);
             bottomSheetDialogFragment.Show(SupportFragmentManager, Const.BottomSheetFragmentTag);
         }
 

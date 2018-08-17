@@ -14,19 +14,33 @@ namespace Softjourn.SJCoins.Droid.UI.Fragments
 {
     public class ProductDetailsFragment : BottomSheetDialogFragment
     {
+        private const string ArgProduct = "PRODUCT";
+
         private ImageView _favorites;
         private TextView _buyProduct;
-        private readonly Product _product;
+        private Product _product;
 
         private bool _isAnimationRunning;
         private AnimatorSet _runningAnimation;
 
-        public ProductDetailsFragment(Product product)
+        public static ProductDetailsFragment GetInstance(Product product)
         {
-            _product = product;
+            var bundle = new Bundle();
+            string serializedObj = Newtonsoft.Json.JsonConvert.SerializeObject(product);
+            bundle.PutString(ArgProduct, serializedObj);
+            var fragment = new ProductDetailsFragment();
+            fragment.Arguments = bundle;
+            return fragment;
         }
 
         #region BottomSheetDialog Fragment Standart methods
+
+        public override void OnCreate(Bundle savedInstanceState)
+        {
+            base.OnCreate(savedInstanceState);
+            _product = Newtonsoft.Json.JsonConvert.DeserializeObject<Product>(Arguments.GetString(ArgProduct));
+        }
+
         public override void OnViewCreated(View contentView, Bundle savedInstanceState)
         {
             base.OnViewCreated(contentView, savedInstanceState);

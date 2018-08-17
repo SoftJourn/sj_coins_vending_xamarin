@@ -34,6 +34,13 @@
     <EmbedAssembliesIntoApk>True</EmbedAssembliesIntoApk>
     <AndroidUseSharedRuntime>True</AndroidUseSharedRuntime>
     <Debugger>Xamarin</Debugger>
+    <AotAssemblies>false</AotAssemblies>
+    <EnableLLVM>false</EnableLLVM>
+    <BundleAssemblies>false</BundleAssemblies>
+    <AndroidSupportedAbis>armeabi-v7a;x86</AndroidSupportedAbis>
+    <AndroidHttpClientHandlerType>Xamarin.Android.Net.AndroidClientHandler</AndroidHttpClientHandlerType>
+    <AndroidTlsProvider>
+    </AndroidTlsProvider>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugSymbols>True</DebugSymbols>

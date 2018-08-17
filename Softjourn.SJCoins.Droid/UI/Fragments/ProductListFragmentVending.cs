@@ -15,9 +15,10 @@ namespace Softjourn.SJCoins.Droid.UI.Fragments
         public string ProductsCategory;
 
         private const string TagProductsCategory = "PRODUCTS CATEGORY";
+        private const string ArgProductsList = "PRODUCTS LIST";
 
         private FeaturedProductItemsAdapter _productAdapter;
-        private static RecyclerView.LayoutManager _layoutManager;
+        private RecyclerView.LayoutManager _layoutManager;
         private List<Product> _productList;
 
         RecyclerView _machineItems;
@@ -26,28 +27,24 @@ namespace Softjourn.SJCoins.Droid.UI.Fragments
         {
             var bundle = new Bundle();
             bundle.PutString(TagProductsCategory, category);
-            var fragment = new ProductListFragmentVending(productList) { Arguments = bundle };
+            string serializedList = Newtonsoft.Json.JsonConvert.SerializeObject(productList);
+            bundle.PutString(ArgProductsList, serializedList);
+            var fragment = new ProductListFragmentVending();
+            fragment.Arguments = bundle;
             return fragment;
         }
 
-        public ProductListFragmentVending(List<Product> productList)
-        {
-            _productList = productList;
-        }
-
         #region Fragment Standart Methods
-        public override void OnCreate(Bundle savedInstanceState)
-        {
-            base.OnCreate(savedInstanceState);
-            //sets product Catgeory Name from Bundle
-            ProductsCategory = Arguments.GetString(TagProductsCategory);
-        }
 
         public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
         {
             var view = inflater.Inflate(Resource.Layout.fragment_products_list, container, false);
             _machineItems = view.FindViewById<RecyclerView>(Resource.Id.list_items_recycler_view);
 
+            ProductsCategory = Arguments.GetString(TagProductsCategory);
+            var serializedList = Arguments.GetString(ArgProductsList);
+
+            _productList = Newtonsoft.Json.JsonConvert.DeserializeObject<List<Product>>(serializedList);
             _layoutManager = new LinearLayoutManager(Activity, LinearLayoutManager.Horizontal, false);
             _productAdapter = new FeaturedProductItemsAdapter(ProductsCategory, null, Activity);
 
