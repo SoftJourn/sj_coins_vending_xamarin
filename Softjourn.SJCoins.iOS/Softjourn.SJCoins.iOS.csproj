@@ -1,5 +1,8 @@
 ﻿<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
+    <RestoreProjectStyle>PackageReference</RestoreProjectStyle>
+  </PropertyGroup>
+  <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">iPhoneSimulator</Platform>
     <ProjectGuid>{B8760CD0-0777-4D49-A63D-52929E03DD5B}</ProjectGuid>
@@ -26,6 +29,8 @@
     <MtouchHttpClientHandler>HttpClientHandler</MtouchHttpClientHandler>
     <MtouchTlsProvider>Default</MtouchTlsProvider>
     <PlatformTarget>x86</PlatformTarget>
+    <MtouchExtraArgs>
+    </MtouchExtraArgs>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|iPhone' ">
     <DebugType>pdbonly</DebugType>
@@ -78,92 +83,68 @@
     <CodesignProvision>
     </CodesignProvision>
   </PropertyGroup>
+  <PropertyGroup Condition=" '$(RunConfiguration)' == 'Default' ">
+    <AppExtensionDebugBundleId />
+  </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Autofac, Version=3.5.0.0, Culture=neutral, PublicKeyToken=17863af14b0044da, processorArchitecture=MSIL">
-      <HintPath>..\packages\Autofac.3.5.2\lib\portable-net4+sl5+netcore45+wpa81+wp8+MonoAndroid1+MonoTouch1\Autofac.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="Autofac, Version=4.9.0.0, Culture=neutral, PublicKeyToken=17863af14b0044da, processorArchitecture=MSIL">
+      <HintPath>..\packages\Autofac.4.9.0\lib\netstandard2.0\Autofac.dll</HintPath>
     </Reference>
-    <Reference Include="Plugin.Connectivity, Version=2.3.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Xam.Plugin.Connectivity.2.3.0\lib\Xamarin.iOS10\Plugin.Connectivity.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="BTProgressHUD, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\BTProgressHUD.1.2.0.6\lib\Xamarin.iOS10\BTProgressHUD.dll</HintPath>
     </Reference>
-    <Reference Include="Plugin.Connectivity.Abstractions, Version=2.3.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Xam.Plugin.Connectivity.2.3.0\lib\Xamarin.iOS10\Plugin.Connectivity.Abstractions.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="HockeySDK, Version=5.0.6585.25315, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\HockeySDK.Xamarin.5.1.2\lib\Xamarin.iOS10\HockeySDK.dll</HintPath>
     </Reference>
-    <Reference Include="Plugin.Settings, Version=2.5.1.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Xam.Plugins.Settings.2.5.1.0\lib\Xamarin.iOS10\Plugin.Settings.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="HockeySDK.iOSBindings, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\HockeySDK.Xamarin.5.1.2\lib\Xamarin.iOS10\HockeySDK.iOSBindings.dll</HintPath>
     </Reference>
-    <Reference Include="Plugin.Settings.Abstractions, Version=2.5.1.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Xam.Plugins.Settings.2.5.1.0\lib\Xamarin.iOS10\Plugin.Settings.Abstractions.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.12.0.1\lib\netstandard2.0\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="Plugin.Connectivity, Version=3.2.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Xam.Plugin.Connectivity.3.2.0\lib\Xamarin.iOS10\Plugin.Connectivity.dll</HintPath>
+    </Reference>
+    <Reference Include="Plugin.Connectivity.Abstractions, Version=3.2.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Xam.Plugin.Connectivity.3.2.0\lib\Xamarin.iOS10\Plugin.Connectivity.Abstractions.dll</HintPath>
+    </Reference>
+    <Reference Include="Plugin.DeviceInfo, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Xam.Plugin.DeviceInfo.4.1.1\lib\xamarinios10\Plugin.DeviceInfo.dll</HintPath>
+    </Reference>
+    <Reference Include="Plugin.Media, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Xam.Plugin.Media.4.0.1.5\lib\xamarinios10\Plugin.Media.dll</HintPath>
+    </Reference>
+    <Reference Include="Plugin.Permissions, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Plugin.Permissions.3.0.0.12\lib\xamarinios10\Plugin.Permissions.dll</HintPath>
+    </Reference>
+    <Reference Include="Plugin.Settings, Version=3.1.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Xam.Plugins.Settings.3.1.1\lib\Xamarin.iOS10\Plugin.Settings.dll</HintPath>
+    </Reference>
+    <Reference Include="Plugin.Settings.Abstractions, Version=3.1.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Xam.Plugins.Settings.3.1.1\lib\Xamarin.iOS10\Plugin.Settings.Abstractions.dll</HintPath>
+    </Reference>
+    <Reference Include="SDWebImage.iOS, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Xamarin.SDWebImage.4.4.0\lib\Xamarin.iOS\SDWebImage.iOS.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Xml" />
     <Reference Include="System.Core" />
     <Reference Include="Xamarin.iOS" />
-    <Reference Include="BTProgressHUD">
-      <HintPath>..\packages\BTProgressHUD.1.2.0.3\lib\Xamarin.iOS10\BTProgressHUD.dll</HintPath>
-    </Reference>
-    <Reference Include="SDWebImage">
-      <HintPath>..\packages\Xamarin.SDWebImage.3.7.5\lib\Xamarin.iOS\SDWebImage.dll</HintPath>
-    </Reference>
-    <Reference Include="Plugin.Media.Abstractions">
-      <HintPath>..\packages\Xam.Plugin.Media.2.3.0\lib\Xamarin.iOS10\Plugin.Media.Abstractions.dll</HintPath>
-    </Reference>
-    <Reference Include="Plugin.Media">
-      <HintPath>..\packages\Xam.Plugin.Media.2.3.0\lib\Xamarin.iOS10\Plugin.Media.dll</HintPath>
-    </Reference>
-    <Reference Include="Plugin.Permissions.Abstractions">
-      <HintPath>..\packages\Plugin.Permissions.1.2.1\lib\Xamarin.iOS10\Plugin.Permissions.Abstractions.dll</HintPath>
-    </Reference>
-    <Reference Include="Plugin.Permissions">
-      <HintPath>..\packages\Plugin.Permissions.1.2.1\lib\Xamarin.iOS10\Plugin.Permissions.dll</HintPath>
-    </Reference>
-    <Reference Include="ZXing.Net.Mobile.Core, Version=2.1.47.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\ZXing.Net.Mobile.2.1.47\lib\Xamarin.iOS10\ZXing.Net.Mobile.Core.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="zxing.portable, Version=2.1.47.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\ZXing.Net.Mobile.2.1.47\lib\Xamarin.iOS10\zxing.portable.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="ZXingNetMobile, Version=2.1.47.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\ZXing.Net.Mobile.2.1.47\lib\Xamarin.iOS10\ZXingNetMobile.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Newtonsoft.Json">
-      <HintPath>..\packages\Newtonsoft.Json.9.0.1\lib\portable-net45+wp80+win8+wpa81\Newtonsoft.Json.dll</HintPath>
-    </Reference>
-    <Reference Include="Plugin.DeviceInfo.Abstractions">
-      <HintPath>..\packages\Xam.Plugin.DeviceInfo.2.1.2\lib\Xamarin.iOS10\Plugin.DeviceInfo.Abstractions.dll</HintPath>
-    </Reference>
-    <Reference Include="Plugin.DeviceInfo">
-      <HintPath>..\packages\Xam.Plugin.DeviceInfo.2.1.2\lib\Xamarin.iOS10\Plugin.DeviceInfo.dll</HintPath>
-    </Reference>
-    <Reference Include="HockeySDK">
-      <HintPath>..\packages\HockeySDK.Xamarin.4.1.2\lib\Xamarin.iOS10\HockeySDK.dll</HintPath>
-    </Reference>
-    <Reference Include="HockeySDK.iOSBindings">
-      <HintPath>..\packages\HockeySDK.Xamarin.4.1.2\lib\Xamarin.iOS10\HockeySDK.iOSBindings.dll</HintPath>
-    </Reference>
     <Reference Include="KeyChain.Net">
       <HintPath>..\packages\KeyChain.Net.0.0.4\lib\Xamarin.iOS10\KeyChain.Net.dll</HintPath>
     </Reference>
     <Reference Include="KeyChain.Net.XamarinIOS">
       <HintPath>..\packages\KeyChain.Net.0.0.4\lib\Xamarin.iOS10\KeyChain.Net.XamarinIOS.dll</HintPath>
     </Reference>
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\Softjourn.SJCoins.Core\Softjourn.SJCoins.Core.csproj">
-      <Project>{A6850167-3849-48F7-8E04-A2C879D4C55B}</Project>
-      <Name>Softjourn.SJCoins.Core</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Softjourn.SJCoins.Core.UI\Softjourn.SJCoins.Core.UI.csproj">
-      <Project>{17F6D568-BFA8-4DC4-9263-884EC193DB4F}</Project>
-      <Name>Softjourn.SJCoins.Core.UI</Name>
-    </ProjectReference>
+    <Reference Include="ZXing.Net.Mobile.Core, Version=2.4.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\ZXing.Net.Mobile.2.4.1\lib\Xamarin.iOS10\ZXing.Net.Mobile.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="zxing.portable, Version=0.16.2.0, Culture=neutral, PublicKeyToken=830ae994e36ac27d, processorArchitecture=MSIL">
+      <HintPath>..\packages\ZXing.Net.Mobile.2.4.1\lib\Xamarin.iOS10\zxing.portable.dll</HintPath>
+    </Reference>
+    <Reference Include="ZXingNetMobile, Version=2.4.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\ZXing.Net.Mobile.2.4.1\lib\Xamarin.iOS10\ZXingNetMobile.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\Contents.json">
@@ -537,56 +518,46 @@
     </ImageAsset>
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Assets.xcassets\Account.imageset\" />
     <Folder Include="Assets.xcassets\AccountTabIcon.imageset\" />
-    <Folder Include="Assets.xcassets\BackImage.imageset\" />
-    <Folder Include="Assets.xcassets\FavoriteChecked.imageset\" />
-    <Folder Include="Assets.xcassets\FavoriteUnchecked.imageset\" />
-    <Folder Include="Assets.xcassets\HomeTabIcon.imageset\" />
-    <Folder Include="Assets.xcassets\InfoBuyLogo.imageset\" />
-    <Folder Include="Assets.xcassets\InfoCoinsLogo.imageset\" />
-    <Folder Include="Assets.xcassets\InfoFavoritesLogo.imageset\" />
-    <Folder Include="Assets.xcassets\InfoLoginLogo.imageset\" />
-    <Folder Include="Assets.xcassets\Placeholder.imageset\" />
-    <Folder Include="Assets.xcassets\vending_logo.imageset\" />
-    <Folder Include="Resources\" />
-    <Folder Include="General\Helper\" />
     <Folder Include="Assets.xcassets\ArrowDownward.imageset\" />
     <Folder Include="Assets.xcassets\ArrowUpward.imageset\" />
-    <Folder Include="Assets.xcassets\ic_purchase.imageset\" />
-    <Folder Include="Assets.xcassets\ic_reports.imageset\" />
-    <Folder Include="Assets.xcassets\ic_privacy_and_terms.imageset\" />
-    <Folder Include="Assets.xcassets\ic_help.imageset\" />
-    <Folder Include="Assets.xcassets\ic_share_funs.imageset\" />
-    <Folder Include="Assets.xcassets\ic_select_machine.imageset\" />
-    <Folder Include="Assets.xcassets\ic_logout.imageset\" />
-    <Folder Include="UI\Sources\" />
-    <Folder Include="UI\Delegates\" />
-    <Folder Include="Assets.xcassets\DefaultAvatar.imageset\" />
-    <Folder Include="Assets.xcassets\Account.imageset\" />
-    <Folder Include="Assets.xcassets\NewAccount.imageset\" />
-    <Folder Include="Assets.xcassets\NewAccount2.imageset\" />
-    <Folder Include="Assets.xcassets\ForwardImage.imageset\" />
+    <Folder Include="Assets.xcassets\BackImage.imageset\" />
+    <Folder Include="Assets.xcassets\Back_Filled.imageset\" />
+    <Folder Include="Assets.xcassets\Back_Filled2.imageset\" />
     <Folder Include="Assets.xcassets\Bitcoin.imageset\" />
+    <Folder Include="Assets.xcassets\Coin_small.imageset\" />
+    <Folder Include="Assets.xcassets\Coin_v1.imageset\" />
+    <Folder Include="Assets.xcassets\DefaultAvatar.imageset\" />
+    <Folder Include="Assets.xcassets\FavoriteChecked.imageset\" />
+    <Folder Include="Assets.xcassets\FavoriteUnchecked.imageset\" />
+    <Folder Include="Assets.xcassets\ForwardImage.imageset\" />
     <Folder Include="Assets.xcassets\Heard.imageset\" />
     <Folder Include="Assets.xcassets\Heart filled.imageset\" />
     <Folder Include="Assets.xcassets\Heart.imageset\" />
     <Folder Include="Assets.xcassets\HeartFilled.imageset\" />
+    <Folder Include="Assets.xcassets\HomeTabIcon.imageset\" />
+    <Folder Include="Assets.xcassets\ic_help.imageset\" />
+    <Folder Include="Assets.xcassets\ic_logout.imageset\" />
+    <Folder Include="Assets.xcassets\ic_privacy_and_terms.imageset\" />
+    <Folder Include="Assets.xcassets\ic_purchase.imageset\" />
+    <Folder Include="Assets.xcassets\ic_reports.imageset\" />
+    <Folder Include="Assets.xcassets\ic_select_machine.imageset\" />
+    <Folder Include="Assets.xcassets\ic_share_funs.imageset\" />
+    <Folder Include="Assets.xcassets\InfoBuyLogo.imageset\" />
+    <Folder Include="Assets.xcassets\InfoCoinsLogo.imageset\" />
+    <Folder Include="Assets.xcassets\InfoFavoritesLogo.imageset\" />
+    <Folder Include="Assets.xcassets\InfoLoginLogo.imageset\" />
+    <Folder Include="Assets.xcassets\NewAccount.imageset\" />
+    <Folder Include="Assets.xcassets\NewAccount2.imageset\" />
     <Folder Include="Assets.xcassets\NewAccount3.imageset\" />
     <Folder Include="Assets.xcassets\NewAccount4.imageset\" />
-    <Folder Include="UI\Delegates\DetailPage\" />
-    <Folder Include="UI\Sources\DetailPage\" />
-    <Folder Include="UI\Sources\HomePage\" />
-    <Folder Include="UI\Sources\AccountPage\" />
-    <Folder Include="UI\Delegates\HomePage\" />
-    <Folder Include="UI\Controllers\DetailPage\" />
-    <Folder Include="Assets.xcassets\Back_Filled.imageset\" />
-    <Folder Include="Assets.xcassets\Back_Filled2.imageset\" />
-    <Folder Include="UI\Delegates\PresentationDelegates\" />
     <Folder Include="Assets.xcassets\NoAvatarSmall.imageset\" />
+    <Folder Include="Assets.xcassets\Placeholder.imageset\" />
     <Folder Include="Assets.xcassets\TouchID.imageset\" />
     <Folder Include="Assets.xcassets\TouchIDSmall.imageset\" />
-    <Folder Include="Assets.xcassets\Coin_v1.imageset\" />
-    <Folder Include="Assets.xcassets\Coin_small.imageset\" />
+    <Folder Include="Assets.xcassets\vending_logo.imageset\" />
+    <Folder Include="Resources\" />
   </ItemGroup>
   <ItemGroup>
     <InterfaceDefinition Include="LaunchScreen.storyboard" />
@@ -601,6 +572,7 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Helpers\Settings.cs" />
     <Compile Include="Main.cs" />
     <Compile Include="AppDelegate.cs" />
     <Compile Include="Bootstraper\Bootstraper.cs" />
@@ -736,6 +708,16 @@
     <Compile Include="UI\Controllers\DetailPage\DetailViewPresentationController.cs" />
     <Compile Include="UI\Delegates\HomePage\SearchControllerDelegate.cs" />
     <Compile Include="UI\Services\TouchIDService.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Softjourn.SJCoins.Core.UI\Softjourn.SJCoins.Core.UI.csproj">
+      <Project>{90984270-BD5D-4E9B-962F-1BF21FD3B17D}</Project>
+      <Name>Softjourn.SJCoins.Core.UI</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Softjourn.SJCoins.Core\Softjourn.SJCoins.Core.csproj">
+      <Project>{F7603ECF-B6C8-4543-9235-014A52DBD79B}</Project>
+      <Name>Softjourn.SJCoins.Core</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
 </Project>

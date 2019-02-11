@@ -1,5 +1,4 @@
-﻿using System;
-using Autofac;
+﻿using Autofac;
 using Softjourn.SJCoins.Core.UI.Bootstrapper;
 using Softjourn.SJCoins.Core.UI.Services.Alert;
 using Softjourn.SJCoins.Core.UI.Services.Navigation;

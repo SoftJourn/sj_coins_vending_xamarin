@@ -16,6 +16,7 @@ namespace Softjourn.SJCoins.iOS.UI.Delegates
 		public event EventHandler<Product> FavoriteActionExecuted;
 
 		public List<Product> Products { get; set; } = new List<Product>();
+
 		public string CategoryName { get; set; }
 
 		public override CGSize GetSizeForItem(UICollectionView collectionView, UICollectionViewLayout layout, Foundation.NSIndexPath indexPath)
@@ -47,7 +48,7 @@ namespace Softjourn.SJCoins.iOS.UI.Delegates
 
 		protected override void Dispose(bool disposing)
 		{
-			System.Diagnostics.Debug.WriteLine(String.Format("{0} disposed", this.GetType()));
+			System.Diagnostics.Debug.WriteLine(string.Format("{0} disposed", this.GetType()));
 			base.Dispose(disposing);
 		}
     }

@@ -11,7 +11,6 @@ namespace Softjourn.SJCoins.iOS
 {
     public partial class HomeCell : UITableViewCell, IDisposable
 	{
-		#region Properties
 		public static readonly NSString Key = new NSString("HomeCell");
 		public static readonly UINib Nib;
 
@@ -29,7 +28,6 @@ namespace Softjourn.SJCoins.iOS
 		{ 
 			Nib = UINib.FromName("HomeCell", NSBundle.MainBundle);
 		}
-        #endregion
 
 		protected HomeCell(IntPtr handle) : base(handle)
 		{
@@ -63,7 +61,7 @@ namespace Softjourn.SJCoins.iOS
 		{
 			CollectionView.SetContentOffset(new CGPoint(0, 0), false);
 
-			NameLabel.Text = "";
+			NameLabel.Text = string.Empty;
 			categoryName = null;
 
             DetachEvents();
@@ -76,6 +74,7 @@ namespace Softjourn.SJCoins.iOS
 		}
 
 		#region Private methods
+
 		private void AttachEvents()
         {
             ShowAllButton.TouchUpInside -= HomeCell_OnSeeAllHandler;
@@ -98,9 +97,11 @@ namespace Softjourn.SJCoins.iOS
 			collectionDelegate.BuyActionExecuted -= HomeCell_OnBuyActionHandler;
 			collectionDelegate.FavoriteActionExecuted -= HomeCell_OnFavoriteActionHandler;
 		}
+
 		#endregion
 
 		#region Event handlers
+
         private void HomeCell_OnSeeAllHandler(object sender, EventArgs e)
 		{
 			// Execute event and throw category name to HomeViewController
@@ -125,11 +126,12 @@ namespace Softjourn.SJCoins.iOS
 			// Execute event via 3D Touch functionality and throw product to HomeViewController
 			HomeCell_FavoriteActionExecuted?.Invoke(this, product);
 		}
+
 		#endregion
 
 		protected override void Dispose(bool disposing)
 		{
-			System.Diagnostics.Debug.WriteLine(String.Format("{0} disposed", this.GetType()));
+			System.Diagnostics.Debug.WriteLine(string.Format("{0} disposed", this.GetType()));
 			base.Dispose(disposing);
 		}
 	}
