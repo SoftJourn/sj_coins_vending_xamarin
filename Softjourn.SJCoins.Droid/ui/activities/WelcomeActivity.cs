@@ -16,7 +16,6 @@ namespace Softjourn.SJCoins.Droid.UI.Activities
     [Activity(Label = "WelcomeActivity", Theme = "@style/NoActionBarLoginTheme", ScreenOrientation = ScreenOrientation.Portrait)]
     public class WelcomeActivity : BaseActivity<WelcomePresenter>, ViewPager.IOnPageChangeListener, IWelcomeView
     {
-
         private ViewPager _viewPager;
         private LinearLayout _dotsLayout;
         private Button _btnSkip;
@@ -86,6 +85,7 @@ namespace Softjourn.SJCoins.Droid.UI.Activities
         }
 
         #region Private Methods
+
         /**
          * Sets Bottom Dots Colors According to which view is showing right now
          */
@@ -99,9 +99,7 @@ namespace Softjourn.SJCoins.Droid.UI.Activities
             _dotsLayout.RemoveAllViews();
             for (int i = 0; i < _dots.Length; i++)
             {
-                _dots[i] = new TextView(this);
-                _dots[i].Text = Html.FromHtml("&#8226;").ToString();
-                _dots[i].TextSize = 35;
+                _dots[i] = new TextView(this) {Text = Html.FromHtml("&#8226;").ToString(), TextSize = 35};
                 _dots[i].SetTextColor(new Color(colorsInactive[currentPage]));
                 _dotsLayout.AddView(_dots[i]);
             }
@@ -128,6 +126,7 @@ namespace Softjourn.SJCoins.Droid.UI.Activities
                 window.SetStatusBarColor(Color.Transparent);
             }
         }
+
         #endregion
 
         #region ViewPager.IOnPageChangeListener interface implementation
@@ -158,6 +157,7 @@ namespace Softjourn.SJCoins.Droid.UI.Activities
                 _btnNext.Visibility = ViewStates.Gone;
             }
         }
+
         #endregion
     }
 }

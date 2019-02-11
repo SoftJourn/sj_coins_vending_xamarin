@@ -1,15 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 
 namespace Softjourn.SJCoins.Core.API.Model
 {
-    public class DepositeTransaction
+    public sealed class DepositeTransaction
     {
-
         [JsonProperty("id")]
         public int Id { get; set; }
 

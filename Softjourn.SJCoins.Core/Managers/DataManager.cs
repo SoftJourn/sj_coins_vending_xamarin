@@ -6,16 +6,13 @@ using Softjourn.SJCoins.Core.Utils;
 
 namespace Softjourn.SJCoins.Core.Managers
 {
-    public class DataManager
+    public sealed class DataManager
     {
-        #region Properties
-        public Account Profile { get; set; }
-        public List<Categories> ProductList { get; set; }
-		public byte[] Avatar { get; set; }
-
-        //Predefined elements for keys in Dictionary in 
-        //nutrition facts should be exact in below order
-        List<string> _facts = new List<string>()
+        /// <summary>
+        /// Predefined elements for keys in Dictionary in
+        /// nutrition facts should be exact in below order
+        /// </summary>
+        private readonly List<string> _facts = new List<string>
         {
             "Calories",
             "Fat",
@@ -26,83 +23,94 @@ namespace Softjourn.SJCoins.Core.Managers
             "Salt",
             "Fibre"
         };
-        #endregion
 
-        #region Methods
-        //AddProduct To Favorite in LocalStorage
+        public Account Profile { get; set; }
+
+        public List<Categories> ProductList { get; set; }
+
+        public byte[] Avatar { get; set; }
+
+        /// <summary>
+        /// AddProduct To Favorite in LocalStorage
+        /// </summary>
+        /// <param name="product">Product to add</param>
         public void AddProductToFavorite(Product product)
-		{
-		    product.IsProductFavorite = true;
-			// If category favorites not exist create it  
-			// and insert in ProductList with index 0 (as first element)
-			if (ProductList[0].Name != Const.Favorites) {
-				var favoriteCategory = new Categories()
-				{
-					Name = Const.Favorites,
-					Products = new List<Product>()
-				};
-				ProductList.Insert(0, favoriteCategory);
-			}
+        {
+            product.IsProductFavorite = true;
+            // If category favorites not exist create it  
+            // and insert in ProductList with index 0 (as first element)
+            if (ProductList[0].Name != Const.Favorites)
+            {
+                var favoriteCategory = new Categories()
+                {
+                    Name = Const.Favorites,
+                    Products = new List<Product>()
+                };
+                ProductList.Insert(0, favoriteCategory);
+            }
 
-			foreach (var category in ProductList)
-			{
-				// If category Favorites exist in ProductList add given products to it 
-				if (category.Name == Const.Favorites)
-				{
-					category.Products.Add(product);
-					continue;
-				}
-				else {
-					// Change IsProductFavorite flag in this products if they exist in another categories
-					foreach (var currentProduct in category.Products)
-					{
-						if (currentProduct.Id == product.Id)
-						{
-							currentProduct.IsProductFavorite = true;
-						    currentProduct.IsProductInCurrentMachine = true;
-							break;
-						}
-					}
-				}
-			}
-		}
+            foreach (var category in ProductList)
+            {
+                // If category Favorites exist in ProductList add given products to it 
+                if (category.Name == Const.Favorites)
+                {
+                    category.Products.Add(product);
+                    continue;
+                }
 
-        //Remove Product From Favorites in LocalStorage
+                // Change IsProductFavorite flag in this products if they exist in another categories
+                foreach (var currentProduct in category.Products)
+                {
+                    if (currentProduct.Id == product.Id)
+                    {
+                        currentProduct.IsProductFavorite = true;
+                        currentProduct.IsProductInCurrentMachine = true;
+                        break;
+                    }
+                }
+            }
+        }
+
+        /// <summary>
+        /// Remove Product From Favorites in LocalStorage
+        /// </summary>
+        /// <param name="product">Product to remove</param>
         public void RemoveProductFromFavorite(Product product)
         {
-			foreach (var category in ProductList)
+            foreach (var category in ProductList)
             {
                 if (category.Name == Const.Favorites)
-				{
-					// Remove given product from Favorites category 
-					foreach (var currentProduct in category.Products)
-					{
-						if (currentProduct.Id == product.Id)
-						{
-							category.Products.Remove(currentProduct);
-							break;
-						}
-					}
-                }
-                else {
-					// Change IsProductFavorite flag in this product if it exist in anothere categories
-					foreach (var currentProduct in category.Products)
+                {
+                    // Remove given product from Favorites category 
+                    foreach (var currentProduct in category.Products)
                     {
                         if (currentProduct.Id == product.Id)
                         {
-							currentProduct.IsProductFavorite = false;
+                            category.Products.Remove(currentProduct);
+                            break;
+                        }
+                    }
+                }
+                else
+                {
+                    // Change IsProductFavorite flag in this product if it exist in anothere categories
+                    foreach (var currentProduct in category.Products)
+                    {
+                        if (currentProduct.Id == product.Id)
+                        {
+                            currentProduct.IsProductFavorite = false;
                             break;
                         }
                     }
                 }
             }
 
-			// If deleted product was last item in list remove Favorites category
-			if (ProductList[0].Products.Count == 0)
-			{
-				// Remove Favorites category
-				ProductList.RemoveAt(0);
-			}
+            // If deleted product was last item in list remove Favorites category
+            if (ProductList[0].Products.Count == 0)
+            {
+                // Remove Favorites category
+                ProductList.RemoveAt(0);
+            }
         }
 
         /// <summary>
@@ -120,6 +128,7 @@ namespace Softjourn.SJCoins.Core.Managers
             {
                 AddProductToFavorite(product);
             }
+
             return GetProductFromListById(product.Id);
         }
 
@@ -130,7 +139,7 @@ namespace Softjourn.SJCoins.Core.Managers
         /// <returns>First founded Product with given ID</returns>
         public Product GetProductFromListById(int productId)
         {
-			return ProductList.SelectMany(category => category.Products).FirstOrDefault(product => product.Id == productId);;
+            return ProductList.SelectMany(category => category.Products).FirstOrDefault(product => product.Id == productId);
         }
 
         /// <summary>
@@ -147,6 +156,7 @@ namespace Softjourn.SJCoins.Core.Managers
                     return category.Products;
                 }
             }
+
             return new List<Product>();
         }
 
@@ -159,7 +169,10 @@ namespace Softjourn.SJCoins.Core.Managers
         public List<Product> GetSortedByNameProductsList(string category, bool sortingForward)
         {
             var productList = GetProductListByGivenCategory(category);
-            return sortingForward ? productList.OrderBy(product => product.Name).ToList() : productList.OrderByDescending(product => product.Name).ToList();
+
+            return sortingForward
+                ? productList.OrderBy(product => product.Name).ToList()
+                : productList.OrderByDescending(product => product.Name).ToList();
         }
 
         /// <summary>
@@ -171,7 +184,10 @@ namespace Softjourn.SJCoins.Core.Managers
         public List<Product> GetSortedByPriceProductsList(string category, bool sortingForward)
         {
             var productList = GetProductListByGivenCategory(category);
-            return sortingForward ? productList.OrderBy(product => product.IntPrice).ToList() : productList.OrderByDescending(product => product.IntPrice).ToList();
+
+            return sortingForward
+                ? productList.OrderBy(product => product.IntPrice).ToList()
+                : productList.OrderByDescending(product => product.IntPrice).ToList();
         }
 
         /// <summary>
@@ -201,7 +217,7 @@ namespace Softjourn.SJCoins.Core.Managers
         /// <returns>Returns Sorted Converted Dictionary</returns>
         private Dictionary<string, string> SortNutritionFacts(Dictionary<string, string> inDictionary)
         {
-            var result = new Dictionary<string,string>();
+            var result = new Dictionary<string, string>();
 
             foreach (var fact in _facts)
             {
@@ -217,8 +233,8 @@ namespace Softjourn.SJCoins.Core.Managers
                     result.Add(fact, inDictionary[fact]);
                 }
             }
+
             return result;
         }
-        #endregion
     }
 }

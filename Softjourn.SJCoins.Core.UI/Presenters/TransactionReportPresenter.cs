@@ -14,13 +14,12 @@ namespace Softjourn.SJCoins.Core.UI.Presenters
 {
     public class TransactionReportPresenter : BasePresenter<ITransactionReportView>
     {
-
         private const int DefaultPageNumber = 0;
         private const string DefaultSortDirection = "desc";
         private const string DefaultProperty = "created";
         private const string DefaultDirection = "IN";
-        private TransactionsManager TransactionsManager;
-        private bool _isLoading = false;
+        private readonly TransactionsManager TransactionsManager;
+        private bool _isLoading;
 
         private string _sortProperty;
         private string _sortDirection;
@@ -36,21 +35,23 @@ namespace Softjourn.SJCoins.Core.UI.Presenters
             TransactionsManager.IsInput = true;
         }
 
-        #region Public Methods
-
-        //Get first page of Transaction
-        //Is called when View started
+        /// <summary>
+        /// Get first page of Transaction
+        /// Is called when View started
+        /// </summary>
         public void OnStartLoadingPage()
         {
-            TransactionsManager.SetDefaults(DataManager.Profile.Name+" "+DataManager.Profile.Surname);
+            TransactionsManager.SetDefaults(DataManager.Profile.Name + " " + DataManager.Profile.Surname);
             GetReportTransactions(DefaultPageNumber, _direction, _sortDirection, _sortProperty);
         }
 
-        //Get next page of transactions if transactions are not loading in current moment
+        /// <summary>
+        /// Get next page of transactions if transactions are not loading in current moment
+        /// </summary>
         public void GetNextPage()
         {
             if (_isLoading) return;
-            if (TransactionsManager.PagesCount <= 1 || TransactionsManager.CurrentPage >= TransactionsManager.PagesCount-1)
+            if (TransactionsManager.PagesCount <= 1 || TransactionsManager.CurrentPage >= TransactionsManager.PagesCount - 1)
                 return;
             _isLoading = true;
             //Get Transaction for next page 
@@ -58,7 +59,9 @@ namespace Softjourn.SJCoins.Core.UI.Presenters
             GetReportTransactions(TransactionsManager.CurrentPage + 1, _direction, _sortDirection, _sortProperty);
         }
 
-        //Handle Click on Input button
+        /// <summary>
+        /// Handle Click on Input button
+        /// </summary>
         public void OnInputClicked()
         {
             if (_direction == "IN" && TransactionsManager.IsListAscending)
@@ -89,7 +92,9 @@ namespace Softjourn.SJCoins.Core.UI.Presenters
             View.SetCompoundDrawableInput(_sortProperty != DefaultProperty);
         }
 
-        //Handle Click on Output button
+        /// <summary>
+        /// Handle Click on Output button
+        /// </summary>
         public void OnOutputClicked()
         {
             if (_direction != "IN" && TransactionsManager.IsListAscending)
@@ -164,13 +169,19 @@ namespace Softjourn.SJCoins.Core.UI.Presenters
                 View.SetCompoundDrawableInput(null);
             }
         }
-        #endregion
 
         #region Private Methods
 
-        //Form TransactionRequest for REST call
-        //by setting page to be loaded and sort method (Property, Direction(Asc,Desc))
-        private TransactionRequest FormRequestBody(int pageNumber, string direction, string sortDirection, string property)
+        /// <summary>
+        /// Form TransactionRequest for REST call
+        /// by setting page to be loaded and sort method (Property, Direction(Asc,Desc))
+        /// </summary>
+        /// <param name="pageNumber"></param>
+        /// <param name="direction"></param>
+        /// <param name="sortDirection"></param>
+        /// <param name="property"></param>
+        /// <returns></returns>
+        private static TransactionRequest FormRequestBody(int pageNumber, string direction, string sortDirection, string property)
         {
             var transactionRequest = new TransactionRequest
             {
@@ -184,8 +195,7 @@ namespace Softjourn.SJCoins.Core.UI.Presenters
                 Direction = sortDirection,
                 Property = property
             };
-            var sortList = new List<Sort>();
-            sortList.Add(sort);
+            var sortList = new List<Sort> { sort };
             transactionRequest.Sort = sortList;
 
             return transactionRequest;
@@ -200,7 +210,7 @@ namespace Softjourn.SJCoins.Core.UI.Presenters
                 {
                     View.ShowProgress(Resources.StringResources.progress_loading);
 
-                    var transactionReport = await RestApiServise.GetTransactionReport(FormRequestBody(pageNumber, direction, sortDirection, property));
+                    var transactionReport = await RestApiService.GetTransactionReport(FormRequestBody(pageNumber, direction, sortDirection, property));
 
                     //Converting DateTime in appropriate string for UI
                     foreach (var item in transactionReport.Content)
@@ -247,7 +257,7 @@ namespace Softjourn.SJCoins.Core.UI.Presenters
                         }
                     }
                 }
-                catch (ApiNotAuthorizedException ex)
+                catch (ApiNotAuthorizedException)
                 {
                     View.HideProgress();
                     //AlertService.ShowToastMessage(ex.Message);
@@ -266,6 +276,7 @@ namespace Softjourn.SJCoins.Core.UI.Presenters
                 AlertService.ShowToastMessage(Resources.StringResources.internet_turned_off);
             }
         }
+
         #endregion
     }
 }

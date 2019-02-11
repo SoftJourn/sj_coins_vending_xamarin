@@ -8,71 +8,68 @@ using Softjourn.SJCoins.Core.Utils;
 
 namespace Softjourn.SJCoins.Core.UI.Presenters
 {
-	public abstract class BaseProductPresenter<TView> : BasePresenter<TView> where TView : class, IBaseProductView
-	{
-		#region Properties
-		private int _balance;
-		public int MyBalance
-		{
-			get { return _balance; }
-			set { _balance = value; }
-		}
-		#endregion
+    public abstract class BaseProductPresenter<TView> : BasePresenter<TView> where TView : class, IBaseProductView
+    {
+        public int MyBalance { get; set; }
 
-		#region Public methods
-		//Trig adding or removing product from favorite category depends on current state of product.
-		public async void OnFavoriteClick(Product product)
-		{
-			if (NetworkUtils.IsConnected)
-			{
-			    try
-			    {
-			        if (product.IsProductFavorite)
-			        {
-			            // Execute remove favorite call
-			            await RestApiServise.RemoveProductFromFavorites(product.Id.ToString());
-			            // Remove favorite locally
-			            DataManager.RemoveProductFromFavorite(product);
-						product.IsProductFavorite = false;
-			            // Trigg view that process success
-			            if (DataManager.GetProductFromListById(product.Id) != null)
-			            {
-			                View.FavoriteChanged(DataManager.GetProductFromListById(product.Id));
-			            }
-			            else
-			            {
-			                View.LastUnavailableFavoriteRemoved(product);
-			            }
-			        }
-			        else
-			        {
-			            // Execute add favorite call
-			            await RestApiServise.AddProductToFavorites(product.Id.ToString());
-			            // Add favorite locally
-			            DataManager.AddProductToFavorite(product);
-			            // Trigg view that process success 
-			            var prod = DataManager.GetProductFromListById(product.Id);
+        protected override void AvatarImageAcquired(byte[] receipt) { }
 
-			            View.FavoriteChanged(prod);
-			        }
-			    }
-			    catch (ApiNotAuthorizedException ex)
-			    {
-			        //AlertService.ShowToastMessage(ex.Message);
-			        DataManager.Profile = null;
-			        Settings.ClearUserData();
-			        NavigationService.NavigateToAsRoot(NavigationPage.Login);
-			    }
-			    catch (ApiNotFoundException ex)
-			    {
-			        AlertService.ShowToastMessage(ex.Message);
-			        View.FavoriteChanged(DataManager.ChangeProductsFavoriteStatus(product));
-			    }
-			    catch (NotImplementedException ex)
-			    {
+        /// <summary>
+        /// Trig adding or removing product from favorite category depends on current state of product.
+        /// </summary>
+        /// <param name="product"></param>
+        public async void OnFavoriteClick(Product product)
+        {
+            if (NetworkUtils.IsConnected)
+            {
+                try
+                {
+                    if (product.IsProductFavorite)
+                    {
+                        // Execute remove favorite call
+                        await RestApiService.RemoveProductFromFavorites(product.Id.ToString());
+                        // Remove favorite locally
+                        DataManager.RemoveProductFromFavorite(product);
+                        product.IsProductFavorite = false;
+                        // Trigg view that process success
+                        if (DataManager.GetProductFromListById(product.Id) != null)
+                        {
+                            View.FavoriteChanged(DataManager.GetProductFromListById(product.Id));
+                        }
+                        else
+                        {
+                            View.LastUnavailableFavoriteRemoved(product);
+                        }
+                    }
+                    else
+                    {
+                        // Execute add favorite call
+                        await RestApiService.AddProductToFavorites(product.Id.ToString());
+                        // Add favorite locally
+                        DataManager.AddProductToFavorite(product);
+                        // Trigg view that process success 
+                        var prod = DataManager.GetProductFromListById(product.Id);
 
-			    }
-                catch (NullReferenceException ex)
+                        View.FavoriteChanged(prod);
+                    }
+                }
+                catch (ApiNotAuthorizedException)
+                {
+                    //AlertService.ShowToastMessage(ex.Message);
+                    DataManager.Profile = null;
+                    Settings.ClearUserData();
+                    NavigationService.NavigateToAsRoot(NavigationPage.Login);
+                }
+                catch (ApiNotFoundException ex)
+                {
+                    AlertService.ShowToastMessage(ex.Message);
+                    View.FavoriteChanged(DataManager.ChangeProductsFavoriteStatus(product));
+                }
+                catch (NotImplementedException)
+                {
+
+                }
+                catch (NullReferenceException)
                 {
 
                 }
@@ -82,94 +79,94 @@ namespace Softjourn.SJCoins.Core.UI.Presenters
                 }
             }
             else
-			{
-				AlertService.ShowToastMessage(Resources.StringResources.internet_turned_off);
+            {
+                AlertService.ShowToastMessage(Resources.StringResources.internet_turned_off);
                 View.FavoriteChanged(DataManager.GetProductFromListById(product.Id));
             }
-		}
-
-		// show purchase dialog with proposal to purchase product
-		public void OnBuyProductClick(Product product)
-		{
-			// Create action with trigg OnPurchased method after it execution
-			var onPurchaseAction = new Action<Product>(OnProductPurchased);
-			// Show confirmation dialog on view
-			AlertService.ShowPurchaseConfirmationDialod(product, onPurchaseAction);
-		}
-
-		public abstract void ChangeUserBalance(string balance);
-
-        //Is called when user clicks on Product to show Detail page of chosen product.
-        public void OnProductDetailsClick(int productID)
-        {
-            NavigationService.NavigateTo(NavigationPage.Detail, productID);
         }
 
-        //public abstract void BuyingSuccess();
+        /// <summary>
+        /// Show purchase dialog with proposal to purchase product
+        /// </summary>
+        /// <param name="product"></param>
+        public void OnBuyProductClick(Product product)
+        {
+            // Create action with trig OnPurchased method after it execution
+            var onPurchaseAction = new Action<Product>(OnProductPurchased);
+            // Show confirmation dialog on view
+            AlertService.ShowPurchaseConfirmationDialod(product, onPurchaseAction);
+        }
 
-        //public abstract void FavoriteSuccess();
+        public abstract void ChangeUserBalance(string balance);
 
-        #endregion
+        /// <summary>
+        /// Is called when user clicks on Product to show Detail page of chosen product.
+        /// </summary>
+        /// <param name="productId"></param>
+        public void OnProductDetailsClick(int productId)
+        {
+            NavigationService.NavigateTo(NavigationPage.Detail, productId);
+        }
 
         #region Private methods
-        // check is balance enough and make purchase
-        private async void OnProductPurchased(Product product)
-		{
-			if (NetworkUtils.IsConnected)
-			{
-				if (MyBalance >= product.IntPrice)
-				{
-					View.ShowProgress(Resources.StringResources.progress_buying);
-					try
-					{
-						var leftAmount = await RestApiServise.BuyProductById(product.Id.ToString());
-						if (leftAmount != null) // them set new balance amount
-						{
-							MyBalance = int.Parse(leftAmount.Balance);
-							ChangeUserBalance(MyBalance.ToString());
-						}
-						View.HideProgress();
-						AlertService.ShowMessageWithUserInteraction("Purchase",
-							Resources.StringResources.activity_product_take_your_order_message,
-							Resources.StringResources.btn_title_ok, null);
-					}
 
-					catch (ApiNotAuthorizedException ex)
-					{
-						View.HideProgress();
-						//AlertService.ShowToastMessage(ex.Message);
+        /// <summary>
+        /// Check is balance enough and make purchase
+        /// </summary>
+        /// <param name="product"></param>
+        private async void OnProductPurchased(Product product)
+        {
+            if (NetworkUtils.IsConnected)
+            {
+                if (MyBalance >= product.IntPrice)
+                {
+                    View.ShowProgress(Resources.StringResources.progress_buying);
+                    try
+                    {
+                        var leftAmount = await RestApiService.BuyProductById(product.Id.ToString());
+                        if (leftAmount != null) // them set new balance amount
+                        {
+                            MyBalance = int.Parse(leftAmount.Balance);
+                            ChangeUserBalance(MyBalance.ToString());
+                        }
+                        View.HideProgress();
+                        AlertService.ShowMessageWithUserInteraction("Purchase",
+                            Resources.StringResources.activity_product_take_your_order_message,
+                            Resources.StringResources.btn_title_ok, null);
+                    }
+
+                    catch (ApiNotAuthorizedException ex)
+                    {
+                        View.HideProgress();
+                        //AlertService.ShowToastMessage(ex.Message);
                         DataManager.Profile = null;
                         Settings.ClearUserData();
                         NavigationService.NavigateToAsRoot(NavigationPage.Login);
-					}
-					catch (ApiNotFoundException ex)
-					{
-						View.HideProgress();
-						AlertService.ShowMessageWithUserInteraction("Error", ex.Message,
-							Resources.StringResources.btn_title_ok, null);
-					}
-					catch (Exception ex)
-					{
-						View.HideProgress();
-						AlertService.ShowToastMessage(ex.Message);
-					}
-				}
-				else
-				{
-					AlertService.ShowMessageWithUserInteraction("Error",
-					Resources.StringResources.error_not_enough_money, Resources.StringResources.btn_title_ok, null);
-				}
-			}
-			else
-			{
-				AlertService.ShowToastMessage(Resources.StringResources.internet_turned_off);
-			}
-		}
-		#endregion
-
-        protected override void AvatarImageAcquired(byte[] receipt)
-        {
-            
+                    }
+                    catch (ApiNotFoundException ex)
+                    {
+                        View.HideProgress();
+                        AlertService.ShowMessageWithUserInteraction("Error", ex.Message,
+                            Resources.StringResources.btn_title_ok, null);
+                    }
+                    catch (Exception ex)
+                    {
+                        View.HideProgress();
+                        AlertService.ShowToastMessage(ex.Message);
+                    }
+                }
+                else
+                {
+                    AlertService.ShowMessageWithUserInteraction("Error",
+                    Resources.StringResources.error_not_enough_money, Resources.StringResources.btn_title_ok, null);
+                }
+            }
+            else
+            {
+                AlertService.ShowToastMessage(Resources.StringResources.internet_turned_off);
+            }
         }
-	}
+
+        #endregion
+    }
 }

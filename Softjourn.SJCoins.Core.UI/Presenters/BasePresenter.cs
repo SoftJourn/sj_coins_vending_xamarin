@@ -1,5 +1,4 @@
-﻿
-using Softjourn.SJCoins.Core.UI.Presenters.IPresenters;
+﻿using Softjourn.SJCoins.Core.UI.Presenters.IPresenters;
 using System;
 using Softjourn.SJCoins.Core.UI.ViewInterfaces;
 using Softjourn.SJCoins.Core.UI.Services.Navigation;
@@ -17,9 +16,8 @@ namespace Softjourn.SJCoins.Core.UI.Presenters
     {
         protected const int oneMb = 1048576;
 
-		#region Properties
-		protected ILifetimeScope Scope;
-		protected DataManager DataManager;
+        protected ILifetimeScope Scope;
+        protected DataManager DataManager;
         protected PhotoManager PhotoManager;
 
         public INavigationService NavigationService
@@ -32,25 +30,22 @@ namespace Softjourn.SJCoins.Core.UI.Presenters
             get; set;
         }
 
-        public ApiService RestApiServise
+        public ApiService RestApiService
         {
             get; set;
         }
-		#endregion
 
-		#region Constructor
-		public BasePresenter()
+        public BasePresenter()
         {
-			// Take container and resolve DataManager 
-			Scope = BaseBootstrapper.Container.BeginLifetimeScope();
-			DataManager = Scope.Resolve<DataManager>();
-		    PhotoManager = Scope.Resolve<PhotoManager>();
+            // Take container and resolve DataManager 
+            Scope = BaseBootstrapper.Container.BeginLifetimeScope();
+            DataManager = Scope.Resolve<DataManager>();
+            PhotoManager = Scope.Resolve<PhotoManager>();
         }
-		#endregion
 
-		#region View
+        #region View
 
-		protected TView View { get; set; }
+        protected TView View { get; set; }
 
         public void AttachView(IBaseView view)
         {
@@ -68,31 +63,17 @@ namespace Softjourn.SJCoins.Core.UI.Presenters
             OnViewDetached();
         }
 
-        public virtual void ViewShowed()
-        {
+        public virtual void ViewShowed() { }
 
-        }
-        public virtual void ViewHidden()
-        {
-
-        }
+        public virtual void ViewHidden() { }
 
         // Init and load data
-        protected virtual void OnViewAttached()
-        {
-
-        }
+        protected virtual void OnViewAttached() { }
 
         // Deinit
-        protected virtual void OnViewDetached()
-        {
+        protected virtual void OnViewDetached() { }
 
-        }
-
-        protected virtual void AvatarImageAcquired(byte[] receipt)
-        {
-
-        }
+        protected virtual void AvatarImageAcquired(byte[] receipt) { }
 
         #endregion
 
@@ -111,7 +92,7 @@ namespace Softjourn.SJCoins.Core.UI.Presenters
                     if (DataManager.Avatar == null)
                     {
                         // Avatar not stored
-                        image = await RestApiServise.GetAvatarImage(endpoint.Substring(1));
+                        image = await RestApiService.GetAvatarImage(endpoint.Substring(1));
 
                         if (image.Length < oneMb)
                         {
@@ -127,7 +108,9 @@ namespace Softjourn.SJCoins.Core.UI.Presenters
                 }
                 catch (ApiBadRequestException)
                 {
-                    AlertService.ShowMessageWithUserInteraction("", Resources.StringResources.server_error_bad_username_or_password, Resources.StringResources.btn_title_ok, null);
+                    AlertService.ShowMessageWithUserInteraction(string.Empty,
+                        Resources.StringResources.server_error_bad_username_or_password,
+                        Resources.StringResources.btn_title_ok, null);
                 }
                 catch (Exception ex)
                 {

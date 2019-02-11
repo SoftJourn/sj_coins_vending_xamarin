@@ -1,4 +1,3 @@
-
 using System.Collections.Generic;
 using Android.Support.V7.Widget;
 using Android.Views;
@@ -7,7 +6,7 @@ using Softjourn.SJCoins.Core.API.Model.TransactionReports;
 
 namespace Softjourn.SJCoins.Droid.UI.Adapters
 {
-    class ReportsAdapter : RecyclerView.Adapter
+    internal class ReportsAdapter : RecyclerView.Adapter
     {
         private List<Transaction> _transactionsList = new List<Transaction>();
 

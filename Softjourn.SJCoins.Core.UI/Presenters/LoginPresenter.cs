@@ -1,5 +1,4 @@
-﻿
-using Softjourn.SJCoins.Core.UI.Services.Navigation;
+﻿using Softjourn.SJCoins.Core.UI.Services.Navigation;
 using Softjourn.SJCoins.Core.UI.ViewInterfaces;
 using Softjourn.SJCoins.Core.Utils;
 using System;
@@ -10,7 +9,6 @@ namespace Softjourn.SJCoins.Core.UI.Presenters
 {
     public class LoginPresenter : BasePresenter<ILoginView>
     {
-
         public async void Login(string userName, string password)
         {
             if (!Validators.IsUserNameEmpty(userName) && !Validators.IsPasswordValid(password))
@@ -40,14 +38,16 @@ namespace Softjourn.SJCoins.Core.UI.Presenters
 
                     try
                     {
-                        await RestApiServise.MakeLoginRequestAsync(userName, password);
+                        await RestApiService.MakeLoginRequestAsync(userName, password);
                         NavigationService.NavigateToAsRoot(NavigationPage.SelectMachineFirstTime);
                         View.HideProgress();
                     }
-                    catch (ApiBadRequestException ex)
+                    catch (ApiBadRequestException)
                     {
                         View.HideProgress();
-                        AlertService.ShowMessageWithUserInteraction("", Resources.StringResources.server_error_bad_username_or_password, Resources.StringResources.btn_title_ok, null);
+                        AlertService.ShowMessageWithUserInteraction(string.Empty,
+                            Resources.StringResources.server_error_bad_username_or_password,
+                            Resources.StringResources.btn_title_ok, null);
                     }
                     catch (Exception ex)
                     {
@@ -66,6 +66,5 @@ namespace Softjourn.SJCoins.Core.UI.Presenters
         {
             NavigationService.NavigateToAsRoot(NavigationPage.Welcome);
         }
-
     }
 }

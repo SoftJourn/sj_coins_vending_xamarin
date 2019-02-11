@@ -1,10 +1,8 @@
-using System;
-
 using Newtonsoft.Json;
 
 namespace Softjourn.SJCoins.Core.API.Model.AccountInfo
 {
-    public class Account
+    public sealed class Account
     {
         [JsonProperty("amount")]
         public int Amount { get; set; }

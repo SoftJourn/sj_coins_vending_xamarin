@@ -1,4 +1,3 @@
-
 using System.Collections.Generic;
 using Android.App;
 using Android.OS;
@@ -21,7 +20,7 @@ namespace Softjourn.SJCoins.Droid.UI.Fragments
         private RecyclerView.LayoutManager _layoutManager;
         private List<Product> _productList;
 
-        RecyclerView _machineItems;
+        private RecyclerView _machineItems;
 
         public static ProductListFragmentVending NewInstance(string category, int? headers, int? container, List<Product> productList)
         {
@@ -62,9 +61,7 @@ namespace Softjourn.SJCoins.Droid.UI.Fragments
         {
             base.OnViewCreated(view, savedInstanceState);
             if (savedInstanceState == null)
-            {
                 _productAdapter.SetData(_productList);
-            }
         }
 
         #endregion
@@ -133,6 +130,7 @@ namespace Softjourn.SJCoins.Droid.UI.Fragments
             _productAdapter.RemoveFromFavorites -= RemoveProductFromFavorite;
         }
     }
+
     #endregion
 }
 

@@ -1,9 +1,8 @@
-﻿
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 
 namespace Softjourn.SJCoins.Core.API.Model
 {
-    public class Session
+    public sealed class Session
     {
         [JsonProperty("access_token")]
         public string AccessToken { get; set; }

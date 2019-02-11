@@ -1,19 +1,11 @@
 ﻿using Autofac;
 using Softjourn.SJCoins.Core.UI.Bootstrapper.Modules;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Softjourn.SJCoins.Core.UI.Bootstrapper
 {
     public abstract class BaseBootstrapper
     {
         public static IContainer Container { get; private set; }
-
-        //protected ApplicationStartParameters ApplicationStartParameters { get; set; }
-
 
         public void Init()
         {

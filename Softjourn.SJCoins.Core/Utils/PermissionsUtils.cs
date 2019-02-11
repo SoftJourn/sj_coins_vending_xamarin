@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using Plugin.Media;
 using Plugin.Permissions;
 using Plugin.Permissions.Abstractions;
@@ -23,18 +19,14 @@ namespace Softjourn.SJCoins.Core.Utils
                 permission = PermissionStatus.Granted;
 
             if (permission != PermissionStatus.Granted)
-            {
                 throw new CameraException("Camera permission is denied");
-            }
         }
 
         public static async Task CheckGalleryPermissionAsync()
         {
             var permission = await ValidatePermissionAsync(Permission.Storage);
             if (permission != PermissionStatus.Granted)
-            {
                 throw new CameraException("Gallery permission is denied");
-            }
         }
 
         private static async Task<PermissionStatus> ValidatePermissionAsync(Permission permission)

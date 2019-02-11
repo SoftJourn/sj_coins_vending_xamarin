@@ -1,9 +1,8 @@
-
 using Newtonsoft.Json;
 
 namespace Softjourn.SJCoins.Core.API.Model.Products
 {
-    public class Category
+    public sealed class Category
     {
         [JsonProperty("id")]
         public int Id { get; set; }

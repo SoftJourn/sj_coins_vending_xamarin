@@ -14,26 +14,31 @@ namespace Softjourn.SJCoins.Core.UI.Presenters
 {
     public class AccountPresenter : BasePresenter<IAccountView>
     {
-        private List<AccountOption> OptionsList { get; set; }
+        private List<AccountOption> OptionsList { get; }
+
+        protected override void AvatarImageAcquired(byte[] receipt)
+        {
+            View.ImageAcquired(receipt);
+        }
 
         public AccountPresenter()
         {
-            OptionsList = new List<AccountOption>();
-            OptionsList.Add(new AccountOption(Const.ProfileOptionsPurchase, Const.ProfileOptionsPurchaseIconName));
-            OptionsList.Add(new AccountOption(Const.ProfileOptionsReports, Const.ProfileOptionsReportsIconName));
-            //OptionsList.Add(new AccountOption(Const.ProfileOptionsPrivacyTerms, Const.ProfileOptionsPrivacyTermsIconName));
-            //OptionsList.Add(new AccountOption(Const.ProfileOptionsHelp, Const.ProfileOptionsHelpIconName));
-            OptionsList.Add(new AccountOption(Const.ProfileOptionsShareFunds, Const.ProfileOptionsShareFundsIconName));
-			if (!Settings.OnlyOneVendingMachine)
-				OptionsList.Add(new AccountOption(Const.ProfileOptionsSelectMachine,Const.ProfileOptionsSelectMachineIconName));
-            OptionsList.Add(new AccountOption(Const.ProfileOptionsLogout, Const.ProfileOptionsLogoutIconName));
+            OptionsList = new List<AccountOption>
+            {
+                new AccountOption(Const.ProfileOptionsPurchase, Const.ProfileOptionsPurchaseIconName),
+                new AccountOption(Const.ProfileOptionsReports, Const.ProfileOptionsReportsIconName),
+                new AccountOption(Const.ProfileOptionsShareFunds, Const.ProfileOptionsShareFundsIconName),
+                new AccountOption(Const.ProfileOptionsLogout, Const.ProfileOptionsLogoutIconName)
+            };
+
+            if (!Settings.OnlyOneVendingMachine)
+                OptionsList.Add(new AccountOption(Const.ProfileOptionsSelectMachine, Const.ProfileOptionsSelectMachineIconName));
         }
 
-        #region Public Methods
         public void OnStartLoadingPage()
         {
             // Display account information
-            View.SetAccountInfo(DataManager.Profile);            
+            View.SetAccountInfo(DataManager.Profile);
         }
 
         public void GetImageFromServer()
@@ -140,7 +145,6 @@ namespace Softjourn.SJCoins.Core.UI.Presenters
         {
             SetAvatarImage(image);
         }
-        #endregion
 
         #region Private Methods
 
@@ -176,15 +180,16 @@ namespace Softjourn.SJCoins.Core.UI.Presenters
             if (NetworkUtils.IsConnected)
             {
                 View.ShowProgress("Logout...");
+
                 try
                 {
-                    await RestApiServise.RevokeTokenAsync();
+                    await RestApiService.RevokeTokenAsync();
                     DataManager.Profile = null;
-					DataManager.Avatar = null;
+                    DataManager.Avatar = null;
                     Settings.ClearUserData();
                     NavigationService.NavigateToAsRoot(NavigationPage.Login);
                 }
-                catch (ApiNotAuthorizedException ex)
+                catch (ApiNotAuthorizedException)
                 {
                     //AlertService.ShowToastMessage(ex.Message);
                     DataManager.Profile = null;
@@ -203,7 +208,7 @@ namespace Softjourn.SJCoins.Core.UI.Presenters
         }
 
         //Gets photo from Camera
-		//For IOS use
+        //For IOS use
         private async void GetPhotoFromCamera()
         {
             try
@@ -220,7 +225,7 @@ namespace Softjourn.SJCoins.Core.UI.Presenters
         }
 
         //Gets photo from Gallery
-		//For IOS use
+        //For IOS use
         private async void GetPhotoFromGallery()
         {
             try
@@ -243,7 +248,6 @@ namespace Softjourn.SJCoins.Core.UI.Presenters
             try
             {
                 var photo = await PhotoManager.GetImagePathFromCameraAsync();
-
                 if (photo != null)
                     View.ImageAcquired(photo);
             }
@@ -276,14 +280,14 @@ namespace Softjourn.SJCoins.Core.UI.Presenters
             {
                 try
                 {
-                    await RestApiServise.SetAvatarImage(image);
-                    DataManager.Profile = await RestApiServise.GetUserAccountAsync();
-					DataManager.Avatar = image;
-                    AlertService.ShowMessageWithUserInteraction("","Image was stored on server","",null);                  
+                    await RestApiService.SetAvatarImage(image);
+                    DataManager.Profile = await RestApiService.GetUserAccountAsync();
+                    DataManager.Avatar = image;
+                    AlertService.ShowMessageWithUserInteraction(string.Empty, "Image was stored on server", string.Empty, null);
                 }
                 catch (ApiBadRequestException)
                 {
-                    AlertService.ShowMessageWithUserInteraction("Server Error", "", Resources.StringResources.btn_title_ok, null);
+                    AlertService.ShowMessageWithUserInteraction("Server Error", string.Empty, Resources.StringResources.btn_title_ok, null);
                 }
                 catch (Exception ex)
                 {
@@ -296,11 +300,7 @@ namespace Softjourn.SJCoins.Core.UI.Presenters
                 AlertService.ShowToastMessage(Resources.StringResources.internet_turned_off);
             }
         }
-        #endregion
 
-        protected override void AvatarImageAcquired(byte[] receipt)
-        {
-            View.ImageAcquired(receipt);
-        }
+        #endregion 
     }
 }

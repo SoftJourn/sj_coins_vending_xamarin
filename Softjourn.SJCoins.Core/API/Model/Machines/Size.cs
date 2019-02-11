@@ -2,7 +2,7 @@ using Newtonsoft.Json;
 
 namespace Softjourn.SJCoins.Core.API.Model.Machines
 {
-    public class Size
+    public sealed class Size
     {
         [JsonProperty("rows")]
         public int Rows { get; set; }

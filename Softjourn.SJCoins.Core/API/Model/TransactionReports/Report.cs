@@ -1,10 +1,9 @@
-﻿
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using Newtonsoft.Json;
 
 namespace Softjourn.SJCoins.Core.API.Model.TransactionReports
 {
-    public class Report
+    public sealed class Report
     {
         [JsonProperty("totalElements")]
         public int TotalElements { get; set; }

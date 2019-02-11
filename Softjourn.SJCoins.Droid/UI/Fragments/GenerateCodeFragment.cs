@@ -3,8 +3,6 @@ using System.IO;
 using Android.App;
 using Android.Content;
 using Android.Graphics;
-using Android.InputMethodServices;
-using Android.Media;
 using Android.OS;
 using Android.Provider;
 using Android.Views;
@@ -32,10 +30,12 @@ namespace Softjourn.SJCoins.Droid.UI.Fragments
         public static GenerateCodeFragment NewInstance()
         {
             var fragment = new GenerateCodeFragment();
+
             return fragment;
         }
 
         #region Fragment Methods
+
         public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
         {
             var view = inflater.Inflate(Resource.Layout.fragment_generate_barcode, container, false);
@@ -56,7 +56,7 @@ namespace Softjourn.SJCoins.Droid.UI.Fragments
             {
                 GetQrCode(_inputAmount.Text);
                 _inputAmount.ClearFocus();
-                var imm = (InputMethodManager) Activity.GetSystemService(Context.InputMethodService);
+                var imm = (InputMethodManager)Activity.GetSystemService(Context.InputMethodService);
                 imm.HideSoftInputFromWindow(_inputAmount.WindowToken, 0);
             };
 
@@ -71,8 +71,8 @@ namespace Softjourn.SJCoins.Droid.UI.Fragments
 
         #endregion
 
-
         #region Public methods
+
         //Sets Error for EditText Field
         public void ShowEditFieldError(string amount)
         {
@@ -102,10 +102,11 @@ namespace Softjourn.SJCoins.Droid.UI.Fragments
 
             _bitmap = barcode;
         }
+
         #endregion
 
-
         #region Private Methods
+
         //Calls Activity method to get string needed for generating of QRCode
         private void GetQrCode(string amount)
         {
@@ -131,13 +132,14 @@ namespace Softjourn.SJCoins.Droid.UI.Fragments
             var dir = new File(filePath + "/SJCoins/");
             if (!dir.Exists()) dir.Mkdirs();
 
-            var imageFile = System.IO.Path.Combine(dir.Path, "OfflineMoney_"+ DateTime.Now.Ticks+".png");
+            var imageFile = System.IO.Path.Combine(dir.Path, "OfflineMoney_" + DateTime.Now.Ticks + ".png");
             var stream = new FileStream(imageFile, FileMode.Create);
             bitmap.Compress(Bitmap.CompressFormat.Png, 100, stream);
             stream.Close();
 
-            _alertService.ShowMessageWithUserInteraction("","QrCode was saved to "+dir.Path,"",null);
+            _alertService.ShowMessageWithUserInteraction(string.Empty, "QrCode was saved to " + dir.Path, string.Empty, null);
         }
+
         #endregion
     }
 }

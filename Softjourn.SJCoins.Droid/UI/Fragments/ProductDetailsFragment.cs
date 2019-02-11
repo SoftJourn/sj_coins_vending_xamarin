@@ -1,4 +1,3 @@
-
 using Android.Animation;
 using Android.App;
 using Android.OS;
@@ -26,10 +25,11 @@ namespace Softjourn.SJCoins.Droid.UI.Fragments
         public static ProductDetailsFragment GetInstance(Product product)
         {
             var bundle = new Bundle();
-            string serializedObj = Newtonsoft.Json.JsonConvert.SerializeObject(product);
+            var serializedObj = Newtonsoft.Json.JsonConvert.SerializeObject(product);
             bundle.PutString(ArgProduct, serializedObj);
             var fragment = new ProductDetailsFragment();
             fragment.Arguments = bundle;
+
             return fragment;
         }
 
@@ -45,7 +45,6 @@ namespace Softjourn.SJCoins.Droid.UI.Fragments
         {
             base.OnViewCreated(contentView, savedInstanceState);
         }
-
 
         public override void SetupDialog(Dialog dialog, int style)
         {
@@ -73,6 +72,7 @@ namespace Softjourn.SJCoins.Droid.UI.Fragments
 
             _favorites.Click += (s, e) => HandleOnFavoriteClick();
         }
+
         #endregion
 
         #region Public Methods
@@ -83,9 +83,11 @@ namespace Softjourn.SJCoins.Droid.UI.Fragments
             _product.IsProductFavorite = isFavorite;
             _favorites.Tag = isFavorite;
         }
+
         #endregion
 
         #region Private Methods
+
         /**
          * Calls by clicking on Buy button
          * Calls Purchase methode on Activity to which is attached to
@@ -211,6 +213,7 @@ namespace Softjourn.SJCoins.Droid.UI.Fragments
             animatorSet.Start();
             _favorites.Enabled = true;
         }
+
         #endregion
     }
 }

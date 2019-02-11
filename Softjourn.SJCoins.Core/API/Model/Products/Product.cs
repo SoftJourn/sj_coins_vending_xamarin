@@ -6,7 +6,7 @@ using Softjourn.SJCoins.Core.Utils;
 
 namespace Softjourn.SJCoins.Core.API.Model.Products
 {
-    public class Product : IEquatable<Product>
+    public sealed class Product : IEquatable<Product>
     {
         [JsonProperty("id")]
         public int Id { get; set; }
@@ -15,7 +15,7 @@ namespace Softjourn.SJCoins.Core.API.Model.Products
         public float Price { get; set; }
 
         [JsonIgnore]
-        public int IntPrice { get { return int.Parse(Price.ToString()); } }
+        public int IntPrice => int.Parse(Price.ToString());
 
         [JsonIgnore]
         public string ImageFullUrl => Const.BaseUrl + Const.UrlVendingService + ImageUrl;
@@ -49,7 +49,7 @@ namespace Softjourn.SJCoins.Core.API.Model.Products
 
         public bool Equals(Product other)
         {
-            return this.Id.Equals(other.Id);
+            return Id.Equals(other.Id);
         }
     }
 }

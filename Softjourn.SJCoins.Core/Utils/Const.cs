@@ -1,5 +1,5 @@
 namespace Softjourn.SJCoins.Core.Utils
-{ 
+{
     public class Const
     {
         public const string SjCoinsPreferences = "SJ_COINS_PREFERENCES";

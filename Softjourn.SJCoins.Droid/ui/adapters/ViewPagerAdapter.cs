@@ -1,4 +1,3 @@
-
 using Android.Content;
 using Android.Support.V4.View;
 using Android.Views;
@@ -8,8 +7,10 @@ namespace Softjourn.SJCoins.Droid.ui.adapters
     public class ViewPagerAdapter : PagerAdapter
     {
         private LayoutInflater _layoutInflater;
-        private int[] _layouts;
-        private Context _context;
+        private readonly int[] _layouts;
+        private readonly Context _context;
+
+        public override int Count => _layouts.Length;
 
         public ViewPagerAdapter(int[] layouts, Context context)
         {
@@ -26,8 +27,6 @@ namespace Softjourn.SJCoins.Droid.ui.adapters
 
             return view;
         }
-
-        public override int Count => _layouts.Length;
 
         public override bool IsViewFromObject (View view, Java.Lang.Object obj)
         {

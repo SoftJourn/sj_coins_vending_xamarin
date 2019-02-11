@@ -1,5 +1,4 @@
-﻿
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using Softjourn.SJCoins.Core.API.Model;
 using Softjourn.SJCoins.Core.Helpers;
@@ -10,19 +9,14 @@ using Softjourn.SJCoins.Core.API.Model.TransactionReports;
 
 namespace Softjourn.SJCoins.Core.API
 {
-
-    public class ApiService : IApiService
+    public sealed class ApiService : IApiService
     {
-
         public ApiClient ApiClient 
         {
             get; set;
         }
         
-        public ApiService()
-        {
-
-        }
+        public ApiService() { }
 
         public async Task<Session> MakeLoginRequestAsync(string userName, string password)
         {
@@ -46,19 +40,22 @@ namespace Softjourn.SJCoins.Core.API
 
         public async Task<Featured> GetFeaturedProductsAsync()
         {
-            string machineId = Settings.SelectedMachineId;
+            var machineId = Settings.SelectedMachineId;
+
             return await ApiClient.GetFeaturedProductsAsync(machineId);
         }
 
         public async Task<List<Product>> GetProductsList()
         {
-            string machineId = Settings.SelectedMachineId;
+            var machineId = Settings.SelectedMachineId;
+
             return await ApiClient.GetProductsListAsync(machineId);
         }
 
         public async Task<Amount> BuyProductById(string productId)
         {
-            string machineId = Settings.SelectedMachineId;
+            var machineId = Settings.SelectedMachineId;
+
             return await ApiClient.BuyProductByIdAsync(machineId, productId);
         }
 
@@ -102,9 +99,9 @@ namespace Softjourn.SJCoins.Core.API
             return await ApiClient.WithdrawMoney(amount);
         }
 
-        public async Task<Report> GetTransactionReport(TransactionRequest transactionrequest)
+        public async Task<Report> GetTransactionReport(TransactionRequest transactionRequest)
         {
-            return await ApiClient.GetTransactionReport(transactionrequest);
+            return await ApiClient.GetTransactionReport(transactionRequest);
         }
 
         public async Task<byte[]> GetAvatarImage(string endpoint)

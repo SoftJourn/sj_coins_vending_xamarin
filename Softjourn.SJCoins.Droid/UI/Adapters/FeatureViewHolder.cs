@@ -7,11 +7,10 @@ namespace Softjourn.SJCoins.Droid.UI.Adapters
 {
     public class FeatureViewHolder : RecyclerView.ViewHolder, View.IOnClickListener, View.IOnLongClickListener
     {
-
         public event EventHandler Click;
         public event EventHandler LongClick;
         public event EventHandler AddFavoriteClick;
-            
+
         public View ParentView { get; set; }
         public View ParentViewSeeAll { get; set; }
         public TextView ProductPrice { get; set; }
@@ -21,7 +20,7 @@ namespace Softjourn.SJCoins.Droid.UI.Adapters
         public ImageView AddFavorite { get; set; }
 
         public FeatureViewHolder(View v) : base(v)
-            {
+        {
             ParentViewSeeAll = v.FindViewById<View>(Resource.Id.layout_item_parent_view);
             ParentView = v.FindViewById<View>(Resource.Id.layout_item_product_parent_view);
             ProductImage = v.FindViewById<ImageView>(Resource.Id.layout_item_product_img);
@@ -33,13 +32,13 @@ namespace Softjourn.SJCoins.Droid.UI.Adapters
             v.SetOnClickListener(this);
             v.SetOnLongClickListener(this);
             AddFavorite?.SetOnClickListener(this);
-            }
+        }
 
         public void OnClick(View v)
         {
             if (v is ImageView)
             {
-                AddFavoriteClick?.Invoke(this,EventArgs.Empty);
+                AddFavoriteClick?.Invoke(this, EventArgs.Empty);
                 return;
             }
             Click?.Invoke(this, EventArgs.Empty);
@@ -49,6 +48,7 @@ namespace Softjourn.SJCoins.Droid.UI.Adapters
         {
             if (v == null) return false;
             LongClick?.Invoke(this, EventArgs.Empty);
+
             return true;
         }
     }

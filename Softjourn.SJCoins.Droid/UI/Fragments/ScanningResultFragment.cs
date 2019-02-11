@@ -1,10 +1,8 @@
-
 using Android.App;
 using Android.OS;
 using Android.Views;
 using Android.Widget;
 using Softjourn.SJCoins.Droid.UI.Activities;
-
 
 namespace Softjourn.SJCoins.Droid.UI.Fragments
 {
@@ -15,6 +13,7 @@ namespace Softjourn.SJCoins.Droid.UI.Fragments
         public static ScanningResultFragment NewInstance()
         {
             var fragment = new ScanningResultFragment();
+
             return fragment;
         }
 

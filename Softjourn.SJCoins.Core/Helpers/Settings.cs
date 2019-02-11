@@ -40,7 +40,6 @@ namespace Softjourn.SJCoins.Core.Helpers
 
         #endregion
 
-
         public static string GeneralSettings
         {
             get
@@ -91,8 +90,6 @@ namespace Softjourn.SJCoins.Core.Helpers
             RefreshToken = RefreshTokenDefault;
             SelectedMachineId = SelectedMachineIdDefault;
             SelectedMachineName = SelectedMachineNameDefault;
-
         }
-
     }
 }

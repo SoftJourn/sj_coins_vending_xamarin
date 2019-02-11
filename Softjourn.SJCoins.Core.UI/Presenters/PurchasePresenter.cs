@@ -9,7 +9,6 @@ namespace Softjourn.SJCoins.Core.UI.Presenters
 {
     public class PurchasePresenter : BasePresenter<IPurchaseView>
     {
-
         public async void OnStartLoadingPage()
         {
             if (NetworkUtils.IsConnected)
@@ -17,7 +16,7 @@ namespace Softjourn.SJCoins.Core.UI.Presenters
                 try
                 {
                     View.ShowProgress(Resources.StringResources.progress_loading);
-                    var purchaseList = await RestApiServise.GetPurchaseHistory();
+                    var purchaseList = await RestApiService.GetPurchaseHistory();
 
                     //Converting DateTime in appropriate string for UI
                     foreach (var item in purchaseList)
@@ -37,7 +36,7 @@ namespace Softjourn.SJCoins.Core.UI.Presenters
                         View.SetData(purchaseList);
                     }
                 }
-                catch (ApiNotAuthorizedException ex)
+                catch (ApiNotAuthorizedException)
                 {
                     View.HideProgress();
                     //AlertService.ShowToastMessage(ex.Message);

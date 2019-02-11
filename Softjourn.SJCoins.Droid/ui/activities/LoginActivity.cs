@@ -8,22 +8,21 @@ using Softjourn.SJCoins.Core.UI.Presenters;
 using Softjourn.SJCoins.Core.UI.ViewInterfaces;
 using Softjourn.SJCoins.Droid.ui.baseUI;
 
-
 namespace Softjourn.SJCoins.Droid.UI.Activities
 {
     [Activity(Label = "SomeLabel", Theme = "@style/NoActionBarLoginTheme", ScreenOrientation = ScreenOrientation.Portrait)]
     public class LoginActivity : BaseActivity<LoginPresenter>, ILoginView
     {
+        private EditText _userName;
 
-        EditText _userName;
+        private EditText _passwordText;
 
-        EditText _passwordText;
+        private Button _loginButton;
 
-        Button _loginButton;
-
-        ImageView _arrowToWelcome;
+        private ImageView _arrowToWelcome;
 
         #region Standart Activity Methods
+
         protected override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
@@ -47,9 +46,11 @@ namespace Softjourn.SJCoins.Droid.UI.Activities
         {
             return false;
         }
+
         #endregion
 
         #region ILoginView Methods
+
         /**
          * Sets Error to username field with the given message
          */
@@ -67,9 +68,11 @@ namespace Softjourn.SJCoins.Droid.UI.Activities
             _passwordText.RequestFocus();
             _passwordText.SetError(message, null);
         }
+
         #endregion
 
         #region Private Methods
+
         private void LinkToWelcomeClick(object sender, EventArgs e)
         {
             ViewPresenter.ToWelcomePage();
@@ -86,6 +89,7 @@ namespace Softjourn.SJCoins.Droid.UI.Activities
             var password = _passwordText.Text;
             ViewPresenter.Login(userName, password);
         }
+
         #endregion
     }
 }

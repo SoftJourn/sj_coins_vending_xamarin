@@ -16,24 +16,20 @@ namespace Softjourn.SJCoins.Core.UI.Presenters
 {
     public class QrPresenter : BasePresenter<IQrView>
     {
-        public int MyBalance
-        {
-			get { return DataManager.Profile.Amount; }
-        }
+        public int MyBalance => DataManager.Profile.Amount;
 
-        private QrManager QrManager;
+        private readonly QrManager QrManager;
 
-        #region Constructor
         public QrPresenter()
         {
             Scope = BaseBootstrapper.Container.BeginLifetimeScope();
             QrManager = Scope.Resolve<QrManager>();
         }
-        #endregion
 
-        #region Public Methods
-        //Calls Method of ZXing scanning to get code
-        //and if success call API method to proceed transaction
+        /// <summary>
+        /// Calls Method of ZXing scanning to get code
+        /// and if success call API method to proceed transaction
+        /// </summary>
         public async void ScanCode()
         {
             try
@@ -42,7 +38,7 @@ namespace Softjourn.SJCoins.Core.UI.Presenters
                 if (code != null)
                     UpdateBalance(await GetMoney(code));
             }
-            catch (JsonReaderExceptionCustom e)
+            catch (JsonReaderExceptionCustom)
             {
                 AlertService.ShowToastMessage(Resources.StringResources.error_not_valid_qr_code);
             }
@@ -52,20 +48,26 @@ namespace Softjourn.SJCoins.Core.UI.Presenters
             }
         }
 
-		// Using only on IOS platform
-		public async void ScanCodeIOS(Cash cashObject)
-		{
-		    try
-		    {
-		        UpdateBalance(await GetMoney(cashObject));
-		    }
-		    catch (CameraException e)
-		    {
-		        AlertService.ShowToastMessage(e.ToString());
-		    }
-		}
+        /// <summary>
+        /// Using only on IOS platform
+        /// </summary>
+        /// <param name="cashObject"></param>
+        public async void ScanCodeIOS(Cash cashObject)
+        {
+            try
+            {
+                UpdateBalance(await GetMoney(cashObject));
+            }
+            catch (CameraException e)
+            {
+                AlertService.ShowToastMessage(e.ToString());
+            }
+        }
 
-        //If amount is valid call API method for creating transaction
+        /// <summary>
+        /// If amount is valid call API method for creating transaction
+        /// </summary>
+        /// <param name="amount"></param>
         public async void GenerateCode(string amount)
         {
             if (ValidateAmount(amount))
@@ -82,30 +84,38 @@ namespace Softjourn.SJCoins.Core.UI.Presenters
             }
         }
 
-        //Return Current Balance from DataManager
+        /// <summary>
+        /// Return Current Balance from DataManager
+        /// </summary>
+        /// <returns></returns>
         public int GetBalance()
         {
             return MyBalance;
         }
 
-		public async Task CheckPermission()
-		{
-			await PermissionsUtils.CheckCameraPermissiomAsync();
-		}
+        public async Task CheckPermission()
+        {
+            await PermissionsUtils.CheckCameraPermissiomAsync();
+        }
 
-		//Return true if amount is not empty, is integer and not exceeds user's balance
-		public bool ValidateAmount(string amount)
-		{
-			if (string.IsNullOrEmpty(amount))
-			{
-				View.SetEditFieldError(Resources.StringResources.error_field_is_empty);
-				return false;
-			}
-			if (!Validators.IsAmountValid(amount))
-			{
-				View.SetEditFieldError(Resources.StringResources.error_field_contains_not_digits);
-				return false;
-			}
+        /// <summary>
+        /// Return true if amount is not empty, is integer and not exceeds user's balance
+        /// </summary>
+        /// <param name="amount"></param>
+        /// <returns></returns>
+        public bool ValidateAmount(string amount)
+        {
+            if (string.IsNullOrEmpty(amount))
+            {
+                View.SetEditFieldError(Resources.StringResources.error_field_is_empty);
+                return false;
+            }
+
+            if (!Validators.IsAmountValid(amount))
+            {
+                View.SetEditFieldError(Resources.StringResources.error_field_contains_not_digits);
+                return false;
+            }
 
             if (amount.Length > 10)
             {
@@ -120,29 +130,33 @@ namespace Softjourn.SJCoins.Core.UI.Presenters
             }
 
             if (Convert.ToInt64(amount) > MyBalance)
-		    {
-		        View.SetEditFieldError(Resources.StringResources.error_field_not_enough_money);
-		        return false;
-		    }
-            
+            {
+                View.SetEditFieldError(Resources.StringResources.error_field_not_enough_money);
+                return false;
+            }
+
             return true;
-		}
-		#endregion
+        }
 
-		#region Private Methods
-		private void UpdateBalance(DepositeTransaction result)
-		{
-		    if (result == null) return;
-		    //Updating Balance in DataManager
-		    DataManager.Profile.Amount = DataManager.Profile.Amount + result.Amount;
-		    View.HideProgress();
-		    AlertService.ShowToastMessage(Resources.StringResources.wallet_was_funded + result.Amount + " coins");
+        #region Private Methods
 
-		    //Updating balance on View
-		    View.UpdateBalance(DataManager.Profile.Amount.ToString());
-		}
+        private void UpdateBalance(DepositeTransaction result)
+        {
+            if (result == null) return;
+            //Updating Balance in DataManager
+            DataManager.Profile.Amount = DataManager.Profile.Amount + result.Amount;
+            View.HideProgress();
+            AlertService.ShowToastMessage(Resources.StringResources.wallet_was_funded + result.Amount + " coins");
 
-        //API call to get DepositeTransaction Object
+            //Updating balance on View
+            View.UpdateBalance(DataManager.Profile.Amount.ToString());
+        }
+
+        /// <summary>
+        /// API call to get DepositeTransaction Object
+        /// </summary>
+        /// <param name="scannedCode"></param>
+        /// <returns></returns>
         private async Task<DepositeTransaction> GetMoney(Cash scannedCode)
         {
             if (NetworkUtils.IsConnected)
@@ -150,9 +164,10 @@ namespace Softjourn.SJCoins.Core.UI.Presenters
                 try
                 {
                     View.ShowProgress(Resources.StringResources.progress_loading);
-                    return await RestApiServise.GetOfflineCash(scannedCode);
+
+                    return await RestApiService.GetOfflineCash(scannedCode);
                 }
-                catch (ApiNotAuthorizedException ex)
+                catch (ApiNotAuthorizedException)
                 {
                     View.HideProgress();
                     //AlertService.ShowToastMessage(ex.Message);
@@ -171,10 +186,15 @@ namespace Softjourn.SJCoins.Core.UI.Presenters
                 View.HideProgress();
                 AlertService.ShowToastMessage(Resources.StringResources.internet_turned_off);
             }
+
             return null;
         }
 
-        //Api call to get Cash Object fro generating QR code based on it
+        /// <summary>
+        /// Api call to get Cash Object fro generating QR code based on it
+        /// </summary>
+        /// <param name="amount"></param>
+        /// <returns></returns>
         private async Task<Cash> WithdrawMoney(string amount)
         {
             if (NetworkUtils.IsConnected)
@@ -186,7 +206,7 @@ namespace Softjourn.SJCoins.Core.UI.Presenters
                     //Creating Object Amount based on Input amount
                     var amountJson = new Amount { Balance = amount };
 
-                    var code = await RestApiServise.WithdrawMoney(amountJson);
+                    var code = await RestApiService.WithdrawMoney(amountJson);
 
                     View.HideProgress();
                     //Send string built from received CashObject to View
@@ -194,13 +214,13 @@ namespace Softjourn.SJCoins.Core.UI.Presenters
                     View.ShowImage(QrManager.ConvertCashObjectToString(code));
 
                     //Call Updated UserBalance From server and store it to the DataManager
-                    DataManager.Profile = await RestApiServise.GetUserAccountAsync();
+                    DataManager.Profile = await RestApiService.GetUserAccountAsync();
 
                     //Updates user's balance on View from DataManager.Profile
                     View.UpdateBalance(MyBalance.ToString());
 
                 }
-                catch (ApiNotAuthorizedException ex)
+                catch (ApiNotAuthorizedException)
                 {
                     View.HideProgress();
                     //AlertService.ShowToastMessage(ex.Message);
@@ -219,8 +239,10 @@ namespace Softjourn.SJCoins.Core.UI.Presenters
                 View.HideProgress();
                 AlertService.ShowToastMessage(Resources.StringResources.internet_turned_off);
             }
+
             return null;
         }
+
         #endregion
     }
 }

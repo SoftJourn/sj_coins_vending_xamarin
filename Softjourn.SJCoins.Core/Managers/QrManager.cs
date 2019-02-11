@@ -7,16 +7,19 @@ using Softjourn.SJCoins.Core.Utils;
 
 namespace Softjourn.SJCoins.Core.Managers
 {
-    public class QrManager
+    public sealed class QrManager
     {
-
-        //Starts scanning and converts scanned result to Cash Object
+        /// <summary>
+        /// Starts scanning and converts scanned result to Cash Object
+        /// </summary>
+        /// <returns></returns>
         public async Task<Cash> GetCodeFromQr()
         {
             var result = await ScanPhoto();
+
             try
             {
-                return Newtonsoft.Json.JsonConvert.DeserializeObject<Cash>(result.Text);
+                return JsonConvert.DeserializeObject<Cash>(result.Text);
             }
             catch (JsonReaderException e)
             {
@@ -26,35 +29,41 @@ namespace Softjourn.SJCoins.Core.Managers
             {
                 throw new JsonReaderExceptionCustom(e.Message);
             }
-            catch (NullReferenceException e)
+            catch (NullReferenceException)
             {
                 return null;
             }
         }
 
-        //Converts Cash Object to String
+        /// <summary>
+        /// Converts Cash Object to String
+        /// </summary>
+        /// <param name="amount"></param>
+        /// <returns></returns>
         public string ConvertCashObjectToString(Cash amount)
         {
-            return Newtonsoft.Json.JsonConvert.SerializeObject(amount);
+            return JsonConvert.SerializeObject(amount);
         }
 
-        //Scan QRCode using ZXing
-        private async Task<ZXing.Result> ScanPhoto()
+        /// <summary>
+        /// Scan QRCode using ZXing
+        /// </summary>
+        /// <returns></returns>
+        private static async Task<ZXing.Result> ScanPhoto()
         {
             await PermissionsUtils.CheckCameraPermissiomAsync();
-
-            ZXing.Result result;
 
             try
             {
                 var scanner = new ZXing.Mobile.MobileBarcodeScanner();
-                result = await scanner.Scan();
+                var result = await scanner.Scan();
+
                 return result;
             }
-            catch (ZXing.ReaderException e)
+            catch (ZXing.ReaderException)
             {
-             
             }
+
             return default(ZXing.Result);
         }
     }

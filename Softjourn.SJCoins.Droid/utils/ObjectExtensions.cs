@@ -16,6 +16,7 @@ namespace Softjourn.SJCoins.Droid.utils
             TObject returnVal;
             try { returnVal = (TObject)((JavaHolder)value).Instance; }
             finally { value.Dispose(); }
+
             return returnVal;
         }
 

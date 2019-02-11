@@ -6,48 +6,46 @@ using Softjourn.SJCoins.Core.UI.ViewInterfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Softjourn.SJCoins.Core.UI.Presenters
 {
     public class SelectMachinePresenter : BasePresenter<ISelectMachineView>
     {
-
-        public SelectMachinePresenter()
-        {
-        }
+        public SelectMachinePresenter() { }
 
         public bool IsMachineSet()
         {
-            return Settings.SelectedMachineId != "";
+            return Settings.SelectedMachineId != string.Empty;
         }
 
         public async void GetMachinesList()
         {
             View.ShowProgress(Resources.StringResources.progress_loading);
-           try
+
+            try
             {
-                List<Machines> machinesList = await RestApiServise.GetMachinesListAsync();
-                View.HideProgress();                
+                var machinesList = await RestApiService.GetMachinesListAsync();
+                View.HideProgress();
                 if (machinesList != null && machinesList.Count != 0)
                 {
                     if (machinesList.Count == 1)
                     {
-						Settings.OnlyOneVendingMachine = true;
-                        OnMachineSelected(machinesList.First<Machines>());
-                    } else {
-						Settings.OnlyOneVendingMachine = false;
-						Machines selectedMachine = GetSelectedMachine(machinesList);
+                        Settings.OnlyOneVendingMachine = true;
+                        OnMachineSelected(machinesList.First());
+                    }
+                    else
+                    {
+                        Settings.OnlyOneVendingMachine = false;
+                        var selectedMachine = GetSelectedMachine(machinesList);
                         View.ShowMachinesList(machinesList, selectedMachine);
-                    }                   
-                } else
+                    }
+                }
+                else
                 {
                     View.ShowNoMachineView(Resources.StringResources.error_msg_empty_machines_list);
                 }
-
             }
-            catch (ApiNotAuthorizedException ex)
+            catch (ApiNotAuthorizedException)
             {
                 View.HideProgress();
                 //AlertService.ShowToastMessage(ex.Message);
@@ -69,15 +67,16 @@ namespace Softjourn.SJCoins.Core.UI.Presenters
                 Settings.SelectedMachineId = machine.Id.ToString();
                 Settings.SelectedMachineName = machine.Name;
                 NavigationService.NavigateToAsRoot(NavigationPage.Home);
-            } else
+            }
+            else
             {
                 AlertService.ShowToastMessage(Resources.StringResources.error_msg_invalid_selected_machine);
             }
         }
 
-        private Machines GetSelectedMachine(List<Machines> machinesList)
+        private Machines GetSelectedMachine(IEnumerable<Machines> machinesList)
         {
-            string storedMachineId = Settings.SelectedMachineId;
+            var storedMachineId = Settings.SelectedMachineId;
             foreach (var machine in machinesList)
             {
                 if (machine.Id.ToString().Equals(storedMachineId))
@@ -85,6 +84,7 @@ namespace Softjourn.SJCoins.Core.UI.Presenters
                     return machine;
                 }
             }
+
             return null;
         }
     }

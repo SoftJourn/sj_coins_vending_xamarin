@@ -1,8 +1,4 @@
-﻿
-using System;
-using Softjourn.SJCoins.Core.Helpers;
-using Softjourn.SJCoins.Core.UI.Presenters;
-using Softjourn.SJCoins.Core.UI.Presenters.IPresenters;
+﻿using Softjourn.SJCoins.Core.Helpers;
 using Softjourn.SJCoins.Core.UI.Services.Navigation;
 using Softjourn.SJCoins.Core.UI.ViewInterfaces;
 using Softjourn.SJCoins.Core.Utils;
@@ -11,11 +7,7 @@ namespace Softjourn.SJCoins.Core.UI.Presenters
 {
     public class LaunchPresenter : BasePresenter<ILaunchView>, INetworkConnection
     {
-
-        public LaunchPresenter()
-        {
-
-        }
+        public LaunchPresenter() { }
 
         public void ChooseStartPage()
         {
@@ -36,7 +28,8 @@ namespace Softjourn.SJCoins.Core.UI.Presenters
                         if (string.IsNullOrEmpty(Settings.SelectedMachineId))
                         {
                             NavigationService.NavigateToAsRoot(NavigationPage.SelectMachineFirstTime);
-                        } else
+                        }
+                        else
                         {
                             NavigationService.NavigateToAsRoot(NavigationPage.Home);
                         }

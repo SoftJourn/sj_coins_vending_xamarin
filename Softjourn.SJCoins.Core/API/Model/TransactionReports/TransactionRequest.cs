@@ -1,10 +1,9 @@
-﻿
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using Newtonsoft.Json;
 
 namespace Softjourn.SJCoins.Core.API.Model.TransactionReports
 {
-    public class TransactionRequest
+    public sealed class TransactionRequest
     {
         [JsonProperty("size")]
         public int Size { get; set; }

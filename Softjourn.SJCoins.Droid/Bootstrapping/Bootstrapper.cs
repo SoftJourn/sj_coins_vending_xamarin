@@ -10,7 +10,6 @@ namespace Softjourn.SJCoins.Droid.Bootstrapping
     {
         protected override void RegisterPlatformDependencies(ContainerBuilder builder)
         {
-            
         }
 
         protected override void RegisterUIDependencies(ContainerBuilder builder)

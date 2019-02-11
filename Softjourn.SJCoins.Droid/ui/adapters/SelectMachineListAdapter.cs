@@ -6,23 +6,23 @@ using Android.Views;
 using Android.Widget;
 using Softjourn.SJCoins.Core.API.Model.Machines;
 
-
 namespace Softjourn.SJCoins.Droid.ui.adapters
 {
     public class SelectMachineListAdapter : BaseAdapter<Machines>
     {
         private List<Machines> _items;
+        private readonly Context _context;
+        private string _selectedMachine = string.Empty;
 
-        private Context _context;
+        public override Machines this[int position] => _items[position];
 
-        private string _selectedMachine = "";
+        public override int Count => _items.Count;
 
-        public SelectMachineListAdapter(Context context, List<Machines> list) : base()
+        public SelectMachineListAdapter(Context context, List<Machines> list)
         {
             _items = list;
             _context = context;
         }
-
 
         public Machines GetMachine(int position)
         {
@@ -33,13 +33,9 @@ namespace Softjourn.SJCoins.Droid.ui.adapters
         {
             return position;
         }
-        public override Machines this[int position] => _items[position];
-        public override int Count => _items.Count;
-
 
         public override View GetView(int position, View convertView, ViewGroup parent)
         {
-
             var view = convertView;
             if (view == null)
             {
@@ -50,12 +46,13 @@ namespace Softjourn.SJCoins.Droid.ui.adapters
 
             var machineName = view.FindViewById<TextView>(Resource.Id.text1);
             machineName.Text = machines.Name;
-        
-        //Set Color to selected machine name to highlight it
-        machineName.SetTextColor(machines.Name == _selectedMachine
-            ? new Color(ContextCompat.GetColor(_context, Resource.Color.colorBlue))
-            : new Color(ContextCompat.GetColor(_context, Resource.Color.menuBackground)));
-        return view;
+
+            //Set Color to selected machine name to highlight it
+            machineName.SetTextColor(machines.Name == _selectedMachine
+                ? new Color(ContextCompat.GetColor(_context, Resource.Color.colorBlue))
+                : new Color(ContextCompat.GetColor(_context, Resource.Color.menuBackground)));
+
+            return view;
         }
 
         //Setting Machines List and redrawing listView
@@ -73,6 +70,5 @@ namespace Softjourn.SJCoins.Droid.ui.adapters
                 _selectedMachine = machine.Name;
             }
         }
-
     }
 }

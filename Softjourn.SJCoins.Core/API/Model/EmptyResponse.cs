@@ -1,12 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Softjourn.SJCoins.Core.API.Model
+﻿namespace Softjourn.SJCoins.Core.API.Model
 {
-    public class EmptyResponse
+    public sealed class EmptyResponse
     {
     }
 }

@@ -28,7 +28,7 @@ namespace Softjourn.SJCoins.Droid.UI.Activities
             var fragmentType = Intent.GetStringExtra(Const.NavigationKey);
 
             _balance = FindViewById<TextView>(Resource.Id.qr_balance);
-            
+
             //Initializing of ZXing Scanner
             MobileBarcodeScanner.Initialize(Application);
 
@@ -62,9 +62,11 @@ namespace Softjourn.SJCoins.Droid.UI.Activities
         {
             Finish();
         }
+
         #endregion
 
         #region IQrView Implementation
+
         //Updates user balance
         public void UpdateBalance(string amount)
         {
@@ -85,9 +87,11 @@ namespace Softjourn.SJCoins.Droid.UI.Activities
             var fragment = FragmentManager.FindFragmentById(Resource.Id.container_fragment) as GenerateCodeFragment;
             fragment?.ShowImageCode(cashJsonString);
         }
+
         #endregion
 
         #region Public Methods
+
         //Call Scanning on Presenters side
         public void ScanCode()
         {
@@ -105,9 +109,11 @@ namespace Softjourn.SJCoins.Droid.UI.Activities
         {
             PermissionsImplementation.Current.OnRequestPermissionsResult(requestCode, permissions, grantResults);
         }
+
         #endregion
 
         #region Private Methods
+
         //Attaches needed fragment
         private void AttachFragment(string fragmentTag, Fragment fragment)
         {
@@ -122,6 +128,7 @@ namespace Softjourn.SJCoins.Droid.UI.Activities
             _balance.Visibility = ViewStates.Visible;
             _balance.Text = ViewPresenter.GetBalance() + CoinsLabel;
         }
+
         #endregion
     }
 }

@@ -22,6 +22,7 @@ namespace Softjourn.SJCoins.Droid.Utils
             {
                 inSampleSize *= 2;
             }
+
             return inSampleSize;
         }
 
@@ -48,6 +49,7 @@ namespace Softjourn.SJCoins.Droid.Utils
             var matrix = new Matrix();
             matrix.PostRotate(degree);
             var rotatedImg = Bitmap.CreateBitmap(img, 0, 0, img.Width, img.Height, matrix, true);
+
             return rotatedImg;
         }
     }

@@ -2,7 +2,7 @@
 
 namespace Softjourn.SJCoins.Core.API.Model
 {
-    public class BadResponse
+    public sealed class BadResponse
     {
         [JsonProperty("title")]
         public string Title { get; set; }

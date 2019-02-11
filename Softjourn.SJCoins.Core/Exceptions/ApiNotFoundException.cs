@@ -1,8 +1,7 @@
-﻿
-namespace Softjourn.SJCoins.Core.Exceptions
+﻿namespace Softjourn.SJCoins.Core.Exceptions
 {
-    public class ApiNotFoundException : ApiException
-    {        
+    public sealed class ApiNotFoundException : ApiException
+    {
         public ApiNotFoundException(string message)
                 : base(message)
         {

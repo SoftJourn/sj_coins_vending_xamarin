@@ -1,6 +1,4 @@
-
 using System.Collections.Generic;
-
 using Android.App;
 using Android.Content.PM;
 using Android.OS;
@@ -18,7 +16,6 @@ namespace Softjourn.SJCoins.Droid.UI.Activities
     [Activity(Label = "Select Machine", Theme = "@style/AppTheme", ScreenOrientation = ScreenOrientation.Portrait)]
     public class SelectMachineActivity : BaseActivity<SelectMachinePresenter>, ISelectMachineView
     {
-
         private SwipeRefreshLayout _swipeLayout;
         private TextView _noMachinesTextView;
         private ListView _machineListView;

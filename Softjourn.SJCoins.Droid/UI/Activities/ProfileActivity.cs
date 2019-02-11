@@ -6,7 +6,6 @@ using Android.Graphics;
 using Android.OS;
 using Android.Views;
 using Android.Widget;
-using Java.IO;
 using Plugin.Permissions;
 using Softjourn.SJCoins.Core.API.Model.AccountInfo;
 using Softjourn.SJCoins.Core.UI.Presenters;
@@ -19,7 +18,6 @@ namespace Softjourn.SJCoins.Droid.UI.Activities
 {
     [Activity(Label = "Profile", Theme = "@style/AppTheme", ScreenOrientation = ScreenOrientation.Portrait)]
     public class ProfileActivity : BaseActivity<AccountPresenter>, IAccountView
-
     {
         private TextView _username;
         private TextView _balance;
@@ -88,7 +86,6 @@ namespace Softjourn.SJCoins.Droid.UI.Activities
 
         public void ImageAcquiredPlugin(byte[] receipt)
         {
-
         }
 
         public void ImageAcquired(string data)
@@ -102,12 +99,12 @@ namespace Softjourn.SJCoins.Droid.UI.Activities
         }
 
         #region Private Methods
+
         private void SetAvatarImage(string data)
         {
             const int imageSize = 360;
             _bmp?.Recycle();
-            var options = new BitmapFactory.Options();
-            options.InJustDecodeBounds = true;
+            var options = new BitmapFactory.Options {InJustDecodeBounds = true};
             _bmp = BitmapFactory.DecodeFile(data, options);
             options.InSampleSize = BitmapUtils.CalculateInSampleSize(options, imageSize, imageSize);
             options.InJustDecodeBounds = false;
@@ -166,11 +163,12 @@ namespace Softjourn.SJCoins.Droid.UI.Activities
             }
 
             var lParams = listView.LayoutParameters;
-            lParams.Height = totalHeight + ((listView.DividerHeight) * (listAdapter.Count));
+            lParams.Height = totalHeight + listView.DividerHeight * listAdapter.Count;
 
             listView.LayoutParameters = lParams;
             listView.RequestLayout();
         }
+
         #endregion
     }
 }

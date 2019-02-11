@@ -1,5 +1,4 @@
-﻿using System;
-using Softjourn.SJCoins.Core.API.Model.Products;
+﻿using Softjourn.SJCoins.Core.API.Model.Products;
 using Softjourn.SJCoins.Core.UI.ViewInterfaces;
 
 namespace Softjourn.SJCoins.Core.UI.Interfaces

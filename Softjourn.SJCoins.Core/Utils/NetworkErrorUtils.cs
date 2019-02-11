@@ -1,16 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Softjourn.SJCoins.Core.Utils
+﻿namespace Softjourn.SJCoins.Core.Utils
 {
     public class NetworkErrorUtils
     {
         public static string GetErrorMessage(int code)
         {
-            switch (code) {
+            switch (code)
+            {
                 case 400:
                     return Resources.StringResources.server_error_400;
                 case 401:

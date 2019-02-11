@@ -1,10 +1,9 @@
 using System.Collections.Generic;
-
 using Newtonsoft.Json;
 
 namespace Softjourn.SJCoins.Core.API.Model.Products
 {
-    public class Featured
+    public sealed class Featured
     {
         [JsonProperty("lastAdded")]
         public List<int> LastAdded { get; set;}

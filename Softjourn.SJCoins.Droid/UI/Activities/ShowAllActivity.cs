@@ -1,15 +1,12 @@
-
 using System;
 using System.Collections.Generic;
 using Android.App;
-using Android.Content;
 using Android.Content.PM;
 using Android.Graphics;
 using Android.OS;
 using Android.Runtime;
 using Android.Support.Design.Widget;
 using Android.Support.V4.Content;
-using Android.Support.V4.View;
 using Android.Support.V7.Widget;
 using Android.Text;
 using Android.Views;
@@ -43,12 +40,13 @@ namespace Softjourn.SJCoins.Droid.UI.Activities
         private const string ProductsCategory = Const.NavigationKey;
         private const string RecyclerType = "SEE_ALL_SNACKS_DRINKS";
 
-        private static RecyclerView.LayoutManager _layoutManager;
+        private static RecyclerView.LayoutManager layoutManager;
         private List<Product> _productList;
 
-        RecyclerView _machineItems;
+        private RecyclerView _machineItems;
 
         #region Activity Standard Methods
+
         protected override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
@@ -71,18 +69,17 @@ namespace Softjourn.SJCoins.Droid.UI.Activities
             _machineItems = FindViewById<RecyclerView>(Resource.Id.list_items_recycler_view);
             _textViewNoProductsInCategory = FindViewById<TextView>(Resource.Id.textViewNoProductsInCategory);
 
-            _layoutManager = new LinearLayoutManager(this, LinearLayoutManager.Vertical, false);
+            layoutManager = new LinearLayoutManager(this, LinearLayoutManager.Vertical, false);
             _adapter = new FeaturedProductItemsAdapter(_category, RecyclerType, this);
 
             DetachEvents();
             AttachEvents();
 
-            _machineItems.SetLayoutManager(_layoutManager);
+            _machineItems.SetLayoutManager(layoutManager);
 
             _machineItems.SetAdapter(_adapter);
 
             _adapter.SetData(_productList);
-
         }
 
         protected override void OnResume()
@@ -119,6 +116,7 @@ namespace Softjourn.SJCoins.Droid.UI.Activities
             menu.FindItem(Resource.Id.menu_buy).SetVisible(false);
 
             #region SearchView
+
             var manager = (SearchManager)GetSystemService(SearchService);
 
             var search = menu.FindItem(Resource.Id.action_search).ActionView;
@@ -145,7 +143,9 @@ namespace Softjourn.SJCoins.Droid.UI.Activities
             {
                 _sortNameButton.Visibility = ViewStates.Gone;
                 _sortPriceButton.Visibility = ViewStates.Gone;
-                _adapter.Filter.InvokeFilter(TextUtils.IsEmpty(e.NewText) ? "" : e.NewText.ToLower());
+                _adapter.Filter.InvokeFilter(TextUtils.IsEmpty(e.NewText) 
+                    ? string.Empty 
+                    : e.NewText.ToLower());
             };
 
             searchView.Close += (s, e) =>
@@ -153,7 +153,9 @@ namespace Softjourn.SJCoins.Droid.UI.Activities
             {
                 CloseSearchView();
             };
+
             #endregion
+
             return true;
         }
 
@@ -169,11 +171,14 @@ namespace Softjourn.SJCoins.Droid.UI.Activities
                     _sortPriceButton.Visibility = ViewStates.Gone;
                     break;
             }
+
             return base.OnOptionsItemSelected(item);
         }
+
         #endregion
 
         #region Private Methods
+
         /**
          * Calls when Sort By Price button clicked
          * Sets colors of button to highlight chosen 
@@ -244,20 +249,20 @@ namespace Softjourn.SJCoins.Droid.UI.Activities
         #endregion
 
         #region IShowAllView Implementation
+
         /**
          * Is called by Presenter when added or removed favorite
          * to make adapter redraw recyclerview
          */
-
         public void FavoriteChanged(Product product)
         {
             var fragment = SupportFragmentManager.FindFragmentByTag(Const.BottomSheetFragmentTag) as ProductDetailsFragment;
             if (!_category.Equals(Const.Favorites))
             {
-                _adapter.ChangeFavoriteIcon();                
+                _adapter.ChangeFavoriteIcon();
             }
             else
-            {                
+            {
                 //if fragment exists
                 if (fragment == null) return;
                 _adapter.RemoveFavoriteItem(product.Id);
@@ -325,9 +330,11 @@ namespace Softjourn.SJCoins.Droid.UI.Activities
             ProgressDialog.SetCancelable(false);
             ProgressDialog.Show();
         }
+
         #endregion
 
         #region Public Methods
+
         /**
          * Calls Purchase functionality on Presenters side
          */
@@ -354,7 +361,6 @@ namespace Softjourn.SJCoins.Droid.UI.Activities
         {
             ViewPresenter.OnFavoriteClick(product);
         }
-
 
         public override void AttachEvents()
         {

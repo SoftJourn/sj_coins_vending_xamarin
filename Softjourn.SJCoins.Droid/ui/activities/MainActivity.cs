@@ -1,4 +1,3 @@
-
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -22,9 +21,8 @@ namespace Softjourn.SJCoins.Droid.UI.Activities
     [Activity(Theme = "@style/AppTheme", ScreenOrientation = ScreenOrientation.Portrait)]
     public class MainActivity : BaseActivity<HomePresenter>, IHomeView
     {
-
         private SwipeRefreshLayout _swipeLayout;
-        private int _viewCounter = 0;
+        private int _viewCounter;
         private TextView _balance;
         private TextView _favoritesShowAll;
 
@@ -36,6 +34,7 @@ namespace Softjourn.SJCoins.Droid.UI.Activities
         private Dictionary<int, int> _containerIds;
 
         #region Activity Standart Methods
+
         protected override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
@@ -89,8 +88,9 @@ namespace Softjourn.SJCoins.Droid.UI.Activities
             ViewPresenter.UpdateBalanceView();
 
             if (HaveProducts)
-            FavoriteChanged(true);
+                FavoriteChanged(true);
         }
+
         #endregion
 
         #region Methods from IHomeView Interface
@@ -122,10 +122,7 @@ namespace Softjourn.SJCoins.Droid.UI.Activities
             var bottomFragment = SupportFragmentManager.FindFragmentByTag(Const.BottomSheetFragmentTag) as ProductDetailsFragment;
 
             //if fragment exists
-            if (bottomFragment != null)
-            {
-                bottomFragment.Dismiss();
-            }
+            bottomFragment?.Dismiss();
         }
 
         /**
@@ -172,9 +169,11 @@ namespace Softjourn.SJCoins.Droid.UI.Activities
                 }
             }
         }
+
         #endregion
 
         #region Public Methods
+
         public void OnRefresh(object sender, EventArgs e)
         {
             HideContainer(Resource.Id.favoriteIdLayout, Resource.Id.favorites_container_ID);
@@ -220,7 +219,6 @@ namespace Softjourn.SJCoins.Droid.UI.Activities
             ViewPresenter.OnFavoriteClick(product);
         }
 
-
         public void ShowToastMessage(string message)
         {
             ShowToast(message);
@@ -229,6 +227,7 @@ namespace Softjourn.SJCoins.Droid.UI.Activities
         #endregion
 
         #region Private Methods
+
         /**
          * Creates Container and Header for category from dummy layout
          * sets all needed Ids in category (ShowAllId, ContainerId etc.)
@@ -349,33 +348,31 @@ namespace Softjourn.SJCoins.Droid.UI.Activities
 
             // Taking containerId and HeaderId of favorite from Dicitionary
             var favoritesContainerId = _containerIds.ElementAt(0).Key;
-            var favoriteHeaderID = _containerIds.ElementAt(0).Value;
+            var favoriteHeaderId = _containerIds.ElementAt(0).Value;
 
             //Try to find fragment corresponding with containerID
-            var fragment = FragmentManager.FindFragmentById(favoritesContainerId) as ProductListFragmentVending;
 
             //if fragment exists
-            if (fragment != null)
+            if (FragmentManager.FindFragmentById(favoritesContainerId) is ProductListFragmentVending fragment)
             {
                 //if Count of favorites is 0 then hide container
                 if (refreshedFavorites.Count == 0)
                 {
-                    HideContainer(favoritesContainerId, favoriteHeaderID);
+                    HideContainer(favoritesContainerId, favoriteHeaderId);
                 }
                 //if count of favorite > 0 then show container and trig method ChangeFavorite in corresponding fragment
-                else ShowContainer(favoritesContainerId, favoriteHeaderID);
+                else ShowContainer(favoritesContainerId, favoriteHeaderId);
                 fragment.ChangeFavorite(refreshedFavorites);
             }
             // if there is no fragment for such container then
             //show container and attach fragment to it.
-            else 
+            else
             {
                 if (refreshedFavorites.Count <= 0) return;
                 ShowContainer(favoritesContainerId, _containerIds.ElementAt(0).Value);
                 AttachFragment(Const.Favorites, _containerIds.ElementAt(0).Value, favoritesContainerId,
                     refreshedFavorites);
             }
-            
         }
 
         private void FavoriteChanged(bool isFavorite)
@@ -384,10 +381,7 @@ namespace Softjourn.SJCoins.Droid.UI.Activities
             var bottomFragment = SupportFragmentManager.FindFragmentByTag(Const.BottomSheetFragmentTag) as ProductDetailsFragment;
 
             //if fragment exists
-            if (bottomFragment != null)
-            {
-                bottomFragment.ChangeFavoriteIcon(isFavorite);
-            }
+            bottomFragment?.ChangeFavoriteIcon(isFavorite);
         }
 
         public void ServiceNotAvailable()
@@ -397,8 +391,8 @@ namespace Softjourn.SJCoins.Droid.UI.Activities
 
         public void ImageAcquired(byte[] receipt)
         {
-            
         }
+
         #endregion
     }
 }

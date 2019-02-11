@@ -1,7 +1,5 @@
-
 using System.Collections.Generic;
 using System.Linq;
-
 using Android.Support.V7.Widget;
 using Android.Views;
 using Android.Widget;
@@ -10,7 +8,7 @@ using Thread = System.Threading.Thread;
 
 namespace Softjourn.SJCoins.Droid.UI.Adapters
 {
-    class NutritionFactsAdapter : RecyclerView.Adapter
+    internal class NutritionFactsAdapter : RecyclerView.Adapter
     {
         private Dictionary<string,string> _nutritionFacts = new Dictionary<string, string>();
 
@@ -22,9 +20,8 @@ namespace Softjourn.SJCoins.Droid.UI.Adapters
 
         public override void OnBindViewHolder(RecyclerView.ViewHolder viewHolder, int position)
         {
-            var holder = viewHolder as NutritionViewHolder;
+            if (!(viewHolder is NutritionViewHolder holder)) return;
 
-            if (holder == null) return;
             holder._name.Text = Thread.CurrentThread.CurrentCulture.TextInfo.ToTitleCase( _nutritionFacts.Keys.ElementAt(position));
             holder._value.Text = _nutritionFacts.Values.ElementAt(position);
         }
@@ -33,6 +30,7 @@ namespace Softjourn.SJCoins.Droid.UI.Adapters
         {
             var v = LayoutInflater.From(parent.Context)
                 .Inflate(Resource.Layout.recycler_nutrition_fact, parent, false);
+
             return new NutritionViewHolder(v);
         }
 

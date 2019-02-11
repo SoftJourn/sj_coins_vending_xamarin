@@ -20,11 +20,12 @@ namespace Softjourn.SJCoins.Droid.UI.Adapters
 {
     public class FeaturedProductItemsAdapter : RecyclerView.Adapter, IFilterable
     {
-        private string _recyclerViewType;
-        private string _category;
+        private readonly string _recyclerViewType;
+        private readonly string _category;
         private readonly string _coins;
         private List<int> _animatedPosition;
         private Dictionary<int, AnimatorSet> _runningAnimations;
+        private readonly Context _context;
 
         public event EventHandler<Product> AddToFavorites;
         public event EventHandler<Product> RemoveFromFavorites;
@@ -34,11 +35,11 @@ namespace Softjourn.SJCoins.Droid.UI.Adapters
         public EventHandler<Product> ProductDetailsSelected;
         public List<Product> ListProducts = new List<Product>();
         public List<Product> Original = new List<Product>();
-        private Context _context;
+
+        public override int ItemCount => ListProducts?.Count ?? 0;
 
         public FeaturedProductItemsAdapter(string featureCategory, string recyclerViewType, Context context)
         {
-
             _context = context;
             Filter = new SearchFilter(this);
 
@@ -49,6 +50,7 @@ namespace Softjourn.SJCoins.Droid.UI.Adapters
         }
 
         #region Standart Adapters Methods
+
         public override RecyclerView.ViewHolder OnCreateViewHolder(ViewGroup parent, int viewType)
         {
             View v;
@@ -68,6 +70,7 @@ namespace Softjourn.SJCoins.Droid.UI.Adapters
                         .Inflate(Resource.Layout.recycler_machine_view_item, parent, false);
                     break;
             }
+
             return new FeatureViewHolder(v);
         }
 
@@ -152,11 +155,9 @@ namespace Softjourn.SJCoins.Droid.UI.Adapters
             {
                 Picasso.With(_context).Load(Core.Utils.Const.BaseUrl + Core.Utils.Const.UrlVendingService + ListProducts[holder.AdapterPosition].ImageUrl).NetworkPolicy(NetworkPolicy.NoCache).Into(holder.ProductImage);
                 if (_category == Const.Favorites)
-                holder.ProductImage.Alpha = !product.IsProductInCurrentMachine ? 0.3f : 1.0f;
+                    holder.ProductImage.Alpha = !product.IsProductInCurrentMachine ? 0.3f : 1.0f;
             }
         }
-
-        public override int ItemCount => ListProducts?.Count ?? 0;
 
         #endregion
 
@@ -208,6 +209,7 @@ namespace Softjourn.SJCoins.Droid.UI.Adapters
         #endregion
 
         #region Private Event Methods
+
         /**
          * Long Click on Item to show Preview Fragment
          */
@@ -312,7 +314,7 @@ namespace Softjourn.SJCoins.Droid.UI.Adapters
 
         private void FinishAnimation(FeatureViewHolder holder)
         {
-            if (_runningAnimations != null &&_runningAnimations.ContainsKey(holder.AdapterPosition))
+            if (_runningAnimations != null && _runningAnimations.ContainsKey(holder.AdapterPosition))
             {
                 _runningAnimations[holder.AdapterPosition].End();
                 _runningAnimations.Remove(holder.AdapterPosition);
@@ -340,12 +342,12 @@ namespace Softjourn.SJCoins.Droid.UI.Adapters
 
         #endregion
 
-        #region Filter for SearchView
-
-        public Filter Filter { get; set; }       
+        public Filter Filter { get; set; }
     }
 
-    class SearchFilter : Filter
+    #region Filter for SearchView
+
+    internal class SearchFilter : Filter
     {
         private readonly FeaturedProductItemsAdapter _adapter;
 
@@ -368,6 +370,7 @@ namespace Softjourn.SJCoins.Droid.UI.Adapters
                 oReturn.Count = results.Count;
             }
             constraint.Dispose();
+
             return oReturn;
         }
 
@@ -381,5 +384,6 @@ namespace Softjourn.SJCoins.Droid.UI.Adapters
             _adapter.NotifyDataSetChanged();
         }
     }
+
     #endregion
 }

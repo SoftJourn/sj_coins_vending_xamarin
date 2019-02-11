@@ -1,13 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 using Newtonsoft.Json;
 
 namespace Softjourn.SJCoins.Core.API.Model.Products
 {
-    public class Categories
+    public sealed class Categories
     {
         [JsonProperty("name")]
         public string Name { get; set; }

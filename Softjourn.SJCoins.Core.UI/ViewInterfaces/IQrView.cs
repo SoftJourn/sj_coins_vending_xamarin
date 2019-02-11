@@ -1,5 +1,4 @@
-﻿
-namespace Softjourn.SJCoins.Core.UI.ViewInterfaces
+﻿namespace Softjourn.SJCoins.Core.UI.ViewInterfaces
 {
     public interface IQrView : IBaseView
     {

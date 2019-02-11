@@ -1,12 +1,10 @@
 using System;
-
 using Android.App;
 using Android.OS;
 using Android.Runtime;
 using Softjourn.SJCoins.Droid.Bootstrapping;
 using Plugin.CurrentActivity;
 using Softjourn.SJCoins.Droid.Utils;
-using System.Net;
 
 namespace Softjourn.SJCoins.Droid
 {

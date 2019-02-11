@@ -22,6 +22,7 @@ namespace Softjourn.SJCoins.Droid.UI.Activities
         private PurchaseHistoryAdapter _adapter;
 
         #region Activity standart methods
+
         protected override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
@@ -41,7 +42,6 @@ namespace Softjourn.SJCoins.Droid.UI.Activities
             _purchaseRecyclerView.SetAdapter(_adapter);
 
             ViewPresenter.OnStartLoadingPage();
-
         }
 
         public override bool OnCreateOptionsMenu(IMenu menu)
@@ -56,9 +56,11 @@ namespace Softjourn.SJCoins.Droid.UI.Activities
 
             return base.OnOptionsItemSelected(item);
         }
+
         #endregion
 
         #region IPurchaseView implementation
+
         public override void ShowProgress(string message)
         {
             //Do not showing progress as there is TextView "Loading on layout"
@@ -78,6 +80,7 @@ namespace Softjourn.SJCoins.Droid.UI.Activities
             _loadingTextView.Visibility = ViewStates.Gone;
             _noPurchasesTextView.Visibility = ViewStates.Visible;
         }
+
         #endregion
     }
 }

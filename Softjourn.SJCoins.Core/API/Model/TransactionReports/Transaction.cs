@@ -1,13 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 
 namespace Softjourn.SJCoins.Core.API.Model.TransactionReports
 {
-    public class Transaction
+    public sealed class Transaction
     {
         [JsonProperty ("id")]
         public int Id { get; set; }
@@ -33,7 +28,7 @@ namespace Softjourn.SJCoins.Core.API.Model.TransactionReports
         [JsonProperty("error")]
         public object Error { get; set; }
 
-        public int IntAmount { get { return Amount != null ? int.Parse(Amount.ToString()) : 0; } }
+        public int IntAmount => Amount != null ? int.Parse(Amount.ToString()) : 0;
 
         public string PrettyTime { get; set; }
     }

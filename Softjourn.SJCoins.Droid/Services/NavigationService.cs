@@ -8,11 +8,11 @@ namespace Softjourn.SJCoins.Droid.Services
 {
     public class NavigationService : INavigationService
     {
-        public void NavigateTo(NavigationPage page, Object obj=null)
+        public void NavigateTo(NavigationPage page, object obj = null)
         {
             try
             {
-                CrossCurrentActivity.Current.Activity.StartActivity(GetWithParams(page,obj));
+                CrossCurrentActivity.Current.Activity.StartActivity(GetWithParams(page, obj));
             }
             catch { }
         }
@@ -26,7 +26,7 @@ namespace Softjourn.SJCoins.Droid.Services
         /**
          * Method for getting data from Intent if exists
          */
-        private Intent GetWithParams(NavigationPage navigationParams, Object obj = null)
+        private static Intent GetWithParams(NavigationPage navigationParams, object obj = null)
         {
             var view = GetView(navigationParams);
 
@@ -40,10 +40,11 @@ namespace Softjourn.SJCoins.Droid.Services
             catch
             {
             }
+
             return view;
         }
 
-        private Intent GetView(NavigationPage page)
+        private static Intent GetView(NavigationPage page)
         {
             Intent view = null;
             switch (page)
@@ -93,6 +94,7 @@ namespace Softjourn.SJCoins.Droid.Services
                 default:
                     throw new ArgumentException("Not valid page");
             }
+
             return view;
         }
     }

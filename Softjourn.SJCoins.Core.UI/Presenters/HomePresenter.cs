@@ -24,25 +24,22 @@ namespace Softjourn.SJCoins.Core.UI.Presenters
                 try
                 {
                     View.ShowProgress(Resources.StringResources.progress_loading);
-                    DataManager.Profile = await RestApiServise.GetUserAccountAsync();
+                    DataManager.Profile = await RestApiService.GetUserAccountAsync();
                     MyBalance = DataManager.Profile.Amount;
                     GetAvatarImage(DataManager.Profile.Image);
                     View.SetAccountInfo(DataManager.Profile);
                     View.SetMachineName(Settings.SelectedMachineName);
-                    var favoritesList = await RestApiServise.GetFavoritesList();
+                    var favoritesList = await RestApiService.GetFavoritesList();
                     var productCategoriesList = new List<Categories>();
 
                     // add favorites category to result list if favorites exists
                     if (favoritesList != null && favoritesList.Count > 0)
                     {
-                        var favoriteCategory = new Categories();
-                        favoriteCategory.Name = "Favorites";
-                        favoriteCategory.Products = favoritesList;
+                        var favoriteCategory = new Categories { Name = "Favorites", Products = favoritesList };
                         productCategoriesList.Add(favoriteCategory);
                     }
 
-                    var featuredProducts = await RestApiServise.GetFeaturedProductsAsync();
-
+                    var featuredProducts = await RestApiService.GetFeaturedProductsAsync();
                     var featuredCategoriesList = GetCategoriesListFromFeaturedProduct(featuredProducts);
 
                     if (featuredCategoriesList != null && featuredCategoriesList.Count > 0)
@@ -61,7 +58,7 @@ namespace Softjourn.SJCoins.Core.UI.Presenters
                     View.ShowProducts(DataManager.ProductList);
                     View.HideProgress();
                 }
-                catch (ApiNotAuthorizedException ex)
+                catch (ApiNotAuthorizedException)
                 {
                     View.HideProgress();
                     //AlertService.ShowToastMessage(ex.Message);
@@ -96,19 +93,27 @@ namespace Softjourn.SJCoins.Core.UI.Presenters
             }
         }
 
-        //Setting user's balance after buying ar grabbing new data
+        /// <summary>
+        /// Setting user's balance after buying ar grabbing new data
+        /// </summary>
+        /// <param name="balance"></param>
         public override void ChangeUserBalance(string balance)
         {
             View.SetUserBalance(balance);
         }
 
-        //Is called when user click on Show All button for displaying another view only with product from category
+        /// <summary>
+        /// Is called when user click on Show All button for displaying another view only with product from category
+        /// </summary>
+        /// <param name="category"></param>
         public void OnShowAllClick(string category)
         {
             NavigationService.NavigateTo(NavigationPage.ShowAll, category);
         }
 
-        //Is called when user click on Profile button (is using only for droid)
+        /// <summary>
+        /// Is called when user click on Profile button (is using only for droid)
+        /// </summary>
         public void OnProfileButtonClicked()
         {
             if (DataManager.Profile != null && NetworkUtils.IsConnected)
@@ -119,14 +124,19 @@ namespace Softjourn.SJCoins.Core.UI.Presenters
 
         public void GetImageFromServer()
         {
-            if (DataManager.Profile != null) {
+            if (DataManager.Profile != null)
+            {
                 GetAvatarImage(DataManager.Profile.Image);
                 View.SetAccountInfo(DataManager.Profile);
             }
         }
 
-        //Adding Favorite flag to product before returning to View
-        private List<Categories> AddFavoriteFlagToProducts(List<Categories> categoriesList)
+        /// <summary>
+        /// Adding Favorite flag to product before returning to View
+        /// </summary>
+        /// <param name="categoriesList"></param>
+        /// <returns></returns>
+        private static List<Categories> AddFavoriteFlagToProducts(List<Categories> categoriesList)
         {
             var favorites = new List<Product>();
             foreach (var category in categoriesList)
@@ -161,8 +171,12 @@ namespace Softjourn.SJCoins.Core.UI.Presenters
             return categoriesList;
         }
 
-        //Adding Flag IsProductInCurrentMachine to product
-        private List<Categories> AddIsProductInCurrentMachineFlagToProducts(List<Categories> categoriesList)
+        /// <summary>
+        /// Adding Flag IsProductInCurrentMachine to product
+        /// </summary>
+        /// <param name="categoriesList"></param>
+        /// <returns></returns>
+        private static List<Categories> AddIsProductInCurrentMachineFlagToProducts(List<Categories> categoriesList)
         {
             foreach (var category in categoriesList)
             {
@@ -182,7 +196,11 @@ namespace Softjourn.SJCoins.Core.UI.Presenters
             return categoriesList;
         }
 
-        // get list with all categories from featured product. 
+        /// <summary>
+        /// get list with all categories from featured product. 
+        /// </summary>
+        /// <param name="featuredProducts"></param>
+        /// <returns></returns>
         private List<Categories> GetCategoriesListFromFeaturedProduct(Featured featuredProducts)
         {
             if (featuredProducts != null)
@@ -217,23 +235,24 @@ namespace Softjourn.SJCoins.Core.UI.Presenters
                     categoriesList.AddRange(featuredCategoriesList);
                     return categoriesList;
                 }
-                else
-                {
-                    return null;
-                }
-            }
-            else
-            {
+
                 return null;
             }
+
+            return null;
         }
 
-        //return list with products if we just have list with int id. Is looking for products using list of categories
-        private List<Product> GetProductList(List<int> idList, List<Categories> categoriesList)
+        /// <summary>
+        /// return list with products if we just have list with int id. Is looking for products using list of categories
+        /// </summary>
+        /// <param name="idList"></param>
+        /// <param name="categoriesList"></param>
+        /// <returns></returns>
+        private List<Product> GetProductList(IEnumerable<int> idList, List<Categories> categoriesList)
         {
             var list = new List<Product>();
 
-            foreach (int id in idList)
+            foreach (var id in idList)
             {
                 foreach (var category in categoriesList)
                 {
@@ -246,11 +265,17 @@ namespace Softjourn.SJCoins.Core.UI.Presenters
                     }
                 }
             }
+
             return list;
         }
 
-        // return product from list by using it id while searching
-        private Product GetProductFromListById(int productId, List<Product> productsList)
+        /// <summary>
+        /// return product from list by using it id while searching
+        /// </summary>
+        /// <param name="productId"></param>
+        /// <param name="productsList"></param>
+        /// <returns></returns>
+        private static Product GetProductFromListById(int productId, List<Product> productsList)
         {
             foreach (var product in productsList)
             {
@@ -259,6 +284,7 @@ namespace Softjourn.SJCoins.Core.UI.Presenters
                     return product;
                 }
             }
+
             return null;
         }
 

@@ -5,31 +5,42 @@ using Softjourn.SJCoins.Core.Utils;
 
 namespace Softjourn.SJCoins.Core.Managers
 {
-    public class PhotoManager
+    public sealed class PhotoManager
     {
-
-        #region Public Methods
-        //Returns byte array of captured photo
+        /// <summary>
+        /// Returns byte array of captured photo
+        /// </summary>
+        /// <returns></returns>
         public async Task<byte[]> GetImageFromCameraAsync()
         {
             await PermissionsUtils.CheckCameraPermissiomAsync();
 
             var result = await MakePhotoAsync();
 
-            return result == null ? null : GetBytes(result);
+            return result == null
+                ? null
+                : GetBytes(result);
         }
 
-        //Returns byte array of selected from gallery photo
+        /// <summary>
+        /// Returns byte array of selected from gallery photo
+        /// </summary>
+        /// <returns></returns>
         public async Task<byte[]> GetImageFromGalleryAsync()
         {
             await PermissionsUtils.CheckGalleryPermissionAsync();
 
             var result = await PickPhotoFromGalleryAsync();
 
-            return result == null ? null : GetBytes(result);
+            return result == null
+                ? null
+                : GetBytes(result);
         }
 
-        //Returns Path to captured Photo
+        /// <summary>
+        /// Returns Path to captured Photo
+        /// </summary>
+        /// <returns></returns>
         public async Task<string> GetImagePathFromCameraAsync()
         {
             await PermissionsUtils.CheckCameraPermissiomAsync();
@@ -39,7 +50,10 @@ namespace Softjourn.SJCoins.Core.Managers
             return result?.Path;
         }
 
-        //Returns path to selected from gallery photo
+        /// <summary>
+        /// Returns path to selected from gallery photo
+        /// </summary>
+        /// <returns></returns>
         public async Task<string> GetImagePathFromGalleryAsync()
         {
             await PermissionsUtils.CheckGalleryPermissionAsync();
@@ -48,35 +62,47 @@ namespace Softjourn.SJCoins.Core.Managers
 
             return result?.Path;
         }
-        #endregion
 
         #region Private Methods
-        //Starts Standard Camera and returns MediaFile of captured photo
-        private async Task<MediaFile> MakePhotoAsync()
+
+        /// <summary>
+        /// Starts Standard Camera and returns MediaFile of captured photo
+        /// </summary>
+        /// <returns></returns>
+        private static async Task<MediaFile> MakePhotoAsync()
         {
             var file = await CrossMedia.Current.TakePhotoAsync(new StoreCameraMediaOptions());
 
             return file;
         }
 
-        //Starts Gallery and returns MediaFile of selected photo
-        private async Task<MediaFile> PickPhotoFromGalleryAsync()
+        /// <summary>
+        /// Starts Gallery and returns MediaFile of selected photo
+        /// </summary>
+        /// <returns></returns>
+        private static async Task<MediaFile> PickPhotoFromGalleryAsync()
         {
             var file = await CrossMedia.Current.PickPhotoAsync();
 
             return file;
         }
 
-        //Creating byte array based on MediaFile (Captured or selected in gallery photo)
+        /// <summary>
+        /// Creating byte array based on MediaFile (Captured or selected in gallery photo)
+        /// </summary>
+        /// <param name="file"></param>
+        /// <returns></returns>
         private static byte[] GetBytes(MediaFile file)
         {
             using (var stream = file.GetStream())
             {
                 var buffer = new byte[stream.Length];
                 stream.Read(buffer, 0, (int)stream.Length);
+
                 return buffer;
             }
         }
+
         #endregion
     }
 }

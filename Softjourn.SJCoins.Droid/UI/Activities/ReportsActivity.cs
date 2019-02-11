@@ -1,7 +1,5 @@
-
 using System;
 using System.Collections.Generic;
-
 using Android.App;
 using Android.Content.PM;
 using Android.OS;
@@ -84,13 +82,13 @@ namespace Softjourn.SJCoins.Droid.UI.Activities
             _transactionsRecyclerView.SetAdapter(_adapter);
 
             ViewPresenter.OnStartLoadingPage();
-
         }
 
         public override bool OnCreateOptionsMenu(IMenu menu)
         {
             var inflater = MenuInflater;
             inflater.Inflate(Resource.Menu.menu_transactions, menu);
+
             return true;
         }
 
@@ -112,13 +110,13 @@ namespace Softjourn.SJCoins.Droid.UI.Activities
                         return true;
                 }
             }
+
             return base.OnOptionsItemSelected(item);
         }
 
         #endregion
 
         #region ITransactionView implementation
-
 
         //Setting data to adapter in case purchase list is not empty
         public void SetData(List<Transaction> transactionList)
@@ -146,7 +144,7 @@ namespace Softjourn.SJCoins.Droid.UI.Activities
                 _buttonOutput.SetCompoundDrawablesWithIntrinsicBounds(null, null, null, null);
                 return;
             }
-            if ((bool) isAsc)
+            if ((bool)isAsc)
             {
                 _buttonOutput.SetCompoundDrawablesWithIntrinsicBounds(null, null,
                     ContextCompat.GetDrawable(this, Resource.Drawable.ic_arrow_down), null);
@@ -167,7 +165,7 @@ namespace Softjourn.SJCoins.Droid.UI.Activities
             }
             if ((bool)isAsc)
             {
-                _buttonInput.SetCompoundDrawablesWithIntrinsicBounds(ContextCompat.GetDrawable(this, Resource.Drawable.ic_arrow_down), null, 
+                _buttonInput.SetCompoundDrawablesWithIntrinsicBounds(ContextCompat.GetDrawable(this, Resource.Drawable.ic_arrow_down), null,
                     null, null);
             }
             else
@@ -176,6 +174,7 @@ namespace Softjourn.SJCoins.Droid.UI.Activities
                     null, null);
             }
         }
+
         #endregion
 
         #region Private Methods

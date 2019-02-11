@@ -1,9 +1,8 @@
-
 using Newtonsoft.Json;
 
 namespace Softjourn.SJCoins.Core.API.Model.Machines
 {
-    public class Machines
+    public sealed class Machines
     {
         [JsonProperty("id")]
         public int Id { get; set; }

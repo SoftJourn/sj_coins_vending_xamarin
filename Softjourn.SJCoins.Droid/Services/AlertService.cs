@@ -8,7 +8,6 @@ using Android.Support.Design.Widget;
 using Android.Support.V4.Content;
 using Android.Views;
 using Android.Widget;
-using Javax.Xml.Datatype;
 using Plugin.CurrentActivity;
 using Softjourn.SJCoins.Core.UI.Services.Alert;
 using Softjourn.SJCoins.Core.API.Model.Products;
@@ -53,7 +52,7 @@ namespace Softjourn.SJCoins.Droid.Services
                         Snackbar.LengthIndefinite);
                 snackbar.SetAction("Ok", (v) =>
                 {
-                     snackbar.Dismiss();
+                    snackbar.Dismiss();
                 });
                 snackbar.Show();
             });
@@ -134,7 +133,7 @@ namespace Softjourn.SJCoins.Droid.Services
             }
         }
 
-        private void CreateAlertDialog(string title, string msg, Action btnClicked, string btnName = null)
+        private static void CreateAlertDialog(string title, string msg, Action btnClicked, string btnName = null)
         {
             var activity = CrossCurrentActivity.Current.Activity;
             activity.RunOnUiThread(() =>
@@ -170,7 +169,7 @@ namespace Softjourn.SJCoins.Droid.Services
         /**
          * Creates Confirmation Purchase Dialog
          */
-        private void CreateConfirmationDialog(Product product, Action<Product> onPurchaseProductAction)
+        private static void CreateConfirmationDialog(Product product, Action<Product> onPurchaseProductAction)
         {
             var context = CrossCurrentActivity.Current.Activity;
             var confirmDialog = new Dialog(context);
@@ -210,9 +209,9 @@ namespace Softjourn.SJCoins.Droid.Services
             };
 
             confirmDialog.SetOnDismissListener(new OnDismissListener(() =>
-        {
-            confirmDialog.Dismiss();
-        }));
+            {
+                confirmDialog.Dismiss();
+            }));
         }
 
         private sealed class OnDismissListener : Java.Lang.Object, IDialogInterfaceOnDismissListener
@@ -229,6 +228,5 @@ namespace Softjourn.SJCoins.Droid.Services
                 _action();
             }
         }
-
     }
 }

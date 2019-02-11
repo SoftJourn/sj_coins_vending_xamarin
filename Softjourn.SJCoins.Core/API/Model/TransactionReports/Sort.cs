@@ -2,7 +2,7 @@
 
 namespace Softjourn.SJCoins.Core.API.Model.TransactionReports
 {
-    public class Sort
+    public sealed class Sort
     {
         [JsonProperty("direction")]
         public string Direction { get; set; }

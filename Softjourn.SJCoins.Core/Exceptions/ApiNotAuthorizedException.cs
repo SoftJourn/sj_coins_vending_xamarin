@@ -1,16 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Softjourn.SJCoins.Core.Exceptions
+﻿namespace Softjourn.SJCoins.Core.Exceptions
 {
-    public class ApiNotAuthorizedException : ApiException
+    public sealed class ApiNotAuthorizedException : ApiException
     {
-            public ApiNotAuthorizedException(string message)
-                : base(message)
-            {
-            }
+        public ApiNotAuthorizedException(string message)
+            : base(message)
+        {
         }
+    }
 }

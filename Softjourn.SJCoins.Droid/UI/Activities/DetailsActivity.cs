@@ -1,7 +1,5 @@
-
 using System;
 using System.Collections.Generic;
-
 using Android.App;
 using Android.Content.PM;
 using Android.Graphics;
@@ -26,7 +24,7 @@ namespace Softjourn.SJCoins.Droid.UI.Activities
     {
         private Product _product;
         private ViewPager _viewPager;
-        private const string ProductID = Const.NavigationKey;
+        private const string ProductId = Const.NavigationKey;
         private TextView _productPrice;
         private TextView _productDescription;
         private List<string> _images;
@@ -41,13 +39,12 @@ namespace Softjourn.SJCoins.Droid.UI.Activities
         private RecyclerView _nutritionItems;
         private TextView _textViewNoNutritionFacts;
 
-        #region Public  Methods
         protected override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
             SetContentView(Resource.Layout.activity_details);
 
-            _product = ViewPresenter.GetProduct(int.Parse(Intent.Extras.Get(ProductID).ToString()));
+            _product = ViewPresenter.GetProduct(int.Parse(Intent.Extras.Get(ProductId).ToString()));
 
             _images = new List<string>();
 
@@ -128,9 +125,10 @@ namespace Softjourn.SJCoins.Droid.UI.Activities
                     break;
                 case Resource.Id.menu_add_favorite:
                     item.SetEnabled(false);
-                    ViewPresenter.OnFavoriteClick(_product);                    
+                    ViewPresenter.OnFavoriteClick(_product);
                     break;
             }
+
             return base.OnOptionsItemSelected(item);
         }
 
@@ -151,13 +149,12 @@ namespace Softjourn.SJCoins.Droid.UI.Activities
             Finish();
         }
 
-        #endregion
-
         #region Private Methods
+
         /**
          * Sets Icon of Favorite according to callback from Presenter
          */
-        private void ChangeIcon(IMenuItem item, bool isFavorite)
+        private static void ChangeIcon(IMenuItem item, bool isFavorite)
         {
             item.SetIcon(isFavorite ? Resource.Drawable.ic_favorite_white_24dp : Resource.Drawable.ic_favorite_border_white);
             item.SetEnabled(true);
@@ -168,15 +165,12 @@ namespace Softjourn.SJCoins.Droid.UI.Activities
             _dots = new TextView[_images.Count];
 
             var colorsActive = ContextCompat.GetColor(this, Resource.Color.dot_detail_light_screen);
-                
             var colorsInactive = ContextCompat.GetColor(this, Resource.Color.dot_detail_dark_screen);
 
             _dotsLayout.RemoveAllViews();
-            for (int i = 0; i < _dots.Length; i++)
+            for (var i = 0; i < _dots.Length; i++)
             {
-                _dots[i] = new TextView(this);
-                _dots[i].Text = Html.FromHtml("&#8226;").ToString();
-                _dots[i].TextSize = 35;
+                _dots[i] = new TextView(this) {Text = Html.FromHtml("&#8226;").ToString(), TextSize = 35};
                 _dots[i].SetTextColor(new Color(colorsInactive));
                 _dotsLayout.AddView(_dots[i]);
             }
@@ -184,6 +178,7 @@ namespace Softjourn.SJCoins.Droid.UI.Activities
             if (_dots.Length > 0)
                 _dots[currentPage].SetTextColor(new Color(colorsActive));
         }
+
         #endregion
     }
 }

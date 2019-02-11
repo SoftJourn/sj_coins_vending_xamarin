@@ -1,16 +1,13 @@
-
 using Android.Content;
 using Android.Support.Design.Widget;
 using Android.Views;
 using Android.Widget;
-using Softjourn.SJCoins.Droid.Utils;
 using String = System.String;
 
 namespace Softjourn.SJCoins.Droid.utils
 {
     public class Utils
     {
-
         public static void ShowErrorToast(Context context, String text)
         {
             var toast = Toast.MakeText(context, text, ToastLength.Short);

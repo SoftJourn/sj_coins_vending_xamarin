@@ -1,5 +1,4 @@
-﻿using System;
-using Softjourn.SJCoins.Core.UI.Interfaces;
+﻿using Softjourn.SJCoins.Core.UI.Interfaces;
 
 namespace Softjourn.SJCoins.Core.UI.ViewInterfaces
 {

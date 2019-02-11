@@ -1,7 +1,6 @@
-﻿
-namespace Softjourn.SJCoins.Core.API.Model
+﻿namespace Softjourn.SJCoins.Core.API.Model
 {
-    public class AccountOption
+    public sealed class AccountOption
     {
         public string OptionName { get; set; }
         public string OptionIconName { get; set; }
