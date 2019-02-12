@@ -4,6 +4,7 @@ using Foundation;
 using Softjourn.SJCoins.Core.API.Model;
 using Softjourn.SJCoins.Core.UI.Presenters;
 using Softjourn.SJCoins.Core.UI.ViewInterfaces;
+using Softjourn.SJCoins.iOS.UI.Sources.AccountPage;
 using UIKit;
 
 namespace Softjourn.SJCoins.iOS.UI.Controllers.AccountPage
@@ -11,20 +12,14 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.AccountPage
 	[Register("PurchaseViewController")]
 	public partial class PurchaseViewController : BaseViewController<PurchasePresenter>, IPurchaseView
 	{
-		#region Constants
 		public const string Purchases = "Purchases";
-		#endregion
 
-		#region Properties
-		#endregion
-
-		#region Constructor
 		public PurchaseViewController(IntPtr handle) : base(handle)
 		{
 		}
-		#endregion
 
 		#region Controller Life cycle
+
 		public override void ViewDidLoad()
 		{
 			base.ViewDidLoad();
@@ -32,14 +27,10 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.AccountPage
 			Presenter.OnStartLoadingPage();
 		}
 
-        public override void ViewWillDisappear(bool animated)
-        {
-            //MakeNavigationBarTransparent();
-            base.ViewWillDisappear(animated);
-        }
-		#endregion
+        #endregion
 
 		#region BaseViewController
+
 		public override void ShowProgress(string message)
 		{
 			UIApplication.SharedApplication.NetworkActivityIndicatorVisible = true;
@@ -49,9 +40,11 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.AccountPage
 		{
 			UIApplication.SharedApplication.NetworkActivityIndicatorVisible = false;
 		}
+
 		#endregion
 
 		#region IAccountView implementation
+
 		public void SetData(List<History> purchaseList)
 		{
             TableView.Source = new PurchaseViewSource(purchaseList);
@@ -63,9 +56,11 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.AccountPage
 		{
             ShowScreenAnimated(false);
 		}
+
 		#endregion
 
 		#region Private methods
+
         private void ConfigurePage()
         {
             // Hide NoItems label
@@ -74,6 +69,7 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.AccountPage
             NoItemsLabel.Alpha = 0.0f;
             TableView.Alpha = 0.0f;
         }
+
 		#endregion
 
 		// Throw TableView to parent

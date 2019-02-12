@@ -3,14 +3,12 @@ using Foundation;
 using SDWebImage;
 using Softjourn.SJCoins.Core.API.Model.Products;
 using Softjourn.SJCoins.iOS.General.Constants;
-using Softjourn.SJCoins.iOS.UI.Services;
 using UIKit;
 
 namespace Softjourn.SJCoins.iOS.UI.Cells
 {
     public partial class ProductCell : UITableViewCell
     {
-        #region Properties
         public static readonly NSString Key = new NSString("ProductCell");
         public static readonly UINib Nib;
 
@@ -18,19 +16,17 @@ namespace Softjourn.SJCoins.iOS.UI.Cells
         {
             Nib = UINib.FromName("ProductCell", NSBundle.MainBundle);
         }
+
         public event EventHandler<Product> FavoriteClicked;
 		public event EventHandler<Product> BuyClicked;
 
 		public bool Favorite { get; set; } = false;
         public Product Product { get; set; }
-        #endregion
 
-        #region Constructor
         protected ProductCell(IntPtr handle) : base(handle)
         {
             // Note: this .ctor should not contain any initialization logic.
         }
-        #endregion
 
         public override void AwakeFromNib()
         {
@@ -66,8 +62,8 @@ namespace Softjourn.SJCoins.iOS.UI.Cells
         public override void PrepareForReuse()
         {
             Product = null;
-            NameLabel.Text = "";
-            DescriptLabel.Text = "";
+            NameLabel.Text = string.Empty;
+            DescriptLabel.Text = string.Empty;
             LogoImage.Image = null;
             // Detach event
             FavoriteButton.TouchUpInside -= FavoriteButtonClicked;
@@ -76,6 +72,7 @@ namespace Softjourn.SJCoins.iOS.UI.Cells
         }
 
         #region Private methods
+
         private void SetUpUI()
         {
             LogoImage.Layer.CornerRadius = 22;
@@ -93,9 +90,9 @@ namespace Softjourn.SJCoins.iOS.UI.Cells
 
 		private void ConfigureDescript(Product product)
 		{
-            var descriptString = "";
+            var descriptString = string.Empty;
 
-            if (!String.IsNullOrEmpty(product.Description))
+            if (!string.IsNullOrEmpty(product.Description))
                 descriptString = "Description";
             
             if (product.NutritionFacts.Count > 0)
@@ -103,6 +100,7 @@ namespace Softjourn.SJCoins.iOS.UI.Cells
 
             DescriptLabel.Text = descriptString;
 		}
+
 		#endregion
 
 		private void FavoriteButtonClicked(object sender, EventArgs e)

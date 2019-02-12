@@ -6,16 +6,17 @@
 //
 using Foundation;
 using System.CodeDom.Compiler;
+using Softjourn.SJCoins.iOS.UI.UIElements;
 
 namespace Softjourn.SJCoins.iOS.UI.Controllers.AccountPage
 {
 	partial class ReportsViewController
 	{
 		[Outlet]
-		Softjourn.SJCoins.iOS.CustomSegmentControl DateAmountSegmentControl { get; set; }
+		CustomSegmentControl DateAmountSegmentControl { get; set; }
 
 		[Outlet]
-		Softjourn.SJCoins.iOS.CustomSegmentControl InputOutputSegmentControl { get; set; }
+		CustomSegmentControl InputOutputSegmentControl { get; set; }
 
 		[Outlet]
 		UIKit.UILabel NoItemsLabel { get; set; }

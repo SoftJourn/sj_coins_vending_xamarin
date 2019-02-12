@@ -7,15 +7,18 @@ namespace Softjourn.SJCoins.iOS.General.Helper
 {
 	public class SegmentControlHelper
 	{
-		#region Constants
 		private const float defaultFontSize = 16.0f;
 		private const int distanceBetweenElements = 5;
 		private const int half = 2;
-		#endregion
 
-		#region Public methods
-		// Create a UIImage from an icon file and string for use in a UISegmentControl. 
-		public UIImage ImageFromImageAndText(UIImage image, string title, UIColor color)
+        /// <summary>
+        /// Create a UIImage from an icon file and string for use in a UISegmentControl. 
+        /// </summary>
+        /// <param name="image"></param>
+        /// <param name="title"></param>
+        /// <param name="color"></param>
+        /// <returns></returns>
+        public UIImage ImageFromImageAndText(UIImage image, string title, UIColor color)
 		{
 			var font = UIFont.SystemFontOfSize(defaultFontSize);
 
@@ -50,6 +53,5 @@ namespace Softjourn.SJCoins.iOS.General.Helper
 
 			return newImage;
 		}
-		#endregion
 	}
 }

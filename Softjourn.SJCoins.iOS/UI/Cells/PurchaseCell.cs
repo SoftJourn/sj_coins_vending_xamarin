@@ -1,10 +1,9 @@
 ﻿using System;
-
 using Foundation;
 using Softjourn.SJCoins.Core.API.Model;
 using UIKit;
 
-namespace Softjourn.SJCoins.iOS
+namespace Softjourn.SJCoins.iOS.UI.Cells
 {
 	public partial class PurchaseCell : UITableViewCell
 	{
@@ -30,9 +29,9 @@ namespace Softjourn.SJCoins.iOS
 
 		public override void PrepareForReuse()
 		{
-			DateLabel.Text = "";
-			NameLabel.Text = "";
-			PriceLabel.Text = "";
+			DateLabel.Text = string.Empty;
+			NameLabel.Text = string.Empty;
+			PriceLabel.Text = string.Empty;
 			base.PrepareForReuse();
 		}
 	}

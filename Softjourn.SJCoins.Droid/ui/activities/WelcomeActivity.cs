@@ -99,7 +99,7 @@ namespace Softjourn.SJCoins.Droid.UI.Activities
             _dotsLayout.RemoveAllViews();
             for (int i = 0; i < _dots.Length; i++)
             {
-                _dots[i] = new TextView(this) {Text = Html.FromHtml("&#8226;").ToString(), TextSize = 35};
+                _dots[i] = new TextView(this) { Text = Html.FromHtml("&#8226;").ToString(), TextSize = 35 };
                 _dots[i].SetTextColor(new Color(colorsInactive[currentPage]));
                 _dotsLayout.AddView(_dots[i]);
             }

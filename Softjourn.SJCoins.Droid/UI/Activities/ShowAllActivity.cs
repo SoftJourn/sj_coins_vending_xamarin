@@ -143,8 +143,8 @@ namespace Softjourn.SJCoins.Droid.UI.Activities
             {
                 _sortNameButton.Visibility = ViewStates.Gone;
                 _sortPriceButton.Visibility = ViewStates.Gone;
-                _adapter.Filter.InvokeFilter(TextUtils.IsEmpty(e.NewText) 
-                    ? string.Empty 
+                _adapter.Filter.InvokeFilter(TextUtils.IsEmpty(e.NewText)
+                    ? string.Empty
                     : e.NewText.ToLower());
             };
 

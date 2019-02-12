@@ -3,36 +3,36 @@ using Foundation;
 using Softjourn.SJCoins.Core.UI.ViewInterfaces;
 using Softjourn.SJCoins.Core.UI.Presenters;
 using Softjourn.SJCoins.iOS.UI.Services;
-using UIKit;
-using System.Threading;
 
 namespace Softjourn.SJCoins.iOS.UI.Controllers
 {
-	[Register("InitialViewController")]
-	public partial class InitialViewController : BaseViewController<LaunchPresenter>, ILaunchView
-	{
-		#region Constructor
-		public InitialViewController (IntPtr handle) : base (handle)
-		{
-		}
-		#endregion
+    [Register("InitialViewController")]
+    public partial class InitialViewController : BaseViewController<LaunchPresenter>, ILaunchView
+    {
+        public InitialViewController(IntPtr handle) : base(handle)
+        {
+        }
 
-		#region Controller Life cycle 
-		public override void ViewDidAppear(bool animated)
-		{
-			base.ViewDidAppear(animated);
+        #region Controller Life cycle 
 
-			//Verify if its a first launch
-			Presenter.ChooseStartPage();
-		}
-		#endregion
+        public override void ViewDidAppear(bool animated)
+        {
+            base.ViewDidAppear(animated);
 
-		#region ILaunchView implementation
-		public void ShowNoInternetError(string msg)
-		{
-			//show no internet alert
-			new AlertService().ShowInformationDialog(null, msg, "Ok", null);
-		}
-		#endregion
-	}
+            //Verify if its a first launch
+            Presenter.ChooseStartPage();
+        }
+
+        #endregion
+
+        #region ILaunchView implementation
+
+        public void ShowNoInternetError(string msg)
+        {
+            //show no internet alert
+            new AlertService().ShowInformationDialog(null, msg, "Ok", null);
+        }
+
+        #endregion
+    }
 }

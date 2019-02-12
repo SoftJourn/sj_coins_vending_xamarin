@@ -11,11 +11,11 @@ namespace Softjourn.SJCoins.Core.API
 {
     public sealed class ApiService : IApiService
     {
-        public ApiClient ApiClient 
+        public ApiClient ApiClient
         {
             get; set;
         }
-        
+
         public ApiService() { }
 
         public async Task<Session> MakeLoginRequestAsync(string userName, string password)

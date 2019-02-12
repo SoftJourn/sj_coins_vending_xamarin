@@ -6,53 +6,54 @@ using UIKit;
 
 namespace Softjourn.SJCoins.iOS.UI.Services
 {
-	public class AlertService : IAlertService
-	{
-		private const string confirmTitle = "Confirm Purchase";
+    public class AlertService : IAlertService
+    {
+        private const string ConfirmTitle = "Confirm Purchase";
 
-		private AppDelegate _currentApplicationDelegate;
+        private readonly AppDelegate _currentApplicationDelegate;
 
-		public AlertService()
-		{
-			_currentApplicationDelegate = (AppDelegate)UIApplication.SharedApplication.Delegate;
-		}
+        public AlertService()
+        {
+            _currentApplicationDelegate = (AppDelegate)UIApplication.SharedApplication.Delegate;
+        }
 
-		#region IAlertService implementation
-		public void ShowConfirmationDialog(string title, string msg, Action btnOkClicked, Action btnCancelClicked)
-		{
-			// Present confirmation alert with two buttons  
-			PresentAlert(title, msg, null, null, UIAlertActionStyle.Default, null, null);
-		}
+        #region IAlertService implementation
 
-		public void ShowInformationDialog(string title, string msg, string btnName, Action btnClicked)
-		{
-			// Present information alert with one button
-			PresentAlert(title, msg, btnName, null, UIAlertActionStyle.Default, null, null);
-		}
+        public void ShowConfirmationDialog(string title, string msg, Action btnOkClicked, Action btnCancelClicked)
+        {
+            // Present confirmation alert with two buttons  
+            PresentAlert(title, msg, null, null, UIAlertActionStyle.Default, null, null);
+        }
 
-		public void ShowMessageWithUserInteraction(string title, string msg, string btnName, Action btnClicked)
-		{
-			// Present information alert with one button (after purchase message)
-			PresentAlert(title, msg, btnName, null, UIAlertActionStyle.Default, null, null);
-		}
+        public void ShowInformationDialog(string title, string msg, string btnName, Action btnClicked)
+        {
+            // Present information alert with one button
+            PresentAlert(title, msg, btnName, null, UIAlertActionStyle.Default, null, null);
+        }
 
-		public void ShowToastMessage(string msg)
-		{
-			// Present information alert with one botton
-			PresentAlert("", msg, "Ok", null, UIAlertActionStyle.Default, null, null);
-		}
+        public void ShowMessageWithUserInteraction(string title, string msg, string btnName, Action btnClicked)
+        {
+            // Present information alert with one button (after purchase message)
+            PresentAlert(title, msg, btnName, null, UIAlertActionStyle.Default, null, null);
+        }
 
-		public void ShowPurchaseConfirmationDialod(Product product, Action<Product> onPurchaseProductAction)
-		{
-			// Present purchace confirmation alert with two buttons
-			string price = product.Price.ToString();
-			string confirmMessage = "Buy " + product.Name + " for the " + price + " coins";
+        public void ShowToastMessage(string msg)
+        {
+            // Present information alert with one botton
+            PresentAlert(string.Empty, msg, "Ok", null, UIAlertActionStyle.Default, null, null);
+        }
 
-			PresentAlert(confirmTitle, confirmMessage, "Confirm", "Cancel", UIAlertActionStyle.Default, onPurchaseProductAction, null, product);
-		}
+        public void ShowPurchaseConfirmationDialod(Product product, Action<Product> onPurchaseProductAction)
+        {
+            // Present purchace confirmation alert with two buttons
+            var price = product.Price.ToString();
+            var confirmMessage = "Buy " + product.Name + " for the " + price + " coins";
 
-		public void ShowPhotoSelectorDialog(List<string> photoSource, Action fromCamera, Action fromGallery)
-		{
+            PresentAlert(ConfirmTitle, confirmMessage, "Confirm", "Cancel", UIAlertActionStyle.Default, onPurchaseProductAction, null, product);
+        }
+
+        public void ShowPhotoSelectorDialog(List<string> photoSource, Action fromCamera, Action fromGallery)
+        {
             // Show action sheet with 2 buttons
             var actions = new List<Action>
             {
@@ -60,10 +61,10 @@ namespace Softjourn.SJCoins.iOS.UI.Services
                 fromGallery
             };
             PresentActionSheet(null, null, photoSource.ToArray(), actions.ToArray());
-		}
+        }
 
-		public void ShowQrSelectorDialog(List<string> optionsList, Action scanCode, Action generateCode)
-		{
+        public void ShowQrSelectorDialog(List<string> optionsList, Action scanCode, Action generateCode)
+        {
             // Show action sheet with 2 buttons
             var actions = new List<Action>
             {
@@ -71,62 +72,67 @@ namespace Softjourn.SJCoins.iOS.UI.Services
                 generateCode
             };
             PresentActionSheet(null, null, optionsList.ToArray(), actions.ToArray());
-		}
-		#endregion
+        }
+
+        #endregion
 
         #region Private methods
-		private void PresentAlert(string title, string message, string accept, string cancel, UIAlertActionStyle acceptStyle, Action<Product> acceptClicked = null, Action cancelClicked = null, Product product = null)
-		{
-			UIApplication.SharedApplication.InvokeOnMainThread(() =>
-			{
-				try
-				{
-					var alertController = UIAlertController.Create(title, message, UIAlertControllerStyle.Alert);
-					alertController.View.TintColor = UIColorConstants.MainGreenColor;
-					if (acceptClicked != null)
-					{
-						var cancelAction = UIAlertAction.Create(cancel, UIAlertActionStyle.Cancel, null);
-						var acceptAction = UIAlertAction.Create(accept, acceptStyle, (action) => { acceptClicked?.Invoke(product); });
-					    alertController.AddAction(cancelAction);
-					    alertController.AddAction(acceptAction);
-					}
-					else {
-						var okAction = UIAlertAction.Create("Ok", UIAlertActionStyle.Cancel, null);
-						alertController.AddAction(okAction);
-					}
-					_currentApplicationDelegate.VisibleViewController.PresentViewController(alertController, true, null);
-			    }
-				catch { }
-			});
-		}
 
-		private void PresentActionSheet(string title, string message, string[] items, Action[] itemActions)
-		{
-			UIApplication.SharedApplication.InvokeOnMainThread(() =>
-			{
-				var alertController = UIAlertController.Create(title, message, UIAlertControllerStyle.ActionSheet);
+        private void PresentAlert(string title, string message, string accept, string cancel, UIAlertActionStyle acceptStyle, Action<Product> acceptClicked = null, Action cancelClicked = null, Product product = null)
+        {
+            UIApplication.SharedApplication.InvokeOnMainThread(() =>
+            {
+                try
+                {
+                    var alertController = UIAlertController.Create(title, message, UIAlertControllerStyle.Alert);
+                    alertController.View.TintColor = UIColorConstants.MainGreenColor;
+                    if (acceptClicked != null)
+                    {
+                        var cancelAction = UIAlertAction.Create(cancel, UIAlertActionStyle.Cancel, null);
+                        var acceptAction = UIAlertAction.Create(accept, acceptStyle, (action) => { acceptClicked?.Invoke(product); });
+                        alertController.AddAction(cancelAction);
+                        alertController.AddAction(acceptAction);
+                    }
+                    else
+                    {
+                        var okAction = UIAlertAction.Create("Ok", UIAlertActionStyle.Cancel, null);
+                        alertController.AddAction(okAction);
+                    }
+                    _currentApplicationDelegate.VisibleViewController.PresentViewController(alertController, true, null);
+                }
+                catch { }
+            });
+        }
+
+        private void PresentActionSheet(string title, string message, IReadOnlyList<string> items, IReadOnlyList<Action> itemActions)
+        {
+            UIApplication.SharedApplication.InvokeOnMainThread(() =>
+            {
+                var alertController = UIAlertController.Create(title, message, UIAlertControllerStyle.ActionSheet);
                 alertController.View.TintColor = UIColorConstants.MainGreenColor;
-				for (int i = 0; i < items.Length; i++)
-				{
-					AddActionToAlert(alertController, items[i], UIAlertActionStyle.Default, itemActions[i]);
-				}
-				AddActionToAlert(alertController, "Cancel", UIAlertActionStyle.Cancel, null);
+                for (var i = 0; i < items.Count; i++)
+                {
+                    AddActionToAlert(alertController, items[i], UIAlertActionStyle.Default, itemActions[i]);
+                }
+                AddActionToAlert(alertController, "Cancel", UIAlertActionStyle.Cancel, null);
 
-				_currentApplicationDelegate.VisibleViewController.PresentViewController(alertController, true, null);
-			});
-		}
+                _currentApplicationDelegate.VisibleViewController.PresentViewController(alertController, true, null);
+            });
+        }
 
-		private void AddActionToAlert(UIAlertController alertController, string title = null, UIAlertActionStyle style = UIAlertActionStyle.Default, Action handler = null)
-		{
-			if (!String.IsNullOrEmpty(title))
-			{
-				var alertAction = UIAlertAction.Create(title, style, (action) => { handler?.Invoke(); });
-				alertController.AddAction(alertAction);
-			}
-		}
+        private static void AddActionToAlert(UIAlertController alertController, string title = null, UIAlertActionStyle style = UIAlertActionStyle.Default, Action handler = null)
+        {
+            if (!string.IsNullOrEmpty(title))
+            {
+                var alertAction = UIAlertAction.Create(title, style, action => { handler?.Invoke(); });
+                alertController.AddAction(alertAction);
+            }
+        }
+
         #endregion
 
         #region Public methods
+
         public void ShowConfirmationAlert(string title, string msg, Action btnOkClicked, Action btnCancelClicked)
         {
             // Present confirmation alert with two buttons  
@@ -145,6 +151,7 @@ namespace Softjourn.SJCoins.iOS.UI.Services
                 catch { }
             });
         }
+
         #endregion
-	}
+    }
 }

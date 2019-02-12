@@ -1,9 +1,9 @@
-﻿using System;
-namespace Softjourn.SJCoins.iOS.General.Constants
+﻿namespace Softjourn.SJCoins.iOS.General.Constants
 {
 	public class ImageConstants
 	{
 		#region Image from bundle
+
 		public const string Placeholder = "Placeholder.png";
 		public const string FavoriteChecked = "FavoriteChecked.png";
 		public const string FavoriteUnchecked = "FavoriteUnchecked.png";
@@ -14,6 +14,7 @@ namespace Softjourn.SJCoins.iOS.General.Constants
         public const string Heart = "Heart.png";
 		public const string HeartFilled = "HeartFilled.png";
         public const string FingerPrint = "TouchID.png";
+
 		#endregion
 	}
 }

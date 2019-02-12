@@ -1,10 +1,9 @@
 ﻿using System;
-
 using Foundation;
 using Softjourn.SJCoins.iOS.General.Constants;
 using UIKit;
 
-namespace Softjourn.SJCoins.iOS
+namespace Softjourn.SJCoins.iOS.UI.Cells
 {
 	public partial class DescriptionCell : UITableViewCell
 	{
@@ -23,7 +22,7 @@ namespace Softjourn.SJCoins.iOS
 
 		public void ConfigureWith(string description)
 		{
-			if (String.IsNullOrEmpty(description))
+			if (string.IsNullOrEmpty(description))
 			{
 				DescriptionLabel.TextColor = UIColor.Gray;
 				DescriptionLabel.Text = Const.defaultDescription;

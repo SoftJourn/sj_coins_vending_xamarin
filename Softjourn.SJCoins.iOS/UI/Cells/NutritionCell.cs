@@ -1,9 +1,8 @@
 ﻿using System;
-
 using Foundation;
 using UIKit;
 
-namespace Softjourn.SJCoins.iOS
+namespace Softjourn.SJCoins.iOS.UI.Cells
 {
 	public partial class NutritionCell : UITableViewCell
 	{

@@ -4,9 +4,10 @@
 // actions declared in your storyboard file.
 // Manual changes to this file will not be maintained.
 //
+
 using Foundation;
 
-namespace Softjourn.SJCoins.iOS
+namespace Softjourn.SJCoins.iOS.UI.Cells
 {
 	[Register("SelectMachineCell")]
 	partial class SelectMachineCell

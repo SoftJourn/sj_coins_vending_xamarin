@@ -8,33 +8,30 @@ using Softjourn.SJCoins.Core.API.Model.Products;
 using Softjourn.SJCoins.Core.UI.Presenters;
 using Softjourn.SJCoins.Core.UI.ViewInterfaces;
 using Softjourn.SJCoins.iOS.General.Constants;
-using Softjourn.SJCoins.iOS.UI.Sources;
+using Softjourn.SJCoins.iOS.UI.Sources.HomePage;
 using UIKit;
 
 namespace Softjourn.SJCoins.iOS.UI.Controllers.HomePage
 {
     [Register("HomeViewController")]
-    public partial class HomeViewController : BaseViewController<HomePresenter>, IHomeView, IUISearchControllerDelegate, IUISearchBarDelegate, IDisposable
+    public partial class HomeViewController : BaseViewController<HomePresenter>, IHomeView, IUISearchControllerDelegate, IUISearchBarDelegate
     {
-        #region Properties
         public List<Categories> Categories { get; private set; }
 
         private List<Categories> MatchesCategory { get; set; }
-        private bool pullToRefreshTrigged = false;
-        private string currentBalance = "";
-        private string currentUser = "";
-        private HomeViewSource tableSource = new HomeViewSource();
+        private bool pullToRefreshTriggered;
+        private string currentBalance = string.Empty;
+        private string currentUser = string.Empty;
+        private readonly HomeViewSource tableSource = new HomeViewSource();
         private UISearchController searchController;
         private UITapGestureRecognizer accountTapGesture;
-        #endregion
 
-        #region Constructor
         public HomeViewController(IntPtr handle) : base(handle)
         {
         }
-        #endregion
 
         #region Controller Life cycle
+
         public override void ViewDidLoad()
         {
             base.ViewDidLoad();
@@ -54,9 +51,11 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.HomePage
             Presenter.UpdateBalanceView();
             Presenter.GetImageFromServer();
         }
+
         #endregion
 
         #region BaseViewController
+
         public override void AttachEvents()
         {
             base.AttachEvents();
@@ -81,20 +80,22 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.HomePage
 
         public override void ShowProgress(string message)
         {
-            if (!pullToRefreshTrigged)
+            if (!pullToRefreshTriggered)
                 base.ShowProgress(message);
         }
 
         public override void HideProgress()
         {
-            if (!pullToRefreshTrigged)
+            if (!pullToRefreshTriggered)
                 base.HideProgress();
 
-            pullToRefreshTrigged = false;
+            pullToRefreshTriggered = false;
         }
+
         #endregion
 
         #region IHomeView implementation
+
         public void SetAccountInfo(Account account)
         {
             // Show user balance on start
@@ -126,7 +127,7 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.HomePage
 
             if (searchController == null)
                 ConfigureSearch();
-            
+
             ShowScreenAnimated(true);
 
             if (UIDevice.CurrentDevice.CheckSystemVersion(11, 0))
@@ -164,9 +165,11 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.HomePage
         {
             RefreshFavoritesCell();
         }
+
         #endregion
 
         #region Private methods
+
         private void ConfigurePage()
         {
             //Hide no items label
@@ -218,7 +221,7 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.HomePage
             AvatarImage.Image = UIImage.FromBundle("NoAvatarSmall.png");
         }
 
-        private void CustomizeUIDependingOnVersion() 
+        private void CustomizeUIDependingOnVersion()
         {
             if (UIDevice.CurrentDevice.CheckSystemVersion(11, 0))
             {
@@ -227,10 +230,6 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.HomePage
                 NavigationItem.HidesSearchBarWhenScrolling = true;
                 // Disable SearchButton
                 NavigationItem.RightBarButtonItem = null;
-            }
-            else
-            {
-                // Code to support earlier iOS versions
             }
 
             UISearchBar.Appearance.TintColor = UIColorConstants.MainGreenColor;
@@ -258,7 +257,7 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.HomePage
             {
                 TableView.Bounces = true;
                 searchController.DismissViewController(true, null);
-                searchController.SearchBar.Text = "";
+                searchController.SearchBar.Text = string.Empty;
             }
         }
 
@@ -267,7 +266,7 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.HomePage
             TableView.ReloadSections(new NSIndexSet(0), UITableViewRowAnimation.None);
         }
 
-        private void StyleTableForSearchResult() 
+        private void StyleTableForSearchResult()
         {
             NoItemsLabel.Hidden = false;
             NoItemsLabel.Text = "Product not found.";
@@ -279,39 +278,41 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.HomePage
             NoItemsLabel.Hidden = true;
             TableView.SeparatorStyle = UITableViewCellSeparatorStyle.SingleLine;
         }
+
         #endregion
 
         #region Event handlers
+
         private void OnItemSelected(object sender, Product product)
         {
-            // Trigg presenter that user click on some product for showing details controllers
+            // Trig presenter that user click on some product for showing details controllers
             DismissSearchAndEnableRefresh();
             Presenter.OnProductDetailsClick(product.Id);
         }
 
         private void OnSeeAllClicked(object sender, string categoryName)
         {
-            // Trigg presenter that user click on SeeAll button
+            // Trig presenter that user click on SeeAll button
             DismissSearchAndEnableRefresh();
             Presenter.OnShowAllClick(categoryName);
         }
 
         private void OnBuyActionClicked(object sender, Product product)
         {
-            // Trigg presenter that user click Buy action on preview page 
+            // Trig presenter that user click Buy action on preview page 
             Presenter.OnBuyProductClick(product);
         }
 
         private void OnFavoriteActionClicked(object sender, Product product)
         {
-            // Trigg presenter that user click Favorite action on preview page 
+            // Trig presenter that user click Favorite action on preview page 
             Presenter.OnFavoriteClick(product);
         }
 
         private void OnSearchClicked(object sender, EventArgs e)
         {
             // Handle clicking on the Search button
-            searchController.SearchBar.Text = "";
+            searchController.SearchBar.Text = string.Empty;
             PresentViewController(searchController, true, null);
 
             // Disable PullToRefresh
@@ -323,17 +324,20 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.HomePage
             // Trigg presenter that user click on account
             Presenter.OnProfileButtonClicked();
         }
+
         #endregion
 
         #region Throw TableView to parent
+
         protected override UIScrollView GetRefreshableScrollView() => TableView;
 
         protected override void PullToRefreshTriggered(object sender, EventArgs e)
         {
             StopRefreshing();
-            pullToRefreshTrigged = true;
+            pullToRefreshTriggered = true;
             Presenter.OnStartLoadingPage();
         }
+
         #endregion
 
         protected override void ShowAnimated(bool loadSuccess)
@@ -345,6 +349,7 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.HomePage
         }
 
         #region IUISearchControllerDelegate
+
         [Export("willDismissSearchController:")]
         public void WillDismissSearchController(UISearchController searchController)
         {
@@ -361,9 +366,11 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.HomePage
             // Disable PullToRefresh
             TableView.Bounces = false;
         }
+
         #endregion
 
         #region IUISearchBarDelegate
+
         [Export("searchBarSearchButtonClicked:")]
         public void SearchButtonClicked(UISearchBar searchBar)
         {
@@ -376,7 +383,7 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.HomePage
             var matchCategory = MatchesCategory[0];
             matchCategory.Products.Clear();
 
-            if (searchController.Active && searchText != "")
+            if (searchController.Active && searchText != string.Empty)
             {
                 var search = searchController.SearchBar.Text.Trim();
                 foreach (var category in Categories)
@@ -394,15 +401,15 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.HomePage
                     matchCategory.Name = "Matches";
                     DefaultTableStyle();
                 }
-                else 
+                else
                 {
-                    matchCategory.Name = "";
+                    matchCategory.Name = string.Empty;
                     StyleTableForSearchResult();
                 }
                 MatchesCategory[0] = matchCategory;
                 tableSource.Categories = MatchesCategory;
             }
-            else 
+            else
             {
                 DefaultTableStyle();
                 tableSource.Categories = Categories;
@@ -410,11 +417,12 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.HomePage
 
             TableView.ReloadData();
         }
+
         #endregion
 
         protected override void Dispose(bool disposing)
         {
-            System.Diagnostics.Debug.WriteLine(String.Format("{0} disposed", this.GetType()));
+            System.Diagnostics.Debug.WriteLine(string.Format("{0} disposed", this.GetType()));
             base.Dispose(disposing);
         }
     }

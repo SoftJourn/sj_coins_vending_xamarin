@@ -4,27 +4,23 @@ using Foundation;
 using Softjourn.SJCoins.Core.API.Model.Machines;
 using Softjourn.SJCoins.Core.UI.Presenters;
 using Softjourn.SJCoins.Core.UI.ViewInterfaces;
-
+using Softjourn.SJCoins.iOS.UI.Cells;
 using UIKit;
-using Softjourn.SJCoins.iOS.General.Constants;
 
-namespace Softjourn.SJCoins.iOS.UI.Controllers
+namespace Softjourn.SJCoins.iOS.UI.Controllers.AccountPage
 {
 	[Register("SelectMachineViewController")]
 	public partial class SelectMachineViewController : BaseViewController<SelectMachinePresenter>, ISelectMachineView
 	{
-		#region Properties
         private SelectMachineSource TableSource;
-		private bool pullToRefreshTrigged;
-		#endregion
+		private bool pullToRefreshTriggered;
 
-		#region Constructor
 		public SelectMachineViewController(IntPtr handle) : base(handle) 
 		{
 		}
-        #endregion
 
         #region Controller Life cycle 
+
         public override void ViewDidLoad()
         {
             base.ViewDidLoad();
@@ -33,21 +29,23 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers
             Presenter.GetMachinesList();
             NavigationController.SetNavigationBarHidden(true, false);
         }
+
 		#endregion
 
 		#region BaseViewController
+
 		public override void ShowProgress(string message)
 		{
-			if (!pullToRefreshTrigged)
+			if (!pullToRefreshTriggered)
 				base.ShowProgress(message);
 		}
 
 		public override void HideProgress()
 		{
-			if (!pullToRefreshTrigged)
+			if (!pullToRefreshTriggered)
 				base.HideProgress();
 
-			pullToRefreshTrigged = false;
+            pullToRefreshTriggered = false;
 			StopRefreshing();
 		}
 
@@ -62,9 +60,11 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers
             TableSource.ItemSelected -= TableSource_ItemClicked;
             base.DetachEvents();
         }
+
 		#endregion
 
 		#region ISelectMachineView implementation
+
 		public void ShowNoMachineView(string message)
 		{
             NoMachinesLabel.Text = message;
@@ -79,9 +79,11 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers
             NavigationController.SetNavigationBarHidden(false, false);
             ShowScreenAnimated(true);
 		}
+
 		#endregion
 
 		#region Private methods
+
         private void ConfigurePage()
         {
             NoMachinesLabel.Alpha = 0.0f;
@@ -94,13 +96,16 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers
 			TableSource = new SelectMachineSource();
 			TableView.Source = TableSource;
 		}
+
         #endregion
 
         #region Event handlers
+
 		private void TableSource_ItemClicked(object sender, Machines machine)
 		{
 			Presenter.OnMachineSelected(machine);
 		}
+
         #endregion 
 		
 		// Throw TableView to parent
@@ -110,7 +115,7 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers
 		{
             NoMachinesLabel.Alpha = 0f;
             StopRefreshing();
-			pullToRefreshTrigged = true;
+            pullToRefreshTriggered = true;
 			Presenter.GetMachinesList();
 		}
 
@@ -123,6 +128,7 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers
 	}
 
 	#region SelectMachineSource implementation
+
 	public class SelectMachineSource : UITableViewSource
 	{
 		private List<Machines> machines = new List<Machines>();
@@ -166,5 +172,6 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers
 			ItemSelected?.Invoke(this, selectedMachine);
 		}
 	}
+
 	#endregion
 }

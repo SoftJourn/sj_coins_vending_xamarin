@@ -5,104 +5,100 @@ using Softjourn.SJCoins.Core.API.Model.Products;
 using Softjourn.SJCoins.iOS.General.Constants;
 using UIKit;
 
-namespace Softjourn.SJCoins.iOS.UI.Controllers
+namespace Softjourn.SJCoins.iOS.UI.Controllers.HomePage
 {
-	[Register("PreViewController")]
-	public partial class PreViewController : UIViewController
-	{
-		#region Properties
-		private Product currentProduct { get; set; }
+    [Register("PreViewController")]
+    public partial class PreViewController : UIViewController
+    {
+        private Product CurrentProduct { get; set; }
 
-		public event EventHandler<Product> PreViewController_BuyActionExecuted;
-		public event EventHandler<Product> PreViewController_FavoriteActionExecuted;
+        public event EventHandler<Product> PreViewController_BuyActionExecuted;
+        public event EventHandler<Product> PreViewController_FavoriteActionExecuted;
 
-		public override IUIPreviewActionItem[] PreviewActionItems
-		{
-			get { return PreviewActions; }
-		}
+        public override IUIPreviewActionItem[] PreviewActionItems => PreviewActions;
 
-		IUIPreviewActionItem[] PreviewActions
-		{
-			get {
-				var action1 = PreviewActionForTitle("Buy", UIPreviewActionStyle.Default, new Action(BuyActionClicked));
-				var action2 = PreviewActionForTitle(ConfigureFavoriteAction(), UIPreviewActionStyle.Default, new Action(FavoriteActionClicked));
-				return new IUIPreviewActionItem[] { action1, action2 }; 
-			}
-		}
-		#endregion
+        private IUIPreviewActionItem[] PreviewActions
+        {
+            get
+            {
+                var action1 = PreviewActionForTitle("Buy", UIPreviewActionStyle.Default, BuyActionClicked);
+                var action2 = PreviewActionForTitle(ConfigureFavoriteAction(), UIPreviewActionStyle.Default, FavoriteActionClicked);
 
-		#region Constructor
-		public PreViewController(IntPtr handle) : base(handle)
-		{
-		}
+                return new IUIPreviewActionItem[] { action1, action2 };
+            }
+        }
 
-		public void SetItem(Product item)
-		{
-			this.currentProduct = item;
-		}
-		#endregion
+        public PreViewController(IntPtr handle) : base(handle)
+        {
+        }
 
-		#region Controller Life cycle
-		public override void ViewDidLoad()
-		{
-			base.ViewDidLoad();
-			ConfigurePageWith(currentProduct);
-		}
+        public void SetItem(Product item)
+        {
+            this.CurrentProduct = item;
+        }
 
-		protected override void Dispose(bool disposing)
-		{
-			base.Dispose(disposing);
-			System.Diagnostics.Debug.WriteLine(String.Format("{0} controller disposed", this.GetType()));
-		}
-		#endregion
+        #region Controller Life cycle
 
-		#region Private methods
-		private void ConfigurePageWith(Product product)
-		{
-			if (product != null)
-			{
-				NameLabel.Text = product.Name;
-				PriceLabel.Text = "Price: " + product.Price.ToString() + " Coins";
-				if (String.IsNullOrEmpty(product.Description))
-				{
-					DescriptionLabel.Text = product.Description;
-				}
-				else
-				{
-					DescriptionLabel.TextColor = UIColor.Gray;
-					DescriptionLabel.Text = Const.defaultDescription;;
-				}
-				Logo.SetImage(url: new NSUrl(product.ImageFullUrl), placeholder: UIImage.FromBundle(ImageConstants.Placeholder));
-			}
-		}
+        public override void ViewDidLoad()
+        {
+            base.ViewDidLoad();
+            ConfigurePageWith(CurrentProduct);
+        }
 
-		private string ConfigureFavoriteAction()
-		{
-			return currentProduct.IsProductFavorite ? "Remove from favorites" : "Add to favorites";
-		}
+        protected override void Dispose(bool disposing)
+        {
+            base.Dispose(disposing);
+            System.Diagnostics.Debug.WriteLine(string.Format("{0} controller disposed", GetType()));
+        }
 
-		// -------------------- Action handlers --------------------
-		private void BuyActionClicked()
-		{
-			PreViewController_BuyActionExecuted?.Invoke(this, currentProduct);
-		}
+        #endregion
 
-		private void FavoriteActionClicked()
-		{
-			PreViewController_FavoriteActionExecuted?.Invoke(this, currentProduct);
-		}
-		// --------------------------------------------------------
-		#endregion
+        #region Private methods
 
-		private UIPreviewAction PreviewActionForTitle(string title, UIPreviewActionStyle style = UIPreviewActionStyle.Default, Action handler = null)
-		{
-			return UIPreviewAction.Create(title, style, (action, previewViewController) =>
-			{
-				if (handler != null)
-				{
-					handler();
-				}
-			});
-		}
-	}
+        private void ConfigurePageWith(Product product)
+        {
+            if (product != null)
+            {
+                NameLabel.Text = product.Name;
+                PriceLabel.Text = "Price: " + product.Price + " Coins";
+                if (string.IsNullOrEmpty(product.Description))
+                {
+                    DescriptionLabel.Text = product.Description;
+                }
+                else
+                {
+                    DescriptionLabel.TextColor = UIColor.Gray;
+                    DescriptionLabel.Text = Const.defaultDescription;
+                }
+                Logo.SetImage(url: new NSUrl(product.ImageFullUrl), placeholder: UIImage.FromBundle(ImageConstants.Placeholder));
+            }
+        }
+
+        private string ConfigureFavoriteAction()
+        {
+            return CurrentProduct.IsProductFavorite ? "Remove from favorites" : "Add to favorites";
+        }
+
+        // -------------------- Action handlers --------------------
+        private void BuyActionClicked()
+        {
+            PreViewController_BuyActionExecuted?.Invoke(this, CurrentProduct);
+        }
+
+        private void FavoriteActionClicked()
+        {
+            PreViewController_FavoriteActionExecuted?.Invoke(this, CurrentProduct);
+        }
+        // --------------------------------------------------------
+
+        #endregion
+
+        private static UIPreviewAction PreviewActionForTitle(string title, UIPreviewActionStyle style = UIPreviewActionStyle.Default, Action handler = null)
+        {
+            return UIPreviewAction.Create(title, style, (action, previewViewController) =>
+            {
+                handler?.Invoke();
+            });
+        }
+    }
 }

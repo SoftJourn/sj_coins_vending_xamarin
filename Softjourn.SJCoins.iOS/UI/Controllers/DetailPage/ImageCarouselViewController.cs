@@ -1,30 +1,28 @@
 using System;
-using CoreGraphics;
 using Foundation;
 using Softjourn.SJCoins.Core.API.Model.Products;
+using Softjourn.SJCoins.iOS.UI.Delegates.DetailPage;
+using Softjourn.SJCoins.iOS.UI.Sources.DetailPage;
 using UIKit;
 
-namespace Softjourn.SJCoins.iOS.UI.Controllers
+namespace Softjourn.SJCoins.iOS.UI.Controllers.DetailPage
 {
     [Register("ImageCarouselViewController")]
-    public partial class ImageCarouselViewController: UIViewController, IDisposable
+    public partial class ImageCarouselViewController: UIViewController
     {
-		#region Properties
         public Product CurrentProduct { get; set; }
         public int CurrentImage { get; set; }
 		public event EventHandler<int> VisibleItem;
 
 		private ImageCarouselViewSource collectionSource;
 		private ImageCarouselViewFlowLayoutDelegate collectionDelegate;
-		#endregion
 
-		#region Constructor
 		public ImageCarouselViewController(IntPtr handle) : base(handle)
         {
 		}
-		#endregion
 
 		#region Controller Life cycle
+
 		public override void ViewDidLoad()
 		{
 			base.ViewDidLoad();
@@ -62,9 +60,11 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers
             NavigationController.View.BackgroundColor = null;
 			base.ViewWillDisappear(animated);
         }
+
 		#endregion
 
 		#region Private methods
+
 		private void ConfigureImageCollection()
 		{
 			collectionSource = new ImageCarouselViewSource
@@ -93,9 +93,11 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers
 			else
 				PageControl.Hidden = true;
 		}
+
         #endregion
 
 		#region Event handlers
+
 		private void BackButtonClicked(object sender, EventArgs e)
 		{
             PresentingViewController.DismissViewController(true, null);
@@ -107,11 +109,12 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers
 			PageControl.CurrentPage = currentIndex;
             VisibleItem?.Invoke(this, currentIndex);
 		}
+
 		#endregion
 
 		protected override void Dispose(bool disposing)
 		{
-			System.Diagnostics.Debug.WriteLine(String.Format("{0} disposed", this.GetType()));
+			System.Diagnostics.Debug.WriteLine(string.Format("{0} disposed", GetType()));
 			base.Dispose(disposing);
 		}
 	}

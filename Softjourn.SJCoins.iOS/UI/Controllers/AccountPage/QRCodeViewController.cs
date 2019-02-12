@@ -14,26 +14,18 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.AccountPage
 	[Register("QRCodeViewController")]
 	public partial class QRCodeViewController : BaseViewController<QrPresenter>, IQrView
 	{
-		#region Constants
 		private const string Scan = "Scan";
 		private const string Generate = "Generate";
 		private const string notValidCode = "Not valid QR code.";
-		#endregion
 
-		#region Properties
 		private UIImage qrcode;
 		private string InitialParameter { get; set; }
-		private string Amount
-		{
-			get { return AmountTexfield.Text; } 
-		}
+		private string Amount => AmountTexfield.Text;
 
-		private MobileBarcodeScanner scanner; 
+        private MobileBarcodeScanner scanner; 
 		private UITapGestureRecognizer qrcodeImageTap;
 		private AmountTextFieldDelegate textFieldDelegate;
-		#endregion
 
-		#region Constructor
 		public QRCodeViewController(IntPtr handle) : base(handle)
 		{
 		}
@@ -45,9 +37,9 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.AccountPage
 				this.InitialParameter = (string)initialParameter;
 			}
 		}
-		#endregion
 
 		#region Controller Life cycle
+
 		public override void ViewDidLoad()
 		{
 			base.ViewDidLoad();
@@ -66,6 +58,7 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.AccountPage
 		#endregion
 
 		#region BaseViewController
+
 		public override void AttachEvents()
 		{
 			base.AttachEvents();
@@ -85,9 +78,11 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.AccountPage
 			QRCodeImage.RemoveGestureRecognizer(qrcodeImageTap);
 			base.DetachEvents();
 		}
+
 		#endregion
 
 		#region IQrView implementation
+
 		public void UpdateBalance(string remain)
 		{
 			//Update balance after success debiting funds
@@ -111,14 +106,16 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.AccountPage
 			// Save qrcode
 			SaveImageToPhotoAlbum(qrcode);
 			// Clear texfield
-			AmountTexfield.Text = "";
+			AmountTexfield.Text = string.Empty;
 		}
+
 		#endregion
 
 		#region Private methods
+
 		private void ConfigurePageWith(string parameter)
 		{
-			BalanceLabel.Text = "Your balance is " + Presenter.GetBalance().ToString();
+			BalanceLabel.Text = "Your balance is " + Presenter.GetBalance();
 			ErrorLabel.Hidden = true;
 			QRCodeImage.Hidden = true;
 
@@ -195,12 +192,14 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.AccountPage
 			var activityController = new UIActivityViewController(new NSObject[] { qrcode }, null);
 			PresentViewController(activityController, true, null);
 		}
+
 		#endregion
 
 		#region Event handlers
+
 		private void AmountTextFieldChanged(object sender, EventArgs e)
 		{
-			ErrorLabel.Text = "";
+			ErrorLabel.Text = string.Empty;
 			Presenter.ValidateAmount(AmountTexfield.Text);
 		}
 
@@ -208,7 +207,7 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.AccountPage
 		{
 			if (InitialParameter == Scan)
 			{
-				// Execute scaning
+				// Execute scanning
 				ScanQRCode();
 			}
 			else if (InitialParameter == Generate)
@@ -231,6 +230,7 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.AccountPage
 			// Handle tapping on the QRCode image
 			PresentSharedSheet();
 		}
+
 		#endregion
 	}
 }

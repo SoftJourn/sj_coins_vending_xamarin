@@ -4,7 +4,7 @@ using SDWebImage;
 using Softjourn.SJCoins.iOS.General.Constants;
 using UIKit;
 
-namespace Softjourn.SJCoins.iOS
+namespace Softjourn.SJCoins.iOS.UI.Cells
 {
     public partial class ImageDetailCell : UICollectionViewCell
     {

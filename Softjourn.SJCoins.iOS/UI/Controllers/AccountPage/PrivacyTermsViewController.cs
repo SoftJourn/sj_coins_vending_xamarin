@@ -10,7 +10,5 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.AccountPage
 		public PrivacyTermsViewController(IntPtr handle) : base(handle)
 		{
 		}
-
-
 	}
 }

@@ -1,14 +1,12 @@
 ﻿using System;
-using Foundation;
-using Softjourn.SJCoins.Core.API.Model.Products;
-using UIKit;
 using CoreGraphics;
+using Foundation;
 using SDWebImage;
+using Softjourn.SJCoins.Core.API.Model.Products;
 using Softjourn.SJCoins.iOS.General.Constants;
-using Softjourn.SJCoins.iOS.UI.Controllers;
-using System.Threading.Tasks;
+using UIKit;
 
-namespace Softjourn.SJCoins.iOS
+namespace Softjourn.SJCoins.iOS.UI.Cells
 {
 	public partial class HomeInternalCell : UICollectionViewCell //IUIViewControllerPreviewingDelegate
 	{
@@ -17,13 +15,14 @@ namespace Softjourn.SJCoins.iOS
         // Cash layout calculation
 
 		#region Properties
+
 		public static readonly NSString Key = new NSString("HomeInternalCell");
 		public static readonly UINib Nib;
 
 		//public event EventHandler<Product> BuyAction;
 		//public event EventHandler<Product> FavoriteAction;
 
-        private UIFont nameLabelFont = UIFont.SystemFontOfSize(13);
+        private readonly UIFont nameLabelFont = UIFont.SystemFontOfSize(13);
 		private UIImageView ProductImage { get; set; }
 		private UILabel NameLabel { get; set; }
 		private UILabel PriceLabel { get; set; }
@@ -31,15 +30,13 @@ namespace Softjourn.SJCoins.iOS
 		private Product Product { get; set; }
 		//private PreViewController previewController;
 		//private IUIViewControllerPreviewing previewing;
-		private AppDelegate CurrentApplication
-		{
-			get { return (AppDelegate)UIApplication.SharedApplication.Delegate; }
-		}
+		private AppDelegate CurrentApplication => (AppDelegate)UIApplication.SharedApplication.Delegate;
 
-		static HomeInternalCell()
+        static HomeInternalCell()
 		{
 			Nib = UINib.FromName("HomeInternalCell", NSBundle.MainBundle);
 		}
+
         #endregion
 
 		protected HomeInternalCell(IntPtr handle) : base(handle)
@@ -54,14 +51,16 @@ namespace Softjourn.SJCoins.iOS
         }
 
 		#region Private methods
+
 		private void SetUpUI()
         {
-            ProductImage = new UIImageView {
-			    BackgroundColor = UIColor.White,
+            ProductImage = new UIImageView
+            {
+                BackgroundColor = UIColor.White,
                 ContentMode = UIViewContentMode.ScaleAspectFill,
-                ClipsToBounds = true                   
+                ClipsToBounds = true,
+                Opaque = true
             };
-            ProductImage.Opaque = true;
             ProductImage.Layer.CornerRadius = 22.0f;
             ProductImage.Layer.BorderWidth = 0.6f;
             ProductImage.Layer.BorderColor = UIColorConstants.ProductImageBorderColor.CGColor;
@@ -110,9 +109,11 @@ namespace Softjourn.SJCoins.iOS
 				CoinImage.Frame = new CGRect(PriceLabel.Frame.Width + 4, ProductImage.Frame.Height + Const.PhoneNameLabelRetreat + NameLabel.Frame.Height + Const.PhonePriceLabelRetreat, Const.MaxPhonePriceLabelHeight, Const.MaxPhonePriceLabelHeight);
             }
         }
+
 		#endregion
 
 		#region Public methods
+
 		public void ConfigureWith(Product product)
 		{
 			this.Product = product;
@@ -136,10 +137,10 @@ namespace Softjourn.SJCoins.iOS
 			// Reset outlets
 			ProductImage.Image = null;
 			ProductImage.Alpha = 1.0f;
-			NameLabel.Text = "";
+			NameLabel.Text = string.Empty;
             NameLabel.Frame = new CGRect(0, ProductImage.Frame.Height + 8, 0, 0);
             NameLabel.Alpha = 1.0f;
-			PriceLabel.Text = "";
+			PriceLabel.Text = string.Empty;
             PriceLabel.Alpha = 1.0f;
 
 			// Dettach
@@ -178,6 +179,7 @@ namespace Softjourn.SJCoins.iOS
                 CoinImage.Alpha = 0.3f;
 			}
 		}
+
 		#endregion
 
 		//#region IUIViewControllerPreviewingDelegate implementation

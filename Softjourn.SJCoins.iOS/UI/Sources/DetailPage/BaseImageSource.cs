@@ -2,12 +2,12 @@
 using System.Collections.Generic;
 using UIKit;
 
-namespace Softjourn.SJCoins.iOS
+namespace Softjourn.SJCoins.iOS.UI.Sources.DetailPage
 {
-    public class BaseImageSource: UICollectionViewSource
+    public class BaseImageSource : UICollectionViewSource
     {
-		public List<string> Images { get; set; } = new List<string>();
+        public List<string> Images { get; set; } = new List<string>();
 
-		public override nint GetItemsCount(UICollectionView collectionView, nint section) => Images.Count;
-	}
+        public override nint GetItemsCount(UICollectionView collectionView, nint section) => Images.Count;
+    }
 }

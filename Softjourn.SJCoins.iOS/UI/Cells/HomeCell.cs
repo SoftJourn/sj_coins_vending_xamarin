@@ -1,15 +1,15 @@
 ﻿using System;
-using UIKit;
-using Foundation;
 using CoreGraphics;
+using Foundation;
 using Softjourn.SJCoins.Core.API.Model.Products;
-using Softjourn.SJCoins.iOS.UI.Sources;
-using Softjourn.SJCoins.iOS.UI.Delegates;
 using Softjourn.SJCoins.iOS.General.Constants;
+using Softjourn.SJCoins.iOS.UI.Delegates;
+using Softjourn.SJCoins.iOS.UI.Sources.HomePage;
+using UIKit;
 
-namespace Softjourn.SJCoins.iOS
+namespace Softjourn.SJCoins.iOS.UI.Cells
 {
-    public partial class HomeCell : UITableViewCell, IDisposable
+    public partial class HomeCell : UITableViewCell
 	{
 		public static readonly NSString Key = new NSString("HomeCell");
 		public static readonly UINib Nib;
@@ -54,7 +54,7 @@ namespace Softjourn.SJCoins.iOS
 
             AttachEvents();
 
-            ShowAllButton.Hidden |= categoryName == Const.MatchesCategory || categoryName == "";
+            ShowAllButton.Hidden |= categoryName == Const.MatchesCategory || categoryName == string.Empty;
 		}
 
 		public override void PrepareForReuse()

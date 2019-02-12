@@ -3,8 +3,10 @@
 	public static class Const
 	{
 		#region Category names from bundle
+
 		public const string FavoritesCategory = "Favorites";
         public const string MatchesCategory = "Matches";
+
 		#endregion
 
 		public const string defaultDescription = "No description to current product.";

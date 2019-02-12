@@ -1,10 +1,9 @@
 ﻿using System;
-
 using Foundation;
 using Softjourn.SJCoins.Core.API.Model;
 using UIKit;
 
-namespace Softjourn.SJCoins.iOS
+namespace Softjourn.SJCoins.iOS.UI.Cells
 {
 	public partial class AccountCell : UITableViewCell
 	{

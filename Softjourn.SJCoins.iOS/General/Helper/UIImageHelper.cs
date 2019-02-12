@@ -4,7 +4,7 @@ using System.IO;
 using CoreGraphics;
 using UIKit;
 
-namespace Softjourn.SJCoins.iOS
+namespace Softjourn.SJCoins.iOS.General.Helper
 {
     public class UIImageHelper
     {
@@ -15,7 +15,7 @@ namespace Softjourn.SJCoins.iOS
             if (image != null)
             {
                 var imageStream = image.AsJPEG(0).AsStream();
-                using (MemoryStream memStream = new MemoryStream())
+                using (var memStream = new MemoryStream())
                 {
                     imageStream.CopyTo(memStream);
                     return memStream.ToArray();
@@ -38,7 +38,7 @@ namespace Softjourn.SJCoins.iOS
                 var scaleRatio = bounds.Width / width;
                 var imageSize = new SizeF(width, height);
 
-                UIImageOrientation orient = orIn;
+                var orient = orIn;
                 float boundHeight;
 
                 switch (orient)
@@ -117,7 +117,7 @@ namespace Softjourn.SJCoins.iOS
                 context.ConcatCTM(transform);
                 context.DrawImage(new RectangleF(0, 0, width, height), imgRef);
 
-                UIImage imageCopy = UIGraphics.GetImageFromCurrentImageContext();
+                var imageCopy = UIGraphics.GetImageFromCurrentImageContext();
                 UIGraphics.EndImageContext();
 
                 return imageCopy;

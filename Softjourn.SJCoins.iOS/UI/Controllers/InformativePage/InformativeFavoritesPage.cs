@@ -2,20 +2,19 @@ using System;
 using Foundation;
 using UIKit;
 
-namespace Softjourn.SJCoins.iOS
+namespace Softjourn.SJCoins.iOS.UI.Controllers.InformativePage
 {
 	[Register("InformativeFavoritesPage")]
     public partial class InformativeFavoritesPage: UIViewController
     {
-		#region Properties
         public event EventHandler GotItButtonTapped;
-		#endregion
 
 		public InformativeFavoritesPage(IntPtr handle) : base(handle)
         {
         }
 
 		#region Controller Life cycle
+
 		public override void ViewDidLoad()
 		{
 			base.ViewDidLoad();
@@ -35,6 +34,7 @@ namespace Softjourn.SJCoins.iOS
 			}
 			base.ViewWillDisappear(animated);
 		}
+
 		#endregion Controller Life cycle
 
         private void ConfigureGotItButton()

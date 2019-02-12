@@ -10,6 +10,5 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.AccountPage
 		public ShareFunsViewController(IntPtr handle) : base(handle)
 		{
 		}
-
 	}
 }

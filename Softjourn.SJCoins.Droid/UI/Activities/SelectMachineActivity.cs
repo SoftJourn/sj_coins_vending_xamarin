@@ -20,7 +20,7 @@ namespace Softjourn.SJCoins.Droid.UI.Activities
         private TextView _noMachinesTextView;
         private ListView _machineListView;
         private List<Machines> _machinesList = new List<Machines>();
-        private SelectMachineListAdapter _adapter; 
+        private SelectMachineListAdapter _adapter;
 
         protected override void OnCreate(Bundle savedInstanceState)
         {
@@ -70,7 +70,7 @@ namespace Softjourn.SJCoins.Droid.UI.Activities
             _noMachinesTextView.Visibility = ViewStates.Visible;
             _noMachinesTextView.Text = message;
         }
-        
+
         public void ShowMachinesList(List<Machines> list, Machines selectedMachine = null)
         {
             _machinesList = list;

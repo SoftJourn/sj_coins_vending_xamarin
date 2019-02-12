@@ -3,39 +3,37 @@ using Foundation;
 using LocalAuthentication;
 using Softjourn.SJCoins.iOS.General.Constants;
 
-namespace Softjourn.SJCoins.iOS
+namespace Softjourn.SJCoins.iOS.UI.Services
 {
     public class TouchIDService
     {
         public event EventHandler AccessGranted;
         public event EventHandler<NSError> AccessDenied;
 
-        #region Properties
-        LAContext context = new LAContext();
-        LAPolicy biometricPolicy = LAPolicy.DeviceOwnerAuthenticationWithBiometrics;
-        NSError AuthError;
-        #endregion
+        private readonly LAContext context = new LAContext();
+        private const LAPolicy BiometricPolicy = LAPolicy.DeviceOwnerAuthenticationWithBiometrics;
+        private NSError AuthError;
 
-        #region Public methods
         public bool CanEvaluatePolicy()
         {
-            return context.CanEvaluatePolicy(biometricPolicy, out AuthError);
+            return context.CanEvaluatePolicy(BiometricPolicy, out AuthError);
         }
 
         public void AuthenticateUser()
         {
-            context.EvaluatePolicy(biometricPolicy, Const.Unlock_Access, HandleLAContextReply);
+            context.EvaluatePolicy(BiometricPolicy, Const.Unlock_Access, HandleLaContextReply);
         }
-        #endregion
 
         #region Private methods
-        private void HandleLAContextReply(bool success, NSError error)
+
+        private void HandleLaContextReply(bool success, NSError error)
         {
             if (success)
                 AccessGranted?.Invoke(this, null);
-            else 
+            else
                 AccessDenied?.Invoke(this, error);
         }
+
         #endregion
     }
 }

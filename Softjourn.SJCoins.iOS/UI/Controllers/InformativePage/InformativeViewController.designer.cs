@@ -5,21 +5,21 @@
 // Manual changes to this file may not be handled correctly.
 //
 using Foundation;
-using System.CodeDom.Compiler;
 
-namespace Softjourn.SJCoins.iOS.UI.Controllers.Informative
+namespace Softjourn.SJCoins.iOS.UI.Controllers.InformativePage
 {
-	partial class InformativeViewController
-	{
-		[Outlet]
-		UIKit.UIPageControl PageControl { get; set; }
-		
-		void ReleaseDesignerOutlets ()
-		{
-			if (PageControl != null) {
-				PageControl.Dispose ();
-				PageControl = null;
-			}
-		}
-	}
+    partial class InformativeViewController
+    {
+        [Outlet]
+        UIKit.UIPageControl PageControl { get; set; }
+
+        void ReleaseDesignerOutlets()
+        {
+            if (PageControl != null)
+            {
+                PageControl.Dispose();
+                PageControl = null;
+            }
+        }
+    }
 }

@@ -5,99 +5,108 @@
 // Manual changes to this file may not be handled correctly.
 //
 using Foundation;
-using System.CodeDom.Compiler;
 
 namespace Softjourn.SJCoins.iOS.UI.Controllers
 {
-	partial class LoginViewController
-	{
-		[Outlet]
-		UIKit.UIBarButtonItem BackHelpButton { get; set; }
+    partial class LoginViewController
+    {
+        [Outlet]
+        UIKit.UIBarButtonItem BackHelpButton { get; set; }
 
-		[Outlet]
-		UIKit.UIImageView ImageLogo { get; set; }
+        [Outlet]
+        UIKit.UIImageView ImageLogo { get; set; }
 
-		[Outlet]
-		UIKit.UIButton LoginButton { get; set; }
+        [Outlet]
+        UIKit.UIButton LoginButton { get; set; }
 
-		[Outlet]
-		UIKit.UILabel LoginErrorLabel { get; set; }
+        [Outlet]
+        UIKit.UILabel LoginErrorLabel { get; set; }
 
-		[Outlet]
-		UIKit.UITextField LoginTextField { get; set; }
+        [Outlet]
+        UIKit.UITextField LoginTextField { get; set; }
 
-		[Outlet]
-		UIKit.UILabel PasswordErrorLabel { get; set; }
+        [Outlet]
+        UIKit.UILabel PasswordErrorLabel { get; set; }
 
-		[Outlet]
-		UIKit.UITextField PasswordTextField { get; set; }
+        [Outlet]
+        UIKit.UITextField PasswordTextField { get; set; }
 
-		[Outlet]
-		UIKit.UIScrollView ScrollView { get; set; }
+        [Outlet]
+        UIKit.UIScrollView ScrollView { get; set; }
 
-		[Outlet]
-		UIKit.UIButton TouchIDButton { get; set; }
+        [Outlet]
+        UIKit.UIButton TouchIDButton { get; set; }
 
-		[Outlet]
-		UIKit.UILabel VersionLabel { get; set; }
+        [Outlet]
+        UIKit.UILabel VersionLabel { get; set; }
 
-		[Action ("LoginTextFieldDidChange:")]
-		partial void LoginTextFieldDidChange (UIKit.UITextField sender);
+        [Action("LoginTextFieldDidChange:")]
+        partial void LoginTextFieldDidChange(UIKit.UITextField sender);
 
-		[Action ("PasswordTextFieldDidChange:")]
-		partial void PasswordTextFieldDidChange (UIKit.UITextField sender);
-		
-		void ReleaseDesignerOutlets ()
-		{
-			if (BackHelpButton != null) {
-				BackHelpButton.Dispose ();
-				BackHelpButton = null;
-			}
+        [Action("PasswordTextFieldDidChange:")]
+        partial void PasswordTextFieldDidChange(UIKit.UITextField sender);
 
-			if (ImageLogo != null) {
-				ImageLogo.Dispose ();
-				ImageLogo = null;
-			}
+        void ReleaseDesignerOutlets()
+        {
+            if (BackHelpButton != null)
+            {
+                BackHelpButton.Dispose();
+                BackHelpButton = null;
+            }
 
-			if (LoginButton != null) {
-				LoginButton.Dispose ();
-				LoginButton = null;
-			}
+            if (ImageLogo != null)
+            {
+                ImageLogo.Dispose();
+                ImageLogo = null;
+            }
 
-			if (LoginErrorLabel != null) {
-				LoginErrorLabel.Dispose ();
-				LoginErrorLabel = null;
-			}
+            if (LoginButton != null)
+            {
+                LoginButton.Dispose();
+                LoginButton = null;
+            }
 
-			if (LoginTextField != null) {
-				LoginTextField.Dispose ();
-				LoginTextField = null;
-			}
+            if (LoginErrorLabel != null)
+            {
+                LoginErrorLabel.Dispose();
+                LoginErrorLabel = null;
+            }
 
-			if (PasswordErrorLabel != null) {
-				PasswordErrorLabel.Dispose ();
-				PasswordErrorLabel = null;
-			}
+            if (LoginTextField != null)
+            {
+                LoginTextField.Dispose();
+                LoginTextField = null;
+            }
 
-			if (PasswordTextField != null) {
-				PasswordTextField.Dispose ();
-				PasswordTextField = null;
-			}
+            if (PasswordErrorLabel != null)
+            {
+                PasswordErrorLabel.Dispose();
+                PasswordErrorLabel = null;
+            }
 
-			if (ScrollView != null) {
-				ScrollView.Dispose ();
-				ScrollView = null;
-			}
+            if (PasswordTextField != null)
+            {
+                PasswordTextField.Dispose();
+                PasswordTextField = null;
+            }
 
-			if (TouchIDButton != null) {
-				TouchIDButton.Dispose ();
-				TouchIDButton = null;
-			}
+            if (ScrollView != null)
+            {
+                ScrollView.Dispose();
+                ScrollView = null;
+            }
 
-			if (VersionLabel != null) {
-				VersionLabel.Dispose ();
-				VersionLabel = null;
-			}
-		}
-	}
+            if (TouchIDButton != null)
+            {
+                TouchIDButton.Dispose();
+                TouchIDButton = null;
+            }
+
+            if (VersionLabel != null)
+            {
+                VersionLabel.Dispose();
+                VersionLabel = null;
+            }
+        }
+    }
 }

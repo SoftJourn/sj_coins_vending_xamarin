@@ -36,6 +36,7 @@ namespace Softjourn.SJCoins.iOS.General.Helper
 					Height = height
 				}
 			};
+
 			return barcodeWriter.Write(content);
 		}
 	}

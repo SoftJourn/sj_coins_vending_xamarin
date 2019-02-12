@@ -3,12 +3,15 @@
 	public static class StoryboardConstants
 	{
 		#region Storyboards
+
 		public const string StoryboardLogin = "Login";
 		public const string StoryboardMain = "Main";
 		public const string StoryboardAccount = "Account";
+
 		#endregion
 
 		#region Controllers
+
 		public const string InitialViewController = "InitialViewController";
 
 		// Informative pages
@@ -42,6 +45,7 @@
 		public const string ShareFunsViewController = "ShareFunsViewController";
 		public const string QRCodeViewController = "QRCodeViewController";
 		public const string SelectMachineViewController = "SelectMachineViewController";
+
 		#endregion
 	}
 }

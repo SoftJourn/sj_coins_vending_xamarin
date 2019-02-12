@@ -1,28 +1,21 @@
-﻿using UIKit;
+﻿using System;
 using CoreGraphics;
-using System;
+using UIKit;
 
-namespace Softjourn.SJCoins.iOS
+namespace Softjourn.SJCoins.iOS.UI.Controllers.DetailPage
 {
     public class DetailViewPresentationController: UIPresentationController // NOT USED !!!!!!!
     {
-        #region Properties
         private UIView dimmingView;
 
-		public override CGRect FrameOfPresentedViewInContainerView
-		{
-            get { return FrameOfPresentedView(); }
-		}
-		#endregion
+		public override CGRect FrameOfPresentedViewInContainerView => FrameOfPresentedView();
 
-		#region Constructor
-		public DetailViewPresentationController(UIViewController presentedViewController, UIViewController presentingViewController) : base(presentedViewController, presentingViewController)
+		public DetailViewPresentationController(UIViewController presentedViewController, UIViewController presentingViewController) 
+            : base(presentedViewController, presentingViewController)
         {
             SetupDimmingView();
         }
-        #endregion
 
-        #region Public methods
         public override void PresentationTransitionWillBegin()
         {
             ContainerView?.InsertSubview(dimmingView, 0);
@@ -46,16 +39,17 @@ namespace Softjourn.SJCoins.iOS
         {
             return new CGSize(parentContainerSize.Width, parentContainerSize.Height * (2.0f / 3.0f));
         }
-		#endregion
 
 		#region Private methods
+
 		private CGRect FrameOfPresentedView()
         {
             var presentedFrame = new CGRect
             {
-                Size = GetSizeForChildContentContainer(PresentedViewController, ContainerView.Bounds.Size)
+                Size = GetSizeForChildContentContainer(PresentedViewController, ContainerView.Bounds.Size),
+                Y = ContainerView.Frame.Height * (1.0f / 2.0f)
             };
-            presentedFrame.Y = ContainerView.Frame.Height * (1.0f / 2.0f);
+
             return presentedFrame;
         }
 
@@ -68,8 +62,12 @@ namespace Softjourn.SJCoins.iOS
                 Alpha = 0
             };
 
-			Action tapAction = () => { PresentingViewController.DismissViewController(true, null); };
-			var tapGestureRecognizer = new UITapGestureRecognizer(tapAction) { };
+            void TapAction()
+            {
+                PresentingViewController.DismissViewController(true, null);
+            }
+
+            var tapGestureRecognizer = new UITapGestureRecognizer(TapAction) { };
 			dimmingView.AddGestureRecognizer(tapGestureRecognizer);
         }
 
@@ -81,7 +79,7 @@ namespace Softjourn.SJCoins.iOS
 			else
 				dimmingView.Alpha = alpha;
         }
-		#endregion
 
+		#endregion
 	}
 }

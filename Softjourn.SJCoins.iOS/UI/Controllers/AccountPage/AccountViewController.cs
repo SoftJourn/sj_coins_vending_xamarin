@@ -1,12 +1,11 @@
 using System;
-using CoreAnimation;
-using CoreGraphics;
 using Foundation;
 using Softjourn.SJCoins.Core.API.Model;
 using Softjourn.SJCoins.Core.API.Model.AccountInfo;
 using Softjourn.SJCoins.Core.UI.Presenters;
 using Softjourn.SJCoins.Core.UI.ViewInterfaces;
-using Softjourn.SJCoins.iOS.UI.Sources;
+using Softjourn.SJCoins.iOS.General.Helper;
+using Softjourn.SJCoins.iOS.UI.Sources.AccountPage;
 using UIKit;
 
 namespace Softjourn.SJCoins.iOS.UI.Controllers.AccountPage
@@ -14,21 +13,18 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.AccountPage
 	[Register("AccountViewController")]
 	public partial class AccountViewController : BaseViewController<AccountPresenter>, IAccountView
 	{
-		#region Properties
 		private AccountViewSource tableSource;
-		private Lazy<UIImageHelper> helper = new Lazy<UIImageHelper>(() => { return new UIImageHelper(); });
-		private UIImageHelper ImageHelper { get { return helper.Value; } }
+		private readonly Lazy<UIImageHelper> helper = new Lazy<UIImageHelper>(() => new UIImageHelper());
+		private UIImageHelper ImageHelper => helper.Value;
 
-		UITapGestureRecognizer avatarImageTap; 
-		#endregion
+        private UITapGestureRecognizer avatarImageTap; 
 
-		#region Constructor
 		public AccountViewController(IntPtr handle) : base(handle)
 		{
 		}
-		#endregion
 
 		#region Controller Life cycle
+
 		public override void ViewDidLoad()
 		{
 			base.ViewDidLoad();
@@ -49,9 +45,11 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.AccountPage
             base.ViewWillDisappear(animated);
             MakeNavigationBarDefault();
         }
+
 		#endregion
 
 		#region BaseViewController
+
 		public override void AttachEvents()
 		{
 			base.AttachEvents();
@@ -70,9 +68,11 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.AccountPage
 			AvatarImage.RemoveGestureRecognizer(avatarImageTap);
 			base.DetachEvents();
 		}
+
 		#endregion
 
 		#region IAccountView implementation
+
 		public void SetAccountInfo(Account account)
 		{
 			if (account != null)
@@ -84,8 +84,8 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.AccountPage
 
 		public void ImageAcquired(byte[] receipt)
 		{
-			// Method trigged when data taken from server or dataManager
-			var image = UIImage.LoadFromData(NSData.FromArray(receipt));
+            // Method triggered when data taken from server or dataManager
+            var image = UIImage.LoadFromData(NSData.FromArray(receipt));
 
 			// Set image
 			if (AvatarImage.Hidden)
@@ -116,9 +116,11 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.AccountPage
 
 		//Android
 		public void ImageAcquired(string receipt) { }
+
 		#endregion
 
 		#region Private methods
+
 		private void ConfigureTableView()
 		{
 			var options = Presenter.GetOptionsList();
@@ -126,18 +128,20 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.AccountPage
             TableView.Source = tableSource;
 		}
 
-		private void ConfigureAvatarImage(UIImageView imageView)
+		private static void ConfigureAvatarImage(UIImageView imageView)
 		{
             // Make image rounded
-			CALayer imageCircle = imageView.Layer;
+			var imageCircle = imageView.Layer;
 			imageCircle.CornerRadius = imageView.Frame.Height / 2;
             imageCircle.BorderWidth = 0.3f;
             imageCircle.BorderColor = UIColorConstants.ProductImageBorderColor.CGColor;
 			imageCircle.MasksToBounds = true;
 		}
+
 		#endregion
 
         #region Event handlers
+
 		private void TableSource_ItemClicked(object sender, AccountOption item)
 		{
 			Presenter.OnItemClick(item.OptionName);
@@ -152,6 +156,7 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.AccountPage
 		{
 			Presenter.OnPhotoClicked();
 		}
+
 		#endregion
 	}
 }

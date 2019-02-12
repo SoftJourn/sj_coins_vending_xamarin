@@ -14,44 +14,45 @@ namespace Softjourn.SJCoins.iOS
         // class-level declarations
 
         public override UIWindow Window { get; set; }
-		public UIViewController VisibleViewController { get; set; }
+        public UIViewController VisibleViewController { get; set; }
 
         public override bool FinishedLaunching(UIApplication application, NSDictionary launchOptions)
         {
-			InitIoC();
-			InitInitialViewControllerManually();
-			ConfigureProgressHUD();
-			ConfigureHockeyAppCrashAnalitics();
-			return true;
+            InitIoC();
+            InitInitialViewControllerManually();
+            ConfigureProgressHud();
+            ConfigureHockeyAppCrashAnalytics();
+
+            return true;
         }
 
-		private void InitIoC()
-		{
-			new Bootstraper.Bootstraper().Init();
-		}
+        private static void InitIoC()
+        {
+            new Bootstraper.Bootstraper().Init();
+        }
 
-		private void InitInitialViewControllerManually()
-		{
-			Window = new UIWindow(UIScreen.MainScreen.Bounds);
-			var storyboard = UIStoryboard.FromName(StoryboardConstants.StoryboardLogin, null);
-			var controller = storyboard.InstantiateViewController(StoryboardConstants.InitialViewController);
-			Window.RootViewController = controller;
-			Window.MakeKeyAndVisible();
-		}
+        private void InitInitialViewControllerManually()
+        {
+            Window = new UIWindow(UIScreen.MainScreen.Bounds);
+            var storyboard = UIStoryboard.FromName(StoryboardConstants.StoryboardLogin, null);
+            var controller = storyboard.InstantiateViewController(StoryboardConstants.InitialViewController);
+            Window.RootViewController = controller;
+            Window.MakeKeyAndVisible();
+        }
 
-		private void ConfigureProgressHUD()
-		{
-            ProgressHUD.Shared.HudBackgroundColour = UIColorConstants.SpinerBackgroundColor;
+        private static void ConfigureProgressHud()
+        {
+            ProgressHUD.Shared.HudBackgroundColour = UIColorConstants.SpinnerBackgroundColor;
             ProgressHUD.Shared.HudForegroundColor = UIColorConstants.ProductNameColor;
         }
 
-		private void ConfigureHockeyAppCrashAnalitics()
-		{
-			var manager = BITHockeyManager.SharedHockeyManager;
-			manager.Configure("9e94cec1cac44720ba336059aa00f430"); // key from hockeyapp.net
-			manager.CrashManager.CrashManagerStatus = BITCrashManagerStatus.AutoSend;
-   			manager.StartManager();
-   			manager.Authenticator.AuthenticateInstallation(); // This line is obsolete in crash only builds
-		}
+        private static void ConfigureHockeyAppCrashAnalytics()
+        {
+            var manager = BITHockeyManager.SharedHockeyManager;
+            manager.Configure("9e94cec1cac44720ba336059aa00f430"); // key from hockeyapp.net
+            manager.CrashManager.CrashManagerStatus = BITCrashManagerStatus.AutoSend;
+            manager.StartManager();
+            manager.Authenticator.AuthenticateInstallation(); // This line is obsolete in crash only builds
+        }
     }
 }

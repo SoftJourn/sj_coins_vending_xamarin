@@ -7,7 +7,6 @@ namespace Softjourn.SJCoins.iOS.UI.Cells
 {
 	public partial class TransactionCell : UITableViewCell
 	{
-		#region Properties
 		public static readonly NSString Key = new NSString("TransactionCell");
 		public static readonly UINib Nib;
 
@@ -15,14 +14,11 @@ namespace Softjourn.SJCoins.iOS.UI.Cells
 		{
 			Nib = UINib.FromName("TransactionCell", NSBundle.MainBundle);
 		}
-		#endregion
 
-		#region Constructor
 		protected TransactionCell(IntPtr handle) : base(handle)
 		{
 			// Note: this .ctor should not contain any initialization logic.
 		}
-		#endregion
 
 		public void ConfigureWith(Transaction item)
 		{
@@ -34,10 +30,10 @@ namespace Softjourn.SJCoins.iOS.UI.Cells
 
 		public override void PrepareForReuse()
 		{
-			DateLabel.Text = "";
-			SenderLabel.Text = "";
-			ReceiverLabel.Text = "";
-			AmountLabel.Text = "";
+			DateLabel.Text = string.Empty;
+			SenderLabel.Text = string.Empty;
+			ReceiverLabel.Text = string.Empty;
+			AmountLabel.Text = string.Empty;
 		}
 	}
 }

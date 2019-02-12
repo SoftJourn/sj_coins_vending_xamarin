@@ -3,124 +3,129 @@ using Foundation;
 using Softjourn.SJCoins.Core.UI.Presenters;
 using Softjourn.SJCoins.Core.UI.ViewInterfaces;
 using Softjourn.SJCoins.iOS.General.Constants;
-using Softjourn.SJCoins.iOS.Services;
 using Softjourn.SJCoins.iOS.UI.Services;
 using UIKit;
 using KeyChain.Net.XamarinIOS;
+using Softjourn.SJCoins.iOS.UI.Delegates;
 
 namespace Softjourn.SJCoins.iOS.UI.Controllers
 {
-	[Register("LoginViewController")]
-	public partial class LoginViewController : BaseViewController<LoginPresenter>, ILoginView
-	{
+    [Register("LoginViewController")]
+    public partial class LoginViewController : BaseViewController<LoginPresenter>, ILoginView
+    {
         public const string LoginKey = "sjcoins_login";
         public const string PasswordKey = "sjcoins_password";
 
-		#region Properties
         private KeyboardScrollService scrollService;
         private TouchIDService touchIDService;
         private KeyChainHelper keychainHelper;
         private LoginPageTextFieldsDelegate loginTextFieldDelegate = new LoginPageTextFieldsDelegate();
-		private LoginPageTextFieldsDelegate passwordTextFieldDelegate = new LoginPageTextFieldsDelegate();
-		#endregion
+        private LoginPageTextFieldsDelegate passwordTextFieldDelegate = new LoginPageTextFieldsDelegate();
 
-		#region Constructor
-		public LoginViewController(IntPtr handle) : base(handle) 
-		{
-		}
-		#endregion
+        public LoginViewController(IntPtr handle) : base(handle)
+        {
+        }
 
-		#region Controller Life cycle 
-		public override void ViewDidLoad()
-		{
-			base.ViewDidLoad();
+        #region Controller Life cycle 
+
+        public override void ViewDidLoad()
+        {
+            base.ViewDidLoad();
             ConfigurePage();
-		}
+        }
 
-		public override void ViewWillAppear(bool animated)
-		{
-			base.ViewWillAppear(animated);
+        public override void ViewWillAppear(bool animated)
+        {
+            base.ViewWillAppear(animated);
 
-			//Hide error labels before view appears
-			LoginErrorLabel.Hidden = true;
-			PasswordErrorLabel.Hidden = true;
+            //Hide error labels before view appears
+            LoginErrorLabel.Hidden = true;
+            PasswordErrorLabel.Hidden = true;
 
             UIApplication.SharedApplication.SetStatusBarStyle(UIStatusBarStyle.Default, false);
 
             MakeNavigationBarTransparent();
-		}
+        }
 
-		public override void ViewWillDisappear(bool animated)
-		{
-			base.ViewWillDisappear(animated);
+        public override void ViewWillDisappear(bool animated)
+        {
+            base.ViewWillDisappear(animated);
             scrollService = null;
-			loginTextFieldDelegate = null;
-			passwordTextFieldDelegate = null;
-		}
-		#endregion
+            loginTextFieldDelegate = null;
+            passwordTextFieldDelegate = null;
+        }
 
-		#region Native actions implementation
-		partial void LoginTextFieldDidChange(UITextField sender)
-		{
-			LoginErrorLabel.Hidden = true;
-		}
+        #endregion
 
-		partial void PasswordTextFieldDidChange(UITextField sender)
-		{
-			PasswordErrorLabel.Hidden = true;
-		}
-		#endregion
+        #region Native actions implementation
 
-		#region ILoginView implementation
-		public void SetUsernameError(string message)
-		{
-			LoginErrorLabel.Text = message;
-			LoginErrorLabel.Hidden = false;
-		}
+        partial void LoginTextFieldDidChange(UITextField sender)
+        {
+            LoginErrorLabel.Hidden = true;
+        }
 
-		public void SetPasswordError(string message)
-		{
-			// show passwordLabel error
-			PasswordErrorLabel.Text = message;
-			PasswordErrorLabel.Hidden = false;
-		}
+        partial void PasswordTextFieldDidChange(UITextField sender)
+        {
+            PasswordErrorLabel.Hidden = true;
+        }
 
-		public void ShowNoInternetError(string message)
-		{
-			//show no internet alert
-			new AlertService().ShowInformationDialog(null, message, "Ok", null);
-		}
-		#endregion
+        #endregion
 
-		#region BaseViewController -> IBaseView implementation
-		public override void AttachEvents()
-		{
-			base.AttachEvents();
+        #region ILoginView implementation
+
+        public void SetUsernameError(string message)
+        {
+            LoginErrorLabel.Text = message;
+            LoginErrorLabel.Hidden = false;
+        }
+
+        public void SetPasswordError(string message)
+        {
+            // show passwordLabel error
+            PasswordErrorLabel.Text = message;
+            PasswordErrorLabel.Hidden = false;
+        }
+
+        public void ShowNoInternetError(string message)
+        {
+            //show no internet alert
+            new AlertService().ShowInformationDialog(null, message, "Ok", null);
+        }
+
+        #endregion
+
+        #region BaseViewController -> IBaseView implementation
+
+        public override void AttachEvents()
+        {
+            base.AttachEvents();
             BackHelpButton.Clicked += BackButtonClicked;
-			LoginButton.TouchUpInside += LoginButtonClicked;
+            LoginButton.TouchUpInside += LoginButtonClicked;
             TouchIDButton.TouchUpInside += TouchIDButtonClicked;
             loginTextFieldDelegate.ShouldReturnEvent += TextFieldShouldReturn;
-			passwordTextFieldDelegate.ShouldReturnEvent += TextFieldShouldReturn;
+            passwordTextFieldDelegate.ShouldReturnEvent += TextFieldShouldReturn;
             touchIDService.AccessGranted += TouchIDAccessGranted;
             touchIDService.AccessDenied += TouchIDAccessDenied;
             scrollService.AttachToKeyboardNotifications();
-		}
+        }
 
-		public override void DetachEvents()
-		{
+        public override void DetachEvents()
+        {
             BackHelpButton.Clicked -= BackButtonClicked;
-			LoginButton.TouchUpInside -= LoginButtonClicked;
+            LoginButton.TouchUpInside -= LoginButtonClicked;
             TouchIDButton.TouchUpInside -= TouchIDButtonClicked;
-            loginTextFieldDelegate.ShouldReturnEvent -= TextFieldShouldReturn; 
+            loginTextFieldDelegate.ShouldReturnEvent -= TextFieldShouldReturn;
             passwordTextFieldDelegate.ShouldReturnEvent -= TextFieldShouldReturn;
             touchIDService.AccessGranted -= TouchIDAccessGranted;
             touchIDService.AccessDenied -= TouchIDAccessDenied;
             scrollService.DetachToKeyboardNotifications();
-			base.DetachEvents();
-		}
+            base.DetachEvents();
+        }
+
         #endregion
 
         #region Private methods
+
         private void ConfigurePage()
         {
             LoginTextField.Delegate = loginTextFieldDelegate;
@@ -156,20 +161,22 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers
                 TouchIDButton.Hidden = true;
         }
 
-        private bool FirstLogin() => !NSUserDefaults.StandardUserDefaults.BoolForKey(Const.FIRSTLOGIN);
+        private static bool FirstLogin() => !NSUserDefaults.StandardUserDefaults.BoolForKey(Const.FIRSTLOGIN);
 
-        private void ProposeStoreCredentials() 
+        private void ProposeStoreCredentials()
         {
-            Action ok = () => {
+            void Ok()
+            {
                 keychainHelper.DeleteKey(LoginKey);
                 keychainHelper.DeleteKey(PasswordKey);
                 keychainHelper.SetKey(LoginKey, LoginTextField.Text);
                 keychainHelper.SetKey(PasswordKey, PasswordTextField.Text);
                 LogIn();
-            };
+            }
+
             Action cancel = LogIn;
 
-            new AlertService().ShowConfirmationAlert("Credentials", "Save credentials to fingerprint ?", ok, cancel);
+            new AlertService().ShowConfirmationAlert("Credentials", "Save credentials to fingerprint ?", Ok, cancel);
         }
 
         private void LogIn()
@@ -180,7 +187,7 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers
         private bool AnotherCredentialsUsed() => !LoginTextField.Text.Equals(Retreive(LoginKey)) || !PasswordTextField.Text.Equals(Retreive(PasswordKey));
 
         private bool NoStoredCredentials() => string.IsNullOrEmpty(Retreive(LoginKey)) || string.IsNullOrEmpty(Retreive(PasswordKey));
-                   
+
         private string Retreive(string key) => keychainHelper.GetKey(key);
 
         protected override void ShowAnimated(bool loadSuccess)
@@ -190,16 +197,18 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers
             LoginButton.Hidden = false;
             TouchIDButton.Hidden = false;
         }
+
         #endregion
 
         #region Event handlers
-        private void BackButtonClicked(object sender, EventArgs e)
-		{
-			Presenter.ToWelcomePage();
-		}
 
-		private void LoginButtonClicked(object sender, EventArgs e)
-		{
+        private void BackButtonClicked(object sender, EventArgs e)
+        {
+            Presenter.ToWelcomePage();
+        }
+
+        private void LoginButtonClicked(object sender, EventArgs e)
+        {
             if (touchIDService.CanEvaluatePolicy())
             {
                 if (FirstLogin() || AnotherCredentialsUsed())
@@ -209,18 +218,19 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers
             }
             else
                 LogIn();
-		}
+        }
 
         private void TextFieldShouldReturn(object sender, UITextField textField)
-		{
-			if (textField == LoginTextField)
+        {
+            if (textField == LoginTextField)
                 PasswordTextField.BecomeFirstResponder();
-			
-            if (textField == PasswordTextField) {
-			    PasswordTextField.ResignFirstResponder();
-			    textField.ReturnKeyType = UIReturnKeyType.Done;
-			}
-		}
+
+            if (textField == PasswordTextField)
+            {
+                PasswordTextField.ResignFirstResponder();
+                textField.ReturnKeyType = UIReturnKeyType.Done;
+            }
+        }
 
         // TouchID service
         private void TouchIDButtonClicked(object sender, EventArgs e)
@@ -244,7 +254,7 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers
 
         private void TouchIDAccessDenied(object sender, NSError error)
         {
-            if (error.LocalizedDescription.Equals("Canceled by user.")) 
+            if (error.LocalizedDescription.Equals("Canceled by user."))
             {
                 InvokeOnMainThread(() =>
                 {
@@ -252,6 +262,7 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers
                 });
             }
         }
-		#endregion 
-  	}
+
+        #endregion
+    }
 }

@@ -115,7 +115,7 @@ namespace Softjourn.SJCoins.Core.API
             request.AddParameter("token_value", Settings.RefreshToken);
             request.AddHeader("Content-Type", "application/x-www-form-urlencoded");
             request.AddHeader("Authorization", LoginAuthorizationHeader);
-            
+
             try
             {
                 var response = await apiClient.Execute(request);
@@ -284,7 +284,7 @@ namespace Softjourn.SJCoins.Core.API
             var request = new RestRequest(url, httpMethod);
             request.AddHeader("Content-Type", "application/json");
             request.AddHeader("Authorization", GetOAuthAuthorizationHeader());
-            
+
             try
             {
                 var response = await apiClient.Execute(request);
@@ -365,7 +365,7 @@ namespace Softjourn.SJCoins.Core.API
             };
 
             var boundary = "---8d0f01e6b3b5dafaaadaad";
-            var multipartContent = new MultipartFormDataContent(boundary) {fileContent};
+            var multipartContent = new MultipartFormDataContent(boundary) { fileContent };
             var httpClient = new HttpClient();
             httpClient.DefaultRequestHeaders.Add("Authorization", GetOAuthAuthorizationHeader());
             var response = await httpClient.PostAsync(BaseUrl + url, multipartContent);
@@ -405,7 +405,7 @@ namespace Softjourn.SJCoins.Core.API
             request.AddQueryParameter("page", transactionRequest.Page);
             request.AddQueryParameter("sort", transactionRequest.Sort[0].Property + "," + transactionRequest.Sort[0].Direction);
             request.AddQueryParameter("direction", transactionRequest.Direction);
-            
+
             try
             {
                 var response = await apiClient.Execute(request);
@@ -444,7 +444,7 @@ namespace Softjourn.SJCoins.Core.API
             request.AddHeader("Content-Type", "application/json");
             request.AddHeader("Authorization", GetOAuthAuthorizationHeader());
             request.AddBody(body);
-            
+
             try
             {
                 var response = await apiClient.Execute(request);
