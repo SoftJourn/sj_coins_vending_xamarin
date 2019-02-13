@@ -13,7 +13,7 @@ namespace Softjourn.SJCoins.Core.Managers.Api
         #region OAuth Api calls
 
         Task<Session> MakeLoginRequestAsync(string userName, string password);
-        Task<EmptyResponse> RevokeTokenAsync();
+        Task RevokeTokenAsync();
 
         #endregion;
 
@@ -25,8 +25,8 @@ namespace Softjourn.SJCoins.Core.Managers.Api
         Task<List<Product>> GetProductsList();
         Task<Amount> BuyProductById(string productId);
         Task<List<Product>> GetFavoritesList();
-        Task<EmptyResponse> AddProductToFavorites(string productId);
-        Task<EmptyResponse> RemoveProductFromFavorites(string productId);
+        Task AddProductToFavorites(string productId);
+        Task RemoveProductFromFavorites(string productId);
         Task<List<History>> GetPurchaseHistory();
 
         #endregion
@@ -39,7 +39,7 @@ namespace Softjourn.SJCoins.Core.Managers.Api
         Task<Report> GetTransactionReport(TransactionRequest transactionRequest);
         Task<Cash> WithdrawMoney(Amount amount);
         Task<byte[]> GetAvatarImage(string endpoint);
-        Task<EmptyResponse> SetAvatarImage(byte[] image);
+        Task SetAvatarImage(byte[] image);
 
         #endregion
     }

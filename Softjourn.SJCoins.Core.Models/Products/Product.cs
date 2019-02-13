@@ -20,10 +20,10 @@ namespace Softjourn.SJCoins.Core.Models.Products
         public int IntPrice => int.Parse(Price.ToString(CultureInfo.InvariantCulture));
 
         [JsonIgnore]
-        public string ImageFullUrl => Constant.BaseUrl + Constant.UrlVendingService + ImageUrl;
+        public string ImageFullUrl => $"{Constant.BaseUrl}{Constant.UrlVendingService}/{ImageUrl}";
 
         [JsonIgnore]
-        public List<string> ImagesFullUrls => ImageUrls.Select(url => Constant.BaseUrl + Constant.UrlVendingService + url).ToList();
+        public List<string> ImagesFullUrls => ImageUrls.Select(url => $"{Constant.BaseUrl}{Constant.UrlVendingService}/{url}").ToList();
 
         public bool IsProductFavorite { get; set; }
 

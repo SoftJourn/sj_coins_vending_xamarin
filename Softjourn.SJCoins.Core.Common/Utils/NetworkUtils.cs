@@ -2,7 +2,7 @@
 
 namespace Softjourn.SJCoins.Core.Common.Utils
 {
-    public class NetworkUtils
+    public static class NetworkUtils
     {
         public static bool IsConnected => CrossConnectivity.Current.IsConnected;
 
@@ -11,13 +11,9 @@ namespace Softjourn.SJCoins.Core.Common.Utils
             CrossConnectivity.Current.ConnectivityChanged += (sender, args) =>
             {
                 if (IsConnected)
-                {
                     listener?.OnInternetAppeared();
-                }
                 else
-                {
                     listener?.OnInternetDismissed();
-                }
             };
         }
     }

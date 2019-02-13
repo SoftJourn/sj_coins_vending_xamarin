@@ -3,6 +3,7 @@
     public interface INetworkConnection
     {
         void OnInternetAppeared();
+
         void OnInternetDismissed();
     }
 }

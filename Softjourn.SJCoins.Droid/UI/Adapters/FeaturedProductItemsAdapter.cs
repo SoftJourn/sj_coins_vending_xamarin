@@ -44,7 +44,7 @@ namespace Softjourn.SJCoins.Droid.UI.Adapters
             _context = context;
             Filter = new SearchFilter(this);
 
-            _category = featureCategory ?? "";
+            _category = featureCategory ?? string.Empty;
 
             _recyclerViewType = recyclerViewType ?? Const.DefaultRecyclerView;
             _coins = " " + _context.GetString(Resource.String.item_coins);
@@ -154,7 +154,9 @@ namespace Softjourn.SJCoins.Droid.UI.Adapters
             }
             else
             {
-                Picasso.With(_context).Load(Constant.BaseUrl + Constant.UrlVendingService + ListProducts[holder.AdapterPosition].ImageUrl).NetworkPolicy(NetworkPolicy.NoCache).Into(holder.ProductImage);
+                var imageUrl =
+                    $"{Constant.BaseUrl}{Constant.UrlVendingService}/{ListProducts[holder.AdapterPosition].ImageUrl}";
+                Picasso.With(_context).Load(imageUrl).NetworkPolicy(NetworkPolicy.NoCache).Into(holder.ProductImage);
                 if (_category == Const.Favorites)
                     holder.ProductImage.Alpha = !product.IsProductInCurrentMachine ? 0.3f : 1.0f;
             }
@@ -216,8 +218,7 @@ namespace Softjourn.SJCoins.Droid.UI.Adapters
          */
         private void OnLongClick(object sender, EventArgs e)
         {
-            var holder = sender as FeatureViewHolder;
-            if (holder == null)
+            if (!(sender is FeatureViewHolder holder))
             {
                 throw new Exception("Holder is null");
             }
@@ -233,8 +234,7 @@ namespace Softjourn.SJCoins.Droid.UI.Adapters
          */
         private void OnClickClicked(object sender, EventArgs eventArgs)
         {
-            var holder = sender as FeatureViewHolder;
-            if (holder == null)
+            if (!(sender is FeatureViewHolder holder))
             {
                 throw new Exception("Holder is null");
             }
@@ -251,8 +251,7 @@ namespace Softjourn.SJCoins.Droid.UI.Adapters
          */
         private void AddFavoriteClick(object sender, EventArgs e)
         {
-            var holder = sender as FeatureViewHolder;
-            if (holder == null)
+            if (!(sender is FeatureViewHolder holder))
             {
                 throw new Exception("Holder is null");
             }

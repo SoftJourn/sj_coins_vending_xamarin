@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using Softjourn.SJCoins.Core.Common;
-using Softjourn.SJCoins.Core.Common.Utils;
 using Softjourn.SJCoins.Core.Models;
 using Softjourn.SJCoins.Core.Models.AccountInfo;
 using Softjourn.SJCoins.Core.Models.Machines;
@@ -24,9 +23,9 @@ namespace Softjourn.SJCoins.Core.Managers.Api
             return await ApiClient.MakeLoginRequestAsync(userName, password);
         }
 
-        public async Task<EmptyResponse> RevokeTokenAsync()
+        public Task RevokeTokenAsync()
         {
-            return await ApiClient.RevokeToken();
+            return ApiClient.RevokeToken();
         }
 
         public async Task<List<Machines>> GetMachinesListAsync()
@@ -65,14 +64,14 @@ namespace Softjourn.SJCoins.Core.Managers.Api
             return await ApiClient.GetFavoritesListAsync();
         }
 
-        public async Task<EmptyResponse> AddProductToFavorites(string productId)
+        public Task AddProductToFavorites(string productId)
         {
-            return await ApiClient.AddProductToFavoritesAsync(productId);
+            return ApiClient.AddProductToFavoritesAsync(productId);
         }
 
-        public async Task<EmptyResponse> RemoveProductFromFavorites(string productId)
+        public Task RemoveProductFromFavorites(string productId)
         {
-            return await ApiClient.RemoveProductFromFavoritesAsync(productId);
+            return ApiClient.RemoveProductFromFavoritesAsync(productId);
         }
 
         public async Task<List<History>> GetPurchaseHistory()
@@ -110,9 +109,9 @@ namespace Softjourn.SJCoins.Core.Managers.Api
             return await ApiClient.GetAvatarImage(endpoint);
         }
 
-        public async Task<EmptyResponse> SetAvatarImage(byte[] image)
+        public Task SetAvatarImage(byte[] image)
         {
-            return await ApiClient.SetAvatarImage(image);
+            return ApiClient.SetAvatarImage(image);
         }
     }
 }

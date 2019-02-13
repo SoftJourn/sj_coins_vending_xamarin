@@ -1,4 +1,5 @@
 using System;
+using System.Diagnostics;
 using Foundation;
 using Softjourn.SJCoins.Core.Models.Products;
 using Softjourn.SJCoins.iOS.UI.Delegates.DetailPage;
@@ -114,7 +115,7 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.DetailPage
 
 		protected override void Dispose(bool disposing)
 		{
-			System.Diagnostics.Debug.WriteLine(string.Format("{0} disposed", GetType()));
+			Debug.WriteLine($"{GetType()} disposed");
 			base.Dispose(disposing);
 		}
 	}

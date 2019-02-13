@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
@@ -21,32 +22,24 @@ namespace Softjourn.SJCoins.Core.Managers.Api
 {
     public sealed class ApiClient
     {
-        public const string GrandTypePassword = "password";
-        public const string GrandTypeRefreshToken = "refresh_token";
-
-        public const string BaseUrl = Constant.BaseUrl;
-        public const string LoginAuthorizationHeader = Constant.HeaderAuthorizationValue;
-
         public const string UrlAuthService = Constant.UrlAuthService;
         public const string UrlVendingService = Constant.UrlVendingService;
         public const string UrlCoinService = Constant.UrlCoinService;
-
-        public ApiClient() { }
 
         #region OAuth Server Calls
 
         public async Task<Session> MakeLoginRequestAsync(string userName, string password)
         {
-            var apiClient = GetApiClient();
-            var url = UrlAuthService + "oauth/token";
+            var url = $"{UrlAuthService}/oauth/token";
             var request = new RestRequest(url, Method.POST);
-            request.AddParameter("username", userName);
-            request.AddParameter("password", password);
-            request.AddParameter("grant_type", GrandTypePassword);
-            request.AddHeader("Content-Type", "application/x-www-form-urlencoded");
-            request.AddHeader("Authorization", LoginAuthorizationHeader);
 
-            try
+            request.AddParameter(Constant.HttpParameter.UserNameKey, userName);
+            request.AddParameter(Constant.HttpParameter.PasswordKey, password);
+            request.AddParameter(Constant.HttpParameter.GrantTypeKey, Constant.HttpParameter.PasswordValue);
+            request.AddHeader(Constant.HttpHeader.ContentTypeKey, Constant.HttpHeader.ApplicationFormValue);
+            request.AddHeader(Constant.HttpHeader.AuthorizationKey, Constant.HttpHeader.BasicAuthorizationValue);
+
+            using (var apiClient = GetApiClient())
             {
                 var response = await apiClient.Execute(request);
 
@@ -58,31 +51,24 @@ namespace Softjourn.SJCoins.Core.Managers.Api
 
                     return session;
                 }
-                else
-                {
-                    ApiErrorHandler(response);
-                }
-            }
-            // catch is missing because all exceptions should be caught on Presenter side
-            finally
-            {
-                apiClient.Dispose();
+
+                ApiErrorHandler(response);
             }
 
             return null;
         }
 
-        private async Task<Session> RefreshTokenAsync()
+        private static async Task<Session> RefreshTokenAsync()
         {
-            var apiClient = GetApiClient();
-            var url = UrlAuthService + "oauth/token";
+            var url = $"{UrlAuthService}/oauth/token";
             var request = new RestRequest(url, Method.POST);
-            request.AddParameter("refresh_token", Settings.RefreshToken);
-            request.AddParameter("grant_type", GrandTypeRefreshToken);
-            request.AddHeader("Content-Type", "application/x-www-form-urlencoded");
-            request.AddHeader("Authorization", LoginAuthorizationHeader);
 
-            try
+            request.AddParameter(Constant.HttpParameter.RefreshTokenValue, Settings.RefreshToken);
+            request.AddParameter(Constant.HttpParameter.GrantTypeKey, Constant.HttpParameter.RefreshTokenValue);
+            request.AddHeader(Constant.HttpHeader.ContentTypeKey, Constant.HttpHeader.ApplicationFormValue);
+            request.AddHeader(Constant.HttpHeader.AuthorizationKey, Constant.HttpHeader.BasicAuthorizationValue);
+
+            using (var apiClient = GetApiClient())
             {
                 var response = await apiClient.Execute(request);
                 if (response.IsSuccess)
@@ -90,54 +76,35 @@ namespace Softjourn.SJCoins.Core.Managers.Api
                     var deserializer = new JsonDeserializer();
                     var session = deserializer.Deserialize<Session>(response);
                     SaveTokens(session);
-                    System.Diagnostics.Debug.WriteLine(string.Format(session == null ? "Tokens no saved !" : "Tokens saved !"));
+
+                    var debugMessage = session == null
+                        ? "Tokens no saved !"
+                        : "Tokens saved !";
+                    Debug.WriteLine(debugMessage);
 
                     return session;
                 }
-                else
-                {
-                    System.Diagnostics.Debug.WriteLine("Refresh token Failure!");
-                    throw new ApiNotAuthorizedException(Resources.ServerErrorResources.server_error_401);
-                }
-            }
-            // catch is missing because all exceptions should be caught on Presenter side
-            finally
-            {
-                apiClient.Dispose();
+
+                Debug.WriteLine("Refresh token Failure!");
+                throw new ApiNotAuthorizedException(Resources.ServerErrorResources.server_error_401);
             }
         }
 
-        public async Task<EmptyResponse> RevokeToken()
+        public async Task RevokeToken()
         {
-            var apiClient = GetApiClient();
-            var url = UrlAuthService + "oauth/token/revoke";
+            var url = $"{UrlAuthService}/oauth/token/revoke";
             var request = new RestRequest(url, Method.POST);
-            request.AddParameter("token_value", Settings.RefreshToken);
-            request.AddHeader("Content-Type", "application/x-www-form-urlencoded");
-            request.AddHeader("Authorization", LoginAuthorizationHeader);
 
-            try
+            request.AddParameter(Constant.HttpParameter.TokenValueKey, Settings.RefreshToken);
+            request.AddHeader(Constant.HttpHeader.ContentTypeKey, Constant.HttpHeader.ApplicationFormValue);
+            request.AddHeader(Constant.HttpHeader.AuthorizationKey, Constant.HttpHeader.BasicAuthorizationValue);
+
+            using (var apiClient = GetApiClient())
             {
                 var response = await apiClient.Execute(request);
-                if (response.IsSuccess)
-                {
-                    var deserializer = new JsonDeserializer();
-                    var emptyResponse = deserializer.Deserialize<EmptyResponse>(response);
-
-                    return emptyResponse;
-                }
-                else
-                {
+                if (!response.IsSuccess)
                     ApiErrorHandler(response);
-                }
             }
-            // catch is missing because all exceptions should be caught on Presenter side
-            finally
-            {
-                apiClient.Dispose();
-            }
-
-            return null;
         }
 
         #endregion
@@ -146,7 +113,7 @@ namespace Softjourn.SJCoins.Core.Managers.Api
 
         public async Task<List<Machines>> GetMachinesListAsync()
         {
-            var url = UrlVendingService + "machines";
+            var url = $"{UrlVendingService}/machines";
             var list = await MakeRequestAsync<List<Machines>>(url, Method.GET);
 
             return list;
@@ -154,7 +121,7 @@ namespace Softjourn.SJCoins.Core.Managers.Api
 
         public async Task<Machines> GetMachineByIdAsync(string machineId)
         {
-            var url = UrlVendingService + $"machines/{machineId}";
+            var url = $"{UrlVendingService}/machines/{machineId}";
             var machine = await MakeRequestAsync<Machines>(url, Method.GET);
 
             return machine;
@@ -162,7 +129,7 @@ namespace Softjourn.SJCoins.Core.Managers.Api
 
         public async Task<Featured> GetFeaturedProductsAsync(string machineId)
         {
-            var url = UrlVendingService + $"machines/{machineId}/features";
+            var url = $"{UrlVendingService}/machines/{machineId}/features";
             var featuredProducts = await MakeRequestAsync<Featured>(url, Method.GET);
 
             return featuredProducts;
@@ -170,7 +137,7 @@ namespace Softjourn.SJCoins.Core.Managers.Api
 
         public async Task<List<Product>> GetProductsListAsync(string machineId)
         {
-            var url = UrlVendingService + $"machines/{machineId}/products";
+            var url = $"{UrlVendingService}/machines/{machineId}/products";
             var productsList = await MakeRequestAsync<List<Product>>(url, Method.GET);
 
             return productsList;
@@ -178,7 +145,7 @@ namespace Softjourn.SJCoins.Core.Managers.Api
 
         public async Task<Amount> BuyProductByIdAsync(string machineId, string productId)
         {
-            var url = UrlVendingService + $"machines/{machineId}/products/{productId}";
+            var url = $"{UrlVendingService}/machines/{machineId}/products/{productId}";
             var productAmount = await MakeRequestAsync<Amount>(url, Method.POST);
 
             return productAmount;
@@ -186,31 +153,27 @@ namespace Softjourn.SJCoins.Core.Managers.Api
 
         public async Task<List<Product>> GetFavoritesListAsync()
         {
-            var url = UrlVendingService + $"favorites";
+            var url = $"{UrlVendingService}/favorites";
             var favoritesList = await MakeRequestAsync<List<Product>>(url, Method.GET);
 
             return favoritesList;
         }
 
-        public async Task<EmptyResponse> AddProductToFavoritesAsync(string productId)
+        public async Task AddProductToFavoritesAsync(string productId)
         {
-            var url = UrlVendingService + $"favorites/{productId}";
-            var response = await MakeRequestAsync<EmptyResponse>(url, Method.POST);
-
-            return response;
+            var url = $"{UrlVendingService}/favorites/{productId}";
+            await MakeRequestAsync(url, Method.POST);
         }
 
-        public async Task<EmptyResponse> RemoveProductFromFavoritesAsync(string productId)
+        public async Task RemoveProductFromFavoritesAsync(string productId)
         {
-            var url = UrlVendingService + $"favorites/{productId}";
-            var response = await MakeRequestAsync<EmptyResponse>(url, Method.DELETE);
-
-            return response;
+            var url = $"{UrlVendingService}/favorites/{productId}";
+            await MakeRequestAsync(url, Method.DELETE);
         }
 
         public async Task<List<History>> GetPurchaseHistoryAsync()
         {
-            var url = UrlVendingService + "machines/last";
+            var url = $"{UrlVendingService}/machines/last";
             var historyList = await MakeRequestAsync<List<History>>(url, Method.GET);
 
             return historyList;
@@ -222,7 +185,7 @@ namespace Softjourn.SJCoins.Core.Managers.Api
 
         public async Task<Account> GetUserAccountAsync()
         {
-            var url = UrlCoinService + "account";
+            var url = $"{UrlCoinService}/account";
             var account = await MakeRequestAsync<Account>(url, Method.GET);
 
             return account;
@@ -230,7 +193,7 @@ namespace Softjourn.SJCoins.Core.Managers.Api
 
         public async Task<Balance> GetBalanceAsync()
         {
-            var url = UrlCoinService + "amount";
+            var url = $"{UrlCoinService}/amount";
             var balance = await MakeRequestAsync<Balance>(url, Method.GET);
 
             return balance;
@@ -238,7 +201,7 @@ namespace Softjourn.SJCoins.Core.Managers.Api
 
         public async Task<DepositeTransaction> GetOfflineMoney(Cash scannedCode)
         {
-            var url = UrlCoinService + "deposit";
+            var url = $"{UrlCoinService}/deposit";
             var deposit = await MakeRequestWithBodyAsync<DepositeTransaction>(url, Method.POST, scannedCode);
 
             return deposit;
@@ -246,7 +209,7 @@ namespace Softjourn.SJCoins.Core.Managers.Api
 
         public async Task<Cash> WithdrawMoney(Amount amount)
         {
-            var url = UrlCoinService + "withdraw";
+            var url = $"{UrlCoinService}/withdraw";
             var cash = await MakeRequestWithBodyAsync<Cash>(url, Method.POST, amount);
 
             return cash;
@@ -254,7 +217,7 @@ namespace Softjourn.SJCoins.Core.Managers.Api
 
         public async Task<Report> GetTransactionReport(TransactionRequest transactionRequest)
         {
-            var url = UrlCoinService + "transactions/my/";
+            var url = $"{UrlCoinService}/transactions/my";
             var transactionReport = await MakeRequestWithQueryParametersAsync<Report>(url, Method.GET, transactionRequest);
 
             return transactionReport;
@@ -262,43 +225,42 @@ namespace Softjourn.SJCoins.Core.Managers.Api
 
         public async Task<byte[]> GetAvatarImage(string endpoint)
         {
-            var url = UrlCoinService + endpoint;
+            var url = $"{UrlCoinService}/{endpoint}";
             var result = await MakeRequestForFile(url, Method.GET);
 
             return result;
         }
 
-        public async Task<EmptyResponse> SetAvatarImage(byte[] image)
+        public async Task SetAvatarImage(byte[] image)
         {
-            var url = UrlCoinService + "account/image";
-            var response = await MakeRequestPostFile<EmptyResponse>(url, Method.POST, image);
-
-            return response;
+            var url = $"{UrlCoinService}/account/image";
+            await MakeRequestPostFile(url, image);
         }
 
         #endregion
 
-        private async Task<TResult> MakeRequestAsync<TResult>(string url, Method httpMethod)
+        private static async Task<TResult> MakeRequestAsync<TResult>(string url, Method httpMethod)
         {
-            var apiClient = GetApiClient();
             var request = new RestRequest(url, httpMethod);
-            request.AddHeader("Content-Type", "application/json");
-            request.AddHeader("Authorization", GetOAuthAuthorizationHeader());
+
+            request.AddHeader(Constant.HttpHeader.ContentTypeKey, Constant.HttpHeader.ApplicationJsonValue);
+            request.AddHeader(Constant.HttpHeader.AuthorizationKey, GetOAuthAuthorizationHeader());
 
             try
             {
-                var response = await apiClient.Execute(request);
-
-                if (response.IsSuccess)
+                using (var apiClient = GetApiClient())
                 {
-                    var deserializer = new JsonDeserializer();
-                    System.Diagnostics.Debug.WriteLine($"Response status code: {response.StatusCode}");
-                    var data = deserializer.Deserialize<TResult>(response);
+                    var response = await apiClient.Execute(request);
+                    if (response.IsSuccess)
+                    {
+                        Debug.WriteLine($"Response status code: {response.StatusCode}");
 
-                    return data;
-                }
-                else
-                {
+                        var deserializer = new JsonDeserializer();
+                        var data = deserializer.Deserialize<TResult>(response);
+
+                        return data;
+                    }
+
                     ApiErrorHandler(response);
                 }
             }
@@ -308,33 +270,53 @@ namespace Softjourn.SJCoins.Core.Managers.Api
 
                 return await MakeRequestAsync<TResult>(url, httpMethod);
             }
-            // all another exceptions should be caught on Presenter side
-            finally
-            {
-                apiClient.Dispose();
-            }
 
             return default(TResult);
         }
 
-        private async Task<byte[]> MakeRequestForFile(string url, Method httpMethod)
+        private static async Task MakeRequestAsync(string url, Method httpMethod)
         {
-            var apiClient = GetApiClient();
             var request = new RestRequest(url, httpMethod);
-            request.AddHeader("Content-Type", "multipart/form-data");
-            request.AddHeader("Authorization", GetOAuthAuthorizationHeader());
+
+            request.AddHeader(Constant.HttpHeader.ContentTypeKey, Constant.HttpHeader.ApplicationJsonValue);
+            request.AddHeader(Constant.HttpHeader.AuthorizationKey, GetOAuthAuthorizationHeader());
 
             try
             {
-                var response = await apiClient.Execute(request);
-
-                if (response.IsSuccess)
+                using (var apiClient = GetApiClient())
                 {
-                    var data = response.RawBytes;
-                    return data;
+                    var response = await apiClient.Execute(request);
+                    if (!response.IsSuccess)
+                        ApiErrorHandler(response);
                 }
-                else
+            }
+            catch (ApiNotAuthorizedException)
+            {
+                await RefreshTokenAsync();
+                await MakeRequestAsync(url, httpMethod);
+            }
+        }
+
+        private static async Task<byte[]> MakeRequestForFile(string url, Method httpMethod)
+        {
+            var request = new RestRequest(url, httpMethod);
+
+            request.AddHeader(Constant.HttpHeader.ContentTypeKey, Constant.HttpHeader.MultipartFormDataValue);
+            request.AddHeader(Constant.HttpHeader.AuthorizationKey, GetOAuthAuthorizationHeader());
+
+            try
+            {
+                using (var apiClient = GetApiClient())
                 {
+                    var response = await apiClient.Execute(request);
+
+                    if (response.IsSuccess)
+                    {
+                        var data = response.RawBytes;
+
+                        return data;
+                    }
+
                     ApiErrorHandler(response);
                 }
             }
@@ -344,81 +326,69 @@ namespace Softjourn.SJCoins.Core.Managers.Api
 
                 return await MakeRequestForFile(url, httpMethod);
             }
-            // all another exceptions should be caught on Presenter side
-            finally
-            {
-                apiClient.Dispose();
-            }
 
             return new byte[0];
         }
 
-        private async Task<TResult> MakeRequestPostFile<TResult>(string url, Method httpMethod, byte[] image)
+        private static async Task MakeRequestPostFile(string url, byte[] image)
         {
+            const string boundary = "---8d0f01e6b3b5dafaaadaad";
+
             var fileContent = new ByteArrayContent(image);
 
-            fileContent.Headers.ContentType = MediaTypeHeaderValue.Parse("multipart/form-data");
-            fileContent.Headers.ContentDisposition = new ContentDispositionHeaderValue("form-data")
+            fileContent.Headers.ContentType = MediaTypeHeaderValue.Parse(Constant.HttpHeader.MultipartFormDataValue);
+            fileContent.Headers.ContentDisposition = new ContentDispositionHeaderValue(Constant.HttpHeader.FormDataValue)
             {
                 Name = "file",
                 FileName = "avatar.jpg"
             };
 
-            var boundary = "---8d0f01e6b3b5dafaaadaad";
             var multipartContent = new MultipartFormDataContent(boundary) { fileContent };
             var httpClient = new HttpClient();
-            httpClient.DefaultRequestHeaders.Add("Authorization", GetOAuthAuthorizationHeader());
-            var response = await httpClient.PostAsync(BaseUrl + url, multipartContent);
+            httpClient.DefaultRequestHeaders.Add(Constant.HttpHeader.AuthorizationKey, GetOAuthAuthorizationHeader());
+            var response = await httpClient.PostAsync($"{Constant.BaseUrl}/{url}", multipartContent);
 
             try
             {
-                if (response.IsSuccessStatusCode)
-                {
-                    return default(TResult);
-                }
-                else
-                {
+                if (!response.IsSuccessStatusCode)
                     throw new ApiNotFoundException(NetworkErrorUtils.GetErrorMessage(409));
-                }
             }
             catch (ApiNotAuthorizedException)
             {
                 await RefreshTokenAsync();
-
-                return await MakeRequestPostFile<TResult>(url, httpMethod, image);
+                await MakeRequestPostFile(url, image);
             }
-
-            // all another exceptions should be caught on Presenter side
             finally
             {
                 httpClient.Dispose();
             }
         }
 
-        private async Task<TResult> MakeRequestWithQueryParametersAsync<TResult>(string url, Method httpMethod, TransactionRequest transactionRequest)
+        private static async Task<TResult> MakeRequestWithQueryParametersAsync<TResult>(string url, Method httpMethod, TransactionRequest transactionRequest)
         {
-            var apiClient = GetApiClient();
             var request = new RestRequest(url, httpMethod);
-            request.AddHeader("Content-Type", "application/json");
-            request.AddHeader("Authorization", GetOAuthAuthorizationHeader());
+
+            request.AddHeader(Constant.HttpHeader.ContentTypeKey, Constant.HttpHeader.ApplicationJsonValue);
+            request.AddHeader(Constant.HttpHeader.AuthorizationKey, GetOAuthAuthorizationHeader());
             request.AddQueryParameter("size", transactionRequest.Size);
             request.AddQueryParameter("page", transactionRequest.Page);
-            request.AddQueryParameter("sort", transactionRequest.Sort[0].Property + "," + transactionRequest.Sort[0].Direction);
+            request.AddQueryParameter("sort",  $"{transactionRequest.Sort[0].Property},{transactionRequest.Sort[0].Direction}");
             request.AddQueryParameter("direction", transactionRequest.Direction);
 
             try
             {
-                var response = await apiClient.Execute(request);
-
-                if (response.IsSuccess)
+                using (var apiClient = GetApiClient())
                 {
-                    var deserializer = new JsonDeserializer();
-                    var data = deserializer.Deserialize<TResult>(response);
+                    var response = await apiClient.Execute(request);
 
-                    return data;
-                }
-                else
-                {
+                    if (response.IsSuccess)
+                    {
+                        var deserializer = new JsonDeserializer();
+                        var data = deserializer.Deserialize<TResult>(response);
+
+                        return data;
+                    }
+
                     ApiErrorHandler(response);
                 }
             }
@@ -428,36 +398,32 @@ namespace Softjourn.SJCoins.Core.Managers.Api
 
                 return await MakeRequestWithQueryParametersAsync<TResult>(url, httpMethod, transactionRequest);
             }
-            // all another exceptions should be caught on Presenter side
-            finally
-            {
-                apiClient.Dispose();
-            }
 
             return default(TResult);
         }
 
-        private async Task<TResult> MakeRequestWithBodyAsync<TResult>(string url, Method httpMethod, object body)
+        private static async Task<TResult> MakeRequestWithBodyAsync<TResult>(string url, Method httpMethod, object body)
         {
-            var apiClient = GetApiClient();
             var request = new RestRequest(url, httpMethod);
-            request.AddHeader("Content-Type", "application/json");
-            request.AddHeader("Authorization", GetOAuthAuthorizationHeader());
+
+            request.AddHeader(Constant.HttpHeader.ContentTypeKey, Constant.HttpHeader.ApplicationJsonValue);
+            request.AddHeader(Constant.HttpHeader.AuthorizationKey, GetOAuthAuthorizationHeader());
             request.AddBody(body);
 
             try
             {
-                var response = await apiClient.Execute(request);
-
-                if (response.IsSuccess)
+                using (var apiClient = GetApiClient())
                 {
-                    var deserializer = new JsonDeserializer();
-                    var data = deserializer.Deserialize<TResult>(response);
+                    var response = await apiClient.Execute(request);
 
-                    return data;
-                }
-                else
-                {
+                    if (response.IsSuccess)
+                    {
+                        var deserializer = new JsonDeserializer();
+                        var data = deserializer.Deserialize<TResult>(response);
+
+                        return data;
+                    }
+
                     ApiErrorHandler(response);
                 }
             }
@@ -466,11 +432,6 @@ namespace Softjourn.SJCoins.Core.Managers.Api
                 await RefreshTokenAsync();
 
                 return await MakeRequestWithBodyAsync<TResult>(url, httpMethod, body);
-            }
-            // all another exceptions should be caught on Presenter side
-            finally
-            {
-                apiClient.Dispose();
             }
 
             return default(TResult);
@@ -491,13 +452,11 @@ namespace Softjourn.SJCoins.Core.Managers.Api
                         var deserializer = new JsonDeserializer();
                         var badResponse = deserializer.Deserialize<BadResponse>(response);
                         if (badResponse != null)
-                        {
                             throw new ApiNotFoundException(NetworkErrorUtils.GetErrorMessage(badResponse.Code));
-                        }
 
                         throw new ApiNotFoundException(NetworkErrorUtils.GetErrorMessage(404));
                     }
-                    catch (Exception e)
+                    catch (Exception)
                     {
                         throw new ApiNotFoundException(NetworkErrorUtils.GetErrorMessage(404));
                     }
@@ -507,9 +466,7 @@ namespace Softjourn.SJCoins.Core.Managers.Api
                         var deserializer = new JsonDeserializer();
                         var badResponse = deserializer.Deserialize<BadResponse>(response);
                         if (badResponse != null)
-                        {
                             throw new ApiNotFoundException(NetworkErrorUtils.GetErrorMessage(badResponse.Code));
-                        }
 
                         throw new ApiNotFoundException(NetworkErrorUtils.GetErrorMessage(409));
                     }

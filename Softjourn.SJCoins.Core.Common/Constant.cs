@@ -1,6 +1,6 @@
 namespace Softjourn.SJCoins.Core.Common
 {
-    public class Constant
+    public static class Constant
     {
         public const string SjCoinsPreferences = "SJ_COINS_PREFERENCES";
         public const string AccessToken = "ACCESS_TOKEN";
@@ -21,24 +21,21 @@ namespace Softjourn.SJCoins.Core.Common
 
         //URLs
         public const string BaseUrl = "https://vending.softjourn.if.ua";
-        public const string VendingApiVersion = "v1/";
-        public const string CoinsApiVersion = "v1/";
-        public const string UrlAuthService = "/api/auth/";
-        public const string UrlVendingService = "/api/vending/" + VendingApiVersion;
-        public const string UrlCoinService = "/api/coins/" + CoinsApiVersion;
-        public const string UrlLogin = UrlAuthService + "oauth/token";
+        public const string VendingApiVersion = "/v1";
+        public const string CoinsApiVersion = "/v1";
+        public const string UrlAuthService = "/api/auth";
+        public const string UrlVendingService = "/api/vending" + VendingApiVersion;
+        public const string UrlCoinService = "/api/coins" + CoinsApiVersion;
+        public const string UrlLogin = UrlAuthService + "/oauth/token";
 
         //URL for testing server
         //public const string BaseUrl = "https://sjcoins-testing.softjourn.if.ua";
-        //public const string VendingApiVersion = "v1/";
-        //public const string CoinsApiVersion = "v1/";
-        //public const string UrlAuthService = "/auth/";
-        //public const string UrlVendingService = "/vending/" + VendingApiVersion;
-        //public const string UrlCoinService = "/coins/" + CoinsApiVersion;
-        //public const string UrlLogin = UrlAuthService + "oauth/token";
-
-        public const string GrantTypePassword = "password";
-        public const string GrantTypeRefreshToken = "refresh_token";
+        //public const string VendingApiVersion = "/v1";
+        //public const string CoinsApiVersion = "/v1";
+        //public const string UrlAuthService = "/auth";
+        //public const string UrlVendingService = "/vending" + VendingApiVersion;
+        //public const string UrlCoinService = "/coins" + CoinsApiVersion;
+        //public const string UrlLogin = UrlAuthService + "/oauth/token";
 
         public const bool CallFailed = false;
         public const bool CallSucceed = true;
@@ -53,13 +50,6 @@ namespace Softjourn.SJCoins.Core.Common
         public const string Favorites = "Favorites";
         public const string BestSellers = "Best Sellers";
         public const string AllItems = "All Items";
-
-        //Headers for HTTP
-        public const string HeaderAuthorizationKey = "Authorization";
-        public const string HeaderAuthorizationValue = "Basic dXNlcl9jcmVkOnN1cGVyc2VjcmV0";
-
-        public const string HeaderContentTypeKey = "Content-Type";
-        public const string HeaderContentTypeValue = "application/x-www-form-urlencoded";
 
         public const string ActionAddFavorite = "ADD";
         public const string ActionRemoveFavorite = "REMOVE";
@@ -87,5 +77,28 @@ namespace Softjourn.SJCoins.Core.Common
         public const string ProfileOptionsShareFundsIconName = "ic_share_funs";
         public const string ProfileOptionsSelectMachineIconName = "ic_select_machine";
         public const string ProfileOptionsLogoutIconName = "ic_logout";
+
+        public static class HttpHeader
+        {
+            public const string AuthorizationKey = "Authorization";
+            public const string ContentTypeKey = "Content-Type";
+
+            public const string BasicAuthorizationValue = "Basic dXNlcl9jcmVkOnN1cGVyc2VjcmV0";
+            public const string ApplicationFormValue = "application/x-www-form-urlencoded";
+            public const string ApplicationJsonValue = "application/json";
+            public const string MultipartFormDataValue = "multipart/form-data";
+            public const string FormDataValue = "form-data";
+        }
+
+        public static class HttpParameter
+        {
+            public const string PasswordKey = "password";
+            public const string GrantTypeKey = "grant_type";
+            public const string UserNameKey = "username";
+            public const string TokenValueKey = "token_value";
+
+            public const string PasswordValue = "password";
+            public const string RefreshTokenValue = "refresh_token";
+        }
     }
 }

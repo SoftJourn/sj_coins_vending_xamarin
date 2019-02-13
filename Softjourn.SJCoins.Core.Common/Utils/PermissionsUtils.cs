@@ -6,7 +6,7 @@ using Softjourn.SJCoins.Core.Common.Exceptions;
 
 namespace Softjourn.SJCoins.Core.Common.Utils
 {
-    public class PermissionsUtils
+    public static class PermissionsUtils
     {
         public static async Task CheckCameraPermissionAsync()
         {

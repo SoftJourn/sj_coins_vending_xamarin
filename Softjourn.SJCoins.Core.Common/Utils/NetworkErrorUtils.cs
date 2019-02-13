@@ -2,7 +2,7 @@
 
 namespace Softjourn.SJCoins.Core.Common.Utils
 {
-    public class NetworkErrorUtils
+    public static class NetworkErrorUtils
     {
         public static string GetErrorMessage(int code)
         {

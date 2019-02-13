@@ -2,7 +2,7 @@
 
 namespace Softjourn.SJCoins.Core.Common.Utils
 {
-    public class TimeUtils
+    public static class TimeUtils
     {
         public static string GetPrettyTime(string dateString)
         {
