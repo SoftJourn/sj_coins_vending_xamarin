@@ -3,7 +3,7 @@ using CoreGraphics;
 using Softjourn.SJCoins.iOS.General.Constants;
 using System;
 using System.Collections.Generic;
-using Softjourn.SJCoins.Core.API.Model.Products;
+using Softjourn.SJCoins.Core.Models.Products;
 using Softjourn.SJCoins.iOS.General.Helper;
 using Softjourn.SJCoins.iOS.UI.Cells;
 

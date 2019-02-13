@@ -7,7 +7,7 @@ using Android.OS;
 using Android.Views;
 using Android.Widget;
 using Plugin.Permissions;
-using Softjourn.SJCoins.Core.API.Model.AccountInfo;
+using Softjourn.SJCoins.Core.Models.AccountInfo;
 using Softjourn.SJCoins.Core.UI.Presenters;
 using Softjourn.SJCoins.Core.UI.ViewInterfaces;
 using Softjourn.SJCoins.Droid.ui.baseUI;

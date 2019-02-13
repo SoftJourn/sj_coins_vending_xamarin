@@ -10,7 +10,7 @@ using Android.Views;
 using Android.Widget;
 using Plugin.CurrentActivity;
 using Softjourn.SJCoins.Core.UI.Services.Alert;
-using Softjourn.SJCoins.Core.API.Model.Products;
+using Softjourn.SJCoins.Core.Models.Products;
 using Softjourn.SJCoins.Droid.Utils;
 using Square.Picasso;
 

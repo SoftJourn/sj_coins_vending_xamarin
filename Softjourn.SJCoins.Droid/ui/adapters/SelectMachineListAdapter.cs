@@ -4,7 +4,7 @@ using Android.Graphics;
 using Android.Support.V4.Content;
 using Android.Views;
 using Android.Widget;
-using Softjourn.SJCoins.Core.API.Model.Machines;
+using Softjourn.SJCoins.Core.Models.Machines;
 
 namespace Softjourn.SJCoins.Droid.ui.adapters
 {

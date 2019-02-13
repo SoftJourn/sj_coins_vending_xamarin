@@ -1,7 +1,7 @@
 ﻿using System;
 using Foundation;
 using SDWebImage;
-using Softjourn.SJCoins.Core.API.Model.Products;
+using Softjourn.SJCoins.Core.Models.Products;
 using Softjourn.SJCoins.iOS.General.Constants;
 using UIKit;
 
@@ -41,7 +41,7 @@ namespace Softjourn.SJCoins.iOS.UI.Cells
             LogoImage.SetImage(url: new NSUrl(item.ImageFullUrl), placeholder: UIImage.FromBundle(ImageConstants.Placeholder));
             ConfigureDescript(item);
             ConfigureFavoriteImage(item.IsProductFavorite);
-            BuyButton.SetTitle(string.Format("{0}", item.Price), UIControlState.Normal);
+            BuyButton.SetTitle($"{item.Price}", UIControlState.Normal);
 
             // Attach event
             FavoriteButton.TouchUpInside -= FavoriteButtonClicked;

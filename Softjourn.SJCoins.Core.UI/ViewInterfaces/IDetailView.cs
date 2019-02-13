@@ -1,6 +1,4 @@
-﻿using Softjourn.SJCoins.Core.UI.Interfaces;
-
-namespace Softjourn.SJCoins.Core.UI.ViewInterfaces
+﻿namespace Softjourn.SJCoins.Core.UI.ViewInterfaces
 {
 	public interface IDetailView : IBaseProductView
 	{

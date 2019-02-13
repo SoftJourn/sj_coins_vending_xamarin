@@ -1,6 +1,6 @@
 ﻿using System;
 using Foundation;
-using Softjourn.SJCoins.Core.API.Model.TransactionReports;
+using Softjourn.SJCoins.Core.Models.TransactionReports;
 using UIKit;
 
 namespace Softjourn.SJCoins.iOS.UI.Cells

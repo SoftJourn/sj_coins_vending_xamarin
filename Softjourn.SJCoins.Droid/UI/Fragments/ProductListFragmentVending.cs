@@ -3,7 +3,7 @@ using Android.App;
 using Android.OS;
 using Android.Support.V7.Widget;
 using Android.Views;
-using Softjourn.SJCoins.Core.API.Model.Products;
+using Softjourn.SJCoins.Core.Models.Products;
 using Softjourn.SJCoins.Droid.UI.Activities;
 using Softjourn.SJCoins.Droid.UI.Adapters;
 

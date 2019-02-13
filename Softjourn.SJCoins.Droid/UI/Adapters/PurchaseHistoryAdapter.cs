@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using Android.Support.V7.Widget;
 using Android.Views;
 using Android.Widget;
-using Softjourn.SJCoins.Core.API.Model;
+using Softjourn.SJCoins.Core.Models;
 
 namespace Softjourn.SJCoins.Droid.UI.Adapters
 {

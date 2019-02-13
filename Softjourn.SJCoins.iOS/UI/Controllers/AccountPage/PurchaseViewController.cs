@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 using Foundation;
-using Softjourn.SJCoins.Core.API.Model;
+using Softjourn.SJCoins.Core.Models;
 using Softjourn.SJCoins.Core.UI.Presenters;
 using Softjourn.SJCoins.Core.UI.ViewInterfaces;
 using Softjourn.SJCoins.iOS.UI.Sources.AccountPage;

@@ -3,12 +3,12 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using Plugin.DeviceInfo;
 using Plugin.DeviceInfo.Abstractions;
-using Softjourn.SJCoins.Core.API.Model;
-using Softjourn.SJCoins.Core.Exceptions;
-using Softjourn.SJCoins.Core.Helpers;
+using Softjourn.SJCoins.Core.Common;
+using Softjourn.SJCoins.Core.Common.Exceptions;
+using Softjourn.SJCoins.Core.Common.Utils;
+using Softjourn.SJCoins.Core.Models;
 using Softjourn.SJCoins.Core.UI.Services.Navigation;
 using Softjourn.SJCoins.Core.UI.ViewInterfaces;
-using Softjourn.SJCoins.Core.Utils;
 
 namespace Softjourn.SJCoins.Core.UI.Presenters
 {
@@ -25,14 +25,14 @@ namespace Softjourn.SJCoins.Core.UI.Presenters
         {
             OptionsList = new List<AccountOption>
             {
-                new AccountOption(Const.ProfileOptionsPurchase, Const.ProfileOptionsPurchaseIconName),
-                new AccountOption(Const.ProfileOptionsReports, Const.ProfileOptionsReportsIconName),
-                new AccountOption(Const.ProfileOptionsShareFunds, Const.ProfileOptionsShareFundsIconName),
-                new AccountOption(Const.ProfileOptionsLogout, Const.ProfileOptionsLogoutIconName)
+                new AccountOption(Constant.ProfileOptionsPurchase, Constant.ProfileOptionsPurchaseIconName),
+                new AccountOption(Constant.ProfileOptionsReports, Constant.ProfileOptionsReportsIconName),
+                new AccountOption(Constant.ProfileOptionsShareFunds, Constant.ProfileOptionsShareFundsIconName),
+                new AccountOption(Constant.ProfileOptionsLogout, Constant.ProfileOptionsLogoutIconName)
             };
 
             if (!Settings.OnlyOneVendingMachine)
-                OptionsList.Add(new AccountOption(Const.ProfileOptionsSelectMachine, Const.ProfileOptionsSelectMachineIconName));
+                OptionsList.Add(new AccountOption(Constant.ProfileOptionsSelectMachine, Constant.ProfileOptionsSelectMachineIconName));
         }
 
         public void OnStartLoadingPage()
@@ -57,8 +57,8 @@ namespace Softjourn.SJCoins.Core.UI.Presenters
         {
             var items = new List<string>
             {
-                Resources.StringResources.select_source_photo_camera,
-                Resources.StringResources.select_source_photo_gallery
+                Resources.UiMessageResources.select_source_photo_camera,
+                Resources.UiMessageResources.select_source_photo_gallery
             };
 
             var getPhotoFromCameraAction = new Action(GetPhotoFromCamera);
@@ -82,25 +82,25 @@ namespace Softjourn.SJCoins.Core.UI.Presenters
         {
             switch (item)
             {
-                case Const.ProfileOptionsPurchase:
+                case Constant.ProfileOptionsPurchase:
                     NavigationService.NavigateTo(NavigationPage.Purchase);
                     return;
-                case Const.ProfileOptionsReports:
+                case Constant.ProfileOptionsReports:
                     NavigationService.NavigateTo(NavigationPage.Reports);
                     return;
-                case Const.ProfileOptionsPrivacyTerms:
+                case Constant.ProfileOptionsPrivacyTerms:
                     NavigationService.NavigateTo(NavigationPage.PrivacyTerms);
                     return;
-                case Const.ProfileOptionsHelp:
+                case Constant.ProfileOptionsHelp:
                     NavigationService.NavigateTo(NavigationPage.Help);
                     return;
-                case Const.ProfileOptionsShareFunds:
+                case Constant.ProfileOptionsShareFunds:
                     ShowDialogForChoosingQrStrategy();
                     return;
-                case Const.ProfileOptionsSelectMachine:
+                case Constant.ProfileOptionsSelectMachine:
                     NavigationService.NavigateTo(NavigationPage.SelectMachine);
                     return;
-                case Const.ProfileOptionsLogout:
+                case Constant.ProfileOptionsLogout:
                     LogOut();
                     return;
             }
@@ -153,8 +153,8 @@ namespace Softjourn.SJCoins.Core.UI.Presenters
         {
             var items = new List<string>
             {
-                Resources.StringResources.select_strategy_scanning_qr,
-                Resources.StringResources.select_strategy_generating_qr
+                Resources.UiMessageResources.select_strategy_scanning_qr,
+                Resources.UiMessageResources.select_strategy_generating_qr
             };
 
             var goToScanningQrAction = new Action(GoToScanningQr);
@@ -165,12 +165,12 @@ namespace Softjourn.SJCoins.Core.UI.Presenters
 
         private void GoToScanningQr()
         {
-            NavigationService.NavigateTo(NavigationPage.ShareFuns, Const.QrScreenScanningTag);
+            NavigationService.NavigateTo(NavigationPage.ShareFuns, Constant.QrScreenScanningTag);
         }
 
         private void GoToGeneratingQr()
         {
-            NavigationService.NavigateTo(NavigationPage.ShareFuns, Const.QrScreenGeneratingTag);
+            NavigationService.NavigateTo(NavigationPage.ShareFuns, Constant.QrScreenGeneratingTag);
         }
 
         //If internet is connected clear user's data
@@ -203,7 +203,7 @@ namespace Softjourn.SJCoins.Core.UI.Presenters
             }
             else
             {
-                AlertService.ShowToastMessage(Resources.StringResources.internet_turned_off);
+                AlertService.ShowToastMessage(Resources.UiMessageResources.internet_turned_off);
             }
         }
 
@@ -287,7 +287,7 @@ namespace Softjourn.SJCoins.Core.UI.Presenters
                 }
                 catch (ApiBadRequestException)
                 {
-                    AlertService.ShowMessageWithUserInteraction("Server Error", string.Empty, Resources.StringResources.btn_title_ok, null);
+                    AlertService.ShowMessageWithUserInteraction("Server Error", string.Empty, Resources.UiMessageResources.btn_title_ok, null);
                 }
                 catch (Exception ex)
                 {
@@ -297,7 +297,7 @@ namespace Softjourn.SJCoins.Core.UI.Presenters
             }
             else
             {
-                AlertService.ShowToastMessage(Resources.StringResources.internet_turned_off);
+                AlertService.ShowToastMessage(Resources.UiMessageResources.internet_turned_off);
             }
         }
 

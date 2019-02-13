@@ -1,7 +1,7 @@
 using System;
 using Foundation;
-using Softjourn.SJCoins.Core.API.Model;
-using Softjourn.SJCoins.Core.API.Model.AccountInfo;
+using Softjourn.SJCoins.Core.Models;
+using Softjourn.SJCoins.Core.Models.AccountInfo;
 using Softjourn.SJCoins.Core.UI.Presenters;
 using Softjourn.SJCoins.Core.UI.ViewInterfaces;
 using Softjourn.SJCoins.iOS.General.Helper;

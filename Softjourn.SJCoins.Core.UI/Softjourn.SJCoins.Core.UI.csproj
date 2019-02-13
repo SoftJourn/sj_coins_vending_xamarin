@@ -9,22 +9,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Softjourn.SJCoins.Core\Softjourn.SJCoins.Core.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Compile Update="Resources\StringResources.Designer.cs">
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
-      <DependentUpon>StringResources.resx</DependentUpon>
-    </Compile>
-  </ItemGroup>
-
-  <ItemGroup>
-    <EmbeddedResource Update="Resources\StringResources.resx">
-      <Generator>PublicResXFileCodeGenerator</Generator>
-      <LastGenOutput>StringResources.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
+    <ProjectReference Include="..\Softjourn.SJCoins.Core\Softjourn.SJCoins.Core.Managers.csproj" />
   </ItemGroup>
 
 </Project>

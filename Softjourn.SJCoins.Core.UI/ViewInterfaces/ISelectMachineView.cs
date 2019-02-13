@@ -1,5 +1,5 @@
-﻿using Softjourn.SJCoins.Core.API.Model.Machines;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using Softjourn.SJCoins.Core.Models.Machines;
 
 namespace Softjourn.SJCoins.Core.UI.ViewInterfaces
 {

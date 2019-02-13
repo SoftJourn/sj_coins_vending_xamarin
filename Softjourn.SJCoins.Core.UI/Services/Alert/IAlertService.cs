@@ -1,6 +1,6 @@
-﻿using Softjourn.SJCoins.Core.API.Model.Products;
-using System;
+﻿using System;
 using System.Collections.Generic;
+using Softjourn.SJCoins.Core.Models.Products;
 
 namespace Softjourn.SJCoins.Core.UI.Services.Alert
 {

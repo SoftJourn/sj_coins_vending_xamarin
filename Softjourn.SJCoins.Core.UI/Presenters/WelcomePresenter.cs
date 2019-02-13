@@ -1,4 +1,6 @@
-﻿using Softjourn.SJCoins.Core.UI.Services.Navigation;
+﻿using Softjourn.SJCoins.Core.Common;
+using Softjourn.SJCoins.Core.Common.Utils;
+using Softjourn.SJCoins.Core.UI.Services.Navigation;
 using Softjourn.SJCoins.Core.UI.ViewInterfaces;
 
 namespace Softjourn.SJCoins.Core.UI.Presenters
@@ -9,7 +11,7 @@ namespace Softjourn.SJCoins.Core.UI.Presenters
 
         public void DisableWelcomePageOnLaunch()
         {
-            Helpers.Settings.FirstLaunch = false;
+            Settings.FirstLaunch = false;
         }
 
         public void ToLoginScreen()

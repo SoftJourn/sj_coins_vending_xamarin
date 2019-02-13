@@ -5,7 +5,7 @@ using Android.Support.Design.Widget;
 using Android.Views;
 using Android.Views.Animations;
 using Android.Widget;
-using Softjourn.SJCoins.Core.API.Model.Products;
+using Softjourn.SJCoins.Core.Models.Products;
 using Softjourn.SJCoins.Droid.UI.Activities;
 using Square.Picasso;
 

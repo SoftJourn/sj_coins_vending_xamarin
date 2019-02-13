@@ -5,7 +5,7 @@ using Android.OS;
 using Android.Support.V4.Widget;
 using Android.Views;
 using Android.Widget;
-using Softjourn.SJCoins.Core.API.Model.Machines;
+using Softjourn.SJCoins.Core.Models.Machines;
 using Softjourn.SJCoins.Core.UI.Presenters;
 using Softjourn.SJCoins.Core.UI.ViewInterfaces;
 using Softjourn.SJCoins.Droid.ui.adapters;

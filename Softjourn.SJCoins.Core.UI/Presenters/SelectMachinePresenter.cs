@@ -1,11 +1,12 @@
-﻿using Softjourn.SJCoins.Core.API.Model.Machines;
-using Softjourn.SJCoins.Core.Exceptions;
-using Softjourn.SJCoins.Core.Helpers;
-using Softjourn.SJCoins.Core.UI.Services.Navigation;
-using Softjourn.SJCoins.Core.UI.ViewInterfaces;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Softjourn.SJCoins.Core.Common;
+using Softjourn.SJCoins.Core.Common.Exceptions;
+using Softjourn.SJCoins.Core.Common.Utils;
+using Softjourn.SJCoins.Core.Models.Machines;
+using Softjourn.SJCoins.Core.UI.Services.Navigation;
+using Softjourn.SJCoins.Core.UI.ViewInterfaces;
 
 namespace Softjourn.SJCoins.Core.UI.Presenters
 {
@@ -20,7 +21,7 @@ namespace Softjourn.SJCoins.Core.UI.Presenters
 
         public async void GetMachinesList()
         {
-            View.ShowProgress(Resources.StringResources.progress_loading);
+            View.ShowProgress(Resources.UiMessageResources.progress_loading);
 
             try
             {
@@ -42,7 +43,7 @@ namespace Softjourn.SJCoins.Core.UI.Presenters
                 }
                 else
                 {
-                    View.ShowNoMachineView(Resources.StringResources.error_msg_empty_machines_list);
+                    View.ShowNoMachineView(Resources.UiMessageResources.error_msg_empty_machines_list);
                 }
             }
             catch (ApiNotAuthorizedException)
@@ -70,7 +71,7 @@ namespace Softjourn.SJCoins.Core.UI.Presenters
             }
             else
             {
-                AlertService.ShowToastMessage(Resources.StringResources.error_msg_invalid_selected_machine);
+                AlertService.ShowToastMessage(Resources.UiMessageResources.error_msg_invalid_selected_machine);
             }
         }
 

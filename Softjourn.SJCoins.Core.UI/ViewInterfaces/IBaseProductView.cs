@@ -1,7 +1,6 @@
-﻿using Softjourn.SJCoins.Core.API.Model.Products;
-using Softjourn.SJCoins.Core.UI.ViewInterfaces;
+﻿using Softjourn.SJCoins.Core.Models.Products;
 
-namespace Softjourn.SJCoins.Core.UI.Interfaces
+namespace Softjourn.SJCoins.Core.UI.ViewInterfaces
 {
 	public interface IBaseProductView : IBaseView
 	{

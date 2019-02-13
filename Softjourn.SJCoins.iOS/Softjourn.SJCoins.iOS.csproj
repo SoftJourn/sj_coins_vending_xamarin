@@ -710,13 +710,21 @@
     <Compile Include="UI\Services\TouchIDService.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Softjourn.SJCoins.Core.Common\Softjourn.SJCoins.Core.Common.csproj">
+      <Project>{D5543B72-4701-4C35-B24D-3868D390DBAD}</Project>
+      <Name>Softjourn.SJCoins.Core.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Softjourn.SJCoins.Core.Models\Softjourn.SJCoins.Core.Models.csproj">
+      <Project>{DDEFE22D-BD0A-4AAF-AB48-C7553F49784C}</Project>
+      <Name>Softjourn.SJCoins.Core.Models</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Softjourn.SJCoins.Core.UI\Softjourn.SJCoins.Core.UI.csproj">
       <Project>{90984270-BD5D-4E9B-962F-1BF21FD3B17D}</Project>
       <Name>Softjourn.SJCoins.Core.UI</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Softjourn.SJCoins.Core\Softjourn.SJCoins.Core.csproj">
+    <ProjectReference Include="..\Softjourn.SJCoins.Core\Softjourn.SJCoins.Core.Managers.csproj">
       <Project>{F7603ECF-B6C8-4543-9235-014A52DBD79B}</Project>
-      <Name>Softjourn.SJCoins.Core</Name>
+      <Name>Softjourn.SJCoins.Core.Managers</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />

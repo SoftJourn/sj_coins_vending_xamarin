@@ -1,12 +1,12 @@
-﻿using Softjourn.SJCoins.Core.API.Model.Products;
-using Softjourn.SJCoins.Core.Exceptions;
-using Softjourn.SJCoins.Core.Helpers;
-using Softjourn.SJCoins.Core.UI.Services.Navigation;
-using Softjourn.SJCoins.Core.UI.ViewInterfaces;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Softjourn.SJCoins.Core.Utils;
+using Softjourn.SJCoins.Core.Common;
+using Softjourn.SJCoins.Core.Common.Exceptions;
+using Softjourn.SJCoins.Core.Common.Utils;
+using Softjourn.SJCoins.Core.Models.Products;
+using Softjourn.SJCoins.Core.UI.Services.Navigation;
+using Softjourn.SJCoins.Core.UI.ViewInterfaces;
 
 namespace Softjourn.SJCoins.Core.UI.Presenters
 {
@@ -23,7 +23,7 @@ namespace Softjourn.SJCoins.Core.UI.Presenters
             {
                 try
                 {
-                    View.ShowProgress(Resources.StringResources.progress_loading);
+                    View.ShowProgress(Resources.UiMessageResources.progress_loading);
                     DataManager.Profile = await RestApiService.GetUserAccountAsync();
                     MyBalance = DataManager.Profile.Amount;
                     GetAvatarImage(DataManager.Profile.Image);
@@ -76,7 +76,7 @@ namespace Softjourn.SJCoins.Core.UI.Presenters
             else
             {
                 View.HideProgress();
-                AlertService.ShowToastMessage(Resources.StringResources.internet_turned_off);
+                AlertService.ShowToastMessage(Resources.UiMessageResources.internet_turned_off);
             }
         }
 
@@ -180,10 +180,10 @@ namespace Softjourn.SJCoins.Core.UI.Presenters
         {
             foreach (var category in categoriesList)
             {
-                if (category.Name != Const.Favorites) continue;
+                if (category.Name != Constant.Favorites) continue;
                 foreach (var favorite in category.Products)
                 {
-                    foreach (var ctgr in categoriesList.Where(ctgr => ctgr.Name != Const.Favorites))
+                    foreach (var ctgr in categoriesList.Where(ctgr => ctgr.Name != Constant.Favorites))
                     {
                         foreach (var product in ctgr.Products.Where(product => favorite.Id == product.Id))
                         {

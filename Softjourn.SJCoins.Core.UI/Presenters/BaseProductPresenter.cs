@@ -1,10 +1,10 @@
 ﻿using System;
-using Softjourn.SJCoins.Core.API.Model.Products;
-using Softjourn.SJCoins.Core.Exceptions;
-using Softjourn.SJCoins.Core.Helpers;
-using Softjourn.SJCoins.Core.UI.Interfaces;
+using Softjourn.SJCoins.Core.Common;
+using Softjourn.SJCoins.Core.Common.Exceptions;
+using Softjourn.SJCoins.Core.Common.Utils;
+using Softjourn.SJCoins.Core.Models.Products;
 using Softjourn.SJCoins.Core.UI.Services.Navigation;
-using Softjourn.SJCoins.Core.Utils;
+using Softjourn.SJCoins.Core.UI.ViewInterfaces;
 
 namespace Softjourn.SJCoins.Core.UI.Presenters
 {
@@ -80,7 +80,7 @@ namespace Softjourn.SJCoins.Core.UI.Presenters
             }
             else
             {
-                AlertService.ShowToastMessage(Resources.StringResources.internet_turned_off);
+                AlertService.ShowToastMessage(Resources.UiMessageResources.internet_turned_off);
                 View.FavoriteChanged(DataManager.GetProductFromListById(product.Id));
             }
         }
@@ -120,7 +120,7 @@ namespace Softjourn.SJCoins.Core.UI.Presenters
             {
                 if (MyBalance >= product.IntPrice)
                 {
-                    View.ShowProgress(Resources.StringResources.progress_buying);
+                    View.ShowProgress(Resources.UiMessageResources.progress_buying);
                     try
                     {
                         var leftAmount = await RestApiService.BuyProductById(product.Id.ToString());
@@ -131,8 +131,8 @@ namespace Softjourn.SJCoins.Core.UI.Presenters
                         }
                         View.HideProgress();
                         AlertService.ShowMessageWithUserInteraction("Purchase",
-                            Resources.StringResources.activity_product_take_your_order_message,
-                            Resources.StringResources.btn_title_ok, null);
+                            Resources.UiMessageResources.activity_product_take_your_order_message,
+                            Resources.UiMessageResources.btn_title_ok, null);
                     }
 
                     catch (ApiNotAuthorizedException ex)
@@ -147,7 +147,7 @@ namespace Softjourn.SJCoins.Core.UI.Presenters
                     {
                         View.HideProgress();
                         AlertService.ShowMessageWithUserInteraction("Error", ex.Message,
-                            Resources.StringResources.btn_title_ok, null);
+                            Resources.UiMessageResources.btn_title_ok, null);
                     }
                     catch (Exception ex)
                     {
@@ -158,12 +158,12 @@ namespace Softjourn.SJCoins.Core.UI.Presenters
                 else
                 {
                     AlertService.ShowMessageWithUserInteraction("Error",
-                    Resources.StringResources.error_not_enough_money, Resources.StringResources.btn_title_ok, null);
+                    Resources.UiMessageResources.error_not_enough_money, Resources.UiMessageResources.btn_title_ok, null);
                 }
             }
             else
             {
-                AlertService.ShowToastMessage(Resources.StringResources.internet_turned_off);
+                AlertService.ShowToastMessage(Resources.UiMessageResources.internet_turned_off);
             }
         }
 

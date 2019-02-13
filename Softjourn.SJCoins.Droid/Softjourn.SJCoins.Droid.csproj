@@ -707,13 +707,21 @@
     <AndroidResource Include="Resources\drawable-xxhdpi\ic_privacy_and_terms.png" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Softjourn.SJCoins.Core.Common\Softjourn.SJCoins.Core.Common.csproj">
+      <Project>{d5543b72-4701-4c35-b24d-3868d390dbad}</Project>
+      <Name>Softjourn.SJCoins.Core.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Softjourn.SJCoins.Core.Models\Softjourn.SJCoins.Core.Models.csproj">
+      <Project>{DDEFE22D-BD0A-4AAF-AB48-C7553F49784C}</Project>
+      <Name>Softjourn.SJCoins.Core.Models</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Softjourn.SJCoins.Core.UI\Softjourn.SJCoins.Core.UI.csproj">
       <Project>{90984270-BD5D-4E9B-962F-1BF21FD3B17D}</Project>
       <Name>Softjourn.SJCoins.Core.UI</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Softjourn.SJCoins.Core\Softjourn.SJCoins.Core.csproj">
+    <ProjectReference Include="..\Softjourn.SJCoins.Core\Softjourn.SJCoins.Core.Managers.csproj">
       <Project>{F7603ECF-B6C8-4543-9235-014A52DBD79B}</Project>
-      <Name>Softjourn.SJCoins.Core</Name>
+      <Name>Softjourn.SJCoins.Core.Managers</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />

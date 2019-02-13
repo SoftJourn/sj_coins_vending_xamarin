@@ -1,6 +1,6 @@
 using System;
 using Foundation;
-using Softjourn.SJCoins.Core.Exceptions;
+using Softjourn.SJCoins.Core.Common.Exceptions;
 using Softjourn.SJCoins.Core.UI.Presenters;
 using Softjourn.SJCoins.Core.UI.ViewInterfaces;
 using Softjourn.SJCoins.iOS.General.Helper;

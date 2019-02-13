@@ -9,7 +9,8 @@ using Android.Views;
 using Android.Views.Animations;
 using Android.Widget;
 using Java.Lang;
-using Softjourn.SJCoins.Core.API.Model.Products;
+using Softjourn.SJCoins.Core.Common;
+using Softjourn.SJCoins.Core.Models.Products;
 using Softjourn.SJCoins.Droid.utils;
 using Softjourn.SJCoins.Droid.Utils;
 using Square.Picasso;
@@ -153,7 +154,7 @@ namespace Softjourn.SJCoins.Droid.UI.Adapters
             }
             else
             {
-                Picasso.With(_context).Load(Core.Utils.Const.BaseUrl + Core.Utils.Const.UrlVendingService + ListProducts[holder.AdapterPosition].ImageUrl).NetworkPolicy(NetworkPolicy.NoCache).Into(holder.ProductImage);
+                Picasso.With(_context).Load(Constant.BaseUrl + Constant.UrlVendingService + ListProducts[holder.AdapterPosition].ImageUrl).NetworkPolicy(NetworkPolicy.NoCache).Into(holder.ProductImage);
                 if (_category == Const.Favorites)
                     holder.ProductImage.Alpha = !product.IsProductInCurrentMachine ? 0.3f : 1.0f;
             }

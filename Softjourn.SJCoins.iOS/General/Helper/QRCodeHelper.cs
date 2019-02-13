@@ -1,6 +1,6 @@
 ﻿using Newtonsoft.Json;
-using Softjourn.SJCoins.Core.API.Model;
-using Softjourn.SJCoins.Core.Exceptions;
+using Softjourn.SJCoins.Core.Common.Exceptions;
+using Softjourn.SJCoins.Core.Models;
 using UIKit;
 using ZXing;
 

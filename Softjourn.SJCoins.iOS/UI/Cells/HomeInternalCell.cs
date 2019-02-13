@@ -2,7 +2,7 @@
 using CoreGraphics;
 using Foundation;
 using SDWebImage;
-using Softjourn.SJCoins.Core.API.Model.Products;
+using Softjourn.SJCoins.Core.Models.Products;
 using Softjourn.SJCoins.iOS.General.Constants;
 using UIKit;
 

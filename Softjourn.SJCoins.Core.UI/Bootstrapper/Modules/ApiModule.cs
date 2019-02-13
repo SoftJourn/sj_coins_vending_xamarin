@@ -1,5 +1,5 @@
 ﻿using Autofac;
-using Softjourn.SJCoins.Core.API;
+using Softjourn.SJCoins.Core.Managers.Api;
 
 namespace Softjourn.SJCoins.Core.UI.Bootstrapper.Modules
 {

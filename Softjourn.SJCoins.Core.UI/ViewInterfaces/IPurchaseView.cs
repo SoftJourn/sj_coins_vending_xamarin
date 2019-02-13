@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using Softjourn.SJCoins.Core.API.Model;
+using Softjourn.SJCoins.Core.Models;
 
 namespace Softjourn.SJCoins.Core.UI.ViewInterfaces
 {

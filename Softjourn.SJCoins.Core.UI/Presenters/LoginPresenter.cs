@@ -1,9 +1,9 @@
-﻿using Softjourn.SJCoins.Core.UI.Services.Navigation;
-using Softjourn.SJCoins.Core.UI.ViewInterfaces;
-using Softjourn.SJCoins.Core.Utils;
-using System;
-using Softjourn.SJCoins.Core.Exceptions;
+﻿using System;
+using Softjourn.SJCoins.Core.Common.Exceptions;
+using Softjourn.SJCoins.Core.Common.Utils;
+using Softjourn.SJCoins.Core.UI.Services.Navigation;
 using Softjourn.SJCoins.Core.UI.Utils;
+using Softjourn.SJCoins.Core.UI.ViewInterfaces;
 
 namespace Softjourn.SJCoins.Core.UI.Presenters
 {
@@ -13,20 +13,20 @@ namespace Softjourn.SJCoins.Core.UI.Presenters
         {
             if (!Validators.IsUserNameEmpty(userName) && !Validators.IsPasswordValid(password))
             {
-                View.SetPasswordError(Resources.StringResources.activity_login_invalid_password);
-                View.SetUsernameError(Resources.StringResources.activity_login_empty_username);
+                View.SetPasswordError(Resources.UiMessageResources.activity_login_invalid_password);
+                View.SetUsernameError(Resources.UiMessageResources.activity_login_empty_username);
                 return;
             }
 
             if (!Validators.IsUserNameEmpty(userName))
             {
-                View.SetUsernameError(Resources.StringResources.activity_login_empty_username);
+                View.SetUsernameError(Resources.UiMessageResources.activity_login_empty_username);
                 return;
             }
 
             if (!Validators.IsPasswordValid(password))
             {
-                View.SetPasswordError(Resources.StringResources.activity_login_invalid_password);
+                View.SetPasswordError(Resources.UiMessageResources.activity_login_invalid_password);
                 return;
             }
 
@@ -34,7 +34,7 @@ namespace Softjourn.SJCoins.Core.UI.Presenters
             {
                 if (NetworkUtils.IsConnected)
                 {
-                    View.ShowProgress(Resources.StringResources.progress_authenticating);
+                    View.ShowProgress(Resources.UiMessageResources.progress_authenticating);
 
                     try
                     {
@@ -46,8 +46,8 @@ namespace Softjourn.SJCoins.Core.UI.Presenters
                     {
                         View.HideProgress();
                         AlertService.ShowMessageWithUserInteraction(string.Empty,
-                            Resources.StringResources.server_error_bad_username_or_password,
-                            Resources.StringResources.btn_title_ok, null);
+                            Resources.UiMessageResources.server_error_bad_username_or_password,
+                            Resources.UiMessageResources.btn_title_ok, null);
                     }
                     catch (Exception ex)
                     {
@@ -57,7 +57,7 @@ namespace Softjourn.SJCoins.Core.UI.Presenters
                 }
                 else
                 {
-                    AlertService.ShowToastMessage(Resources.StringResources.internet_turned_off);
+                    AlertService.ShowToastMessage(Resources.UiMessageResources.internet_turned_off);
                 }
             }
         }

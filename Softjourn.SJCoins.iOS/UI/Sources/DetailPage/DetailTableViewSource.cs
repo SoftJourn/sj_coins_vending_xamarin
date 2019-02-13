@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Linq;
 using Foundation;
-using Softjourn.SJCoins.Core.API.Model.Products;
+using Softjourn.SJCoins.Core.Models.Products;
 using Softjourn.SJCoins.iOS.UI.Cells;
 using UIKit;
 

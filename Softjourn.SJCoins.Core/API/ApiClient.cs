@@ -1,35 +1,35 @@
-﻿using RestSharp.Portable;
-using RestSharp.Portable.Deserializers;
-using RestSharp.Portable.HttpClient;
-using Softjourn.SJCoins.Core.API.Model;
-using Softjourn.SJCoins.Core.API.Model.AccountInfo;
-using Softjourn.SJCoins.Core.API.Model.Machines;
-using Softjourn.SJCoins.Core.API.Model.Products;
-using Softjourn.SJCoins.Core.Exceptions;
-using Softjourn.SJCoins.Core.Helpers;
-using Softjourn.SJCoins.Core.Utils;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
-using Softjourn.SJCoins.Core.API.Model.TransactionReports;
+using RestSharp.Portable;
+using RestSharp.Portable.Deserializers;
+using RestSharp.Portable.HttpClient;
+using Softjourn.SJCoins.Core.Common;
+using Softjourn.SJCoins.Core.Common.Exceptions;
+using Softjourn.SJCoins.Core.Common.Utils;
+using Softjourn.SJCoins.Core.Models;
+using Softjourn.SJCoins.Core.Models.AccountInfo;
+using Softjourn.SJCoins.Core.Models.Machines;
+using Softjourn.SJCoins.Core.Models.Products;
+using Softjourn.SJCoins.Core.Models.TransactionReports;
 
-namespace Softjourn.SJCoins.Core.API
+namespace Softjourn.SJCoins.Core.Managers.Api
 {
     public sealed class ApiClient
     {
         public const string GrandTypePassword = "password";
         public const string GrandTypeRefreshToken = "refresh_token";
 
-        public const string BaseUrl = Const.BaseUrl;
-        public const string LoginAuthorizationHeader = Const.HeaderAuthorizationValue;
+        public const string BaseUrl = Constant.BaseUrl;
+        public const string LoginAuthorizationHeader = Constant.HeaderAuthorizationValue;
 
-        public const string UrlAuthService = Const.UrlAuthService;
-        public const string UrlVendingService = Const.UrlVendingService;
-        public const string UrlCoinService = Const.UrlCoinService;
+        public const string UrlAuthService = Constant.UrlAuthService;
+        public const string UrlVendingService = Constant.UrlVendingService;
+        public const string UrlCoinService = Constant.UrlCoinService;
 
         public ApiClient() { }
 
@@ -97,7 +97,7 @@ namespace Softjourn.SJCoins.Core.API
                 else
                 {
                     System.Diagnostics.Debug.WriteLine("Refresh token Failure!");
-                    throw new ApiNotAuthorizedException(Resources.StringResources.server_error_401);
+                    throw new ApiNotAuthorizedException(Resources.ServerErrorResources.server_error_401);
                 }
             }
             // catch is missing because all exceptions should be caught on Presenter side
@@ -482,9 +482,9 @@ namespace Softjourn.SJCoins.Core.API
             switch (response.StatusCode)
             {
                 case HttpStatusCode.BadRequest: // code 400
-                    throw new ApiBadRequestException(Resources.StringResources.server_error_400);
+                    throw new ApiBadRequestException(Resources.ServerErrorResources.server_error_400);
                 case HttpStatusCode.Unauthorized: // code 401 
-                    throw new ApiNotAuthorizedException(Resources.StringResources.server_error_401);
+                    throw new ApiNotAuthorizedException(Resources.ServerErrorResources.server_error_401);
                 case HttpStatusCode.NotFound: // code 404               
                     try
                     {
@@ -525,7 +525,7 @@ namespace Softjourn.SJCoins.Core.API
         private static IRestClient GetApiClient()
         {
             IRestClient apiClient = new RestClient();
-            apiClient.BaseUrl = new Uri(Const.BaseUrl);
+            apiClient.BaseUrl = new Uri(Constant.BaseUrl);
             apiClient.IgnoreResponseStatusCode = true;
 
             return apiClient;

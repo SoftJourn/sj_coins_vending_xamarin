@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using Softjourn.SJCoins.Core.API.Model.TransactionReports;
+using Softjourn.SJCoins.Core.Models.TransactionReports;
 
 namespace Softjourn.SJCoins.Core.UI.ViewInterfaces
 {

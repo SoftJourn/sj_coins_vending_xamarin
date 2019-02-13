@@ -1,6 +1,6 @@
 using System;
 using Foundation;
-using Softjourn.SJCoins.Core.API.Model.Products;
+using Softjourn.SJCoins.Core.Models.Products;
 using Softjourn.SJCoins.iOS.UI.Delegates.DetailPage;
 using Softjourn.SJCoins.iOS.UI.Sources.DetailPage;
 using UIKit;

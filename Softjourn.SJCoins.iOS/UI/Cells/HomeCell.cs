@@ -1,7 +1,7 @@
 ﻿using System;
 using CoreGraphics;
 using Foundation;
-using Softjourn.SJCoins.Core.API.Model.Products;
+using Softjourn.SJCoins.Core.Models.Products;
 using Softjourn.SJCoins.iOS.General.Constants;
 using Softjourn.SJCoins.iOS.UI.Delegates;
 using Softjourn.SJCoins.iOS.UI.Sources.HomePage;

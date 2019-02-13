@@ -1,14 +1,14 @@
-﻿using Softjourn.SJCoins.Core.UI.Presenters.IPresenters;
-using System;
-using Softjourn.SJCoins.Core.UI.ViewInterfaces;
-using Softjourn.SJCoins.Core.UI.Services.Navigation;
-using Softjourn.SJCoins.Core.UI.Services.Alert;
-using Softjourn.SJCoins.Core.API;
+﻿using System;
 using Autofac;
+using Softjourn.SJCoins.Core.Common.Exceptions;
+using Softjourn.SJCoins.Core.Common.Utils;
 using Softjourn.SJCoins.Core.UI.Bootstrapper;
 using Softjourn.SJCoins.Core.Managers;
-using Softjourn.SJCoins.Core.Utils;
-using Softjourn.SJCoins.Core.Exceptions;
+using Softjourn.SJCoins.Core.Managers.Api;
+using Softjourn.SJCoins.Core.UI.Presenters.IPresenters;
+using Softjourn.SJCoins.Core.UI.Services.Alert;
+using Softjourn.SJCoins.Core.UI.Services.Navigation;
+using Softjourn.SJCoins.Core.UI.ViewInterfaces;
 
 namespace Softjourn.SJCoins.Core.UI.Presenters
 {
@@ -109,8 +109,8 @@ namespace Softjourn.SJCoins.Core.UI.Presenters
                 catch (ApiBadRequestException)
                 {
                     AlertService.ShowMessageWithUserInteraction(string.Empty,
-                        Resources.StringResources.server_error_bad_username_or_password,
-                        Resources.StringResources.btn_title_ok, null);
+                        Resources.UiMessageResources.server_error_bad_username_or_password,
+                        Resources.UiMessageResources.btn_title_ok, null);
                 }
                 catch (Exception ex)
                 {
@@ -119,7 +119,7 @@ namespace Softjourn.SJCoins.Core.UI.Presenters
             }
             else
             {
-                AlertService.ShowToastMessage(Resources.StringResources.internet_turned_off);
+                AlertService.ShowToastMessage(Resources.UiMessageResources.internet_turned_off);
             }
         }
     }

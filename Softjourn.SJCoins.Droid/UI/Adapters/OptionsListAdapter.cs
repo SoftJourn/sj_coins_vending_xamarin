@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using Android.Content;
 using Android.Views;
 using Android.Widget;
-using Softjourn.SJCoins.Core.API.Model;
+using Softjourn.SJCoins.Core.Models;
 using Square.Picasso;
 
 namespace Softjourn.SJCoins.Droid.UI.Adapters

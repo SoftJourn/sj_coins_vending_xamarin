@@ -1,12 +1,12 @@
-﻿using Softjourn.SJCoins.Core.API.Model;
-using Softjourn.SJCoins.Core.API.Model.AccountInfo;
-using Softjourn.SJCoins.Core.API.Model.Machines;
-using Softjourn.SJCoins.Core.API.Model.Products;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
-using Softjourn.SJCoins.Core.API.Model.TransactionReports;
+using Softjourn.SJCoins.Core.Models;
+using Softjourn.SJCoins.Core.Models.AccountInfo;
+using Softjourn.SJCoins.Core.Models.Machines;
+using Softjourn.SJCoins.Core.Models.Products;
+using Softjourn.SJCoins.Core.Models.TransactionReports;
 
-namespace Softjourn.SJCoins.Core.API
+namespace Softjourn.SJCoins.Core.Managers.Api
 {
     public interface IApiService
     {

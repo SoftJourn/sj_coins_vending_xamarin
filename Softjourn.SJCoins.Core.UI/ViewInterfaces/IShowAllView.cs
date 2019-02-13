@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
-using Softjourn.SJCoins.Core.API.Model.Products;
-using Softjourn.SJCoins.Core.UI.Interfaces;
+using Softjourn.SJCoins.Core.Models.Products;
 
 namespace Softjourn.SJCoins.Core.UI.ViewInterfaces
 {

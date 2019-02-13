@@ -1,4 +1,4 @@
-﻿using Softjourn.SJCoins.Core.API.Model.AccountInfo;
+﻿using Softjourn.SJCoins.Core.Models.AccountInfo;
 
 namespace Softjourn.SJCoins.Core.UI.ViewInterfaces
 {

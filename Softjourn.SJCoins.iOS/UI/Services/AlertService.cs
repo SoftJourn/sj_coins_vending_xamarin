@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using Softjourn.SJCoins.Core.API.Model.Products;
+using Softjourn.SJCoins.Core.Models.Products;
 using Softjourn.SJCoins.Core.UI.Services.Alert;
 using UIKit;
 

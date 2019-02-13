@@ -1,9 +1,9 @@
 ﻿using System;
-using Softjourn.SJCoins.Core.Exceptions;
-using Softjourn.SJCoins.Core.Helpers;
+using Softjourn.SJCoins.Core.Common;
+using Softjourn.SJCoins.Core.Common.Exceptions;
+using Softjourn.SJCoins.Core.Common.Utils;
 using Softjourn.SJCoins.Core.UI.Services.Navigation;
 using Softjourn.SJCoins.Core.UI.ViewInterfaces;
-using Softjourn.SJCoins.Core.Utils;
 
 namespace Softjourn.SJCoins.Core.UI.Presenters
 {
@@ -15,7 +15,7 @@ namespace Softjourn.SJCoins.Core.UI.Presenters
             {
                 try
                 {
-                    View.ShowProgress(Resources.StringResources.progress_loading);
+                    View.ShowProgress(Resources.UiMessageResources.progress_loading);
                     var purchaseList = await RestApiService.GetPurchaseHistory();
 
                     //Converting DateTime in appropriate string for UI
@@ -52,7 +52,7 @@ namespace Softjourn.SJCoins.Core.UI.Presenters
             }
             else
             {
-                AlertService.ShowToastMessage(Resources.StringResources.internet_turned_off);
+                AlertService.ShowToastMessage(Resources.UiMessageResources.internet_turned_off);
             }
         }
     }

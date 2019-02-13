@@ -8,7 +8,7 @@ using Android.Support.V4.Widget;
 using Android.Support.V7.Widget;
 using Android.Views;
 using Android.Widget;
-using Softjourn.SJCoins.Core.API.Model.TransactionReports;
+using Softjourn.SJCoins.Core.Models.TransactionReports;
 using Softjourn.SJCoins.Core.UI.Presenters;
 using Softjourn.SJCoins.Core.UI.ViewInterfaces;
 using Softjourn.SJCoins.Droid.ui.baseUI;

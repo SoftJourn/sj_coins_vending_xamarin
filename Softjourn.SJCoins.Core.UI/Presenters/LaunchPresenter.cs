@@ -1,7 +1,7 @@
-﻿using Softjourn.SJCoins.Core.Helpers;
+﻿using Softjourn.SJCoins.Core.Common;
+using Softjourn.SJCoins.Core.Common.Utils;
 using Softjourn.SJCoins.Core.UI.Services.Navigation;
 using Softjourn.SJCoins.Core.UI.ViewInterfaces;
-using Softjourn.SJCoins.Core.Utils;
 
 namespace Softjourn.SJCoins.Core.UI.Presenters
 {
@@ -38,7 +38,7 @@ namespace Softjourn.SJCoins.Core.UI.Presenters
             }
             else
             {
-                View.ShowNoInternetError(Resources.StringResources.internet_turned_off);
+                View.ShowNoInternetError(Resources.UiMessageResources.internet_turned_off);
                 NetworkUtils.OnConnectionChanged(this);
             }
         }

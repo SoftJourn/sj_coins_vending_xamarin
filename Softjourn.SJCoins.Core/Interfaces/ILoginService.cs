@@ -1,4 +1,4 @@
-﻿namespace Softjourn.SJCoins.Core.Interfaces
+﻿namespace Softjourn.SJCoins.Core.Managers.Interfaces
 {
 	public interface ILoginService
 	{
