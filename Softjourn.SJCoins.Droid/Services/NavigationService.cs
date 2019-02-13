@@ -1,6 +1,7 @@
 using System;
 using Android.Content;
 using Plugin.CurrentActivity;
+using Softjourn.SJCoins.Core.Common;
 using Softjourn.SJCoins.Core.UI.Services.Navigation;
 using Softjourn.SJCoins.Droid.UI.Activities;
 
@@ -35,7 +36,7 @@ namespace Softjourn.SJCoins.Droid.Services
             try
             {
                 data = obj.ToString();
-                view.PutExtra(Utils.Const.NavigationKey, data);
+                view.PutExtra(Constant.NavigationKey, data);
             }
             catch
             {

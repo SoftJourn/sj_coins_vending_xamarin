@@ -557,7 +557,6 @@
     <Folder Include="Assets.xcassets\TouchID.imageset\" />
     <Folder Include="Assets.xcassets\TouchIDSmall.imageset\" />
     <Folder Include="Assets.xcassets\vending_logo.imageset\" />
-    <Folder Include="Resources\" />
   </ItemGroup>
   <ItemGroup>
     <InterfaceDefinition Include="LaunchScreen.storyboard" />
@@ -572,7 +571,6 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Helpers\Settings.cs" />
     <Compile Include="Main.cs" />
     <Compile Include="AppDelegate.cs" />
     <Compile Include="Bootstraper\Bootstraper.cs" />

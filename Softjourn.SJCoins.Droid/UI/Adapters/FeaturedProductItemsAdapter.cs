@@ -46,7 +46,7 @@ namespace Softjourn.SJCoins.Droid.UI.Adapters
 
             _category = featureCategory ?? string.Empty;
 
-            _recyclerViewType = recyclerViewType ?? Const.DefaultRecyclerView;
+            _recyclerViewType = recyclerViewType ?? Constant.DefaultRecyclerView;
             _coins = " " + _context.GetString(Resource.String.item_coins);
         }
 
@@ -157,7 +157,7 @@ namespace Softjourn.SJCoins.Droid.UI.Adapters
                 var imageUrl =
                     $"{Constant.BaseUrl}{Constant.UrlVendingService}/{ListProducts[holder.AdapterPosition].ImageUrl}";
                 Picasso.With(_context).Load(imageUrl).NetworkPolicy(NetworkPolicy.NoCache).Into(holder.ProductImage);
-                if (_category == Const.Favorites)
+                if (_category == Constant.Favorites)
                     holder.ProductImage.Alpha = !product.IsProductInCurrentMachine ? 0.3f : 1.0f;
             }
         }
@@ -265,7 +265,7 @@ namespace Softjourn.SJCoins.Droid.UI.Adapters
             {
                 //If category is favorite we need to remove item from list
                 //and not just change the icon of favorite
-                if (_category == Const.Favorites)
+                if (_category == Constant.Favorites)
                 {
                     RemoveFromFavorites?.Invoke(this, product);
                     holder.AddFavorite.Enabled = false;

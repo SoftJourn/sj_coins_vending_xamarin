@@ -10,12 +10,12 @@ using Android.Support.V7.Widget;
 using Android.Text;
 using Android.Views;
 using Android.Widget;
+using Softjourn.SJCoins.Core.Common;
 using Softjourn.SJCoins.Core.Models.Products;
 using Softjourn.SJCoins.Core.UI.Presenters;
 using Softjourn.SJCoins.Core.UI.ViewInterfaces;
 using Softjourn.SJCoins.Droid.ui.baseUI;
 using Softjourn.SJCoins.Droid.UI.Adapters;
-using Softjourn.SJCoins.Droid.Utils;
 
 namespace Softjourn.SJCoins.Droid.UI.Activities
 {
@@ -24,7 +24,7 @@ namespace Softjourn.SJCoins.Droid.UI.Activities
     {
         private Product _product;
         private ViewPager _viewPager;
-        private const string ProductId = Const.NavigationKey;
+        private const string ProductId = Constant.NavigationKey;
         private TextView _productPrice;
         private TextView _productDescription;
         private List<string> _images;

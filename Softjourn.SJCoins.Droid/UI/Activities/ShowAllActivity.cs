@@ -12,13 +12,13 @@ using Android.Text;
 using Android.Views;
 using Android.Views.InputMethods;
 using Android.Widget;
+using Softjourn.SJCoins.Core.Common;
 using Softjourn.SJCoins.Core.Models.Products;
 using Softjourn.SJCoins.Core.UI.Presenters;
 using Softjourn.SJCoins.Core.UI.ViewInterfaces;
 using Softjourn.SJCoins.Droid.ui.baseUI;
 using Softjourn.SJCoins.Droid.UI.Adapters;
 using Softjourn.SJCoins.Droid.UI.Fragments;
-using Softjourn.SJCoins.Droid.Utils;
 using SearchView = Android.Support.V7.Widget.SearchView;
 
 namespace Softjourn.SJCoins.Droid.UI.Activities
@@ -37,7 +37,7 @@ namespace Softjourn.SJCoins.Droid.UI.Activities
         private TextView _textViewNoProductsInCategory;
         private SearchView searchView;
 
-        private const string ProductsCategory = Const.NavigationKey;
+        private const string ProductsCategory = Constant.NavigationKey;
         private const string RecyclerType = "SEE_ALL_SNACKS_DRINKS";
 
         private static RecyclerView.LayoutManager layoutManager;
@@ -76,9 +76,7 @@ namespace Softjourn.SJCoins.Droid.UI.Activities
             AttachEvents();
 
             _machineItems.SetLayoutManager(layoutManager);
-
             _machineItems.SetAdapter(_adapter);
-
             _adapter.SetData(_productList);
         }
 
@@ -107,7 +105,7 @@ namespace Softjourn.SJCoins.Droid.UI.Activities
             base.OnCreateOptionsMenu(menu);
 
             //Don't show search on Favorites Category
-            if (_category != Const.Favorites)
+            if (_category != Constant.Favorites)
             {
                 menu.FindItem(Resource.Id.action_search).SetVisible(true);
             }
@@ -220,7 +218,7 @@ namespace Softjourn.SJCoins.Droid.UI.Activities
         private void ProductDetailsSelected(object sender, Product product)
         {
             BottomSheetDialogFragment bottomSheetDialogFragment = ProductDetailsFragment.GetInstance(product);
-            bottomSheetDialogFragment.Show(SupportFragmentManager, Const.BottomSheetFragmentTag);
+            bottomSheetDialogFragment.Show(SupportFragmentManager, Constant.BottomSheetFragmentTag);
         }
 
         private void CloseSearchView()
@@ -256,8 +254,8 @@ namespace Softjourn.SJCoins.Droid.UI.Activities
          */
         public void FavoriteChanged(Product product)
         {
-            var fragment = SupportFragmentManager.FindFragmentByTag(Const.BottomSheetFragmentTag) as ProductDetailsFragment;
-            if (!_category.Equals(Const.Favorites))
+            var fragment = SupportFragmentManager.FindFragmentByTag(Constant.BottomSheetFragmentTag) as ProductDetailsFragment;
+            if (!_category.Equals(Constant.Favorites))
             {
                 _adapter.ChangeFavoriteIcon();
             }

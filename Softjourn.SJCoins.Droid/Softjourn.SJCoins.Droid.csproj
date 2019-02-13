@@ -280,7 +280,6 @@
     <Compile Include="UI\Fragments\ScanningResultFragment.cs" />
     <Compile Include="UI\Listeners\XamarinRecyclerViewOnScrollListener.cs" />
     <Compile Include="Utils\BitmapUtils.cs" />
-    <Compile Include="Utils\Const.cs" />
     <Compile Include="Utils\HockeyAppUtils.cs" />
     <Compile Include="Utils\JavaHolder.cs" />
     <Compile Include="Utils\ObjectExtensions.cs" />

@@ -8,6 +8,7 @@ using Android.Support.Design.Widget;
 using Android.Support.V4.Widget;
 using Android.Views;
 using Android.Widget;
+using Softjourn.SJCoins.Core.Common;
 using Softjourn.SJCoins.Core.Models.AccountInfo;
 using Softjourn.SJCoins.Core.Models.Products;
 using Softjourn.SJCoins.Core.UI.Presenters;
@@ -46,7 +47,7 @@ namespace Softjourn.SJCoins.Droid.UI.Activities
             _favoritesShowAll = FindViewById<TextView>(Resource.Id.favoriteSeeAllID);
             _favoritesShowAll.Click += (sender, e) =>
             {
-                ViewPresenter.OnShowAllClick(Const.Favorites);
+                ViewPresenter.OnShowAllClick(Constant.Favorites);
             };
 
             _swipeLayout = FindViewById<SwipeRefreshLayout>(Resource.Id.swipe_container);
@@ -119,7 +120,7 @@ namespace Softjourn.SJCoins.Droid.UI.Activities
         public void LastUnavailableFavoriteRemoved(Product product)
         {
             ChangeFavoriteIcon(false);
-            var bottomFragment = SupportFragmentManager.FindFragmentByTag(Const.BottomSheetFragmentTag) as ProductDetailsFragment;
+            var bottomFragment = SupportFragmentManager.FindFragmentByTag(Constant.BottomSheetFragmentTag) as ProductDetailsFragment;
 
             //if fragment exists
             bottomFragment?.Dismiss();
@@ -158,7 +159,7 @@ namespace Softjourn.SJCoins.Droid.UI.Activities
             HaveProducts = true;
             foreach (var category in listCategories)
             {
-                if (category.Name == Const.Favorites)
+                if (category.Name == Constant.Favorites)
                 {
                     ShowContainer(Resource.Id.favoriteIdLayout, Resource.Id.favorites_container_ID);
                     AttachFragment(category.Name, Resource.Id.favoriteIdLayout, Resource.Id.favorites_container_ID, category.Products);
@@ -197,7 +198,7 @@ namespace Softjourn.SJCoins.Droid.UI.Activities
         public void ShowPreview(Product product)
         {
             BottomSheetDialogFragment bottomSheetDialogFragment = ProductDetailsFragment.GetInstance(product);
-            bottomSheetDialogFragment.Show(SupportFragmentManager, Const.BottomSheetFragmentTag);
+            bottomSheetDialogFragment.Show(SupportFragmentManager, Constant.BottomSheetFragmentTag);
         }
 
         /**
@@ -344,7 +345,7 @@ namespace Softjourn.SJCoins.Droid.UI.Activities
         private void ChangeFavoriteIcon(bool isFavorite)
         {
             //Take Favorites from ProductList
-            var refreshedFavorites = ViewPresenter.GetProductListForGivenCategory(Const.Favorites);
+            var refreshedFavorites = ViewPresenter.GetProductListForGivenCategory(Constant.Favorites);
 
             // Taking containerId and HeaderId of favorite from Dicitionary
             var favoritesContainerId = _containerIds.ElementAt(0).Key;
@@ -370,7 +371,7 @@ namespace Softjourn.SJCoins.Droid.UI.Activities
             {
                 if (refreshedFavorites.Count <= 0) return;
                 ShowContainer(favoritesContainerId, _containerIds.ElementAt(0).Value);
-                AttachFragment(Const.Favorites, _containerIds.ElementAt(0).Value, favoritesContainerId,
+                AttachFragment(Constant.Favorites, _containerIds.ElementAt(0).Value, favoritesContainerId,
                     refreshedFavorites);
             }
         }
@@ -378,7 +379,7 @@ namespace Softjourn.SJCoins.Droid.UI.Activities
         private void FavoriteChanged(bool isFavorite)
         {
             ChangeFavoriteIcon(isFavorite);
-            var bottomFragment = SupportFragmentManager.FindFragmentByTag(Const.BottomSheetFragmentTag) as ProductDetailsFragment;
+            var bottomFragment = SupportFragmentManager.FindFragmentByTag(Constant.BottomSheetFragmentTag) as ProductDetailsFragment;
 
             //if fragment exists
             bottomFragment?.ChangeFavoriteIcon(isFavorite);

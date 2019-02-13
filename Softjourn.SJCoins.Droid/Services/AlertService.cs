@@ -9,9 +9,9 @@ using Android.Support.V4.Content;
 using Android.Views;
 using Android.Widget;
 using Plugin.CurrentActivity;
+using Softjourn.SJCoins.Core.Common;
 using Softjourn.SJCoins.Core.UI.Services.Alert;
 using Softjourn.SJCoins.Core.Models.Products;
-using Softjourn.SJCoins.Droid.Utils;
 using Square.Picasso;
 
 namespace Softjourn.SJCoins.Droid.Services
@@ -181,7 +181,7 @@ namespace Softjourn.SJCoins.Droid.Services
             var text = confirmDialog.FindViewById<TextView>(Resource.Id.text);
             text.Text = string.Format(context.GetString(Resource.String.dialog_msg_confirm_buy_product, product.Name, product.IntPrice));
             var image = confirmDialog.FindViewById<ImageView>(Resource.Id.image);
-            Picasso.With(context).Load(Const.UrlVendingService + product.ImageUrl).Into(image);
+            Picasso.With(context).Load( $"{Constant.UrlVendingService}/{product.ImageUrl}").Into(image);
 
             if (!confirmDialog.IsShowing)
             {

@@ -4,6 +4,7 @@ using Android.OS;
 using Android.Views;
 using Android.Widget;
 using Plugin.Permissions;
+using Softjourn.SJCoins.Core.Common;
 using Softjourn.SJCoins.Core.UI.Presenters;
 using Softjourn.SJCoins.Core.UI.ViewInterfaces;
 using Softjourn.SJCoins.Droid.ui.baseUI;
@@ -25,20 +26,20 @@ namespace Softjourn.SJCoins.Droid.UI.Activities
         {
             base.OnCreate(savedInstanceState);
             SetContentView(Resource.Layout.activity_qr);
-            var fragmentType = Intent.GetStringExtra(Const.NavigationKey);
+            var fragmentType = Intent.GetStringExtra(Constant.NavigationKey);
 
             _balance = FindViewById<TextView>(Resource.Id.qr_balance);
 
             //Initializing of ZXing Scanner
             MobileBarcodeScanner.Initialize(Application);
 
-            if (fragmentType == Const.QrScreenScanningTag)
+            if (fragmentType == Constant.QrScreenScanningTag)
             {
-                AttachFragment(Const.QrScreenScanningTag, ScanningResultFragment.NewInstance());
+                AttachFragment(Constant.QrScreenScanningTag, ScanningResultFragment.NewInstance());
             }
             else
             {
-                AttachFragment(Const.QrScreenGeneratingTag, GenerateCodeFragment.NewInstance());
+                AttachFragment(Constant.QrScreenGeneratingTag, GenerateCodeFragment.NewInstance());
             }
             SupportActionBar?.SetDisplayHomeAsUpEnabled(true);
 

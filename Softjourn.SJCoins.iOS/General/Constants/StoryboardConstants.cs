@@ -30,7 +30,6 @@
 		// Main page
 		public const string NavigationHomeViewController = "NavigationHomeViewController";
 
-		public const string PreViewController = "PreViewController";
 		public const string DetailViewController = "DetailViewController";
 		public const string ImageCarouselViewController = "ImageCarouselViewController";
 		public const string ShowViewController = "ShowViewController";
@@ -42,7 +41,6 @@
 		public const string ReportsViewController = "ReportsViewController";
 		public const string PrivacyTermsViewController = "PrivacyTermsViewController";
 		public const string HelpViewController = "HelpViewController";
-		public const string ShareFunsViewController = "ShareFunsViewController";
 		public const string QRCodeViewController = "QRCodeViewController";
 		public const string SelectMachineViewController = "SelectMachineViewController";
 
