@@ -28,26 +28,26 @@ namespace Softjourn.SJCoins.Core.UI.Presenters
                     {
                         // Execute remove favorite call
                         await RestApiService.RemoveProductFromFavorites(product.Id.ToString());
+
                         // Remove favorite locally
                         DataManager.RemoveProductFromFavorite(product);
                         product.IsProductFavorite = false;
-                        // Trigg view that process success
+
+                        // Trig view that process success
                         if (DataManager.GetProductFromListById(product.Id) != null)
-                        {
                             View.FavoriteChanged(DataManager.GetProductFromListById(product.Id));
-                        }
                         else
-                        {
                             View.LastUnavailableFavoriteRemoved(product);
-                        }
                     }
                     else
                     {
                         // Execute add favorite call
                         await RestApiService.AddProductToFavorites(product.Id.ToString());
+
                         // Add favorite locally
                         DataManager.AddProductToFavorite(product);
-                        // Trigg view that process success 
+
+                        // Trig view that process success 
                         var prod = DataManager.GetProductFromListById(product.Id);
 
                         View.FavoriteChanged(prod);
@@ -55,7 +55,6 @@ namespace Softjourn.SJCoins.Core.UI.Presenters
                 }
                 catch (ApiNotAuthorizedException)
                 {
-                    //AlertService.ShowToastMessage(ex.Message);
                     DataManager.Profile = null;
                     Settings.ClearUserData();
                     NavigationService.NavigateToAsRoot(NavigationPage.Login);
@@ -93,8 +92,9 @@ namespace Softjourn.SJCoins.Core.UI.Presenters
         {
             // Create action with trig OnPurchased method after it execution
             var onPurchaseAction = new Action<Product>(OnProductPurchased);
+
             // Show confirmation dialog on view
-            AlertService.ShowPurchaseConfirmationDialod(product, onPurchaseAction);
+            AlertService.ShowPurchaseConfirmationDialog(product, onPurchaseAction);
         }
 
         public abstract void ChangeUserBalance(string balance);
@@ -103,10 +103,8 @@ namespace Softjourn.SJCoins.Core.UI.Presenters
         /// Is called when user clicks on Product to show Detail page of chosen product.
         /// </summary>
         /// <param name="productId"></param>
-        public void OnProductDetailsClick(int productId)
-        {
+        public void OnProductDetailsClick(int productId) =>
             NavigationService.NavigateTo(NavigationPage.Detail, productId);
-        }
 
         #region Private methods
 
@@ -121,6 +119,7 @@ namespace Softjourn.SJCoins.Core.UI.Presenters
                 if (MyBalance >= product.IntPrice)
                 {
                     View.ShowProgress(Resources.UiMessageResources.progress_buying);
+
                     try
                     {
                         var leftAmount = await RestApiService.BuyProductById(product.Id.ToString());
@@ -129,16 +128,16 @@ namespace Softjourn.SJCoins.Core.UI.Presenters
                             MyBalance = int.Parse(leftAmount.Balance);
                             ChangeUserBalance(MyBalance.ToString());
                         }
+
                         View.HideProgress();
                         AlertService.ShowMessageWithUserInteraction("Purchase",
                             Resources.UiMessageResources.activity_product_take_your_order_message,
                             Resources.UiMessageResources.btn_title_ok, null);
                     }
 
-                    catch (ApiNotAuthorizedException ex)
+                    catch (ApiNotAuthorizedException)
                     {
                         View.HideProgress();
-                        //AlertService.ShowToastMessage(ex.Message);
                         DataManager.Profile = null;
                         Settings.ClearUserData();
                         NavigationService.NavigateToAsRoot(NavigationPage.Login);

@@ -3,7 +3,7 @@ using Softjourn.SJCoins.Core.UI.Presenters;
 
 namespace Softjourn.SJCoins.Core.UI.Bootstrapper.Modules
 {
-    internal class PresenterModule : Module
+    internal sealed class PresenterModule : Module
     {
         protected override void Load(ContainerBuilder builder)
         {

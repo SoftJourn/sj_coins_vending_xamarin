@@ -39,14 +39,17 @@ namespace Softjourn.SJCoins.Droid.UI.Adapters
             if (v is ImageView)
             {
                 AddFavoriteClick?.Invoke(this, EventArgs.Empty);
+
                 return;
             }
+
             Click?.Invoke(this, EventArgs.Empty);
         }
 
         public bool OnLongClick(View v)
         {
             if (v == null) return false;
+
             LongClick?.Invoke(this, EventArgs.Empty);
 
             return true;

@@ -1,4 +1,5 @@
-﻿using UIKit;
+﻿using Softjourn.SJCoins.Core.Common;
+using UIKit;
 
 namespace Softjourn.SJCoins.iOS.UI.Delegates
 {
@@ -9,7 +10,8 @@ namespace Softjourn.SJCoins.iOS.UI.Delegates
             if (replacementString != string.Empty)
             {
                 var text = textField.Text;
-                var newText = text.Substring(0, (int)range.Location) + replacementString + text.Substring((int)(range.Location + range.Length));
+                var newText = text.Substring(Constant.Zero, (int) range.Location) + replacementString +
+                              text.Substring((int) (range.Location + range.Length));
 
                 return int.TryParse(newText, out _);
             }

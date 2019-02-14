@@ -10,14 +10,8 @@ namespace Softjourn.SJCoins.Core.UI.Presenters
             MyBalance = DataManager.Profile.Amount;
         }
 
-		public override void ChangeUserBalance(string balance)
-		{
-			DataManager.Profile.Amount = int.Parse(balance);
-		}
+        public override void ChangeUserBalance(string balance) => DataManager.Profile.Amount = int.Parse(balance);
 
-	    public Product GetProduct(int productId)
-	    {
-	        return DataManager.GetProductFromListById(productId);
-	    }
+        public Product GetProduct(int productId) => DataManager.GetProductFromListById(productId);
     }
 }

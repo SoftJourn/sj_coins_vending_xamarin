@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using CoreGraphics;
 using Foundation;
+using Softjourn.SJCoins.Core.Common;
 using Softjourn.SJCoins.Core.UI.Presenters;
 using Softjourn.SJCoins.Core.UI.ViewInterfaces;
 using Softjourn.SJCoins.iOS.General.Constants;
@@ -15,11 +16,11 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.InformativePage
     [Register("InformativeViewController")]
     public partial class InformativeViewController : BaseViewController<WelcomePresenter>, IWelcomeView
     {
+        private int currentIndex;
         private UIPageViewController pageViewController;
         private List<UIViewController> pages;
         private PageViewDataSource pageDataSource;
         private PageViewDelegate pageDelegate;
-        private int currentIndex = 0;
         private InformativeFavoritesPage favoritePage;
 
         #region Controller Life cycle
@@ -35,6 +36,7 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.InformativePage
         public override void ViewDidLoad()
         {
             base.ViewDidLoad();
+
             //Set configuration of internal view elements
             ConfigurePageViewController();
             ConfigurePageControl();
@@ -88,7 +90,8 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.InformativePage
             return _pages;
         }
 
-        private static UIViewController Instantiate(string storyboard, string viewcontroller) => UIStoryboard.FromName(storyboard, null).InstantiateViewController(viewcontroller);
+        private static UIViewController Instantiate(string storyboard, string viewController) =>
+            UIStoryboard.FromName(storyboard, null).InstantiateViewController(viewController);
 
         private void ConfigurePageViewController()
         {
@@ -101,28 +104,22 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.InformativePage
             pageViewController.Delegate = pageDelegate;
             var viewControllers = new[] { pages.ElementAt(0) };
             pageViewController.SetViewControllers(viewControllers, UIPageViewControllerNavigationDirection.Forward, false, null);
-            pageViewController.View.Frame = new CGRect(0, 0, this.View.Frame.Width, this.View.Frame.Size.Height);
-            View.AddSubview(this.pageViewController.View);
+            pageViewController.View.Frame = new CGRect(0, 0, View.Frame.Width, View.Frame.Size.Height);
+            View.AddSubview(pageViewController.View);
         }
 
         private void ConfigurePageControl()
         {
             View.BringSubviewToFront(PageControl);
             PageControl.Pages = pages.Count;
-            PageControl.CurrentPage = 0;
+            PageControl.CurrentPage = Constant.Zero;
         }
 
-        private void ConfigureFirstPage()
-        {
-            // set background color as first page and hide button
-            View.BackgroundColor = UIColor.FromRGB(246, 76, 115).ColorWithAlpha(1.0f);
-        }
+        private void ConfigureFirstPage() => View.BackgroundColor =
+            UIColor.FromRGB(246, 76, 115).ColorWithAlpha(1.0f); // set background color as first page and hide button
 
-        private void ConfigureLastPage()
-        {
-            // set background color as last page and show button
-            View.BackgroundColor = UIColor.FromRGB(200, 115, 244).ColorWithAlpha(1.0f);
-        }
+        private void ConfigureLastPage() => View.BackgroundColor =
+            UIColor.FromRGB(200, 115, 244).ColorWithAlpha(1.0f); // set background color as last page and show button
 
         #region Event handlers
 

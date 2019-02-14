@@ -69,23 +69,13 @@ namespace Softjourn.SJCoins.Core.Managers
         /// Starts Standard Camera and returns MediaFile of captured photo
         /// </summary>
         /// <returns></returns>
-        private static async Task<MediaFile> MakePhotoAsync()
-        {
-            var file = await CrossMedia.Current.TakePhotoAsync(new StoreCameraMediaOptions());
-
-            return file;
-        }
+        private static async Task<MediaFile> MakePhotoAsync() => await CrossMedia.Current.TakePhotoAsync(new StoreCameraMediaOptions());
 
         /// <summary>
         /// Starts Gallery and returns MediaFile of selected photo
         /// </summary>
         /// <returns></returns>
-        private static async Task<MediaFile> PickPhotoFromGalleryAsync()
-        {
-            var file = await CrossMedia.Current.PickPhotoAsync();
-
-            return file;
-        }
+        private static async Task<MediaFile> PickPhotoFromGalleryAsync() => await CrossMedia.Current.PickPhotoAsync();
 
         /// <summary>
         /// Creating byte array based on MediaFile (Captured or selected in gallery photo)

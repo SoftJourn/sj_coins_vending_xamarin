@@ -10,35 +10,35 @@ using UIKit;
 
 namespace Softjourn.SJCoins.iOS.UI.Controllers.AccountPage
 {
-	[Register("AccountViewController")]
-	public partial class AccountViewController : BaseViewController<AccountPresenter>, IAccountView
-	{
-		private AccountViewSource tableSource;
-		private readonly Lazy<UIImageHelper> helper = new Lazy<UIImageHelper>(() => new UIImageHelper());
-		private UIImageHelper ImageHelper => helper.Value;
+    [Register("AccountViewController")]
+    public partial class AccountViewController : BaseViewController<AccountPresenter>, IAccountView
+    {
+        private AccountViewSource tableSource;
+        private readonly Lazy<UIImageHelper> helper = new Lazy<UIImageHelper>(() => new UIImageHelper());
+        private UIImageHelper ImageHelper => helper.Value;
 
-        private UITapGestureRecognizer avatarImageTap; 
+        private UITapGestureRecognizer avatarImageTap;
 
-		public AccountViewController(IntPtr handle) : base(handle)
-		{
-		}
+        public AccountViewController(IntPtr handle) : base(handle)
+        {
+        }
 
-		#region Controller Life cycle
+        #region Controller Life cycle
 
-		public override void ViewDidLoad()
-		{
-			base.ViewDidLoad();
-			ConfigureTableView();
-			ConfigureAvatarImage(AvatarImage);
-			Presenter.GetImageFromServer();
-		}
+        public override void ViewDidLoad()
+        {
+            base.ViewDidLoad();
+            ConfigureTableView();
+            ConfigureAvatarImage(AvatarImage);
+            Presenter.GetImageFromServer();
+        }
 
-		public override void ViewWillAppear(bool animated)
-		{
-			base.ViewWillAppear(animated);
-			Presenter.OnStartLoadingPage();
+        public override void ViewWillAppear(bool animated)
+        {
+            base.ViewWillAppear(animated);
+            Presenter.OnStartLoadingPage();
             MakeNavigationBarTransparent();
-		}
+        }
 
         public override void ViewWillDisappear(bool animated)
         {
@@ -46,117 +46,109 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.AccountPage
             MakeNavigationBarDefault();
         }
 
-		#endregion
+        #endregion
 
-		#region BaseViewController
+        #region BaseViewController
 
-		public override void AttachEvents()
-		{
-			base.AttachEvents();
+        public override void AttachEvents()
+        {
+            base.AttachEvents();
             DoneButton.Clicked += DoneButtonClickHandler;
-			tableSource.ItemSelected += TableSource_ItemClicked;
-			// Add tap gesture to avatar image
-			avatarImageTap = new UITapGestureRecognizer(AvatarImageTapHandler);
-			AvatarImage.AddGestureRecognizer(avatarImageTap);
-		}
+            tableSource.ItemSelected += TableSource_ItemClicked;
+            // Add tap gesture to avatar image
+            avatarImageTap = new UITapGestureRecognizer(AvatarImageTapHandler);
+            AvatarImage.AddGestureRecognizer(avatarImageTap);
+        }
 
-		public override void DetachEvents()
-		{
+        public override void DetachEvents()
+        {
             DoneButton.Clicked -= DoneButtonClickHandler;
-			tableSource.ItemSelected -= TableSource_ItemClicked;
-			// Remove tap gesture from avatar image
-			AvatarImage.RemoveGestureRecognizer(avatarImageTap);
-			base.DetachEvents();
-		}
+            tableSource.ItemSelected -= TableSource_ItemClicked;
+            // Remove tap gesture from avatar image
+            AvatarImage.RemoveGestureRecognizer(avatarImageTap);
+            base.DetachEvents();
+        }
 
-		#endregion
+        #endregion
 
-		#region IAccountView implementation
+        #region IAccountView implementation
 
-		public void SetAccountInfo(Account account)
-		{
-			if (account != null)
-			{
-				NameLabel.Text = account.Name + " " + account.Surname;
-				AmountLabel.Text = account.Amount.ToString();
-			}
-		}
+        public void SetAccountInfo(Account account)
+        {
+            if (account != null)
+            {
+                NameLabel.Text = $"{account.Name} {account.Surname}";
+                AmountLabel.Text = account.Amount.ToString();
+            }
+        }
 
-		public void ImageAcquired(byte[] receipt)
-		{
+        public void ImageAcquired(byte[] receipt)
+        {
             // Method triggered when data taken from server or dataManager
             var image = UIImage.LoadFromData(NSData.FromArray(receipt));
 
-			// Set image
-			if (AvatarImage.Hidden)
-				AvatarImage.Hidden = false;
+            // Set image
+            if (AvatarImage.Hidden)
+                AvatarImage.Hidden = false;
 
-			AvatarImage.Image = image;
-		}
+            AvatarImage.Image = image;
+        }
 
-		public void ImageAcquiredPlugin(byte[] receipt)
-		{
-			// Method trigged when data taken from plugin (camera or library)
-			var image = UIImage.LoadFromData(NSData.FromArray(receipt));
-			// Resize image
-			var scaledRotatedImage = ImageHelper.ScaleAndRotateImage(image, image.Orientation);
+        public void ImageAcquiredPlugin(byte[] receipt)
+        {
+            // Method trigged when data taken from plugin (camera or library)
+            var image = UIImage.LoadFromData(NSData.FromArray(receipt));
+            // Resize image
+            var scaledRotatedImage = ImageHelper.ScaleAndRotateImage(image, image.Orientation);
 
-			// Set image
-			if (AvatarImage.Hidden)
-				AvatarImage.Hidden = false;
-			
-			AvatarImage.Image = scaledRotatedImage;
+            // Set image
+            if (AvatarImage.Hidden)
+                AvatarImage.Hidden = false;
 
-			// Convert scaled image to byte
-			var bytes = ImageHelper.BytesFromImage(scaledRotatedImage);
-			// Send image to server
-			if (bytes != null)
-				Presenter.StoreAvatarOnServer(bytes);
-		}
+            AvatarImage.Image = scaledRotatedImage;
 
-		//Android
-		public void ImageAcquired(string receipt) { }
+            // Convert scaled image to byte
+            var bytes = ImageHelper.BytesFromImage(scaledRotatedImage);
+            // Send image to server
+            if (bytes != null)
+                Presenter.StoreAvatarOnServer(bytes);
+        }
 
-		#endregion
+        //Android
+        public void ImageAcquired(string receipt) { }
 
-		#region Private methods
+        #endregion
 
-		private void ConfigureTableView()
-		{
-			var options = Presenter.GetOptionsList();
-			tableSource = new AccountViewSource(options);
+        #region Private methods
+
+        private void ConfigureTableView()
+        {
+            var options = Presenter.GetOptionsList();
+            tableSource = new AccountViewSource(options);
             TableView.Source = tableSource;
-		}
+        }
 
-		private static void ConfigureAvatarImage(UIImageView imageView)
-		{
+        private static void ConfigureAvatarImage(UIImageView imageView)
+        {
             // Make image rounded
-			var imageCircle = imageView.Layer;
-			imageCircle.CornerRadius = imageView.Frame.Height / 2;
+            var imageCircle = imageView.Layer;
+            imageCircle.CornerRadius = imageView.Frame.Height / 2;
             imageCircle.BorderWidth = 0.3f;
             imageCircle.BorderColor = UIColorConstants.ProductImageBorderColor.CGColor;
-			imageCircle.MasksToBounds = true;
-		}
+            imageCircle.MasksToBounds = true;
+        }
 
-		#endregion
+        #endregion
 
         #region Event handlers
 
-		private void TableSource_ItemClicked(object sender, AccountOption item)
-		{
-			Presenter.OnItemClick(item.OptionName);
-		}
+        private void TableSource_ItemClicked(object sender, AccountOption item) =>
+            Presenter.OnItemClick(item.OptionName);
 
-		private void DoneButtonClickHandler(object sender, EventArgs e)
-		{
-			DismissViewController(true, null);
-		}
+        private void DoneButtonClickHandler(object sender, EventArgs e) => DismissViewController(true, null);
 
-		private void AvatarImageTapHandler(UITapGestureRecognizer gestureRecognizer)
-		{
-			Presenter.OnPhotoClicked();
-		}
+        private void AvatarImageTapHandler(UITapGestureRecognizer gestureRecognizer) => Presenter.OnPhotoClicked();
 
-		#endregion
-	}
+        #endregion
+    }
 }

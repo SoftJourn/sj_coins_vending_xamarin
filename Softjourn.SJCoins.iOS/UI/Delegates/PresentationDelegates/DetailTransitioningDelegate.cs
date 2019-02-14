@@ -9,15 +9,5 @@ namespace Softjourn.SJCoins.iOS.UI.Delegates.PresentationDelegates
         {
             return new DetailViewPresentationController(presentedViewController, presentingViewController);
         }
-
-        //public override IUIViewControllerAnimatedTransitioning GetAnimationControllerForPresentedController(UIViewController presented, UIViewController presenting, UIViewController source)
-        //{
-
-        //}
-
-        //public override IUIViewControllerAnimatedTransitioning GetAnimationControllerForDismissedController(UIViewController dismissed)
-        //{
-
-        //}
     }
 }

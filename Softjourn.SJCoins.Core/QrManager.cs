@@ -40,10 +40,7 @@ namespace Softjourn.SJCoins.Core.Managers
         /// </summary>
         /// <param name="amount"></param>
         /// <returns></returns>
-        public string ConvertCashObjectToString(Cash amount)
-        {
-            return JsonConvert.SerializeObject(amount);
-        }
+        public string ConvertCashObjectToString(Cash amount) => JsonConvert.SerializeObject(amount);
 
         /// <summary>
         /// Scan QRCode using ZXing

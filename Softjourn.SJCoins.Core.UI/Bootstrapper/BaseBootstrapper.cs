@@ -21,7 +21,7 @@ namespace Softjourn.SJCoins.Core.UI.Bootstrapper
 
         protected abstract void RegisterUIDependencies(ContainerBuilder builder);
 
-        private void RegisterCoreDependencies(ContainerBuilder builder)
+        private static void RegisterCoreDependencies(ContainerBuilder builder)
         {
             builder.RegisterModule<ManagerModule>();
             builder.RegisterModule<ApiModule>();

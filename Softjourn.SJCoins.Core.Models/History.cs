@@ -13,8 +13,6 @@ namespace Softjourn.SJCoins.Core.Models
         [JsonProperty("price")]
         public float Price { get; set; }
 
-        public int IntPrice => int.Parse(Price.ToString());
-
         public string PrettyTime { get; set; }
     }
 }

@@ -31,7 +31,7 @@ namespace Softjourn.SJCoins.iOS.UI.Sources.AccountPage
             var indexPaths = new List<NSIndexPath>();
 
             // Add elements to list
-            foreach (Transaction item in items)
+            foreach (var item in items)
             {
                 if (items.Contains(item))
                 {
@@ -47,7 +47,8 @@ namespace Softjourn.SJCoins.iOS.UI.Sources.AccountPage
 
         public override nint RowsInSection(UITableView tableview, nint section) => items.Count;
 
-        public override UITableViewCell GetCell(UITableView tableView, NSIndexPath indexPath) => tableView.DequeueReusableCell(TransactionCell.Key, indexPath);
+        public override UITableViewCell GetCell(UITableView tableView, NSIndexPath indexPath) =>
+            tableView.DequeueReusableCell(TransactionCell.Key, indexPath);
 
         public override void WillDisplay(UITableView tableView, UITableViewCell cell, NSIndexPath indexPath)
         {
@@ -55,10 +56,7 @@ namespace Softjourn.SJCoins.iOS.UI.Sources.AccountPage
             _cell.ConfigureWith(items[indexPath.Row]);
 
             if (indexPath.Row == items.Count - RowBeforeEnd && items.Count >= NumberOfItemsOnOnePage)
-            {
-                // trig presenter to give the next page.
-                GetNexPage?.Invoke(this, null);
-            }
+                GetNexPage?.Invoke(this, null); // trig presenter to give the next page.
         }
     }
 }

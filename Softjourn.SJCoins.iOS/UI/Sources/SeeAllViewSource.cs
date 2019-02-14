@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using Foundation;
 using Softjourn.SJCoins.Core.Models.Products;
 using Softjourn.SJCoins.iOS.General.Constants;
@@ -64,7 +65,7 @@ namespace Softjourn.SJCoins.iOS.UI.Sources
 
         protected override void Dispose(bool disposing)
         {
-            System.Diagnostics.Debug.WriteLine(string.Format("{0} disposed", this.GetType()));
+            Debug.WriteLine($"{GetType()} disposed");
             base.Dispose(disposing);
         }
     }

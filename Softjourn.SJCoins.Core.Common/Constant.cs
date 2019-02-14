@@ -2,6 +2,8 @@ namespace Softjourn.SJCoins.Core.Common
 {
     public static class Constant
     {
+        public const int Zero = 0;
+
         public const string NavigationKey = "NavigationParams";
         public const string BottomSheetFragmentTag = "PREVIEW_TAG";
 
@@ -27,7 +29,6 @@ namespace Softjourn.SJCoins.Core.Common
 
         //See All button Tags
         public const string Favorites = "Favorites";
-
         public const string ProfileOptionsPurchase = "Purchase";
         public const string ProfileOptionsReports = "Reports";
         public const string ProfileOptionsPrivacyTerms = "Privace and Terms";

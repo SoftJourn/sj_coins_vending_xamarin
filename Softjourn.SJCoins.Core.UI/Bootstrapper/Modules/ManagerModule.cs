@@ -3,7 +3,7 @@ using Softjourn.SJCoins.Core.Managers;
 
 namespace Softjourn.SJCoins.Core.UI.Bootstrapper.Modules
 {
-    internal class ManagerModule : Module
+    internal sealed class ManagerModule : Module
     {
         protected override void Load(ContainerBuilder builder)
         {

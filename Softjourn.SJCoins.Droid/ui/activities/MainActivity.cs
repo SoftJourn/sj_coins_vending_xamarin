@@ -15,7 +15,6 @@ using Softjourn.SJCoins.Core.UI.Presenters;
 using Softjourn.SJCoins.Core.UI.ViewInterfaces;
 using Softjourn.SJCoins.Droid.ui.baseUI;
 using Softjourn.SJCoins.Droid.UI.Fragments;
-using Softjourn.SJCoins.Droid.Utils;
 
 namespace Softjourn.SJCoins.Droid.UI.Activities
 {
@@ -29,9 +28,11 @@ namespace Softjourn.SJCoins.Droid.UI.Activities
 
         private bool HaveProducts { get; set; }
 
-        //Dictionary for saving container and header IDs for created categories
-        //Key - containerId
-        //Value - HeaderId
+        /// <summary>
+        /// Dictionary for saving container and header IDs for created categories
+        /// Key - containerId
+        /// Value - HeaderId
+        /// </summary>
         private Dictionary<int, int> _containerIds;
 
         #region Activity Standart Methods
@@ -41,8 +42,10 @@ namespace Softjourn.SJCoins.Droid.UI.Activities
             base.OnCreate(savedInstanceState);
             SetContentView(Resource.Layout.activity_main);
 
-            _containerIds = new Dictionary<int, int>();
-            _containerIds.Add(Resource.Id.favorites_container_ID, Resource.Id.favoriteIdLayout);
+            _containerIds = new Dictionary<int, int>
+            {
+                {Resource.Id.favorites_container_ID, Resource.Id.favoriteIdLayout}
+            };
 
             _favoritesShowAll = FindViewById<TextView>(Resource.Id.favoriteSeeAllID);
             _favoritesShowAll.Click += (sender, e) =>
@@ -63,8 +66,10 @@ namespace Softjourn.SJCoins.Droid.UI.Activities
         public override bool OnCreateOptionsMenu(IMenu menu)
         {
             base.OnCreateOptionsMenu(menu);
+
             menu.FindItem(Resource.Id.menu_buy).SetVisible(false);
             menu.FindItem(Resource.Id.menu_add_favorite).SetVisible(false);
+
             return true;
         }
 
@@ -96,10 +101,7 @@ namespace Softjourn.SJCoins.Droid.UI.Activities
 
         #region Methods from IHomeView Interface
 
-        public override void ShowProgress(string message)
-        {
-            _swipeLayout.Refreshing = true;
-        }
+        public override void ShowProgress(string message) => _swipeLayout.Refreshing = true;
 
         public override void HideProgress()
         {
@@ -107,15 +109,13 @@ namespace Softjourn.SJCoins.Droid.UI.Activities
             _swipeLayout.Refreshing = false;
         }
 
-        /**
-         * Refreshes favorites fragment when OnResume is called.
-         * Is using to add or remove favorite product from favorite fragment when adding ar removing
-         * favorite from details or preview
-         */
-        public void FavoriteChanged(Product product)
-        {
-            FavoriteChanged(product.IsProductFavorite);
-        }
+        /// <summary>
+        /// Refreshes favorites fragment when OnResume is called.
+        /// Is using to add or remove favorite product from favorite fragment when adding ar removing
+        /// favorite from details or preview
+        /// </summary>
+        /// <param name="product"></param>
+        public void FavoriteChanged(Product product) => FavoriteChanged(product.IsProductFavorite);
 
         public void LastUnavailableFavoriteRemoved(Product product)
         {
@@ -126,37 +126,36 @@ namespace Softjourn.SJCoins.Droid.UI.Activities
             bottomFragment?.Dismiss();
         }
 
-        /**
-         * Sets user's Account information
-         */
-        public void SetAccountInfo(Account account)
-        {
-            SetUserBalance(account.Amount.ToString());
-        }
+        /// <summary>
+        /// Sets user's Account information
+        /// </summary>
+        /// <param name="account"></param>
+        public void SetAccountInfo(Account account) => SetUserBalance(account.Amount.ToString());
 
-        /**
-         * Sets user's balance into balance Text View
-         */
+        /// <summary>
+        /// Sets user's balance into balance Text View
+        /// </summary>
+        /// <param name="balance"></param>
         public void SetUserBalance(string balance)
         {
             _balance.Visibility = ViewStates.Visible;
             _balance.Text = string.Format(GetString(Resource.String.your_balance_is, balance));
         }
 
-        /**
-         * Sets selected machine's name as the Title of ActionBar
-         */
-        public void SetMachineName(string name)
-        {
-            SupportActionBar.Title = name;
-        }
+        /// <summary>
+        /// Sets selected machine's name as the Title of ActionBar
+        /// </summary>
+        /// <param name="name"></param>
+        public void SetMachineName(string name) => SupportActionBar.Title = name;
 
-        /**
-         * Creates containers for each category from input categories List
-         */
+        /// <summary>
+        /// Creates containers for each category from input categories List
+        /// </summary>
+        /// <param name="listCategories"></param>
         public void ShowProducts(List<Categories> listCategories)
         {
             HaveProducts = true;
+
             foreach (var category in listCategories)
             {
                 if (category.Name == Constant.Favorites)
@@ -183,73 +182,62 @@ namespace Softjourn.SJCoins.Droid.UI.Activities
             ViewPresenter.OnRefresh();
         }
 
-        /**
-         * Calls Purchase functionality on Presenters side
-         */
-        public void Purchase(Product product)
-        {
-            ViewPresenter.OnBuyProductClick(product);
-        }
+        /// <summary>
+        /// Calls Purchase functionality on Presenters side
+        /// </summary>
+        /// <param name="product"></param>
+        public void Purchase(Product product) => ViewPresenter.OnBuyProductClick(product);
 
-        /**
-         * Attaches BottomSheetFragment with the given product (Preview functionality)
-         * Is called by OnLongClick on product item
-         */
+        /// <summary>
+        /// Attaches BottomSheetFragment with the given product (Preview functionality)
+        /// Is called by OnLongClick on product item
+        /// </summary>
+        /// <param name="product"></param>
         public void ShowPreview(Product product)
         {
             BottomSheetDialogFragment bottomSheetDialogFragment = ProductDetailsFragment.GetInstance(product);
             bottomSheetDialogFragment.Show(SupportFragmentManager, Constant.BottomSheetFragmentTag);
         }
 
-        /**
-         * Calls navigation to Details screen on Presenter's side
-         * with the given product
-         * Is called by OnClick on product item
-         */
-        public void ShowDetails(Product product)
-        {
-            ViewPresenter.OnProductDetailsClick(product.Id);
-        }
+        /// <summary>
+        /// Calls navigation to Details screen on Presenter's side
+        /// with the given product
+        /// Is called by OnClick on product item
+        /// </summary>
+        /// <param name="product"></param>
+        public void ShowDetails(Product product) => ViewPresenter.OnProductDetailsClick(product.Id);
 
-        /**
-         * Calls Adding/Removing favorite on Presenter's Side
-         * Is Called by Fragments (ProductListFragmentVending and ProductDetailsFragment)
-         */
-        public void TrigFavorite(Product product)
-        {
-            ViewPresenter.OnFavoriteClick(product);
-        }
+        /// <summary>
+        /// Calls Adding/Removing favorite on Presenter's Side
+        /// Is Called by Fragments (ProductListFragmentVending and ProductDetailsFragment)
+        /// </summary>
+        /// <param name="product"></param>
+        public void TrigFavorite(Product product) => ViewPresenter.OnFavoriteClick(product);
 
-        public void ShowToastMessage(string message)
-        {
-            ShowToast(message);
-        }
+        public void ShowToastMessage(string message) => ShowToast(message);
 
         #endregion
 
         #region Private Methods
 
-        /**
-         * Creates Container and Header for category from dummy layout
-         * sets all needed Ids in category (ShowAllId, ContainerId etc.)
-         * @param categoryName - Name of current category;
-         * @param lsitProducts - list of Produts of current category  
-         */
+        /// <summary>
+        /// Creates Container and Header for category from dummy layout
+        /// sets all needed Ids in category (ShowAllId, ContainerId etc.)
+        /// </summary>
+        /// <param name="categoryName">Name of current category</param>
+        /// <param name="listProducts">list of Products of current category</param>
         private void CreateCategory(string categoryName, List<Product> listProducts)
         {
             _viewCounter++;
 
             var mainLayout = FindViewById<LinearLayout>(Resource.Id.layout_root);
-
             var ll = LayoutInflater.Inflate(Resource.Layout.category_header_layout, null) as LinearLayout;
 
             mainLayout?.AddView(ll);
 
             var llHeader = FindViewById<LinearLayout>(Resource.Id.dummyHeaderID);
             if (llHeader != null)
-            {
                 llHeader.Id = View.GenerateViewId();
-            }
 
             var tvCategoryName = FindViewById<TextView>(Resource.Id.categoryName);
             if (tvCategoryName != null)
@@ -260,41 +248,36 @@ namespace Softjourn.SJCoins.Droid.UI.Activities
 
             var tvSeeAll = FindViewById<TextView>(Resource.Id.dummySeeAllID);
             if (tvSeeAll != null)
-            {
                 tvSeeAll.Id = View.GenerateViewId();
-            }
 
             var llContainer = FindViewById<LinearLayout>(Resource.Id.container_dummyID);
             if (llContainer != null && llHeader != null)
-            {
                 llContainer.Id = View.GenerateViewId();
 
-            }
-
             if (tvSeeAll != null)
-            {
                 tvSeeAll.Click += (sender, e) =>
                 {
                     ViewPresenter.OnShowAllClick(categoryName);
                 };
-            }
 
             if (llHeader != null && llContainer != null && tvSeeAll != null)
-            {
                 AttachFragment(categoryName, llHeader.Id, llContainer.Id, listProducts);
-            }
         }
 
-        /**
-         * Hides conatiner and Header for category which becames empty
-         * e.g. After removing last favorite from Favorites category
-         */
+        /// <summary>
+        /// Hides container and Header for category which becomes empty
+        /// e.g. After removing last favorite from Favorites category
+        /// </summary>
+        /// <param name="headers"></param>
+        /// <param name="fragmentContainerId"></param>
         private void HideContainer(int headers, int fragmentContainerId)
         {
             var view = FindViewById<View>(headers);
             var fragmentContainer = FindViewById<View>(fragmentContainerId);
+
             if (fragmentContainer != null)
                 fragmentContainer.Visibility = ViewStates.Gone;
+
             if (view != null)
                 view.Visibility = ViewStates.Gone;
         }
@@ -305,19 +288,16 @@ namespace Softjourn.SJCoins.Droid.UI.Activities
             var fragmentContainer = FindViewById<View>(fragmentContainerId);
 
             if (view != null)
-            {
                 view.Visibility = ViewStates.Visible;
-            }
+
             if (fragmentContainer != null)
-            {
                 fragmentContainer.Visibility = ViewStates.Visible;
-            }
         }
 
-        /**
-         * Removes all created containers
-         * Is Used for refreshing layout
-         */
+        /// <summary>
+        /// Removes all created containers
+        /// Is Used for refreshing layout
+        /// </summary>
         private void RemoveContainers()
         {
             var layout = FindViewById<LinearLayout>(Resource.Id.layout_root);
@@ -327,13 +307,13 @@ namespace Softjourn.SJCoins.Droid.UI.Activities
             }
         }
 
-        /**
-         * Attach fragment to created container for category.
-         * @param categoryName - Name of current category;
-         * @param headerID - Id of category Header (category name, ShowAllButton)
-         * @param containerID - Id of container for fragment
-         * @param lsitProducts - list of Produts of current category
-         */
+        /// <summary>
+        /// Attach fragment to created container for category.
+        /// </summary>
+        /// <param name="categoryName">Name of current category</param>
+        /// <param name="headerId">Id of category Header (category name, ShowAllButton)</param>
+        /// <param name="containerId">Id of container for fragment</param>
+        /// <param name="listProducts">list of Products of current category</param>
         private void AttachFragment(string categoryName, int headerId, int containerId, List<Product> listProducts)
         {
             FragmentManager.BeginTransaction()
@@ -357,19 +337,20 @@ namespace Softjourn.SJCoins.Droid.UI.Activities
             if (FragmentManager.FindFragmentById(favoritesContainerId) is ProductListFragmentVending fragment)
             {
                 //if Count of favorites is 0 then hide container
-                if (refreshedFavorites.Count == 0)
-                {
+                if (!refreshedFavorites.Any())
                     HideContainer(favoritesContainerId, favoriteHeaderId);
-                }
                 //if count of favorite > 0 then show container and trig method ChangeFavorite in corresponding fragment
-                else ShowContainer(favoritesContainerId, favoriteHeaderId);
+                else
+                    ShowContainer(favoritesContainerId, favoriteHeaderId);
+
                 fragment.ChangeFavorite(refreshedFavorites);
             }
             // if there is no fragment for such container then
             //show container and attach fragment to it.
             else
             {
-                if (refreshedFavorites.Count <= 0) return;
+                if (!refreshedFavorites.Any()) return;
+
                 ShowContainer(favoritesContainerId, _containerIds.ElementAt(0).Value);
                 AttachFragment(Constant.Favorites, _containerIds.ElementAt(0).Value, favoritesContainerId,
                     refreshedFavorites);
@@ -385,10 +366,7 @@ namespace Softjourn.SJCoins.Droid.UI.Activities
             bottomFragment?.ChangeFavoriteIcon(isFavorite);
         }
 
-        public void ServiceNotAvailable()
-        {
-            ShowToast("Service not available");
-        }
+        public void ServiceNotAvailable() => ShowToast("Service not available");
 
         public void ImageAcquired(byte[] receipt)
         {

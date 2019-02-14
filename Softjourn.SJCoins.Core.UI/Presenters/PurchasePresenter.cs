@@ -23,23 +23,17 @@ namespace Softjourn.SJCoins.Core.UI.Presenters
                     {
                         item.PrettyTime = TimeUtils.GetPrettyTime(item.Time);
                     }
+
                     View.HideProgress();
 
-                    //If list is Empty Show empty View
-                    //else show data
-                    if (purchaseList.Count == 0)
-                    {
+                    if (purchaseList.Count == Constant.Zero)
                         View.ShowEmptyView();
-                    }
                     else
-                    {
                         View.SetData(purchaseList);
-                    }
                 }
                 catch (ApiNotAuthorizedException)
                 {
                     View.HideProgress();
-                    //AlertService.ShowToastMessage(ex.Message);
                     DataManager.Profile = null;
                     Settings.ClearUserData();
                     NavigationService.NavigateToAsRoot(NavigationPage.Login);

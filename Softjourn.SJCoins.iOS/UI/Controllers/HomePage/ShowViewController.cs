@@ -33,8 +33,8 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.HomePage
 
         public void SetInitialParameter(object categoryName)
         {
-            if (categoryName is string)
-                this.CategoryName = (string)categoryName;
+            if (categoryName is string name)
+                CategoryName = name;
         }
 
         #region Controller Life cycle
@@ -89,15 +89,9 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.HomePage
 
         #region IShowAllView implementation
 
-        public void FavoriteChanged(Product product)
-        {
-            ChangeFavorite(product);
-        }
+        public void FavoriteChanged(Product product) => ChangeFavorite(product);
 
-        public void LastUnavailableFavoriteRemoved(Product product)
-        {
-            ChangeFavorite(product);
-        }
+        public void LastUnavailableFavoriteRemoved(Product product) => ChangeFavorite(product);
 
         public void ShowSortedList(List<Product> products)
         {
@@ -106,15 +100,9 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.HomePage
             ReloadTable();
         }
 
-        public void SetCompoundDrawableName(bool? isAsc)
-        {
-            SetCompoundDrawableSegment(isAsc, NameTitle, NameSegment);
-        }
+        public void SetCompoundDrawableName(bool? isAsc) => SetCompoundDrawableSegment(isAsc, NameTitle, NameSegment);
 
-        public void SetCompoundDrawablePrice(bool? isAsc)
-        {
-            SetCompoundDrawableSegment(isAsc, PriceTitle, PriceSegment);
-        }
+        public void SetCompoundDrawablePrice(bool? isAsc) => SetCompoundDrawableSegment(isAsc, PriceTitle, PriceSegment);
 
         #endregion
 
@@ -142,10 +130,7 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.HomePage
             ConfigureSegment(NameTitle, NameSegment, ImageConstants.ArrowUpward);
         }
 
-        private void ReloadTable()
-        {
-            TableView.ReloadSections(new NSIndexSet(0), UITableViewRowAnimation.Automatic);
-        }
+        private void ReloadTable() => TableView.ReloadSections(new NSIndexSet(0), UITableViewRowAnimation.Automatic);
 
         private void SetCompoundDrawableSegment(bool? isAsc, string title, int segment)
         {
@@ -154,7 +139,7 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.HomePage
             else if (isAsc == false)
                 ConfigureSegment(title, segment, ImageConstants.ArrowUpward);
             else
-                ConfigureSegment(title, segment, null);
+                ConfigureSegment(title, segment);
         }
 
         private void ConfigureSegment(string title, int segment, string imageName = null)
@@ -178,7 +163,7 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.HomePage
             NamePriceSegmentControl.SetBackgroundImage(imageHelper.GetColoredImage(UIColorConstants.SpinnerBackgroundColor), UIControlState.Normal, UIBarMetrics.Default);
             NamePriceSegmentControl.SetDividerImage(imageHelper.GetColoredImage(UIColorConstants.SpinnerBackgroundColor), UIControlState.Normal, UIControlState.Normal, UIBarMetrics.Default);
 
-            // Cusctomizing style of SegmentControl
+            // Customizing style of SegmentControl
             NamePriceSegmentControl.Layer.CornerRadius = NamePriceSegmentControl.Frame.Height / 2;
             NamePriceSegmentControl.Layer.BorderWidth = 1.0f;
             NamePriceSegmentControl.Layer.BorderColor = UIColor.Clear.CGColor;
@@ -188,7 +173,9 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.HomePage
         private void ChangeFavorite(Product product)
         {
             LoaderService.Hide();
+
             var indexPaths = new List<NSIndexPath>();
+
             if (filteredItems.Contains(product))
             {
                 var index = filteredItems.IndexOf(product);
@@ -213,39 +200,24 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.HomePage
 
         #region Event handlers
 
-        private void TableSource_ItemSelected(object sender, Product product)
-        {
-            // Trigg presenter that user click on some product to see details
-            Presenter.OnProductDetailsClick(product.Id);
-            //if (searchController.Active)
-            //searchController.DismissViewController(true, null);
-        }
+        private void TableSource_ItemSelected(object sender, Product product) =>
+            Presenter.OnProductDetailsClick(product.Id); // Trig presenter that user click on some product to see details
 
         public void TableSource_FavoriteClicked(object sender, Product product)
         {
-            // Trigg presenter that user click on some product for adding it to favorite
+            // Trig presenter that user click on some product for adding it to favorite
             LoaderService.Show("Loading...");
             Presenter.OnFavoriteClick(product);
         }
 
-        public void TableSource_BuyClicked(object sender, Product product)
-        {
-            // Trigg presenter that user click on some product for buying
-            Presenter.OnBuyProductClick(product);
-        }
+        public void TableSource_BuyClicked(object sender, Product product) =>
+            Presenter.OnBuyProductClick(product); // Trig presenter that user click on some product for buying
 
-        // SegmentControl methods 
-        private void SameButtonClickHandler(object sender, EventArgs e)
-        {
-            // Handle clicking on the same button of segment control
-            SortItems(CategoryName);
-        }
+        private void SameButtonClickHandler(object sender, EventArgs e) =>
+            SortItems(CategoryName); // Handle clicking on the same button of segment control
 
-        private void AnotherButtonClickHandler(object sender, EventArgs e)
-        {
-            // Handle clicking on the another button of segment control
-            SortItems(CategoryName);
-        }
+        private void AnotherButtonClickHandler(object sender, EventArgs e) =>
+            SortItems(CategoryName); // Handle clicking on the another button of segment control
 
         private void SortItems(string category)
         {

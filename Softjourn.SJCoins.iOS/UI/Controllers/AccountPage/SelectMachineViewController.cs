@@ -101,15 +101,12 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.AccountPage
 
         #region Event handlers
 
-		private void TableSource_ItemClicked(object sender, Machines machine)
-		{
-			Presenter.OnMachineSelected(machine);
-		}
+        private void TableSource_ItemClicked(object sender, Machines machine) => Presenter.OnMachineSelected(machine);
 
-        #endregion 
-		
-		// Throw TableView to parent
-		protected override UIScrollView GetRefreshableScrollView() => TableView;
+        #endregion
+
+        // Throw TableView to parent
+        protected override UIScrollView GetRefreshableScrollView() => TableView;
 
 		protected override void PullToRefreshTriggered(object sender, EventArgs e)
 		{

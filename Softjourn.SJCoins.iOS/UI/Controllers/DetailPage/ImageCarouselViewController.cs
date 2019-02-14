@@ -99,12 +99,10 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.DetailPage
 
 		#region Event handlers
 
-		private void BackButtonClicked(object sender, EventArgs e)
-		{
+        private void BackButtonClicked(object sender, EventArgs e) =>
             PresentingViewController.DismissViewController(true, null);
-		}
 
-		private void ImageIndexChanged(object sender, int currentIndex)
+        private void ImageIndexChanged(object sender, int currentIndex)
 		{
 			// Change dot on Page Control
 			PageControl.CurrentPage = currentIndex;

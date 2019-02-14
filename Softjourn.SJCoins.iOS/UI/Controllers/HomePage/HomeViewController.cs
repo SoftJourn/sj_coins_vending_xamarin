@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using CoreAnimation;
 using Foundation;
@@ -99,23 +100,15 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.HomePage
         public void SetAccountInfo(Account account)
         {
             // Show user balance on start
-            currentUser = account.Name + " " + account.Surname;
+            currentUser = $"{account.Name} {account.Surname}";
             var balance = account.Amount.ToString();
             currentBalance = balance;
             SetBalance(balance, currentUser);
         }
 
-        public void SetUserBalance(string balance)
-        {
-            // Show user balance after buying
-            SetBalance(balance, currentUser);
-        }
+        public void SetUserBalance(string balance) => SetBalance(balance, currentUser); // Show user balance after buying
 
-        public void SetMachineName(string name)
-        {
-            // Set chosenMachine name as title
-            MachineNameLabel.Text = name;
-        }
+        public void SetMachineName(string name) => MachineNameLabel.Text = name; // Set chosenMachine name as title
 
         public void ShowProducts(List<Categories> listCategories)
         {
@@ -138,7 +131,7 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.HomePage
 
         public void ImageAcquired(byte[] receipt)
         {
-            // Method trigged when data taken from server or dataManager
+            // Method triggered when data taken from server or dataManager
             var image = UIImage.LoadFromData(NSData.FromArray(receipt));
             AvatarImage.Image = image;
         }
@@ -156,15 +149,9 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.HomePage
                 SearchButton.Enabled = false;
         }
 
-        public void LastUnavailableFavoriteRemoved(Product product)
-        {
-            RefreshFavoritesCell();
-        }
+        public void LastUnavailableFavoriteRemoved(Product product) => RefreshFavoritesCell();
 
-        public void FavoriteChanged(Product product)
-        {
-            RefreshFavoritesCell();
-        }
+        public void FavoriteChanged(Product product) => RefreshFavoritesCell();
 
         #endregion
 
@@ -190,7 +177,7 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.HomePage
 
         private void ConfigureTableView()
         {
-            // Configure datasource and delegate
+            // Configure data source and delegate
             TableView.Source = tableSource;
             TableView.AlwaysBounceVertical = true;
             TableView.ScrollsToTop = true;
@@ -235,10 +222,7 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.HomePage
             UISearchBar.Appearance.TintColor = UIColorConstants.MainGreenColor;
         }
 
-        private void SetBalance(string balance, string user)
-        {
-            MyBalanceLabel.Text = user + ": " + balance;
-        }
+        private void SetBalance(string balance, string user) => MyBalanceLabel.Text = $"{user}: {balance}";
 
         private void RefreshFavoritesCell()
         {
@@ -261,10 +245,7 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.HomePage
             }
         }
 
-        private void ReloadTable()
-        {
-            TableView.ReloadSections(new NSIndexSet(0), UITableViewRowAnimation.None);
-        }
+        private void ReloadTable() => TableView.ReloadSections(new NSIndexSet(0), UITableViewRowAnimation.None);
 
         private void StyleTableForSearchResult()
         {
@@ -297,17 +278,11 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.HomePage
             Presenter.OnShowAllClick(categoryName);
         }
 
-        private void OnBuyActionClicked(object sender, Product product)
-        {
-            // Trig presenter that user click Buy action on preview page 
-            Presenter.OnBuyProductClick(product);
-        }
+        private void OnBuyActionClicked(object sender, Product product) => 
+            Presenter.OnBuyProductClick(product); // Trig presenter that user click Buy action on preview page
 
-        private void OnFavoriteActionClicked(object sender, Product product)
-        {
-            // Trig presenter that user click Favorite action on preview page 
-            Presenter.OnFavoriteClick(product);
-        }
+        private void OnFavoriteActionClicked(object sender, Product product) => 
+            Presenter.OnFavoriteClick(product); // Trig presenter that user click Favorite action on preview page 
 
         private void OnSearchClicked(object sender, EventArgs e)
         {
@@ -319,11 +294,8 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.HomePage
             TableView.Bounces = false;
         }
 
-        private void AccountTap(UITapGestureRecognizer gestureRecognizer)
-        {
-            // Trigg presenter that user click on account
-            Presenter.OnProfileButtonClicked();
-        }
+        private void AccountTap(UITapGestureRecognizer gestureRecognizer) => 
+            Presenter.OnProfileButtonClicked(); // Trig presenter that user click on account
 
         #endregion
 
@@ -361,21 +333,16 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.HomePage
         }
 
         [Export("didPresentSearchController:")]
-        public void DidPresentSearchController(UISearchController searchController)
-        {
-            // Disable PullToRefresh
-            TableView.Bounces = false;
-        }
+        public void DidPresentSearchController(UISearchController searchController) => 
+            TableView.Bounces = false; // Disable PullToRefresh
 
         #endregion
 
         #region IUISearchBarDelegate
 
         [Export("searchBarSearchButtonClicked:")]
-        public void SearchButtonClicked(UISearchBar searchBar)
-        {
+        public void SearchButtonClicked(UISearchBar searchBar) => 
             searchBar.ResignFirstResponder();
-        }
 
         [Export("searchBar:textDidChange:")]
         public void TextChanged(UISearchBar searchBar, string searchText)
@@ -422,7 +389,7 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.HomePage
 
         protected override void Dispose(bool disposing)
         {
-            System.Diagnostics.Debug.WriteLine(string.Format("{0} disposed", this.GetType()));
+            Debug.WriteLine($"{GetType()} disposed");
             base.Dispose(disposing);
         }
     }

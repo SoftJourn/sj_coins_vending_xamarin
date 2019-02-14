@@ -21,15 +21,9 @@ namespace Softjourn.SJCoins.iOS.UI.Services
 
         #region INavigationService implementation
 
-        public void NavigateTo(NavigationPage page, object initialParameter = null)
-        {
-            Present(page, initialParameter);
-        }
+        public void NavigateTo(NavigationPage page, object initialParameter = null) => Present(page, initialParameter);
 
-        public void NavigateToAsRoot(NavigationPage page)
-        {
-            PresentAsRoot(InitializeControllerWith(page));
-        }
+        public void NavigateToAsRoot(NavigationPage page) => PresentAsRoot(InitializeControllerWith(page));
 
         #endregion
 
@@ -67,10 +61,8 @@ namespace Softjourn.SJCoins.iOS.UI.Services
             }
         }
 
-        private static void PresentAsRoot(UIViewController viewController)
-        {
+        private static void PresentAsRoot(UIViewController viewController) =>
             UIApplication.SharedApplication.KeyWindow.RootViewController = viewController;
-        }
         // --------------------------------------------------------------------
 
         // ----------------------- Navigation helpers -------------------------
@@ -95,15 +87,14 @@ namespace Softjourn.SJCoins.iOS.UI.Services
             }
         }
 
-        private void PushController(NavigationPage page, UIViewController visibleController, object initialParameter = null)
-        {
-            visibleController.NavigationController.PushViewController(InitializeControllerWith(page, initialParameter), animated: true);
-        }
+        private void PushController(NavigationPage page, UIViewController visibleController,
+            object initialParameter = null) =>
+            visibleController.NavigationController.PushViewController(InitializeControllerWith(page, initialParameter),
+                animated: true);
 
-        private void PresentController(NavigationPage page, UIViewController visibleController)
-        {
-            visibleController.PresentViewController(InitializeControllerWith(page), animated: true, completionHandler: null);
-        }
+        private void PresentController(NavigationPage page, UIViewController visibleController) =>
+            visibleController.PresentViewController(InitializeControllerWith(page), animated: true,
+                completionHandler: null);
         // --------------------------------------------------------------------
 
         // -------------------- Controllers initialization --------------------
@@ -154,7 +145,8 @@ namespace Softjourn.SJCoins.iOS.UI.Services
             }
         }
 
-        private UIViewController Instantiate(string storyboard, string identifier) => UIStoryboard.FromName(storyboard, null).InstantiateViewController(identifier);
+        private UIViewController Instantiate(string storyboard, string identifier) =>
+            UIStoryboard.FromName(storyboard, null).InstantiateViewController(identifier);
         // --------------------------------------------------------------------
 
         #endregion

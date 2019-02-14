@@ -32,6 +32,7 @@ namespace Softjourn.SJCoins.iOS.UI.Cells
 			DateLabel.Text = string.Empty;
 			NameLabel.Text = string.Empty;
 			PriceLabel.Text = string.Empty;
+
 			base.PrepareForReuse();
 		}
 	}

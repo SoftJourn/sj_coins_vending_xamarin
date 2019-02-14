@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using Softjourn.SJCoins.Core.Models.Products;
 using Softjourn.SJCoins.Core.UI.Services.Alert;
 using UIKit;
@@ -19,35 +20,23 @@ namespace Softjourn.SJCoins.iOS.UI.Services
 
         #region IAlertService implementation
 
-        public void ShowConfirmationDialog(string title, string msg, Action btnOkClicked, Action btnCancelClicked)
-        {
-            // Present confirmation alert with two buttons  
-            PresentAlert(title, msg, null, null, UIAlertActionStyle.Default, null, null);
-        }
+        public void ShowConfirmationDialog(string title, string msg, Action btnOkClicked, Action btnCancelClicked) =>
+            PresentAlert(title, msg, null, null, UIAlertActionStyle.Default); // Present confirmation alert with two buttons  
 
-        public void ShowInformationDialog(string title, string msg, string btnName, Action btnClicked)
-        {
-            // Present information alert with one button
-            PresentAlert(title, msg, btnName, null, UIAlertActionStyle.Default, null, null);
-        }
+        public void ShowInformationDialog(string title, string msg, string btnName, Action btnClicked) =>
+            PresentAlert(title, msg, btnName, null, UIAlertActionStyle.Default); // Present information alert with one button
 
-        public void ShowMessageWithUserInteraction(string title, string msg, string btnName, Action btnClicked)
-        {
-            // Present information alert with one button (after purchase message)
-            PresentAlert(title, msg, btnName, null, UIAlertActionStyle.Default, null, null);
-        }
+        public void ShowMessageWithUserInteraction(string title, string msg, string btnName, Action btnClicked) =>
+            PresentAlert(title, msg, btnName, null, UIAlertActionStyle.Default); // Present information alert with one button (after purchase message)
 
-        public void ShowToastMessage(string msg)
-        {
-            // Present information alert with one botton
-            PresentAlert(string.Empty, msg, "Ok", null, UIAlertActionStyle.Default, null, null);
-        }
+        public void ShowToastMessage(string msg) =>
+            PresentAlert(string.Empty, msg, "Ok", null, UIAlertActionStyle.Default); // Present information alert with one bottom
 
-        public void ShowPurchaseConfirmationDialod(Product product, Action<Product> onPurchaseProductAction)
+        public void ShowPurchaseConfirmationDialog(Product product, Action<Product> onPurchaseProductAction)
         {
-            // Present purchace confirmation alert with two buttons
-            var price = product.Price.ToString();
-            var confirmMessage = "Buy " + product.Name + " for the " + price + " coins";
+            // Present purchase confirmation alert with two buttons
+            var price = product.Price.ToString(CultureInfo.InvariantCulture);
+            var confirmMessage = $"Buy {product.Name} for the {price} coins";
 
             PresentAlert(ConfirmTitle, confirmMessage, "Confirm", "Cancel", UIAlertActionStyle.Default, onPurchaseProductAction, null, product);
         }

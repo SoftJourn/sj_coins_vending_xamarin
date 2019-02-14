@@ -12,10 +12,7 @@ namespace Softjourn.SJCoins.Core.UI.Presenters
 {
     public class HomePresenter : BaseProductPresenter<IHomeView>
     {
-        public void OnRefresh()
-        {
-            OnStartLoadingPage();
-        }
+        public void OnRefresh() => OnStartLoadingPage();
 
         public async void OnStartLoadingPage()
         {
@@ -29,6 +26,7 @@ namespace Softjourn.SJCoins.Core.UI.Presenters
                     GetAvatarImage(DataManager.Profile.Image);
                     View.SetAccountInfo(DataManager.Profile);
                     View.SetMachineName(Settings.SelectedMachineName);
+
                     var favoritesList = await RestApiService.GetFavoritesList();
                     var productCategoriesList = new List<Categories>();
 
@@ -53,6 +51,7 @@ namespace Softjourn.SJCoins.Core.UI.Presenters
                             }
                         }
                     }
+
                     DataManager.ProductList = AddIsProductInCurrentMachineFlagToProducts(AddFavoriteFlagToProducts(productCategoriesList));
                     DataManager.SetNutritionFactsInCorrectOrder();
                     View.ShowProducts(DataManager.ProductList);
@@ -61,7 +60,6 @@ namespace Softjourn.SJCoins.Core.UI.Presenters
                 catch (ApiNotAuthorizedException)
                 {
                     View.HideProgress();
-                    //AlertService.ShowToastMessage(ex.Message);
                     DataManager.Profile = null;
                     Settings.ClearUserData();
                     NavigationService.NavigateToAsRoot(NavigationPage.Login);
@@ -80,36 +78,26 @@ namespace Softjourn.SJCoins.Core.UI.Presenters
             }
         }
 
-        public List<Product> GetProductListForGivenCategory(string category)
-        {
-            return DataManager.GetProductListByGivenCategory(category);
-        }
+        public List<Product> GetProductListForGivenCategory(string category) =>
+            DataManager.GetProductListByGivenCategory(category);
 
         public void UpdateBalanceView()
         {
             if (DataManager.Profile != null)
-            {
                 View.SetUserBalance(DataManager.Profile.Amount.ToString());
-            }
         }
 
         /// <summary>
         /// Setting user's balance after buying ar grabbing new data
         /// </summary>
         /// <param name="balance"></param>
-        public override void ChangeUserBalance(string balance)
-        {
-            View.SetUserBalance(balance);
-        }
+        public override void ChangeUserBalance(string balance) => View.SetUserBalance(balance);
 
         /// <summary>
         /// Is called when user click on Show All button for displaying another view only with product from category
         /// </summary>
         /// <param name="category"></param>
-        public void OnShowAllClick(string category)
-        {
-            NavigationService.NavigateTo(NavigationPage.ShowAll, category);
-        }
+        public void OnShowAllClick(string category) => NavigationService.NavigateTo(NavigationPage.ShowAll, category);
 
         /// <summary>
         /// Is called when user click on Profile button (is using only for droid)
@@ -117,9 +105,7 @@ namespace Softjourn.SJCoins.Core.UI.Presenters
         public void OnProfileButtonClicked()
         {
             if (DataManager.Profile != null && NetworkUtils.IsConnected)
-            {
                 NavigationService.NavigateTo(NavigationPage.Profile);
-            }
         }
 
         public void GetImageFromServer()
@@ -141,13 +127,14 @@ namespace Softjourn.SJCoins.Core.UI.Presenters
             var favorites = new List<Product>();
             foreach (var category in categoriesList)
             {
-                if (category.Name != "Favorites") continue;
+                if (category.Name != Constant.Favorites) continue;
                 favorites.AddRange(category.Products);
                 break;
             }
+
             foreach (var category in categoriesList)
             {
-                if (category.Name == "Favorites")
+                if (category.Name == Constant.Favorites)
                 {
                     foreach (var product in category.Products)
                     {
@@ -168,6 +155,7 @@ namespace Softjourn.SJCoins.Core.UI.Presenters
                     }
                 }
             }
+
             return categoriesList;
         }
 
@@ -201,7 +189,7 @@ namespace Softjourn.SJCoins.Core.UI.Presenters
         /// </summary>
         /// <param name="featuredProducts"></param>
         /// <returns></returns>
-        private List<Categories> GetCategoriesListFromFeaturedProduct(Featured featuredProducts)
+        private static List<Categories> GetCategoriesListFromFeaturedProduct(Featured featuredProducts)
         {
             if (featuredProducts != null)
             {
@@ -210,14 +198,15 @@ namespace Softjourn.SJCoins.Core.UI.Presenters
 
                 if (featuredCategoriesList != null && featuredCategoriesList.Count > 0) // if featuredCategoriesList ie empty we can't create any list
                 {
-
                     // check and add to list last added products
                     var lastAddedIdList = featuredProducts.LastAdded;
                     if (lastAddedIdList != null && lastAddedIdList.Count > 0)
                     {
-                        var categoryLastAdded = new Categories();
-                        categoryLastAdded.Name = "Last Added";
-                        categoryLastAdded.Products = GetProductList(lastAddedIdList, featuredCategoriesList);
+                        var categoryLastAdded = new Categories
+                        {
+                            Name = "Last Added",
+                            Products = GetProductList(lastAddedIdList, featuredCategoriesList)
+                        };
                         categoriesList.Add(categoryLastAdded);
                     }
 
@@ -225,14 +214,17 @@ namespace Softjourn.SJCoins.Core.UI.Presenters
                     var bestSellersIdList = featuredProducts.BestSellers;
                     if (bestSellersIdList != null && bestSellersIdList.Count > 0)
                     {
-                        var bestSellersCategory = new Categories();
-                        bestSellersCategory.Name = "Best Sellers";
-                        bestSellersCategory.Products = GetProductList(bestSellersIdList, featuredCategoriesList);
+                        var bestSellersCategory = new Categories
+                        {
+                            Name = "Best Sellers",
+                            Products = GetProductList(bestSellersIdList, featuredCategoriesList)
+                        };
                         categoriesList.Add(bestSellersCategory);
                     }
 
                     // add to categoriesList all categories list from featuredProducts;
                     categoriesList.AddRange(featuredCategoriesList);
+
                     return categoriesList;
                 }
 
@@ -248,7 +240,7 @@ namespace Softjourn.SJCoins.Core.UI.Presenters
         /// <param name="idList"></param>
         /// <param name="categoriesList"></param>
         /// <returns></returns>
-        private List<Product> GetProductList(IEnumerable<int> idList, List<Categories> categoriesList)
+        private static List<Product> GetProductList(IEnumerable<int> idList, IReadOnlyCollection<Categories> categoriesList)
         {
             var list = new List<Product>();
 
@@ -275,7 +267,7 @@ namespace Softjourn.SJCoins.Core.UI.Presenters
         /// <param name="productId"></param>
         /// <param name="productsList"></param>
         /// <returns></returns>
-        private static Product GetProductFromListById(int productId, List<Product> productsList)
+        private static Product GetProductFromListById(int productId, IEnumerable<Product> productsList)
         {
             foreach (var product in productsList)
             {
@@ -290,9 +282,6 @@ namespace Softjourn.SJCoins.Core.UI.Presenters
 
         public List<Categories> GetCategoriesList() => DataManager.ProductList;
 
-        protected override void AvatarImageAcquired(byte[] receipt)
-        {
-            View.ImageAcquired(receipt);
-        }
+        protected override void AvatarImageAcquired(byte[] receipt) => View.ImageAcquired(receipt);
     }
 }

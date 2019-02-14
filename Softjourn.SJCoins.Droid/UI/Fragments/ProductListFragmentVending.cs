@@ -28,8 +28,8 @@ namespace Softjourn.SJCoins.Droid.UI.Fragments
             bundle.PutString(TagProductsCategory, category);
             string serializedList = Newtonsoft.Json.JsonConvert.SerializeObject(productList);
             bundle.PutString(ArgProductsList, serializedList);
-            var fragment = new ProductListFragmentVending();
-            fragment.Arguments = bundle;
+            var fragment = new ProductListFragmentVending { Arguments = bundle };
+
             return fragment;
         }
 
@@ -60,16 +60,18 @@ namespace Softjourn.SJCoins.Droid.UI.Fragments
         public override void OnViewCreated(View view, Bundle savedInstanceState)
         {
             base.OnViewCreated(view, savedInstanceState);
+
             if (savedInstanceState == null)
                 _productAdapter.SetData(_productList);
         }
 
         #endregion
 
-        /**
-         * Make adapter redraw items according to new list of Products
-         * Is called by Activity only if Category is Favorites
-         */
+        /// <summary>
+        /// Make adapter redraw items according to new list of Products
+        /// Is called by Activity only if Category is Favorites
+        /// </summary>
+        /// <param name="list"></param>
         public void ChangeFavorite(List<Product> list)
         {
             _productAdapter.SetData(list);
@@ -78,43 +80,40 @@ namespace Softjourn.SJCoins.Droid.UI.Fragments
 
         #region PrivateMethods
 
-        /**
-        * Calls TrigFavorite method on Activity fragment is attached to
-        */
-        private void RemoveProductFromFavorite(object sender, Product e)
-        {
-            ((MainActivity)Activity).TrigFavorite(e);
-        }
+        /// <summary>
+        /// Calls TrigFavorite method on Activity fragment is attached to
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void RemoveProductFromFavorite(object sender, Product e) => ((MainActivity)Activity).TrigFavorite(e);
 
-        /**
-         * Calls TrigFavorite method on Activity fragment is attached to
-         */
-        private void AddProductToFavorite(object sender, Product e)
-        {
-            ((MainActivity)Activity).TrigFavorite(e);
-        }
+        /// <summary>
+        /// Calls TrigFavorite method on Activity fragment is attached to
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void AddProductToFavorite(object sender, Product e) => ((MainActivity)Activity).TrigFavorite(e);
 
-        /**
-         * OnClick on Product
-         * Calls to Open Details screen
-         */
-        private void ProductSelected(object sender, Product product)
-        {
-            ((MainActivity)Activity).ShowDetails(product);
-        }
+        /// <summary>
+        /// OnClick on Product
+        /// Calls to Open Details screen
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="product"></param>
+        private void ProductSelected(object sender, Product product) => ((MainActivity)Activity).ShowDetails(product);
 
-        /**
-         * OnLongClick on Product
-         * Calls to Open Preview screen
-         */
-        private void ProductDetailsSelected(object sender, Product product)
-        {
-            ((MainActivity)Activity).ShowPreview(product);
-        }
+        /// <summary>
+        /// OnLongClick on Product
+        /// Calls to Open Preview screen
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="product"></param>
+        private void ProductDetailsSelected(object sender, Product product) => ((MainActivity)Activity).ShowPreview(product);
 
         private void AttachEvents()
         {
             if (_productAdapter == null) return;
+
             _productAdapter.ProductSelected += ProductSelected;
             _productAdapter.ProductDetailsSelected += ProductDetailsSelected;
             _productAdapter.AddToFavorites += AddProductToFavorite;
@@ -124,6 +123,7 @@ namespace Softjourn.SJCoins.Droid.UI.Fragments
         private void DetachEvents()
         {
             if (_productAdapter == null) return;
+
             _productAdapter.ProductSelected -= ProductSelected;
             _productAdapter.ProductDetailsSelected -= ProductDetailsSelected;
             _productAdapter.AddToFavorites -= AddProductToFavorite;

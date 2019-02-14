@@ -7,8 +7,6 @@ namespace Softjourn.SJCoins.Core.UI.Presenters
 {
     public class LaunchPresenter : BasePresenter<ILaunchView>, INetworkConnection
     {
-        public LaunchPresenter() { }
-
         public void ChooseStartPage()
         {
             if (NetworkUtils.IsConnected)
@@ -43,10 +41,7 @@ namespace Softjourn.SJCoins.Core.UI.Presenters
             }
         }
 
-        public void OnInternetAppeared()
-        {
-            ChooseStartPage();
-        }
+        public void OnInternetAppeared() => ChooseStartPage();
 
         public void OnInternetDismissed()
         {

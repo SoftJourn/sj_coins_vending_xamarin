@@ -10,18 +10,10 @@ namespace Softjourn.SJCoins.Droid.UI.Fragments
     {
         private Button _buttonScanAgain;
 
-        public static ScanningResultFragment NewInstance()
-        {
-            var fragment = new ScanningResultFragment();
+        public static ScanningResultFragment NewInstance() => new ScanningResultFragment();
 
-            return fragment;
-        }
-
-        public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
-        {
-            var view = inflater.Inflate(Resource.Layout.fragment_scan_code, container, false);
-            return view;
-        }
+        public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) =>
+            inflater.Inflate(Resource.Layout.fragment_scan_code, container, false);
 
         public override void OnViewCreated(View view, Bundle savedInstanceState)
         {
@@ -35,9 +27,6 @@ namespace Softjourn.SJCoins.Droid.UI.Fragments
             ScanCode();
         }
 
-        private void ScanCode()
-        {
-            ((QrActivity) Activity).ScanCode();
-        }
+        private void ScanCode() => ((QrActivity)Activity).ScanCode();
     }
 }

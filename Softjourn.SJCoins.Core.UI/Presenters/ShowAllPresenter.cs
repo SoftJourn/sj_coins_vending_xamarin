@@ -18,10 +18,7 @@ namespace Softjourn.SJCoins.Core.UI.Presenters
         {
         }
 
-        public List<Product> GetProductList(string category)
-        {
-            return DataManager.GetSortedByNameProductsList(category, true);
-        }
+        public List<Product> GetProductList(string category) => DataManager.GetSortedByNameProductsList(category, true);
 
         public void OnSortByNameClicked(string category)
         {

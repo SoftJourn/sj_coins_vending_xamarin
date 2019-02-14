@@ -4,7 +4,6 @@ using System.Globalization;
 using System.Linq;
 using Newtonsoft.Json;
 using Softjourn.SJCoins.Core.Common;
-using Softjourn.SJCoins.Core.Common.Utils;
 
 namespace Softjourn.SJCoins.Core.Models.Products
 {
@@ -49,9 +48,6 @@ namespace Softjourn.SJCoins.Core.Models.Products
         [JsonProperty("nutritionFacts")]
         public Dictionary<string,string> NutritionFacts { get; set; } 
 
-        public bool Equals(Product other)
-        {
-            return Id.Equals(other.Id);
-        }
+        public bool Equals(Product other) => other != null && Id.Equals(other.Id);
     }
 }

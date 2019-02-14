@@ -246,7 +246,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Bootstrapping\Bootstrapper.cs" />
-    <Compile Include="Helpers\Settings.cs" />
     <Compile Include="MainApplication.cs" />
     <Compile Include="Services\AlertService.cs" />
     <Compile Include="Resources\Resource.designer.cs" />
@@ -283,7 +282,6 @@
     <Compile Include="Utils\HockeyAppUtils.cs" />
     <Compile Include="Utils\JavaHolder.cs" />
     <Compile Include="Utils\ObjectExtensions.cs" />
-    <Compile Include="Utils\Utils.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />

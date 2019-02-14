@@ -14,15 +14,10 @@ namespace Softjourn.SJCoins.iOS.UI.Services
         private const LAPolicy BiometricPolicy = LAPolicy.DeviceOwnerAuthenticationWithBiometrics;
         private NSError AuthError;
 
-        public bool CanEvaluatePolicy()
-        {
-            return context.CanEvaluatePolicy(BiometricPolicy, out AuthError);
-        }
+        public bool CanEvaluatePolicy() => context.CanEvaluatePolicy(BiometricPolicy, out AuthError);
 
-        public void AuthenticateUser()
-        {
+        public void AuthenticateUser() =>
             context.EvaluatePolicy(BiometricPolicy, Const.Unlock_Access, HandleLaContextReply);
-        }
 
         #region Private methods
 

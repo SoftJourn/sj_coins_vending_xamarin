@@ -1,5 +1,4 @@
 ﻿using Softjourn.SJCoins.Core.Common;
-using Softjourn.SJCoins.Core.Common.Utils;
 using Softjourn.SJCoins.Core.UI.Services.Navigation;
 using Softjourn.SJCoins.Core.UI.ViewInterfaces;
 
@@ -7,16 +6,8 @@ namespace Softjourn.SJCoins.Core.UI.Presenters
 {
     public class WelcomePresenter : BasePresenter<IWelcomeView>
     {
-        public WelcomePresenter() { }
+        public void DisableWelcomePageOnLaunch() => Settings.FirstLaunch = false;
 
-        public void DisableWelcomePageOnLaunch()
-        {
-            Settings.FirstLaunch = false;
-        }
-
-        public void ToLoginScreen()
-        {
-            NavigationService.NavigateToAsRoot(NavigationPage.Login);
-        }
+        public void ToLoginScreen() => NavigationService.NavigateToAsRoot(NavigationPage.Login);
     }
 }

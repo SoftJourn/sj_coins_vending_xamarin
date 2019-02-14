@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Globalization;
 using CoreGraphics;
 using Foundation;
 using SDWebImage;
@@ -8,41 +9,42 @@ using UIKit;
 
 namespace Softjourn.SJCoins.iOS.UI.Cells
 {
-	public partial class HomeInternalCell : UICollectionViewCell //IUIViewControllerPreviewingDelegate
-	{
-		// TODO
+    public partial class HomeInternalCell : UICollectionViewCell
+    {
+        // TODO
         // Make image and cashing custom draw with needed size 
         // Cash layout calculation
 
-		#region Properties
+        #region Properties
 
-		public static readonly NSString Key = new NSString("HomeInternalCell");
-		public static readonly UINib Nib;
-
-		//public event EventHandler<Product> BuyAction;
-		//public event EventHandler<Product> FavoriteAction;
+        public static readonly NSString Key = new NSString("HomeInternalCell");
+        public static readonly UINib Nib;
 
         private readonly UIFont nameLabelFont = UIFont.SystemFontOfSize(13);
-		private UIImageView ProductImage { get; set; }
-		private UILabel NameLabel { get; set; }
-		private UILabel PriceLabel { get; set; }
+
+        private UIImageView ProductImage { get; set; }
+
+        private UILabel NameLabel { get; set; }
+
+        private UILabel PriceLabel { get; set; }
+
         private UIImageView CoinImage { get; set; }
-		private Product Product { get; set; }
-		//private PreViewController previewController;
-		//private IUIViewControllerPreviewing previewing;
-		private AppDelegate CurrentApplication => (AppDelegate)UIApplication.SharedApplication.Delegate;
+
+        private Product Product { get; set; }
+
+        private AppDelegate CurrentApplication => (AppDelegate)UIApplication.SharedApplication.Delegate;
 
         static HomeInternalCell()
-		{
-			Nib = UINib.FromName("HomeInternalCell", NSBundle.MainBundle);
-		}
+        {
+            Nib = UINib.FromName("HomeInternalCell", NSBundle.MainBundle);
+        }
 
         #endregion
 
-		protected HomeInternalCell(IntPtr handle) : base(handle)
-		{
-			// Note: this .ctor should not contain any initialization logic.
-		}
+        protected HomeInternalCell(IntPtr handle) : base(handle)
+        {
+            // Note: this .ctor should not contain any initialization logic.
+        }
 
         public override void AwakeFromNib()
         {
@@ -50,9 +52,9 @@ namespace Softjourn.SJCoins.iOS.UI.Cells
             SetUpUI();
         }
 
-		#region Private methods
+        #region Private methods
 
-		private void SetUpUI()
+        private void SetUpUI()
         {
             ProductImage = new UIImageView
             {
@@ -76,7 +78,8 @@ namespace Softjourn.SJCoins.iOS.UI.Cells
             };
             AddSubview(NameLabel);
 
-            PriceLabel = new UILabel {
+            PriceLabel = new UILabel
+            {
                 Font = nameLabelFont,
                 Lines = 1,
                 BackgroundColor = UIColorConstants.MainBackgroundColor,
@@ -84,13 +87,14 @@ namespace Softjourn.SJCoins.iOS.UI.Cells
             };
             AddSubview(PriceLabel);
 
-            CoinImage = new UIImageView {
-				Image = UIImage.FromBundle(ImageConstants.Coin_v1),
+            CoinImage = new UIImageView
+            {
+                Image = UIImage.FromBundle(ImageConstants.Coin_v1),
                 BackgroundColor = UIColorConstants.MainBackgroundColor,
-				ContentMode = UIViewContentMode.ScaleAspectFit,
-				ClipsToBounds = true
-			};
-			AddSubview(CoinImage);
+                ContentMode = UIViewContentMode.ScaleAspectFit,
+                ClipsToBounds = true
+            };
+            AddSubview(CoinImage);
             BringSubviewToFront(CoinImage);
         }
 
@@ -99,112 +103,66 @@ namespace Softjourn.SJCoins.iOS.UI.Cells
             if (product != null)
             {
                 ProductImage.Frame = new CGRect(0, 0, this.Frame.Width, this.Frame.Width);
-				
+
                 var expectedNameSize = NameLabel.SizeThatFits(new CGSize(this.Frame.Width, Const.MaxPhoneNameLabelHeight));
                 NameLabel.Frame = new CGRect(2, ProductImage.Frame.Height + Const.PhoneNameLabelRetreat, this.Frame.Width, expectedNameSize.Height);
 
-				var expectedPriceSize = PriceLabel.SizeThatFits(new CGSize(this.Frame.Width, Const.MaxPhonePriceLabelHeight));
+                var expectedPriceSize = PriceLabel.SizeThatFits(new CGSize(this.Frame.Width, Const.MaxPhonePriceLabelHeight));
                 PriceLabel.Frame = new CGRect(2, ProductImage.Frame.Height + Const.PhoneNameLabelRetreat + NameLabel.Frame.Height + Const.PhonePriceLabelRetreat, expectedPriceSize.Width, Const.MaxPhonePriceLabelHeight);
 
-				CoinImage.Frame = new CGRect(PriceLabel.Frame.Width + 4, ProductImage.Frame.Height + Const.PhoneNameLabelRetreat + NameLabel.Frame.Height + Const.PhonePriceLabelRetreat, Const.MaxPhonePriceLabelHeight, Const.MaxPhonePriceLabelHeight);
+                CoinImage.Frame = new CGRect(PriceLabel.Frame.Width + 4, ProductImage.Frame.Height + Const.PhoneNameLabelRetreat + NameLabel.Frame.Height + Const.PhonePriceLabelRetreat, Const.MaxPhonePriceLabelHeight, Const.MaxPhonePriceLabelHeight);
             }
         }
 
-		#endregion
+        #endregion
 
-		#region Public methods
+        #region Public methods
 
-		public void ConfigureWith(Product product)
-		{
-			this.Product = product;
-			//this.Layer.CornerRadius = 24;
+        public void ConfigureWith(Product product)
+        {
+            Product = product;
 
-			NameLabel.Text = product.Name;
-			PriceLabel.Text = product.Price.ToString();
+            NameLabel.Text = product.Name;
+            PriceLabel.Text = product.Price.ToString(CultureInfo.InvariantCulture);
+
             // On server image size 200*200
-			ProductImage.SetImage(new NSUrl(product.ImageFullUrl), UIImage.FromBundle(ImageConstants.Placeholder));
+            ProductImage.SetImage(new NSUrl(product.ImageFullUrl), UIImage.FromBundle(ImageConstants.Placeholder));
 
             LayoutUI(Product);
+        }
 
-            //new Task(() => 
-            //{ 
-            //    previewing = CurrentApplication.VisibleViewController.RegisterForPreviewingWithDelegate(this, this); 
-            //}).Start();
-		}
-
-		public override void PrepareForReuse()
-		{
-			// Reset outlets
-			ProductImage.Image = null;
-			ProductImage.Alpha = 1.0f;
-			NameLabel.Text = string.Empty;
+        public override void PrepareForReuse()
+        {
+            // Reset outlets
+            ProductImage.Image = null;
+            ProductImage.Alpha = 1.0f;
+            NameLabel.Text = string.Empty;
             NameLabel.Frame = new CGRect(0, ProductImage.Frame.Height + 8, 0, 0);
             NameLabel.Alpha = 1.0f;
-			PriceLabel.Text = string.Empty;
+            PriceLabel.Text = string.Empty;
             PriceLabel.Alpha = 1.0f;
 
-			// Dettach
-			//new Task(() => {
+            base.PrepareForReuse();
+        }
 
-				//if (previewController != null)
-				//{
-				//	previewController.PreViewController_BuyActionExecuted -= BuyAction;
-				//	previewController.PreViewController_FavoriteActionExecuted -= FavoriteAction;
-				//	previewController = null;
-				//}
-				//if (previewing != null)
-				//{
-				//	// Unregister for preview
-				//	CurrentApplication.VisibleViewController.UnregisterForPreviewingWithContext(previewing);
-				//}
-
-            //}).Start();
-			base.PrepareForReuse();
-		}
-
-		public void MarkFavorites(Product product)
-		{
-			if (product.IsProductInCurrentMachine)
+        public void MarkFavorites(Product product)
+        {
+            if (product.IsProductInCurrentMachine)
             {
                 ProductImage.Alpha = 1.0f;
                 NameLabel.Alpha = 1.0f;
                 PriceLabel.Alpha = 1.0f;
                 CoinImage.Alpha = 1.0f;
             }
-			else
+            else
             {
-				ProductImage.Alpha = 0.3f;
+                ProductImage.Alpha = 0.3f;
                 NameLabel.Alpha = 0.3f;
                 PriceLabel.Alpha = 0.3f;
                 CoinImage.Alpha = 0.3f;
-			}
-		}
+            }
+        }
 
-		#endregion
-
-		//#region IUIViewControllerPreviewingDelegate implementation
-		//public UIViewController GetViewControllerForPreview(IUIViewControllerPreviewing previewingContext, CGPoint location)
-		//{
-		//	// Create a preview controller and set its properties.
-		//	previewController = (PreViewController)UIStoryboard.FromName(StoryboardConstants.StoryboardMain, null).InstantiateViewController(StoryboardConstants.PreViewController);
-		//	if (previewController == null)
-		//		return null;
-
-		//	previewController.SetItem(Product);
-		//	previewController.PreferredContentSize = new CGSize(0, 420);
-  //          previewingContext.SourceRect = this.Bounds;
-
-		//	// Attach
-  //          previewController.PreViewController_BuyActionExecuted += BuyAction;
-  //          previewController.PreViewController_FavoriteActionExecuted += FavoriteAction;
-
-		//	return previewController;
-		//}
-
-		//public void CommitViewController(IUIViewControllerPreviewing previewingContext, UIViewController viewControllerToCommit)
-		//{
-		//	CurrentApplication.VisibleViewController.ShowViewController(viewControllerToCommit, this);
-		//}
-		//#endregion
-	}
+        #endregion
+    }
 }

@@ -7,6 +7,7 @@ using Android.OS;
 using Android.Views;
 using Android.Widget;
 using Plugin.Permissions;
+using Softjourn.SJCoins.Core.Common;
 using Softjourn.SJCoins.Core.Models.AccountInfo;
 using Softjourn.SJCoins.Core.UI.Presenters;
 using Softjourn.SJCoins.Core.UI.ViewInterfaces;
@@ -48,21 +49,18 @@ namespace Softjourn.SJCoins.Droid.UI.Activities
             {
                 ViewPresenter.OnItemClick(e.Position);
             };
-            //To make Actvity Opened
+            //To make Activity Opened
             _avatar.RequestFocus();
 
             ViewPresenter.GetImageFromServer();
         }
 
-        public override bool OnCreateOptionsMenu(IMenu menu)
-        {
-            return false;
-        }
+        public override bool OnCreateOptionsMenu(IMenu menu) => false;
 
         public override bool OnOptionsItemSelected(IMenuItem item)
         {
             if (item.ItemId == Android.Resource.Id.Home)
-                this.OnBackPressed();
+                OnBackPressed();
 
             return base.OnOptionsItemSelected(item);
         }
@@ -75,36 +73,30 @@ namespace Softjourn.SJCoins.Droid.UI.Activities
 
         public void SetAccountInfo(Account account)
         {
-            _username.Text = account.Name + " " + account.Surname;
+            _username.Text = $"{account.Name} {account.Surname}";
             _balance.Text = account.Amount.ToString();
         }
 
-        public void ImageAcquired(byte[] data)
-        {
-            SetAvatarImage(data);
-        }
+        public void ImageAcquired(byte[] data) => SetAvatarImage(data);
 
         public void ImageAcquiredPlugin(byte[] receipt)
         {
         }
 
-        public void ImageAcquired(string data)
-        {
-            SetAvatarImage(data);
-        }
+        public void ImageAcquired(string data) => SetAvatarImage(data);
 
-        public override void OnRequestPermissionsResult(int requestCode, string[] permissions, Permission[] grantResults)
-        {
+        public override void OnRequestPermissionsResult(int requestCode, string[] permissions,
+            Permission[] grantResults) =>
             PermissionsImplementation.Current.OnRequestPermissionsResult(requestCode, permissions, grantResults);
-        }
 
         #region Private Methods
 
         private void SetAvatarImage(string data)
         {
             const int imageSize = 360;
+
             _bmp?.Recycle();
-            var options = new BitmapFactory.Options {InJustDecodeBounds = true};
+            var options = new BitmapFactory.Options { InJustDecodeBounds = true };
             _bmp = BitmapFactory.DecodeFile(data, options);
             options.InSampleSize = BitmapUtils.CalculateInSampleSize(options, imageSize, imageSize);
             options.InJustDecodeBounds = false;
@@ -119,27 +111,25 @@ namespace Softjourn.SJCoins.Droid.UI.Activities
                 _bmp.Compress(Bitmap.CompressFormat.Jpeg, 100, stream);
                 byteArray = stream.ToArray();
             }
+
             ViewPresenter.StoreAvatarOnServer(byteArray);
         }
 
         private void SetAvatarImage(byte[] data)
         {
             const int imageSize = 360;
+
             _bmp?.Recycle();
-            var options = new BitmapFactory.Options();
-            options.InJustDecodeBounds = true;
-            _bmp = BitmapFactory.DecodeByteArray(data, 0, data.Length, options);
+            var options = new BitmapFactory.Options { InJustDecodeBounds = true };
+            _bmp = BitmapFactory.DecodeByteArray(data, Constant.Zero, data.Length, options);
             options.InSampleSize = BitmapUtils.CalculateInSampleSize(options, imageSize, imageSize);
             options.InJustDecodeBounds = false;
             options.InPreferredConfig = Bitmap.Config.Rgb565;
-            _bmp = BitmapFactory.DecodeByteArray(data, 0, data.Length, options);
+            _bmp = BitmapFactory.DecodeByteArray(data, Constant.Zero, data.Length, options);
             _avatar.SetImageBitmap(_bmp);
         }
 
-        private async void ChangePhoto(object sender, EventArgs e)
-        {
-            await ViewPresenter.OnPhotoClicked();
-        }
+        private void ChangePhoto(object sender, EventArgs e) => ViewPresenter.OnPhotoClicked();
 
         private static void SetListViewHeightBasedOnChildren(ListView listView)
         {
@@ -155,10 +145,10 @@ namespace Softjourn.SJCoins.Droid.UI.Activities
             {
                 view = listAdapter.GetView(i, view, listView);
 
-                if (i == 0)
+                if (i == Constant.Zero)
                     view.LayoutParameters = new ViewGroup.LayoutParams(desiredWidth, ViewGroup.LayoutParams.MatchParent);
 
-                view.Measure(desiredWidth, 0);
+                view.Measure(desiredWidth, Constant.Zero);
                 totalHeight += view.MeasuredHeight;
             }
 

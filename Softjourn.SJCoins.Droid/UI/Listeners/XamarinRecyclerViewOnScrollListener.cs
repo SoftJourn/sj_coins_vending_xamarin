@@ -5,7 +5,7 @@ namespace Softjourn.SJCoins.Droid.UI.Listeners
 {
     //Class for checking if scrolled list is in its 
     //bottom position 
-    //is used for continious loading
+    //is used for continuous loading
     public class XamarinRecyclerViewOnScrollListener : RecyclerView.OnScrollListener
     {
         public delegate void LoadMoreEventHandler(object sender, EventArgs e);
@@ -24,12 +24,10 @@ namespace Softjourn.SJCoins.Droid.UI.Listeners
 
             var visibleItemCount = recyclerView.ChildCount;
             var totalItemCount = recyclerView.GetAdapter().ItemCount;
-            var pastVisiblesItems = LayoutManager.FindFirstVisibleItemPosition();
+            var pastVisibleItems = LayoutManager.FindFirstVisibleItemPosition();
 
-            if ((visibleItemCount + pastVisiblesItems) >= totalItemCount)
-            {
+            if (visibleItemCount + pastVisibleItems >= totalItemCount)
                 LoadMoreEvent(this, null);
-            }
         }
     }
 }

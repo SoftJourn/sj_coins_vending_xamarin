@@ -33,8 +33,8 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.DetailPage
 
         public void SetInitialParameter(object productId)
         {
-            if (productId is int)
-                this.ProductId = (int)productId;
+            if (productId is int id)
+                ProductId = id;
         }
 
         #region Controller Life cycle
@@ -66,7 +66,6 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.DetailPage
             BuyButton.TouchUpInside += BuyButtonClicked;
             collectionDelegate.SelectedItem += ShowImageCarousel;
             collectionDelegate.VisibleItem += ImageIndexChanged;
-            //tableSource.DidScroll += TableViewScrolled;
         }
 
         public override void DetachEvents()
@@ -75,7 +74,6 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.DetailPage
             BuyButton.TouchUpInside -= BuyButtonClicked;
             collectionDelegate.SelectedItem -= ShowImageCarousel;
             collectionDelegate.VisibleItem -= ImageIndexChanged;
-            //tableSource.DidScroll -= TableViewScrolled;
             base.DetachEvents();
         }
 
@@ -101,10 +99,7 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.DetailPage
 
         #region Private methods
 
-        private void ConfigurePage()
-        {
-            StyleNavigationBar();
-        }
+        private void ConfigurePage() => StyleNavigationBar();
 
         private void ConfigurePageWith(Product product)
         {
@@ -179,7 +174,7 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.DetailPage
 
         private void ImageIndexChanged(object sender, int currentIndex)
         {
-            // Change dot on Page Controlсщшт
+            // Change dot on Page Control
             currentImage = currentIndex;
             PageControl.CurrentPage = currentIndex;
         }
@@ -204,14 +199,6 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.DetailPage
             currentImage = currentIndex;
             PageControl.CurrentPage = currentIndex;
         }
-
-        //private void TableViewScrolled(object sender, EventArgs e)
-        //{
-        //    var offsetY = TableView.ContentOffset.Y;
-        //    if (offsetY < 0) {
-
-        //    }
-        //}
 
         #endregion
     }

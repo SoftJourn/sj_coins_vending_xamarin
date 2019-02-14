@@ -41,9 +41,7 @@ namespace Softjourn.SJCoins.Core.Common.Utils
             return status;
         }
 
-        private static bool IsCameraAvailable()
-        {
-            return CrossMedia.Current.IsCameraAvailable && CrossMedia.Current.IsTakePhotoSupported;
-        }
+        private static bool IsCameraAvailable() =>
+            CrossMedia.Current.IsCameraAvailable && CrossMedia.Current.IsTakePhotoSupported;
     }
 }

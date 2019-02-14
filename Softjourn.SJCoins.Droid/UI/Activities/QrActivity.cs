@@ -34,22 +34,16 @@ namespace Softjourn.SJCoins.Droid.UI.Activities
             MobileBarcodeScanner.Initialize(Application);
 
             if (fragmentType == Constant.QrScreenScanningTag)
-            {
                 AttachFragment(Constant.QrScreenScanningTag, ScanningResultFragment.NewInstance());
-            }
             else
-            {
                 AttachFragment(Constant.QrScreenGeneratingTag, GenerateCodeFragment.NewInstance());
-            }
+
             SupportActionBar?.SetDisplayHomeAsUpEnabled(true);
 
             SetInitialBalance();
         }
 
-        public override bool OnCreateOptionsMenu(IMenu menu)
-        {
-            return false;
-        }
+        public override bool OnCreateOptionsMenu(IMenu menu) => false;
 
         public override bool OnOptionsItemSelected(IMenuItem item)
         {
@@ -59,30 +53,33 @@ namespace Softjourn.SJCoins.Droid.UI.Activities
             return base.OnOptionsItemSelected(item);
         }
 
-        public override void OnBackPressed()
-        {
-            Finish();
-        }
+        public override void OnBackPressed() => Finish();
 
         #endregion
 
         #region IQrView Implementation
 
-        //Updates user balance
-        public void UpdateBalance(string amount)
-        {
-            _balance.Text = amount + CoinsLabel;
-        }
+        /// <summary>
+        /// Updates user balance
+        /// </summary>
+        /// <param name="amount"></param>
+        public void UpdateBalance(string amount) => _balance.Text = $"{amount}{CoinsLabel}";
 
-        //If amount is not valid call method on fragment
-        //to set Error to EditField
+        /// <summary>
+        /// If amount is not valid call method on fragment
+        /// to set Error to EditField
+        /// </summary>
+        /// <param name="message"></param>
         public void SetEditFieldError(string message)
         {
             var fragment = FragmentManager.FindFragmentById(Resource.Id.container_fragment) as GenerateCodeFragment;
             fragment?.ShowEditFieldError(message);
         }
 
-        //Call method on Fragment to generate QRcode
+        /// <summary>
+        /// Call method on Fragment to generate QRcode
+        /// </summary>
+        /// <param name="cashJsonString"></param>
         public void ShowImage(string cashJsonString)
         {
             var fragment = FragmentManager.FindFragmentById(Resource.Id.container_fragment) as GenerateCodeFragment;
@@ -93,37 +90,37 @@ namespace Softjourn.SJCoins.Droid.UI.Activities
 
         #region Public Methods
 
-        //Call Scanning on Presenters side
-        public void ScanCode()
-        {
-            ViewPresenter.ScanCode();
-        }
+        /// <summary>
+        /// Call Scanning on Presenters side
+        /// </summary>
+        public void ScanCode() => ViewPresenter.ScanCode();
 
-        //Call Method in Presenter to make api call to get info for
-        //generating of QR code.
-        public void GenerateCode(string amount)
-        {
-            ViewPresenter.GenerateCode(amount);
-        }
+        /// <summary>
+        /// Call Method in Presenter to make api call to get info for
+        /// generating of QR code.
+        /// </summary>
+        /// <param name="amount"></param>
+        public void GenerateCode(string amount) => ViewPresenter.GenerateCode(amount);
 
-        public override void OnRequestPermissionsResult(int requestCode, string[] permissions, Permission[] grantResults)
-        {
+        public override void OnRequestPermissionsResult(int requestCode, string[] permissions,
+            Permission[] grantResults) =>
             PermissionsImplementation.Current.OnRequestPermissionsResult(requestCode, permissions, grantResults);
-        }
 
         #endregion
 
         #region Private Methods
 
-        //Attaches needed fragment
-        private void AttachFragment(string fragmentTag, Fragment fragment)
-        {
-            FragmentManager.BeginTransaction()
-                .Replace(Resource.Id.container_fragment, fragment, fragmentTag)
-                .Commit();
-        }
+        /// <summary>
+        /// Attaches needed fragment
+        /// </summary>
+        /// <param name="fragmentTag"></param>
+        /// <param name="fragment"></param>
+        private void AttachFragment(string fragmentTag, Fragment fragment) => FragmentManager.BeginTransaction()
+            .Replace(Resource.Id.container_fragment, fragment, fragmentTag).Commit();
 
-        //Sets balance as Text to TextView based on Response from Presenter
+        /// <summary>
+        /// Sets balance as Text to TextView based on Response from Presenter
+        /// </summary>
         private void SetInitialBalance()
         {
             _balance.Visibility = ViewStates.Visible;

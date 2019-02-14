@@ -1,4 +1,5 @@
 using System;
+using System.Diagnostics;
 using Foundation;
 using SDWebImage;
 using Softjourn.SJCoins.Core.Models.Products;
@@ -32,10 +33,7 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.HomePage
         {
         }
 
-        public void SetItem(Product item)
-        {
-            this.CurrentProduct = item;
-        }
+        public void SetItem(Product item) => CurrentProduct = item;
 
         #region Controller Life cycle
 
@@ -48,7 +46,7 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.HomePage
         protected override void Dispose(bool disposing)
         {
             base.Dispose(disposing);
-            System.Diagnostics.Debug.WriteLine(string.Format("{0} controller disposed", GetType()));
+            Debug.WriteLine(string.Format("{0} controller disposed", GetType()));
         }
 
         #endregion
@@ -60,7 +58,8 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.HomePage
             if (product != null)
             {
                 NameLabel.Text = product.Name;
-                PriceLabel.Text = "Price: " + product.Price + " Coins";
+                PriceLabel.Text = $"Price: {product.Price} Coins";
+
                 if (string.IsNullOrEmpty(product.Description))
                 {
                     DescriptionLabel.Text = product.Description;
@@ -70,35 +69,25 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.HomePage
                     DescriptionLabel.TextColor = UIColor.Gray;
                     DescriptionLabel.Text = Const.defaultDescription;
                 }
+
                 Logo.SetImage(url: new NSUrl(product.ImageFullUrl), placeholder: UIImage.FromBundle(ImageConstants.Placeholder));
             }
         }
 
-        private string ConfigureFavoriteAction()
-        {
-            return CurrentProduct.IsProductFavorite ? "Remove from favorites" : "Add to favorites";
-        }
+        private string ConfigureFavoriteAction() =>
+            CurrentProduct.IsProductFavorite ? "Remove from favorites" : "Add to favorites";
 
         // -------------------- Action handlers --------------------
-        private void BuyActionClicked()
-        {
-            PreViewController_BuyActionExecuted?.Invoke(this, CurrentProduct);
-        }
+        private void BuyActionClicked() => PreViewController_BuyActionExecuted?.Invoke(this, CurrentProduct);
 
-        private void FavoriteActionClicked()
-        {
+        private void FavoriteActionClicked() =>
             PreViewController_FavoriteActionExecuted?.Invoke(this, CurrentProduct);
-        }
         // --------------------------------------------------------
 
         #endregion
 
-        private static UIPreviewAction PreviewActionForTitle(string title, UIPreviewActionStyle style = UIPreviewActionStyle.Default, Action handler = null)
-        {
-            return UIPreviewAction.Create(title, style, (action, previewViewController) =>
-            {
-                handler?.Invoke();
-            });
-        }
+        private static UIPreviewAction PreviewActionForTitle(string title,
+            UIPreviewActionStyle style = UIPreviewActionStyle.Default, Action handler = null) =>
+            UIPreviewAction.Create(title, style, (action, previewViewController) => { handler?.Invoke(); });
     }
 }

@@ -15,18 +15,21 @@ namespace Softjourn.SJCoins.Core.UI.Presenters
             {
                 View.SetPasswordError(Resources.UiMessageResources.activity_login_invalid_password);
                 View.SetUsernameError(Resources.UiMessageResources.activity_login_empty_username);
+
                 return;
             }
 
             if (!Validators.IsUserNameEmpty(userName))
             {
                 View.SetUsernameError(Resources.UiMessageResources.activity_login_empty_username);
+
                 return;
             }
 
             if (!Validators.IsPasswordValid(password))
             {
                 View.SetPasswordError(Resources.UiMessageResources.activity_login_invalid_password);
+
                 return;
             }
 
@@ -62,9 +65,6 @@ namespace Softjourn.SJCoins.Core.UI.Presenters
             }
         }
 
-        public void ToWelcomePage()
-        {
-            NavigationService.NavigateToAsRoot(NavigationPage.Welcome);
-        }
+        public void ToWelcomePage() => NavigationService.NavigateToAsRoot(NavigationPage.Welcome);
     }
 }

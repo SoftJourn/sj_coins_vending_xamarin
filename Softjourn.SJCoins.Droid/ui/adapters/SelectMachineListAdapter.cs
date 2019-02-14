@@ -24,26 +24,17 @@ namespace Softjourn.SJCoins.Droid.ui.adapters
             _context = context;
         }
 
-        public Machines GetMachine(int position)
-        {
-            return _items[position];
-        }
+        public Machines GetMachine(int position) => _items[position];
 
-        public override long GetItemId(int position)
-        {
-            return position;
-        }
+        public override long GetItemId(int position) => position;
 
         public override View GetView(int position, View convertView, ViewGroup parent)
         {
             var view = convertView;
             if (view == null)
-            {
                 view = LayoutInflater.From(_context).Inflate(Resource.Layout.select_machine_text_view, null, false);
-            }
 
             var machines = this[position];
-
             var machineName = view.FindViewById<TextView>(Resource.Id.text1);
             machineName.Text = machines.Name;
 
@@ -55,20 +46,24 @@ namespace Softjourn.SJCoins.Droid.ui.adapters
             return view;
         }
 
-        //Setting Machines List and redrawing listView
+        /// <summary>
+        /// Setting Machines List and redrawing listView
+        /// </summary>
+        /// <param name="list"></param>
         public void SetData(List<Machines> list)
         {
             _items = list;
             NotifyDataSetChanged();
         }
 
-        //If Machine is selected set this machine as selected one
+        /// <summary>
+        /// If Machine is selected set this machine as selected one
+        /// </summary>
+        /// <param name="machine"></param>
         public void SetSelectedMachine(Machines machine)
         {
             if (machine != null)
-            {
                 _selectedMachine = machine.Name;
-            }
         }
     }
 }

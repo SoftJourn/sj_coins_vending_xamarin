@@ -44,7 +44,7 @@ namespace Softjourn.SJCoins.Core.UI.Services.Alert
         /// </summary>
         /// <param name="product"></param>
         /// <param name="onPurchaseProductAction"></param>
-        void ShowPurchaseConfirmationDialod(Product product, Action<Product> onPurchaseProductAction);
+        void ShowPurchaseConfirmationDialog(Product product, Action<Product> onPurchaseProductAction);
 
         /// <summary>
         /// show Dialog to select photo source (Camera or Gallery)

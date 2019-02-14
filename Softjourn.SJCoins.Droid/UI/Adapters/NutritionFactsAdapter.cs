@@ -3,16 +3,16 @@ using System.Linq;
 using Android.Support.V7.Widget;
 using Android.Views;
 using Android.Widget;
-
+using Softjourn.SJCoins.Core.Common;
 using Thread = System.Threading.Thread;
 
 namespace Softjourn.SJCoins.Droid.UI.Adapters
 {
     internal class NutritionFactsAdapter : RecyclerView.Adapter
     {
-        private Dictionary<string,string> _nutritionFacts = new Dictionary<string, string>();
+        private Dictionary<string, string> _nutritionFacts = new Dictionary<string, string>();
 
-        public void SetData(Dictionary<string,string> nutritionFacts)
+        public void SetData(Dictionary<string, string> nutritionFacts)
         {
             _nutritionFacts = nutritionFacts;
             NotifyDataSetChanged();
@@ -22,7 +22,7 @@ namespace Softjourn.SJCoins.Droid.UI.Adapters
         {
             if (!(viewHolder is NutritionViewHolder holder)) return;
 
-            holder._name.Text = Thread.CurrentThread.CurrentCulture.TextInfo.ToTitleCase( _nutritionFacts.Keys.ElementAt(position));
+            holder._name.Text = Thread.CurrentThread.CurrentCulture.TextInfo.ToTitleCase(_nutritionFacts.Keys.ElementAt(position));
             holder._value.Text = _nutritionFacts.Values.ElementAt(position);
         }
 
@@ -34,7 +34,7 @@ namespace Softjourn.SJCoins.Droid.UI.Adapters
             return new NutritionViewHolder(v);
         }
 
-        public override int ItemCount => _nutritionFacts?.Count ?? 0;
+        public override int ItemCount => _nutritionFacts?.Count ?? Constant.Zero;
     }
 
     public class NutritionViewHolder : RecyclerView.ViewHolder

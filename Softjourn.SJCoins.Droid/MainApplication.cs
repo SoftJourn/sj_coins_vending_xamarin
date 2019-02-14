@@ -24,8 +24,6 @@ namespace Softjourn.SJCoins.Droid
             HockeyAppUtils.CheckForCrashes(ApplicationContext);
 
             InitializeIoC();
-            //removed ssl errors validation
-            //ServicePointManager.ServerCertificateValidationCallback = (sender, certificate, chain, errors) => true;
         }
 
         public override void OnTerminate()
@@ -34,10 +32,7 @@ namespace Softjourn.SJCoins.Droid
             UnregisterActivityLifecycleCallbacks(this);
         }
 
-        public void OnActivityCreated(Activity activity, Bundle savedInstanceState)
-        {
-            CrossCurrentActivity.Current.Activity = activity;
-        }
+        public void OnActivityCreated(Activity activity, Bundle savedInstanceState) => CrossCurrentActivity.Current.Activity = activity;
 
         public void OnActivityDestroyed(Activity activity)
         {
@@ -47,29 +42,19 @@ namespace Softjourn.SJCoins.Droid
         {
         }
 
-        public void OnActivityResumed(Activity activity)
-        {
-            CrossCurrentActivity.Current.Activity = activity;
-        }
+        public void OnActivityResumed(Activity activity) => CrossCurrentActivity.Current.Activity = activity;
 
         public void OnActivitySaveInstanceState(Activity activity, Bundle outState)
         {
         }
 
-        public void OnActivityStarted(Activity activity)
-        {
-            CrossCurrentActivity.Current.Activity = activity;
-        }
+        public void OnActivityStarted(Activity activity) => CrossCurrentActivity.Current.Activity = activity;
 
         public void OnActivityStopped(Activity activity)
         {
         }
 
-        private void InitializeIoC()
-        {
-            new Bootstrapper().Init();
-
-        }
+        private static void InitializeIoC() => new Bootstrapper().Init();
 
         public override void OnLowMemory()
         {

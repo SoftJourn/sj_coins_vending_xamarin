@@ -30,17 +30,16 @@ namespace Softjourn.SJCoins.Droid.Services
         private static Intent GetWithParams(NavigationPage navigationParams, object obj = null)
         {
             var view = GetView(navigationParams);
-
             var data = string.Empty;
+
             if (obj == null) return view;
+
             try
             {
                 data = obj.ToString();
                 view.PutExtra(Constant.NavigationKey, data);
             }
-            catch
-            {
-            }
+            catch { }
 
             return view;
         }
@@ -84,10 +83,8 @@ namespace Softjourn.SJCoins.Droid.Services
                     view = new Intent(CrossCurrentActivity.Current.Activity, typeof(ReportsActivity));
                     break;
                 case NavigationPage.PrivacyTerms:
-                    //view = new Intent(CrossCurrentActivity.Current.Activity, typeof(PrivaceTermsActivity));
                     break;
                 case NavigationPage.Help:
-                    //view = new Intent(CrossCurrentActivity.Current.Activity, typeof(HelpActivity));
                     break;
                 case NavigationPage.ShareFuns:
                     view = new Intent(CrossCurrentActivity.Current.Activity, typeof(QrActivity));

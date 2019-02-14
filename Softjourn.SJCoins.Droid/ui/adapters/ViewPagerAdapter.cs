@@ -28,10 +28,7 @@ namespace Softjourn.SJCoins.Droid.ui.adapters
             return view;
         }
 
-        public override bool IsViewFromObject (View view, Java.Lang.Object obj)
-        {
-            return view == obj;
-        }
+        public override bool IsViewFromObject(View view, Java.Lang.Object obj) => view == obj;
 
         public override void DestroyItem(ViewGroup container, int position, Java.Lang.Object _object)
         {

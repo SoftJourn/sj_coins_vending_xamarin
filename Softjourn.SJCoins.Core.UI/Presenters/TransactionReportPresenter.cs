@@ -6,6 +6,7 @@ using Softjourn.SJCoins.Core.Common.Exceptions;
 using Softjourn.SJCoins.Core.Common.Utils;
 using Softjourn.SJCoins.Core.Managers;
 using Softjourn.SJCoins.Core.Models.TransactionReports;
+using Softjourn.SJCoins.Core.Resources;
 using Softjourn.SJCoins.Core.UI.Bootstrapper;
 using Softjourn.SJCoins.Core.UI.Services.Navigation;
 using Softjourn.SJCoins.Core.UI.ViewInterfaces;
@@ -14,7 +15,6 @@ namespace Softjourn.SJCoins.Core.UI.Presenters
 {
     public class TransactionReportPresenter : BasePresenter<ITransactionReportView>
     {
-        private const int DefaultPageNumber = 0;
         private const string DefaultSortDirection = "desc";
         private const string DefaultProperty = "created";
         private const string DefaultDirection = "IN";
@@ -41,8 +41,8 @@ namespace Softjourn.SJCoins.Core.UI.Presenters
         /// </summary>
         public void OnStartLoadingPage()
         {
-            TransactionsManager.SetDefaults(DataManager.Profile.Name + " " + DataManager.Profile.Surname);
-            GetReportTransactions(DefaultPageNumber, _direction, _sortDirection, _sortProperty);
+            TransactionsManager.SetDefaults($"{DataManager.Profile.Name} {DataManager.Profile.Surname}");
+            GetReportTransactions(Constant.Zero, _direction, _sortDirection, _sortProperty);
         }
 
         /// <summary>
@@ -51,11 +51,14 @@ namespace Softjourn.SJCoins.Core.UI.Presenters
         public void GetNextPage()
         {
             if (_isLoading) return;
+
             if (TransactionsManager.PagesCount <= 1 || TransactionsManager.CurrentPage >= TransactionsManager.PagesCount - 1)
                 return;
+
             _isLoading = true;
+
             //Get Transaction for next page 
-            //where next page is Curent page + 1
+            //where next page is Current page + 1
             GetReportTransactions(TransactionsManager.CurrentPage + 1, _direction, _sortDirection, _sortProperty);
         }
 
@@ -64,7 +67,7 @@ namespace Softjourn.SJCoins.Core.UI.Presenters
         /// </summary>
         public void OnInputClicked()
         {
-            if (_direction == "IN" && TransactionsManager.IsListAscending)
+            if (_direction == DefaultDirection && TransactionsManager.IsListAscending)
             {
                 TransactionsManager.IsListAscending = false;
                 View.SetData(TransactionsManager.GetTransactions());
@@ -75,7 +78,7 @@ namespace Softjourn.SJCoins.Core.UI.Presenters
 
                 return;
             }
-            if (_direction == "IN" && !TransactionsManager.IsListAscending)
+            if (_direction == DefaultDirection && !TransactionsManager.IsListAscending)
             {
                 TransactionsManager.IsListAscending = true;
                 View.SetData(TransactionsManager.GetTransactions());
@@ -85,8 +88,10 @@ namespace Softjourn.SJCoins.Core.UI.Presenters
 
                 return;
             }
-            if (_direction == "IN") return;
-            _direction = "IN";
+
+            if (_direction == DefaultDirection) return;
+
+            _direction = DefaultDirection;
             OnStartLoadingPage();
             View.SetCompoundDrawableOutput(null);
             View.SetCompoundDrawableInput(_sortProperty != DefaultProperty);
@@ -97,7 +102,7 @@ namespace Softjourn.SJCoins.Core.UI.Presenters
         /// </summary>
         public void OnOutputClicked()
         {
-            if (_direction != "IN" && TransactionsManager.IsListAscending)
+            if (_direction != DefaultDirection && TransactionsManager.IsListAscending)
             {
                 TransactionsManager.IsListAscending = false;
                 View.SetData(TransactionsManager.GetTransactions());
@@ -108,7 +113,8 @@ namespace Softjourn.SJCoins.Core.UI.Presenters
 
                 return;
             }
-            if (_direction != "IN" && !TransactionsManager.IsListAscending)
+
+            if (_direction != DefaultDirection && !TransactionsManager.IsListAscending)
             {
                 TransactionsManager.IsListAscending = true;
                 View.SetData(TransactionsManager.GetTransactions());
@@ -119,7 +125,9 @@ namespace Softjourn.SJCoins.Core.UI.Presenters
 
                 return;
             }
-            if (_direction != "IN") return;
+
+            if (_direction != DefaultDirection) return;
+
             _direction = "OUT";
             OnStartLoadingPage();
             //Handling buttons arrows
@@ -134,10 +142,10 @@ namespace Softjourn.SJCoins.Core.UI.Presenters
             _sortProperty = "amount";
             _sortDirection = "asc";
 
-            TransactionsManager.SetDefaults(DataManager.Profile.Name + " " + DataManager.Profile.Surname);
-            GetReportTransactions(DefaultPageNumber, _direction, _sortDirection, _sortProperty);
+            TransactionsManager.SetDefaults($"{DataManager.Profile.Name} {DataManager.Profile.Surname}");
+            GetReportTransactions(Constant.Zero, _direction, _sortDirection, _sortProperty);
 
-            if (_direction == "IN")
+            if (_direction == DefaultDirection)
             {
                 View.SetCompoundDrawableOutput(null);
                 View.SetCompoundDrawableInput(true);
@@ -158,7 +166,7 @@ namespace Softjourn.SJCoins.Core.UI.Presenters
 
             OnStartLoadingPage();
 
-            if (_direction == "IN")
+            if (_direction == DefaultDirection)
             {
                 View.SetCompoundDrawableOutput(null);
                 View.SetCompoundDrawableInput(false);
@@ -208,7 +216,7 @@ namespace Softjourn.SJCoins.Core.UI.Presenters
             {
                 try
                 {
-                    View.ShowProgress(Resources.UiMessageResources.progress_loading);
+                    View.ShowProgress(UiMessageResources.progress_loading);
 
                     var transactionReport = await RestApiService.GetTransactionReport(FormRequestBody(pageNumber, direction, sortDirection, property));
 
@@ -217,11 +225,12 @@ namespace Softjourn.SJCoins.Core.UI.Presenters
                     {
                         item.PrettyTime = TimeUtils.GetPrettyTime(item.Created);
                     }
+
                     View.HideProgress();
 
                     //If list is Empty Show empty View
                     //else show data
-                    if (transactionReport.Content.Count == 0)
+                    if (transactionReport.Content.Count == Constant.Zero)
                     {
                         View.ShowEmptyView();
                     }
@@ -235,7 +244,7 @@ namespace Softjourn.SJCoins.Core.UI.Presenters
 
                         //If first page is loaded call view method
                         //to set data.
-                        if (transactionReport.Number == DefaultPageNumber)
+                        if (transactionReport.Number == Constant.Zero)
                         {
                             View.SetData(transactionReport.Content);
                         }
@@ -260,7 +269,6 @@ namespace Softjourn.SJCoins.Core.UI.Presenters
                 catch (ApiNotAuthorizedException)
                 {
                     View.HideProgress();
-                    //AlertService.ShowToastMessage(ex.Message);
                     DataManager.Profile = null;
                     Settings.ClearUserData();
                     NavigationService.NavigateToAsRoot(NavigationPage.Login);
@@ -273,7 +281,7 @@ namespace Softjourn.SJCoins.Core.UI.Presenters
             }
             else
             {
-                AlertService.ShowToastMessage(Resources.UiMessageResources.internet_turned_off);
+                AlertService.ShowToastMessage(UiMessageResources.internet_turned_off);
             }
         }
 

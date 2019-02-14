@@ -5,7 +5,7 @@ using Android.Support.V7.App;
 using Android.Views;
 using Autofac;
 using Softjourn.SJCoins.Core.UI.Bootstrapper;
-using Softjourn.SJCoins.Core.UI.Presenters.IPresenters;
+using Softjourn.SJCoins.Core.UI.Presenters.Interfaces;
 using Softjourn.SJCoins.Core.UI.ViewInterfaces;
 
 namespace Softjourn.SJCoins.Droid.ui.baseUI
@@ -48,6 +48,7 @@ namespace Softjourn.SJCoins.Droid.ui.baseUI
         {
             var inflater = MenuInflater;
             inflater.Inflate(Resource.Menu.main_menu, menu);
+
             return true;
         }
 
@@ -67,10 +68,7 @@ namespace Softjourn.SJCoins.Droid.ui.baseUI
             ViewPresenter = null;
         }
 
-        public virtual void HideProgress()
-        {
-            ProgressDialog?.Dismiss();
-        }
+        public virtual void HideProgress() => ProgressDialog?.Dismiss();
 
         public virtual void ShowProgress(string message)
         {

@@ -17,9 +17,6 @@ namespace Softjourn.SJCoins.Droid.UI.Activities
             ViewPresenter.ChooseStartPage();
         }
 
-        public void ShowNoInternetError(string message)
-        {
-            SetContentView(Resource.Layout.activity_no_internet);
-        }
+        public void ShowNoInternetError(string message) => SetContentView(Resource.Layout.activity_no_internet);
     }
 }

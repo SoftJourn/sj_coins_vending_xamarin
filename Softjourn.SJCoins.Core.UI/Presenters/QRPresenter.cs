@@ -7,6 +7,7 @@ using Softjourn.SJCoins.Core.Common.Utils;
 using Softjourn.SJCoins.Core.Managers;
 using Softjourn.SJCoins.Core.Models;
 using Softjourn.SJCoins.Core.Models.Products;
+using Softjourn.SJCoins.Core.Resources;
 using Softjourn.SJCoins.Core.UI.Bootstrapper;
 using Softjourn.SJCoins.Core.UI.Services.Navigation;
 using Softjourn.SJCoins.Core.UI.Utils;
@@ -40,7 +41,7 @@ namespace Softjourn.SJCoins.Core.UI.Presenters
             }
             catch (JsonReaderExceptionCustom)
             {
-                AlertService.ShowToastMessage(Resources.UiMessageResources.error_not_valid_qr_code);
+                AlertService.ShowToastMessage(UiMessageResources.error_not_valid_qr_code);
             }
             catch (CameraException e)
             {
@@ -88,15 +89,9 @@ namespace Softjourn.SJCoins.Core.UI.Presenters
         /// Return Current Balance from DataManager
         /// </summary>
         /// <returns></returns>
-        public int GetBalance()
-        {
-            return MyBalance;
-        }
+        public int GetBalance() => MyBalance;
 
-        public async Task CheckPermission()
-        {
-            await PermissionsUtils.CheckCameraPermissionAsync();
-        }
+        public async Task CheckPermission() => await PermissionsUtils.CheckCameraPermissionAsync();
 
         /// <summary>
         /// Return true if amount is not empty, is integer and not exceeds user's balance
@@ -107,31 +102,36 @@ namespace Softjourn.SJCoins.Core.UI.Presenters
         {
             if (string.IsNullOrEmpty(amount))
             {
-                View.SetEditFieldError(Resources.UiMessageResources.error_field_is_empty);
+                View.SetEditFieldError(UiMessageResources.error_field_is_empty);
+
                 return false;
             }
 
             if (!Validators.IsAmountValid(amount))
             {
-                View.SetEditFieldError(Resources.UiMessageResources.error_field_contains_not_digits);
+                View.SetEditFieldError(UiMessageResources.error_field_contains_not_digits);
+
                 return false;
             }
 
             if (amount.Length > 10)
             {
-                View.SetEditFieldError(Resources.UiMessageResources.error_field_too_many_characters);
+                View.SetEditFieldError(UiMessageResources.error_field_too_many_characters);
+
                 return false;
             }
 
             if (Convert.ToInt64(amount) < 1)
             {
-                View.SetEditFieldError(Resources.UiMessageResources.error_field_zero_amount);
+                View.SetEditFieldError(UiMessageResources.error_field_zero_amount);
+
                 return false;
             }
 
             if (Convert.ToInt64(amount) > MyBalance)
             {
-                View.SetEditFieldError(Resources.UiMessageResources.error_field_not_enough_money);
+                View.SetEditFieldError(UiMessageResources.error_field_not_enough_money);
+
                 return false;
             }
 
@@ -143,17 +143,18 @@ namespace Softjourn.SJCoins.Core.UI.Presenters
         private void UpdateBalance(DepositeTransaction result)
         {
             if (result == null) return;
+
             //Updating Balance in DataManager
             DataManager.Profile.Amount = DataManager.Profile.Amount + result.Amount;
             View.HideProgress();
-            AlertService.ShowToastMessage(Resources.UiMessageResources.wallet_was_funded + result.Amount + " coins");
+            AlertService.ShowToastMessage($"{UiMessageResources.wallet_was_funded}{result.Amount} coins");
 
             //Updating balance on View
             View.UpdateBalance(DataManager.Profile.Amount.ToString());
         }
 
         /// <summary>
-        /// API call to get DepositeTransaction Object
+        /// API call to get DepositTransaction Object
         /// </summary>
         /// <param name="scannedCode"></param>
         /// <returns></returns>
@@ -163,14 +164,13 @@ namespace Softjourn.SJCoins.Core.UI.Presenters
             {
                 try
                 {
-                    View.ShowProgress(Resources.UiMessageResources.progress_loading);
+                    View.ShowProgress(UiMessageResources.progress_loading);
 
                     return await RestApiService.GetOfflineCash(scannedCode);
                 }
                 catch (ApiNotAuthorizedException)
                 {
                     View.HideProgress();
-                    //AlertService.ShowToastMessage(ex.Message);
                     DataManager.Profile = null;
                     Settings.ClearUserData();
                     NavigationService.NavigateToAsRoot(NavigationPage.Login);
@@ -184,7 +184,7 @@ namespace Softjourn.SJCoins.Core.UI.Presenters
             else
             {
                 View.HideProgress();
-                AlertService.ShowToastMessage(Resources.UiMessageResources.internet_turned_off);
+                AlertService.ShowToastMessage(UiMessageResources.internet_turned_off);
             }
 
             return null;
@@ -201,11 +201,10 @@ namespace Softjourn.SJCoins.Core.UI.Presenters
             {
                 try
                 {
-                    View.ShowProgress(Resources.UiMessageResources.progress_loading);
+                    View.ShowProgress(UiMessageResources.progress_loading);
 
                     //Creating Object Amount based on Input amount
                     var amountJson = new Amount { Balance = amount };
-
                     var code = await RestApiService.WithdrawMoney(amountJson);
 
                     View.HideProgress();
@@ -218,12 +217,10 @@ namespace Softjourn.SJCoins.Core.UI.Presenters
 
                     //Updates user's balance on View from DataManager.Profile
                     View.UpdateBalance(MyBalance.ToString());
-
                 }
                 catch (ApiNotAuthorizedException)
                 {
                     View.HideProgress();
-                    //AlertService.ShowToastMessage(ex.Message);
                     DataManager.Profile = null;
                     Settings.ClearUserData();
                     NavigationService.NavigateToAsRoot(NavigationPage.Login);
@@ -237,7 +234,7 @@ namespace Softjourn.SJCoins.Core.UI.Presenters
             else
             {
                 View.HideProgress();
-                AlertService.ShowToastMessage(Resources.UiMessageResources.internet_turned_off);
+                AlertService.ShowToastMessage(UiMessageResources.internet_turned_off);
             }
 
             return null;

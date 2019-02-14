@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using Android.Support.V7.Widget;
 using Android.Views;
 using Android.Widget;
+using Softjourn.SJCoins.Core.Common;
 using Softjourn.SJCoins.Core.Models;
 
 namespace Softjourn.SJCoins.Droid.UI.Adapters
@@ -22,7 +23,7 @@ namespace Softjourn.SJCoins.Droid.UI.Adapters
             var historyItem = _historyList[position];
 
             holder._productName.Text = historyItem.Name;
-            holder._productPrice.Text = (historyItem.Price + " coins");
+            holder._productPrice.Text = $"{historyItem.Price} coins";
             holder._purchaseDate.Text = historyItem.PrettyTime;
         }
 
@@ -30,10 +31,11 @@ namespace Softjourn.SJCoins.Droid.UI.Adapters
         {
             var v = LayoutInflater.From(parent.Context)
                 .Inflate(Resource.Layout.recycler_purchase_history_item, parent, false);
+
             return new HistoryViewHolder(v);
         }
 
-        public override int ItemCount => _historyList?.Count ?? 0;
+        public override int ItemCount => _historyList?.Count ?? Constant.Zero;
     }
 
     internal class HistoryViewHolder : RecyclerView.ViewHolder

@@ -118,7 +118,10 @@ namespace Softjourn.SJCoins.Droid.UI.Activities
 
         #region ITransactionView implementation
 
-        //Setting data to adapter in case purchase list is not empty
+        /// <summary>
+        /// Setting data to adapter in case purchase list is not empty
+        /// </summary>
+        /// <param name="transactionList"></param>
         public void SetData(List<Transaction> transactionList)
         {
             _transactionsRecyclerView.Visibility = ViewStates.Visible;
@@ -126,22 +129,19 @@ namespace Softjourn.SJCoins.Droid.UI.Activities
             _adapter.SetData(transactionList);
         }
 
-        //Showing emptyView in case purchase list is empty
-        public void ShowEmptyView()
-        {
-            _noTransactionsTextView.Visibility = ViewStates.Visible;
-        }
+        /// <summary>
+        /// Showing emptyView in case purchase list is empty
+        /// </summary>
+        public void ShowEmptyView() => _noTransactionsTextView.Visibility = ViewStates.Visible;
 
-        public void AddItemsToExistedList(List<Transaction> transactionsList)
-        {
-            _adapter.AddData(transactionsList);
-        }
+        public void AddItemsToExistedList(List<Transaction> transactionsList) => _adapter.AddData(transactionsList);
 
         public void SetCompoundDrawableOutput(bool? isAsc)
         {
             if (isAsc == null)
             {
                 _buttonOutput.SetCompoundDrawablesWithIntrinsicBounds(null, null, null, null);
+
                 return;
             }
             if ((bool)isAsc)
@@ -161,6 +161,7 @@ namespace Softjourn.SJCoins.Droid.UI.Activities
             if (isAsc == null)
             {
                 _buttonInput.SetCompoundDrawablesWithIntrinsicBounds(null, null, null, null);
+
                 return;
             }
             if ((bool)isAsc)
@@ -195,14 +196,8 @@ namespace Softjourn.SJCoins.Droid.UI.Activities
 
         #endregion
 
-        public override void HideProgress()
-        {
-            _refreshLayout.Refreshing = false;
-        }
+        public override void HideProgress() => _refreshLayout.Refreshing = false;
 
-        public override void ShowProgress(string message)
-        {
-            _refreshLayout.Refreshing = true;
-        }
+        public override void ShowProgress(string message) => _refreshLayout.Refreshing = true;
     }
 }

@@ -1,7 +1,8 @@
 ﻿using System;
+using System.Diagnostics;
 using Autofac;
 using Softjourn.SJCoins.Core.UI.Bootstrapper;
-using Softjourn.SJCoins.Core.UI.Presenters.IPresenters;
+using Softjourn.SJCoins.Core.UI.Presenters.Interfaces;
 using Softjourn.SJCoins.Core.UI.ViewInterfaces;
 using Softjourn.SJCoins.iOS.General.Constants;
 using Softjourn.SJCoins.iOS.UI.Services;
@@ -23,11 +24,6 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers
 
         #region IBaseView implementation
 
-        public virtual void SetUIAppearance()
-        {
-            //AttachPullToRefresh();
-        }
-
         public virtual void AttachEvents()
         {
             if (_refreshControl != null)
@@ -40,16 +36,9 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers
                 _refreshControl.ValueChanged -= PullToRefreshTriggered;
         }
 
-        //IBaseView
-        public virtual void ShowProgress(string message)
-        {
-            LoaderService.Show(message);
-        }
+        public virtual void ShowProgress(string message) => LoaderService.Show(message);
 
-        public virtual void HideProgress()
-        {
-            LoaderService.Hide();
-        }
+        public virtual void HideProgress() => LoaderService.Hide();
 
         #endregion
 
@@ -61,7 +50,7 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers
             InitPresenter();
             Presenter.AttachView(this);
             AttachPullToRefresh();
-            System.Diagnostics.Debug.WriteLine(string.Format("{0} created", this.GetType()));
+            Debug.WriteLine(string.Format("{0} created", this.GetType()));
         }
 
         public override void ViewWillAppear(bool animated)
@@ -70,12 +59,6 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers
             AttachEvents();
             Presenter.ViewShowed();
             _currentApplication.VisibleViewController = this;
-        }
-
-        public override void ViewDidAppear(bool animated)
-        {
-            base.ViewDidAppear(animated);
-            //Set this view controller when visible
         }
 
         public override void ViewWillDisappear(bool animated)
@@ -90,23 +73,20 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers
             base.Dispose(disposing);
             Presenter = null;
             GC.Collect(GC.MaxGeneration);
-            System.Diagnostics.Debug.WriteLine(string.Format("{0} disposed", this.GetType()));
+            Debug.WriteLine($"{GetType()} disposed");
         }
 
         public void ShowScreenAnimated(bool loadSuccess)
         {
-            UIView.Animate(Const.ShowScreenInfoDelay, 0, UIViewAnimationOptions.CurveLinear, () => { ShowAnimated(loadSuccess); }, null);
+            UIView.Animate(Const.ShowScreenInfoDelay, 0, UIViewAnimationOptions.CurveLinear,
+                () => { ShowAnimated(loadSuccess); }, null);
         }
 
         #endregion
 
         #region Methods for inheritanse
 
-        protected virtual UIScrollView GetRefreshableScrollView()
-        {
-            // virtual method for taking UIScrollView (tableview, collectionview) from child of this class
-            return null;
-        }
+        protected virtual UIScrollView GetRefreshableScrollView() => null; // virtual method for taking UIScrollView (tableview, collectionView) from child of this class
 
         protected virtual void PullToRefreshTriggered(object sender, EventArgs e)
         {
@@ -124,9 +104,7 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers
         public void StopRefreshing()
         {
             if (_refreshControl != null && _refreshControl.Refreshing)
-            {
                 Invoke(() => _refreshControl.EndRefreshing(), 1); //IOS 10 fix 
-            }
         }
 
         public void StyleNavigationBar()

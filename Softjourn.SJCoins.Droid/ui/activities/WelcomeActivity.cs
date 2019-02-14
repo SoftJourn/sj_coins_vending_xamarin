@@ -1,3 +1,4 @@
+using System.Linq;
 using Android.App;
 using Android.Content.PM;
 using Android.Graphics;
@@ -6,6 +7,7 @@ using Android.Support.V4.View;
 using Android.Text;
 using Android.Views;
 using Android.Widget;
+using Softjourn.SJCoins.Core.Common;
 using Softjourn.SJCoins.Core.UI.Presenters;
 using Softjourn.SJCoins.Core.UI.ViewInterfaces;
 using Softjourn.SJCoins.Droid.ui.adapters;
@@ -31,10 +33,8 @@ namespace Softjourn.SJCoins.Droid.UI.Activities
 
             // Making notification bar transparent
             if (Build.VERSION.SdkInt >= BuildVersionCodes.Lollipop)
-            {
                 Window.DecorView.SystemUiVisibility =
-                    (StatusBarVisibility)(SystemUiFlags.LayoutStable | SystemUiFlags.LayoutFullscreen);
-            }
+                    (StatusBarVisibility) (SystemUiFlags.LayoutStable | SystemUiFlags.LayoutFullscreen);
 
             SetContentView(Resource.Layout.activity_welcome);
 
@@ -53,7 +53,7 @@ namespace Softjourn.SJCoins.Droid.UI.Activities
                 Resource.Layout.welcome_slide4
             };
 
-            AddBottomDots(0);
+            AddBottomDots(Constant.Zero);
 
             ChangeStatusBarColor();
 
@@ -86,9 +86,10 @@ namespace Softjourn.SJCoins.Droid.UI.Activities
 
         #region Private Methods
 
-        /**
-         * Sets Bottom Dots Colors According to which view is showing right now
-         */
+        /// <summary>
+        /// Sets Bottom Dots Colors According to which view is showing right now
+        /// </summary>
+        /// <param name="currentPage"></param>
         private void AddBottomDots(int currentPage)
         {
             _dots = new TextView[_layouts.Length];
@@ -97,26 +98,23 @@ namespace Softjourn.SJCoins.Droid.UI.Activities
             var colorsInactive = Resources.GetIntArray(Resource.Array.array_dot_inactive);
 
             _dotsLayout.RemoveAllViews();
-            for (int i = 0; i < _dots.Length; i++)
+            for (var i = 0; i < _dots.Length; i++)
             {
                 _dots[i] = new TextView(this) { Text = Html.FromHtml("&#8226;").ToString(), TextSize = 35 };
                 _dots[i].SetTextColor(new Color(colorsInactive[currentPage]));
                 _dotsLayout.AddView(_dots[i]);
             }
 
-            if (_dots.Length > 0)
+            if (_dots.Any())
                 _dots[currentPage].SetTextColor(new Color(colorsActive[currentPage]));
         }
 
-        private int GetItem(int i)
-        {
-            return _viewPager.CurrentItem + i;
-        }
+        private int GetItem(int i) => _viewPager.CurrentItem + i;
 
-        /**
-         * Sets StatusBar Color as transparent 
-         * to make allScreenActivity
-         */
+        /// <summary>
+        /// Sets StatusBar Color as transparent
+        /// to make allScreenActivity
+        /// </summary>
         private void ChangeStatusBarColor()
         {
             if (Build.VERSION.SdkInt >= BuildVersionCodes.Lollipop)
@@ -133,12 +131,10 @@ namespace Softjourn.SJCoins.Droid.UI.Activities
 
         public void OnPageScrollStateChanged(int state)
         {
-
         }
 
         public void OnPageScrolled(int position, float positionOffset, int positionOffsetPixels)
         {
-
         }
 
         public void OnPageSelected(int position)

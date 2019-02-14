@@ -9,7 +9,7 @@ namespace Softjourn.SJCoins.iOS.UI.Sources.AccountPage
 {
     public class AccountViewSource : UITableViewSource
     {
-        private readonly List<AccountOption> options = new List<AccountOption>();
+        private readonly List<AccountOption> options;
 
         public event EventHandler<AccountOption> ItemSelected;
 
@@ -20,7 +20,8 @@ namespace Softjourn.SJCoins.iOS.UI.Sources.AccountPage
 
         public override nint RowsInSection(UITableView tableview, nint section) => options.Count;
 
-        public override UITableViewCell GetCell(UITableView tableView, NSIndexPath indexPath) => (AccountCell)tableView.DequeueReusableCell(AccountCell.Key, indexPath);
+        public override UITableViewCell GetCell(UITableView tableView, NSIndexPath indexPath) =>
+            (AccountCell) tableView.DequeueReusableCell(AccountCell.Key, indexPath);
 
         public override void WillDisplay(UITableView tableView, UITableViewCell cell, NSIndexPath indexPath)
         {

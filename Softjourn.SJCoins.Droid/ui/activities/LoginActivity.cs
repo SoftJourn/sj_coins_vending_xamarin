@@ -37,32 +37,28 @@ namespace Softjourn.SJCoins.Droid.UI.Activities
             _arrowToWelcome.Click += LinkToWelcomeClick;
         }
 
-        public override void OnBackPressed()
-        {
-            MoveTaskToBack(true);
-        }
+        public override void OnBackPressed() => MoveTaskToBack(true);
 
-        public override bool OnCreateOptionsMenu(IMenu menu)
-        {
-            return false;
-        }
+        public override bool OnCreateOptionsMenu(IMenu menu) => false;
 
         #endregion
 
         #region ILoginView Methods
 
-        /**
-         * Sets Error to username field with the given message
-         */
+        /// <summary>
+        /// Sets Error to username field with the given message
+        /// </summary>
+        /// <param name="message"></param>
         public void SetUsernameError(string message)
         {
             _userName.RequestFocus();
             _userName.SetError(message, null);
         }
 
-        /**
-         * Sets Error to password field with the given message
-         */
+        /// <summary>
+        /// Sets Error to password field with the given message
+        /// </summary>
+        /// <param name="message"></param>
         public void SetPasswordError(string message)
         {
             _passwordText.RequestFocus();
@@ -73,20 +69,15 @@ namespace Softjourn.SJCoins.Droid.UI.Activities
 
         #region Private Methods
 
-        private void LinkToWelcomeClick(object sender, EventArgs e)
-        {
-            ViewPresenter.ToWelcomePage();
-        }
+        private void LinkToWelcomeClick(object sender, EventArgs e) => ViewPresenter.ToWelcomePage();
 
-        private void LoginButtonOnClick(object sender, EventArgs eventArgs)
-        {
-            Login();
-        }
+        private void LoginButtonOnClick(object sender, EventArgs eventArgs) => Login();
 
         private void Login()
         {
             var userName = _userName.Text;
             var password = _passwordText.Text;
+
             ViewPresenter.Login(userName, password);
         }
 

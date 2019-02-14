@@ -52,10 +52,7 @@ namespace Softjourn.SJCoins.Droid.UI.Activities
             ViewPresenter.GetMachinesList();
         }
 
-        public override bool OnCreateOptionsMenu(IMenu menu)
-        {
-            return false;
-        }
+        public override bool OnCreateOptionsMenu(IMenu menu) => false;
 
         public override bool OnOptionsItemSelected(IMenuItem item)
         {
@@ -76,7 +73,6 @@ namespace Softjourn.SJCoins.Droid.UI.Activities
             _machinesList = list;
             _machineListView.Visibility = ViewStates.Visible;
 
-
             _adapter.SetSelectedMachine(selectedMachine);
             _adapter.SetData(list);
             _machineListView.ItemClick += OnListItemClick;
@@ -87,19 +83,15 @@ namespace Softjourn.SJCoins.Droid.UI.Activities
             foreach (var machine in _machinesList)
             {
                 if (_adapter.GetMachine(e.Position).Name != machine.Name) continue;
+
                 ViewPresenter.OnMachineSelected(machine);
+
                 break;
             }
         }
 
-        public override void ShowProgress(string message)
-        {
-            _swipeLayout.Refreshing = true;
-        }
+        public override void ShowProgress(string message) => _swipeLayout.Refreshing = true;
 
-        public override void HideProgress()
-        {
-            _swipeLayout.Refreshing = false;
-        }
+        public override void HideProgress() => _swipeLayout.Refreshing = false;
     }
 }

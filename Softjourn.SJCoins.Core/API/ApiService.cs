@@ -16,27 +16,19 @@ namespace Softjourn.SJCoins.Core.Managers.Api
             get; set;
         }
 
-        public ApiService() { }
+        #region OAuth Api calls
 
-        public async Task<Session> MakeLoginRequestAsync(string userName, string password)
-        {
-            return await ApiClient.MakeLoginRequestAsync(userName, password);
-        }
+        public async Task<Session> MakeLoginRequestAsync(string userName, string password) => await ApiClient.MakeLoginRequestAsync(userName, password);
 
-        public Task RevokeTokenAsync()
-        {
-            return ApiClient.RevokeToken();
-        }
+        public Task RevokeTokenAsync() => ApiClient.RevokeToken();
 
-        public async Task<List<Machines>> GetMachinesListAsync()
-        {
-            return await ApiClient.GetMachinesListAsync();
-        }
+        #endregion
 
-        public async Task<Machines> GetMachineByIdAsync(string machineId)
-        {
-            return await ApiClient.GetMachineByIdAsync(machineId);
-        }
+        #region Machine Api calls
+
+        public async Task<List<Machines>> GetMachinesListAsync() => await ApiClient.GetMachinesListAsync();
+
+        public async Task<Machines> GetMachineByIdAsync(string machineId) => await ApiClient.GetMachineByIdAsync(machineId);
 
         public async Task<Featured> GetFeaturedProductsAsync()
         {
@@ -59,60 +51,33 @@ namespace Softjourn.SJCoins.Core.Managers.Api
             return await ApiClient.BuyProductByIdAsync(machineId, productId);
         }
 
-        public async Task<List<Product>> GetFavoritesList()
-        {
-            return await ApiClient.GetFavoritesListAsync();
-        }
+        public async Task<List<Product>> GetFavoritesList() => await ApiClient.GetFavoritesListAsync();
 
-        public Task AddProductToFavorites(string productId)
-        {
-            return ApiClient.AddProductToFavoritesAsync(productId);
-        }
+        public Task AddProductToFavorites(string productId) => ApiClient.AddProductToFavoritesAsync(productId);
 
-        public Task RemoveProductFromFavorites(string productId)
-        {
-            return ApiClient.RemoveProductFromFavoritesAsync(productId);
-        }
+        public Task RemoveProductFromFavorites(string productId) => ApiClient.RemoveProductFromFavoritesAsync(productId);
 
-        public async Task<List<History>> GetPurchaseHistory()
-        {
-            return await ApiClient.GetPurchaseHistoryAsync();
-        }
+        public async Task<List<History>> GetPurchaseHistory() => await ApiClient.GetPurchaseHistoryAsync();
 
-        public async Task<Account> GetUserAccountAsync()
-        {
-            return await ApiClient.GetUserAccountAsync();
-        }
+        #endregion
 
-        public async Task<Balance> GetBalanceAsync()
-        {
-            return await ApiClient.GetBalanceAsync();
-        }
+        #region Coins Api call
 
-        public async Task<DepositeTransaction> GetOfflineCash(Cash scannedCode)
-        {
-            return await ApiClient.GetOfflineMoney(scannedCode);
-        }
+        public async Task<Account> GetUserAccountAsync() => await ApiClient.GetUserAccountAsync();
 
-        public async Task<Cash> WithdrawMoney(Amount amount)
-        {
-            return await ApiClient.WithdrawMoney(amount);
-        }
+        public async Task<Balance> GetBalanceAsync() => await ApiClient.GetBalanceAsync();
 
-        public async Task<Report> GetTransactionReport(TransactionRequest transactionRequest)
-        {
-            return await ApiClient.GetTransactionReport(transactionRequest);
-        }
+        public async Task<DepositeTransaction> GetOfflineCash(Cash scannedCode) => await ApiClient.GetOfflineMoney(scannedCode);
 
-        public async Task<byte[]> GetAvatarImage(string endpoint)
-        {
-            return await ApiClient.GetAvatarImage(endpoint);
-        }
+        public async Task<Cash> WithdrawMoney(Amount amount) => await ApiClient.WithdrawMoney(amount);
 
-        public Task SetAvatarImage(byte[] image)
-        {
-            return ApiClient.SetAvatarImage(image);
-        }
+        public async Task<Report> GetTransactionReport(TransactionRequest transactionRequest) => await ApiClient.GetTransactionReport(transactionRequest);
+
+        public async Task<byte[]> GetAvatarImage(string endpoint) => await ApiClient.GetAvatarImage(endpoint);
+
+        public Task SetAvatarImage(byte[] image) => ApiClient.SetAvatarImage(image);
+
+        #endregion
     }
 }
 

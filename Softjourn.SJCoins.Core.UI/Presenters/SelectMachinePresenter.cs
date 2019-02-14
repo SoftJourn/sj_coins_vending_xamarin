@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using Softjourn.SJCoins.Core.Common;
 using Softjourn.SJCoins.Core.Common.Exceptions;
-using Softjourn.SJCoins.Core.Common.Utils;
 using Softjourn.SJCoins.Core.Models.Machines;
 using Softjourn.SJCoins.Core.UI.Services.Navigation;
 using Softjourn.SJCoins.Core.UI.ViewInterfaces;
@@ -12,12 +11,7 @@ namespace Softjourn.SJCoins.Core.UI.Presenters
 {
     public class SelectMachinePresenter : BasePresenter<ISelectMachineView>
     {
-        public SelectMachinePresenter() { }
-
-        public bool IsMachineSet()
-        {
-            return Settings.SelectedMachineId != string.Empty;
-        }
+        public bool IsMachineSet() => Settings.SelectedMachineId != string.Empty;
 
         public async void GetMachinesList()
         {
@@ -26,8 +20,10 @@ namespace Softjourn.SJCoins.Core.UI.Presenters
             try
             {
                 var machinesList = await RestApiService.GetMachinesListAsync();
+
                 View.HideProgress();
-                if (machinesList != null && machinesList.Count != 0)
+
+                if (machinesList != null && machinesList.Count != Constant.Zero)
                 {
                     if (machinesList.Count == 1)
                     {
@@ -49,7 +45,6 @@ namespace Softjourn.SJCoins.Core.UI.Presenters
             catch (ApiNotAuthorizedException)
             {
                 View.HideProgress();
-                //AlertService.ShowToastMessage(ex.Message);
                 DataManager.Profile = null;
                 Settings.ClearUserData();
                 NavigationService.NavigateToAsRoot(NavigationPage.Login);
@@ -67,6 +62,7 @@ namespace Softjourn.SJCoins.Core.UI.Presenters
             {
                 Settings.SelectedMachineId = machine.Id.ToString();
                 Settings.SelectedMachineName = machine.Name;
+
                 NavigationService.NavigateToAsRoot(NavigationPage.Home);
             }
             else
@@ -75,9 +71,10 @@ namespace Softjourn.SJCoins.Core.UI.Presenters
             }
         }
 
-        private Machines GetSelectedMachine(IEnumerable<Machines> machinesList)
+        private static Machines GetSelectedMachine(IEnumerable<Machines> machinesList)
         {
             var storedMachineId = Settings.SelectedMachineId;
+
             foreach (var machine in machinesList)
             {
                 if (machine.Id.ToString().Equals(storedMachineId))

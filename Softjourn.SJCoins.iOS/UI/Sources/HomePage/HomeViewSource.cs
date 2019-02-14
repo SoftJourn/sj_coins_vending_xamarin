@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using Foundation;
 using Softjourn.SJCoins.Core.Models.Products;
 using Softjourn.SJCoins.iOS.General.Helper;
@@ -23,7 +24,7 @@ namespace Softjourn.SJCoins.iOS.UI.Sources.HomePage
 
         public override void WillDisplay(UITableView tableView, UITableViewCell cell, NSIndexPath indexPath)
         {
-            if (Categories.Count > 0)
+            if (Categories.Any())
             {
                 var _cell = (HomeCell)cell;
                 _cell.ConfigureWith(Categories[indexPath.Row]);
@@ -42,9 +43,6 @@ namespace Softjourn.SJCoins.iOS.UI.Sources.HomePage
             }
         }
 
-        public override nfloat GetHeightForRow(UITableView tableView, NSIndexPath indexPath)
-        {
-            return SizeHelper.VerticalCellHeight();
-        }
+        public override nfloat GetHeightForRow(UITableView tableView, NSIndexPath indexPath) => SizeHelper.VerticalCellHeight();
     }
 }

@@ -28,8 +28,6 @@ namespace Softjourn.SJCoins.Core.Models.TransactionReports
         [JsonProperty("error")]
         public object Error { get; set; }
 
-        public int IntAmount => Amount != null ? int.Parse(Amount.ToString()) : 0;
-
         public string PrettyTime { get; set; }
     }
 }

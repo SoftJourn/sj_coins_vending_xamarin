@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Threading.Tasks;
 using Plugin.DeviceInfo;
 using Plugin.DeviceInfo.Abstractions;
 using Softjourn.SJCoins.Core.Common;
@@ -32,28 +31,30 @@ namespace Softjourn.SJCoins.Core.UI.Presenters
             };
 
             if (!Settings.OnlyOneVendingMachine)
-                OptionsList.Add(new AccountOption(Constant.ProfileOptionsSelectMachine, Constant.ProfileOptionsSelectMachineIconName));
+            {
+                var accountOption = new AccountOption(Constant.ProfileOptionsSelectMachine,
+                    Constant.ProfileOptionsSelectMachineIconName);
+                OptionsList.Add(accountOption);
+            }
         }
 
-        public void OnStartLoadingPage()
-        {
-            // Display account information
-            View.SetAccountInfo(DataManager.Profile);
-        }
+        /// <summary>
+        /// Display account information
+        /// </summary>
+        public void OnStartLoadingPage() => View.SetAccountInfo(DataManager.Profile);
 
-        public void GetImageFromServer()
-        {
-            GetAvatarImage(DataManager.Profile.Image);
-        }
+        public void GetImageFromServer() => GetAvatarImage(DataManager.Profile.Image);
 
-        //Returns List of Options taken from string resources
-        public List<AccountOption> GetOptionsList()
-        {
-            return OptionsList;
-        }
+        /// <summary>
+        /// Returns List of Options taken from string resources
+        /// </summary>
+        /// <returns></returns>
+        public List<AccountOption> GetOptionsList() => OptionsList;
 
-        //Shows dialog to select photo source (Camera ar Gallery)
-        public async Task OnPhotoClicked()
+        /// <summary>
+        /// Shows dialog to select photo source (Camera ar Gallery)
+        /// </summary>
+        public void OnPhotoClicked()
         {
             var items = new List<string>
             {
@@ -63,21 +64,21 @@ namespace Softjourn.SJCoins.Core.UI.Presenters
 
             var getPhotoFromCameraAction = new Action(GetPhotoFromCamera);
             var getPhotoFromGalleryAction = new Action(GetPhotoFromGallery);
-
             var getPhotoPathFromCameraAction = new Action(GetPhotoPathFromCamera);
             var getPhotoPathFromGalleryAction = new Action(GetPhotoPathFromGallery);
 
             if (CrossDeviceInfo.Current.Platform == Platform.Android)
-            {
-                AlertService.ShowPhotoSelectorDialog(items, getPhotoPathFromCameraAction, getPhotoPathFromGalleryAction);
-            }
+                AlertService.ShowPhotoSelectorDialog(items,
+                    getPhotoPathFromCameraAction, getPhotoPathFromGalleryAction);
             else
-            {
-                AlertService.ShowPhotoSelectorDialog(items, getPhotoFromCameraAction, getPhotoFromGalleryAction);
-            }
+                AlertService.ShowPhotoSelectorDialog(items,
+                    getPhotoFromCameraAction, getPhotoFromGalleryAction);
         }
 
-        //Navigate to given page from OptionsList
+        /// <summary>
+        /// Navigate to given page from OptionsList
+        /// </summary>
+        /// <param name="item"></param>
         public void OnItemClick(string item)
         {
             switch (item)
@@ -106,7 +107,10 @@ namespace Softjourn.SJCoins.Core.UI.Presenters
             }
         }
 
-        //Navigate to given page from OptionsList
+        /// <summary>
+        /// Navigate to given page from OptionsList
+        /// </summary>
+        /// <param name="itemPosition"></param>
         public void OnItemClick(int itemPosition)
         {
             switch (itemPosition)
@@ -117,20 +121,14 @@ namespace Softjourn.SJCoins.Core.UI.Presenters
                 case 1:
                     NavigationService.NavigateTo(NavigationPage.Reports);
                     return;
-                //case 2:
-                //    NavigationService.NavigateTo(NavigationPage.PrivacyTerms);
-                //    return;
-                //case 3:
-                //    NavigationService.NavigateTo(NavigationPage.Help);
-                //    return;
                 case 2:
                     ShowDialogForChoosingQrStrategy();
                     return;
                 case 3:
-                    NavigationService.NavigateTo(NavigationPage.SelectMachine);
+                    LogOut();
                     return;
                 case 4:
-                    LogOut();
+                    NavigationService.NavigateTo(NavigationPage.SelectMachine);
                     return;
             }
         }
@@ -141,14 +139,13 @@ namespace Softjourn.SJCoins.Core.UI.Presenters
         /// photo path after capturing and actually byte array
         /// </summary>
         /// <param name="image">byte array of image</param>
-        public void StoreAvatarOnServer(byte[] image)
-        {
-            SetAvatarImage(image);
-        }
+        public void StoreAvatarOnServer(byte[] image) => SetAvatarImage(image);
 
         #region Private Methods
 
-        //Create List for Dialog of choosing QR strategies and make Actions from methods
+        /// <summary>
+        /// Create List for Dialog of choosing QR strategies and make Actions from methods
+        /// </summary>
         private void ShowDialogForChoosingQrStrategy()
         {
             var items = new List<string>
@@ -160,21 +157,20 @@ namespace Softjourn.SJCoins.Core.UI.Presenters
             var goToScanningQrAction = new Action(GoToScanningQr);
             var goToGeneratingQrAction = new Action(GoToGeneratingQr);
 
-            AlertService.ShowQrSelectorDialog(items, goToScanningQrAction, goToGeneratingQrAction);
+            AlertService.ShowQrSelectorDialog(items,
+                goToScanningQrAction, goToGeneratingQrAction);
         }
 
-        private void GoToScanningQr()
-        {
+        private void GoToScanningQr() =>
             NavigationService.NavigateTo(NavigationPage.ShareFuns, Constant.QrScreenScanningTag);
-        }
 
-        private void GoToGeneratingQr()
-        {
+        private void GoToGeneratingQr() =>
             NavigationService.NavigateTo(NavigationPage.ShareFuns, Constant.QrScreenGeneratingTag);
-        }
 
-        //If internet is connected clear user's data
-        //call revoke token and navigate to LoginPage
+        /// <summary>
+        /// If internet is connected clear user's data
+        /// call revoke token and navigate to LoginPage
+        /// </summary>
         private async void LogOut()
         {
             if (NetworkUtils.IsConnected)
@@ -184,16 +180,20 @@ namespace Softjourn.SJCoins.Core.UI.Presenters
                 try
                 {
                     await RestApiService.RevokeTokenAsync();
+
                     DataManager.Profile = null;
                     DataManager.Avatar = null;
+
                     Settings.ClearUserData();
+
                     NavigationService.NavigateToAsRoot(NavigationPage.Login);
                 }
                 catch (ApiNotAuthorizedException)
                 {
-                    //AlertService.ShowToastMessage(ex.Message);
                     DataManager.Profile = null;
+
                     Settings.ClearUserData();
+
                     NavigationService.NavigateToAsRoot(NavigationPage.Login);
                 }
                 catch (Exception ex)
@@ -207,14 +207,15 @@ namespace Softjourn.SJCoins.Core.UI.Presenters
             }
         }
 
-        //Gets photo from Camera
-        //For IOS use
+        /// <summary>
+        /// Gets photo from Camera
+        /// For IOS use
+        /// </summary>
         private async void GetPhotoFromCamera()
         {
             try
             {
                 var photo = await PhotoManager.GetImageFromCameraAsync();
-
                 if (photo != null)
                     View.ImageAcquiredPlugin(photo);
             }
@@ -224,14 +225,15 @@ namespace Softjourn.SJCoins.Core.UI.Presenters
             }
         }
 
-        //Gets photo from Gallery
-        //For IOS use
+        /// <summary>
+        /// Gets photo from Gallery
+        /// For IOS use
+        /// </summary>
         private async void GetPhotoFromGallery()
         {
             try
             {
                 var photo = await PhotoManager.GetImageFromGalleryAsync();
-
                 if (photo != null)
                     View.ImageAcquiredPlugin(photo);
             }
@@ -241,8 +243,10 @@ namespace Softjourn.SJCoins.Core.UI.Presenters
             }
         }
 
-        //Gets photo path from Camera
-        //For Android use
+        /// <summary>
+        /// Gets photo path from Camera
+        /// For Android use
+        /// </summary>
         private async void GetPhotoPathFromCamera()
         {
             try
@@ -257,14 +261,15 @@ namespace Softjourn.SJCoins.Core.UI.Presenters
             }
         }
 
-        //Gets photo from Gallery
-        //For Android use
+        /// <summary>
+        /// Gets photo from Gallery
+        /// For Android use
+        /// </summary>
         private async void GetPhotoPathFromGallery()
         {
             try
             {
                 var photo = await PhotoManager.GetImagePathFromGalleryAsync();
-
                 if (photo != null)
                     View.ImageAcquired(photo);
             }
@@ -281,13 +286,17 @@ namespace Softjourn.SJCoins.Core.UI.Presenters
                 try
                 {
                     await RestApiService.SetAvatarImage(image);
+
                     DataManager.Profile = await RestApiService.GetUserAccountAsync();
                     DataManager.Avatar = image;
-                    AlertService.ShowMessageWithUserInteraction(string.Empty, "Image was stored on server", string.Empty, null);
+
+                    AlertService.ShowMessageWithUserInteraction(string.Empty,
+                        "Image was stored on server", string.Empty, null);
                 }
                 catch (ApiBadRequestException)
                 {
-                    AlertService.ShowMessageWithUserInteraction("Server Error", string.Empty, Resources.UiMessageResources.btn_title_ok, null);
+                    AlertService.ShowMessageWithUserInteraction("Server Error", string.Empty,
+                        Resources.UiMessageResources.btn_title_ok, null);
                 }
                 catch (Exception ex)
                 {

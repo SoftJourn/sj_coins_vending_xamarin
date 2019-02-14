@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using Foundation;
+using Softjourn.SJCoins.Core.Common;
 using Softjourn.SJCoins.Core.Models.Products;
 using Softjourn.SJCoins.iOS.UI.Cells;
 using UIKit;
@@ -9,8 +10,6 @@ namespace Softjourn.SJCoins.iOS.UI.Sources.DetailPage
 {
     public class DetailTableViewSource : UITableViewSource
     {
-        //public event EventHandler DidScroll;
-
         private const int oneCell = 1;
         private const int descriptionSection = 0;
         private const int nutritionSection = 1;
@@ -22,10 +21,8 @@ namespace Softjourn.SJCoins.iOS.UI.Sources.DetailPage
         {
             this.product = product;
 
-            if (string.IsNullOrEmpty(product.Description) && product.NutritionFacts.Count == 0)
-            {
-                numberOfSections = 0;
-            }
+            if (string.IsNullOrEmpty(product.Description) && !product.NutritionFacts.Any())
+                numberOfSections = Constant.Zero;
         }
 
         public override nint NumberOfSections(UITableView tableView) => numberOfSections;
@@ -37,7 +34,9 @@ namespace Softjourn.SJCoins.iOS.UI.Sources.DetailPage
                 case descriptionSection:
                     return "Descriptions";
                 case nutritionSection:
-                    return product.NutritionFacts.Count > 0 ? "Nutrition Facts" : string.Empty;
+                    return product.NutritionFacts.Any()
+                        ? "Nutrition Facts"
+                        : string.Empty;
                 default:
                     return string.Empty;
             }
@@ -52,7 +51,7 @@ namespace Softjourn.SJCoins.iOS.UI.Sources.DetailPage
                 case nutritionSection:
                     return product.NutritionFacts.Count;
                 default:
-                    return 0;
+                    return Constant.Zero;
             }
         }
 
@@ -61,7 +60,7 @@ namespace Softjourn.SJCoins.iOS.UI.Sources.DetailPage
             switch (indexPath.Section)
             {
                 case descriptionSection:
-                    var descriptionCell = (DescriptionCell)tableView.DequeueReusableCell(DescriptionCell.Key, indexPath); ;
+                    var descriptionCell = (DescriptionCell)tableView.DequeueReusableCell(DescriptionCell.Key, indexPath);
                     descriptionCell.ConfigureWith(product.Description);
                     return descriptionCell;
                 case nutritionSection:
@@ -86,14 +85,6 @@ namespace Softjourn.SJCoins.iOS.UI.Sources.DetailPage
             }
         }
 
-        public override nfloat GetHeightForHeader(UITableView tableView, nint section)
-        {
-            return 70f;
-        }
-
-        //public override void Scrolled(UIScrollView scrollView)
-        //{
-        //    DidScroll?.Invoke(this, null);
-        //}
+        public override nfloat GetHeightForHeader(UITableView tableView, nint section) => 70f;
     }
 }

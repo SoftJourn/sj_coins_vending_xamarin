@@ -32,10 +32,8 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.AccountPage
 
 		public void SetInitialParameter(object initialParameter)
 		{
-			if (initialParameter is string)
-			{
-				this.InitialParameter = (string)initialParameter;
-			}
+			if (initialParameter is string parameter)
+				InitialParameter = parameter;
 		}
 
 		#region Controller Life cycle
@@ -49,7 +47,6 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.AccountPage
         public override void ViewDidDisappear(bool animated)
         {
             base.ViewDidDisappear(animated);
-			//GenerateButton.Enabled = true;
 			GenerateButton.Hidden = false;
             BalanceLabel.Hidden = false;
             CoinLogo.Hidden = false;
@@ -65,6 +62,7 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.AccountPage
 			AmountTexfield.EditingChanged += AmountTextFieldChanged;
 			GenerateButton.TouchUpInside += GenerateButtonClickHandler;
 			DoneButton.Clicked += DoneButtonClickHandler;
+			
 			// Add tap gesture to QRCode image
 			qrcodeImageTap = new UITapGestureRecognizer(QRCodeImageTapHandler);
 			QRCodeImage.AddGestureRecognizer(qrcodeImageTap);
@@ -115,7 +113,7 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.AccountPage
 
 		private void ConfigurePageWith(string parameter)
 		{
-			BalanceLabel.Text = "Your balance is " + Presenter.GetBalance();
+			BalanceLabel.Text = $"Your balance is {Presenter.GetBalance()}";
 			ErrorLabel.Hidden = true;
 			QRCodeImage.Hidden = true;
 
@@ -156,8 +154,10 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.AccountPage
 			try
 			{
 				await Presenter.CheckPermission();
+
 				scanner = new MobileBarcodeScanner(this);
-				var result = await scanner.Scan();
+
+                var result = await scanner.Scan();
 				if (result != null)
 				{
 					var cashObject = new QRCodeHelper().ConvertScanResult(result);
@@ -219,18 +219,11 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.AccountPage
 			}
 		}
 
-		private void DoneButtonClickHandler(object sender, EventArgs e)
-		{
-			// Handle clicking on the Done button
-			DismissViewController(true, completionHandler: null);
-		}
+        private void DoneButtonClickHandler(object sender, EventArgs e) =>
+            DismissViewController(true, completionHandler: null); // Handle clicking on the Done button
 
-		private void QRCodeImageTapHandler(UITapGestureRecognizer gestureRecognizer)
-		{
-			// Handle tapping on the QRCode image
-			PresentSharedSheet();
-		}
+        private void QRCodeImageTapHandler(UITapGestureRecognizer gestureRecognizer) => PresentSharedSheet(); // Handle tapping on the QRCode image
 
-		#endregion
-	}
+        #endregion
+    }
 }

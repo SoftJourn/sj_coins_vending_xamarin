@@ -9,7 +9,7 @@ namespace Softjourn.SJCoins.iOS.UI.Sources.AccountPage
 {
     public class PurchaseViewSource : UITableViewSource
     {
-        private readonly List<History> items = new List<History>();
+        private readonly List<History> items;
 
         public PurchaseViewSource(List<History> items)
         {

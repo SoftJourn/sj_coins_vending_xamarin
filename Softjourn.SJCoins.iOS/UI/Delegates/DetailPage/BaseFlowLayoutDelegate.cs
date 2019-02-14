@@ -13,15 +13,11 @@ namespace Softjourn.SJCoins.iOS.UI.Delegates.DetailPage
 
         public List<string> Images { get; set; } = new List<string>();
 
-        public override CGSize GetSizeForItem(UICollectionView collectionView, UICollectionViewLayout layout, Foundation.NSIndexPath indexPath)
-        {
-            return new CGSize(collectionView.Bounds.Width, collectionView.Bounds.Height);
-        }
+        public override CGSize GetSizeForItem(UICollectionView collectionView, UICollectionViewLayout layout,
+            Foundation.NSIndexPath indexPath) => new CGSize(collectionView.Bounds.Width, collectionView.Bounds.Height);
 
-        public override void ItemSelected(UICollectionView collectionView, Foundation.NSIndexPath indexPath)
-        {
+        public override void ItemSelected(UICollectionView collectionView, Foundation.NSIndexPath indexPath) =>
             SelectedItem?.Invoke(this, Images[indexPath.Row]);
-        }
 
         public override void DecelerationEnded(UIScrollView scrollView)
         {

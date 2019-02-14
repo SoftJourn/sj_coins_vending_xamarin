@@ -44,15 +44,12 @@ namespace Softjourn.SJCoins.Droid.UI.Activities
             ViewPresenter.OnStartLoadingPage();
         }
 
-        public override bool OnCreateOptionsMenu(IMenu menu)
-        {
-            return false;
-        }
+        public override bool OnCreateOptionsMenu(IMenu menu) => false;
 
         public override bool OnOptionsItemSelected(IMenuItem item)
         {
             if (item.ItemId == Android.Resource.Id.Home)
-                this.OnBackPressed();
+                OnBackPressed();
 
             return base.OnOptionsItemSelected(item);
         }

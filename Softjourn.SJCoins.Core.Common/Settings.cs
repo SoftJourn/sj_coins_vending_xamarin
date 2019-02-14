@@ -14,9 +14,6 @@ namespace Softjourn.SJCoins.Core.Common
 
         #region Setting Constants
 
-        private const string SettingsKey = "settings_key";
-        private static readonly string SettingsDefault = string.Empty;
-
         private const string IsFirstLaunch = "is_first_launch";
         private static readonly bool IsFirstLaunchDefault = true;
 
@@ -28,16 +25,11 @@ namespace Softjourn.SJCoins.Core.Common
 
         private const string SelectedMachineIdKey = "selected_machine_id_key";
         private static readonly string SelectedMachineIdDefault = null;
+
         private const string SelectedMachineNameKey = "selected_machine_name_key";
         private static readonly string SelectedMachineNameDefault = null;
 
         #endregion
-
-        public static string GeneralSettings
-        {
-            get => AppSettings.GetValueOrDefault(SettingsKey, SettingsDefault);
-            set => AppSettings.AddOrUpdateValue(SettingsKey, value);
-        }
 
         public static bool FirstLaunch
         {

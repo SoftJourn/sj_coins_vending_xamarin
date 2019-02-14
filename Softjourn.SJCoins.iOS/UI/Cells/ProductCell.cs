@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using Foundation;
 using SDWebImage;
 using Softjourn.SJCoins.Core.Models.Products;
@@ -18,9 +19,9 @@ namespace Softjourn.SJCoins.iOS.UI.Cells
         }
 
         public event EventHandler<Product> FavoriteClicked;
-		public event EventHandler<Product> BuyClicked;
+        public event EventHandler<Product> BuyClicked;
 
-		public bool Favorite { get; set; } = false;
+        public bool Favorite { get; set; } = false;
         public Product Product { get; set; }
 
         protected ProductCell(IntPtr handle) : base(handle)
@@ -48,8 +49,8 @@ namespace Softjourn.SJCoins.iOS.UI.Cells
             FavoriteButton.TouchUpInside += FavoriteButtonClicked;
 
             BuyButton.TouchUpInside -= BuyButtonClicked;
-			BuyButton.TouchUpInside += BuyButtonClicked;
-		}
+            BuyButton.TouchUpInside += BuyButtonClicked;
+        }
 
         public void MarkFavorites(Product product)
         {
@@ -67,8 +68,8 @@ namespace Softjourn.SJCoins.iOS.UI.Cells
             LogoImage.Image = null;
             // Detach event
             FavoriteButton.TouchUpInside -= FavoriteButtonClicked;
-			BuyButton.TouchUpInside -= BuyButtonClicked;
-			base.PrepareForReuse();
+            BuyButton.TouchUpInside -= BuyButtonClicked;
+            base.PrepareForReuse();
         }
 
         #region Private methods
@@ -80,37 +81,31 @@ namespace Softjourn.SJCoins.iOS.UI.Cells
             LogoImage.Layer.BorderColor = UIColorConstants.ProductImageBorderColor.CGColor;
         }
 
-		private void ConfigureFavoriteImage(bool isFavorite)
-		{
-			if (isFavorite)
+        private void ConfigureFavoriteImage(bool isFavorite)
+        {
+            if (isFavorite)
                 FavoriteButton.SetImage(UIImage.FromBundle(ImageConstants.HeartFilled), forState: UIControlState.Normal);
-			else
-				FavoriteButton.SetImage(UIImage.FromBundle(ImageConstants.Heart), forState: UIControlState.Normal);
-		}
+            else
+                FavoriteButton.SetImage(UIImage.FromBundle(ImageConstants.Heart), forState: UIControlState.Normal);
+        }
 
-		private void ConfigureDescript(Product product)
-		{
+        private void ConfigureDescript(Product product)
+        {
             var descriptString = string.Empty;
 
             if (!string.IsNullOrEmpty(product.Description))
                 descriptString = "Description";
-            
-            if (product.NutritionFacts.Count > 0)
+
+            if (product.NutritionFacts.Any())
                 descriptString = descriptString + ", Nutrition Facts";
 
             DescriptLabel.Text = descriptString;
-		}
-
-		#endregion
-
-		private void FavoriteButtonClicked(object sender, EventArgs e)
-        {
-            FavoriteClicked?.Invoke(this, Product);
         }
 
-		private void BuyButtonClicked(object sender, EventArgs e)
-		{
-            BuyClicked?.Invoke(this, Product);
-		}
+        #endregion
+
+        private void FavoriteButtonClicked(object sender, EventArgs e) => FavoriteClicked?.Invoke(this, Product);
+
+        private void BuyButtonClicked(object sender, EventArgs e) => BuyClicked?.Invoke(this, Product);
     }
 }

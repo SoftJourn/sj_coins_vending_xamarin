@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using Softjourn.SJCoins.Core.Common;
-using Softjourn.SJCoins.Core.Common.Utils;
 using Softjourn.SJCoins.Core.Models.AccountInfo;
 using Softjourn.SJCoins.Core.Models.Products;
 
@@ -94,7 +93,7 @@ namespace Softjourn.SJCoins.Core.Managers
                 }
                 else
                 {
-                    // Change IsProductFavorite flag in this product if it exist in anothere categories
+                    // Change IsProductFavorite flag in this product if it exist in another categories
                     foreach (var currentProduct in category.Products)
                     {
                         if (currentProduct.Id == product.Id)
@@ -107,11 +106,9 @@ namespace Softjourn.SJCoins.Core.Managers
             }
 
             // If deleted product was last item in list remove Favorites category
-            if (ProductList[0].Products.Count == 0)
-            {
+            if (!ProductList[0].Products.Any())
                 // Remove Favorites category
                 ProductList.RemoveAt(0);
-            }
         }
 
         /// <summary>
@@ -122,13 +119,9 @@ namespace Softjourn.SJCoins.Core.Managers
         public Product ChangeProductsFavoriteStatus(Product product)
         {
             if (product.IsProductFavorite)
-            {
                 RemoveProductFromFavorite(product);
-            }
             else
-            {
                 AddProductToFavorite(product);
-            }
 
             return GetProductFromListById(product.Id);
         }
@@ -138,10 +131,8 @@ namespace Softjourn.SJCoins.Core.Managers
         /// </summary>
         /// <param name="productId">Id of product</param>
         /// <returns>First founded Product with given ID</returns>
-        public Product GetProductFromListById(int productId)
-        {
-            return ProductList.SelectMany(category => category.Products).FirstOrDefault(product => product.Id == productId);
-        }
+        public Product GetProductFromListById(int productId) => ProductList.SelectMany(category => category.Products)
+            .FirstOrDefault(product => product.Id == productId);
 
         /// <summary>
         /// Returns List of Products
@@ -153,9 +144,7 @@ namespace Softjourn.SJCoins.Core.Managers
             foreach (var category in ProductList)
             {
                 if (categoryInput == category.Name)
-                {
                     return category.Products;
-                }
             }
 
             return new List<Product>();
@@ -207,7 +196,7 @@ namespace Softjourn.SJCoins.Core.Managers
         }
 
         /// <summary>
-        /// Change NutritionFacts Dicitionary to have elements in correct order
+        /// Change NutritionFacts Dictionary to have elements in correct order
         /// Correct Order is set in _facts var.
         /// If there is no needed fact in Dictionary then fact not adds to
         /// result dictionary.

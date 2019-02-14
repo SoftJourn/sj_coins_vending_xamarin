@@ -22,10 +22,7 @@ namespace Softjourn.SJCoins.Droid.UI.Adapters
             _layoutInflater = _context.GetSystemService(Context.LayoutInflaterService) as LayoutInflater;
         }
 
-        public override bool IsViewFromObject(View view, Java.Lang.Object obj)
-        {
-            return view == ((LinearLayout)obj);
-        }
+        public override bool IsViewFromObject(View view, Java.Lang.Object obj) => view == (LinearLayout)obj;
 
         public override Java.Lang.Object InstantiateItem(ViewGroup container, int position)
         {

@@ -57,25 +57,13 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.AccountPage
             ShowScreenAnimated(true);
         }
 
-        public void ShowEmptyView()
-        {
-            ShowScreenAnimated(false);
-        }
+        public void ShowEmptyView() => ShowScreenAnimated(false);
 
-        public void AddItemsToExistedList(List<Transaction> transactionsList)
-        {
-            tableSource.AddItems(transactionsList, TableView);
-        }
+        public void AddItemsToExistedList(List<Transaction> transactionsList) => tableSource.AddItems(transactionsList, TableView);
 
-        public void SetCompoundDrawableInput(bool? isAsc)
-        {
-            SetCompoundDrawableSegment(isAsc, InputTitle, InputSegment);
-        }
+        public void SetCompoundDrawableInput(bool? isAsc) => SetCompoundDrawableSegment(isAsc, InputTitle, InputSegment);
 
-        public void SetCompoundDrawableOutput(bool? isAsc)
-        {
-            SetCompoundDrawableSegment(isAsc, OutputTitle, OutputSegment);
-        }
+        public void SetCompoundDrawableOutput(bool? isAsc) => SetCompoundDrawableSegment(isAsc, OutputTitle, OutputSegment);
 
         #endregion
 
@@ -99,15 +87,9 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.AccountPage
             base.DetachEvents();
         }
 
-        public override void ShowProgress(string message)
-        {
-            UIApplication.SharedApplication.NetworkActivityIndicatorVisible = true;
-        }
+        public override void ShowProgress(string message) => UIApplication.SharedApplication.NetworkActivityIndicatorVisible = true;
 
-        public override void HideProgress()
-        {
-            UIApplication.SharedApplication.NetworkActivityIndicatorVisible = false;
-        }
+        public override void HideProgress() => UIApplication.SharedApplication.NetworkActivityIndicatorVisible = false;
 
         #endregion
 
@@ -133,10 +115,7 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.AccountPage
             ConfigureSegment(InputTitle, InputSegment, ImageConstants.ArrowUpward);
         }
 
-        private void ReloadTable()
-        {
-            TableView.ReloadSections(new NSIndexSet(0), UITableViewRowAnimation.Fade);
-        }
+        private void ReloadTable() => TableView.ReloadSections(new NSIndexSet(0), UITableViewRowAnimation.Fade);
 
         private void SetCompoundDrawableSegment(bool? isAsc, string title, int segment)
         {
@@ -209,35 +188,23 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.AccountPage
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        public void DateAmountSegmentControl_AnotherButtonClicked(object sender, EventArgs e)
-        {
-            SortBy(SegmentControls.DateAmount);
-        }
+        public void DateAmountSegmentControl_AnotherButtonClicked(object sender, EventArgs e) => SortBy(SegmentControls.DateAmount);
 
         /// <summary>
         /// InputOutputSegmentControl methods 
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        public void InputOutputSegmentControl_SameButtonClicked(object sender, EventArgs e)
-        {
-            SortBy(SegmentControls.InputOutput);
-        }
+        public void InputOutputSegmentControl_SameButtonClicked(object sender, EventArgs e) => SortBy(SegmentControls.InputOutput);
 
-        public void InputOutputSegmentControl_AnotherButtonClicked(object sender, EventArgs e)
-        {
-            SortBy(SegmentControls.InputOutput);
-        }
+        public void InputOutputSegmentControl_AnotherButtonClicked(object sender, EventArgs e) => SortBy(SegmentControls.InputOutput);
 
         /// <summary>
         /// TableSource methods 
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        public void TableSource_GetNextPageExecuted(object sender, EventArgs e)
-        {
-            Presenter.GetNextPage();
-        }
+        public void TableSource_GetNextPageExecuted(object sender, EventArgs e) => Presenter.GetNextPage();
 
         #endregion
 

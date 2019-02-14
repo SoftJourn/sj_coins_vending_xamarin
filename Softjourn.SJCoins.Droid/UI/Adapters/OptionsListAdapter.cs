@@ -30,7 +30,6 @@ namespace Softjourn.SJCoins.Droid.UI.Adapters
             var iconPath = _context.Resources.GetIdentifier(accountOption.OptionIconName, "drawable",
                 _context.PackageName);
 
-
             var viewHolder = new ViewHolder();
             var inflater = LayoutInflater.From(_context);
 

@@ -23,9 +23,9 @@ namespace Softjourn.SJCoins.iOS.General.Helper
 			var font = UIFont.SystemFontOfSize(defaultFontSize);
 
 			var nsString = new NSString(title);
-			var attribs = new UIStringAttributes { Font = font };
+			var attributes = new UIStringAttributes { Font = font };
 
-			var expectedTextSize = nsString.GetSizeUsingAttributes(attribs);
+			var expectedTextSize = nsString.GetSizeUsingAttributes(attributes);
 
 			var width = expectedTextSize.Width + image.Size.Width + distanceBetweenElements;
 			var height = (nfloat)Math.Max(expectedTextSize.Height, image.Size.Width);

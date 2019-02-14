@@ -12,7 +12,6 @@ using Java.Lang;
 using Softjourn.SJCoins.Core.Common;
 using Softjourn.SJCoins.Core.Models.Products;
 using Softjourn.SJCoins.Droid.utils;
-using Softjourn.SJCoins.Droid.Utils;
 using Square.Picasso;
 using Exception = Java.Lang.Exception;
 using Object = Java.Lang.Object;
@@ -37,42 +36,41 @@ namespace Softjourn.SJCoins.Droid.UI.Adapters
         public List<Product> ListProducts = new List<Product>();
         public List<Product> Original = new List<Product>();
 
-        public override int ItemCount => ListProducts?.Count ?? 0;
+        public override int ItemCount => ListProducts?.Count ?? Constant.Zero;
 
         public FeaturedProductItemsAdapter(string featureCategory, string recyclerViewType, Context context)
         {
             _context = context;
             Filter = new SearchFilter(this);
-
             _category = featureCategory ?? string.Empty;
-
             _recyclerViewType = recyclerViewType ?? Constant.DefaultRecyclerView;
-            _coins = " " + _context.GetString(Resource.String.item_coins);
+            _coins = $" {_context.GetString(Resource.String.item_coins)}";
         }
 
         #region Standart Adapters Methods
 
         public override RecyclerView.ViewHolder OnCreateViewHolder(ViewGroup parent, int viewType)
         {
-            View v;
+            View view;
+
             //Attach needed item according to recyclerViewType
             switch (_recyclerViewType)
             {
                 case "DEFAULT":
-                    v = LayoutInflater.From(parent.Context)
+                    view = LayoutInflater.From(parent.Context)
                         .Inflate(Resource.Layout.recycler_machine_view_item, parent, false);
                     break;
                 case "SEE_ALL_SNACKS_DRINKS":
-                    v = LayoutInflater.From(parent.Context)
+                    view = LayoutInflater.From(parent.Context)
                         .Inflate(Resource.Layout.recycler_see_all_item, parent, false);
                     break;
                 default:
-                    v = LayoutInflater.From(parent.Context)
+                    view = LayoutInflater.From(parent.Context)
                         .Inflate(Resource.Layout.recycler_machine_view_item, parent, false);
                     break;
             }
 
-            return new FeatureViewHolder(v);
+            return new FeatureViewHolder(view);
         }
 
         public override void OnBindViewHolder(RecyclerView.ViewHolder viewHolder, int position)
@@ -86,12 +84,10 @@ namespace Softjourn.SJCoins.Droid.UI.Adapters
 
             //Setting Description of Product
             if (holder.ProductDescription != null)
-            {
                 holder.ProductDescription.Text = product.Description;
-            }
 
             /**
-             * Registartion OnClick and OnLongClick events
+             * Registration OnClick and OnLongClick events
              * for Horizontal RecyclerView
              */
             if (holder.ParentView != null)
@@ -100,10 +96,10 @@ namespace Softjourn.SJCoins.Droid.UI.Adapters
                 holder.Click += OnClickClicked;
                 holder.LongClick -= OnLongClick;
                 holder.LongClick += OnLongClick;
-
             }
+
             /**
-             * Registartion OnClick and OnLongClick events
+             * Registration OnClick and OnLongClick events
              * for Vertical RecyclerView
              */
             if (holder.ParentViewSeeAll != null)
@@ -120,30 +116,30 @@ namespace Softjourn.SJCoins.Droid.UI.Adapters
             if (holder.AddFavorite != null)
             {
                 holder.AddFavorite.Enabled = true;
+
+                if (product.IsProductFavorite)
                 {
-                    if (product.IsProductFavorite)
+                    Picasso.With(_context).Load(Resource.Drawable.ic_favorite_pink).NetworkPolicy(NetworkPolicy.NoCache).Into(holder.AddFavorite);
+                    if (product.IsHeartAnimationRunning && _animatedPosition != null)
                     {
-                        Picasso.With(_context).Load(Resource.Drawable.ic_favorite_pink).NetworkPolicy(NetworkPolicy.NoCache).Into(holder.AddFavorite);
-                        if (product.IsHeartAnimationRunning && _animatedPosition != null)
-                        {
-                            FinishAnimation(holder);
-                            _animatedPosition.Remove(holder.AdapterPosition);
-                        }
+                        FinishAnimation(holder);
+                        _animatedPosition.Remove(holder.AdapterPosition);
                     }
-                    else
+                }
+                else
+                {
+                    Picasso.With(_context).Load(Resource.Drawable.ic_favorite_border).NetworkPolicy(NetworkPolicy.NoCache).Into(holder.AddFavorite);
+                    if (product.IsHeartAnimationRunning && _animatedPosition != null)
                     {
-                        Picasso.With(_context).Load(Resource.Drawable.ic_favorite_border).NetworkPolicy(NetworkPolicy.NoCache).Into(holder.AddFavorite);
-                        if (product.IsHeartAnimationRunning && _animatedPosition != null)
-                        {
-                            FinishAnimation(holder);
-                            _animatedPosition.Remove(holder.AdapterPosition);
-                        }
+                        FinishAnimation(holder);
+                        _animatedPosition.Remove(holder.AdapterPosition);
                     }
                 }
 
                 holder.AddFavoriteClick -= AddFavoriteClick;
                 holder.AddFavoriteClick += AddFavoriteClick;
             }
+
             /**
              * Changing Alpha of image depends on is product present in chosen machine or not
              */
@@ -176,10 +172,7 @@ namespace Softjourn.SJCoins.Droid.UI.Adapters
             NotifyDataSetChanged();
         }
 
-        public void ChangeFavoriteIcon()
-        {
-            NotifyDataSetChanged();
-        }
+        public void ChangeFavoriteIcon() => NotifyDataSetChanged();
 
         public void RemoveFavoriteItem(int productID)
         {
@@ -190,22 +183,24 @@ namespace Softjourn.SJCoins.Droid.UI.Adapters
                     ListProducts.RemoveAt(position);
                     NotifyItemRemoved(position);
                     NotifyItemRangeChanged(position, ItemCount + 1);
+
                     break;
                 }
             }
-            if (ListProducts.Count < 1)
-            {
+
+            if (!ListProducts.Any())
                 LastFavoriteRemoved.Invoke(this, EventArgs.Empty);
-            }
         }
 
         public void StopAnimationIfRunning()
         {
             if (_runningAnimations == null) return;
+
             foreach (var anim in _runningAnimations.Values)
             {
                 anim.End();
             }
+
             _runningAnimations.Clear();
         }
 
@@ -219,12 +214,12 @@ namespace Softjourn.SJCoins.Droid.UI.Adapters
         private void OnLongClick(object sender, EventArgs e)
         {
             if (!(sender is FeatureViewHolder holder))
-            {
                 throw new Exception("Holder is null");
-            }
+
             var selectedIndex = holder.AdapterPosition;
             var handler = ProductDetailsSelected;
             if (handler == null) return;
+
             var selectedProduct = ListProducts[selectedIndex];
             handler(this, selectedProduct);
         }
@@ -235,13 +230,14 @@ namespace Softjourn.SJCoins.Droid.UI.Adapters
         private void OnClickClicked(object sender, EventArgs eventArgs)
         {
             if (!(sender is FeatureViewHolder holder))
-            {
                 throw new Exception("Holder is null");
-            }
+
             var selectedIndex = holder.AdapterPosition;
             if (holder.AdapterPosition < 0) return;
+
             var handler = ProductSelected;
             if (handler == null) return;
+
             var selectedProduct = ListProducts[selectedIndex];
             handler(this, selectedProduct);
         }
@@ -252,9 +248,8 @@ namespace Softjourn.SJCoins.Droid.UI.Adapters
         private void AddFavoriteClick(object sender, EventArgs e)
         {
             if (!(sender is FeatureViewHolder holder))
-            {
                 throw new Exception("Holder is null");
-            }
+
             var product = ListProducts[holder.AdapterPosition];
             if (!product.IsProductFavorite)
             {
@@ -273,9 +268,7 @@ namespace Softjourn.SJCoins.Droid.UI.Adapters
                     NotifyItemRemoved(holder.AdapterPosition);
                     NotifyItemRangeChanged(holder.AdapterPosition, ItemCount + 1);
                     if (ItemCount < 1)
-                    {
                         LastFavoriteRemoved?.Invoke(this, EventArgs.Empty);
-                    }
                 }
                 else
                 {
@@ -299,15 +292,13 @@ namespace Softjourn.SJCoins.Droid.UI.Adapters
             animatorSet.Start();
 
             if (_animatedPosition == null)
-            {
                 _animatedPosition = new List<int>();
-            }
+
             _animatedPosition.Add(holder.AdapterPosition);
 
             if (_runningAnimations == null)
-            {
                 _runningAnimations = new Dictionary<int, AnimatorSet>();
-            }
+
             _runningAnimations.Add(holder.AdapterPosition, animatorSet);
             ListProducts[holder.AdapterPosition].IsHeartAnimationRunning = true;
         }
@@ -360,15 +351,19 @@ namespace Softjourn.SJCoins.Droid.UI.Adapters
         {
             var oReturn = new FilterResults();
             var results = new List<Product>();
+
             if (_adapter.Original == null || _adapter.Original.Count <= 0)
                 _adapter.Original = _adapter.ListProducts;
+
             if (constraint == null) return oReturn;
+
             if (_adapter.Original != null && _adapter.Original.Count > 0)
             {
                 results.AddRange(_adapter.Original.Where(g => g.Name.ToLower().Contains(constraint.ToString())));
                 oReturn.Values = FromArray(results.Select(r => r.ToJavaObject()).ToArray());
                 oReturn.Count = results.Count;
             }
+
             constraint.Dispose();
 
             return oReturn;
@@ -377,6 +372,7 @@ namespace Softjourn.SJCoins.Droid.UI.Adapters
         protected override void PublishResults(ICharSequence constraint, FilterResults results)
         {
             if (_adapter.ListProducts == null) return;
+
             using (var values = results.Values)
                 _adapter.ListProducts = values.ToArray<Object>()
                     .Select(r => r.ToNetObject<Product>()).ToList();

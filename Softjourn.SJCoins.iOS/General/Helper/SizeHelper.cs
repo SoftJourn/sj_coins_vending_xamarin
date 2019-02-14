@@ -39,19 +39,16 @@ namespace Softjourn.SJCoins.iOS.General.Helper
             return calculatedHeight;
         }
 
-        public static nfloat HorizontalCellWidth()
-        {
-            return Idiom == UIUserInterfaceIdiom.Pad ? RoundingOf(MainBounds.Width / PadWidthCoefficient) : RoundingOf(MainBounds.Width / PhoneWidthCoefficient);
-        }
+        public static nfloat HorizontalCellWidth() => Idiom == UIUserInterfaceIdiom.Pad
+            ? RoundingOf(MainBounds.Width / PadWidthCoefficient)
+            : RoundingOf(MainBounds.Width / PhoneWidthCoefficient);
 
         #endregion
 
         #region Private methods
 
-        private static nfloat RoundingOf(nfloat digit)
-        {
-            return (nfloat)Math.Round((decimal)digit, 0, MidpointRounding.AwayFromZero);
-        }
+        private static nfloat RoundingOf(nfloat digit) =>
+            (nfloat) Math.Round((decimal) digit, 0, MidpointRounding.AwayFromZero);
 
         #endregion
     }

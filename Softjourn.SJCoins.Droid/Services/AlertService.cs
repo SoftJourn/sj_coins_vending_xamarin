@@ -18,15 +18,11 @@ namespace Softjourn.SJCoins.Droid.Services
 {
     public class AlertService : IAlertService
     {
-        public void ShowInformationDialog(string title, string msg, string btnName, Action btnClicked)
-        {
+        public void ShowInformationDialog(string title, string msg, string btnName, Action btnClicked) =>
             CreateAlertDialog(title, msg, btnClicked, btnName);
-        }
 
-        public void ShowConfirmationDialog(string title, string msg, Action btnOkClicked, Action btnCancelClicked)
-        {
+        public void ShowConfirmationDialog(string title, string msg, Action btnOkClicked, Action btnCancelClicked) =>
             CreateAlertDialog(title, msg, btnCancelClicked);
-        }
 
         public void ShowToastMessage(string msg)
         {
@@ -35,10 +31,9 @@ namespace Softjourn.SJCoins.Droid.Services
             {
                 var toast = Toast.MakeText(activity.ApplicationContext, msg, ToastLength.Short);
                 toast.SetGravity(GravityFlags.Center, 0, 0);
+
                 if (toast.View.WindowVisibility != ViewStates.Visible)
-                {
                     toast.Show();
-                }
             });
         }
 
@@ -58,28 +53,30 @@ namespace Softjourn.SJCoins.Droid.Services
             });
         }
 
-        public void ShowPurchaseConfirmationDialod(Product product, Action<Product> onPurchaseProductAction)
-        {
+        public void ShowPurchaseConfirmationDialog(Product product, Action<Product> onPurchaseProductAction) =>
             CreateConfirmationDialog(product, onPurchaseProductAction);
-        }
 
-        /**
-         * Method for prompting user pick Photo From Camera or from Gallery
-         * Using from Profile Screen when clicking on Avatar image
-         */
+        /// <summary>
+        /// Method for prompting user pick Photo From Camera or from Gallery
+        /// Using from Profile Screen when clicking on Avatar image
+        /// </summary>
+        /// <param name="photoSource"></param>
+        /// <param name="fromCamera"></param>
+        /// <param name="fromGallery"></param>
         public void ShowPhotoSelectorDialog(List<string> photoSource, Action fromCamera, Action fromGallery)
         {
             var activity = CrossCurrentActivity.Current.Activity;
-
             var dialog = new Dialog(activity);
             if (!dialog.IsShowing)
             {
                 dialog.Window.RequestFeature(WindowFeatures.NoTitle);
                 dialog.Window.RequestFeature(WindowFeatures.SwipeToDismiss);
                 dialog.SetContentView(Resource.Layout.dialog_select_photo);
+
                 var sourceList = dialog.FindViewById<ListView>(Resource.Id.lv);
                 var adapter = new ArrayAdapter(activity,
                     Android.Resource.Layout.SimpleListItem1, photoSource);
+
                 sourceList.Adapter = adapter;
                 dialog.Show();
 
@@ -102,18 +99,19 @@ namespace Softjourn.SJCoins.Droid.Services
         public void ShowQrSelectorDialog(List<string> optionsList, Action scanCode, Action generateCode)
         {
             var activity = CrossCurrentActivity.Current.Activity;
-
             var dialog = new Dialog(activity);
             if (!dialog.IsShowing)
             {
                 dialog.Window.RequestFeature(WindowFeatures.NoTitle);
                 dialog.Window.RequestFeature(WindowFeatures.SwipeToDismiss);
                 dialog.SetContentView(Resource.Layout.dialog_select_photo);
+
                 var title = dialog.FindViewById<TextView>(Resource.Id.textTitle);
                 title.Text = activity.GetString(Resource.String.chooseOption);
                 var sourceList = dialog.FindViewById<ListView>(Resource.Id.lv);
                 var adapter = new ArrayAdapter(activity,
                     Android.Resource.Layout.SimpleListItem1, optionsList);
+
                 sourceList.Adapter = adapter;
                 dialog.Show();
 
@@ -145,34 +143,35 @@ namespace Softjourn.SJCoins.Droid.Services
                 // set the custom dialog components
                 var text = dialog.FindViewById<TextView>(Resource.Id.text);
                 text.Text = msg;
-
                 var titleText = dialog.FindViewById<TextView>(Resource.Id.textTitle);
                 titleText.Text = title;
-
                 var cancelButton = dialog.FindViewById<Button>(Resource.Id.dialogButtonCancel);
+
                 if (btnName != null)
-                {
                     cancelButton.Text = btnName;
-                }
+
                 cancelButton.Click += (sender, e) =>
                 {
                     btnClicked?.Invoke();
                     dialog.Dismiss();
-
                 };
 
                 if (dialog.IsShowing) return;
+
                 dialog.Show();
             });
         }
 
-        /**
-         * Creates Confirmation Purchase Dialog
-         */
+        /// <summary>
+        /// Creates Confirmation Purchase Dialog
+        /// </summary>
+        /// <param name="product"></param>
+        /// <param name="onPurchaseProductAction"></param>
         private static void CreateConfirmationDialog(Product product, Action<Product> onPurchaseProductAction)
         {
             var context = CrossCurrentActivity.Current.Activity;
             var confirmDialog = new Dialog(context);
+
             confirmDialog.Window.RequestFeature(WindowFeatures.NoTitle);
             confirmDialog.Window.RequestFeature(WindowFeatures.SwipeToDismiss);
             confirmDialog.SetContentView(Resource.Layout.confirm_dialog);
@@ -181,21 +180,14 @@ namespace Softjourn.SJCoins.Droid.Services
             var text = confirmDialog.FindViewById<TextView>(Resource.Id.text);
             text.Text = string.Format(context.GetString(Resource.String.dialog_msg_confirm_buy_product, product.Name, product.IntPrice));
             var image = confirmDialog.FindViewById<ImageView>(Resource.Id.image);
-            Picasso.With(context).Load( $"{Constant.UrlVendingService}/{product.ImageUrl}").Into(image);
+            Picasso.With(context).Load($"{Constant.UrlVendingService}/{product.ImageUrl}").Into(image);
 
             if (!confirmDialog.IsShowing)
-            {
                 confirmDialog.Show();
-            }
+
             var okButton = confirmDialog.FindViewById<Button>(Resource.Id.dialogButtonOK);
-            //if (product.Price > Int64.Parse(Settings.AccessToken))
-            //{
-            //    okButton.SetTextColor(new Color(ContextCompat.GetColor(context, Resource.Color.colorScreenBackground)));
-            //}
-            //else
-            //{
+
             okButton.SetTextColor(new Color(ContextCompat.GetColor(context, Resource.Color.colorBlue)));
-            //}
             okButton.Click += (sender, e) =>
             {
                 onPurchaseProductAction.Invoke(product);
@@ -203,6 +195,7 @@ namespace Softjourn.SJCoins.Droid.Services
             };
 
             var cancelButton = confirmDialog.FindViewById<Button>(Resource.Id.dialogButtonCancel);
+
             cancelButton.Click += (sender, e) =>
             {
                 confirmDialog.Dismiss();
@@ -223,10 +216,7 @@ namespace Softjourn.SJCoins.Droid.Services
                 _action = action;
             }
 
-            public void OnDismiss(IDialogInterface dialog)
-            {
-                _action();
-            }
+            public void OnDismiss(IDialogInterface dialog) => _action();
         }
     }
 }

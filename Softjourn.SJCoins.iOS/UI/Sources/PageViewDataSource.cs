@@ -16,7 +16,9 @@ namespace Softjourn.SJCoins.iOS.UI.Sources
         public override UIViewController GetNextViewController(UIPageViewController pageViewController, UIViewController referenceViewController)
         {
             currentIndex = pages.IndexOf(referenceViewController);
-            var controller = currentIndex == pages.Count - 1 ? null : pages[(currentIndex + 1) % pages.Count];
+            var controller = currentIndex == pages.Count - 1
+                ? null
+                : pages[(currentIndex + 1) % pages.Count];
 
             return controller;
         }

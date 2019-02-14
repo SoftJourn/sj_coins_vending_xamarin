@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Android.App;
 using Android.Content.PM;
 using Android.Graphics;
@@ -45,18 +46,13 @@ namespace Softjourn.SJCoins.Droid.UI.Activities
             SetContentView(Resource.Layout.activity_details);
 
             _product = ViewPresenter.GetProduct(int.Parse(Intent.Extras.Get(ProductId).ToString()));
-
             _images = new List<string>();
 
             //TODO: Need to make loop for adding list of photos when it will be ready on backend
             if (_product.ImageUrls != null)
-            {
                 _images.AddRange(_product.ImagesFullUrls);
-            }
             else
-            {
                 _images.Add(_product.ImageFullUrl);
-            }
 
             _pagerAdapter = new DetailsPagerAdapter(this, _images);
             _dotsLayout = FindViewById<LinearLayout>(Resource.Id.layoutDots);
@@ -72,7 +68,7 @@ namespace Softjourn.SJCoins.Droid.UI.Activities
             };
 
             _productPrice = FindViewById<TextView>(Resource.Id.details_product_price);
-            _productPrice.Text = _product.IntPrice + " coins";
+            _productPrice.Text = $"{_product.IntPrice} coins";
 
             _productDescription = FindViewById<TextView>(Resource.Id.details_product_description);
             _productDescription.Text = _product.Description;
@@ -82,7 +78,8 @@ namespace Softjourn.SJCoins.Droid.UI.Activities
             SupportActionBar.SetDisplayHomeAsUpEnabled(true);
 
             _textViewNoNutritionFacts = FindViewById<TextView>(Resource.Id.textViewNoNutritionFacts);
-            if (_product.NutritionFacts.Count < 1 || _product.NutritionFacts == null)
+
+            if (!_product.NutritionFacts.Any() || _product.NutritionFacts == null)
             {
                 _textViewNoNutritionFacts.Visibility = ViewStates.Visible;
             }
@@ -105,11 +102,15 @@ namespace Softjourn.SJCoins.Droid.UI.Activities
         public override bool OnCreateOptionsMenu(IMenu menu)
         {
             base.OnCreateOptionsMenu(menu);
+
             _menu = menu;
+
             menu.FindItem(Resource.Id.profile).SetVisible(false);
             menu.FindItem(Resource.Id.menu_buy).SetVisible(true);
             menu.FindItem(Resource.Id.menu_add_favorite).SetVisible(true);
+
             ChangeIcon(menu.FindItem(Resource.Id.menu_add_favorite), _product.IsProductFavorite);
+
             return true;
         }
 
@@ -144,16 +145,15 @@ namespace Softjourn.SJCoins.Droid.UI.Activities
             _product.IsProductFavorite = product.IsProductFavorite;
         }
 
-        public void LastUnavailableFavoriteRemoved(Product product)
-        {
-            Finish();
-        }
+        public void LastUnavailableFavoriteRemoved(Product product) => Finish();
 
         #region Private Methods
 
-        /**
-         * Sets Icon of Favorite according to callback from Presenter
-         */
+        /// <summary>
+        /// Sets Icon of Favorite according to callback from Presenter
+        /// </summary>
+        /// <param name="item"></param>
+        /// <param name="isFavorite"></param>
         private static void ChangeIcon(IMenuItem item, bool isFavorite)
         {
             item.SetIcon(isFavorite ? Resource.Drawable.ic_favorite_white_24dp : Resource.Drawable.ic_favorite_border_white);
@@ -170,12 +170,12 @@ namespace Softjourn.SJCoins.Droid.UI.Activities
             _dotsLayout.RemoveAllViews();
             for (var i = 0; i < _dots.Length; i++)
             {
-                _dots[i] = new TextView(this) {Text = Html.FromHtml("&#8226;").ToString(), TextSize = 35};
+                _dots[i] = new TextView(this) { Text = Html.FromHtml("&#8226;").ToString(), TextSize = 35 };
                 _dots[i].SetTextColor(new Color(colorsInactive));
                 _dotsLayout.AddView(_dots[i]);
             }
 
-            if (_dots.Length > 0)
+            if (_dots.Any())
                 _dots[currentPage].SetTextColor(new Color(colorsActive));
         }
 

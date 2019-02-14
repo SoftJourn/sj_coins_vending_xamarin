@@ -18,12 +18,11 @@ namespace Softjourn.SJCoins.iOS.UI.Delegates
             this.pages = pages;
         }
 
-        public override void WillTransition(UIPageViewController pageViewController, UIViewController[] pendingViewControllers)
-        {
-            pendingIndex = pages.IndexOf(pendingViewControllers.First());
-        }
+        public override void WillTransition(UIPageViewController pageViewController,
+            UIViewController[] pendingViewControllers) => pendingIndex = pages.IndexOf(pendingViewControllers.First());
 
-        public override void DidFinishAnimating(UIPageViewController pageViewController, bool finished, UIViewController[] previousViewControllers, bool completed)
+        public override void DidFinishAnimating(UIPageViewController pageViewController, bool finished, 
+            UIViewController[] previousViewControllers, bool completed)
         {
             if (completed)
             {

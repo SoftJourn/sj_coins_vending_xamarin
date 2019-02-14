@@ -11,9 +11,8 @@ namespace Softjourn.SJCoins.iOS
     [Register("AppDelegate")]
     public class AppDelegate : UIApplicationDelegate
     {
-        // class-level declarations
-
         public override UIWindow Window { get; set; }
+
         public UIViewController VisibleViewController { get; set; }
 
         public override bool FinishedLaunching(UIApplication application, NSDictionary launchOptions)
@@ -26,10 +25,7 @@ namespace Softjourn.SJCoins.iOS
             return true;
         }
 
-        private static void InitIoC()
-        {
-            new Bootstraper.Bootstraper().Init();
-        }
+        private static void InitIoC() => new Bootstraper.Bootstraper().Init();
 
         private void InitInitialViewControllerManually()
         {
@@ -49,6 +45,7 @@ namespace Softjourn.SJCoins.iOS
         private static void ConfigureHockeyAppCrashAnalytics()
         {
             var manager = BITHockeyManager.SharedHockeyManager;
+
             manager.Configure("9e94cec1cac44720ba336059aa00f430"); // key from hockeyapp.net
             manager.CrashManager.CrashManagerStatus = BITCrashManagerStatus.AutoSend;
             manager.StartManager();

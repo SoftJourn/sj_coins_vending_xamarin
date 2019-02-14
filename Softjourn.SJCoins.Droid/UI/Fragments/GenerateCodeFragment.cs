@@ -27,24 +27,17 @@ namespace Softjourn.SJCoins.Droid.UI.Fragments
         private Bitmap _bitmap;
         private AlertService _alertService;
 
-        public static GenerateCodeFragment NewInstance()
-        {
-            var fragment = new GenerateCodeFragment();
-
-            return fragment;
-        }
+        public static GenerateCodeFragment NewInstance() => new GenerateCodeFragment();
 
         #region Fragment Methods
 
-        public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
-        {
-            var view = inflater.Inflate(Resource.Layout.fragment_generate_barcode, container, false);
-            return view;
-        }
+        public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) =>
+            inflater.Inflate(Resource.Layout.fragment_generate_barcode, container, false);
 
         public override void OnViewCreated(View view, Bundle savedInstanceState)
         {
             base.OnViewCreated(view, savedInstanceState);
+
             _imageForQrCode = view.FindViewById<ImageView>(Resource.Id.qr_code_image);
             _imageForQrCode.Click += (sender, e) =>
             {
@@ -73,15 +66,21 @@ namespace Softjourn.SJCoins.Droid.UI.Fragments
 
         #region Public methods
 
-        //Sets Error for EditText Field
+        /// <summary>
+        /// Sets Error for EditText Field
+        /// </summary>
+        /// <param name="amount"></param>
         public void ShowEditFieldError(string amount)
         {
             _inputAmount.RequestFocus();
             _inputAmount.SetError(amount, null);
         }
 
-        //Generating of QR code based on the 
-        //string taken from Api call
+        /// <summary>
+        /// Generating of QR code based on the
+        /// string taken from Api call
+        /// </summary>
+        /// <param name="image"></param>
         public void ShowImageCode(string image)
         {
             var barcodeWriter = new ZXing.Mobile.BarcodeWriter
@@ -107,16 +106,19 @@ namespace Softjourn.SJCoins.Droid.UI.Fragments
 
         #region Private Methods
 
-        //Calls Activity method to get string needed for generating of QRCode
-        private void GetQrCode(string amount)
-        {
-            ((QrActivity)Activity).GenerateCode(amount);
-        }
+        /// <summary>
+        /// Calls Activity method to get string needed for generating of QRCode
+        /// </summary>
+        /// <param name="amount"></param>
+        private void GetQrCode(string amount) => ((QrActivity)Activity).GenerateCode(amount);
 
-        //Starts Activity for choosing method of sharing an image of QRCode
+        /// <summary>
+        /// Starts Activity for choosing method of sharing an image of QRCode
+        /// </summary>
         private void ShareCode()
         {
             if (IsShareScreenActive) return;
+
             IsShareScreenActive = true;
             var path = MediaStore.Images.Media.InsertImage(Activity.ContentResolver, _bitmap, "MoneyCode", null);
             var uri = Android.Net.Uri.Parse(path);
@@ -129,15 +131,15 @@ namespace Softjourn.SJCoins.Droid.UI.Fragments
         private void AddImageToGallery(Bitmap bitmap)
         {
             var filePath = Environment.ExternalStorageDirectory.AbsolutePath;
-            var dir = new File(filePath + "/SJCoins/");
+            var dir = new File($"{filePath}/SJCoins/");
             if (!dir.Exists()) dir.Mkdirs();
 
-            var imageFile = System.IO.Path.Combine(dir.Path, "OfflineMoney_" + DateTime.Now.Ticks + ".png");
+            var imageFile = System.IO.Path.Combine(dir.Path, $"OfflineMoney_{DateTime.Now.Ticks}.png");
             var stream = new FileStream(imageFile, FileMode.Create);
             bitmap.Compress(Bitmap.CompressFormat.Png, 100, stream);
             stream.Close();
 
-            _alertService.ShowMessageWithUserInteraction(string.Empty, "QrCode was saved to " + dir.Path, string.Empty, null);
+            _alertService.ShowMessageWithUserInteraction(string.Empty, $"QrCode was saved to {dir.Path}", string.Empty, null);
         }
 
         #endregion

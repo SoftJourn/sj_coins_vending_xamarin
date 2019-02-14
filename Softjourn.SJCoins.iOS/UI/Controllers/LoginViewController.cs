@@ -179,14 +179,13 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers
             new AlertService().ShowConfirmationAlert("Credentials", "Save credentials to fingerprint ?", Ok, cancel);
         }
 
-        private void LogIn()
-        {
-            Presenter.Login(LoginTextField.Text, PasswordTextField.Text);
-        }
+        private void LogIn() => Presenter.Login(LoginTextField.Text, PasswordTextField.Text);
 
-        private bool AnotherCredentialsUsed() => !LoginTextField.Text.Equals(Retreive(LoginKey)) || !PasswordTextField.Text.Equals(Retreive(PasswordKey));
+        private bool AnotherCredentialsUsed() => !LoginTextField.Text.Equals(Retreive(LoginKey)) ||
+                                                 !PasswordTextField.Text.Equals(Retreive(PasswordKey));
 
-        private bool NoStoredCredentials() => string.IsNullOrEmpty(Retreive(LoginKey)) || string.IsNullOrEmpty(Retreive(PasswordKey));
+        private bool NoStoredCredentials() =>
+            string.IsNullOrEmpty(Retreive(LoginKey)) || string.IsNullOrEmpty(Retreive(PasswordKey));
 
         private string Retreive(string key) => keychainHelper.GetKey(key);
 
@@ -233,15 +232,10 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers
         }
 
         // TouchID service
-        private void TouchIDButtonClicked(object sender, EventArgs e)
-        {
-            // If credentials stored ->
-            touchIDService.AuthenticateUser();
-        }
+        private void TouchIDButtonClicked(object sender, EventArgs e) =>
+            touchIDService.AuthenticateUser(); // If credentials stored
 
-        private void TouchIDAccessGranted(object sender, EventArgs e)
-        {
-            // Take credentials from KeyChain and perform login.
+        private void TouchIDAccessGranted(object sender, EventArgs e) =>
             InvokeOnMainThread(() =>
             {
                 var login = Retreive(LoginKey);
@@ -249,18 +243,15 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers
                 LoginTextField.Text = login;
                 PasswordTextField.Text = password;
                 Presenter.Login(login, password);
-            });
-        }
+            }); // Take credentials from KeyChain and perform login.
 
         private void TouchIDAccessDenied(object sender, NSError error)
         {
             if (error.LocalizedDescription.Equals("Canceled by user."))
-            {
                 InvokeOnMainThread(() =>
                 {
                     ShowAnimated(true);
                 });
-            }
         }
 
         #endregion

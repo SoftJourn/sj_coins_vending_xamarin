@@ -1,11 +1,12 @@
-﻿using Softjourn.SJCoins.iOS.UI.Cells;
+﻿using System.Diagnostics;
+using Softjourn.SJCoins.iOS.UI.Cells;
 using UIKit;
 
 namespace Softjourn.SJCoins.iOS.UI.Delegates.DetailPage
 {
     public class DetailCollectionViewFlowLayoutDelegate : BaseFlowLayoutDelegate
     {
-        // Main screen Horizontal CollectionView flowlayout delegate object.
+        // Main screen Horizontal CollectionView flowLayout delegate object.
 
         public override void WillDisplayCell(UICollectionView collectionView, UICollectionViewCell cell, Foundation.NSIndexPath indexPath)
         {
@@ -15,7 +16,7 @@ namespace Softjourn.SJCoins.iOS.UI.Delegates.DetailPage
 
         protected override void Dispose(bool disposing)
         {
-            System.Diagnostics.Debug.WriteLine(string.Format("{0} disposed", this.GetType()));
+            Debug.WriteLine($"{GetType()} disposed");
             base.Dispose(disposing);
         }
     }

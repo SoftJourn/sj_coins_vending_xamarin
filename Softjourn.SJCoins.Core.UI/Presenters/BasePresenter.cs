@@ -5,7 +5,7 @@ using Softjourn.SJCoins.Core.Common.Utils;
 using Softjourn.SJCoins.Core.UI.Bootstrapper;
 using Softjourn.SJCoins.Core.Managers;
 using Softjourn.SJCoins.Core.Managers.Api;
-using Softjourn.SJCoins.Core.UI.Presenters.IPresenters;
+using Softjourn.SJCoins.Core.UI.Presenters.Interfaces;
 using Softjourn.SJCoins.Core.UI.Services.Alert;
 using Softjourn.SJCoins.Core.UI.Services.Navigation;
 using Softjourn.SJCoins.Core.UI.ViewInterfaces;
@@ -77,11 +77,6 @@ namespace Softjourn.SJCoins.Core.UI.Presenters
 
         #endregion
 
-        public void SetNavigationParams(string navigationData)
-        {
-            throw new NotImplementedException();
-        }
-
         public async void GetAvatarImage(string endpoint)
         {
             if (NetworkUtils.IsConnected)
@@ -101,8 +96,10 @@ namespace Softjourn.SJCoins.Core.UI.Presenters
                         }
                     }
                     else
+                    {
                         // Avatar stored
                         image = DataManager.Avatar;
+                    }
 
                     AvatarImageAcquired(image);
                 }

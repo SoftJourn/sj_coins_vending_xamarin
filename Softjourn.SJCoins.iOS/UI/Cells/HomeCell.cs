@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using CoreGraphics;
 using Foundation;
 using Softjourn.SJCoins.Core.Models.Products;
@@ -41,8 +42,8 @@ namespace Softjourn.SJCoins.iOS.UI.Cells
 			NameLabel.Text = categoryName;
 
 			// Configure CollectionView
-			this.collectionSource = new InternalHomeViewSource();
-			this.collectionDelegate = new CollectionViewFlowLayoutDelegate();
+			collectionSource = new InternalHomeViewSource();
+			collectionDelegate = new CollectionViewFlowLayoutDelegate();
 
 			CollectionView.DataSource = collectionSource;
 			CollectionView.Delegate = collectionDelegate;
@@ -65,8 +66,8 @@ namespace Softjourn.SJCoins.iOS.UI.Cells
 			categoryName = null;
 
             DetachEvents();
-            this.collectionSource = null;
-            this.collectionDelegate = null;
+            collectionSource = null;
+            collectionDelegate = null;
 
             ShowAllButton.Hidden = false;
 
@@ -131,7 +132,7 @@ namespace Softjourn.SJCoins.iOS.UI.Cells
 
 		protected override void Dispose(bool disposing)
 		{
-			System.Diagnostics.Debug.WriteLine(string.Format("{0} disposed", this.GetType()));
+			Debug.WriteLine($"{GetType()} disposed");
 			base.Dispose(disposing);
 		}
 	}

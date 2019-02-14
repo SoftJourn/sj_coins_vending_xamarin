@@ -4,13 +4,13 @@ using UIKit;
 
 namespace Softjourn.SJCoins.iOS.UI.Controllers.DetailPage
 {
-    public class DetailViewPresentationController: UIPresentationController // NOT USED !!!!!!!
+    public class DetailViewPresentationController : UIPresentationController // NOT USED !!!!!!!
     {
         private UIView dimmingView;
 
-		public override CGRect FrameOfPresentedViewInContainerView => FrameOfPresentedView();
+        public override CGRect FrameOfPresentedViewInContainerView => FrameOfPresentedView();
 
-		public DetailViewPresentationController(UIViewController presentedViewController, UIViewController presentingViewController) 
+        public DetailViewPresentationController(UIViewController presentedViewController, UIViewController presentingViewController)
             : base(presentedViewController, presentingViewController)
         {
             SetupDimmingView();
@@ -20,29 +20,23 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.DetailPage
         {
             ContainerView?.InsertSubview(dimmingView, 0);
 
-			// TODO //NSConstraints !!!!!!
+            // TODO //NSConstraints !!!!!!
 
-			ChangeDimmingViewAlpha(1.0f);
+            ChangeDimmingViewAlpha(1.0f);
         }
 
-        public override void DismissalTransitionWillBegin()
-        {
-            ChangeDimmingViewAlpha(0.0f);
-        }
+        public override void DismissalTransitionWillBegin() => ChangeDimmingViewAlpha(0.0f);
 
-        public override void ContainerViewWillLayoutSubviews()
-        {
+        public override void ContainerViewWillLayoutSubviews() =>
             PresentedView.Frame = FrameOfPresentedViewInContainerView;
-        }
 
-        public override CGSize GetSizeForChildContentContainer(IUIContentContainer contentContainer, CGSize parentContainerSize)
-        {
-            return new CGSize(parentContainerSize.Width, parentContainerSize.Height * (2.0f / 3.0f));
-        }
+        public override CGSize GetSizeForChildContentContainer(IUIContentContainer contentContainer,
+            CGSize parentContainerSize) =>
+            new CGSize(parentContainerSize.Width, parentContainerSize.Height * (2.0f / 3.0f));
 
-		#region Private methods
+        #region Private methods
 
-		private CGRect FrameOfPresentedView()
+        private CGRect FrameOfPresentedView()
         {
             var presentedFrame = new CGRect
             {
@@ -68,18 +62,18 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.DetailPage
             }
 
             var tapGestureRecognizer = new UITapGestureRecognizer(TapAction) { };
-			dimmingView.AddGestureRecognizer(tapGestureRecognizer);
+            dimmingView.AddGestureRecognizer(tapGestureRecognizer);
         }
 
         private void ChangeDimmingViewAlpha(nfloat alpha)
         {
-			var coordinator = PresentedViewController.GetTransitionCoordinator();
-			if (coordinator != null)
-				coordinator.AnimateAlongsideTransition(_ => { dimmingView.Alpha = alpha; }, null);
-			else
-				dimmingView.Alpha = alpha;
+            var coordinator = PresentedViewController.GetTransitionCoordinator();
+            if (coordinator != null)
+                coordinator.AnimateAlongsideTransition(_ => { dimmingView.Alpha = alpha; }, null);
+            else
+                dimmingView.Alpha = alpha;
         }
 
-		#endregion
-	}
+        #endregion
+    }
 }

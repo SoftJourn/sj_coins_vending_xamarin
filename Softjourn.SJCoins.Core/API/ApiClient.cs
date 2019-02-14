@@ -372,7 +372,7 @@ namespace Softjourn.SJCoins.Core.Managers.Api
             request.AddHeader(Constant.HttpHeader.AuthorizationKey, GetOAuthAuthorizationHeader());
             request.AddQueryParameter("size", transactionRequest.Size);
             request.AddQueryParameter("page", transactionRequest.Page);
-            request.AddQueryParameter("sort",  $"{transactionRequest.Sort[0].Property},{transactionRequest.Sort[0].Direction}");
+            request.AddQueryParameter("sort", $"{transactionRequest.Sort[0].Property},{transactionRequest.Sort[0].Direction}");
             request.AddQueryParameter("direction", transactionRequest.Direction);
 
             try
@@ -437,7 +437,10 @@ namespace Softjourn.SJCoins.Core.Managers.Api
             return default(TResult);
         }
 
-        // get error code from response and generate Exception with needed message
+        /// <summary>
+        /// get error code from response and generate Exception with needed message
+        /// </summary>
+        /// <param name="response"></param>
         private static void ApiErrorHandler(IRestResponse response)
         {
             switch (response.StatusCode)
@@ -488,10 +491,7 @@ namespace Softjourn.SJCoins.Core.Managers.Api
             return apiClient;
         }
 
-        private static string GetOAuthAuthorizationHeader()
-        {
-            return $"Bearer {Settings.AccessToken}";
-        }
+        private static string GetOAuthAuthorizationHeader() => $"Bearer {Settings.AccessToken}";
 
         private static void SaveTokens(Session session)
         {

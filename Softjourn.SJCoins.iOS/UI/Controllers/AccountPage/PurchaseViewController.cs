@@ -9,57 +9,48 @@ using UIKit;
 
 namespace Softjourn.SJCoins.iOS.UI.Controllers.AccountPage
 {
-	[Register("PurchaseViewController")]
-	public partial class PurchaseViewController : BaseViewController<PurchasePresenter>, IPurchaseView
-	{
-		public const string Purchases = "Purchases";
+    [Register("PurchaseViewController")]
+    public partial class PurchaseViewController : BaseViewController<PurchasePresenter>, IPurchaseView
+    {
+        public const string Purchases = "Purchases";
 
-		public PurchaseViewController(IntPtr handle) : base(handle)
-		{
-		}
+        public PurchaseViewController(IntPtr handle) : base(handle)
+        {
+        }
 
-		#region Controller Life cycle
+        #region Controller Life cycle
 
-		public override void ViewDidLoad()
-		{
-			base.ViewDidLoad();
+        public override void ViewDidLoad()
+        {
+            base.ViewDidLoad();
             ConfigurePage();
-			Presenter.OnStartLoadingPage();
-		}
+            Presenter.OnStartLoadingPage();
+        }
 
         #endregion
 
-		#region BaseViewController
+        #region BaseViewController
 
-		public override void ShowProgress(string message)
-		{
-			UIApplication.SharedApplication.NetworkActivityIndicatorVisible = true;
-		}
+        public override void ShowProgress(string message) => UIApplication.SharedApplication.NetworkActivityIndicatorVisible = true;
 
-		public override void HideProgress()
-		{
-			UIApplication.SharedApplication.NetworkActivityIndicatorVisible = false;
-		}
+        public override void HideProgress() => UIApplication.SharedApplication.NetworkActivityIndicatorVisible = false;
 
-		#endregion
+        #endregion
 
-		#region IAccountView implementation
+        #region IAccountView implementation
 
-		public void SetData(List<History> purchaseList)
-		{
+        public void SetData(List<History> purchaseList)
+        {
             TableView.Source = new PurchaseViewSource(purchaseList);
             TableView.ReloadData();
             ShowScreenAnimated(true);
-		}
+        }
 
-		public void ShowEmptyView()
-		{
-            ShowScreenAnimated(false);
-		}
+        public void ShowEmptyView() => ShowScreenAnimated(false);
 
-		#endregion
+        #endregion
 
-		#region Private methods
+        #region Private methods
 
         private void ConfigurePage()
         {
@@ -70,16 +61,16 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.AccountPage
             TableView.Alpha = 0.0f;
         }
 
-		#endregion
+        #endregion
 
-		// Throw TableView to parent
-		protected override UIScrollView GetRefreshableScrollView() => TableView;
+        // Throw TableView to parent
+        protected override UIScrollView GetRefreshableScrollView() => TableView;
 
-		protected override void PullToRefreshTriggered(object sender, EventArgs e)
-		{
-			StopRefreshing();
-			Presenter.OnStartLoadingPage();
-		}
+        protected override void PullToRefreshTriggered(object sender, EventArgs e)
+        {
+            StopRefreshing();
+            Presenter.OnStartLoadingPage();
+        }
 
         protected override void ShowAnimated(bool loadSuccess)
         {
@@ -87,5 +78,5 @@ namespace Softjourn.SJCoins.iOS.UI.Controllers.AccountPage
             NoItemsLabel.Alpha = !loadSuccess ? 1.0f : 0f;
             TableView.Alpha = 1.0f;
         }
-	}
+    }
 }
