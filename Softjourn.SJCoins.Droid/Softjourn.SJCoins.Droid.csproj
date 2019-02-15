@@ -715,10 +715,6 @@
       <Project>{90984270-BD5D-4E9B-962F-1BF21FD3B17D}</Project>
       <Name>Softjourn.SJCoins.Core.UI</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Softjourn.SJCoins.Core\Softjourn.SJCoins.Core.Managers.csproj">
-      <Project>{F7603ECF-B6C8-4543-9235-014A52DBD79B}</Project>
-      <Name>Softjourn.SJCoins.Core.Managers</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
   <Import Project="..\packages\NETStandard.Library.2.0.3\build\netstandard2.0\NETStandard.Library.targets" Condition="Exists('..\packages\NETStandard.Library.2.0.3\build\netstandard2.0\NETStandard.Library.targets')" />
