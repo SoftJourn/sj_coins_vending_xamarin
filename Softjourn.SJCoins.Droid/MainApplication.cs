@@ -5,7 +5,6 @@ using Android.OS;
 using Android.Runtime;
 using Bumptech.Glide;
 using Softjourn.SJCoins.Droid.Bootstrapping;
-using Softjourn.SJCoins.Droid.Utils;
 
 namespace Softjourn.SJCoins.Droid
 {

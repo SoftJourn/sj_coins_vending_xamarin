@@ -9,6 +9,7 @@ using Softjourn.SJCoins.Droid.ui.baseUI;
 using Softjourn.SJCoins.Droid.UI.Fragments;
 using Softjourn.SJCoins.Droid.Utils;
 using ZXing.Mobile;
+using Fragment = AndroidX.Fragment.App.Fragment;
 
 namespace Softjourn.SJCoins.Droid.UI.Activities
 {
@@ -28,9 +29,6 @@ namespace Softjourn.SJCoins.Droid.UI.Activities
 
             _balance = FindViewById<TextView>(Resource.Id.qr_balance);
             
-            //Initializing of ZXing Scanner
-            MobileBarcodeScanner.Initialize(Application);
-
             if (fragmentType == Const.QrScreenScanningTag)
             {
                 AttachFragment(Const.QrScreenScanningTag, ScanningResultFragment.NewInstance());
@@ -74,14 +72,14 @@ namespace Softjourn.SJCoins.Droid.UI.Activities
         //to set Error to EditField
         public void SetEditFieldError(string message)
         {
-            var fragment = FragmentManager.FindFragmentById(Resource.Id.container_fragment) as GenerateCodeFragment;
+            var fragment = SupportFragmentManager.FindFragmentById(Resource.Id.container_fragment) as GenerateCodeFragment;
             fragment?.ShowEditFieldError(message);
         }
 
         //Call method on Fragment to generate QRcode
         public void ShowImage(string cashJsonString)
         {
-            var fragment = FragmentManager.FindFragmentById(Resource.Id.container_fragment) as GenerateCodeFragment;
+            var fragment = SupportFragmentManager.FindFragmentById(Resource.Id.container_fragment) as GenerateCodeFragment;
             fragment?.ShowImageCode(cashJsonString);
         }
         #endregion
@@ -111,7 +109,7 @@ namespace Softjourn.SJCoins.Droid.UI.Activities
         //Attaches needed fragment
         private void AttachFragment(string fragmentTag, Fragment fragment)
         {
-            FragmentManager.BeginTransaction()
+            SupportFragmentManager.BeginTransaction()
                 .Replace(Resource.Id.container_fragment, fragment, fragmentTag)
                 .Commit();
         }

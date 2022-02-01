@@ -8,10 +8,12 @@ using Android.Views;
 using Android.Widget;
 using AndroidX.Core.Content;
 using Bumptech.Glide;
+using Google.Android.Material.Dialog;
 using Google.Android.Material.Snackbar;
 using Softjourn.SJCoins.Core.UI.Services.Alert;
 using Softjourn.SJCoins.Core.API.Model.Products;
 using Softjourn.SJCoins.Droid.Utils;
+using Xamarin.Essentials;
 
 namespace Softjourn.SJCoins.Droid.Services
 {
@@ -29,10 +31,9 @@ namespace Softjourn.SJCoins.Droid.Services
 
         public void ShowToastMessage(string msg)
         {
-            var activity = Xamarin.Essentials.Platform.CurrentActivity;
-            activity.RunOnUiThread(() =>
+            MainThread.BeginInvokeOnMainThread(() =>
             {
-                var toast = Toast.MakeText(activity.ApplicationContext, msg, ToastLength.Short);
+                var toast = Toast.MakeText(Platform.CurrentActivity, msg, ToastLength.Short);
                 if (toast == null)
                     return;
                 toast.Show();
@@ -41,11 +42,10 @@ namespace Softjourn.SJCoins.Droid.Services
 
         public void ShowMessageWithUserInteraction(string title, string msg, string btnName, Action btnClicked)
         {
-            var activity = Xamarin.Essentials.Platform.CurrentActivity;
-            activity.RunOnUiThread(() =>
+            MainThread.BeginInvokeOnMainThread(() =>
             {
                 var snackbar = Snackbar
-                    .Make(activity.FindViewById(Resource.Id.layout_root), msg,
+                    .Make(Platform.AppContext, Platform.CurrentActivity.FindViewById(Resource.Id.layout_root), msg,
                         BaseTransientBottomBar.LengthIndefinite);
                 snackbar.SetAction("Ok", (v) =>
                 {
@@ -66,16 +66,15 @@ namespace Softjourn.SJCoins.Droid.Services
          */
         public void ShowPhotoSelectorDialog(List<string> photoSource, Action fromCamera, Action fromGallery)
         {
-            var activity = Xamarin.Essentials.Platform.CurrentActivity;
-
-            var dialog = new Dialog(activity);
+            
+            var dialog = new Dialog(Platform.AppContext);
             if (!dialog.IsShowing)
             {
                 dialog.Window.RequestFeature(WindowFeatures.NoTitle);
                 dialog.Window.RequestFeature(WindowFeatures.SwipeToDismiss);
                 dialog.SetContentView(Resource.Layout.dialog_select_photo);
                 var sourceList = dialog.FindViewById<ListView>(Resource.Id.lv);
-                var adapter = new ArrayAdapter(activity,
+                var adapter = new ArrayAdapter(Platform.AppContext,
                     Android.Resource.Layout.SimpleListItem1, photoSource);
                 sourceList.Adapter = adapter;
                 dialog.Show();
@@ -98,18 +97,17 @@ namespace Softjourn.SJCoins.Droid.Services
 
         public void ShowQrSelectorDialog(List<string> optionsList, Action scanCode, Action generateCode)
         {
-            var activity = Xamarin.Essentials.Platform.CurrentActivity;
 
-            var dialog = new Dialog(activity);
+            var dialog = new Dialog(Platform.AppContext);
             if (!dialog.IsShowing)
             {
                 dialog.Window.RequestFeature(WindowFeatures.NoTitle);
                 dialog.Window.RequestFeature(WindowFeatures.SwipeToDismiss);
                 dialog.SetContentView(Resource.Layout.dialog_select_photo);
                 var title = dialog.FindViewById<TextView>(Resource.Id.textTitle);
-                title.Text = activity.GetString(Resource.String.chooseOption);
+                title.Text = Platform.AppContext.GetString(Resource.String.chooseOption);
                 var sourceList = dialog.FindViewById<ListView>(Resource.Id.lv);
-                var adapter = new ArrayAdapter(activity,
+                var adapter = new ArrayAdapter(Platform.AppContext,
                     Android.Resource.Layout.SimpleListItem1, optionsList);
                 sourceList.Adapter = adapter;
                 dialog.Show();
@@ -132,10 +130,9 @@ namespace Softjourn.SJCoins.Droid.Services
 
         private void CreateAlertDialog(string title, string msg, Action btnClicked, string btnName = null)
         {
-            var activity = Xamarin.Essentials.Platform.CurrentActivity;
-            activity.RunOnUiThread(() =>
+            MainThread.BeginInvokeOnMainThread(() =>
             {
-                var dialog = new Dialog(activity);
+                var dialog = new Dialog(Platform.AppContext);
                 dialog.Window.RequestFeature(WindowFeatures.NoTitle);
                 dialog.SetContentView(Resource.Layout.dialog_error);
 
@@ -168,17 +165,16 @@ namespace Softjourn.SJCoins.Droid.Services
          */
         private void CreateConfirmationDialog(Product product, Action<Product> onPurchaseProductAction)
         {
-            var context = Xamarin.Essentials.Platform.CurrentActivity;
-            var confirmDialog = new Dialog(context);
+            var confirmDialog = new Dialog(Platform.AppContext);
             confirmDialog.Window.RequestFeature(WindowFeatures.NoTitle);
             confirmDialog.Window.RequestFeature(WindowFeatures.SwipeToDismiss);
             confirmDialog.SetContentView(Resource.Layout.confirm_dialog);
 
             // set the custom dialog components
             var text = confirmDialog.FindViewById<TextView>(Resource.Id.text);
-            text.Text = string.Format(context.GetString(Resource.String.dialog_msg_confirm_buy_product, product.Name, product.IntPrice));
+            text.Text = string.Format(Platform.AppContext.GetString(Resource.String.dialog_msg_confirm_buy_product, product.Name, product.IntPrice));
             var image = confirmDialog.FindViewById<ImageView>(Resource.Id.image);
-            Glide.With(context).Load(Const.UrlVendingService + product.ImageUrl).Into(image);
+            Glide.With(Platform.AppContext).Load(Const.UrlVendingService + product.ImageUrl).Into(image);
 
             if (!confirmDialog.IsShowing)
             {
@@ -191,7 +187,7 @@ namespace Softjourn.SJCoins.Droid.Services
             //}
             //else
             //{
-            okButton.SetTextColor(new Color(ContextCompat.GetColor(context, Resource.Color.colorBlue)));
+            okButton.SetTextColor(new Color(ContextCompat.GetColor(Platform.AppContext, Resource.Color.colorBlue)));
             //}
             okButton.Click += (sender, e) =>
             {

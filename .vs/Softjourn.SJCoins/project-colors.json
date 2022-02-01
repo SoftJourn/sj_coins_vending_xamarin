@@ -30,7 +30,12 @@
       "ProjectGuid": "1b52ab16-b103-4f1e-9d6f-e01989ff27e3",
       "DisplayName": "iOS",
       "ColorIndex": 4
+    },
+    "b8760cd0-0777-4d49-a63d-52929e03dd5b": {
+      "ProjectGuid": "b8760cd0-0777-4d49-a63d-52929e03dd5b",
+      "DisplayName": "Softjourn.SJCoins.iOS",
+      "ColorIndex": 5
     }
   },
-  "NextColorIndex": 5
+  "NextColorIndex": 6
 }

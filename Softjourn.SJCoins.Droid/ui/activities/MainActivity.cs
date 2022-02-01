@@ -343,7 +343,7 @@ namespace Softjourn.SJCoins.Droid.UI.Activities
          */
         private void AttachFragment(string categoryName, int headerId, int containerId, List<Product> listProducts)
         {
-            FragmentManager.BeginTransaction()
+            SupportFragmentManager.BeginTransaction()
                 .Replace(containerId, ProductListFragmentVending.NewInstance(categoryName, headerId, containerId, listProducts),
                  categoryName)
                 .Commit();
@@ -359,7 +359,7 @@ namespace Softjourn.SJCoins.Droid.UI.Activities
             var favoriteHeaderID = _containerIds.ElementAt(0).Value;
 
             //Try to find fragment corresponding with containerID
-            var fragment = FragmentManager.FindFragmentById(favoritesContainerId) as ProductListFragmentVending;
+            var fragment = SupportFragmentManager.FindFragmentById(favoritesContainerId) as ProductListFragmentVending;
 
             //if fragment exists
             if (fragment != null)

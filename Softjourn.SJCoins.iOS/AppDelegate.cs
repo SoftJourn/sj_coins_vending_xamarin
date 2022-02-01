@@ -2,7 +2,6 @@
 using UIKit;
 using Softjourn.SJCoins.iOS.General.Constants;
 using BigTed;
-using HockeyApp.iOS;
 
 namespace Softjourn.SJCoins.iOS
 {
@@ -47,11 +46,7 @@ namespace Softjourn.SJCoins.iOS
 
 		private void ConfigureHockeyAppCrashAnalitics()
 		{
-			var manager = BITHockeyManager.SharedHockeyManager;
-			manager.Configure("9e94cec1cac44720ba336059aa00f430"); // key from hockeyapp.net
-			manager.CrashManager.CrashManagerStatus = BITCrashManagerStatus.AutoSend;
-   			manager.StartManager();
-   			manager.Authenticator.AuthenticateInstallation(); // This line is obsolete in crash only builds
+	
 		}
     }
 }

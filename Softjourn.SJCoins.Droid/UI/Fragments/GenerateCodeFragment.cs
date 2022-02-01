@@ -1,15 +1,13 @@
 using System;
 using System.IO;
-using Android.App;
 using Android.Content;
 using Android.Graphics;
-using Android.InputMethodServices;
-using Android.Media;
 using Android.OS;
 using Android.Provider;
 using Android.Views;
 using Android.Views.InputMethods;
 using Android.Widget;
+using AndroidX.Fragment.App;
 using Softjourn.SJCoins.Droid.Services;
 using Softjourn.SJCoins.Droid.UI.Activities;
 using Environment = Android.OS.Environment;

@@ -175,7 +175,7 @@ namespace Softjourn.SJCoins.Droid.UI.Activities
             for (int i = 0; i < _dots.Length; i++)
             {
                 _dots[i] = new TextView(this);
-                _dots[i].Text = Html.FromHtml("&#8226;").ToString();
+                _dots[i].Text = Html.FromHtml("&#8226;", FromHtmlOptions.ModeCompact)?.ToString();
                 _dots[i].TextSize = 35;
                 _dots[i].SetTextColor(new Color(colorsInactive));
                 _dotsLayout.AddView(_dots[i]);

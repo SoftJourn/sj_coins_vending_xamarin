@@ -1,8 +1,8 @@
 
 using System.Collections.Generic;
-using Android.App;
 using Android.OS;
 using Android.Views;
+using AndroidX.Fragment.App;
 using AndroidX.RecyclerView.Widget;
 using Softjourn.SJCoins.Core.API.Model.Products;
 using Softjourn.SJCoins.Droid.UI.Activities;

@@ -74,10 +74,10 @@ namespace Softjourn.SJCoins.Droid.UI.Adapters
         public override void OnBindViewHolder(RecyclerView.ViewHolder viewHolder, int position)
         {
             var holder = viewHolder as FeatureViewHolder;
-            var product = ListProducts[holder.AdapterPosition];
+            var product = ListProducts[holder.BindingAdapterPosition];
 
             //Setting Name and Price of product
-            holder.ProductName.Text = ListProducts[holder.AdapterPosition].Name;
+            holder.ProductName.Text = ListProducts[holder.BindingAdapterPosition].Name;
             holder.ProductPrice.Text = Java.Lang.String.ValueOf(product.IntPrice) + _coins;
 
             //Setting Description of Product
@@ -123,7 +123,7 @@ namespace Softjourn.SJCoins.Droid.UI.Adapters
                         if (product.IsHeartAnimationRunning && _animatedPosition != null)
                         {
                             FinishAnimation(holder);
-                            _animatedPosition.Remove(holder.AdapterPosition);
+                            _animatedPosition.Remove(holder.BindingAdapterPosition);
                         }
                     }
                     else
@@ -132,7 +132,7 @@ namespace Softjourn.SJCoins.Droid.UI.Adapters
                         if (product.IsHeartAnimationRunning && _animatedPosition != null)
                         {
                             FinishAnimation(holder);
-                            _animatedPosition.Remove(holder.AdapterPosition);
+                            _animatedPosition.Remove(holder.BindingAdapterPosition);
                         }
                     }
                 }
@@ -150,7 +150,7 @@ namespace Softjourn.SJCoins.Droid.UI.Adapters
             }
             else
             {
-                Glide.With(_context).Load(Core.Utils.Const.BaseUrl + Core.Utils.Const.UrlVendingService + ListProducts[holder.AdapterPosition].ImageUrl).Into(holder.ProductImage);
+                Glide.With(_context).Load(Core.Utils.Const.BaseUrl + Core.Utils.Const.UrlVendingService + ListProducts[holder.BindingAdapterPosition].ImageUrl).Into(holder.ProductImage);
                 if (_category == Const.Favorites)
                 holder.ProductImage.Alpha = !product.IsProductInCurrentMachine ? 0.3f : 1.0f;
             }
@@ -218,7 +218,7 @@ namespace Softjourn.SJCoins.Droid.UI.Adapters
             {
                 throw new Exception("Holder is null");
             }
-            var selectedIndex = holder.AdapterPosition;
+            var selectedIndex = holder.BindingAdapterPosition;
             var handler = ProductDetailsSelected;
             if (handler == null) return;
             var selectedProduct = ListProducts[selectedIndex];
@@ -235,8 +235,8 @@ namespace Softjourn.SJCoins.Droid.UI.Adapters
             {
                 throw new Exception("Holder is null");
             }
-            var selectedIndex = holder.AdapterPosition;
-            if (holder.AdapterPosition < 0) return;
+            var selectedIndex = holder.BindingAdapterPosition;
+            if (holder.BindingAdapterPosition < 0) return;
             var handler = ProductSelected;
             if (handler == null) return;
             var selectedProduct = ListProducts[selectedIndex];
@@ -253,7 +253,7 @@ namespace Softjourn.SJCoins.Droid.UI.Adapters
             {
                 throw new Exception("Holder is null");
             }
-            var product = ListProducts[holder.AdapterPosition];
+            var product = ListProducts[holder.BindingAdapterPosition];
             if (!product.IsProductFavorite)
             {
                 AnimateHeartButton(holder);
@@ -267,9 +267,9 @@ namespace Softjourn.SJCoins.Droid.UI.Adapters
                 {
                     RemoveFromFavorites?.Invoke(this, product);
                     holder.AddFavorite.Enabled = false;
-                    ListProducts.RemoveAt(holder.AdapterPosition);
-                    NotifyItemRemoved(holder.AdapterPosition);
-                    NotifyItemRangeChanged(holder.AdapterPosition, ItemCount + 1);
+                    ListProducts.RemoveAt(holder.BindingAdapterPosition);
+                    NotifyItemRemoved(holder.BindingAdapterPosition);
+                    NotifyItemRangeChanged(holder.BindingAdapterPosition, ItemCount + 1);
                     if (ItemCount < 1)
                     {
                         LastFavoriteRemoved?.Invoke(this, EventArgs.Empty);
@@ -300,23 +300,23 @@ namespace Softjourn.SJCoins.Droid.UI.Adapters
             {
                 _animatedPosition = new List<int>();
             }
-            _animatedPosition.Add(holder.AdapterPosition);
+            _animatedPosition.Add(holder.BindingAdapterPosition);
 
             if (_runningAnimations == null)
             {
                 _runningAnimations = new Dictionary<int, AnimatorSet>();
             }
-            _runningAnimations.Add(holder.AdapterPosition, animatorSet);
-            ListProducts[holder.AdapterPosition].IsHeartAnimationRunning = true;
+            _runningAnimations.Add(holder.BindingAdapterPosition, animatorSet);
+            ListProducts[holder.BindingAdapterPosition].IsHeartAnimationRunning = true;
         }
 
         private void FinishAnimation(FeatureViewHolder holder)
         {
-            if (_runningAnimations != null &&_runningAnimations.ContainsKey(holder.AdapterPosition))
+            if (_runningAnimations != null &&_runningAnimations.ContainsKey(holder.BindingAdapterPosition))
             {
-                _runningAnimations[holder.AdapterPosition].End();
-                _runningAnimations.Remove(holder.AdapterPosition);
-                ListProducts[holder.AdapterPosition].IsHeartAnimationRunning = false;
+                _runningAnimations[holder.BindingAdapterPosition].End();
+                _runningAnimations.Remove(holder.BindingAdapterPosition);
+                ListProducts[holder.BindingAdapterPosition].IsHeartAnimationRunning = false;
             }
 
             var animatorSet = new AnimatorSet();
@@ -330,7 +330,7 @@ namespace Softjourn.SJCoins.Droid.UI.Adapters
             bounceAnimY.SetInterpolator(new OvershootInterpolator());
             bounceAnimY.AnimationStart += (sender, e) =>
             {
-                holder.AddFavorite.SetImageResource(ListProducts[holder.AdapterPosition].IsProductFavorite ? Resource.Drawable.ic_favorite_pink : Resource.Drawable.ic_favorite_border);
+                holder.AddFavorite.SetImageResource(ListProducts[holder.BindingAdapterPosition].IsProductFavorite ? Resource.Drawable.ic_favorite_pink : Resource.Drawable.ic_favorite_border);
             };
 
             animatorSet.Play(bounceAnimX).With(bounceAnimY);

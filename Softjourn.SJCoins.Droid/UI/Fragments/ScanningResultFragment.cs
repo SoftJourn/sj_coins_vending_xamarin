@@ -1,8 +1,8 @@
 
-using Android.App;
 using Android.OS;
 using Android.Views;
 using Android.Widget;
+using AndroidX.Fragment.App;
 using Softjourn.SJCoins.Droid.UI.Activities;
 
 

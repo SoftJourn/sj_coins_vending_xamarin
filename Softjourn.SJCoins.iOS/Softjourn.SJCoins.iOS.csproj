@@ -681,7 +681,7 @@
       <Version>4.4.7</Version>
     </PackageReference>
     <PackageReference Include="ZXing.Net.Mobile">
-      <Version>2.1.47</Version>
+      <Version>3.1.0-beta2</Version>
     </PackageReference>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />

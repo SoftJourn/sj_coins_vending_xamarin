@@ -7,7 +7,7 @@ namespace Softjourn.SJCoins.iOS.UI.Services
 		//ILoaderService
 		public static void Show(string message)
 		{
-			BTProgressHUD.Show(message, -1, ProgressHUD.MaskType.Clear);
+			BTProgressHUD.Show(message, -1, MaskType.Clear);
 		}
 
 		public static void Hide()

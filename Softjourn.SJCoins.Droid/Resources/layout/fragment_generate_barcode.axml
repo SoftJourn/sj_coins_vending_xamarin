@@ -12,7 +12,7 @@
         android:layout_marginRight="@dimen/activity_horizontal_margin"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="8dp">
-        <EditText
+        <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/input_amount"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
