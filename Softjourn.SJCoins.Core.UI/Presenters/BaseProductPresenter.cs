@@ -56,7 +56,7 @@ namespace Softjourn.SJCoins.Core.UI.Presenters
 			            View.FavoriteChanged(prod);
 			        }
 			    }
-			    catch (ApiNotAuthorizedException ex)
+			    catch (ApiNotAuthorizedException)
 			    {
 			        //AlertService.ShowToastMessage(ex.Message);
 			        DataManager.Profile = null;
@@ -68,11 +68,11 @@ namespace Softjourn.SJCoins.Core.UI.Presenters
 			        AlertService.ShowToastMessage(ex.Message);
 			        View.FavoriteChanged(DataManager.ChangeProductsFavoriteStatus(product));
 			    }
-			    catch (NotImplementedException ex)
+			    catch (NotImplementedException)
 			    {
 
 			    }
-                catch (NullReferenceException ex)
+                catch (NullReferenceException)
                 {
 
                 }
@@ -134,7 +134,7 @@ namespace Softjourn.SJCoins.Core.UI.Presenters
 							Resources.StringResources.btn_title_ok, null);
 					}
 
-					catch (ApiNotAuthorizedException ex)
+					catch (ApiNotAuthorizedException)
 					{
 						View.HideProgress();
 						//AlertService.ShowToastMessage(ex.Message);

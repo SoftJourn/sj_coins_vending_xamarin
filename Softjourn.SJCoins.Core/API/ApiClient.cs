@@ -100,7 +100,6 @@ namespace Softjourn.SJCoins.Core.API
             {
                 apiClient.Dispose();
             }
-            return null;
         }
 
         public async Task<EmptyResponse> RevokeToken()
@@ -462,7 +461,7 @@ namespace Softjourn.SJCoins.Core.API
 
                         throw new ApiNotFoundException(NetworkErrorUtils.GetErrorMessage(404));
                     }
-                    catch (Exception e)
+                    catch (Exception)
                     {
                         throw new ApiNotFoundException(NetworkErrorUtils.GetErrorMessage(404));
                     }
@@ -481,7 +480,7 @@ namespace Softjourn.SJCoins.Core.API
                             throw new ApiNotFoundException(NetworkErrorUtils.GetErrorMessage(409));
                         }
                     }
-                    catch (JsonSerializationException e)
+                    catch (JsonSerializationException)
                     {
                         throw new ApiNotFoundException(NetworkErrorUtils.GetErrorMessage(409));
                     }

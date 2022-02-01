@@ -183,7 +183,7 @@ namespace Softjourn.SJCoins.Core.UI.Presenters
                     Settings.ClearUserData();
                     NavigationService.NavigateToAsRoot(NavigationPage.Login);
                 }
-                catch (ApiNotAuthorizedException ex)
+                catch (ApiNotAuthorizedException)
                 {
                     //AlertService.ShowToastMessage(ex.Message);
                     DataManager.Profile = null;

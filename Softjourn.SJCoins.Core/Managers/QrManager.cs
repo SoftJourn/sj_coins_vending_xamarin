@@ -26,7 +26,7 @@ namespace Softjourn.SJCoins.Core.Managers
             {
                 throw new JsonReaderExceptionCustom(e.Message);
             }
-            catch (NullReferenceException e)
+            catch (NullReferenceException)
             {
                 return null;
             }
@@ -51,7 +51,7 @@ namespace Softjourn.SJCoins.Core.Managers
                 result = await scanner.Scan();
                 return result;
             }
-            catch (ZXing.ReaderException e)
+            catch (ZXing.ReaderException)
             {
              
             }

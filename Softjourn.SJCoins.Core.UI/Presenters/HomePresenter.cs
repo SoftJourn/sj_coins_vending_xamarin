@@ -61,7 +61,7 @@ namespace Softjourn.SJCoins.Core.UI.Presenters
                     View.ShowProducts(DataManager.ProductList);
                     View.HideProgress();
                 }
-                catch (ApiNotAuthorizedException ex)
+                catch (ApiNotAuthorizedException)
                 {
                     View.HideProgress();
                     //AlertService.ShowToastMessage(ex.Message);

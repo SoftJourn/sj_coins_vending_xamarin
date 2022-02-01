@@ -44,7 +44,7 @@ namespace Softjourn.SJCoins.Core.UI.Presenters
                         NavigationService.NavigateToAsRoot(NavigationPage.SelectMachineFirstTime);
                         View.HideProgress();
                     }
-                    catch (ApiBadRequestException ex)
+                    catch (ApiBadRequestException)
                     {
                         View.HideProgress();
                         AlertService.ShowMessageWithUserInteraction("", Resources.StringResources.server_error_bad_username_or_password, Resources.StringResources.btn_title_ok, null);

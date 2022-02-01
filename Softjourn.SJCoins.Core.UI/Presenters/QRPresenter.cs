@@ -42,7 +42,7 @@ namespace Softjourn.SJCoins.Core.UI.Presenters
                 if (code != null)
                     UpdateBalance(await GetMoney(code));
             }
-            catch (JsonReaderExceptionCustom e)
+            catch (JsonReaderExceptionCustom)
             {
                 AlertService.ShowToastMessage(Resources.StringResources.error_not_valid_qr_code);
             }
@@ -152,7 +152,7 @@ namespace Softjourn.SJCoins.Core.UI.Presenters
                     View.ShowProgress(Resources.StringResources.progress_loading);
                     return await RestApiServise.GetOfflineCash(scannedCode);
                 }
-                catch (ApiNotAuthorizedException ex)
+                catch (ApiNotAuthorizedException)
                 {
                     View.HideProgress();
                     //AlertService.ShowToastMessage(ex.Message);
@@ -200,7 +200,7 @@ namespace Softjourn.SJCoins.Core.UI.Presenters
                     View.UpdateBalance(MyBalance.ToString());
 
                 }
-                catch (ApiNotAuthorizedException ex)
+                catch (ApiNotAuthorizedException)
                 {
                     View.HideProgress();
                     //AlertService.ShowToastMessage(ex.Message);

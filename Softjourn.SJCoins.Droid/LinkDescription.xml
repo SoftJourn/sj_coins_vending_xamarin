@@ -1,0 +1,16 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<linker>
+    <assembly fullname="Autofac">
+        <type fullname="Autofac.Core.ImplicitRegistrationSource" preserve="All" />
+		<type fullname="Autofac.Features.LazyDependencies.LazyWithMetadataRegistrationSource" preserve="All"/>
+        <type fullname="Autofac.Features.Metadata.StronglyTypedMetaRegistrationSource" preserve="All"/>
+		<type fullname="Autofac.Features.Indexed.*" preserve="All"/>
+		<type fullname="Autofac.Core.Activators.Reflection.AutowiringPropertyInjector" preserve="All"/>
+    </assembly>
+	<assembly fullname="Softjourn.SJCoins.Core">
+		<type fullname="Softjourn.SJCoins.Core.*" preserve="All" />
+	</assembly>
+	<assembly fullname="Softjourn.SJCoins.Core.UI">
+		<type fullname="Softjourn.SJCoins.Core.UI.*" preserve="All" />
+	</assembly>
+</linker>
