@@ -1,9 +1,9 @@
-﻿using Plugin.Connectivity;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Xamarin.Essentials;
 
 namespace Softjourn.SJCoins.Core.Utils
 {
@@ -11,29 +11,23 @@ namespace Softjourn.SJCoins.Core.Utils
     {
         public static bool IsConnected
         {
-            get { return CrossConnectivity.Current.IsConnected; }
+            get { return Connectivity.NetworkAccess == NetworkAccess.Internet; }
         }
 
         public static void OnConnectionChanged(INetworkConnection listener)
         {
-                CrossConnectivity.Current.ConnectivityChanged += (sender, args) =>
+            Connectivity.ConnectivityChanged += (sender, args) =>
                 {
                     if (IsConnected)
                     {
-                        if (listener != null)
-                        {
-                            listener.OnInternetAppeared();
-                        }
+                        listener?.OnInternetAppeared();
                     }
                     else
                     {
-                        if (listener != null)
-                        {
-                            listener.OnInternetDismissed();
-                        }
+                        listener?.OnInternetDismissed();
                     }
                 };
 
         }
-}
+    }
 }

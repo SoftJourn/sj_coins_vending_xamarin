@@ -1,8 +1,8 @@
 using System;
 using Android.App;
 using Android.OS;
-using Android.Support.V7.App;
 using Android.Views;
+using AndroidX.AppCompat.App;
 using Autofac;
 using Softjourn.SJCoins.Core.UI.Bootstrapper;
 using Softjourn.SJCoins.Core.UI.Presenters.IPresenters;

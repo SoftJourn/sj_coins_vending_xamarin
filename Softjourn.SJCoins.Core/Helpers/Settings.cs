@@ -1,6 +1,7 @@
 // Helpers/Settings.cs
-using Plugin.Settings;
-using Plugin.Settings.Abstractions;
+
+
+using Xamarin.Essentials;
 
 namespace Softjourn.SJCoins.Core.Helpers
 {
@@ -11,13 +12,6 @@ namespace Softjourn.SJCoins.Core.Helpers
     /// </summary>
     public static class Settings
     {
-        private static ISettings AppSettings
-        {
-            get
-            {
-                return CrossSettings.Current;
-            }
-        }
 
         #region Setting Constants
 
@@ -43,44 +37,38 @@ namespace Softjourn.SJCoins.Core.Helpers
 
         public static string GeneralSettings
         {
-            get
-            {
-                return AppSettings.GetValueOrDefault<string>(SettingsKey, SettingsDefault);
-            }
-            set
-            {
-                AppSettings.AddOrUpdateValue<string>(SettingsKey, value);
-            }
+            get => Preferences.Get(SettingsKey, SettingsDefault);
+            set => Preferences.Set(SettingsKey, value);
         }
 
         public static bool FirstLaunch
         {
-            get { return AppSettings.GetValueOrDefault<bool>(IsFirstLaunch, IsFirstLaunchDefault); }
-            set { AppSettings.AddOrUpdateValue(IsFirstLaunch, value); }
+            get => Preferences.Get(IsFirstLaunch, IsFirstLaunchDefault);
+            set => Preferences.Set(IsFirstLaunch, value);
         }
 
         public static string AccessToken
         {
-            get { return AppSettings.GetValueOrDefault<string>(AccessTokenKey, AccessTokenDefault); }
-            set { AppSettings.AddOrUpdateValue(AccessTokenKey, value); }
+            get => Preferences.Get(AccessTokenKey, AccessTokenDefault);
+            set => Preferences.Set(AccessTokenKey, value);
         }
 
         public static string RefreshToken
         {
-            get { return AppSettings.GetValueOrDefault<string>(RefreshTokenKey, RefreshTokenDefault); }
-            set { AppSettings.AddOrUpdateValue(RefreshTokenKey, value); }
+            get => Preferences.Get(RefreshTokenKey, RefreshTokenDefault);
+            set => Preferences.Set(RefreshTokenKey, value);
         }
 
         public static string SelectedMachineId
         {
-            get { return AppSettings.GetValueOrDefault<string>(SelectedMachineIdKey, SelectedMachineIdDefault); }
-            set { AppSettings.AddOrUpdateValue(SelectedMachineIdKey, value); }
+            get => Preferences.Get(SelectedMachineIdKey, SelectedMachineIdDefault);
+            set => Preferences.Set(SelectedMachineIdKey, value);
         }
 
         public static string SelectedMachineName
         {
-            get { return AppSettings.GetValueOrDefault<string>(SelectedMachineNameKey, SelectedMachineNameDefault); }
-            set { AppSettings.AddOrUpdateValue(SelectedMachineNameKey, value); }
+            get => Preferences.Get(SelectedMachineNameKey, SelectedMachineNameDefault);
+            set => Preferences.Set(SelectedMachineNameKey, value);
         }
 
         public static bool OnlyOneVendingMachine { get; set; } = false;

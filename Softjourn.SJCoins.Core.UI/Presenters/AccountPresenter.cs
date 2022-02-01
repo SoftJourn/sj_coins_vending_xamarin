@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using Plugin.DeviceInfo;
-using Plugin.DeviceInfo.Abstractions;
 using Softjourn.SJCoins.Core.API.Model;
 using Softjourn.SJCoins.Core.Exceptions;
 using Softjourn.SJCoins.Core.Helpers;
@@ -62,14 +60,15 @@ namespace Softjourn.SJCoins.Core.UI.Presenters
             var getPhotoPathFromCameraAction = new Action(GetPhotoPathFromCamera);
             var getPhotoPathFromGalleryAction = new Action(GetPhotoPathFromGallery);
 
-            if (CrossDeviceInfo.Current.Platform == Platform.Android)
-            {
-                AlertService.ShowPhotoSelectorDialog(items, getPhotoPathFromCameraAction, getPhotoPathFromGalleryAction);
-            }
-            else
-            {
-                AlertService.ShowPhotoSelectorDialog(items, getPhotoFromCameraAction, getPhotoFromGalleryAction);
-            }
+            //TODO migrate
+            //if (CrossDeviceInfo.Current.Platform == Platform.Android)
+            //{
+            //    AlertService.ShowPhotoSelectorDialog(items, getPhotoPathFromCameraAction, getPhotoPathFromGalleryAction);
+            //}
+            //else
+            //{
+            //    AlertService.ShowPhotoSelectorDialog(items, getPhotoFromCameraAction, getPhotoFromGalleryAction);
+            //}
         }
 
         //Navigate to given page from OptionsList

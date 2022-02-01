@@ -2,13 +2,13 @@
 using Android.Animation;
 using Android.App;
 using Android.OS;
-using Android.Support.Design.Widget;
 using Android.Views;
 using Android.Views.Animations;
 using Android.Widget;
+using Bumptech.Glide;
+using Google.Android.Material.BottomSheet;
 using Softjourn.SJCoins.Core.API.Model.Products;
 using Softjourn.SJCoins.Droid.UI.Activities;
-using Square.Picasso;
 
 namespace Softjourn.SJCoins.Droid.UI.Fragments
 {
@@ -52,7 +52,7 @@ namespace Softjourn.SJCoins.Droid.UI.Fragments
             productName.Text = _product.Name;
             productLongDescription.Text = _product.Description;
             productPrice.Text = _product.IntPrice + " " + Activity.GetString(Resource.String.item_coins);
-            Picasso.With(Activity).Load(_product.ImageFullUrl).Into(productImage);
+            Glide.With(Activity).Load(_product.ImageFullUrl).Into(productImage);
             LoadFavoriteIcon();
 
             _buyProduct.Click += (s, e) => HandleBuyButton();
@@ -98,13 +98,13 @@ namespace Softjourn.SJCoins.Droid.UI.Fragments
 
             if (_product.IsProductFavorite)
             {
-                Picasso.With(Activity).Load(Resource.Drawable.ic_favorite_pink).Into(_favorites);
+                Glide.With(Activity).Load(Resource.Drawable.ic_favorite_pink).Into(_favorites);
                 _favorites.Tag = true;
 
             }
             else
             {
-                Picasso.With(Activity).Load(Resource.Drawable.ic_favorite_border_white).Into(_favorites);
+                Glide.With(Activity).Load(Resource.Drawable.ic_favorite_border_white).Into(_favorites);
                 _favorites.Tag = false;
             }
         }

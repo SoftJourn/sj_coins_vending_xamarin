@@ -4,16 +4,14 @@ using System.Text.RegularExpressions;
 using Android.App;
 using Android.Content;
 using Android.Graphics;
-using Android.Support.Design.Widget;
-using Android.Support.V4.Content;
 using Android.Views;
 using Android.Widget;
-using Javax.Xml.Datatype;
-using Plugin.CurrentActivity;
+using AndroidX.Core.Content;
+using Bumptech.Glide;
+using Google.Android.Material.Snackbar;
 using Softjourn.SJCoins.Core.UI.Services.Alert;
 using Softjourn.SJCoins.Core.API.Model.Products;
 using Softjourn.SJCoins.Droid.Utils;
-using Square.Picasso;
 
 namespace Softjourn.SJCoins.Droid.Services
 {
@@ -31,29 +29,27 @@ namespace Softjourn.SJCoins.Droid.Services
 
         public void ShowToastMessage(string msg)
         {
-            var activity = CrossCurrentActivity.Current.Activity;
+            var activity = Xamarin.Essentials.Platform.CurrentActivity;
             activity.RunOnUiThread(() =>
             {
                 var toast = Toast.MakeText(activity.ApplicationContext, msg, ToastLength.Short);
-                toast.SetGravity(GravityFlags.Center, 0, 0);
-                if (toast.View.WindowVisibility != ViewStates.Visible)
-                {
-                    toast.Show();
-                }
+                if (toast == null)
+                    return;
+                toast.Show();
             });
         }
 
         public void ShowMessageWithUserInteraction(string title, string msg, string btnName, Action btnClicked)
         {
-            var activity = CrossCurrentActivity.Current.Activity;
+            var activity = Xamarin.Essentials.Platform.CurrentActivity;
             activity.RunOnUiThread(() =>
             {
                 var snackbar = Snackbar
                     .Make(activity.FindViewById(Resource.Id.layout_root), msg,
-                        Snackbar.LengthIndefinite);
+                        BaseTransientBottomBar.LengthIndefinite);
                 snackbar.SetAction("Ok", (v) =>
                 {
-                     snackbar.Dismiss();
+                    snackbar.Dismiss();
                 });
                 snackbar.Show();
             });
@@ -70,7 +66,7 @@ namespace Softjourn.SJCoins.Droid.Services
          */
         public void ShowPhotoSelectorDialog(List<string> photoSource, Action fromCamera, Action fromGallery)
         {
-            var activity = CrossCurrentActivity.Current.Activity;
+            var activity = Xamarin.Essentials.Platform.CurrentActivity;
 
             var dialog = new Dialog(activity);
             if (!dialog.IsShowing)
@@ -102,7 +98,7 @@ namespace Softjourn.SJCoins.Droid.Services
 
         public void ShowQrSelectorDialog(List<string> optionsList, Action scanCode, Action generateCode)
         {
-            var activity = CrossCurrentActivity.Current.Activity;
+            var activity = Xamarin.Essentials.Platform.CurrentActivity;
 
             var dialog = new Dialog(activity);
             if (!dialog.IsShowing)
@@ -136,7 +132,7 @@ namespace Softjourn.SJCoins.Droid.Services
 
         private void CreateAlertDialog(string title, string msg, Action btnClicked, string btnName = null)
         {
-            var activity = CrossCurrentActivity.Current.Activity;
+            var activity = Xamarin.Essentials.Platform.CurrentActivity;
             activity.RunOnUiThread(() =>
             {
                 var dialog = new Dialog(activity);
@@ -172,7 +168,7 @@ namespace Softjourn.SJCoins.Droid.Services
          */
         private void CreateConfirmationDialog(Product product, Action<Product> onPurchaseProductAction)
         {
-            var context = CrossCurrentActivity.Current.Activity;
+            var context = Xamarin.Essentials.Platform.CurrentActivity;
             var confirmDialog = new Dialog(context);
             confirmDialog.Window.RequestFeature(WindowFeatures.NoTitle);
             confirmDialog.Window.RequestFeature(WindowFeatures.SwipeToDismiss);
@@ -182,7 +178,7 @@ namespace Softjourn.SJCoins.Droid.Services
             var text = confirmDialog.FindViewById<TextView>(Resource.Id.text);
             text.Text = string.Format(context.GetString(Resource.String.dialog_msg_confirm_buy_product, product.Name, product.IntPrice));
             var image = confirmDialog.FindViewById<ImageView>(Resource.Id.image);
-            Picasso.With(context).Load(Const.UrlVendingService + product.ImageUrl).Into(image);
+            Glide.With(context).Load(Const.UrlVendingService + product.ImageUrl).Into(image);
 
             if (!confirmDialog.IsShowing)
             {

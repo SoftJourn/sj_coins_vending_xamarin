@@ -1,12 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿
 using System.Text;
 using System.Threading.Tasks;
-using Plugin.Media;
-using Plugin.Permissions;
-using Plugin.Permissions.Abstractions;
 using Softjourn.SJCoins.Core.Exceptions;
+using Xamarin.Essentials;
 
 namespace Softjourn.SJCoins.Core.Utils
 {
@@ -16,8 +12,8 @@ namespace Softjourn.SJCoins.Core.Utils
         {
             if (!IsCameraAvailable())
                 throw new CameraException("Camera permission is denied");
-
-            var permission = await ValidatePermissionAsync(Permission.Camera);
+            
+            var permission = await ValidatePermissionAsync<Permissions.Camera>();
 
             if (permission == PermissionStatus.Unknown)
                 permission = PermissionStatus.Granted;
@@ -30,28 +26,26 @@ namespace Softjourn.SJCoins.Core.Utils
 
         public static async Task CheckGalleryPermissionAsync()
         {
-            var permission = await ValidatePermissionAsync(Permission.Storage);
+            var permission = await ValidatePermissionAsync<Permissions.StorageRead>();
             if (permission != PermissionStatus.Granted)
             {
                 throw new CameraException("Gallery permission is denied");
             }
         }
 
-        private static async Task<PermissionStatus> ValidatePermissionAsync(Permission permission)
+        private static async Task<PermissionStatus> ValidatePermissionAsync<T>() where T : Permissions.BasePermission, new()
         {
-            var status = await CrossPermissions.Current.CheckPermissionStatusAsync(permission);
+            
+            var status = await Permissions.CheckStatusAsync<T>();
             if (status != PermissionStatus.Granted)
-            {
-                var results = await CrossPermissions.Current.RequestPermissionsAsync(permission);
-                status = results[permission];
-            }
+                status = await Permissions.RequestAsync<T>();
 
             return status;
         }
 
         private static bool IsCameraAvailable()
         {
-            return CrossMedia.Current.IsCameraAvailable && CrossMedia.Current.IsTakePhotoSupported;
+            return MediaPicker.IsCaptureSupported;
         }
     }
 }

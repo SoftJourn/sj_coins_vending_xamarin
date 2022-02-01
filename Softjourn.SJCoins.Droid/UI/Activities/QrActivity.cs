@@ -3,7 +3,6 @@ using Android.Content.PM;
 using Android.OS;
 using Android.Views;
 using Android.Widget;
-using Plugin.Permissions;
 using Softjourn.SJCoins.Core.UI.Presenters;
 using Softjourn.SJCoins.Core.UI.ViewInterfaces;
 using Softjourn.SJCoins.Droid.ui.baseUI;
@@ -103,7 +102,8 @@ namespace Softjourn.SJCoins.Droid.UI.Activities
 
         public override void OnRequestPermissionsResult(int requestCode, string[] permissions, Permission[] grantResults)
         {
-            PermissionsImplementation.Current.OnRequestPermissionsResult(requestCode, permissions, grantResults);
+            Xamarin.Essentials.Platform.OnRequestPermissionsResult(requestCode, permissions, grantResults);
+            base.OnRequestPermissionsResult(requestCode, permissions, grantResults);
         }
         #endregion
 

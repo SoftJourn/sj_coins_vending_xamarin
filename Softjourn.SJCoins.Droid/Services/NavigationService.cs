@@ -1,6 +1,5 @@
 using System;
 using Android.Content;
-using Plugin.CurrentActivity;
 using Softjourn.SJCoins.Core.UI.Services.Navigation;
 using Softjourn.SJCoins.Droid.UI.Activities;
 
@@ -12,15 +11,15 @@ namespace Softjourn.SJCoins.Droid.Services
         {
             try
             {
-                CrossCurrentActivity.Current.Activity.StartActivity(GetWithParams(page,obj));
+                Xamarin.Essentials.Platform.CurrentActivity.StartActivity(GetWithParams(page,obj));
             }
             catch { }
         }
 
         public void NavigateToAsRoot(NavigationPage page)
         {
-            CrossCurrentActivity.Current.Activity.StartActivity(GetWithParams(page));
-            CrossCurrentActivity.Current.Activity.Finish();
+            Xamarin.Essentials.Platform.CurrentActivity.StartActivity(GetWithParams(page));
+            Xamarin.Essentials.Platform.CurrentActivity.Finish();
         }
 
         /**
@@ -49,37 +48,37 @@ namespace Softjourn.SJCoins.Droid.Services
             switch (page)
             {
                 case NavigationPage.Login:
-                    view = new Intent(CrossCurrentActivity.Current.Activity, typeof(LoginActivity));
+                    view = new Intent(Xamarin.Essentials.Platform.CurrentActivity, typeof(LoginActivity));
                     break;
                 case NavigationPage.Home:
-                    view = new Intent(CrossCurrentActivity.Current.Activity, typeof(MainActivity));
+                    view = new Intent(Xamarin.Essentials.Platform.CurrentActivity, typeof(MainActivity));
                     view.AddFlags(ActivityFlags.ClearTask);
                     break;
                 case NavigationPage.Welcome:
-                    view = new Intent(CrossCurrentActivity.Current.Activity, typeof(WelcomeActivity));
+                    view = new Intent(Xamarin.Essentials.Platform.CurrentActivity, typeof(WelcomeActivity));
                     break;
                 case NavigationPage.SelectMachine:
-                    view = new Intent(CrossCurrentActivity.Current.Activity, typeof(SelectMachineActivity));
+                    view = new Intent(Xamarin.Essentials.Platform.CurrentActivity, typeof(SelectMachineActivity));
                     break;
                 case NavigationPage.SelectMachineFirstTime:
-                    view = new Intent(CrossCurrentActivity.Current.Activity, typeof(SelectMachineActivity));
+                    view = new Intent(Xamarin.Essentials.Platform.CurrentActivity, typeof(SelectMachineActivity));
                     break;
                 case NavigationPage.Profile:
-                    view = new Intent(CrossCurrentActivity.Current.Activity, typeof(ProfileActivity));
+                    view = new Intent(Xamarin.Essentials.Platform.CurrentActivity, typeof(ProfileActivity));
                     view.AddFlags(ActivityFlags.ForwardResult);
                     break;
                 case NavigationPage.ShowAll:
-                    view = new Intent(CrossCurrentActivity.Current.Activity, typeof(ShowAllActivity));
+                    view = new Intent(Xamarin.Essentials.Platform.CurrentActivity, typeof(ShowAllActivity));
                     view.AddFlags(ActivityFlags.NewTask);
                     break;
                 case NavigationPage.Detail:
-                    view = new Intent(CrossCurrentActivity.Current.Activity, typeof(DetailsActivity));
+                    view = new Intent(Xamarin.Essentials.Platform.CurrentActivity, typeof(DetailsActivity));
                     break;
                 case NavigationPage.Purchase:
-                    view = new Intent(CrossCurrentActivity.Current.Activity, typeof(PurchaseActivity));
+                    view = new Intent(Xamarin.Essentials.Platform.CurrentActivity, typeof(PurchaseActivity));
                     break;
                 case NavigationPage.Reports:
-                    view = new Intent(CrossCurrentActivity.Current.Activity, typeof(ReportsActivity));
+                    view = new Intent(Xamarin.Essentials.Platform.CurrentActivity, typeof(ReportsActivity));
                     break;
                 case NavigationPage.PrivacyTerms:
                     //view = new Intent(CrossCurrentActivity.Current.Activity, typeof(PrivaceTermsActivity));
@@ -88,7 +87,7 @@ namespace Softjourn.SJCoins.Droid.Services
                     //view = new Intent(CrossCurrentActivity.Current.Activity, typeof(HelpActivity));
                     break;
                 case NavigationPage.ShareFuns:
-                    view = new Intent(CrossCurrentActivity.Current.Activity, typeof(QrActivity));
+                    view = new Intent(Xamarin.Essentials.Platform.CurrentActivity, typeof(QrActivity));
                     break;
                 default:
                     throw new ArgumentException("Not valid page");

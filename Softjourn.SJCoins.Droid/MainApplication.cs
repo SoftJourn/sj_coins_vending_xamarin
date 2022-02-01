@@ -3,8 +3,8 @@ using System;
 using Android.App;
 using Android.OS;
 using Android.Runtime;
+using Bumptech.Glide;
 using Softjourn.SJCoins.Droid.Bootstrapping;
-using Plugin.CurrentActivity;
 using Softjourn.SJCoins.Droid.Utils;
 
 namespace Softjourn.SJCoins.Droid
@@ -22,9 +22,8 @@ namespace Softjourn.SJCoins.Droid
         {
             base.OnCreate();
             RegisterActivityLifecycleCallbacks(this);
-
-            HockeyAppUtils.CheckForCrashes(ApplicationContext);
-
+            Xamarin.Essentials.Platform.Init(this);
+            Glide.Init(this, new GlideBuilder());
             InitializeIoC();
         }
 
@@ -36,7 +35,7 @@ namespace Softjourn.SJCoins.Droid
 
         public void OnActivityCreated(Activity activity, Bundle savedInstanceState)
         {
-            CrossCurrentActivity.Current.Activity = activity;
+            
         }
 
         public void OnActivityDestroyed(Activity activity)
@@ -49,7 +48,7 @@ namespace Softjourn.SJCoins.Droid
 
         public void OnActivityResumed(Activity activity)
         {
-            CrossCurrentActivity.Current.Activity = activity;
+            Xamarin.Essentials.Platform.OnResume(activity);
         }
 
         public void OnActivitySaveInstanceState(Activity activity, Bundle outState)
@@ -58,7 +57,6 @@ namespace Softjourn.SJCoins.Droid
 
         public void OnActivityStarted(Activity activity)
         {
-            CrossCurrentActivity.Current.Activity = activity;
         }
 
         public void OnActivityStopped(Activity activity)

@@ -1,10 +1,10 @@
 
 using System.Collections.Generic;
 using Android.Content;
-using Android.Support.V4.View;
 using Android.Views;
 using Android.Widget;
-using Square.Picasso;
+using AndroidX.ViewPager.Widget;
+using Bumptech.Glide;
 
 namespace Softjourn.SJCoins.Droid.UI.Adapters
 {
@@ -36,7 +36,7 @@ namespace Softjourn.SJCoins.Droid.UI.Adapters
             var itemView = _layoutInflater.Inflate(Resource.Layout.activity_details_view_pager_item, container, false);
 
             var imageView = itemView.FindViewById<ImageView>(Resource.Id.imageView);
-            Picasso.With(_context).Load(_images[position]).Into(imageView);
+            Glide.With(_context).Load(_images[position]).Into(imageView);
 
             imageView.Click += (o, e) =>
                 {

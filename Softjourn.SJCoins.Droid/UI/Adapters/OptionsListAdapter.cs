@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using Android.Content;
 using Android.Views;
 using Android.Widget;
+using Bumptech.Glide;
 using Softjourn.SJCoins.Core.API.Model;
-using Square.Picasso;
 
 namespace Softjourn.SJCoins.Droid.UI.Adapters
 {
@@ -41,7 +41,7 @@ namespace Softjourn.SJCoins.Droid.UI.Adapters
             viewHolder.Icon = convertView.FindViewById<ImageView>(Resource.Id.imageViewOptionIcon);
 
             viewHolder.Name.Text = accountOption.OptionName;
-            Picasso.With(_context).Load(iconPath).Into(viewHolder.Icon);
+            Glide.With(_context).Load(iconPath).Into(viewHolder.Icon);
 
             return convertView;
         }

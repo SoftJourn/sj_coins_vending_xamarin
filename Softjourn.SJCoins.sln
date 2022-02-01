@@ -1,12 +1,12 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.27004.2002
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.32112.339
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Softjourn.SJCoins.Core", "Softjourn.SJCoins.Core\Softjourn.SJCoins.Core.csproj", "{A6850167-3849-48F7-8E04-A2C879D4C55B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Softjourn.SJCoins.Core", "Softjourn.SJCoins.Core\Softjourn.SJCoins.Core.csproj", "{A6850167-3849-48F7-8E04-A2C879D4C55B}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Softjourn.SJCoins.iOS", "Softjourn.SJCoins.iOS\Softjourn.SJCoins.iOS.csproj", "{B8760CD0-0777-4D49-A63D-52929E03DD5B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Softjourn.SJCoins.Core.UI", "Softjourn.SJCoins.Core.UI\Softjourn.SJCoins.Core.UI.csproj", "{17F6D568-BFA8-4DC4-9263-884EC193DB4F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Softjourn.SJCoins.Core.UI", "Softjourn.SJCoins.Core.UI\Softjourn.SJCoins.Core.UI.csproj", "{17F6D568-BFA8-4DC4-9263-884EC193DB4F}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Core", "Core", "{ABE58DB1-01A1-4B14-AEB5-3476FB9E6929}"
 EndProject

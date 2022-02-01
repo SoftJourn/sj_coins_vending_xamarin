@@ -3,16 +3,16 @@ using System.Collections.Generic;
 using System.Linq;
 using Android.Animation;
 using Android.Content;
-using Android.Support.V7.Widget;
 using Android.Text;
 using Android.Views;
 using Android.Views.Animations;
 using Android.Widget;
+using AndroidX.RecyclerView.Widget;
+using Bumptech.Glide;
 using Java.Lang;
 using Softjourn.SJCoins.Core.API.Model.Products;
 using Softjourn.SJCoins.Droid.utils;
 using Softjourn.SJCoins.Droid.Utils;
-using Square.Picasso;
 using Exception = Java.Lang.Exception;
 using Object = Java.Lang.Object;
 
@@ -119,7 +119,7 @@ namespace Softjourn.SJCoins.Droid.UI.Adapters
                 {
                     if (product.IsProductFavorite)
                     {
-                        Picasso.With(_context).Load(Resource.Drawable.ic_favorite_pink).NetworkPolicy(NetworkPolicy.NoCache).Into(holder.AddFavorite);
+                        Glide.With(_context).Load(Resource.Drawable.ic_favorite_pink).Into(holder.AddFavorite);
                         if (product.IsHeartAnimationRunning && _animatedPosition != null)
                         {
                             FinishAnimation(holder);
@@ -128,7 +128,7 @@ namespace Softjourn.SJCoins.Droid.UI.Adapters
                     }
                     else
                     {
-                        Picasso.With(_context).Load(Resource.Drawable.ic_favorite_border).NetworkPolicy(NetworkPolicy.NoCache).Into(holder.AddFavorite);
+                        Glide.With(_context).Load(Resource.Drawable.ic_favorite_border).Into(holder.AddFavorite);
                         if (product.IsHeartAnimationRunning && _animatedPosition != null)
                         {
                             FinishAnimation(holder);
@@ -145,12 +145,12 @@ namespace Softjourn.SJCoins.Droid.UI.Adapters
              */
             if (TextUtils.IsEmpty(product.ImageUrl))
             {
-                Picasso.With(_context).Load(Resource.Drawable.logo).NetworkPolicy(NetworkPolicy.NoCache).Into(holder.ProductImage);
+                Glide.With(_context).Load(Resource.Drawable.logo).Into(holder.ProductImage);
                 holder.ProductImage.Alpha = 1.0f;
             }
             else
             {
-                Picasso.With(_context).Load(Core.Utils.Const.BaseUrl + Core.Utils.Const.UrlVendingService + ListProducts[holder.AdapterPosition].ImageUrl).NetworkPolicy(NetworkPolicy.NoCache).Into(holder.ProductImage);
+                Glide.With(_context).Load(Core.Utils.Const.BaseUrl + Core.Utils.Const.UrlVendingService + ListProducts[holder.AdapterPosition].ImageUrl).Into(holder.ProductImage);
                 if (_category == Const.Favorites)
                 holder.ProductImage.Alpha = !product.IsProductInCurrentMachine ? 0.3f : 1.0f;
             }

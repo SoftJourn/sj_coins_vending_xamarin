@@ -1,9 +1,8 @@
 
 using Android.Content;
-using Android.Support.Design.Widget;
 using Android.Views;
 using Android.Widget;
-using Softjourn.SJCoins.Droid.Utils;
+using Google.Android.Material.Snackbar;
 using String = System.String;
 
 namespace Softjourn.SJCoins.Droid.utils

@@ -5,10 +5,10 @@ using System.Linq;
 using Android.App;
 using Android.Content.PM;
 using Android.OS;
-using Android.Support.Design.Widget;
-using Android.Support.V4.Widget;
 using Android.Views;
 using Android.Widget;
+using AndroidX.SwipeRefreshLayout.Widget;
+using Google.Android.Material.BottomSheet;
 using Softjourn.SJCoins.Core.API.Model.AccountInfo;
 using Softjourn.SJCoins.Core.API.Model.Products;
 using Softjourn.SJCoins.Core.UI.Presenters;
@@ -91,6 +91,13 @@ namespace Softjourn.SJCoins.Droid.UI.Activities
             if (HaveProducts)
             FavoriteChanged(true);
         }
+
+        public override void OnRequestPermissionsResult(int requestCode, string[] permissions, Permission[] grantResults)
+        {
+            Xamarin.Essentials.Platform.OnRequestPermissionsResult(requestCode, permissions, grantResults);
+            base.OnRequestPermissionsResult(requestCode, permissions, grantResults);
+        }
+
         #endregion
 
         #region Methods from IHomeView Interface

@@ -35,7 +35,7 @@
                 android:nestedScrollingEnabled="false"
                 android:src="@drawable/vending_machine_png" />
         <!--  Email Label -->
-            <android.support.design.widget.TextInputLayout
+            <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/login_text_input_margins_top_bottom"
@@ -47,9 +47,9 @@
                     android:hint="@string/screen_login_username_hint"
                     android:inputType="textEmailAddress"
                     android:nextFocusDown="@+id/input_password" />
-            </android.support.design.widget.TextInputLayout>
+            </com.google.android.material.textfield.TextInputLayout>
         <!--  Password Label -->
-            <android.support.design.widget.TextInputLayout
+            <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/login_text_input_margins_top_bottom"
@@ -61,7 +61,7 @@
                     android:hint="@string/screen_login_password_hint"
                     android:inputType="textPassword"
                     android:nextFocusDown="@+id/btn_login" />
-            </android.support.design.widget.TextInputLayout>
+            </com.google.android.material.textfield.TextInputLayout>
             <Button
                 android:id="@+id/btn_login"
                 android:layout_width="match_parent"

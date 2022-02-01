@@ -2,19 +2,17 @@
 using System;
 using System.Collections.Generic;
 using Android.App;
-using Android.Content;
 using Android.Content.PM;
 using Android.Graphics;
 using Android.OS;
 using Android.Runtime;
-using Android.Support.Design.Widget;
-using Android.Support.V4.Content;
-using Android.Support.V4.View;
-using Android.Support.V7.Widget;
 using Android.Text;
 using Android.Views;
 using Android.Views.InputMethods;
 using Android.Widget;
+using AndroidX.Core.Content;
+using AndroidX.RecyclerView.Widget;
+using Google.Android.Material.BottomSheet;
 using Softjourn.SJCoins.Core.API.Model.Products;
 using Softjourn.SJCoins.Core.UI.Presenters;
 using Softjourn.SJCoins.Core.UI.ViewInterfaces;
@@ -22,7 +20,6 @@ using Softjourn.SJCoins.Droid.ui.baseUI;
 using Softjourn.SJCoins.Droid.UI.Adapters;
 using Softjourn.SJCoins.Droid.UI.Fragments;
 using Softjourn.SJCoins.Droid.Utils;
-using SearchView = Android.Support.V7.Widget.SearchView;
 
 namespace Softjourn.SJCoins.Droid.UI.Activities
 {
@@ -122,11 +119,12 @@ namespace Softjourn.SJCoins.Droid.UI.Activities
             var manager = (SearchManager)GetSystemService(SearchService);
 
             var search = menu.FindItem(Resource.Id.action_search).ActionView;
-            searchView = search.JavaCast<Android.Support.V7.Widget.SearchView>();
+            searchView = search.JavaCast<SearchView>();
 
             searchView.SetSearchableInfo(manager.GetSearchableInfo(ComponentName));
-
-            searchView.QueryHint = GetString(Resource.String.search_hint);
+            
+            //TODO migrate
+            //searchView.QueryHint = GetString(Resource.String.search_hint);
 
             var searchEditText = searchView.FindViewById<EditText>(Resource.Id.search_src_text);
 

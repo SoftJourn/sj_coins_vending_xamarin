@@ -1,7 +1,7 @@
 
 using Android.Content;
-using Android.Support.V4.View;
 using Android.Views;
+using AndroidX.ViewPager.Widget;
 
 namespace Softjourn.SJCoins.Droid.ui.adapters
 {

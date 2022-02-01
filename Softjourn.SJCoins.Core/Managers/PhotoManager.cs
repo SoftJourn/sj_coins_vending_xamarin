@@ -1,7 +1,6 @@
 ﻿using System.Threading.Tasks;
-using Plugin.Media;
-using Plugin.Media.Abstractions;
 using Softjourn.SJCoins.Core.Utils;
+using Xamarin.Essentials;
 
 namespace Softjourn.SJCoins.Core.Managers
 {
@@ -16,7 +15,7 @@ namespace Softjourn.SJCoins.Core.Managers
 
             var result = await MakePhotoAsync();
 
-            return result == null ? null : GetBytes(result);
+            return result == null ? null : await GetBytes(result);
         }
 
         //Returns byte array of selected from gallery photo
@@ -26,7 +25,7 @@ namespace Softjourn.SJCoins.Core.Managers
 
             var result = await PickPhotoFromGalleryAsync();
 
-            return result == null ? null : GetBytes(result);
+            return result == null ? null : await GetBytes(result);
         }
 
         //Returns Path to captured Photo
@@ -36,7 +35,7 @@ namespace Softjourn.SJCoins.Core.Managers
 
             var result = await MakePhotoAsync();
 
-            return result?.Path;
+            return result?.FullPath;
         }
 
         //Returns path to selected from gallery photo
@@ -46,36 +45,35 @@ namespace Softjourn.SJCoins.Core.Managers
 
             var result = await PickPhotoFromGalleryAsync();
 
-            return result?.Path;
+            return result?.FullPath;
         }
         #endregion
 
         #region Private Methods
         //Starts Standard Camera and returns MediaFile of captured photo
-        private async Task<MediaFile> MakePhotoAsync()
+        private async Task<FileResult> MakePhotoAsync()
         {
-            var file = await CrossMedia.Current.TakePhotoAsync(new StoreCameraMediaOptions());
+            
+            var file = await MediaPicker.CapturePhotoAsync();
 
             return file;
         }
 
         //Starts Gallery and returns MediaFile of selected photo
-        private async Task<MediaFile> PickPhotoFromGalleryAsync()
+        private async Task<FileResult> PickPhotoFromGalleryAsync()
         {
-            var file = await CrossMedia.Current.PickPhotoAsync();
+            var file = await MediaPicker.PickPhotoAsync();
 
             return file;
         }
 
         //Creating byte array based on MediaFile (Captured or selected in gallery photo)
-        private static byte[] GetBytes(MediaFile file)
+        private static async Task<byte[]> GetBytes(FileResult file)
         {
-            using (var stream = file.GetStream())
-            {
-                var buffer = new byte[stream.Length];
-                stream.Read(buffer, 0, (int)stream.Length);
-                return buffer;
-            }
+            await using var stream = await file.OpenReadAsync();
+            var buffer = new byte[stream.Length];
+            stream.Read(buffer, 0, (int)stream.Length);
+            return buffer;
         }
         #endregion
     }
