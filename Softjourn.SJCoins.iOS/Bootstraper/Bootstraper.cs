@@ -16,9 +16,16 @@ namespace Softjourn.SJCoins.iOS.Bootstraper
 			builder.RegisterType<AlertService>().As<IAlertService>().SingleInstance();
 		}
 
-		protected override void RegisterPlatformDependencies(ContainerBuilder builder)
+        protected override void RegisterPlatformDependencies(ContainerBuilder builder)
 		{
 
 		}
+
+
+        protected override void ConfigureCrashAnalitics()
+        {
+            throw new NotImplementedException();
+        }
+
 	}
 }

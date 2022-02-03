@@ -45,7 +45,7 @@ namespace Softjourn.SJCoins.Droid.Services
             MainThread.BeginInvokeOnMainThread(() =>
             {
                 var snackbar = Snackbar
-                    .Make(Platform.AppContext, Platform.CurrentActivity.FindViewById(Resource.Id.layout_root), msg,
+                    .Make(Platform.CurrentActivity, Platform.CurrentActivity.FindViewById(Resource.Id.layout_root), msg,
                         BaseTransientBottomBar.LengthIndefinite);
                 snackbar.SetAction("Ok", (v) =>
                 {

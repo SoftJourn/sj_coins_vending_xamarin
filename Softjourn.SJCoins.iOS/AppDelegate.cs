@@ -2,6 +2,9 @@
 using UIKit;
 using Softjourn.SJCoins.iOS.General.Constants;
 using BigTed;
+using Microsoft.AppCenter;
+using Microsoft.AppCenter.Analytics;
+using Microsoft.AppCenter.Crashes;
 
 namespace Softjourn.SJCoins.iOS
 {
@@ -20,7 +23,6 @@ namespace Softjourn.SJCoins.iOS
 			InitIoC();
 			InitInitialViewControllerManually();
 			ConfigureProgressHUD();
-			ConfigureHockeyAppCrashAnalitics();
 			return true;
         }
 
@@ -43,10 +45,6 @@ namespace Softjourn.SJCoins.iOS
             ProgressHUD.Shared.HudBackgroundColour = UIColorConstants.SpinerBackgroundColor;
             ProgressHUD.Shared.HudForegroundColor = UIColorConstants.ProductNameColor;
         }
-
-		private void ConfigureHockeyAppCrashAnalitics()
-		{
-	
-		}
+		
     }
 }
