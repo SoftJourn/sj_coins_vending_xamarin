@@ -67,7 +67,7 @@ namespace Softjourn.SJCoins.Droid.Services
         public void ShowPhotoSelectorDialog(List<string> photoSource, Action fromCamera, Action fromGallery)
         {
             
-            var dialog = new Dialog(Platform.AppContext);
+            var dialog = new Dialog(Platform.CurrentActivity);
             if (!dialog.IsShowing)
             {
                 dialog.Window.RequestFeature(WindowFeatures.NoTitle);
@@ -98,7 +98,7 @@ namespace Softjourn.SJCoins.Droid.Services
         public void ShowQrSelectorDialog(List<string> optionsList, Action scanCode, Action generateCode)
         {
 
-            var dialog = new Dialog(Platform.AppContext);
+            var dialog = new Dialog(Platform.CurrentActivity);
             if (!dialog.IsShowing)
             {
                 dialog.Window.RequestFeature(WindowFeatures.NoTitle);
@@ -132,7 +132,7 @@ namespace Softjourn.SJCoins.Droid.Services
         {
             MainThread.BeginInvokeOnMainThread(() =>
             {
-                var dialog = new Dialog(Platform.AppContext);
+                var dialog = new Dialog(Platform.CurrentActivity);
                 dialog.Window.RequestFeature(WindowFeatures.NoTitle);
                 dialog.SetContentView(Resource.Layout.dialog_error);
 
@@ -165,7 +165,7 @@ namespace Softjourn.SJCoins.Droid.Services
          */
         private void CreateConfirmationDialog(Product product, Action<Product> onPurchaseProductAction)
         {
-            var confirmDialog = new Dialog(Platform.AppContext);
+            var confirmDialog = new Dialog(Platform.CurrentActivity);
             confirmDialog.Window.RequestFeature(WindowFeatures.NoTitle);
             confirmDialog.Window.RequestFeature(WindowFeatures.SwipeToDismiss);
             confirmDialog.SetContentView(Resource.Layout.confirm_dialog);

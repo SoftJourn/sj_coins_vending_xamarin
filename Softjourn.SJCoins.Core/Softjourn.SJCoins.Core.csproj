@@ -12,7 +12,8 @@
     <PackageReference Include="Microsoft.AppCenter.Analytics" Version="4.5.0" />
     <PackageReference Include="Microsoft.AppCenter.Crashes" Version="4.5.0" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
-    <PackageReference Include="RestSharp" Version="107.1.2" />
+    <PackageReference Include="RestSharp" Version="107.2.0" />
+    <PackageReference Include="RestSharp.Serializers.NewtonsoftJson" Version="107.2.0" />
     <PackageReference Include="Xamarin.Essentials" Version="1.7.1" />
     <PackageReference Include="ZXing.Net.Mobile">
       <Version>3.1.0-beta2</Version>

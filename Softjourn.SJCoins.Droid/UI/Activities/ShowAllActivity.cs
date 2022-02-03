@@ -20,6 +20,7 @@ using Softjourn.SJCoins.Droid.ui.baseUI;
 using Softjourn.SJCoins.Droid.UI.Adapters;
 using Softjourn.SJCoins.Droid.UI.Fragments;
 using Softjourn.SJCoins.Droid.Utils;
+using SearchView = AndroidX.AppCompat.Widget.SearchView;
 
 namespace Softjourn.SJCoins.Droid.UI.Activities
 {
@@ -118,8 +119,8 @@ namespace Softjourn.SJCoins.Droid.UI.Activities
             #region SearchView
             var manager = (SearchManager)GetSystemService(SearchService);
 
-            var search = menu.FindItem(Resource.Id.action_search).ActionView;
-            searchView = search.JavaCast<SearchView>();
+            searchView = menu.FindItem(Resource.Id.action_search).ActionView as SearchView;
+             
 
             searchView.SetSearchableInfo(manager.GetSearchableInfo(ComponentName));
             

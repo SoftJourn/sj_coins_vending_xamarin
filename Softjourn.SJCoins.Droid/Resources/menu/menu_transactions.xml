@@ -5,10 +5,10 @@
   <item
       android:id="@+id/transactions_menu_date"
       android:title="@string/transactions_menu_date"
-      app:actionViewClass="android.support.v7.widget.SearchView" />
+      app:actionViewClass="androidx.appcompat.widget.SearchView" />
 
   <item
       android:id="@+id/transactions_menu_amount"
       android:title="@string/transactions_menu_amount"
-      app:actionViewClass="android.support.v7.widget.SearchView" />
+      app:actionViewClass="androidx.appcompat.widget.SearchView" />
 </menu>

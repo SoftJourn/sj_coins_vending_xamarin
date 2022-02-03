@@ -16,6 +16,8 @@ bld/
 [Bb]in/
 [Oo]bj/
 
+*.vs/
+
 # Roslyn cache directories
 *.ide/
 
@@ -195,5 +197,3 @@ ModelManifest.xml
 **/Android/**/[Rr]esource.[Dd]esigner.cs
 
 *.mdb
-
-.vs/

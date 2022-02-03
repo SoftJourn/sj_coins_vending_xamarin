@@ -13,6 +13,7 @@ using System.Net.Http.Headers;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
 using RestSharp;
+using RestSharp.Serializers.NewtonsoftJson;
 using Softjourn.SJCoins.Core.API.Model.TransactionReports;
 
 namespace Softjourn.SJCoins.Core.API
@@ -492,6 +493,7 @@ namespace Softjourn.SJCoins.Core.API
         private RestClient GetApiClient()
         {
             RestClient apiClient = new RestClient(new Uri(Const.BaseUrl));
+            apiClient.UseSerializer<JsonNetSerializer>();
             return apiClient;
         }
 
