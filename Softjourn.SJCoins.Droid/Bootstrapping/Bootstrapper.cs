@@ -24,7 +24,7 @@ namespace Softjourn.SJCoins.Droid.Bootstrapping
 
         protected override void ConfigureCrashAnalitics()
         {
-            AppCenter.Start("71335be2-60a6-45ed-9fde-f83b31693577",
+            AppCenter.Start("c143daf1-5558-4985-adc4-c202f9844ed5",
                 typeof(Analytics), typeof(Crashes));
         }
     }
