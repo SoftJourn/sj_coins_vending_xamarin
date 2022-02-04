@@ -41,7 +41,7 @@ namespace Softjourn.SJCoins.Droid.UI.Activities
             SetContentView(Resource.Layout.activity_transaction);
 
             _transactionsRecyclerView = FindViewById<RecyclerView>(Resource.Id.list_items_recycler_view);
-            _noTransactionsTextView = FindViewById<TextView>(Resource.Id.textViewNoPurchases);
+            _noTransactionsTextView = FindViewById<TextView>(Resource.Id.textViewNoTransactions);
 
             _buttonBar = FindViewById<LinearLayout>(Resource.Id.reports_button_bar);
             _buttonInput = FindViewById<Button>(Resource.Id.button_input);

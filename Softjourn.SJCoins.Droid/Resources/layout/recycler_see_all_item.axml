@@ -74,8 +74,8 @@
             <ImageView
                 android:contentDescription="@string/favorite_icon_content_description"
                 android:id="@+id/imageViewFavorite"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="34dp"
+                android:layout_height="34dp"
                 android:layout_gravity="center_vertical"
                 android:background="?attr/selectableItemBackgroundBorderless"
                 android:src="@drawable/ic_favorite_border" />

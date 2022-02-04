@@ -1,17 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:orientation="horizontal"
+    android:background="?attr/selectableItemBackground"
     android:paddingLeft="?android:attr/listPreferredItemPaddingStart"
     android:paddingStart="?android:attr/listPreferredItemHeightSmall"
     android:paddingRight="?android:attr/listPreferredItemPaddingEnd"
     android:paddingEnd="?android:attr/listPreferredItemPaddingEnd">
-    <ImageView
+    <androidx.appcompat.widget.AppCompatImageView
         android:contentDescription="@string/option_icon_content_description"
         android:id="@+id/imageViewOptionIcon"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="36dp"
+        android:layout_height="36dp"
         android:layout_gravity="center_vertical"
         android:layout_marginRight="?android:attr/listPreferredItemPaddingEnd"
         android:layout_marginEnd="?android:attr/listPreferredItemPaddingEnd" />

@@ -81,10 +81,10 @@ namespace Softjourn.SJCoins.Droid.Services
                     view = new Intent(Xamarin.Essentials.Platform.AppContext, typeof(ReportsActivity));
                     break;
                 case NavigationPage.PrivacyTerms:
-                    //view = new Intent(CrossCurrentActivity.Current.Activity, typeof(PrivaceTermsActivity));
+                    //view = new Intent(Xamarin.Essentials.Platform.AppContext, typeof(PrivaceTermsActivity));
                     break;
                 case NavigationPage.Help:
-                    //view = new Intent(CrossCurrentActivity.Current.Activity, typeof(HelpActivity));
+                    //view = new Intent(Xamarin.Essentials.Platform.AppContext, typeof(HelpActivity));
                     break;
                 case NavigationPage.ShareFuns:
                     view = new Intent(Xamarin.Essentials.Platform.AppContext, typeof(QrActivity));

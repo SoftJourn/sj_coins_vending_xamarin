@@ -6,6 +6,8 @@ using Android.Graphics;
 using Android.OS;
 using Android.Views;
 using Android.Widget;
+using AndroidX.Core.View;
+using AndroidX.RecyclerView.Widget;
 using Softjourn.SJCoins.Core.API.Model.AccountInfo;
 using Softjourn.SJCoins.Core.UI.Presenters;
 using Softjourn.SJCoins.Core.UI.ViewInterfaces;
@@ -21,7 +23,7 @@ namespace Softjourn.SJCoins.Droid.UI.Activities
     {
         private TextView _username;
         private TextView _balance;
-        private ListView _options;
+        private RecyclerView _options;
         private ImageView _avatar;
         private Bitmap _bmp;
 
@@ -38,16 +40,17 @@ namespace Softjourn.SJCoins.Droid.UI.Activities
 
             _avatar.Click += ChangePhoto;
 
-            _options = FindViewById<ListView>(Resource.Id.profile_more_options);
+            _options = FindViewById<RecyclerView>(Resource.Id.profile_more_options);
+            _options.SetLayoutManager(new LinearLayoutManager(this));
+
             var adapter = new OptionsListAdapter(this, ViewPresenter.GetOptionsList());
-            _options.Adapter = adapter;
-            _options.Visibility = ViewStates.Visible;
-            _options.VerticalScrollBarEnabled = false;
-            SetListViewHeightBasedOnChildren(_options);
-            _options.ItemClick += (sender, e) =>
+            _options.SetAdapter(adapter);
+            adapter.NotifyDataSetChanged();
+            adapter.ItemClicked += (sender, item) =>
             {
-                ViewPresenter.OnItemClick(e.Position);
+                ViewPresenter.OnItemClick(item);
             };
+          
             //To make Actvity Opened
             _avatar.RequestFocus();
 

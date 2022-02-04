@@ -19,8 +19,8 @@ namespace Softjourn.SJCoins.Core.UI.Presenters
             OptionsList = new List<AccountOption>();
             OptionsList.Add(new AccountOption(Const.ProfileOptionsPurchase, Const.ProfileOptionsPurchaseIconName));
             OptionsList.Add(new AccountOption(Const.ProfileOptionsReports, Const.ProfileOptionsReportsIconName));
-            //OptionsList.Add(new AccountOption(Const.ProfileOptionsPrivacyTerms, Const.ProfileOptionsPrivacyTermsIconName));
-            //OptionsList.Add(new AccountOption(Const.ProfileOptionsHelp, Const.ProfileOptionsHelpIconName));
+            OptionsList.Add(new AccountOption(Const.ProfileOptionsPrivacyTerms, Const.ProfileOptionsPrivacyTermsIconName));
+            OptionsList.Add(new AccountOption(Const.ProfileOptionsHelp, Const.ProfileOptionsHelpIconName));
             OptionsList.Add(new AccountOption(Const.ProfileOptionsShareFunds, Const.ProfileOptionsShareFundsIconName));
 			if (!Settings.OnlyOneVendingMachine)
 				OptionsList.Add(new AccountOption(Const.ProfileOptionsSelectMachine,Const.ProfileOptionsSelectMachineIconName));
@@ -111,23 +111,25 @@ namespace Softjourn.SJCoins.Core.UI.Presenters
                 case 1:
                     NavigationService.NavigateTo(NavigationPage.Reports);
                     return;
-                //case 2:
-                //    NavigationService.NavigateTo(NavigationPage.PrivacyTerms);
-                //    return;
-                //case 3:
-                //    NavigationService.NavigateTo(NavigationPage.Help);
-                //    return;
                 case 2:
-                    ShowDialogForChoosingQrStrategy();
+                    NavigationService.NavigateTo(NavigationPage.PrivacyTerms);
                     return;
                 case 3:
-                    NavigationService.NavigateTo(NavigationPage.SelectMachine);
+                    NavigationService.NavigateTo(NavigationPage.Help);
                     return;
                 case 4:
+                    ShowDialogForChoosingQrStrategy();
+                    return;
+                case 5:
+                    NavigationService.NavigateTo(NavigationPage.SelectMachine);
+                    return;
+                case 6:
                     LogOut();
                     return;
             }
         }
+
+        public void OnItemClick(AccountOption option) => OnItemClick(option.OptionName);
 
         /// <summary>
         /// Start call to send image to the server

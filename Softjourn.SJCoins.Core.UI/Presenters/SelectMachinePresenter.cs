@@ -26,22 +26,25 @@ namespace Softjourn.SJCoins.Core.UI.Presenters
         public async void GetMachinesList()
         {
             View.ShowProgress(Resources.StringResources.progress_loading);
-           try
+            try
             {
                 List<Machines> machinesList = await RestApiServise.GetMachinesListAsync();
-                View.HideProgress();                
+                View.HideProgress();
                 if (machinesList != null && machinesList.Count != 0)
                 {
                     if (machinesList.Count == 1)
                     {
-						Settings.OnlyOneVendingMachine = true;
+                        Settings.OnlyOneVendingMachine = true;
                         OnMachineSelected(machinesList.First<Machines>());
-                    } else {
-						Settings.OnlyOneVendingMachine = false;
-						Machines selectedMachine = GetSelectedMachine(machinesList);
+                    }
+                    else
+                    {
+                        Settings.OnlyOneVendingMachine = false;
+                        Machines selectedMachine = GetSelectedMachine(machinesList);
                         View.ShowMachinesList(machinesList, selectedMachine);
-                    }                   
-                } else
+                    }
+                }
+                else
                 {
                     View.ShowNoMachineView(Resources.StringResources.error_msg_empty_machines_list);
                 }
@@ -69,7 +72,8 @@ namespace Softjourn.SJCoins.Core.UI.Presenters
                 Settings.SelectedMachineId = machine.Id.ToString();
                 Settings.SelectedMachineName = machine.Name;
                 NavigationService.NavigateToAsRoot(NavigationPage.Home);
-            } else
+            }
+            else
             {
                 AlertService.ShowToastMessage(Resources.StringResources.error_msg_invalid_selected_machine);
             }
