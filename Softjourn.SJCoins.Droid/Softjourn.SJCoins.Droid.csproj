@@ -548,9 +548,6 @@
     <PackageReference Include="NETStandard.Library">
       <Version>2.0.3</Version>
     </PackageReference>
-    <PackageReference Include="Refractored.Controls.CircleImageView">
-      <Version>1.0.1</Version>
-    </PackageReference>
     <PackageReference Include="Square.OkHttp">
       <Version>2.7.5.2</Version>
     </PackageReference>
